@@ -133,7 +133,7 @@ class IntegralController extends BaseController
         //商品品牌
         $array['goods_brand'] = $this->getDbshopTable('GoodsBrandTable')->listGoodsBrand();
         //积分类型
-        $array['integral_type'] = $this->getDbshopTable('UserIntegralTypeTable')->listUserIntegralType(array('dbshop_user_integral_type.integral_type_state=1', 'e.language'=>$this->getDbshopLang()->getLocale()));
+        $array['integral_type'] = $this->getDbshopTable('UserIntegralTypeTable')->listUserIntegralType(array('e.language'=>$this->getDbshopLang()->getLocale()));
 
         return $array;        
     }
@@ -182,7 +182,7 @@ class IntegralController extends BaseController
         //商品品牌
         $array['goods_brand'] = $this->getDbshopTable('GoodsBrandTable')->listGoodsBrand();
         //积分类型
-        $array['integral_type'] = $this->getDbshopTable('UserIntegralTypeTable')->listUserIntegralType(array('dbshop_user_integral_type.integral_type_state=1', 'e.language'=>$this->getDbshopLang()->getLocale()));
+        $array['integral_type'] = $this->getDbshopTable('UserIntegralTypeTable')->listUserIntegralType(array('e.language'=>$this->getDbshopLang()->getLocale()));
 
         return $array;
     }

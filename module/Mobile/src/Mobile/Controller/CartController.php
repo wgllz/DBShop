@@ -15,6 +15,7 @@
 namespace Mobile\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class CartController extends AbstractActionController
 {
@@ -48,6 +49,9 @@ class CartController extends AbstractActionController
         //购物车商品
         $array['cart_array'] = $this->getServiceLocator()->get('frontHelper')->getCartSession();
         if(count($array['cart_array']) <= 0) return $this->redirect()->toRoute('mobile/default');
+
+        //检查是购物车中是否全部为虚拟商品，如果是，则跳过配送地址选择
+        if($this->checkCartVirtualGoods($array['cart_array'])) return $this->redirect()->toRoute('m_cart/default', array('action'=>'stepvirtual'));
 
         //收货地址
         $array['address_list'] = $this->getDbshopTable('UserAddressTable')->listAddress(array('user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));
@@ -188,8 +192,259 @@ class CartController extends AbstractActionController
         //支付费用已经进行了汇率转换无需再次转换，配送费用未转换需要转换
         $array['order_total'] = $this->getServiceLocator()->get('frontHelper')->shopPrice($array['express_array'][0]['express_price']) + $array['payment'][0]['payment_fee']['content'] + $cartTotalPrice - $array['promotionsCost'];
 
+        //会员信息，会员消费积分
+        $array['user_info'] = $this->getDbshopTable('UserTable')->infoUser(array('user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));
+        //获取积分转换比例
+        $integralInfo = $this->getDbshopTable('UserIntegralTypeTable')->userIntegarlTypeOneInfo(array('integral_type_id'=>1));
+        $currencyRate = $this->getServiceLocator()->get('frontHelper')->shopPriceRate();
+        $array['integral_currency_con'] = $integralInfo->integral_currency_con / 100 * $currencyRate;
 
         return $array;
+    }
+    /**
+     * 购物车第三步(虚拟商品)，选择配送方式、支付方式、确认订单
+     * @return array|multitype|\Zend\Http\Response
+     */
+    public function stepvirtualAction()
+    {
+        //判断是否已经登录或被删除
+        $this->checkUserLoginOrDelete();
+        $array = array();
+        $this->layout()->title_name = $this->getDbshopLang()->translate('订单确认');
+
+        //购物车商品
+        $array['cart_array'] = $this->getServiceLocator()->get('frontHelper')->getCartSession();
+        $step = trim($this->request->getPost('step'));
+        if(count($array['cart_array']) <= 0 or !$this->checkCartVirtualGoods($array['cart_array'])) return $this->redirect()->toRoute('mobile/default');
+        $cartTotalPrice = $this->getServiceLocator()->get('frontHelper')->getCartTotal();
+
+        /*----------------------支付方式----------------------*/
+        $xmlReader    = new \Zend\Config\Reader\Xml();
+        $paymentArray = array();
+        $xmlPath      = DBSHOP_PATH . '/data/moduledata/Payment/';
+        if(is_dir($xmlPath)) {
+            $dh = opendir($xmlPath);
+            while (false !== ($fileName = readdir($dh))) {
+                if($fileName != '.' and $fileName != '..' and $fileName != '.DS_Store' and $fileName != 'wxpay.xml') {
+                    $paymentInfo = $xmlReader->fromFile($xmlPath . '/' . $fileName);
+
+                    //判断是否符合当前的货币要求
+                    $currencyState = false;
+                    if(isset($paymentInfo['payment_currency']['checked']) and !empty($paymentInfo['payment_currency']['checked'])) {
+                        $currencyArray = is_array($paymentInfo['payment_currency']['checked']) ? $paymentInfo['payment_currency']['checked'] : array($paymentInfo['payment_currency']['checked']);
+                        $currencyState = in_array($this->getServiceLocator()->get('frontHelper')->getFrontDefaultCurrency(), $currencyArray) ? true : false;
+                    } elseif (in_array($paymentInfo['editaction'], array('xxzf', 'hdfk'))) {//线下支付或者货到付款时，不进行货币判断
+                        $currencyState = true;
+                    }
+
+                    if($paymentInfo['payment_state']['checked'] == 1 and $currencyState) {
+                        $paymentInfo['payment_fee']['content'] = ((strpos($paymentInfo['payment_fee']['content'], '%') !== false) ? round($cartTotalPrice * str_replace('%', '', $paymentInfo['payment_fee']['content'])/100, 2) : round($this->getServiceLocator()->get('frontHelper')->shopPrice($paymentInfo['payment_fee']['content']), 2));
+                        $paymentArray[] = $paymentInfo;
+                    }
+                }
+            }
+        }
+        //排序操作
+        usort($paymentArray, function ($a, $b) {
+            if($a['payment_sort']['content'] == $b['payment_sort']['content']) {
+                return 0;
+            }
+            return ($a['payment_sort']['content'] < $b['payment_sort']['content']) ? -1 : 1;
+        });
+        $array['payment'] = $paymentArray;
+        if(!empty($array['payment'])) $array['payment'][0]['selected'] = 1;
+        /*----------------------支付方式----------------------*/
+
+        //用户优惠与积分中的计算
+        $array = $this->promotionsOrIntegralFun($array);
+        $array['promotionsCost'] = $this->getServiceLocator()->get('frontHelper')->shopPrice($array['promotionsCost']['discountCost']);
+
+        //支付费用已经进行了汇率转换无需再次转换，配送费用未转换需要转换
+        $array['order_total'] = $this->getServiceLocator()->get('frontHelper')->shopPrice($array['express_array'][0]['express_price']) + $array['payment'][0]['payment_fee']['content'] + $cartTotalPrice - $array['promotionsCost'];
+
+        //会员信息，会员消费积分
+        $array['user_info'] = $this->getDbshopTable('UserTable')->infoUser(array('user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));
+        //获取积分转换比例
+        $integralInfo = $this->getDbshopTable('UserIntegralTypeTable')->userIntegarlTypeOneInfo(array('integral_type_id'=>1));
+        $currencyRate = $this->getServiceLocator()->get('frontHelper')->shopPriceRate();
+        $array['integral_currency_con'] = $integralInfo->integral_currency_con / 100 * $currencyRate;
+
+        return $array;
+    }
+    /**
+     * 虚拟商品订单保存
+     * @return multitype
+     */
+    public function submitvirtualAction()
+    {
+        $view = new ViewModel();
+        $view->setTemplate('/mobile/cart/submit.phtml');
+
+        //判断是否已经登录或被删除
+        $this->checkUserLoginOrDelete();
+
+        $this->layout()->title_name  = $this->getDbshopLang()->translate('订单完成');
+
+        $postArray = $this->request->getPost()->toArray();
+        //购物车商品
+        $array['cart_array'] = $this->getServiceLocator()->get('frontHelper')->getCartSession();
+        $step = trim($this->request->getPost('step'));
+        if(count($array['cart_array']) <= 0 or $step != 'stepvirtual' or !$this->checkCartVirtualGoods($array['cart_array'])) return $this->redirect()->toRoute('mobile/default');
+
+        $cartTotalPrice = $this->getServiceLocator()->get('frontHelper')->getCartTotal();
+
+        $paymentArray = array();
+        //获取支付方式信息
+        if(file_exists(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['pyament_code'] . '.xml')) {
+            $xmlReader    = new \Zend\Config\Reader\Xml();
+            $paymentArray = $xmlReader->fromFile(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['pyament_code'] . '.xml');
+            $postArray['pay_name']    = $paymentArray['payment_name']['content'];
+            $postArray['order_state'] = $paymentArray['orders_state'];
+
+            //获取支付方式的手续费用，虽然在上一页面有传值过来，但是因为html有可能被恶意更改，因此这里从新获取计算
+            $paymentFee = (!empty($paymentArray['payment_fee']['content']) ? ((strpos($paymentArray['payment_fee']['content'], '%') !== false) ? round($cartTotalPrice * str_replace('%', '', $paymentArray['payment_fee']['content'])/100, 2) : round($this->getServiceLocator()->get('frontHelper')->shopPrice($paymentArray['payment_fee']['content']), 2)) : 0);
+        }
+
+        //用户优惠与积分中的计算
+        $array = $this->promotionsOrIntegralFun($array);
+        $array['promotionsCost'] = $this->getServiceLocator()->get('frontHelper')->shopPrice($array['promotionsCost']['discountCost']);
+
+        //订单总金额
+        $orderTotalPrice = $paymentFee + $cartTotalPrice - $array['promotionsCost'];
+
+        //是否使用消费积分购买
+        $integralBuyState = false;
+        $integralBuyPrice = 0;
+        $integralBuyNum   = (isset($postArray['integral_buy_num']) and $postArray['integral_buy_num'] > 0) ? intval($postArray['integral_buy_num']) : 0;
+        $cartIntegralNum  = $this->getServiceLocator()->get('frontHelper')->getCartTotalIntegral();
+        $userIntegralInfo = $this->getDbshopTable('UserTable')->infoUser(array('user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));
+        if($userIntegralInfo->user_integral_num < $integralBuyNum or $integralBuyNum > $cartIntegralNum) $integralBuyNum = 0;//如果会员拥有的积分数小于将要购买使用的积分数或者购买积分数大于购物车中的积分数，则将该购买积分数设置为0，因为无效
+        if($integralBuyNum > 0 and $cartIntegralNum > 0) {//只有已经使用的积分数和购物车中的积分数都大于0时，积分购买才开启
+            //计算积分被转换为货币后的价值是否超过订单总金额，如果超过，则进行无效处理
+            $integralInfo = $this->getDbshopTable('UserIntegralTypeTable')->userIntegarlTypeOneInfo(array('integral_type_id'=>1));
+            $integralBuyPrice   = $this->getServiceLocator()->get('frontHelper')->shopPrice($integralInfo->integral_currency_con / 100 * $integralBuyNum);
+            if($integralBuyPrice <= 0 or $integralBuyPrice > $orderTotalPrice) {
+                $integralBuyNum     = 0;
+                $integralBuyPrice   = 0;
+            } else {
+                $integralBuyState   = true;
+                $orderTotalPrice    = $orderTotalPrice - $integralBuyPrice;
+            }
+        }
+
+        /*----------------------订单相关信息保存----------------------*/
+        //开启数据库事务处理
+        $this->getDbshopTable('dbshopTransaction')->DbshopTransactionBegin();
+
+        //对post过来的价格信息进行重置，以防止恶意使用者修改html中的数值
+        $postArray['goods_total_price'] = $cartTotalPrice;
+        $postArray['order_total_price'] = $orderTotalPrice;
+        $postArray['pay_price']         = $paymentFee;
+        $postArray['express_price']     = 0;
+        $postArray['buy_pre_price']     = $array['promotionsCost'];
+        $postArray['user_pre_price']    = $postArray['user_pre_price'];
+        $postArray['integral_buy_num']  = $integralBuyNum;
+        $postArray['integral_buy_price']= $integralBuyPrice;
+        $postArray['integral_num']      = $array['integralInfo']['integralNum'];
+        $postArray['integral_rule_info']= $array['integralInfo']['integalRuleInfo'];
+        $postArray['integral_type_2_num']          = $array['integralInfo1']['integralNum'];
+        $postArray['integral_type_2_num_rule_info']= $array['integralInfo1']['integalRuleInfo'];
+
+        $orderArray = $this->orderSave($postArray);
+        $orderId    = $orderArray['order_id'];
+
+        //消费积分，消费记录保存
+        if($integralBuyState) {
+            $integralLogArray = array();
+            $integralLogArray['user_id']           = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');
+            $integralLogArray['user_name']         = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_name');
+            $integralLogArray['integral_log_info'] = $this->getDbshopLang()->translate('商品购物，订单号为：') . $orderArray['order_sn'];
+            $integralLogArray['integral_num_log']  = '-'.$integralBuyNum;
+            $integralLogArray['integral_log_time'] = time();
+            if($this->getDbshopTable('IntegralLogTable')->addIntegralLog($integralLogArray)) {
+                //会员消费积分更新
+                $this->getDbshopTable('UserTable')->updateUserIntegralNum($integralLogArray, array('user_id'=>$integralLogArray['user_id']));
+            }
+        }
+
+        //保存订单中的商品信息
+        $goodsSerialize  = array();
+        $goodsStockError = array();
+        foreach ($array['cart_array'] as $cart_key => $cart_value) {
+            $orderGoodsId = $this->orderGoodsSave($cart_value, array('order_id'=>$orderId));
+            if($orderGoodsId != -1) {//库存正确处理
+                $goodsSerialize[$orderGoodsId] = array(
+                    'goods_id'          => $cart_value['goods_id'],
+                    'class_id'          => $cart_value['class_id'],
+                    'goods_name'        => $cart_value['goods_name'],
+                    'goods_extend_info' => $cart_value['goods_color_name'] . $cart_value['goods_size_name'],
+                    'goods_image'       => $cart_value['goods_image'],
+                    'goods_shop_price'  => $this->getServiceLocator()->get('frontHelper')->shopPrice($cart_value['goods_shop_price']),
+                    'buy_num'           => $cart_value['buy_num'],
+                    'goods_color'       => isset($cart_value['goods_color']) ? $cart_value['goods_color'] : '',
+                    'goods_size'        => isset($cart_value['goods_size']) ? $cart_value['goods_size'] : ''
+                );
+            } else {
+                $goodsStockError[] = $cart_value['goods_name'];
+            }
+        }
+        //判断库存是否不足，如果不足，则启用事务回滚功能
+        if(!empty($goodsStockError)) {
+            $this->getDbshopTable('dbshopTransaction')->DbshopTransactionRollback();//事务回滚
+            $errorMessage = implode('<br>', $goodsStockError) . '<br>' . $this->getDbshopLang()->translate('商品库存不足') . '<a href="'.$this->url()->fromRoute('m_cart/default').'">' . $this->getDbshopLang()->translate('去购物车中删除库存不足的商品') . '</a>';
+            exit($errorMessage);
+        } else {
+            $this->getDbshopTable('dbshopTransaction')->DbshopTransactionCommit();//事务确认
+        }
+
+        $this->getDbshopTable('OrderTable')->updateOrder(array('goods_serialize'=>serialize($goodsSerialize)), array('order_id'=>$orderId));
+        //清空购物车操作
+        $this->getServiceLocator()->get('frontHelper')->clearCartSession();
+        /*----------------------订单相关信息保存----------------------*/
+
+        $array['order_sn']    = $orderArray['order_sn'];
+        $array['order_id']    = $orderId;
+        $array['order_state'] = $postArray['order_state'];
+        $array['order_total'] = $this->getServiceLocator()->get('frontHelper')->shopPriceSymbol() . $postArray['order_total_price'] . $this->getServiceLocator()->get('frontHelper')->shopPriceUnit();
+
+        /*----------------------提醒信息发送----------------------*/
+        $sendMessageBody = $this->getServiceLocator()->get('frontHelper')->getSendMessageBody('submit_order');
+        if($sendMessageBody != '') {
+            $sendArray = array();
+            $sendArray['shopname']      = $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name');
+            $sendArray['buyname']       = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_name');
+            $sendArray['ordersn']       = $array['order_sn'];
+            $sendArray['submittime']    = $orderArray['order_time'];
+            $sendArray['shopurl']       = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('shopfront/default');
+
+            $sendArray['subject']       = $sendArray['shopname'] . $this->getDbshopLang()->translate('提交订单提醒');
+            $sendArray['send_mail'][]   = $this->getServiceLocator()->get('frontHelper')->getSendMessageBuyerEmail('submit_order_state', $this->getServiceLocator()->get('frontHelper')->getUserSession('user_email'));
+            $sendArray['send_mail'][]   = $this->getServiceLocator()->get('frontHelper')->getSendMessageAdminEmail('submit_order_state');
+
+            $sendMessageBody            = $this->getServiceLocator()->get('frontHelper')->createSendMessageContent($sendArray, $sendMessageBody);
+            try {
+                $sendState = $this->getServiceLocator()->get('shop_send_mail')->SendMesssageMail($sendArray, $sendMessageBody);
+                $sendState = ($sendState ? 1 : 2);
+            } catch (\Exception $e) {
+                $sendState = 2;
+            }
+            //记录给用户发的电邮
+            if($sendArray['send_mail'][0] != '') {
+                $userInfo = $this->getDbshopTable('UserTable')->infoUser(array('user_name'=>$sendArray['buyname']));
+                $sendLog = array(
+                    'mail_subject' => $sendArray['subject'],
+                    'mail_body'    => $sendMessageBody,
+                    'send_time'    => time(),
+                    'user_id'      => $userInfo->user_id,
+                    'send_state'   => $sendState
+                );
+                $this->getDbshopTable('UserMailLogTable')->addUserMailLog($sendLog);
+            }
+        }
+        /*----------------------提醒信息发送----------------------*/
+
+        $view->setVariables($array);
+        return $view;
     }
     /**
      * 订单提交
@@ -200,12 +455,13 @@ class CartController extends AbstractActionController
         $this->checkUserLoginOrDelete();
 
         $this->layout()->title_name  = $this->getDbshopLang()->translate('订单完成');
+
+        $postArray = $this->request->getPost()->toArray();
         //购物车商品
         $array['cart_array'] = $this->getServiceLocator()->get('frontHelper')->getCartSession();
         $step = trim($this->request->getPost('step'));
-        if(count($array['cart_array']) <= 0 or $step != 'step') return $this->redirect()->toRoute('mobile/default');
+        if(count($array['cart_array']) <= 0 or $step != 'step' or intval($postArray['express_id']) == 0) return $this->redirect()->toRoute('mobile/default');
 
-        $postArray = $this->request->getPost()->toArray();
         $cartTotalPrice = $this->getServiceLocator()->get('frontHelper')->getCartTotal();
 
         $paymentArray = array();
@@ -251,17 +507,42 @@ class CartController extends AbstractActionController
         $array = $this->promotionsOrIntegralFun($array);
         $array['promotionsCost'] = $this->getServiceLocator()->get('frontHelper')->shopPrice($array['promotionsCost']['discountCost']);
 
+        //订单总金额
+        $orderTotalPrice = $expressPrice + $paymentFee + $cartTotalPrice - $array['promotionsCost'];
+
+        //是否使用消费积分购买
+        $integralBuyState = false;
+        $integralBuyPrice = 0;
+        $integralBuyNum   = (isset($postArray['integral_buy_num']) and $postArray['integral_buy_num'] > 0) ? intval($postArray['integral_buy_num']) : 0;
+        $cartIntegralNum  = $this->getServiceLocator()->get('frontHelper')->getCartTotalIntegral();
+        $userIntegralInfo = $this->getDbshopTable('UserTable')->infoUser(array('user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));
+        if($userIntegralInfo->user_integral_num < $integralBuyNum or $integralBuyNum > $cartIntegralNum) $integralBuyNum = 0;//如果会员拥有的积分数小于将要购买使用的积分数或者购买积分数大于购物车中的积分数，则将该购买积分数设置为0，因为无效
+        if($integralBuyNum > 0 and $cartIntegralNum > 0) {//只有已经使用的积分数和购物车中的积分数都大于0时，积分购买才开启
+            //计算积分被转换为货币后的价值是否超过订单总金额，如果超过，则进行无效处理
+            $integralInfo = $this->getDbshopTable('UserIntegralTypeTable')->userIntegarlTypeOneInfo(array('integral_type_id'=>1));
+            $integralBuyPrice   = $this->getServiceLocator()->get('frontHelper')->shopPrice($integralInfo->integral_currency_con / 100 * $integralBuyNum);
+            if($integralBuyPrice <= 0 or $integralBuyPrice > $orderTotalPrice) {
+                $integralBuyNum     = 0;
+                $integralBuyPrice   = 0;
+            } else {
+                $integralBuyState   = true;
+                $orderTotalPrice    = $orderTotalPrice - $integralBuyPrice;
+            }
+        }
+
         /*----------------------订单相关信息保存----------------------*/
         //开启数据库事务处理
         $this->getDbshopTable('dbshopTransaction')->DbshopTransactionBegin();
 
         //对post过来的价格信息进行重置，以防止恶意使用者修改html中的数值
         $postArray['goods_total_price'] = $cartTotalPrice;
-        $postArray['order_total_price'] = $expressPrice + $paymentFee + $cartTotalPrice - $array['promotionsCost'];
+        $postArray['order_total_price'] = $orderTotalPrice;
         $postArray['pay_price']         = $paymentFee;
         $postArray['express_price']     = $expressPrice;
         $postArray['buy_pre_price']     = $array['promotionsCost'];
         $postArray['user_pre_price']    = $postArray['user_pre_price'];
+        $postArray['integral_buy_num']  = $integralBuyNum;
+        $postArray['integral_buy_price']= $integralBuyPrice;
         $postArray['integral_num']      = $array['integralInfo']['integralNum'];
         $postArray['integral_rule_info']= $array['integralInfo']['integalRuleInfo'];
         $postArray['integral_type_2_num']          = $array['integralInfo1']['integralNum'];
@@ -269,6 +550,20 @@ class CartController extends AbstractActionController
 
         $orderArray = $this->orderSave($postArray);
         $orderId    = $orderArray['order_id'];
+
+        //消费积分，消费记录保存
+        if($integralBuyState) {
+            $integralLogArray = array();
+            $integralLogArray['user_id']           = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');
+            $integralLogArray['user_name']         = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_name');
+            $integralLogArray['integral_log_info'] = $this->getDbshopLang()->translate('商品购物，订单号为：') . $orderArray['order_sn'];
+            $integralLogArray['integral_num_log']  = '-'.$integralBuyNum;
+            $integralLogArray['integral_log_time'] = time();
+            if($this->getDbshopTable('IntegralLogTable')->addIntegralLog($integralLogArray)) {
+                //会员消费积分更新
+                $this->getDbshopTable('UserTable')->updateUserIntegralNum($integralLogArray, array('user_id'=>$integralLogArray['user_id']));
+            }
+        }
 
         //保存收货地址
         $this->orderDeliveryAddressSave($addressInfo, array('order_id'=>$orderId,'shipping_time'=>$postArray['shipping_time'], 'express_name'=>$postArray['express_name'], 'express_id'=>$postArray['express_id'], 'express_fee'=>$postArray['express_price']));
@@ -373,6 +668,7 @@ class CartController extends AbstractActionController
         $array['goods_color']       = $goodsArray['goods_color'];
         $array['goods_size']        = $goodsArray['goods_size'];
         $array['goods_shop_price']  = $this->getServiceLocator()->get('frontHelper')->shopPrice($goodsArray['goods_shop_price']);
+        $array['goods_type']        = $goodsArray['goods_type'];
         $array['buy_num']           = $goodsArray['buy_num'];
         $array['goods_image']       = $goodsArray['goods_image'];
         $array['goods_amount']      = $this->getServiceLocator()->get('frontHelper')->shopPrice($goodsArray['goods_shop_price'] * $goodsArray['buy_num']);
@@ -464,6 +760,8 @@ class CartController extends AbstractActionController
         $array['user_pre_fee']        = $orderArray['user_pre_price'];
         $array['user_pre_info']       = '';//$orderArray[''];
         $array['buy_pre_fee']         = $orderArray['buy_pre_price'];
+        $array['integral_buy_num']    = $orderArray['integral_buy_num'];
+        $array['integral_buy_price'] = $orderArray['integral_buy_price'];
         $array['goods_weight_amount'] = $orderArray['goods_count_weight'];
         $array['order_state']         = $orderArray['order_state'];
         $array['pay_code']            = $orderArray['pyament_code'];
@@ -482,6 +780,15 @@ class CartController extends AbstractActionController
         $array['integral_rule_info']  = $orderArray['integral_rule_info'];
         $array['integral_type_2_num']            = $orderArray['integral_type_2_num'];
         $array['integral_type_2_num_rule_info']  = $orderArray['integral_type_2_num_rule_info'];
+
+        //发票内容
+        if($this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_invoice') == 'true') {
+            if($orderArray['invoice_content'] != '' or $orderArray['invoice_title']) {
+                $array['invoice_content'] = $orderArray['navigation_type'] . ' - ';
+                if(!empty($orderArray['invoice_title'])) $array['invoice_content'] .= $this->getDbshopLang()->translate('发票抬头').'：' . $orderArray['invoice_title'] . ' - ';
+                if(!empty($orderArray['invoice_content'])) $array['invoice_content'] .= $this->getDbshopLang()->translate('发票内容').'：' . $orderArray['invoice_content'];
+            }
+        }
 
         $orderId = $this->getDbshopTable('OrderTable')->addOrder($array);
 
@@ -517,6 +824,21 @@ class CartController extends AbstractActionController
         $array['integralInfo']   = $this->getServiceLocator()->get('IntegralRuleService')->integralRuleCalculation(array('cartGoods'=>$array['cart_array'], 'user_group'=>$userGroup));     //消费积分
         $array['integralInfo1']   = $this->getServiceLocator()->get('IntegralRuleService')->integralRuleCalculation(array('cartGoods'=>$array['cart_array'], 'user_group'=>$userGroup), 2); //等级积分
         return $array;
+    }
+    /**
+     * 检查购物车是否全部为虚拟商品，如果是返回true，如果不是返回false
+     * @param $cart
+     * @return bool
+     */
+    private function checkCartVirtualGoods($cart)
+    {
+        $state = true;
+        if(is_array($cart) and !empty($cart)) {
+            foreach($cart as $value) {
+                if($value['goods_type'] == 1) $state = false;
+            }
+        }
+        return $state;
     }
     /**
      * 判断会员是否已经登录或者已经被删除

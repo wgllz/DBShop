@@ -5,9 +5,15 @@
         <h4><?php echo $this->frontwebsite()->getUserSession('user_name'); ?> | <a class="ect-colorf" href="<?php echo $this->url('m_user/default',array('action'=>'loginout')); ?>"><?php echo $this->translate('退出'); ?></a></h4>
         </dt>
         <dd><?php echo $this->translate('您的等级'); ?>：<?php echo $this->frontwebsite()->getUserSession('user_group_name'); ?> </dd>
-        <dd><?php echo $this->translate('账户余额'); ?>：<?php echo $this->frontwebsite()->shopPriceExtend($this->user_info->user_money); ?> </dd>
-        <dd><?php echo $this->user_info->user_integral_num; ?><?php echo $this->translate('消费积分'); ?></dd>
-        <dd><?php echo $this->user_info->integral_type_2_num; ?><?php echo $this->translate('等级积分'); ?></dd>
+        <dd>
+            <?php echo $this->translate('账户余额'); ?>：<?php echo $this->frontwebsite()->shopPriceExtend($this->user_info->user_money); ?>
+        </dd>
+        <dd>
+            <?php echo $this->translate('消费积分'); ?>：<?php echo $this->user_info->user_integral_num; ?>
+        </dd>
+        <dd>
+            <?php echo $this->translate('等级积分'); ?>：<?php echo $this->user_info->integral_type_2_num; ?>
+        </dd>
     </dl>
 </div>
 
@@ -39,9 +45,10 @@
 <section class="user-tab ect-margin-tb ect-margin-bottom0">
 
     <ul class="nav nav-tabs text-center">
-        <li class="col-xs-4 active"><a data-toggle="tab" role="tab" href="#two"><?php echo $this->translate('最新订单'); ?></a></li>
-        <li class="col-xs-4"><a data-toggle="tab" role="tab" href="#one"><?php echo $this->translate('我的收藏'); ?></a></li>
-        <li class="col-xs-4"><a data-toggle="tab" role="tab" href="#three"><?php echo $this->translate('我的咨询'); ?></a></li>
+        <li class="col-xs-3 active"><a data-toggle="tab" role="tab" href="#two"><?php echo $this->translate('最新订单'); ?></a></li>
+        <li class="col-xs-3"><a data-toggle="tab" role="tab" href="#one"><?php echo $this->translate('我的收藏'); ?></a></li>
+        <li class="col-xs-3"><a data-toggle="tab" role="tab" href="#three"><?php echo $this->translate('我的咨询'); ?></a></li>
+        <li class="col-xs-3"><a data-toggle="tab" role="tab" href="#four"><?php echo $this->translate('虚拟商品'); ?></a></li>
     </ul>
 
     <div id="gwc-tab-xq-bd" class="tab-content">
@@ -74,7 +81,7 @@
                         $goodsArray = current(unserialize($order_value['goods_serialize']));
                         ?>
                         <li class="single_item">
-                            <a href="<?php echo $this->url('m_order/default/order_id', array('action'=>'showorder', 'order_id'=>$order_value['order_id'], 'order_state'=>$order_value['order_state'], 'page'=>$this->page)); ?>"><img class="pull-left" src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($goodsArray['goods_image'])); ?>">
+                            <a href="<?php echo $this->url('m_order/default/order_id', array('action'=>'showorder', 'order_id'=>$order_value['order_id'], 'order_state'=>$order_value['order_state'], 'page'=>1)); ?>"><img class="pull-left" src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($goodsArray['goods_image'])); ?>">
                                 <dl>
                                     <dt>
                                     <h4 class="title"><?php echo $this->translate('订单号'); ?>：<?php echo $order_value['order_sn']; ?></h4>
@@ -111,6 +118,26 @@
                 <p class="text-center ect-margin-tb ect-padding-tb"><?php echo $this->translate('暂无咨询信息！'); ?></p>
         <?php } ?>
         </ul>
+        </div>
+
+        <div id="four" class="tab-pane ect-pro-list user-order" style="min-height: 142.333px;">
+            <ul class="single_item">
+                <?php if ($this->virtual_goods) { ?>
+                    <?php foreach ($this->virtual_goods as $vir_value) { ?>
+                        <a href="<?php echo $this->url('m_order/default/virtual_goods', array('action'=>'virtualGoods', 'order_id'=>$vir_value['order_id'], 'goods_id'=>$vir_value['goods_id'])); ?>">
+                        <li>
+                                <p><?php echo $this->translate('商品名称'); ?>：<?php echo $this->escapeHtml($vir_value['goods_name']); ?></p>
+                                <p><span class="pull-left"><?php echo $this->translate('订单状态'); ?>：<?php echo $this->frontwebsite()->getOneOrderStateInfo($vir_value['order_state']); ?></span></p>
+                                <p>&nbsp;&nbsp;|&nbsp;&nbsp;<?php echo $this->translate('数量'); ?>：<?php echo $vir_value['buy_num']; ?></p>
+                                <p><?php echo $this->translate('订单编号'); ?>：<?php echo $vir_value['order_sn']; ?><i class="pull-right fa fa-angle-right"></i></p>
+                        </li>
+                        </a>
+                    <?php } ?>
+                    <a class="more" href="<?php echo $this->url('m_order/default', array('action'=>'listVirtualGoods')); ?>"><?php echo $this->translate('查看更多'); ?></a>
+                <?php } else { ?>
+                    <p class="text-center ect-margin-tb ect-padding-tb"><?php echo $this->translate('暂无虚拟商品！'); ?></p>
+                <?php } ?>
+            </ul>
         </div>
     </div>
 </section>

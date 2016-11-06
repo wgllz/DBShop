@@ -43,6 +43,9 @@ class HomeController extends MobileHomeController
         //我的咨询
         $array['goods_ask_list'] = $this->getDbshopTable('GoodsAskTable')->numGoodsAsk(5, array('dbshop_goods_ask.ask_writer'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_name'), 'e.language'=>$this->getDbshopLang()->getLocale()));
 
+        //虚拟商品
+        $array['virtual_goods'] = $this->getDbshopTable('OrderGoodsTable')->mobileListOrrderGoods(array('dbshop_order_goods.goods_type'=>2), 6);
+
         return $array;
     }
     /**

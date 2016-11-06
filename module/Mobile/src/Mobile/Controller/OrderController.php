@@ -93,6 +93,57 @@ class OrderController  extends MobileHomeController
         return $view;
     }
     /**
+     * 虚拟商品列表
+     * @return ViewModel
+     */
+    public function listVirtualGoodsAction()
+    {
+        $view  = new ViewModel();
+        $view->setTemplate('/mobile/home/list-virtual-goods.phtml');
+        //顶部title使用
+        $this->layout()->title_name = $this->getDbshopLang()->translate('虚拟商品');
+
+        $array = array();
+
+        $page 		  = $this->params('page',1);
+        $array['page']= $page;
+        //订单商品
+        $array['virtual_goods'] = $this->getDbshopTable('OrderGoodsTable')->pageListOrderGoods(array('page'=>$page, 'page_num'=>6), array('dbshop_order_goods.buyer_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id'), 'dbshop_order_goods.goods_type'=>2));
+
+
+        $view->setVariables($array);
+        return $view;
+    }
+    /**
+     * 虚拟商品详情
+     */
+    public function virtualGoodsAction()
+    {
+        $view  = new ViewModel();
+        $view->setTemplate('/mobile/home/showvirtualgoods.phtml');
+
+        //顶部title使用
+        $this->layout()->title_name = $this->getDbshopLang()->translate('虚拟商品详情');
+
+        $orderId    = (int) $this->params('order_id');
+        $goodsId    = (int) $this->params('goods_id');
+        if($goodsId <= 0 or $orderId <= 0) { @header("Location: " . $this->getRequest()->getServer('HTTP_REFERER')); exit(); }
+
+        $array = array();
+
+        $where   = array();
+        $where['order_id'] = $orderId;
+        $where['goods_id'] = $goodsId;
+        $where['virtual_goods_state'] = 2;
+        $where['user_id']  = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');
+        $array['show_virtual_goods'] = $this->getDbshopTable('VirtualGoodsTable')->listVirtualGoods($where);
+
+        $array['order_info'] = $this->getDbshopTable('OrderTable')->infoOrder(array('order_id'=>$orderId, 'buyer_id'=>$where['user_id']));
+
+        $view->setVariables($array);
+        return $view;
+    }
+    /**
      * 订单支付
      */
     public function orderpayAction ()

@@ -95,7 +95,7 @@ class OrderTable extends AbstractTableGateway implements \Zend\Db\Adapter\Adapte
            if(isset($where['search_order_sn']) and $where['search_order_sn'] != '') $select->where("order_sn like '%" . $where['search_order_sn'] . "%'");
            unset($where['search_order_sn']);
            
-           $select->join(array('a'=>'dbshop_order_delivery_address'), 'a.order_id=dbshop_order.order_id',array('*'), 'left');
+           $select->join(array('a'=>'dbshop_order_delivery_address'), 'a.order_id=dbshop_order.order_id',array('delivery_name'), 'left');
            $select->where($where);
            $select->order('dbshop_order.order_id DESC');
            if(isset($limit) and $limit > 0) $select->limit($limit); 

@@ -79,6 +79,26 @@ class OrderGoodsTable extends AbstractTableGateway implements \Zend\Db\Adapter\A
         return $paginator;
     }
     /**
+     * 手机端虚拟商品显示
+     * @param array $where
+     * @param int $limit
+     * @return null
+     */
+    public function mobileListOrrderGoods(array $where=array(), $limit=5)
+    {
+        $result = $this->select(function (Select $select) use ($where, $limit) {
+            $select->join('dbshop_order', 'dbshop_order.order_id=dbshop_order_goods.order_id', array('order_sn', 'order_state'));
+            $select->where($where);
+            $select->order('dbshop_order_goods.order_goods_id DESC');
+            if(isset($limit) and $limit > 0) $select->limit($limit);
+        });
+
+        if($result) {
+            return $result->toArray();
+        }
+        return null;
+    }
+    /**
      * 订单商品信息
      * @param array $where
      * @return array|\ArrayObject|null

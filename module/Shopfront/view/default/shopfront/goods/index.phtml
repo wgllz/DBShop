@@ -113,7 +113,7 @@
                     &nbsp;
                     <input type="button" class="btn btn-large btn-info" onclick="add_favorites_js(<?php echo $this->goods_info->goods_id; ?>, <?php echo $this->class_id; ?>);" value="<?php echo $this->translate('加入收藏'); ?>">
                       <?php if($this->frontwebsite()->getDbshopGoodsIni('dbshop_goods_QRcode')) { ?>
-                      &nbsp;<img alt="<?php echo $this->translate('手机扫描后，在手机中访问该商品'); ?>" title="<?php echo $this->translate('手机扫描后，在手机中访问该商品'); ?>" width="50px" src="<?php echo  $this->basePath($this->frontwebsite()->createQRcode($this->serverUrl().$this->url('m_goods/default', array('goods_id'=>$this->goods_info->goods_id, 'class_id'=>$this->class_id)), $this->goods_info->goods_id, 'goods')); ?>">
+                      &nbsp;<img alt="<?php echo $this->translate('手机扫描后，在手机中访问该商品'); ?>" title="<?php echo $this->translate('手机扫描后，在手机中访问该商品'); ?>" width="60px" src="<?php echo  $this->basePath($this->frontwebsite()->createQRcode($this->serverUrl().$this->url('m_goods/default', array('goods_id'=>$this->goods_info->goods_id, 'class_id'=>$this->class_id)), $this->goods_info->goods_id, 'goods')); ?>">
                       <?php } ?>
                   </dd>
                     <?php } ?>
@@ -151,6 +151,159 @@
 		?>
     </div>
   </div>
+  <script>
+      //购物车添加
+      $(document).ready(function() {
+          $("#add_goods_cart").validate({
+              rules: {
+                  buy_goods_num: {
+                      required: true,
+                      number:true,
+                      min:<?php if($this->goods_info->goods_cart_buy_min_num > 0) echo $this->goods_info->goods_cart_buy_min_num; else echo 1; ?>
+                      <?php if($this->goods_info->goods_cart_buy_max_num > 0) { ?>
+                      ,
+                      max:<?php echo $this->goods_info->goods_cart_buy_max_num; } ?>
+                  }
+                  <?php if ($this->goods_color and $this->goods_color_array) { ?>
+                  ,
+                  select_color_value: {
+                      required: true
+                  }
+                  <?php } if ($this->goods_size and $this->goods_size_array) { ?>
+                  ,
+                  select_size_value: {
+                      required: true
+                  }
+                  <?php } ?>
+              },
+              messages: {
+                  buy_goods_num: {
+                      required: "<?php echo $this->translate('购物数量不能为空！'); ?>",
+                      number:"<?php echo $this->translate('购物数量必须为数字！'); ?>",
+                      min:"<?php echo sprintf($this->translate('购物数量最少为%s！'),($this->goods_info->goods_cart_buy_min_num > 0 ? $this->goods_info->goods_cart_buy_min_num : 1)); ?>"
+                      <?php if($this->goods_info->goods_cart_buy_max_num > 0) { ?>
+                      ,
+                      max:"<?php echo sprintf($this->translate('购物数量最多为%s！'),$this->goods_info->goods_cart_buy_max_num ); ?>"<?php } ?>
+                  }
+                  <?php if ($this->goods_color and $this->goods_color_array) { ?>
+                  ,
+                  select_color_value: {
+                      required: "<?php echo $this->translate('请选择').$this->goods_color->extend_name; ?>"
+                  }
+                  <?php } if ($this->goods_size and $this->goods_size_array) { ?>
+                  ,
+                  select_size_value: {
+                      required: "<?php echo $this->translate('请选择').$this->goods_size->extend_name; ?>"
+                  }
+                  <?php } ?>
+              },
+              submitHandler:function(form){
+                  add_cart_js();
+              }
+          });
+      });
+      //添加购物车
+      function add_cart_js() {
+          $.post("<?php echo $this->url('frontcart/default', array('action'=>'addCart')); ?>",$('#add_goods_cart').formSerialize(),
+              function(data){
+                  if(data == 'true') {
+                      $("#message_show").html('<img border="0" src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($this->goods_info->goods_thumbnail_image)); ?>" style=" width:65px;border:1px solid #D7D7D7"><?php echo $this->escapeHtml($this->goods_info->goods_name); ?>&nbsp;<strong><?php echo $this->translate('添加购物车成功'); ?></stong>');
+                      $("#message_url").html('<a data-dismiss="modal" class="btn btn-primary"><?php echo $this->translate('继续购物'); ?></a><a href="<?php echo $this->url('frontcart/default'); ?>" class="btn btn-primary"><?php echo $this->translate('去购物车结算'); ?></a>');
+
+                      var cart_goods_num = parseInt($('#top_cart').html()) + 1;
+                      $('#top_cart').css('display','');
+                      $('#top_cart').html(cart_goods_num);
+
+                  } else {
+                      $("#message_show").html(data);
+                      $("#message_url").html('<a class="btn" data-dismiss="modal"><?php echo $this->translate('关闭'); ?></a>');
+                  }
+                  $('#myModal').modal('show');
+              });
+      }
+
+      $("#add_up").click(function() {
+          var buy_num = $("#buy_goods_num").val();
+          var max_num = <?php echo $this->goods_info->goods_cart_buy_max_num; ?>;
+          if(buy_num >= max_num && max_num != 0) {
+              alert('<?php echo $this->translate('您已经到了购买上限！'); ?>');
+              return false;
+          }
+          $("#buy_goods_num").val(accAdd(buy_num,1));
+      });
+      $("#add_down").click(function() {
+          var buy_num = $("#buy_goods_num").val();
+          var min_num = 1;
+          if(buy_num <= min_num) {
+              alert('<?php echo $this->translate('您已经到了购买下限！'); ?>');
+              return false;
+          }
+          $("#buy_goods_num").val(Subtr(buy_num,1));
+      });
+      //选择尺寸
+      function select_size(size_value) {
+          if($('#'+size_value).attr('class') == 'selected') {
+              $('#'+size_value).css({border: ""});
+              $('#'+size_value).attr('class', '');
+
+              $('#select_goods_size').html('');
+              $('#select_size_value').val('');
+          } else {
+              $('.goods_size a').each(function() {
+                  $('#'+this.id).css({border: ""});
+                  $('#'+this.id).attr('class', '');
+              });
+              $('#'+size_value).attr('class', 'selected');
+              $('#'+size_value).css({border: "2px solid #E4393C"});
+
+              $('#select_goods_size').html($('#'+size_value).text());
+              $('#select_size_value').val(size_value);
+
+              get_goods_stock();
+          }
+      }
+      //选择颜色
+      function select_color(color_value) {
+          if($('#'+color_value).attr('class') == 'selected') {
+              $('#'+color_value).css({border: ""});
+              $('#'+color_value).attr('class', '');
+
+              $('#select_goods_color').html('');
+              $('#select_color_value').val('');
+          } else {
+              $('.goods_color a').each(function() {
+                  $('#'+this.id).css({border: ""});
+                  $('#'+this.id).attr('class', '');
+              });
+              $('#'+color_value).attr('class', 'selected');
+              $('#'+color_value).css({border: "2px solid #E4393C"});
+
+              $('#select_goods_color').html($('#'+color_value).attr('title'));
+              $('#select_color_value').val(color_value);
+
+              get_goods_stock();
+          }
+      }
+      //如果有尺寸和颜色，并且已经选择了，那么获取相关库存
+      function get_goods_stock() {
+          var goods_color_value = $('#select_color_value').val();
+          var goods_size_value  = $('#select_size_value').val();
+          if(goods_color_value != '' && goods_size_value != '') {
+              $.post("<?php echo $this->url('frontgoods/default',array('action'=>'goodsStock','goods_id'=>$this->goods_info->goods_id)); ?>",{goods_color:goods_color_value,goods_size:goods_size_value},
+                  function(data){
+                      if(data != '') {
+                          $('#goods_stock_show').html(data.stock);
+                          $('#goods_item').html(data.goods_item);
+                          <?php if ($this->goods_info->goods_preferential_price <= 0) { ?>
+                          $('#goods_price').html(data.price);
+                          $('#goods_j').html(data.discount);
+                          <?php } ?>
+                      }
+                  },
+                  'json');
+          }
+      }
+  </script>
 </div>
 <?php if ($this->combination_goods_array) { ?>
 <div class="row-fluid">
@@ -313,7 +466,6 @@
 <?php } ?>
 
 <script>
-//购物车添加
 $(document).ready(function() {
 	$("#ask_form").validate({
 		success : function(label){
@@ -355,76 +507,8 @@ $(document).ready(function() {
 			add_goods_ask_js();
 		}
 	});
-	
-	
-	$("#add_goods_cart").validate({
-		rules: {
-			buy_goods_num: {
-				required: true,
-				number:true,
-				min:<?php if($this->goods_info->goods_cart_buy_min_num > 0) echo $this->goods_info->goods_cart_buy_min_num; else echo 1; ?>
-				<?php if($this->goods_info->goods_cart_buy_max_num > 0) { ?>
-				,
-				max:<?php echo $this->goods_info->goods_cart_buy_max_num; } ?>
-			}
-			<?php if ($this->goods_color and $this->goods_color_array) { ?>
-			,
-            select_color_value: {
-				required: true
-			}
-			<?php } if ($this->goods_size and $this->goods_size_array) { ?>
-			,
-            select_size_value: {
-				required: true
-			}
-			<?php } ?>
-		},
-		messages: {
-			buy_goods_num: {
-				required: "<?php echo $this->translate('购物数量不能为空！'); ?>",
-				number:"<?php echo $this->translate('购物数量必须为数字！'); ?>",
-				min:"<?php echo sprintf($this->translate('购物数量最少为%s！'),($this->goods_info->goods_cart_buy_min_num > 0 ? $this->goods_info->goods_cart_buy_min_num : 1)); ?>"
-				<?php if($this->goods_info->goods_cart_buy_max_num > 0) { ?>
-				,
-				max:"<?php echo sprintf($this->translate('购物数量最多为%s！'),$this->goods_info->goods_cart_buy_max_num ); ?>"<?php } ?>
-			}
-			<?php if ($this->goods_color and $this->goods_color_array) { ?>
-			,
-            select_color_value: {
-				required: "<?php echo $this->translate('请选择').$this->goods_color->extend_name; ?>"
-			}
-			<?php } if ($this->goods_size and $this->goods_size_array) { ?>
-			,
-            select_size_value: {
-				required: "<?php echo $this->translate('请选择').$this->goods_size->extend_name; ?>"
-			}
-			<?php } ?>
-		},
-		submitHandler:function(form){
-			add_cart_js();
-		}
-	});
-		
 });
-//添加购物车
-function add_cart_js() {
-	$.post("<?php echo $this->url('frontcart/default', array('action'=>'addCart')); ?>",$('#add_goods_cart').formSerialize(),
-	function(data){
-		if(data == 'true') {
-			$("#message_show").html('<img border="0" src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($this->goods_info->goods_thumbnail_image)); ?>" style=" width:65px;border:1px solid #D7D7D7"><?php echo $this->escapeHtml($this->goods_info->goods_name); ?>&nbsp;<strong><?php echo $this->translate('添加购物车成功'); ?></stong>');
-			$("#message_url").html('<a data-dismiss="modal" class="btn btn-primary"><?php echo $this->translate('继续购物'); ?></a><a href="<?php echo $this->url('frontcart/default'); ?>" class="btn btn-primary"><?php echo $this->translate('去购物车结算'); ?></a>');
-			
-			var cart_goods_num = parseInt($('#top_cart').html()) + 1;
-			$('#top_cart').css('display','');
-			$('#top_cart').html(cart_goods_num);
-			
-		} else {
-			$("#message_show").html(data);
-			$("#message_url").html('<a class="btn" data-dismiss="modal"><?php echo $this->translate('关闭'); ?></a>');
-		}
-		$('#myModal').modal('show');
-  }); 
-}
+
 function goods_menu_add_cart() {
     var alert_message = '';
     <?php if ($this->goods_color and $this->goods_color_array) { ?>
@@ -463,88 +547,6 @@ function add_favorites_js(goods_id,class_id) {
 	});	
 }
 
-
-$("#add_up").click(function() {
-	var buy_num = $("#buy_goods_num").val();
-	var max_num = <?php echo $this->goods_info->goods_cart_buy_max_num; ?>;
-	if(buy_num >= max_num && max_num != 0) {
-		alert('<?php echo $this->translate('您已经到了购买上限！'); ?>');
-		return false;	
-	}
-	$("#buy_goods_num").val(accAdd(buy_num,1));
-});
-$("#add_down").click(function() {
-	var buy_num = $("#buy_goods_num").val();
-	var min_num = 1;
-	if(buy_num <= min_num) {
-		alert('<?php echo $this->translate('您已经到了购买下限！'); ?>');
-		return false;	
-	}
-	$("#buy_goods_num").val(Subtr(buy_num,1));
-});
-//选择尺寸
-function select_size(size_value) {
-	if($('#'+size_value).attr('class') == 'selected') {
-		$('#'+size_value).css({border: ""});
-		$('#'+size_value).attr('class', '');
-		
-		$('#select_goods_size').html('');
-		$('#select_size_value').val('');
-	} else {
-		$('.goods_size a').each(function() {
-			$('#'+this.id).css({border: ""});
-			$('#'+this.id).attr('class', '');
-		});
-		$('#'+size_value).attr('class', 'selected');
-		$('#'+size_value).css({border: "2px solid #E4393C"});
-		
-		$('#select_goods_size').html($('#'+size_value).text());
-		$('#select_size_value').val(size_value);
-		
-		get_goods_stock();
-	}
-}
-//选择颜色
-function select_color(color_value) {
-	if($('#'+color_value).attr('class') == 'selected') {
-		$('#'+color_value).css({border: ""});
-		$('#'+color_value).attr('class', '');
-		
-		$('#select_goods_color').html('');
-		$('#select_color_value').val('');
-	} else {
-		$('.goods_color a').each(function() {
-			$('#'+this.id).css({border: ""});
-			$('#'+this.id).attr('class', '');
-		});
-		$('#'+color_value).attr('class', 'selected');
-		$('#'+color_value).css({border: "2px solid #E4393C"});
-		
-		$('#select_goods_color').html($('#'+color_value).attr('title'));
-		$('#select_color_value').val(color_value);
-		
-		get_goods_stock();
-	}
-}
-//如果有尺寸和颜色，并且已经选择了，那么获取相关库存
-function get_goods_stock() {
-	var goods_color_value = $('#select_color_value').val();
-	var goods_size_value  = $('#select_size_value').val();
-	if(goods_color_value != '' && goods_size_value != '') {
-		$.post("<?php echo $this->url('frontgoods/default',array('action'=>'goodsStock','goods_id'=>$this->goods_info->goods_id)); ?>",{goods_color:goods_color_value,goods_size:goods_size_value},
-			function(data){
-				if(data != '') {
-					$('#goods_stock_show').html(data.stock);
-					$('#goods_item').html(data.goods_item);
-					<?php if ($this->goods_info->goods_preferential_price <= 0) { ?>
-					$('#goods_price').html(data.price);
-					$('#goods_j').html(data.discount);
-					<?php } ?>
-				}
-		},
-		'json');
-	}
-}
 //加入对图片的延迟加载
 $('#goods_info_body img').each(function(){
 	 $(this).addClass('dbshopImgLoading');

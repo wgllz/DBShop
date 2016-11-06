@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="<?php echo $this->basePath('public/mobile/default/css/touch.css'); ?>">
+
+<section style="border-top:none;" class="user-order-detail">
+    <div class="user-order">
+        <p><?php echo $this->translate('订单编号'); ?>：<span><?php echo $this->order_info->order_sn; ?></span></p>
+        <p><?php echo $this->translate('订单状态'); ?>：<span><?php echo $this->frontwebsite()->getOneOrderStateInfo($this->order_info->order_state); ?></span></p>
+        <hr>
+        <?php if(isset($this->show_virtual_goods) and !empty($this->show_virtual_goods)) { ?>
+            <?php foreach($this->show_virtual_goods as $v_key => $v_value) { $num = $v_key + 1; ?>
+                <p><?php echo $this->translate('账号'); ?>(<?php echo $num; ?>)：<span><?php echo $v_value['virtual_goods_account']; ?></span></p>
+                <p><?php echo $this->translate('密码'); ?>(<?php echo $num; ?>)：<span><?php echo $v_value['virtual_goods_password']; ?></span></p>
+                <hr>
+            <?php } ?>
+        <?php } else echo $this->translate('付款成功后方可显示！'); ?>
+    </div>
+</section>

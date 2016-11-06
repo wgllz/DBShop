@@ -55,6 +55,9 @@
         <?php if($this->goods_info->goods_weight > 0) { ?>
         <p><?php echo $this->translate('重量'); ?>：<?php echo $this->goods_info->goods_weight; ?><?php echo $this->translate('千克'); ?></p>
         <?php } ?>
+        <?php if(isset($this->goods_info->goods_integral_num) and $this->goods_info->goods_integral_num > 0) { ?>
+        <p><b><?php echo $this->translate('可用'); ?>&nbsp;<?php echo $this->goods_info->goods_integral_num; ?>&nbsp;<?php echo $this->translate('消费积分进行购买'); ?></b></p>
+        <?php } ?>
     </section>
 
     <form action="<?php echo $this->url('frontcart/default'); ?>" method="post" name="add_goods_cart" id="add_goods_cart">

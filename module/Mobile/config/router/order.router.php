@@ -70,6 +70,18 @@ return array(
                                 )
                         )
                 ),
+                'virtual_goods'=> array(
+                    'type' => 'Segment',
+                    'options'=> array(
+                        'route' => '/viorderid[/:order_id]/vigoodsid[/:goods_id]'
+                    )
+                ),
+                'virtual_goods_page'=> array(
+                        'type' => 'Segment',
+                        'options'=> array(
+                                'route' => '/vigoodspage[/:page]'
+                        )
+                ),
                 'order_state' => array(
                         'type' => 'Segment',
                         'options' => array(

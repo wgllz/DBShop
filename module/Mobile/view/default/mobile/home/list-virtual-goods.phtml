@@ -1,0 +1,21 @@
+<div style="border-bottom:none;" class="ect-pro-list user-order">
+    <ul>
+        <?php if ($this->virtual_goods->getTotalItemCount() > 0) { ?>
+            <?php foreach ($this->virtual_goods as $vir_value) { ?>
+                <a href="<?php echo $this->url('m_order/default/virtual_goods', array('action'=>'virtualGoods', 'order_id'=>$vir_value['order_id'], 'goods_id'=>$vir_value['goods_id'])); ?>">
+                    <li>
+                        <p><?php echo $this->translate('商品名称'); ?>：<?php echo $this->escapeHtml($vir_value['goods_name']); ?></p>
+                        <p><span class="pull-left"><?php echo $this->translate('订单状态'); ?>：<?php echo $this->frontwebsite()->getOneOrderStateInfo($vir_value['order_state']); ?></span></p>
+                        <p>&nbsp;&nbsp;|&nbsp;&nbsp;<?php echo $this->translate('数量'); ?>：<?php echo $vir_value['buy_num']; ?></p>
+                        <p><?php echo $this->translate('订单编号'); ?>：<?php echo $vir_value['order_sn']; ?><i class="pull-right fa fa-angle-right"></i></p>
+                    </li>
+                </a>
+            <?php } ?>
+        <div>
+            <?php echo ( count($this->virtual_goods) > 0 ) ? $this->paginationControl($this->virtual_goods, 'Sliding', 'mobile/page',array('page_url'=>$this->url('m_order/default/virtual_goods_page', array('action'=>'listVirtualGoods')))) : ""; ?>
+        </div>
+        <?php } else { ?>
+        <li><?php echo '<p>' . $this->translate('暂时无虚拟商品！') . '</p>'; ?></li>
+        <?php } ?>
+    </ul>
+</div>

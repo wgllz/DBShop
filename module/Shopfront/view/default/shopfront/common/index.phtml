@@ -187,13 +187,6 @@ if($dbTongji == 'TRUE') {
     echo '</script>';
 }
 ?>
-<?php if(defined('FRONT_CACHE_STATE') and FRONT_CACHE_STATE == 'true') { ?>
-<script>
-    $.get('<?php echo $this->url('shopfront/default',array('action'=>'ajaxheader')); ?>','', function(html){
-        $("#shop_header").html(html);
-    });
-</script>
-<?php } ?>
 
 <?php if(isset($this->kefu_html) and $this->kefu_html != '') echo $this->partial('site/kefu', array('kefuHtml'=>$this->kefu_html)); ?>
 </body>
