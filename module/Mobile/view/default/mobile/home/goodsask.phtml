@@ -1,0 +1,22 @@
+<div class="ect-margin-tb ect-pro-list ect-margin-bottom0 ect-border-bottom0">
+    <ul class="msg">
+    <?php $totalItemCont = $this->goods_ask_list->getTotalItemCount(); if ($totalItemCont > 0) { ?>
+    <?php foreach ($this->goods_ask_list as $ask_value) { ?>
+        <li>
+            <p><?php echo $this->escapeHtml($ask_value['ask_content']); ?></p>
+            <p><span class="pull-left"><?php echo $this->translate('用户名'); ?>：<?php echo $ask_value['ask_writer']; ?></span>&nbsp;&nbsp;<?php echo date("Y-m-d H:i:s", $ask_value['ask_time']); ?><a class="pull-right del" onclick="return window.confirm('<?php echo $this->translate('您确实要删除该咨询信息吗？'); ?>');" href="<?php echo $this->url('m_home/default/front-ask-id', array('action'=>'askdel','ask_id'=>$ask_value['ask_id'])); ?>"><i class="glyphicon glyphicon-trash"></i></a></p>
+            <?php if($ask_value['reply_ask_content'] != '') { ?>
+                <p><?php echo $this->escapeHtml($ask_value['reply_ask_content']); ?></p>
+                <p><span class="pull-left"><?php echo $this->translate('回答者'); ?>：<?php echo $ask_value['reply_ask_writer']; ?></span>&nbsp;&nbsp;<?php echo date("Y-m-d H:i:s", $ask_value['reply_ask_time']); ?></p>
+            <?php } ?>
+        </li>
+        <?php } ?>
+        <p>
+            <?php echo ( count($this->goods_ask_list) > 0 ) ? $this->paginationControl($this->goods_ask_list, 'Sliding', 'mobile/page',array('page_url'=>$this->url('m_home/default', array('action'=>'goodsask')))) : ""; ?>
+        </p>
+    <?php } else { ?>
+        <p class="text-center ect-margin-tb ect-padding-tb"><?php echo $this->translate('该商品暂无咨询信息！'); ?></p>
+        </li>
+    <?php } ?>
+
+</div>

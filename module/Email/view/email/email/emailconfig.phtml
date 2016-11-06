@@ -1,0 +1,110 @@
+<div class="well admin_add_header_well"><?php echo $this->translate('邮件服务器设置'); ?></div>
+<div class="well admin_add_well">
+	<div class="control-group">
+		<label for="input01" class="control-label"><?php echo $this->translate('邮件服务'); ?>：
+		</label>
+		<div class="controls">
+			<label class="checkbox inline"><input type="checkbox" name="email_service_state" id="email_service_state" <?php if(isset($this->shop_email['email_service_state']) and $this->shop_email['email_service_state'] == 'true') echo 'checked="checked"'; ?> value="true"><?php echo $this->translate('开启'); ?></label>
+		</div>
+	</div>
+	<div class="control-group">
+		<label for="input01" class="control-label"><?php echo $this->translate('发信人邮件地址'); ?><span
+				class="must_add_value">*</span>：
+		</label>
+		<div class="controls">
+			<input type="text" id="send_from_mail" name="send_from_mail"
+				value="<?php echo $this->shop_email['send_from_mail']; ?>"
+				class="span5">
+		</div>
+	</div>
+	<div class="control-group">
+		<label for="input01" class="control-label"><?php echo $this->translate('发信人名称'); ?><span
+				class="must_add_value">*</span>：
+		</label>
+		<div class="controls">
+			<input type="text" id="send_name" name="send_name"
+				value="<?php echo $this->shop_email['send_name']; ?>"
+				class="span5">
+		</div>
+	</div>
+	<div class="control-group">
+		<label for="input01" class="control-label"><?php echo $this->translate('邮件发送方式'); ?>：</label>
+		<div class="controls">
+			<select name="sendmail_type" class="span3" id="sendmail_type"
+				onchange="change_sendmail_type_js();">
+				<option value="sendmail"
+					<?php if($this->shop_email['sendmail_type'] == 'sendmail') echo 'selected'; ?>><?php echo $this->translate('PHP内置Sendmail发送（需服务器支持）'); ?></option>
+				<option value="smtp"
+					<?php if($this->shop_email['sendmail_type'] == 'smtp') echo 'selected'; ?>><?php echo $this->translate('SMTP服务器发送'); ?></option>
+			</select>
+		</div>
+	</div>
+	<div class="control-group smtp_class">
+		<label for="input01" class="control-label"><?php echo $this->translate('SMTP服务器'); ?>：</label>
+		<div class="controls">
+			<input type="text" id="smtp_location" name="smtp_location"
+				value="<?php echo $this->shop_email['smtp_location']; ?>"
+				class="span5">
+		</div>
+	</div>
+	<div class="control-group smtp_class">
+		<label for="input01" class="control-label"><?php echo $this->translate('SMTP端口'); ?>：</label>
+		<div class="controls">
+			<input type="text" id="smtp_port" name="smtp_port"
+				value="<?php echo $this->shop_email['smtp_port']; ?>"
+				class="span5">
+		</div>
+	</div>
+	<div class="control-group smtp_class">
+		<label for="input01" class="control-label"><?php echo $this->translate('SMTP账户'); ?>：</label>
+		<div class="controls">
+			<input type="text" id="smtp_name" name="smtp_name"
+				value="<?php echo $this->shop_email['smtp_name']; ?>"
+				class="span5">
+		</div>
+	</div>
+	<div class="control-group smtp_class">
+		<label for="input01" class="control-label"><?php echo $this->translate('SMTP账户密码'); ?>：</label>
+		<div class="controls">
+			<input type="password" id="smtp_passwd" name="smtp_passwd"
+				value="<?php echo $this->shop_email['smtp_passwd']; ?>"
+				class="span5">
+		</div>
+	</div>
+	<div class="control-group smtp_class">
+		<label for="input01" class="control-label"><?php echo $this->translate('SMTP验证'); ?>：</label>
+		<div class="controls">
+			<select class="span2" name="email_check" id="email_check">
+				<option value="0"
+					<?php if($this->shop_email['email_check'] == '0') echo 'selected'; ?>><?php echo $this->translate('否'); ?></option>
+				<option value="1"
+					<?php if($this->shop_email['email_check'] == '1') echo 'selected'; ?>><?php echo $this->translate('是'); ?></option>
+			</select>
+		</div>
+	</div>
+	<div class="control-group smtp_class">
+		<label for="input01" class="control-label"><?php echo $this->translate('SMTP安全连接'); ?>：</label>
+		<div class="controls">
+			<select class="span2" name="email_secure_conn" id="email_secure_conn">
+				<option value=""
+					<?php if($this->shop_email['email_secure_conn'] == '') echo 'selected'; ?>><?php echo $this->translate('无'); ?></option>
+				<option value="SSL"
+					<?php if($this->shop_email['email_secure_conn'] == 'SSL') echo 'selected'; ?>>SSL</option>
+				<option value="TLS"
+					<?php if($this->shop_email['email_secure_conn'] == 'TLS') echo 'selected'; ?>>TLS</option>
+			</select>
+		</div>
+	</div>
+</div>
+<script>
+//切换邮件服务器
+function change_sendmail_type_js() {
+	var sendmail_type = $('#sendmail_type').val();
+	if(sendmail_type == 'smtp') {
+		$('.smtp_class').show();
+	} else {
+		$('.smtp_class').hide();
+	}
+}
+change_sendmail_type_js();
+</script>

@@ -1,0 +1,108 @@
+<form method="post" action="<?php echo $this->url('operlog/default', array('action' => 'clearlog')); ?>"
+      style="margin-bottom: 0px;">
+    <div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        <p class="span4 pull-left" style="font-size:16px; line-height:30px;">
+            <strong><?php echo $this->translate('操作日志'); ?></strong></p>
+
+        <p class="span8 text-right">
+            <select class="span2" name="clear_time" id="clear_time">
+                <option value="0"><?php echo $this->translate('请选择删除时间'); ?></option>
+                <option value="7"><?php echo $this->translate('一周前'); ?></option>
+                <option value="30"><?php echo $this->translate('一个月前'); ?></option>
+                <option value="90"><?php echo $this->translate('三个月前'); ?></option>
+                <option value="180"><?php echo $this->translate('半年前'); ?></option>
+            </select>
+            <button class="btn btn-small btn-primary"><i
+                    class="icon-trash icon-white"></i> <?php echo $this->translate('删除日志'); ?></button>
+            &nbsp;
+            <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('operlog'); ?>" target="_blank"
+               class="btn btn-small btn-info"><i
+                    class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+        </p>
+    </div>
+</form>
+<table class="table table-hover">
+    <thead style="background:#CCC;">
+    <tr>
+        <th width="15%"><?php echo $this->translate('操作者'); ?></th>
+        <th width="15%"><?php echo $this->translate('操作者级别'); ?></th>
+        <th width="15%"><?php echo $this->translate('操作时间'); ?></th>
+        <th width="15%"><?php echo $this->translate('ip地址'); ?></th>
+        <th width="40%" colspan="2"><?php echo $this->translate('操作描述'); ?></th>
+    </tr>
+    </thead>
+    <form method="GET" action="">
+        <tr class="goods_search" style="background: #F5F5F5;">
+            <td>
+                <input type="text" name="log_oper_user"
+                       value="<?php if ($this->searchArray and isset($this->searchArray['log_oper_user'])) echo $this->searchArray['log_oper_user']; ?>"
+                       class="span11">
+            </td>
+            <td>
+                <select name="log_oper_usergroup" class="span8">
+                    <option value=""><?php echo $this->translate('操作者级别'); ?></option>
+                    <?php if($this->group_array) {
+                        foreach ($this->group_array as $group_val) {
+                            ?>
+                            <option value="<?php echo $group_val['admin_group_name']; ?>" <?php if($this->searchArray and $this->searchArray['log_oper_usergroup']==$group_val['admin_group_name']) { echo 'selected="selected"'; } ?>><?php echo $group_val['admin_group_name']; ?></option>
+                        <?php }
+                    }
+                    ?>
+                </select>
+            </td>
+            <td>
+                <p>
+                    <?php echo $this->translate('始'); ?>
+                    <input type="text" name="start_log_time" id="start_log_time"
+                           value="<?php if ($this->searchArray and isset($this->searchArray['start_log_time'])) echo $this->searchArray['start_log_time']; ?>" onclick="WdatePicker({el:'start_log_time'})"
+                           class="span8">
+                </p>
+
+                <p>
+                    <?php echo $this->translate('终'); ?>
+                    <input type="text" name="end_log_time" id="end_log_time"
+                           value="<?php if ($this->searchArray and isset($this->searchArray['end_log_time'])) echo $this->searchArray['end_log_time']; ?>" onclick="WdatePicker({el:'end_log_time'})"
+                           class="span8">
+                </p>
+            </td>
+            <td>
+                <input type="text" name="log_ip"
+                       value="<?php if ($this->searchArray and isset($this->searchArray['log_ip'])) echo $this->searchArray['log_ip']; ?>"
+                       class="span11">
+            </td>
+            <td>
+                <input type="text" name="log_content"
+                       value="<?php if ($this->searchArray and isset($this->searchArray['log_content'])) echo $this->searchArray['log_content']; ?>"
+                       class="span11">
+            </td>
+            <td>
+                <p>
+                    <button class="btn btn-small btn-primary" type="submit"><i
+                            class="icon-search icon-white"></i> <?php echo $this->translate('搜索'); ?></button>
+                </p>
+                <?php if ($this->searchArray and !empty($this->searchArray)) { ?>
+                <p><a href="<?php echo $this->url('operlog/default'); ?>" class="btn btn-small"><i
+                            class="icon-arrow-left"></i> <?php echo $this->translate('返回'); ?></a>
+                </p>
+                <?php } ?>
+            </td>
+        </tr>
+    </form>
+    <?php if ($this->operlog_list) foreach ($this->operlog_list as $operlog_value) { ?>
+        <tr>
+            <td><?php echo $this->escapeHtml($operlog_value['log_oper_user']); ?></td>
+            <td><?php echo $operlog_value['log_oper_usergroup']; ?></td>
+            <td><?php echo date("Y-m-d H:i:s", $operlog_value['log_time']); ?></td>
+            <td><?php echo $operlog_value['log_ip']; ?></td>
+            <td colspan="2"><?php echo $this->escapeHtml(str_replace('&nbsp;', ' ', $operlog_value['log_content'])); ?></td>
+        </tr>
+    <?php
+    }
+    ?>
+    <tr>
+        <td colspan="6" style="background: #FFF">
+            <?php echo (count($this->operlog_list) > 0) ? $this->paginationControl($this->operlog_list, 'Sliding', 'common/pager', array('page_url' => $this->url('operlog/default/operlog_page', array('action' => 'index')))) : ""; ?>
+        </td>
+    </tr>
+</table>
+<script src="<?php echo $this->basePath('/public/js/DatePicker/WdatePicker.js'); ?>"></script>

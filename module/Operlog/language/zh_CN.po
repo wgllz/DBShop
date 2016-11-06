@@ -1,0 +1,86 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DBShop\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-25 14:55+0800\n"
+"PO-Revision-Date: 2014-05-25 14:55+0800\n"
+"Last-Translator: DBShop <team@dbshop.net>\n"
+"Language-Team: DBShop <team@dbshop.net>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../view/operlog/operlog/index.phtml:5
+msgid "操作日志"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:9
+msgid "请选择删除时间"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:10
+msgid "一周前"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:11
+msgid "一个月前"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:12
+msgid "三个月前"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:13
+msgid "半年前"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:16
+msgid "删除日志"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:20
+msgid "查看帮助说明"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:27
+msgid "操作者"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:28
+#: ../view/operlog/operlog/index.phtml:43
+msgid "操作者级别"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:29
+msgid "操作时间"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:30
+msgid "ip地址"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:31
+msgid "操作描述"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:55
+msgid "始"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:62
+msgid "终"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:81
+msgid "搜索"
+msgstr ""
+
+#: ../view/operlog/operlog/index.phtml:85
+msgid "返回"
+msgstr ""

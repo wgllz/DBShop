@@ -1,0 +1,50 @@
+
+<thead style="background: #CCC;">
+	<tr>
+		<th width="3%">
+			<input type="checkbox" id="select_checkbox_state" onClick="selectCheckBox('goods_id','select_checkbox_state');">
+		</th>
+        <th width="7%"><?php echo $this->translate('排序'); ?></th>
+		<th width="7%">ID</th>
+		<th width="35%"><?php echo $this->translate('商品名称'); ?></th>
+		<th width="9%"><?php echo $this->translate('商品货号'); ?></th>
+		<th width="10%"><?php echo $this->translate('商品价格'); ?></th>
+		<th width="10%"><?php echo $this->translate('商品属性'); ?></th>
+		<th width="7%"><?php echo $this->translate('状态'); ?></th>
+		<th width="8%"><?php echo $this->translate('操作'); ?></th>
+	</tr>
+</thead>
+<?php
+if ($this->goods_list) {
+    foreach ($this->goods_list as $goods_value) {
+        ?>
+<tr id="tag_goods_<?php echo $goods_value['goods_id']; ?>">
+	<td>
+		<input name="goods_id[]" type="checkbox"
+			value="<?php echo $goods_value['goods_id']; ?>">
+	</td>
+    <td><input type="text" name="tag_goods_sort[<?php echo $goods_value['goods_id']; ?>]" class="span12" value="<?php echo $goods_value['tag_goods_sort']; ?>" /></td>
+	<td><?php echo $goods_value['goods_id']; ?></td>
+	<td><?php echo $this->escapeHtml($goods_value['goods_name']); ?></td>
+	<td><?php echo $this->escapeHtml($goods_value['goods_item']); ?></td>
+	<td><?php echo $goods_value['goods_shop_price']; ?></td>
+	<td><?php if(isset($attribute_group_value[$goods_value['attribute_group_id']])) echo $attribute_group_value[$goods_value['attribute_group_id']]; else echo $this->translate('无'); ?></td>
+	<td><?php echo (intval($goods_value['goods_state']) == 2 ? $this->translate('下架') : ($goods_value['goods_state']== 1 ? $this->translate('上架') : '')); ?></td>
+    <td><a href="javascript:;" onclick="return del_tag_goods_js(<?php echo $goods_value['goods_id']; ?>);"><?php echo $this->translate('删除'); ?></a></td>
+</tr>
+<?php
+    }
+}
+?>
+<tr>
+<tr>
+	<td colspan="9" style="background: #FFF">
+	<input type="checkbox" id="select_checkbox_state_1" onClick="selectCheckBox('goods_id', 'select_checkbox_state_1');">
+		    <SELECT name="tag_goods_editall" class="span1">
+			<option value=""><?php echo $this->translate('选择'); ?></option>
+			<option value="del"><?php echo $this->translate('删除'); ?></option>
+			<option value="update"><?php echo $this->translate('更新'); ?></option>
+			</SELECT>
+         		<?php echo ( count($this->goods_list) > 0 ) ? $this->paginationControl($this->goods_list, 'Sliding', 'common/ajax-pages',array('page_url'=>$this->url('tag/default',array('action'=>'ajaxgoods','tag_id'=>$this->tag_id)),'show_div_id'=>$this->show_div_id)) : ""; ?>               
+                </td>
+</tr>

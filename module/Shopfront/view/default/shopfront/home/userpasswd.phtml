@@ -1,0 +1,97 @@
+<div class="row-fluid" style="margin-top:20px;"> <?php echo $this->partial('shopfront/home/left_menu.phtml'); ?>
+  <div class="span8" id="home_user_info">
+    <div class="well">
+      <h5><?php echo $this->translate('账户信息'); ?></h5>
+      <div class="message_one"></div>
+      <ul class="nav nav-tabs">
+        <li><a href="<?php echo $this->url('fronthome/default', array('action'=>'useredit')); ?>"><?php echo $this->translate('基本信息'); ?></a></li>
+        <li class="active"><a href="<?php echo $this->url('fronthome/default', array('action'=>'userpasswd')); ?>"><?php echo $this->translate('密码修改'); ?></a></li>
+          <?php if ($this->frontwebsite()->getUserIni('qq_login_state') == 'true') { ?>
+              <li><a href="<?php echo $this->url('fronthome/default', array('action'=>'qqset')); ?>"><?php echo $this->translate('QQ绑定'); ?></a></li>
+          <?php } ?>
+      </ul>
+      <form class="form-horizontal" method="post" id="user_edit_form" name="user_edit_form">
+        <?php if (!$this->other_login_passwd) { ?>
+        <div class="control-group">
+          <label class="control-label"><?php echo $this->translate('原始密码'); ?>
+          <span class="must_add_value">*</span>：</label>
+          <div class="controls">
+            <input type="password" id="old_user_password" name="old_user_password" class="span5">
+          </div>
+        </div>
+        <?php } ?>
+        <div class="control-group">
+          <label for="input01" class="control-label"><?php echo $this->translate('新密码'); ?>
+            <span class="must_add_value">*</span>：</label>
+          <div class="controls">
+            <input type="password" id="user_password"  name="user_password" class="span5">
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="input01" class="control-label"><?php echo $this->translate('确认密码'); ?>
+            <span class="must_add_value">*</span>：</label>
+          <div class="controls">
+            <input type="password" id="user_password_con"  name="user_password_con" class="span5">
+          </div>
+        </div>
+        <div class="offset3">
+          <button class="btn btn-primary" type="submit"><?php echo $this->translate('保存修改'); ?></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+<?php if ($this->success_msg != '') { ?>
+show_message('.message_one','<?php echo date("Y-m-d H:i:s",time()); ?>','<?php echo $this->success_msg; ?>','alert-success');
+<?php } ?>
+<?php if ($this->false_msg != '') { ?>
+show_message('.message_one','<?php echo date("Y-m-d H:i:s",time()); ?>','<?php echo $this->false_msg; ?>','alert-error');
+<?php } ?>
+
+//客户保存验证
+$(document).ready(function() {
+	$("#user_edit_form").validate({
+		rules: {
+            <?php if (!$this->other_login_passwd) { ?>
+			old_user_password: {
+				required: true,
+				minlength: 6,
+				maxlength: 20
+			},
+            <?php } ?>
+			user_password: {
+				required: true,
+				minlength: 6,
+				maxlength: 20
+			},
+			user_password_con: {
+				required: true,
+				minlength: 6,
+				maxlength: 20,
+				equalTo: '#user_password'
+			}
+		},
+		messages: {
+            <?php if (!$this->other_login_passwd) { ?>
+			old_user_password: {
+				required: "<?php echo $this->translate('请输入原始密码！'); ?>",
+				minlength: "<?php echo $this->translate('原始密码至少输入6位！'); ?>",
+				maxlength: "<?php echo $this->translate('原始密码密码最长为20位！'); ?>"
+			},
+            <?php } ?>
+			user_password: {
+				required: "<?php echo $this->translate('请输入新密码！'); ?>",
+				minlength: "<?php echo $this->translate('至少输入6位密码！'); ?>",
+				maxlength: "<?php echo $this->translate('密码最长为20位！'); ?>"
+			},
+			user_password_con: {
+				required: "<?php echo $this->translate('请输入确认密码！'); ?>",
+				minlength: "<?php echo $this->translate('至少输入6位确认密码！'); ?>",
+				maxlength: "<?php echo $this->translate('确认密码最长为20位！'); ?>",
+				equalTo: "<?php echo $this->translate('两次输入的密码不一致！'); ?>"
+			}
+		}
+	});
+});
+</script>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <?php
+    $dbshop_shop_name        = $this->frontwebsite()->websiteInfo('shop_name');
+    $dbshop_shop_extend_name = $this->frontwebsite()->websiteInfo('shop_extend_name');
+    $dbshop_shop_keywords    = trim($dbshop_shop_name . ',' . $this->frontwebsite()->websiteInfo('shop_keywords'), ',');
+    $dbshop_shop_description = trim($dbshop_shop_name . ',' . $this->frontwebsite()->websiteInfo('shop_description'), ',');
+
+    $this->headtitle($this->title_name);
+    $this->headtitle($this->extend_title_name);
+    $this->headtitle($dbshop_shop_name);
+    $this->headtitle($dbshop_shop_extend_name);
+
+    echo $this->headTitle()->setSeparator(' - ');
+    ?>
+
+    <?php
+    $title_and_extend_title_name = (!empty($this->title_name) ?  $this->title_name. ',' : '') . (!empty($this->extend_title_name) ?  $this->extend_title_name . ',' : '');
+
+    $this->headMeta()->appendName('keywords',        $title_and_extend_title_name . $this->extend_keywords . $dbshop_shop_keywords);
+    $this->headMeta()->appendName('description',     $title_and_extend_title_name . $this->extend_description . $dbshop_shop_description);
+    $this->headMeta()->appendName('author',          DBSHOP_FRONT_COPYRIGHT);
+    $this->headMeta()->appendName('copyright',       DBSHOP_FRONT_COPYRIGHT . ' Inc. All Rights Reserved');
+
+    $this->headMeta()->setProperty('og:type',        'website');
+    $this->headMeta()->setProperty('og:title',       $title_and_extend_title_name . $dbshop_shop_name);
+    $this->headMeta()->setProperty('og:description', $title_and_extend_title_name . $this->extend_description . $dbshop_shop_description);
+    $this->headMeta()->setProperty('og:site_name',   $dbshop_shop_name);
+    $this->headMeta()->setProperty('og:url',         $this->serverUrl(true));
+
+    echo $this->headMeta();
+    ?>
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/mobile/default/css/bootstrap.min.css'); ?>">
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/mobile/default/css/bootstrap-theme.min.css'); ?>">
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/mobile/default/css/font-awesome.min.css'); ?>">
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/mobile/default/css/shop-mobile.css'); ?>">
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/mobile/default/css/user.css'); ?>">
+    <link rel="stylesheet" href="<?php echo $this->basePath('public/mobile/default/css/photoswipe.css'); ?>">
+    <script type="text/javascript" src="<?php echo $this->basePath('public/mobile/default/js/jquery.min.js'); ?>" ></script>
+    <script type="text/javascript" src="<?php echo $this->basePath('public/mobile/default/js/jquery.form.js'); ?>" ></script>
+    <script type="text/javascript" src="<?php echo $this->basePath('public/mobile/default/js/jquery.validate.js'); ?>" ></script>
+</head>
+<body>
+<div class="con">
+
+<?php echo $this->partial('mobile/header'); ?>
+<?php echo $this->content; ?>
+<?php echo $this->partial('mobile/footer'); ?>
+
+    <div style="padding-bottom:4.2em;"></div>
+</div>
+    <div class="search" style="display:none;">
+    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center"><span><?php echo $this->translate('搜索'); ?></span><a href="javascript:;" onClick="closeSearch();"><i class="icon-close pull-right"></i></a></header>
+    </div>
+    <div class="ect-padding-lr">
+        <form action="<?php echo $this->url('m_class/default', array('controller'=>'Class', 'action'=>'goodsSearch')); ?>"  method="get" id="searchForm" name="searchForm">
+            <div class="input-search"> <span>
+        <input name="keywords" type="search" value="<?php echo isset($_GET['keywords']) ? $this->escapehtml($_GET['keywords']) : ''; ?>" placeholder="<?php echo $this->translate('请输入搜索关键词！'); ?>" id="keywordBox">
+        </span>
+                <button type="submit" value="<?php echo $this->translate('搜索'); ?>"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </form>
+        <div class="hot-search">
+            <p>
+            <h4 class="title"><b><?php echo $this->translate('热门搜索'); ?>：</b></h4>
+            </p>
+            <?php $hot_keywords = @explode('|', $this->frontwebsite()->websiteInfo('shop_hot_keywords'));
+            if(is_array($hot_keywords) and !empty($hot_keywords)) {
+            foreach ($hot_keywords as $key_value) {
+            ?>
+            <a href="<?php echo $this->url('m_class/default', array('controller'=>'Class', 'action'=>'goodsSearch')); ?>?keywords=<?php echo $this->escapeHtml($key_value); ?>"><?php echo $this->escapeHtml($key_value); ?></a>
+            <?php } } ?>
+        </div>
+    </div>
+</div>
+
+<a id="scrollUp" href="#top" style="position: fixed; z-index: 10;display: none;"><i class="fa fa-angle-up"></i></a>
+<style>
+    #scrollUp {
+        border-radius:100%;
+        background-color: #777;
+        color: #eee;
+        font-size: 40px;
+        line-height: 1;text-align: center;text-decoration: none;bottom: 1em;right: 10px;overflow: hidden;width: 46px;
+        height: 46px;
+        border: none;
+        opacity: 0.6;
+    }
+</style>
+<script type="text/javascript" src="<?php echo $this->basePath('public/mobile/default/js/jquery.json.js'); ?>" ></script>
+<script type="text/javascript" src="<?php echo $this->basePath('public/mobile/default/js/common.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo $this->basePath('public/mobile/default/js/utils.js'); ?>" ></script>
+<script src="<?php echo $this->basePath('public/mobile/default/js/TouchSlide.1.1.js'); ?>"></script>
+<script src="<?php echo $this->basePath('public/mobile/default/js/touch.js'); ?>"></script>
+<script src="<?php echo $this->basePath('public/mobile/default/js/simple-inheritance.min.js'); ?>"></script>
+<script src="<?php echo $this->basePath('public/mobile/default/js/code-photoswipe-1.0.11.min.js'); ?>"></script>
+<script src="<?php echo $this->basePath('public/mobile/default/js/bootstrap.min.js'); ?>"></script>
+<script src="<?php echo $this->basePath('public/mobile/default/js/jquery.scrollUp.min.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo $this->basePath('public/mobile/default/js/validform.js'); ?>" ></script>
+<script language="javascript">
+    /*banner滚动图片*/
+    TouchSlide({
+        slideCell : "#focus",
+        titCell : ".hd ul", // 开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+        mainCell : ".bd ul",
+        effect : "left",
+        autoPlay : true, // 自动播放
+        autoPage : true, // 自动分页
+        switchLoad : "_src" // 切换加载，真实图片路径为"_src"
+    });
+    /*弹出评论层并隐藏其他层*/
+    function openSearch(){
+        if($(".con").is(":visible")){
+            $(".con").hide();
+            $(".search").show();
+        }
+    }
+    function closeSearch(){
+        if($(".con").is(":hidden")){
+            $(".con").show();
+            $(".search").hide();
+        }
+    }
+
+</script>
+<?php echo $this->frontwebsite()->getSystemContent('statistics'); ?>
+</body>
+</html>

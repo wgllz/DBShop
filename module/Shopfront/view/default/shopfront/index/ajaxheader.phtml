@@ -1,0 +1,32 @@
+<div class="span3 offset1">
+    <?php if($this->frontwebsite()->getFrontCurrency()) {
+        foreach($this->frontwebsite()->getFrontCurrency() as $currency_value) {
+            if($currency_value['currency_state'] == '0') continue;
+            ?>
+            <a style="cursor: pointer;" href="<?php echo $this->url('shopfront/default/currency-code', array('action'=>'chanageCurrency','code'=>$currency_value['currency_code'])); ?>"><span class="badge <?php if($this->frontwebsite()->getFrontDefaultCurrency()) { if ($this->frontwebsite()->getFrontDefaultCurrency() == $currency_value['currency_code']) echo 'badge-success'; } elseif ($currency_value['currency_type'] == 1) echo 'badge-success'; ?>"><?php echo $currency_value['currency_symbol']; ?></span></a>
+        <?php } } ?>
+</div>
+<div class="span7 shop_header_right">
+    <ul class="db-nav">
+        <?php
+        $shop_top_menu = $this->frontwebsite()->shopFrontMenu(1);
+        if(is_array($shop_top_menu) and !empty($shop_top_menu)) {
+            foreach($shop_top_menu as $top_value) {
+                ?><li class="item"><a href="<?php echo $top_value['navigation_url']; ?>" <?php if($top_value['navigation_new_window'] == 1) echo 'target="_blank"'; ?>><?php echo $top_value['navigation_title']; ?></a></li><li class="item split"></li>
+            <?php } } ?>
+        <li class="item"><a href="<?php echo $this->url('frontcart/default'); ?>"><?php echo $this->translate('购物车'); ?>
+                <span class="badge badge-success" id="top_cart" style="margin:0;<?php if ($this->frontwebsite()->cartGoodsNum() <= 0) echo 'display:none;'; ?>"><?php echo $this->frontwebsite()->cartGoodsNum(); ?></span>
+            </a></li>
+        <li class="item split"></li><li class="item"><a href="<?php echo $this->url('fronthome/default'); ?>"><?php echo $this->translate('用户中心'); ?></a></li>
+        <li class="item split"></li><li class="item"><a href="<?php echo $this->url('frontorder/default'); ?>"><?php echo $this->translate('我的订单'); ?></a></li>
+        <?php if($this->frontwebsite()->getUserSession('user_id') == '') {  ?><li class="item split"></li>
+        <li class="item"><a href="<?php echo $this->url('frontuser/default',array('action'=>'login')); ?>"><?php echo $this->translate('登录'); ?></a></li><li class="item split"></li>
+        <li class="item"><a href="<?php echo $this->url('frontuser/default',array('action'=>'register')); ?>"><?php echo $this->translate('注册'); ?></a>
+            <?php } ?>
+            <?php if($this->frontwebsite()->getUserSession('user_id') != '') {  ?>
+        <li class="item split"></li><li class="item"><?php echo $this->translate('欢迎您'); ?><a href="<?php echo $this->url('fronthome/default', array('action'=>'useredit')); ?>"><font color="#ED145B"><?php echo $this->escapeHtml($this->frontwebsite()->getUserSession('user_name')); ?></font></a><a href="<?php echo $this->url('frontuser/default',array('action'=>'loginout')); ?>"><?php echo $this->translate('退出'); ?></a></li>
+    <?php } elseif($this->frontwebsite()->getUserIni('qq_login_state') == 'true') { ?>
+        <li class="item split"></li><li class="item"><a href="<?php echo $this->url('frontuser/default',array('action'=>'otherlogin')); ?>"><img src="<?php echo $this->basePath('public/img/login/qq_login.png'); ?>"></a></li>
+    <?php } ?>
+    </ul>
+</div>

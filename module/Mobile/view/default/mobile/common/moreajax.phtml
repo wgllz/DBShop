@@ -1,0 +1,14 @@
+<?php
+$url = $this->page_url;
+$parameterGet = $this->DbshopCommonFun()->dbshopRequesthelper();
+if ($parameterGet != ""){
+    $array = explode('&', $parameterGet);
+    $array = array_unique($array);
+    $parameterGet = "?".implode('&', $array);
+}
+?>
+<?php if (isset($this->next)) { ?>
+    <a style="height:45px;line-height:45px;display: block;text-align: center;width: 100%;font-size: 18px;" href="javascript:;" onclick="<?php echo $this->ajaxFunction; ?>('<?php echo $url.'/'.$this->next.$parameterGet; ?>');"><?php echo $this->translate('点击查看更多'); ?></a>
+<?php } else { ?>
+    <p style="height:45px;line-height:45px;display: block;text-align: center;width: 100%;font-size: 16px;"><?php echo $this->translate('已全部显示'); ?></p>
+<?php } ?>

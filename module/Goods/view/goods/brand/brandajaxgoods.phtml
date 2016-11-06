@@ -1,0 +1,128 @@
+
+<thead style="background: #CCC;">
+	<tr>
+		<th width="5%">
+			<input type="checkbox" id="select_checkbox_state" onClick="selectCheckBox('goods_id','select_checkbox_state');">&nbsp;<?php echo $this->translate('删'); ?>
+		</th>
+		<th width="7%">ID</th>
+		<th width="35%"><?php echo $this->translate('商品名称'); ?></th>
+		<th width="9%"><?php echo $this->translate('商品货号'); ?></th>
+		<th width="10%"><?php echo $this->translate('商品价格'); ?></th>
+		<th width="10%"><?php echo $this->translate('商品属性'); ?></th>
+		<th width="7%"><?php echo $this->translate('状态'); ?></th>
+		<th width="8%"><?php //echo $this->translate('操作'); ?></th>
+	</tr>
+</thead>
+<!-- 
+<tr class="goods_search" style="background: #F5F5F5;">
+	<td></td>
+	<td>
+		<p>
+			<?php echo $this->translate('始'); ?>
+			<input type="text" name="start_goods_id" id="start_goods_id"
+				value="<?php if ($this->searchArray and isset($this->searchArray['start_goods_id'])) echo $this->searchArray['start_goods_id']; ?>"
+				class="span8">
+		</p>
+		<p>
+			<?php echo $this->translate('终'); ?>
+			<input type="text" name="end_goods_id" id="end_goods_id"
+				value="<?php if ($this->searchArray and isset($this->searchArray['end_goods_id'])) echo $this->searchArray['end_goods_id']; ?>"
+				class="span8">
+		</p>
+	</td>
+	<td>
+		<input type="text" name="goods_name" id="goods_name"
+			value="<?php if ($this->searchArray and isset($this->searchArray['goods_name'])) echo $this->searchArray['goods_name']; ?>"
+			class="span8">
+	</td>
+	<td>
+		<p>
+			<input type="text" name="goods_item" id="goods_item"
+				value="<?php if ($this->searchArray and isset($this->searchArray['goods_item'])) echo $this->searchArray['goods_item']; ?>"
+				class="span8">
+		</p>
+	</td>
+	<td>
+		<p>
+			<?php echo $this->translate('始'); ?>
+			<input type="text" name="start_goods_price" id="start_goods_price"
+				value="<?php if ($this->searchArray and isset($this->searchArray['start_goods_price'])) echo $this->searchArray['start_goods_price']; ?>"
+				class="span8">
+		</p>
+		<p>
+			<?php echo $this->translate('终'); ?>
+			<input type="text" name="end_goods_price" id="end_goods_price"
+				value="<?php if ($this->searchArray and isset($this->searchArray['end_goods_price'])) echo $this->searchArray['end_goods_price']; ?>"
+				class="span8">
+		</p>
+	</td>
+	<td>
+				<select class="span8" name="attribute_group_id">
+                                <option value="0"><?php echo $this->translate('选择属性组'); ?></option>
+                                <?php
+								$attribute_group_value = array();
+                                if ($this->attribute_group) {
+									foreach($this->attribute_group as $g_val) {
+										$attribute_group_value[$g_val['attribute_group_id']] = $this->escapeHtml($g_val['attribute_group_name']);
+								?>
+								<option value="<?php echo $g_val['attribute_group_id']; ?>" <?php if($this->searchArray and isset($this->searchArray['attribute_group_id']) and $this->searchArray['attribute_group_id'] == $g_val['attribute_group_id']) echo 'selected="selected"'; ?>><?php echo $this->escapeHtml($g_val['attribute_group_name']); ?></option>
+                                <?php
+									}
+								}
+								?>
+				</select>
+	</td>
+	<td>
+		<select class="span8" name="goods_state" id="goods_state">
+			<option value=""><?php echo $this->translate('选择'); ?></option>
+			<option value="1"
+				<?php if($this->searchArray and isset($this->searchArray['goods_state']) and $this->searchArray['goods_state'] == 1) echo 'selected="selected"'; ?>><?php echo $this->translate('上架'); ?></option>
+			<option value="2"
+				<?php if($this->searchArray and isset($this->searchArray['goods_state']) and $this->searchArray['goods_state'] == 2) echo 'selected="selected"'; ?>><?php echo $this->translate('下架'); ?></option>
+		</select>
+	</td>
+	<td>
+		<p>
+			<button class="btn btn-small btn-primary" type="button"
+				onClick="ajax_search_class_goods();">
+				<i class="icon-search icon-white"></i>
+				<?php echo $this->translate('搜索'); ?>
+			</button>
+		</p>
+		<p>
+			<a href="javascript:;"
+				onClick="dbshop_ajax_list('<?php echo $this->url('brand/default',array('action'=>'brandajaxgoods','brand_id'=>$this->brand_id)); ?>', 'list_goods_show');"
+				class="btn btn-small">
+				<i class="icon-arrow-left"></i>
+				<?php echo $this->translate('返回'); ?>
+			</a>
+		</p>
+	</td>
+</tr>
+ -->
+<?php
+if ($this->goods_list) {
+    foreach ($this->goods_list as $goods_value) {
+        ?>
+<tr>
+	<td>
+		<input name="goods_id[]" type="checkbox"
+			value="<?php echo $goods_value['goods_id']; ?>">
+	</td>
+	<td><?php echo $goods_value['goods_id']; ?></td>
+	<td><?php echo $this->escapeHtml($goods_value['goods_name']); ?></td>
+	<td><?php echo $this->escapeHtml($goods_value['goods_item']); ?></td>
+	<td><?php echo $goods_value['goods_shop_price']; ?></td>
+	<td><?php if(isset($attribute_group_value[$goods_value['attribute_group_id']])) echo $attribute_group_value[$goods_value['attribute_group_id']]; else echo $this->translate('无'); ?></td>
+	<td colspan="2"><?php echo (intval($goods_value['goods_state']) == 2 ? $this->translate('下架') : ($goods_value['goods_state']== 1 ? $this->translate('上架') : '')); ?></td>
+</tr>
+<?php
+    }
+}
+?>
+<tr>
+<tr>
+	<td colspan="9" style="background: #FFF">
+         		<?php echo ( count($this->goods_list) > 0 ) ? $this->paginationControl($this->goods_list, 'Sliding', 'common/ajax-pages',array('page_url'=>$this->url('brand/default',array('action'=>'brandajaxgoods','brand_id'=>$this->brand_id)),'show_div_id'=>$this->show_div_id)) : ""; ?>               
+                </td>
+</tr>

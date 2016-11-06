@@ -1,0 +1,91 @@
+    		<div style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('属性值'); ?>(<font color="#FF0000"><?php if($this->attribute_info) echo $this->escapeHtml($this->attribute_info->attribute_name); ?></font>)</strong></p>
+        	<form method="post" action="<?php echo (isset($this->value_info) ? '' : $this->url('attribute/default/attribute-id',array('action'=>'addAttributeValue','attribute_id'=>$this->attribute_info->attribute_id))); ?>" id="value_form" name="value_form">
+            <p class="pull-right">
+            <a href="<?php echo $this->url('attribute/default',array('action'=>'index')); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回属性列表'); ?></a>&nbsp;&nbsp;
+            <?php echo $this->translate('属性值名称'); ?> <input type="text" id="value_name" name="value_name" style="height:15px;" value="<?php if($this->value_info) echo $this->escapeHtml($this->value_info->value_name); ?>" size="40" />
+            &nbsp;&nbsp;<?php echo $this->translate('排序'); ?> <input type="text" id="value_sort" name="value_sort" style="height:15px;" value="<?php echo ($this->value_info ? $this->value_info->value_sort : '255'); ?>" size="10" />
+            &nbsp;&nbsp;<INPUT type="hidden" name="attribute_group_id" value="<?php if($this->attribute_info) echo $this->attribute_info->attribute_group_id; ?>"><button type="submit" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存属性值'); ?></button>&nbsp;
+            <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('goods_attribute_value_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+            </p>
+            </form>
+        	</div>
+            <form action="<?php echo $this->url('attribute/default',array('action'=>'allAttributeValueUpdate')); ?>" name="submit_form" id="submit_form" method="post">
+            <input type="hidden" name="attribute_id" value="<?php echo $this->attribute_info->attribute_id; ?>">
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="5%">ID</th>
+                    <th width="60%"><?php echo $this->translate('属性值名称'); ?></th>
+                    <th width="20%"><?php echo $this->translate('属性值排序'); ?></th>
+                    <th width="10%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php
+			if ($this->attribute_value_list) {
+				foreach ($this->attribute_value_list as $value_val) {
+			?>            
+            <tr>
+            	<td><?php echo $value_val['value_id']; ?></td>
+            	<td><?php echo $this->escapeHtml($value_val['value_name']); ?></td>
+                <td><input type="text" class="span3" name="value_sort[<?php echo $value_val['value_id']; ?>]" value="<?php echo $value_val['value_sort']; ?>"></td>
+            	<td><a href="<?php echo $this->url('attribute/default/attribute-id/attribute-value-id',array('action'=>'editAttributeValue','attribute_id'=>$value_val['attribute_id'], 'value_id'=>$value_val['value_id'])); ?>"><?php echo $this->translate('编辑'); ?></a><span>|</span><a href="javascript:;" onclick="return value_del_js(<?php echo $value_val['value_id']; ?>);"><?php echo $this->translate('删除'); ?></a></td>  
+            </tr>
+            <?php
+				}
+			}
+			?>
+                <tr>
+                    <td colspan="4" style="background: #FFF">
+                        <div class="pull-left span6" style="height: 30px; line-height: 30px;">
+                            <button type="submit" class="btn btn-small btn-primary"><i class="icon-tasks icon-white"></i> <?php echo $this->translate('批量修改'); ?></button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            </form>
+            
+<script>
+$(document).ready(function() {
+	$("#value_form").validate({
+		rules: {			
+			value_name: {
+				required: true,
+				maxlength:60
+			},
+			value_sort: {
+				number: true,
+				min:1,
+				max:255
+			}
+		},
+		messages: {
+			value_name: {
+				required: "<?php echo $this->translate('请输入属性值名称！'); ?>",
+				maxlength:"<?php echo $this->translate('属性值名称最长为60个汉字！'); ?>"
+			},
+			value_sort: {
+				number: "<?php echo $this->translate('排序必须为数字'); ?>",
+				min:"<?php echo $this->translate('排序最小为1'); ?>",
+				max:"<?php echo $this->translate('排序最大为255'); ?>"
+			}
+		}
+	});
+});
+
+//属性值删除js
+function value_del_js(value_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该属性值吗？'); ?>')) {
+	$.post("<?php echo $this->url('attribute/default/attribute-id',array('action'=>'delAttributeValue', 'attribute_id'=>$this->attribute_info->attribute_id)); ?>",{value_id:value_id},
+	function(data){
+		if(data != 'false') {
+			window.location.href='<?php echo $this->url('attribute/default/attribute-id',array('action'=>'attributeValue', 'attribute_id'=>$this->attribute_info->attribute_id)); ?>';
+			return true;
+		} else {
+			alert('<?php echo $this->translate('属性值删除失败！'); ?>');
+		}
+	});
+	}
+	return false;
+}
+</script>

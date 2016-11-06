@@ -1,0 +1,246 @@
+<div class="tabbable tabs-left">
+              <ul class="nav nav-tabs">
+              	<li><h5><?php echo $this->translate('虚拟商品'); ?></h5></li>
+                <li class="active"><a data-toggle="tab" href="#tag_a"><?php echo $this->translate('基本信息'); ?></a></li>
+              </ul>
+              <form class="form-horizontal" name="virtual_goods_form" id="virtual_goods_form" method="post" action="">
+                  <input type="hidden" name="goods_id" id="goods_id" value="<?php echo $this->goods_info->goods_id; ?>">
+                  <input type="hidden" name="virtual_goods_id" id="virtual_goods_id" value="">
+              <div class="tab-content">
+    			<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        			<div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php echo $this->translate('虚拟商品补货'); ?></strong></div>
+        			<div class="pull-right">
+                	<a href="<?php echo isset($this->goods_info) ? $this->url('goods/default/page',array('action'=>'index','controller'=>'goods', 'page'=>$this->page), array('query'=>$this->query)) : $this->url('goods/default',array('controller'=>'goods')); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回虚拟商品列表'); ?></a>&nbsp;
+                	<a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>&nbsp;
+                	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('virtual_goods_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+                	</div>
+        		</div>
+                <div id="tag_a" class="tab-pane active">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('基本信息'); ?></div>
+                	<div class="well admin_add_well">
+                        <div class="control-group">
+                            <label for="input01" class="control-label"><?php echo $this->translate('注意事项'); ?>：</label>
+                            <div class="controls" style="height: 30px;line-height: 30px;color: red;">
+                                <?php echo $this->translate('当类型设置为 自动生成 或 自动重复 时，只需要添加一条信息即可。'); ?>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('补货商品名称'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<input type="text" name="goods_name" readonly id="goods_name" class="span4" value="<?php echo $this->escapeHtml($this->goods_info->goods_name); ?>">
+            				</div>                        
+                        </div>   
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('账号'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+                                <input type="text" name="virtual_goods_account" id="virtual_goods_account" class="span4" value="">
+                                <select onchange="select_virtual_goods_account_type();" name="virtual_goods_account_type" id="virtual_goods_account_type" style="width: 100px;height: 25px;">
+                                    <option value="1"><?php echo $this->translate('手动添加'); ?></option>
+                                    <option value="2"><?php echo $this->translate('自动生成'); ?></option>
+                                    <option value="3"><?php echo $this->translate('自动重复'); ?></option>
+                                </select>
+            				</div>
+                        </div>
+                        <div class="control-group">
+                            <label for="input01" class="control-label"><?php echo $this->translate('密码'); ?><span class="must_add_value">*</span>：</label>
+                            <div class="controls">
+                                <input type="text" name="virtual_goods_password" id="virtual_goods_password" class="span4" value="">
+                                <select onchange="select_virtual_goods_password_type();" name="virtual_goods_password_type" id="virtual_goods_password_type" style="width: 100px;height: 25px;">
+                                    <option value="1"><?php echo $this->translate('手动添加'); ?></option>
+                                    <option value="2"><?php echo $this->translate('自动生成'); ?></option>
+                                    <option value="3"><?php echo $this->translate('自动重复'); ?></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="input01" class="control-label"><?php echo $this->translate('有效日期至'); ?>：</label>
+                            <div class="controls">
+                                <input type="text" name="virtual_goods_end_time" id="virtual_goods_end_time" value="" onclick="WdatePicker({el:'virtual_goods_end_time', dateFmt:'yyyy-MM-dd'})" class="span2 Wdate">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="input01" class="control-label"></label>
+                            <div class="controls">
+                                <button type="submit" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('点击给虚拟商品补货'); ?></button>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th width="20%"><?php echo $this->translate('商品名称'); ?></th>
+                                    <th width="15%"><?php echo $this->translate('账号'); ?></th>
+                                    <th width="6%"><?php echo $this->translate('账号类型'); ?></th>
+                                    <th width="15%"><?php echo $this->translate('密码'); ?></th>
+                                    <th width="6%"><?php echo $this->translate('密码类型'); ?></th>
+                                    <th width="8%"><?php echo $this->translate('到期时间'); ?></th>
+                                    <th width="6%"><?php echo $this->translate('状态'); ?></th>
+                                    <th width="12%"><?php echo $this->translate('订单编号'); ?></th>
+                                    <th width="15%"><?php echo $this->translate('操作'); ?></th>
+                                </tr>
+                                </thead>
+                                <tbody id="virtual-goods-body">
+                                <?php
+                                if($this->virtual_goods_list) {
+                                    $typeArray = array(1=>$this->translate('手动添加'), 2=>$this->translate('自动生成'), 3=>$this->translate('自动重复'));
+                                    foreach($this->virtual_goods_list as $value) {
+                                ?>
+                                    <tr id="virtual-goods-<?php echo $value['virtual_goods_id']; ?>">
+                                        <td><?php echo $this->escapeHtml($this->goods_info->goods_name); ?></td>
+                                        <td><?php echo $this->escapeHtml($value['virtual_goods_account']); ?></td>
+                                        <td><?php echo $typeArray[$value['virtual_goods_account_type']]; ?></td>
+                                        <td><?php echo $this->escapeHtml($value['virtual_goods_password']); ?></td>
+                                        <td><?php echo $typeArray[$value['virtual_goods_password_type']]; ?></td>
+                                        <td><?php echo ($value['virtual_goods_end_time'] == 0 ? '' : date("Y-m-d", $value['virtual_goods_end_time'])); ?></td>
+                                        <td>
+                                            <?php
+                                            if($value['virtual_goods_state']==1) echo $this->translate('未交易');
+                                            if($value['virtual_goods_state']==2) echo '<strong style="color: green;">'.$this->translate('已交易').'</strong>';
+                                            if($value['virtual_goods_state']==3) echo '<strong style="color: red;">'.$this->translate('已过期').'</strong>';
+                                            ?>
+                                        <td><?php echo $value['order_sn']; ?></td>
+                                        <td>
+                                            <?php if($value['virtual_goods_state'] == 1 or $value['virtual_goods_state'] == 3) { ?>
+                                            <a href="javascript:;" onclick="edit_virtual_goods(<?php echo $value['virtual_goods_id']; ?>);"><?php echo $this->translate('编辑'); ?></a><span>|</span><a href="javascript:;" onclick="del_virtual_goods(<?php echo $value['virtual_goods_id']; ?>, <?php echo $this->goods_info->goods_id; ?>);"><?php echo $this->translate('删除'); ?></a>
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
+                                <?php } } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                  	</div>
+                </div>
+                
+             </div>
+              </form>
+</div>
+<script src="<?php echo $this->basePath('/public/js/DatePicker/WdatePicker.js'); ?>"></script>
+<script>
+    $(document).ready(function() {
+        $("#virtual_goods_form").validate({
+            success : function(label){
+                label.addClass('validate_right').text('OK!');
+            },
+            rules: {
+                virtual_goods_account: {
+                    required: true
+                },
+                virtual_goods_password: {
+                    required: true
+                }
+            },
+            messages: {
+                virtual_goods_account: {
+                    required: "<?php echo $this->translate('账号不能为空！'); ?>"
+                },
+                virtual_goods_password: {
+                    required: "<?php echo $this->translate('密码不能为空！'); ?>"
+                }
+            },
+            submitHandler:function(form){
+                save_virtual_goods();
+            }
+        });
+    });
+    function save_virtual_goods() {
+        $.post("<?php echo $this->url('goods/default', array('action'=>'saveVirtualGoods')); ?>",$('#virtual_goods_form').formSerialize(),
+            function(data){
+                if(data.state == 'true') {
+                    var html = '';
+                    if(data.goods.type == 'add') {
+                        html = '<tr id="virtual-goods-'+data.goods.virtual_goods_id+'">';
+                    }
+
+                    html += '<td><?php echo $this->escapeHtml($this->goods_info->goods_name); ?></td>';
+                    html += '<td>'+data.goods.virtual_goods_account+'</td>';
+                    html += '<td>'+data.goods.virtual_goods_account_type+'</td>';
+                    html += '<td>'+data.goods.virtual_goods_password+'</td>';
+                    html += '<td>'+data.goods.virtual_goods_password_type+'</td>';
+                    html += '<td>'+data.goods.virtual_goods_end_time+'</td>';
+                    html += '<td>'+data.goods.virtual_goods_state+'</td>';
+                    html += '<td>'+data.goods.order_sn+'</td>';
+                    if(data.goods.v_state == 1 || data.goods.v_state == 3) {
+                        html += '<td><a href="javascript:;" onclick="edit_virtual_goods('+data.goods.virtual_goods_id+');"><?php echo $this->translate('编辑'); ?></a><span>|</span><a href="javascript:;" onclick="del_virtual_goods('+data.goods.virtual_goods_id+', <?php echo $this->goods_info->goods_id; ?>);"><?php echo $this->translate('删除'); ?></a></td>';
+                    } else {
+                        html += '<td></td>';
+                    }
+
+                    if(data.goods.type == 'add') {
+                        html += '</tr>';
+                        $('#virtual-goods-body').prepend(html);
+                    } else {
+                        $('#virtual_goods_id').val('');
+                        $('#virtual-goods-'+data.goods.virtual_goods_id).html(html);
+                    }
+
+                    $('#virtual_goods_account').attr('readonly', false);
+                    $('#virtual_goods_password').attr('readonly', false);
+                    $('#virtual_goods_form').resetForm();
+                } else {
+                    alert(data.message);
+                    return false;
+                }
+            }, 'json');
+    }
+    function edit_virtual_goods(virtual_goods_id) {
+        $.post("<?php echo $this->url('goods/default', array('action'=>'infoVirtualGoods')); ?>",{virtual_goods_id:virtual_goods_id},
+            function(data){
+                if(data.state == 'true') {
+                    $('#virtual_goods_account').val(data.goods.virtual_goods_account);
+                    $('#virtual_goods_password').val(data.goods.virtual_goods_password);
+                    if(data.goods.virtual_goods_account_type == 2) {
+                        $('#virtual_goods_account').attr('readonly', true);
+                    }
+                    if(data.goods.virtual_goods_password_type == 2) {
+                        $('#virtual_goods_password').attr('readonly', true);
+                    }
+                    if(data.goods.virtual_goods_end_time != '') {
+                        $('#virtual_goods_end_time').val(data.goods.virtual_goods_end_time);
+                    }
+                    $('#virtual_goods_id').val(data.goods.virtual_goods_id);
+
+                    $("#virtual_goods_account_type option[value='"+data.goods.virtual_goods_account_type+"']").attr("selected", "selected");
+                    $("#virtual_goods_password_type option[value='"+data.goods.virtual_goods_password_type+"']").attr("selected", "selected");
+                } else {
+                    alert(data.messages);
+                    return false;
+                }
+            }, 'json');
+    }
+    function del_virtual_goods(virtual_goods_id, goods_id) {
+        if(window.confirm('<?php echo $this->translate('您确实要删除该虚拟商品吗？'); ?>')) {
+            $.post("<?php echo $this->url('goods/default', array('action'=>'delVirtualGoods')); ?>",{virtual_goods_id:virtual_goods_id,goods_id:goods_id},
+                function(data){
+                    if(data == 'true') {
+                        //window.location.reload();
+                        $('#virtual-goods-'+virtual_goods_id).remove();
+                    } else {
+                        alert(data);
+                        return false;
+                    }
+                });
+        }
+        return false;
+    }
+    function select_virtual_goods_account_type() {
+        var account_type = $('#virtual_goods_account_type').val();
+        if(account_type == 2) {
+            $('#virtual_goods_account').val('Auto Create');
+            $('#virtual_goods_account').attr('readonly', true);
+        } else {
+            $('#virtual_goods_account').val('');
+            $('#virtual_goods_account').attr('readonly', false);
+        }
+    }
+    function select_virtual_goods_password_type() {
+        var password_type = $('#virtual_goods_password_type').val();
+        if(password_type == 2) {
+            $('#virtual_goods_password').val('Auto Create');
+            $('#virtual_goods_password').attr('readonly', true);
+        } else {
+            $('#virtual_goods_password').val('');
+            $('#virtual_goods_password').attr('readonly', false);
+        }
+    }
+</script>

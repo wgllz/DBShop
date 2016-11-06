@@ -1,0 +1,302 @@
+<div class="tabbable tabs-left">
+              <ul class="nav nav-tabs">
+              	<li><h5><?php echo $this->translate('分类信息'); ?></h5></li>
+                <li class="active"><a data-toggle="tab" href="#class_a"><?php echo $this->translate('基本信息'); ?></a></li>
+                <?php if($this->class_info) { ?>
+                <li class=""><a data-toggle="tab" href="#class_b"><?php echo $this->translate('分类商品'); ?></a></li>
+                <?php } ?>
+                <li class=""><a data-toggle="tab" href="#class_d"><?php echo $this->translate('分类显示'); ?></a></li>
+                <li class=""><a data-toggle="tab" href="#class_c"><?php echo $this->translate('搜索引擎优化'); ?></a></li>
+              </ul>
+              <form class="form-horizontal" method="post" name="class_add_form" id="class_add_form" enctype="multipart/form-data" action="<?php echo $this->url('class/default/class_id',array('action'=>($this->class_info ? 'edit' : 'add'),'controller'=>'class','class_id'=>($this->class_info ? $this->class_info->class_id : '0'))); ?>">
+              <input type="hidden" name="class_id" id="class_id" value="<?php echo ($this->class_info ? $this->class_info->class_id : ''); ?>" />
+              <input type="hidden" name="class_save_type" id="class_save_type" value="" />
+              <div class="tab-content">
+    			<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        			<div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php if($this->class_info) echo $this->translate('编辑'); else echo $this->translate('新加'); ?><?php echo $this->translate('商品分类'); ?></strong></div>
+        			<div id="sticky_navigation_right" class="pull-right">
+                	<a href="<?php echo $this->url('class/default',array('action'=>'index','controller'=>'class')); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回分类列表'); ?></a>&nbsp;
+                	<a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>&nbsp;
+                    <?php if($this->class_info) { ?>
+                    <a href="javascript:;" onclick="return class_del_js(<?php echo $this->class_info->class_id ?>)" class="btn btn-small btn-danger"><i class="icon-remove icon-white"></i> <?php echo $this->translate('删除分类'); ?></a>&nbsp;
+                    <button type="submit" onclick="$('#class_save_type').val('save_return_edit');" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存分类并继续编辑'); ?></button>&nbsp;
+                    <?php } ?>
+                	<button type="submit" onclick="$('#class_save_type').val('');" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存分类'); ?></button>&nbsp;
+                	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('goods_class_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+                	</div>
+        		</div>
+                <div id="class_a" class="tab-pane active">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('基本信息'); ?></div>
+                	<div class="well admin_add_well">
+                        <div class="message_one">
+                    	</div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('分类名称'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+								<?php if($this->class_info) { ?>
+									<input type="text" id="class_name"  name="class_name" value="<?php echo ($this->class_info ? $this->escapeHtml($this->class_info->class_name) : ''); ?>" class="span6">
+								<?php } else { ?>
+									<textarea name="class_name" id="class_name" class="span4" rows="3" placeholder="<?php echo $this->translate('可以一次性添加多个分类，一行一个分类，用回车换行即可。'); ?>"></textarea>
+								<?php } ?>
+            				</div>
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('分类状态'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<select id="class_state" name="class_state" class="span2">
+                                <option value="1" <?php if($this->class_info and $this->class_info->class_state == 1) echo 'selected="selected"'; ?>><?php echo $this->translate('启用'); ?></option>
+                                <option value="0" <?php if($this->class_info and $this->class_info->class_state == 0) echo 'selected="selected"'; ?>><?php echo $this->translate('禁用'); ?></option>
+                                </select>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('上级分类'); ?>：</label>
+           					<div class="controls">
+              					<select id="class_top_id" name="class_top_id" class="span2">
+                                <option value="0"><?php echo $this->translate('请选择'); ?></option>
+                                <?php
+                                if ($this->goods_class) {
+                                	foreach ($this->goods_class as $class_val) {
+								?>
+                                <option value="<?php echo $class_val['class_id'] ?>" <?php if(($this->class_info and $this->class_info->class_top_id == $class_val['class_id']) or ($class_val['class_id'] == $this->top_class_id)) { ?>selected="selected"<?php } ?>><?php echo str_repeat('&nbsp;', $class_val['class_level'] * 5).$class_val['class_name']; ?></option>
+                                <?php
+                                	}
+                                }
+								?>
+                                </select>
+            				</div>                        
+                        </div>
+                        <!-- 
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('分类图标'); ?>：</label>
+           					<div class="controls">
+              					<?php if($this->class_info and $this->class_info->class_icon) { ?>
+              					<p id="show_class_icon">
+                                <img src="<?php echo $this->basePath($this->class_info->class_icon); ?>" style="height:80px;" border="0">
+                                <a href="javascript:;" onclick="del_class_image(<?php echo $this->class_info->class_id; ?>,'class_icon');"><span class="badge badge-important" style="vertical-align:bottom">X</span></a>
+                                </p>
+              					<input type="hidden" name="old_class_icon" value="<?php echo $this->class_info->class_icon; ?>">
+              					<?php } ?>
+              					<input type="file" name="class_icon" id="class_icon">
+            				</div>                        
+                        </div> 
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('分类描述'); ?>：</label>
+           					<div class="controls">
+              					<script type="text/plain" id="class_info" name="class_info"><?php if($this->class_info and $this->class_info->class_info) echo $this->class_info->class_info; ?></script>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('分类图片'); ?>：</label>
+           					<div class="controls">
+              					<?php if($this->class_info and $this->class_info->class_image) { ?>
+              					<p id="show_class_image">
+                                <img src="<?php echo $this->basePath($this->class_info->class_image); ?>" style="height:80px;" border="0">
+                                <a href="javascript:;" onclick="del_class_image(<?php echo $this->class_info->class_id; ?>,'class_image');"><span class="badge badge-important" style="vertical-align:bottom">X</span></a>
+                                </p>
+              					<input type="hidden" name="old_class_image" value="<?php echo $this->class_info->class_image; ?>">
+              					<?php } ?>
+              					<input type="file" name="class_image" id="class_image">
+            				</div>                        
+                        </div>
+                         -->
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('分类排序'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="class_sort" name="class_sort" class="span2" value="<?php if($this->class_info and $this->class_info->class_sort) echo $this->class_info->class_sort; else echo '255'; ?>">
+            				</div>                        
+                        </div>                                                                     
+                  	</div>
+                </div>
+                
+                <?php if($this->class_info) { ?>             
+                 <div id="class_b" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('分类商品'); ?></div>
+                	<div class="well admin_add_well" style="padding:2px;">
+                        <div class="message_one">
+                    	</div> 
+            <table class="table table-hover" id="list_goods_show">
+
+            </table>                  
+                  	</div>
+                </div>
+                
+                <?php } ?>
+                 <div id="class_d" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('分类显示(标签组)'); ?></div>
+                	<div class="well admin_add_well" style="padding:2px;">
+                        <div class="message_one">
+                    	</div> 
+              			<?php if ($this->goods_tag_group) {
+							foreach($this->goods_tag_group as $tag_group_key => $tag_group) {
+						?>                        
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $tag_group; ?>：</label>
+           					<div class="controls">
+                            <label class="checkbox inline">
+                            	<input type="checkbox" name="tag_group_id[]" value="<?php echo $tag_group_key; ?>" <?php if (isset($this->class_tag_group) and !empty($this->class_tag_group) and in_array($tag_group_key, $this->class_tag_group)) echo 'checked="checked"'; ?> />&nbsp;&nbsp;&nbsp;&nbsp;
+              					<?php if ($this->goods_tag[$tag_group_key]) {
+									foreach($this->goods_tag[$tag_group_key] as $tag_val) {
+									 echo $tag_val['tag_name'] . '&nbsp;&nbsp;&nbsp;';
+                                 } } ?>
+                            </label>
+            				</div>                        
+                        </div>
+                        <?php } } ?>
+                        
+                  	</div>
+                </div>
+                                
+                 <div id="class_c" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('搜索引擎优化'); ?></div>
+                	<div class="well admin_add_well">
+                        <div class="message_one">
+                    	</div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('扩展标题'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="class_title_extend" value="<?php if($this->class_info and $this->class_info->class_title_extend) echo $this->escapeHtml($this->class_info->class_title_extend); ?>"  name="class_title_extend" class="span12">
+            				</div>                        
+                        </div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品分类关键词'); ?>：</label>
+           					<div class="controls">
+              					<textarea class="span12" rows="1" name="class_keywords" id="class_keywords"><?php if($this->class_info and $this->class_info->class_keywords) echo $this->escapeHtml($this->class_info->class_keywords); ?></textarea>
+            				</div>                        
+                        </div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品分类描述'); ?>：</label>
+           					<div class="controls">
+              					<textarea class="span12" rows="3" name="class_description" id="class_description"><?php if($this->class_info and $this->class_info->class_description) echo $this->escapeHtml($this->class_info->class_description); ?></textarea>
+            				</div>                        
+                        </div>                                          
+                  	</div>                                         
+              </div>
+             </div>
+              </form>
+</div>
+<?php
+/*echo $this->partial('common/editor',array('edit_array'=>array('class_info'),
+'edit_config'=>array(
+"toolbars:[['FullScreen', 'Source', 'Undo', 'Redo','Bold']]",
+"wordCount:false",
+"initialFrameHeight:100",
+"elementPathEnabled:false",
+"maximumWords:500"
+)));*/
+ ?>
+
+<script>
+//分类保存验证
+$(document).ready(function() {
+	$("#class_add_form").validate({
+		rules: {
+			class_name: {
+				required: true,
+				minlength:2,
+				maxlength:50
+			},
+			class_state: {
+				required: true
+			},
+			<?php if($this->class_info) { ?>
+			class_top_id: {
+				remote :{
+					url : '<?php echo $this->url('class/default/class_id',array('action'=>'checkclasstop','controller'=>'class','class_id'=>$this->class_info->class_id)); ?>',
+					type : 'post',
+					date : {
+						class_top_id :function(){
+							return $('#class_top_id').val();
+						}
+					}
+				}
+			},
+			<?php } ?>
+			class_sort: {
+				number: true,
+				min:1,
+				max:255
+			},
+			class_title_extend: {
+				maxlength:30
+			},
+			class_keywords: {
+				maxlength:80
+			},
+			class_description: {
+				maxlength:300
+			}
+		},
+		messages: {
+			class_name: {
+				required: "<?php echo $this->translate('请输入分类名称！'); ?>",
+				minlength:"<?php echo $this->translate('分类名称最短2个字符！'); ?>",
+				maxlength:"<?php echo $this->translate('分类名称最长为50位字符！'); ?>"
+			},
+			class_state: {
+				required: "<?php echo $this->translate('请选择分类状态'); ?>"
+			},
+			<?php if($this->class_info) { ?>
+			class_top_id: {
+				remote : "<?php echo $this->translate('上级分类不能为自己下级分类或本身分类！'); ?>"
+			},
+			<?php } ?>
+			class_sort: {
+				number: "<?php echo $this->translate('分类排序必须为数字'); ?>",
+				min:"<?php echo $this->translate('分类排序最小为1'); ?>",
+				max:"<?php echo $this->translate('分类排序最大为255'); ?>"
+			},
+			class_title_extend: {
+				maxlength:"<?php echo $this->translate('扩展标题最长为30个字符！'); ?>"
+			},
+			class_keywords: {
+				maxlength:"<?php echo $this->translate('商品分类关键字最长为80个字符！'); ?>"
+			},
+			class_description: {
+				maxlength:"<?php echo $this->translate('商品分类描述最长为300个字符！'); ?>"
+			}
+		}
+	});
+});
+//分类删除操作js，检查分类下是否有子分类
+function class_del_js(goods_class_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该分类吗？'); ?>')) {
+	$.post("<?php echo $this->url('class/default',array('action'=>'del','controller'=>'class')); ?>",{class_id:goods_class_id},
+		function(data){
+			if(data != 'false') {
+				window.location.href='<?php echo $this->url('class/default',array('controller'=>'class')); ?>';
+				return true;
+			} else {
+				alert('<?php echo $this->translate('该分类下还有子分类，无法删除该分类！'); ?>');
+			}
+		});
+	}
+	return false;
+}
+
+<?php if ($this->success_msg != '') { ?>
+show_message('.message_one','<?php echo date("Y-m-d H:i:s"); ?>','<?php echo $this->success_msg; ?>','alert-success');
+<?php } ?>
+
+<?php if($this->class_info) { ?>
+//删除分类的图标或图片
+function del_class_image(class_id,del_image) {
+	$.post("<?php echo $this->url('class/default',array('action'=>'delimage','controller'=>'class')); ?>",{class_id:class_id,del_image:del_image},
+	function(data){
+		if(data != 'false') {
+			$('#show_'+del_image).css('display','none');
+		} else {
+			alert('<?php echo $this->translate('分类图片删除失败！'); ?>');
+		}
+	});	
+}
+//ajax获取分类下面的商品
+dbshop_ajax_list('<?php echo $this->url('class/default/class_id',array('action'=>'ajaxgoods','controller'=>'class','class_id'=>$this->class_info->class_id)); ?>', 'list_goods_show');
+//搜索操作
+function ajax_search_class_goods() {
+	var serach_url = '<?php echo $this->url('class/default',array('action'=>'ajaxgoods','controller'=>'class','module'=>'goods','class_id'=>$this->class_info->class_id),null,true); ?>';
+	serach_url     = serach_url+'/start_goods_id/'+$("#start_goods_id").val()+'/end_goods_id/'+$("#end_goods_id").val()+'/goods_name/'+$("#goods_name").val()+'/goods_item/'+$("#goods_item").val()+'/start_goods_price/'+$("#start_goods_price").val()+'/end_goods_price/'+$("#end_goods_price").val()+'/goods_state/'+$("#goods_state").val();
+	dbshop_ajax_list(serach_url, 'list_goods_show');
+}
+<?php } ?>
+</script>

@@ -1,0 +1,30 @@
+    		<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('管理整合'); ?></strong></p>
+        	<p class="pull-right">
+            <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('user_integration_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+            </p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="60%"><?php echo $this->translate('接口名称'); ?></th>
+                    <th width="25%"><?php echo $this->translate('接口状态'); ?></th>
+                    <th width="15%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php
+			if ($this->integration) {
+				foreach ($this->integration as $integration_val) {
+			?>            
+            <tr>
+            	<td><?php echo $integration_val['integration_name']['content']; ?></td>
+            	<td><?php echo ($integration_val['ucenter_state']['checked']==1 ? $this->translate('开启') : $this->translate('关闭')); ?></td>
+            	<td>
+                <a href="<?php echo $this->url('userintegration/default',array('action'=>'edit', 'integrationtype'=>$integration_val['editaction'])); ?>"><?php echo $this->translate('编辑'); ?></a>
+                </td>  
+            </tr>
+            <?php
+				}
+			}
+			?>
+            </table>

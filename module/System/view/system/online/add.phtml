@@ -1,0 +1,144 @@
+<div class="tabbable tabs-left">
+              <ul class="nav nav-tabs">
+              	<li><h5><?php echo $this->translate('在线客服'); ?></h5></li>
+                <li class="active"><a data-toggle="tab" href="#express_a"><?php echo $this->translate('基本信息'); ?></a></li>
+              </ul>
+              <form class="form-horizontal" name="online_form" id="online_form" method="post" action="">
+              <input type="hidden" name="online_id" id="online_id" value="<?php if($this->online_info) echo $this->online_info->online_id; else echo ''; ?>" />
+              <div class="tab-content">
+    			<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        			<div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php if($this->online_info) echo $this->translate('编辑'); else echo $this->translate('新加'); ?><?php echo $this->translate('在线客服'); ?></strong></div>
+        			<div class="pull-right">
+                	<a href="<?php echo $this->url('online/default'); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回在线客服列表'); ?></a>&nbsp;
+                	<a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>&nbsp;
+                    <?php if($this->online_info) { ?>
+                    <a href="javascript:;" onclick="return online_del_js(<?php echo $this->online_info->online_id ?>);" class="btn btn-small btn-danger"><i class="icon-remove icon-white"></i> <?php echo $this->translate('删除在线客服'); ?></a>&nbsp;
+                    <?php } ?>
+                	<button type="submit" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存在线客服信息'); ?></button>&nbsp;
+                	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('online_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+                	</div>
+        		</div>
+                <div id="express_a" class="tab-pane active">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('基本信息'); ?></div>
+                	<div class="well admin_add_well"> 
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('在线客服名称'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<input type="text" id="online_name"  name="online_name" class="span6" value="<?php echo ($this->online_info ? $this->escapeHtml($this->online_info->online_name) : ''); ?>">
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('客服组名称'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<select class="span2" name="online_group_id" id="online_group_id">
+                                <option value=""><?php echo $this->translate('请选择客户组'); ?></option>
+                                <?php if($this->group_list) foreach ($this->group_list as $group_value) { ?>
+                                <option value="<?php echo $group_value['online_group_id']; ?>" <?php if ($this->online_info and $this->online_info->online_group_id == $group_value['online_group_id']) echo 'selected="selected"'; ?>><?php echo $this->escapeHtml($group_value['online_group_name']); ?></option>
+                                <?php } ?>
+                                </select>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('通讯工具'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<select class="span2" name="online_type" id="online_type">
+                                <option value=""><?php echo $this->translate('选择通讯工具'); ?></option>
+                                <?php foreach ($this->online_type_array as $key => $val) { ?>
+                                <option value="<?php echo $key; ?>" <?php if ($this->online_info and $this->online_info->online_type == $key) echo 'selected="selected"'; ?>><?php echo $val['type_name']; ?></option>
+                                <?php } ?>
+                                </select>
+                                <?php echo $this->translate('如果您设置的是QQ 需要到这里开通下 <a href=\'http://shang.qq.com/widget/set.php\' target=\'_blank\'>http://shang.qq.com/widget/set.php</a>'); ?>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('通讯帐号'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<input type="text" id="online_account"  name="online_account" class="span6" value="<?php echo ($this->online_info ? $this->escapeHtml($this->online_info->online_account) : ''); ?>">
+            				</div>                        
+                        </div> 
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('客服排序'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<input type="text" class="span1" name="online_sort" id="online_sort" value="<?php echo ($this->online_info ? $this->online_info->online_sort : 255); ?>" />
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('客服状态'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<label class="radio inline"><input type="radio" value="1" <?php if(($this->online_group_info and $this->online_group_info->online_state == 1) or !$this->online_group_info) echo 'checked="checked"'; ?> name="online_state"><?php echo $this->translate('启用'); ?></label>
+                                <label class="radio inline"><input type="radio" value="0" <?php if($this->online_group_info and $this->online_group_info->online_state == 0) echo 'checked="checked"'; ?> name="online_state"><?php echo $this->translate('禁用'); ?></label> 
+            				</div>                        
+                        </div>                                                                                                                                               
+                  	</div>
+                </div>
+                                
+                
+             </div>
+              </form>
+</div>
+<script>
+$(document).ready(function() {
+	$("#online_form").validate({
+		rules: {
+			online_name: {
+				required: true,
+				maxlength:30
+			},
+			online_group_id: {
+				required: true
+			},
+			online_type: {
+				required: true
+			},
+			online_account: {
+				required: true,
+				maxlength:60
+			},
+			online_sort: {
+				required: true,
+				number: true,
+				min:1,
+				max:255
+			}
+		},
+		messages: {
+			online_name: {
+				required: "<?php echo $this->translate('在线客服名称不能为空！'); ?>",
+				maxlength: "<?php echo $this->translate('在线客服名称最多输入30个汉字！'); ?>"
+			},
+			online_group_id: {
+				required: "<?php echo $this->translate('请选择客户组！'); ?>"
+			},
+			online_type: {
+				required: "<?php echo $this->translate('请选择通讯工具！'); ?>"
+			},
+			online_account: {
+				required: "<?php echo $this->translate('在线客服帐号不能为空！'); ?>",
+				maxlength: "<?php echo $this->translate('在线客服帐号最多输入100个字符！'); ?>"
+			},
+			online_sort: {
+				required: "<?php echo $this->translate('在线客服排序不能为空！'); ?>",
+				number: "<?php echo $this->translate('在线客服排序必须为数字！'); ?>",
+				min: "<?php echo $this->translate('在线客服排序最小为1！'); ?>",
+				max: "<?php echo $this->translate('在线客服排序最大为255！'); ?>"
+			}
+		}
+	});
+});
+
+//在线客服删除js
+function online_del_js(online_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该在线客服吗？'); ?>')) {
+	$.post("<?php echo $this->url('online/default',array('action'=>'del')); ?>",{online_id:online_id},
+	function(data){
+		if(data != 'false') {
+			window.location.href='<?php echo $this->url('online/default'); ?>';
+			return true;
+		} else {
+			alert('<?php echo $this->translate('在线客服删除失败！'); ?>');
+		}
+	});
+	}
+	return false;
+}
+</script>

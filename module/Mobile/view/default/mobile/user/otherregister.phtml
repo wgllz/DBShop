@@ -1,0 +1,23 @@
+<?php if ($this->frontwebsite()->getUserIni('user_register_state') == 'true') { ?>
+<form class="validforms" method="post" name="formLogin">
+    <div class="flow-consignee ect-bg-colorf">
+        <ul>
+            <li>
+                <div class="input-text"><b><?php echo $this->translate('用户名'); ?><font class="must_add_value">*</font>：</b><span>
+                <input type="text" value="<?php echo $this->other_user_info['nickname']; ?>" errormsg="<?php echo $this->translate('用户名必须为3-30个字符'); ?>" datatype="*3-30" id="user_name" name="user_name" ajaxurl="<?php echo $this->url('m_user/default/user_id',array('action'=>'check','controller'=>'user','check_type'=>'user_name','user_id'=>($this->user_info ? $this->user_info->user_id : '0'))); ?>" placeholder="<?php echo $this->translate('请输入用户名'); ?>" nullmsg="<?php echo $this->translate('请输入用户名'); ?>">
+                </span></div>
+            </li>
+            <li>
+                <div class="input-text"><b><?php echo $this->translate('电子邮件'); ?><font class="must_add_value">*</font>：</b><span>
+                <input type="text" datatype="e" id="user_email" name="user_email" ajaxurl="<?php echo $this->url('m_user/default/user_id',array('action'=>'check','controller'=>'user','module'=>'user','check_type'=>'user_email','user_id'=>($this->user_info ? $this->user_info->user_id : '0'))); ?>" placeholder="<?php echo $this->translate('请输入电子邮箱'); ?>" nullmsg="<?php echo $this->translate('请输入电子邮箱'); ?>">
+                </span></div>
+            </li>
+        </ul>
+    </div>
+    <div class="ect-padding-lr ect-padding-tb"> <input type="submit" value="<?php echo $this->translate('提交补充信息'); ?>" class="btn btn-info ect-btn-info ect-colorf"></div>
+</form>
+<?php } else { ?>
+    <p class="ect-checkbox ect-padding-tb ect-margin-tb ect-margin-bottom0 ect-padding-lr">
+        <?php echo $this->frontwebsite()->getUserIni('register_close_message'); ?>
+    </p>
+<?php } ?>

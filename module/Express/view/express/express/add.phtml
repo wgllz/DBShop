@@ -1,0 +1,318 @@
+<div class="tabbable tabs-left">
+              <ul class="nav nav-tabs">
+              	<li><h5><?php echo $this->translate('配送方式'); ?></h5></li>
+                <li class="active"><a data-toggle="tab" href="#express_a"><?php echo $this->translate('基本信息'); ?></a></li>
+                <li><a data-toggle="tab" href="#express_b"><?php echo $this->translate('费用设置'); ?></a></li>
+              </ul>
+              <form class="form-horizontal" name="express_form" id="express_form" method="post" action="">
+              <input type="hidden" name="express_id" id="express_id" value="<?php if($this->express_info) echo $this->express_info->express_id; else echo ''; ?>" />
+              <div class="tab-content">
+    			<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        			<div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php if($this->express_info) echo $this->translate('编辑'); else echo $this->translate('新加'); ?><?php echo $this->translate('配送方式'); ?></strong></div>
+        			<div class="pull-right">
+                	<a href="<?php echo $this->url('express/default'); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回配送方式列表'); ?></a>&nbsp;
+                	<a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>&nbsp;
+                    <?php if($this->express_info) { ?>
+                    <a href="javascript:;" onclick="return express_del_js(<?php echo $this->express_info->express_id ?>);" class="btn btn-small btn-danger"><i class="icon-remove icon-white"></i> <?php echo $this->translate('删除配送方式'); ?></a>&nbsp;
+                    <?php } ?>
+                	<button type="submit" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存配送方式信息'); ?></button>&nbsp;
+                	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('express_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+                	</div>
+        		</div>
+                <div id="express_a" class="tab-pane active">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('基本信息'); ?></div>
+                	<div class="well admin_add_well"> 
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('配送(公司)名称'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<input type="text" id="express_name"  name="express_name" class="span6" value="<?php echo ($this->express_info ? $this->escapeHtml($this->express_info->express_name) : ''); ?>">
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('配送(公司)简介'); ?>：</label>
+           					<div class="controls">
+              					<textarea class="span8" name="express_info" id="express_info" rows="4"><?php echo ($this->express_info ? $this->escapeHtml($this->express_info->express_info) : ''); ?></textarea>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('配送公司网址'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="express_url"  name="express_url" class="span6" value="<?php echo ($this->express_info ? $this->escapeHtml($this->express_info->express_url) : ''); ?>">
+            				</div>
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('动态绑定'); ?>：</label>
+           					<div class="controls">
+              					<select name="express_name_code" id="express_name_code" class="span2">
+                                	<option value=""><?php echo $this->translate('请选择'); ?></option>
+                                    <?php
+                                    if(isset($this->express_get_data['express']) and !empty($this->express_get_data['express'])) {
+										foreach($this->express_get_data['express'] as $ex_val) {
+									?>
+                                    <option value="<?php echo $ex_val['express_code']; ?>" <?php if(isset($this->express_info->express_name_code) and $ex_val['express_code'] == $this->express_info->express_name_code) echo 'selected="selected"'; ?>><?php echo $ex_val['express_name']; ?></option>
+                                    <?php } } ?>
+                                </select>
+                                <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('当设置了动态绑定后，买家可以在前台查看订单商品的配送物流状况。前提是设置了正确的动态API并且启用，否则不起作用。'); ?>"></i>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('货到付款'); ?>：</label>
+           					<div class="controls">
+              					<select name="cash_on_delivery" id="cash_on_delivery" class="span1">
+                                	<option value="2" <?php if((isset($this->express_info->cash_on_delivery) and $this->express_info->cash_on_delivery==2) or !isset($this->express_info->cash_on_delivery)) { ?>selected="selected"<?php } ?>><?php echo $this->translate('不支持'); ?></option>
+                                    <option value="1" <?php if(isset($this->express_info->cash_on_delivery) and $this->express_info->cash_on_delivery==1) { ?>selected="selected"<?php } ?>><?php echo $this->translate('支持'); ?></option>
+                                </select>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('配送状态'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<label class="radio inline"><input type="radio" value="1" <?php if(($this->express_info and $this->express_info->express_state == 1) or !$this->express_info) echo 'checked="checked"'; ?> name="express_state"><?php echo $this->translate('开启'); ?></label>
+                                <label class="radio inline"><input type="radio" value="0" <?php if($this->express_info and $this->express_info->express_state == 0) echo 'checked="checked"'; ?> name="express_state"><?php echo $this->translate('关闭'); ?></label> 
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('配送排序'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<input type="text" class="span1" name="express_sort" id="express_sort" value="<?php echo ($this->express_info ? $this->express_info->express_sort : 255); ?>" />
+            				</div>                        
+                        </div>
+                                                                                                                                               
+                  	</div>
+                </div>
+                
+				<div id="express_b" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('费用设置'); ?></div>
+                	<div class="well admin_add_well">
+                    	<div class="control-group" id="express_set_id">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('费用设置方式'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+                            	<label class="radio inline"><input type="radio" name="express_set" <?php if((isset($this->express_info) and $this->express_info->express_set != 'G') or !isset($this->express_info)) echo 'checked="checked"'; ?> value="T" onclick="change_express_type_js('T');" /><?php echo $this->translate('统一设置'); ?></label>
+                                <label class="radio inline"><input type="radio" name="express_set" <?php if(isset($this->express_info) and $this->express_info->express_set == 'G') echo 'checked="checked"'; ?> value="G" onclick="change_express_type_js('G');" /><?php echo $this->translate('个性化地区设置'); ?></label>
+            				</div>                        
+                        </div>
+                        
+                        <?php if ($this->indivi_array) foreach ($this->indivi_array as $indivi_value) { ?>
+						<div id="indiv_<?php echo $indivi_value['indiv_id']; ?>" class="control-group express_region_set">
+                        <label class="control-label" for="input01"><?php echo $this->translate('个性化设置'); ?>：</label>
+                        	<div class="controls">
+                            	<strong><?php echo $this->translate('配送费用（公式）'); ?></strong>：<?php echo $indivi_value['express_price']; ?><br>
+                                <strong><?php echo $this->translate('配送地区'); ?></strong>：
+                                <?php $area_name_str=''; if(isset($indivi_value['area']) and is_array($indivi_value['area']) and !empty($indivi_value['area'])) foreach ($indivi_value['area'] as $area_value) {
+                                	$area_name_str .= $area_value['region_name'] . ',';
+                                } 
+								echo substr($area_name_str, 0, -1);
+								?> 
+                                <br>
+                                <button type="button" onclick="edit_express_area(<?php echo $indivi_value['indiv_id']; ?>);" class="btn btn-small btn-primary"><i class="icon-arrow-up icon-white"></i> <?php echo $this->translate('编辑'); ?></button>&nbsp;&nbsp;
+                                <button type="button" onclick="del_express_area(<?php echo $indivi_value['indiv_id']; ?>);" class="btn btn-small btn-danger"><i class="icon-arrow-up icon-white"></i> <?php echo $this->translate('删除'); ?></button>
+                            </div>
+                         </div>
+                        <?php } ?>
+                        
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('配送费用（公式）'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+                            	<input type="text" class="span6" name="express_price" id="express_price" value="<?php if($this->express_info and $this->express_info->express_set == 'T') echo  $this->express_info->express_price; else echo '0'; ?>" />
+                                <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('输入框中可以输入单纯的数字费用，如：15 表示配送费用15元；也可以输入配送公式，然后通过下面的验证来测试自己的公式是否正确，理论上公式可以解决所有费用计算的难题。'); ?>"></i>
+                                <a href="http://www.dbshop.net/other/express.php" target="_blank" class="btn btn-small btn-primary"><i class="icon-hand-right icon-white"></i> <?php echo $this->translate('去官方智能生成公式'); ?></a>&nbsp;&nbsp;
+                                <a href="http://help.dbshop.net/index.php?title=%E9%85%8D%E9%80%81%E5%85%AC%E5%BC%8F%E8%AF%B4%E6%98%8E" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看配送公式说明'); ?></a>
+            				</div>                        
+                        </div>
+                    	<div class="control-group express_region_set" style="display:none">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('选择适用地区'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+                            <input type="hidden" name="indiv_id" id="indiv_id" value="" />
+                            <select multiple="multiple" id="my-select" name="express_area[]">
+                                <?php if($this->region_array) foreach ($this->region_array as $region_value) { ?> 
+                                <option value='<?php echo $region_value['region_id']; ?>'><?php echo str_repeat('&nbsp;', substr_count($region_value['region_path'], ',') * 3).$this->escapeHtml($region_value['region_name']); ?></option>
+                                <?php } ?>
+                            </select>
+            				</div>                        
+                        </div>
+                    	<div class="control-group express_region_set" style="display:none">
+                  			<label for="input01" class="control-label"></label>
+           					<div class="controls">
+                            <button class="btn btn-small btn-primary" type="button" id="add_g_area"><i class="icon-arrow-up icon-white"></i> <?php echo $this->translate('保存个性地区'); ?></button>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo sprintf($this->translate('%s配送公式验证%s'), '<strong>', '</strong>'); ?>：</label>
+           					<div class="controls">
+              					<i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('当配送费用(公式)中为单纯的数字费用而非公式时，无需进行公式验证处理。'); ?>"></i>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品重量'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" class="span2" name="test_weight" id="test_weight" value="0" /><?php echo $this->translate('克(g)'); ?>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('订单总价'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" class="span2" name="test_total" id="test_total" value="0" />
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('最终配送费用'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" class="span2" readonly="readonly" name="test_price" id="test_price" value="" />&nbsp;<button class="btn btn-small btn-primary" type="button" id="test_cost_js"><i class="icon-arrow-up icon-white"></i> <?php echo $this->translate('点击验证公式'); ?></button>
+            				</div>                        
+                        </div>
+                                                                                                                                               
+                  	</div>
+                </div>
+                                
+                
+             </div>
+              </form>
+</div>
+<link href="<?php echo $this->basePath('/public/js/multi/css/multi-select.css'); ?>" rel="stylesheet">
+<script src="<?php echo $this->basePath('/public/js/multi/jquery.multi-select.js'); ?>"></script>
+<script>
+$(document).ready(function() {
+	$("#express_form").validate({
+		rules: {
+			express_name: {
+				required: true,
+				maxlength:60
+			},
+			express_info: {
+				maxlength:300
+			},
+			express_url: {
+				maxlength:100
+			},
+			express_sort: {
+				required: true,
+				number: true,
+				min:1,
+				max:255
+			}
+		},
+		messages: {
+			express_name: {
+				required: "<?php echo $this->translate('配送名称不能为空！'); ?>",
+				maxlength: "<?php echo $this->translate('配送名称最多输入60个汉字！'); ?>"
+			},
+			express_info: {
+				maxlength: "<?php echo $this->translate('配送公司简介最多输入300个汉字！'); ?>"
+			},
+			express_url: {
+				maxlength: "<?php echo $this->translate('配送公司url最多输入100个字符！'); ?>"
+			},
+			express_sort: {
+				required: "<?php echo $this->translate('配送排序不能为空！'); ?>",
+				number: "<?php echo $this->translate('配送排序必须为数字！'); ?>",
+				min: "<?php echo $this->translate('配送排序最小为1！'); ?>",
+				max: "<?php echo $this->translate('配送排序最大为255！'); ?>"
+			}
+		}
+	});
+	//配送费用计算
+	$('#test_cost_js').click(function () {
+		var express_price = $('#express_price').val();
+		var test_weight   = $('#test_weight').val();
+		var test_total    = $('#test_total').val();
+		$.post("<?php echo $this->url('express/default',array('action'=>'checkexpress')); ?>",{express_price:express_price, test_weight:test_weight, test_total:test_total},
+		function (data) {
+			$('#test_price').val(data);
+		});
+	});
+	//切换配送费用设置方式
+	change_express_type_js =  function(express_type) {
+		if(express_type == 'T') {
+			$('.express_region_set').hide();	
+		} else {
+			$('.express_region_set').show();
+		}
+	};
+	<?php if($this->express_info) { ?>
+	change_express_type_js('<?php if($this->express_info->express_set == 'G') echo 'G'; else echo 'T'; ?>');
+	<?php } ?>
+
+	//配送地区选择
+	$('#my-select').multiSelect({
+		selectableHeader: "<div class='custom-header'><?php echo $this->translate('待选择地区'); ?></div>",
+		selectionHeader: "<div class='custom-header'><?php echo $this->translate('已选择地区'); ?></div>"
+	});
+	//添加个性化地区
+	$('#add_g_area').click(function () {
+		$.post("<?php echo $this->url('express/default',array('action'=>'addgexpressarea')); ?>",$('#express_form').formSerialize(),
+		function(data){
+			if(data.state == 'area_null') {
+				alert('<?php echo $this->translate('请选择地区信息'); ?>');
+				return false;
+			} else {
+				var html_str = '';
+				html_str = html_str + '<label for="input01" class="control-label"><?php echo $this->translate('个性化设置'); ?>：</label>';
+				html_str = html_str + '<div class="controls">';
+				html_str = html_str + '<strong><?php echo $this->translate('配送费用（公式）'); ?></strong>：' + data.express_price +'<br>';
+				html_str = html_str + '<strong><?php echo $this->translate('配送地区'); ?></strong>：' + data.express_area +'<br>';
+				html_str = html_str + '<button class="btn btn-small btn-primary" onclick="edit_express_area('+ data.indiv_id +');" type="button"><i class="icon-arrow-up icon-white"></i> <?php echo $this->translate('编辑'); ?></button>';
+				html_str = html_str + '&nbsp;&nbsp;<button class="btn btn-small btn-danger" onclick="del_express_area('+ data.indiv_id +');" type="button"><i class="icon-arrow-up icon-white"></i> <?php echo $this->translate('删除'); ?></button>';
+				
+				var add_html_str = '<div class="control-group express_region_set" id="indiv_'+data.indiv_id+'">' + html_str + '</div></div>';
+				
+				if(data.edit_type == 'true') {
+					$('#indiv_'+data.indiv_id).html(html_str);
+				} else {
+					$('#express_set_id').after(add_html_str);
+				}
+				
+				//重置地区选择
+				$('#my-select').multiSelect('deselect_all');
+				//个性化地区置空
+				$('#indiv_id').val('');
+				//配送费用重置
+				$('#express_price').val(0);
+			}
+		},'json');		
+	});
+});
+
+//个性化地区编辑
+function edit_express_area(indiv_id) {
+	$.post("<?php echo $this->url('express/default',array('action'=>'infogexpressarea')); ?>",{indiv_id:indiv_id},
+	function (data) {
+		if(data.state == 'true') {
+			$('#indiv_id').val(data.indiv_id);
+			$('#express_price').val(data.express_price);
+			$('#my-select').multiSelect('deselect_all');
+			$('#my-select').multiSelect('select', data.area_id);	
+		}
+	},'json');
+}
+//个性化地区删除
+function del_express_area(indiv_id) {
+	var indiv_id_value = $('#indiv_id').val();
+	$('#indiv_id').val(indiv_id);
+	if(window.confirm('<?php echo $this->translate('您确实要删除该个性化设置吗？'); ?>')) {
+		$.post("<?php echo $this->url('express/default',array('action'=>'delgexpressarea')); ?>",$('#express_form').formSerialize(),
+		function(data){
+			$('#indiv_id').val(indiv_id_value);
+			
+			if(data.state == 'true') {
+				$('#indiv_'+indiv_id).remove();
+			}
+		},'json');
+	}
+}
+
+//配送方式删除js
+function express_del_js(express_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该配送方式吗？'); ?>')) {
+	$.post("<?php echo $this->url('express/default',array('action'=>'del')); ?>",{express_id:express_id},
+	function(data){
+		if(data != 'false') {
+			window.location.href='<?php echo $this->url('express/default'); ?>';
+			return true;
+		} else {
+			alert('<?php echo $this->translate('配送方式删除失败！'); ?>');
+		}
+	});
+	}
+	return false;
+}
+</script>

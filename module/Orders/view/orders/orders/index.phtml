@@ -1,0 +1,147 @@
+<div style="height: 30px; border-bottom: 4px solid #DFDFDF;">
+	<p class="pull-left" style="font-size: 16px; line-height: 30px;">
+		<strong><?php echo $this->translate('订单管理'); ?></strong>
+	</p>
+	<p class="pull-right">
+        <a href="<?php echo $this->url('orders/default',array('action'=>'moreshipoper','controller'=>'Orders')); ?>" class="btn btn-primary btn-small"><i class="icon-plane icon-white"></i> <?php echo $this->translate('批量订单发货'); ?></a>&nbsp;&nbsp;
+		<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('order_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+	</p>
+</div>
+
+<input type="hidden" name="edit_type" id="edit_type" value="">
+<table class="table table-hover">
+	<thead style="background: #CCC;">
+		<tr>
+			<th width="3%">
+				<input type="checkbox" id="select_checkbox_state" onclick="selectCheckBox('order_id', 'select_checkbox_state');">
+			</th>
+			<th width="18%"><?php echo $this->translate('订单号'); ?></th>
+			<th width="15%"><?php echo $this->translate('购买人'); ?></th>
+			<th width="15%"><?php echo $this->translate('收货人'); ?></th>
+			<th width="10%"><?php echo $this->translate('订单状态'); ?></th>
+			<th width="10%"><?php echo $this->translate('订单总额'); ?></th>
+			<th width="10%"><?php echo $this->translate('下单时间'); ?></th>
+			<th width="12%"><?php echo $this->translate('操作'); ?></th>
+		</tr>
+	</thead>
+	<form method="GET" action="">
+		<tr class="goods_search" style="background: #F5F5F5;">
+			<td></td>
+			<td>
+					<input type="text" name="order_sn"
+						value="<?php if (isset($this->searchArray['order_sn'])) echo $this->searchArray['order_sn']; ?>"
+					 class="span11">
+			</td>
+			<td>
+				<input type="text" name="buyer_name"
+					value="<?php if (isset($this->searchArray['buyer_name'])) echo $this->searchArray['buyer_name']; ?>"
+					class="span11">
+			</td>
+			<td>
+				<p>
+					<input type="text" name="delivery_name"
+						value="<?php if (isset($this->searchArray['delivery_name'])) echo $this->searchArray['delivery_name']; ?>"
+						class="span11">
+				</p>
+			</td>
+			<td>
+				<select id="order_state" name="order_state" class="span8">
+					<option value=""><?php echo $this->translate('默认状态'); ?></option>
+                    <option value="0" <?php if (isset($this->searchArray['order_state']) and $this->searchArray['order_state'] != '' and $this->searchArray['order_state'] == 0) echo 'selected="selected"'; ?>><?php echo $this->translate('已取消'); ?></option>
+                    <option value="10" <?php if (isset($this->searchArray['order_state']) and $this->searchArray['order_state'] == 10) echo 'selected="selected"'; ?>><?php echo $this->translate('待付款'); ?></option>
+                    <option value="20" <?php if (isset($this->searchArray['order_state']) and $this->searchArray['order_state'] == 20) echo 'selected="selected"'; ?>><?php echo $this->translate('已付款'); ?></option>
+                    <option value="30" <?php if (isset($this->searchArray['order_state']) and $this->searchArray['order_state'] == 30) echo 'selected="selected"'; ?>><?php echo $this->translate('待发货'); ?></option>
+                    <option value="40" <?php if (isset($this->searchArray['order_state']) and $this->searchArray['order_state'] == 40) echo 'selected="selected"'; ?>><?php echo $this->translate('已发货'); ?></option>
+                    <option value="60" <?php if (isset($this->searchArray['order_state']) and $this->searchArray['order_state'] == 60) echo 'selected="selected"'; ?>><?php echo $this->translate('订单完成'); ?></option>
+				</select>
+			</td>
+			<td>
+				<p><?php echo $this->translate('始'); ?><input type="text" name="order_start_price" id="order_start_price" value="<?php if ($this->searchArray and  isset($this->searchArray['order_start_price'])) echo $this->searchArray['order_start_price']; ?>" class="span8"></p>
+                <p><?php echo $this->translate('终'); ?><input type="text" name="order_end_price" id="order_end_price" value="<?php if ($this->searchArray and isset($this->searchArray['order_end_price'])) echo $this->searchArray['order_end_price']; ?>" class="span8"></p>
+			</td>
+			<td>
+				<p><?php echo $this->translate('始'); ?><input type="text" name="search_start_time" id="search_start_time" value="<?php if ($this->searchArray and isset($this->searchArray['search_start_time'])) echo $this->searchArray['search_start_time']; ?>" onclick="WdatePicker({el:'search_start_time'})" class="span8"></p>
+                <p><?php echo $this->translate('终'); ?><input type="text" name="search_end_time" id="search_end_time" value="<?php if ($this->searchArray and isset($this->searchArray['search_end_time'])) echo $this->searchArray['search_end_time']; ?>" onclick="WdatePicker({el:'search_end_time'})" class="span8"></p>
+			</td>
+			<td>
+				<p>
+					<button class="btn btn-small btn-primary" type="submit"
+						onclick="$('#edit_type').val('search');">
+						<i class="icon-search icon-white"></i>
+						<?php echo $this->translate('搜索'); ?>
+					</button>
+				</p>
+                <?php if ($this->searchArray and !empty($this->searchArray)) { ?>
+				<p>
+					<a
+						href="<?php echo $this->url('orders/default'); ?>"
+						class="btn btn-small">
+						<i class="icon-arrow-left"></i>
+						<?php echo $this->translate('返回'); ?>
+					</a>
+				</p>
+                <?php } ?>
+			</td>
+		</tr>
+	</form>
+	<form method="POST"
+		action="<?php echo $this->url('orders/default',array('controller'=>'Orders', 'action'=>'editOrderAll')); ?>">
+             <?php foreach ($this->order_list as $order_value) { ?>
+            <tr>
+			<td>
+				<input name="order_id[]" type="checkbox"
+					value="<?php echo $order_value['order_id']; ?>">
+			</td>
+			<td><?php echo $order_value['order_sn']; ?></td>
+			<td><?php echo $this->escapeHtml($order_value['buyer_name']); ?></td>
+			<td><?php echo $this->escapeHtml($order_value['delivery_name']); ?></td>
+			<td>
+				<?php echo $this->frontwebsite()->getOneOrderStateInfo($order_value['order_state']); ?>
+				<?php if($order_value['refund_state'] == 1) echo ' [<strong style="color: red;">'.$this->translate('已退货').'</strong>]'; ?>
+			</td>
+			<td><?php echo $order_value['currency_symbol'] . $order_value['order_amount'] . $order_value['currency_unit']; ?></td>
+			<td><?php echo date("Y-m-d H:i",$order_value['order_time']); ?></td>
+			<td>
+				<a href="<?php echo $this->url('orders/default/order_id',array('action'=>'edit','controller'=>'Orders','order_id'=>$order_value['order_id'],'page'=>$this->page), array('query'=>$this->searchArray)); ?>"><?php echo ($order_value['refund_state'] == 1 ? $this->translate('详情查看') : $this->translate('编辑查看')); ?></a>
+                <span>|</span>
+                <a target="_blank" href="<?php echo $this->url('orders/default/order_id',array('action'=>'orderprint','controller'=>'Orders','order_id'=>$order_value['order_id'])); ?>"><?php echo $this->translate('打印订单'); ?></a>
+			</td>
+		</tr>
+            <?php } ?>
+            <tr>
+			<td colspan="9" style="background: #FFF">
+				<div class="span12 pull-left" style="height: 30px; line-height: 30px;">
+					<input type="checkbox" id="select_checkbox_state_1" onclick="selectCheckBox('order_id', 'select_checkbox_state_1');">
+					&nbsp;<?php echo $this->translate('全选操作'); ?>&nbsp;
+					<select class="span1" name="allEdit" id="allEdit" onchange="">
+						<option value=""><?php echo $this->translate('请选择'); ?></option>
+						<option value="del"><?php echo $this->translate('删除'); ?></option>
+					</select>
+                    <button type="submit" onclick="return editAllOrders();" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('提交操作'); ?></button>
+				</div>
+				<?php echo ( count($this->order_list) > 0 ) ? $this->paginationControl($this->order_list, 'Sliding', 'common/pager',array('page_url'=>$this->url('orders/default/page',array('controller'=>'Orders', 'action'=>'index')))) : ""; ?>
+                </td>
+		</tr>
+	</form>
+</table>
+<script src="<?php echo $this->basePath('/public/js/DatePicker/WdatePicker.js'); ?>"></script>
+<script>
+function editAllOrders() {
+	var num = 0;
+	$("input[name='order_id[]']").each(function() {
+		if (this.checked == true) {
+			num++;
+		}
+	});
+	if(num < 1) {
+		alert('<?php echo $this->translate('请至少选择一条订单信息！'); ?>');
+		return false;
+	}else {
+		if($("#allEdit").val()=='') {
+			alert('<?php echo $this->translate('请选择操作事件！'); ?>');
+			return false;
+		}
+		return window.confirm('<?php echo $this->translate('只能删除订单状态为 已取消 的订单，您确实要执行该操作吗？'); ?>');
+	}
+}
+</script>

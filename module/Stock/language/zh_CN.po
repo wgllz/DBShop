@@ -1,0 +1,143 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DBShop\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-05 22:49+0800\n"
+"PO-Revision-Date: 2013-11-05 22:49+0800\n"
+"Last-Translator: DBShop <team@dbshop.net>\n"
+"Language-Team: DBShop <team@dbshop.net>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../src/Stock/Controller/StateController.php:45
+#: ../src/Stock/Controller/StateController.php:69
+#: ../src/Stock/Controller/StateController.php:98
+#: ../view/stock/state/add.phtml:3 ../view/stock/state/add.phtml:11
+msgid "库存状态"
+msgstr ""
+
+#: ../src/Stock/Controller/StateController.php:45
+#: ../view/stock/state/index.phtml:4
+msgid "添加库存状态"
+msgstr ""
+
+#: ../src/Stock/Controller/StateController.php:69
+msgid "更新库存状态"
+msgstr ""
+
+#: ../src/Stock/Controller/StateController.php:98
+#: ../view/stock/state/add.phtml:16
+msgid "删除库存状态"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:4 ../view/stock/state/add.phtml:23
+msgid "基本信息"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:11 ../view/stock/state/index.phtml:24
+msgid "编辑"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:11
+msgid "新加"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:13
+msgid "返回库存状态列表"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:14
+msgid "刷新"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:18
+msgid "保存库存状态信息"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:19 ../view/stock/state/index.phtml:5
+msgid "查看帮助说明"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:26
+msgid "状态类型"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:29 ../view/stock/state/index.phtml:22
+msgid "有货状态"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:30 ../view/stock/state/index.phtml:22
+msgid "无货状态"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:35 ../view/stock/state/index.phtml:12
+msgid "库存状态名称"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:41 ../view/stock/state/index.phtml:14
+msgid "库存状态排序"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:72
+msgid "库存状态名称不能为空！"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:73
+msgid "库存状态名称最多输入30个汉字！"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:76
+msgid "库存状态排序不能为空！"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:77
+msgid "库存状态排序必须为数字！"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:78
+msgid "库存状态排序最小为1！"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:79
+msgid "库存状态排序最大为255！"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:87 ../view/stock/state/index.phtml:34
+msgid "您确实要删除该库存状态吗？"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:92 ../view/stock/state/index.phtml:39
+msgid "该库存状态在商品中已经使用，不能删除！"
+msgstr ""
+
+#: ../view/stock/state/add.phtml:98 ../view/stock/state/index.phtml:46
+msgid "库存状态删除失败！"
+msgstr ""
+
+#: ../view/stock/state/index.phtml:2
+msgid "库存状态管理"
+msgstr ""
+
+#: ../view/stock/state/index.phtml:13
+msgid "库存状态类型"
+msgstr ""
+
+#: ../view/stock/state/index.phtml:15
+msgid "操作"
+msgstr ""
+
+#: ../view/stock/state/index.phtml:21
+#, php-format
+msgid "%s默认%s"
+msgstr ""
+
+#: ../view/stock/state/index.phtml:24
+msgid "删除"
+msgstr ""

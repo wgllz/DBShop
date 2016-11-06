@@ -1,0 +1,344 @@
+    		<div style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('管理客户'); ?></strong></p>
+        	<p class="pull-right">
+            <a href="<?php echo $this->url('user/default',array('action'=>'add','controller'=>'user')); ?>" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> <?php echo $this->translate('添加新客户'); ?></a>&nbsp;
+            <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('user_add'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+            </p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                	<th width="3%"><input type="checkbox" id="select_checkbox_state" onclick="selectCheckBox('user_id', 'select_checkbox_state');"></th>
+                    <th width="5%">ID</th>
+                    <th width="17%"><?php echo $this->translate('客户姓名'); ?></th>
+                    <th width="15%"><?php echo $this->translate('电子邮件'); ?></th>
+                    <th width="8%"><?php echo $this->translate('客户组'); ?></th>
+                    <th width="8%"><?php echo $this->translate('客户状态'); ?></th>
+                    <th width="10%"><?php echo $this->translate('客户加入时间'); ?></th>
+                    <th width="8%"><?php echo $this->translate('客户余额'); ?></th>
+                    <th width="8%" style="text-align: center;"><?php echo $this->translate('(消费/等级)积分'); ?></th>
+                    <th width="18%" style="text-align: center;"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <form method="GET" action="<?php echo $this->url('user/default',array('action'=>'index','controller'=>'user')); ?>">
+            	<tr class="goods_search" style="background:#F5F5F5;">
+                	<td></td>
+                    <td><p><?php echo $this->translate('始'); ?><input type="text" name="user_start_id" value="<?php if ($this->searchArray and isset($this->searchArray['user_start_id'])) echo $this->searchArray['user_start_id']; ?>" class="span8"></p><p><?php echo $this->translate('终'); ?><input type="text" name="user_end_id" value="<?php if ($this->searchArray and isset($this->searchArray['user_end_id'])) echo $this->searchArray['user_end_id']; ?>" class="span8"></p></td>
+                    <td><input type="text" name="user_name" value="<?php if ($this->searchArray and isset($this->searchArray['user_name'])) echo $this->searchArray['user_name']; ?>" class="span11"></td>
+                    <td><input type="text" name="user_email" value="<?php if ($this->searchArray and isset($this->searchArray['user_email'])) echo $this->searchArray['user_email']; ?>" class="span11"></td>
+                    <td>
+                    <select id="group_id" name="group_id" class="span8">
+                                <option value=""><?php echo $this->translate('请选择'); ?></option>
+                                <?php if($this->group_array) {
+                                	foreach ($this->group_array as $group_val) {
+                                ?>
+                                <option value="<?php echo $group_val['group_id']; ?>" <?php if ($this->searchArray and isset($this->searchArray['group_id']) and $this->searchArray['group_id'] == $group_val['group_id']) echo 'selected'; ?>><?php echo $group_val['group_name']; ?></option>
+                                <?php }
+                                }
+                                ?>
+                    </select>
+                    </td>
+                    <td>
+                    <select id="user_state" name="user_state" class="span8">
+                                <option value=""><?php echo $this->translate('请选择'); ?></option>
+                                <option value="1" <?php if ($this->searchArray and isset($this->searchArray['user_state']) and $this->searchArray['user_state'] == 1) echo 'selected'; ?>><?php echo $this->translate('开启'); ?></option>
+                                <option value="2" <?php if ($this->searchArray and isset($this->searchArray['user_state']) and $this->searchArray['user_state'] == 2) echo 'selected'; ?>><?php echo $this->translate('关闭'); ?></option>
+                                <option value="3" <?php if ($this->searchArray and isset($this->searchArray['user_state']) and $this->searchArray['user_state'] == 3) echo 'selected'; ?>><?php echo $this->translate('待审核'); ?></option>
+                    </select>
+                    </td>
+                    <td><p><?php echo $this->translate('始'); ?><input type="text" name="search_start_time" id="search_start_time" value="<?php if ($this->searchArray and isset($this->searchArray['search_start_time'])) echo $this->searchArray['search_start_time']; ?>" onclick="WdatePicker({el:'search_start_time'})"  class="span8"></p><p><?php echo $this->translate('终'); ?><input type="text" name="search_end_time" id="search_end_time" value="<?php if ($this->searchArray and isset($this->searchArray['search_end_time'])) echo $this->searchArray['search_end_time']; ?>" onclick="WdatePicker({el:'search_end_time'})" class="span8"></p></td>
+                    <td>
+                        <input type="text" name="user_money" value="<?php if ($this->searchArray and isset($this->searchArray['user_money'])) echo $this->searchArray['user_money']; ?>" class="span12">
+                    </td>
+                    <td>
+
+                    </td>
+                    <td style="text-align: center;">
+                    <p><button class="btn btn-small btn-primary" type="submit"><i class="icon-search icon-white"></i> <?php echo $this->translate('搜索'); ?></button></p>
+                    <?php if ($this->searchArray and !empty($this->searchArray)) { ?>
+                    <p><a href="<?php echo $this->url('user/default',array('action'=>'index','controller'=>'user')); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回'); ?></a></p>
+                    <?php } ?>
+                    </td>
+                </tr>
+             </form>
+             <form method="POST" action="<?php echo $this->url('user/default',array('action'=>'editall','controller'=>'user')); ?>">
+            <?php 
+            if($this->user_list) {
+            foreach ($this->user_list as $user_value) { ?>
+            <tr>
+            	<td><input type="checkbox" name="user_id[]" value="<?php echo $user_value['user_id']; ?>"></td>
+            	<td><?php echo $user_value['user_id']; ?></td>
+            	<td><?php echo $this->escapeHtml($user_value['user_name']); ?></td>
+            	<td><?php echo $user_value['user_email']; ?></td>
+            	<td><?php echo $this->escapeHtml($user_value['group_name']); ?></td>
+                <td><?php $stateArray = array(1=>$this->translate('开启'), 2=>$this->translate('关闭'), 3=>'<font color="#FF0000">' . $this->translate('待审核') . '</font>'); echo $stateArray[$user_value['user_state']]; ?></td>
+            	<td><?php echo date("Y-m-d H:i:s",$user_value['user_time']); ?></td>
+            	<td><?php echo $user_value['user_money']; ?></td>
+            	<td style="text-align: center;"><?php echo $user_value['user_integral_num'] . ' / ' . $user_value['integral_type_2_num']; ?></td>
+            	<td style="text-align: center;">
+                <a href="<?php echo $this->url('user/default/user_id/other-page',array('action'=>'edit','controller'=>'user','user_id'=>$user_value['user_id'], 'page'=>$this->page), array('query'=>$this->searchArray)); ?>"><?php echo $this->translate('编辑'); ?></a>
+                <span>|</span>
+                <a href="javascript:;" onclick="add_user_money(<?php echo $user_value['user_id']; ?>, '<?php echo $this->escapeHtml($user_value['user_name']); ?>');"><?php echo $this->translate('余额充值'); ?></a>
+                <span>|</span>
+                <a href="javascript:;" onclick="change_user_integral(<?php echo $user_value['user_id']; ?>, '<?php echo $this->escapeHtml($user_value['user_name']); ?>', <?php echo $user_value['user_integral_num']; ?>, <?php echo $user_value['integral_type_2_num']; ?>);"><?php echo $this->translate('积分调整'); ?></a>
+                <span>|</span>
+                <a href="javascript:;" onclick="user_del_js(<?php echo $user_value['user_id']; ?>);"><?php echo $this->translate('删除'); ?></a>
+                </td>  
+            </tr>
+            <?php 
+                    }
+                } ?>
+            <tr>
+           		<td colspan="10" style="background:#FFF">
+                <div class="span6 pull-left" style="height:30px; line-height:30px;">
+                <input type="checkbox" id="select_checkbox_state_1" onclick="selectCheckBox('user_id', 'select_checkbox_state_1');">&nbsp;<?php echo $this->translate('全选操作'); ?>&nbsp;
+                <select name="allEdit" id="allEdit" class="span2">
+                	<option value=""><?php echo $this->translate('请选择'); ?></option>
+                	<option value="del"><?php echo $this->translate('删除客户'); ?></option>
+                    <!-- <option value=""><?php echo $this->translate('更换客户组'); ?></option> -->
+                </select>
+                <button type="submit" onclick="return editAllUser();" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('提交操作'); ?></button>
+                </div>
+                <?php echo ( count($this->user_list) > 0 ) ? $this->paginationControl($this->user_list,'Sliding','common/pager',array('page_url'=>$this->url('user/default/page',array('action'=>'index','controller'=>'user')))) : ''; ?>              
+                </td> 
+            </tr>
+            </form>
+            </table>
+
+                <form class="form-horizontal" name="user_money_form" id="user_money_form" method="post">
+                    <input type="hidden" name="user_id" id="user_id" value="">
+                    <input type="hidden" name="user_name" id="user_name" value="">
+                    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel"><?php echo $this->translate('余额充值'); ?></h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="control-group">
+                                <label class="control-label"><?php echo $this->translate('被充值人'); ?></label>
+                                <div class="controls">
+                                    <input type="text" disabled readonly class="span6" id="user_readonly_name" value="">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><?php echo $this->translate('充值金额'); ?><span class="must_add_value">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="money_change_num" id="money_change_num" class="span6" value="">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><?php echo $this->translate('备注内容'); ?><span class="must_add_value">*</span></label>
+                                <div class="controls">
+                                    <textarea id="money_pay_info" name="money_pay_info" class="span12"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary"><?php echo $this->translate('提交充值'); ?></button>
+                            <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('关闭'); ?></button>
+                        </div>
+                    </div>
+                </form>
+
+            <form class="form-horizontal" name="user_integral_form" id="user_integral_form" method="post">
+                <input type="hidden" name="integral_user_id" id="integral_user_id" value="">
+                <input type="hidden" name="integral_user_name" id="integral_user_name" value="">
+                <div id="myIntegralModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="myModalLabel"><?php echo $this->translate('积分调整'); ?></h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="control-group">
+                            <label class="control-label"><?php echo $this->translate('被调整人'); ?></label>
+                            <div class="controls">
+                                <input type="text" disabled readonly class="span6" id="user_integral_readonly_name" value="">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"><?php echo $this->translate('消费积分'); ?></label>
+                            <div class="controls">
+                                <select class="span3" name="change_type_1" id="change_type_1">
+                                    <option value="+"><?php echo $this->translate('增加'); ?></option>
+                                    <option value="-"><?php echo $this->translate('减少'); ?></option>
+                                </select>
+                                <input type="text" name="change_user_integral_num" id="change_user_integral_num" class="span3" value="">
+                                <?php echo $this->translate('当前值'); ?> <span id="curren_type_1"></span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"><?php echo $this->translate('等级积分'); ?></label>
+                            <div class="controls">
+                                <select class="span3" name="change_type_2" id="change_type_2">
+                                    <option value="+"><?php echo $this->translate('增加'); ?></option>
+                                    <option value="-"><?php echo $this->translate('减少'); ?></option>
+                                </select>
+                                <input type="text" name="change_integral_type_2_num" id="change_integral_type_2_num" class="span3" value="">
+                                <?php echo $this->translate('当前值'); ?> <span id="curren_type_2"></span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"><?php echo $this->translate('备注内容'); ?><span class="must_add_value">*</span></label>
+                            <div class="controls">
+                                <textarea id="integral_log_info" name="integral_log_info" class="span12"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"><?php echo $this->translate('提交调整'); ?></button>
+                        <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('关闭'); ?></button>
+                    </div>
+                </div>
+            </form>
+<script src="<?php echo $this->basePath('/public/js/DatePicker/WdatePicker.js'); ?>"></script>
+<script>
+$(document).ready(function() {
+    $("#user_money_form").validate({
+        rules: {
+            money_change_num: {
+                required: true,
+                digits: true,
+                min: 1
+            },
+            money_pay_info: {
+                required: true
+
+            }
+        },
+        messages: {
+            money_change_num: {
+                required: "<?php echo $this->translate('充值金额不能为空！'); ?>",
+                digits: "<?php echo $this->translate('充值金额必须为数字且为整数！'); ?>",
+                min: "<?php echo $this->translate('充值金额最小为1'); ?>"
+            },
+            money_pay_info: {
+                required: "<?php echo $this->translate('备注内容不能为空！'); ?>"
+
+            }
+        },
+        submitHandler:function(form){
+            user_money_save_js();
+        }
+    });
+
+    $("#user_integral_form").validate({
+        rules: {
+            change_user_integral_num: {
+                digits: true,
+                min: 1
+            },
+            change_integral_type_2_num: {
+                digits: true,
+                min: 1
+            },
+            integral_log_info: {
+                required: true
+
+            }
+        },
+        messages: {
+            change_user_integral_num: {
+                digits: "<?php echo $this->translate('消费积分调整值必须为数字且为整数！'); ?>",
+                min: "<?php echo $this->translate('消费积分调整值最小为1'); ?>"
+            },
+            change_integral_type_2_num: {
+                digits: "<?php echo $this->translate('等级积分调整值必须为数字且为整数！'); ?>",
+                min: "<?php echo $this->translate('等级积分调整值最小为1'); ?>"
+            },
+            integral_log_info: {
+                required: "<?php echo $this->translate('备注内容不能为空！'); ?>"
+
+            }
+        },
+        submitHandler:function(form){
+            user_integral_chanage_save_js();
+        }
+    });
+});
+
+function editAllUser() {
+	var num = 0;
+	$("input[name='user_id[]']").each(function() {
+		if (this.checked == true) {
+			num++;
+		}
+	});
+	if(num < 1) {
+		alert('<?php echo $this->translate('请至少选择一条客户信息！'); ?>');
+		return false;
+	}else {
+		if($("#allEdit").val()=='') {
+			alert('<?php echo $this->translate('请选择操作事件！'); ?>');
+			return false;
+		}
+		return window.confirm('<?php echo $this->translate('您确实要执行该操作吗？'); ?>');
+	}
+}
+//客户删除js
+function user_del_js(user_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该客户吗？'); ?>')) {
+		$.post("<?php echo $this->url('user/default',array('action'=>'del','controller'=>'user')); ?>",{user_id:user_id},
+		function(data){
+			if(data != 'false') {
+				window.location.href='<?php echo $this->url('user/default',array('action'=>'index','controller'=>'user')); ?>';
+				return true;
+			} else {
+				alert('<?php echo $this->translate('客户删除失败！'); ?>');
+			}
+		});
+	}
+	return false;
+}
+
+function change_user_integral(user_id, user_name, user_integral_num, integral_type_2_num) {
+    $('#integral_user_id').val(user_id);
+    $('#integral_user_name').val(user_name);
+    $('#user_integral_readonly_name').val(user_name);
+    $('#curren_type_1').html(user_integral_num);
+    $('#curren_type_2').html(integral_type_2_num);
+
+    $('#myIntegralModal').modal('show');
+}
+function user_integral_chanage_save_js() {
+    $.post("<?php echo $this->url('integral/default',array('action'=>'changeIntegralNum')); ?>",$('#user_integral_form').formSerialize(),
+        function(data){
+            if(data == 'true') {
+                $('#myIntegralModal').modal('hide');
+                window.location.reload();
+            } else {
+                $('#integral_user_id').val('');
+                $('#integral_user_name').val('');
+                $('#user_integral_readonly_name').val('');
+                $('#curren_type_1').val('');
+                $('#curren_type_2').val('');
+
+                alert(data);
+            }
+        });
+}
+
+function add_user_money(user_id, user_name) {
+    $('#user_id').val(user_id);
+    $('#user_name').val(user_name);
+    $('#user_readonly_name').val(user_name);
+
+    $('#myModal').modal('show');
+}
+
+function user_money_save_js() {
+    $.post("<?php echo $this->url('usermoney/default',array('action'=>'addUserMoney')); ?>",$('#user_money_form').formSerialize(),
+        function(data){
+            if(data == 'true') {
+                $('#myModal').modal('hide');
+                window.location.reload();
+            } else {
+                $('#user_id').val('');
+                $('#user_name').val('');
+                $('#user_readonly_name').val('');
+
+                alert(data);
+            }
+        });
+}
+</script>

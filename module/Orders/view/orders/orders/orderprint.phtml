@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php echo $this->translate('订单信息'); ?></title>
+<script src="<?php echo $this->basePath('public/js/adminJs.js'); ?>"></script>
+
+<script>
+function  order_print(){ 
+$("#print_button").remove(); 
+window.print(); 
+} 
+</script>
+<style type="text/css">
+body,td {font-size:7px;}
+</style>
+</head>
+
+<body>
+
+<h2 align="center"><?php echo $this->translate('订单信息'); ?></h2>
+<table width="100%" cellpadding="1">
+    <tr>
+        <td width="10%"><?php echo $this->translate('购 货 人'); ?>：</td>
+        <td><?php echo $this->escapeHtml($this->order_info->buyer_name); ?></td>
+        <td align="right"><?php echo $this->translate('下单时间'); ?>：</td><td><?php echo date("Y-m-d H:i:s", $this->order_info->order_time); ?></td>
+        <td align="right"><?php echo $this->translate('支付方式'); ?>：</td><td><?php echo $this->order_info->pay_name; ?></td>
+        <td align="right"><?php echo $this->translate('订单编号'); ?>：</td><td><?php echo $this->order_info->order_sn; ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $this->translate('付款时间'); ?>：</td><td><?php if($this->order_info->pay_time != '') echo date("Y-m-d H:i:s", $this->order_info->pay_time); ?></td>
+        <td align="right"><?php echo $this->translate('发货时间'); ?>：</td><td><?php if($this->order_info->express_time != '') echo date("Y-m-d H:i:s", $this->order_info->express_time); ?></td>
+        <td align="right"><?php echo $this->translate('配送方式'); ?>：</td><td><?php echo $this->delivery_address->express_name; ?></td>
+        <td align="right"><?php echo $this->translate('发货单号'); ?>：</td><td><?php echo $this->delivery_address->express_number; ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $this->translate('收货人'); ?>：</td>
+        <td colspan="7"><?php echo $this->escapeHtml($this->delivery_address->delivery_name); ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $this->translate('收货地址'); ?>：</td>
+        <td colspan="7">
+        <?php
+        echo $this->escapeHtml($this->delivery_address->region_address).'<br>';
+        $region_array = @explode(' ', $this->delivery_address->region_info);
+        $region_array = array_reverse($region_array);
+        echo $this->escapeHtml(implode(', ', $region_array));
+        ?><br>
+        <?php echo $this->translate('邮编'); ?>：<?php echo $this->escapeHtml($this->delivery_address->zip_code); ?>&nbsp;
+        <?php echo $this->translate('电话'); ?>：<?php echo $this->escapeHtml($this->delivery_address->tel_phone); ?>&nbsp;
+        <?php echo $this->translate('手机'); ?>：<?php echo $this->escapeHtml($this->delivery_address->mod_phone); ?>
+        </td>
+    </tr>
+</table>
+<table width="100%" border="1" style="border-collapse:collapse;border-color:#000;">
+    <tr align="center">
+        <td bgcolor="#cccccc"><?php echo $this->translate('商品名称'); ?></td>
+        <td bgcolor="#cccccc"><?php echo $this->translate('货号'); ?></td>
+        <td bgcolor="#cccccc"><?php echo $this->translate('属性'); ?></td>
+        <td bgcolor="#cccccc"><?php echo $this->translate('价格'); ?></td>
+        <td bgcolor="#cccccc"><?php echo $this->translate('数量'); ?></td>
+        <td bgcolor="#cccccc"><?php echo $this->translate('小计'); ?></td>
+    </tr>
+    <?php foreach ($this->order_goods as $goods_value) { ?>
+    <tr>
+        <td>&nbsp;<?php echo $this->escapeHtml($goods_value['goods_name']); ?></td>
+        <td>&nbsp;<?php echo $goods_value['goods_item']; ?></td>
+        <td>
+				<?php 
+				if($goods_value['goods_extend_info']) { 
+					echo str_replace(array('<p>', '</p>'), array('', ''), $goods_value['goods_extend_info']);
+				} else {
+					echo $this->translate('无');
+				}
+				?>
+        </td>
+        <td align="right"><?php echo $this->order_info->currency_symbol . $goods_value['goods_shop_price'] . '&nbsp;' . $this->order_info->currency_unit; ?>&nbsp;</td>
+        <td align="center"><?php echo $goods_value['buy_num']; ?>&nbsp;</td>
+        <td align="right"><?php echo $this->order_info->currency_symbol . $goods_value['goods_amount'] . '&nbsp;' . $this->order_info->currency_unit; ?>&nbsp;</td>
+    </tr>
+    <?php } ?>
+    <tr>
+        <td colspan="4">
+            <?php if(isset($this->order_info->invoice_content) and !empty($this->order_info->invoice_content)) { ?>
+                <?php echo $this->escapeHtml($this->order_info->invoice_content); ?>
+            <?php } ?>
+         </td>
+        <td colspan="2" align="right"><?php echo $this->translate('商品总金额'); ?>：<?php echo $this->order_info->currency_symbol . $this->order_info->goods_amount . '&nbsp;' . $this->order_info->currency_unit; ?>&nbsp;</td>
+    </tr>
+</table>
+<table width="100%" border="0">
+    <tr align="right">
+        <td>
+        + <?php echo $this->translate('商品运费'); ?>：<?php echo $this->order_info->currency_symbol . '&nbsp;' . $this->order_info->express_fee; ?>
+        + <?php echo $this->translate('支付手续'); ?>：<?php echo $this->order_info->currency_symbol . '&nbsp;' . $this->order_info->pay_fee; ?>
+        - <?php echo $this->translate('购买优惠'); ?>：<?php echo $this->order_info->currency_symbol . '&nbsp;' . $this->order_info->buy_pre_fee; ?>
+        - <?php echo $this->translate('会员优惠'); ?>：<?php echo $this->order_info->currency_symbol . '&nbsp;' . $this->order_info->user_pre_fee; ?>
+        <?php if(isset($this->order_info->integral_buy_price) and $this->order_info->integral_buy_price > 0) { ?>
+        - <?php echo $this->translate('积分购买'); ?>：<?php echo $this->order_info->currency_symbol . '&nbsp;' . $this->order_info->integral_buy_price; ?>
+        <?php } ?>
+        </td>
+    </tr>
+    <tr align="right">
+        <td>
+        = <?php echo $this->translate('应付款金额'); ?>：<?php echo $this->order_info->currency_symbol . $this->order_info->order_amount . '&nbsp;' . $this->order_info->currency_unit; ?></td>
+    </tr>
+</table>
+<table width="100%" border="0">
+            
+    <tr>
+        <td>&nbsp;</td>
+    </tr>
+    <tr align="right">
+        <td><?php echo $this->translate('打印时间'); ?>：<?php echo date("Y-m-d H:i:s", time()); ?>&nbsp;&nbsp;&nbsp;<?php echo $this->translate('操作者'); ?>：<?php echo $this->myviewalias()->returnAuth('admin_name'); ?></td>
+    </tr>
+    <tr>
+    <td align="center"><input id="print_button" onclick="order_print();" type="button" value="<?php echo $this->translate('订 单 打 印'); ?>" /></td>
+    </tr>
+</table>
+</body>
+</html>

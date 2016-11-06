@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel"><?php echo $this->template_info->template_name; ?></h3>
+</div>
+<div class="modal-body">
+    <div class="control-group">
+        <label class="control-label"><?php echo $this->translate('简介'); ?></label>
+        <div class="controls">
+            <?php echo $this->template_info->template_body; ?>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" data-dismiss="modal" aria-hidden="true" class="btn"><?php echo $this->translate('关闭'); ?></button>
+</div>

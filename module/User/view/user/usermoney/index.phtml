@@ -1,0 +1,82 @@
+<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+    <p class="span4 pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('余额记录'); ?></strong></p>
+    <p class="span8 text-right">
+        <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('user_money_log'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+    </p>
+</div>
+<table class="table table-hover">
+    <thead style="background:#CCC;">
+    <tr>
+        <th width="10%"><?php echo $this->translate('时间'); ?></th>
+        <th width="5%"><?php echo $this->translate('类型'); ?></th>
+        <th width="10%"><?php echo $this->translate('操作者'); ?></th>
+        <th width="8%"><?php echo $this->translate('金额'); ?></th>
+        <th width="8%"><?php echo $this->translate('账户余额'); ?></th>
+        <th width="8%"><?php echo $this->translate('客户账户'); ?></th>
+        <th width="20%"><?php echo $this->translate('备注'); ?></th>
+    </tr>
+    </thead>
+    <form method="GET" action="<?php echo $this->url('usermoney/default',array('action'=>'index')); ?>">
+    <tr class="goods_search" style="background:#F5F5F5;">
+        <td>
+            <p>&nbsp;<?php echo $this->translate('始'); ?><input type="text" name="money_start_change_time" id="money_start_change_time" value="<?php if ($this->searchArray and isset($this->searchArray['money_start_change_time'])) echo $this->searchArray['money_start_change_time']; ?>" onclick="WdatePicker({el:'money_start_change_time'})"  class="span8"></p>
+            <p>&nbsp;<?php echo $this->translate('终'); ?><input type="text" name="money_end_change_time" id="money_end_change_time" value="<?php if ($this->searchArray and isset($this->searchArray['money_end_change_time'])) echo $this->searchArray['money_end_change_time']; ?>" onclick="WdatePicker({el:'money_end_change_time'})" class="span8"></p>
+        </td>
+        <td>
+            <select id="money_pay_type" name="money_pay_type" class="span8">
+                <option value=""><?php echo $this->translate('请选择'); ?></option>
+                <option value="1" <?php if ($this->searchArray and isset($this->searchArray['money_pay_type']) and $this->searchArray['money_pay_type'] == 1) echo 'selected'; ?>><?php echo $this->translate('充值'); ?></option>
+                <option value="2" <?php if ($this->searchArray and isset($this->searchArray['money_pay_type']) and $this->searchArray['money_pay_type'] == 2) echo 'selected'; ?>><?php echo $this->translate('消费'); ?></option>
+                <option value="3" <?php if ($this->searchArray and isset($this->searchArray['money_pay_type']) and $this->searchArray['money_pay_type'] == 3) echo 'selected'; ?>><?php echo $this->translate('提现'); ?></option>
+                <option value="4" <?php if ($this->searchArray and isset($this->searchArray['money_pay_type']) and $this->searchArray['money_pay_type'] == 4) echo 'selected'; ?>><?php echo $this->translate('退款'); ?></option>
+            </select>
+        </td>
+        <td>
+            <input type="text" name="oper_user" value="<?php if ($this->searchArray and isset($this->searchArray['oper_user'])) echo $this->searchArray['oper_user']; ?>" class="span11">
+        </td>
+        <td>
+            <input type="text" name="money_change_num" value="<?php if ($this->searchArray and isset($this->searchArray['money_change_num'])) echo $this->searchArray['money_change_num']; ?>" class="span11">
+        </td>
+        <td>
+            <input type="text" name="money_changed_amount" value="<?php if ($this->searchArray and isset($this->searchArray['money_changed_amount'])) echo $this->searchArray['money_changed_amount']; ?>" class="span11">
+        </td>
+        <td>
+            <input type="text" name="user_name" value="<?php if ($this->searchArray and isset($this->searchArray['user_name'])) echo $this->searchArray['user_name']; ?>" class="span11">
+        </td>
+        <td>
+            <input type="text" name="money_pay_info" value="<?php if ($this->searchArray and isset($this->searchArray['money_pay_info'])) echo $this->searchArray['money_pay_info']; ?>" class="span4">
+            &nbsp;&nbsp;<button class="btn btn-small btn-primary" type="submit"><i class="icon-search icon-white"></i> <?php echo $this->translate('搜索'); ?></button>
+            <?php if ($this->searchArray and !empty($this->searchArray)) { ?>
+                &nbsp;&nbsp;<a href="<?php echo $this->url('usermoney/default',array('action'=>'index')); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回'); ?></a>
+            <?php } ?>
+        </td>
+    </tr>
+    </form>
+    <?php
+    $type_array = array(1=>$this->translate('充值'), 2=>$this->translate('消费'), 3=>$this->translate('提现'), 4=>$this->translate('退款'));
+    ?>
+    <?php if($this->user_money_log) foreach ($this->user_money_log as $log_value) { ?>
+        <tr>
+            <td><?php echo date("Y-m-d H:i:s", $log_value['money_change_time']); ?></td>
+            <td><?php echo $type_array[$log_value['money_pay_type']]; ?></td>
+            <td>
+                <?php
+                if(!empty($log_value['admin_id']) and $log_value['admin_id'] != 0) echo $log_value['admin_name'].' - [<strong>'.$this->translate('管理员').'</strong>]';
+                else echo $log_value['user_name'].' - ['.$this->translate('客户').']';
+                ?>
+            </td>
+            <td><?php echo $log_value['money_change_num']; ?></td>
+            <td><?php echo $log_value['money_changed_amount']; ?></td>
+            <td><?php echo $log_value['user_name']; ?></td>
+            <td><?php echo $this->escapeHtml($log_value['money_pay_info']); ?></td>
+        </tr>
+        <?php
+    }
+    ?>
+    <tr>
+        <td colspan="7" style="background: #FFF">
+            <?php echo ( count($this->user_money_log) > 0 ) ? $this->paginationControl($this->user_money_log, 'Sliding', 'common/pager',array('page_url'=>$this->url('usermoney/default/money_log_page',array('action'=>'index')))) : ""; ?>
+        </td>
+    </tr>
+</table>
+<script src="<?php echo $this->basePath('/public/js/DatePicker/WdatePicker.js'); ?>"></script>

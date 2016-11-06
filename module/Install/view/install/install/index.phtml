@@ -1,0 +1,21 @@
+<div class="row-fluid">
+	<div class="row span8 offset2">
+    	<table class="table-bordered" style=" margin-bottom:13px; margin-top:8px;">
+        	<tr>
+            	<td style="padding-left:5px;">
+					<?php echo $this->install_content; ?>
+                </td>
+            </tr>
+        </table>
+        <p class="text-center">
+        	<a href="<?php echo $this->url('install/default/install_step', array('controller'=>'Install', 'action'=>'installStep', 'step'=>'step_1')); ?>" class="btn btn-large btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('同意协议，继续安装'); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" onclick="javascript:window.opener=null;window.open('','_self');window.close();" class="btn btn-large btn-warning"><i class="icon-off icon-white"></i> <?php echo $this->translate('不同意协议，取消安装'); ?></button>
+        </p>
+    </div>
+</div>
+<script>
+function select_dbshop_default_language() {
+	var language_val = $('#dbshop_language').val();
+	window.location.href="<?php echo $this->url('install/default/install_step', array('controller'=>'Install', 'action'=>'changeDefaultLanguage')); ?>?language="+language_val;
+}
+</script>

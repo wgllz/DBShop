@@ -1,0 +1,202 @@
+textarea {
+	resize: none;
+}
+
+input[type="text"], input[type="password"], textarea, select {
+	outline: none;
+}
+
+body p,
+body ul,
+body li,
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6,
+body h7 {
+	margin: 0;
+	padding: 0;
+}
+
+body ul.main-contents a,
+body ul.sample-contents a,
+body ol.list a,
+body ul.list a {
+	text-decoration: underline;
+}
+body ul.main-contents a:link,
+body ul.main-contents a:hover,
+body ul.sample-contents a:link,
+body ul.sample-contents a:hover,
+body ol.list a:link,
+body ol.list a:hover,
+body ul.list a:link,
+body ul.list a:hover {
+	color: #0000EE;
+}
+body ul.main-contents a:visited,
+body ul.sample-contents a:visited,
+body ol.list a:visited,
+body ul.list a:visited {
+	color: #551A8B;
+}
+body ul.main-contents a:active,
+body ul.sample-contents a:active,
+body ol.list a:active,
+body ul.list a:active {
+	color: #EE0000;
+}
+
+body {
+	margin: 0;
+	padding: 10px 10px 10px 20px;
+	font-size: 13px;
+	text-align: left;
+	font-family: '宋体';
+	color: #000;
+}
+
+body p {
+	font-size: 14px;
+	text-indent: 2em;
+	margin: 8px 0;
+	line-height: 1.3em;
+}
+
+li p {
+	text-indent: 0;
+}
+
+body h1,
+body h2 {
+	font-family: "SimHei";
+	font-weight: normal;
+}
+
+body h1 {
+	font-size: 24px;
+}
+
+body h2 {
+	font-size: 20px;
+	margin-top: 20px;
+}
+
+body pre,
+body code {
+	font-family: "Andale Mono",courier,monospace;
+	font-size: 12px;
+}
+
+body pre {
+	max-width:100%;
+	overflow:auto;
+	line-height:1.4;
+	background:#ffe;
+	padding:0.5em;
+	border:1px dotted #cc9;
+	color: #888;
+	margin: 10px 0 30px 20px;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+body div.sample {
+	margin: 10px 0 10px 20px;
+	padding: 10px 0 10px 20px;
+	border: 1px dotted #ccc;
+	background: #E9F2FA;
+}
+
+body ul.main-contents,
+body ul.sample-contents,
+body ol.list,
+body ul.list {
+	font-size: 0;
+}
+
+body ul.main-contents {
+	margin: 10px 0 30px 20px;
+}
+
+body ul.sample-contents {
+	margin: 10px 0 30px 40px;
+}
+
+body ol.list,
+body ul.list {
+	margin: 10px 0 10px 50px;
+}
+
+body ul.main-contents li,
+body ul.sample-contents li,
+body ol.list li,
+body ul.list li {
+	font-size: 13px;
+	line-height: 1.3em;
+}
+
+body ul.main-contents li,
+body ul.sample-contents li,
+body ul.list li {
+	list-style: disc outside none;
+}
+
+body ol.list li,
+body ul.list li {
+	padding-bottom: 5px;
+}
+
+body div.log {
+	line-height: 20px;
+}
+
+div.arguments{
+	margin: 10px 20px;
+}
+
+div.arguments strong{
+	display: block;
+	background: #95C0E7;
+	height: 30px;
+	line-height: 30px;
+	width: 590px;
+	padding-left: 10px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	color: #fff;
+}
+
+div.arguments table{
+	width: 600px;
+}
+
+div.arguments table th{
+	font-weight: bold;
+}
+
+div.arguments table th,  div.arguments table td{
+	padding:5px;
+}
+div.arguments table th{
+	width: 300px;
+}
+div.arguments table tr.option td{
+	width: 150px;
+}
+div.arguments table tr.option{
+	background: #D1E4F5;
+}
+
+div.arguments table tr.option span.optional{
+	color: #999;
+	font-weight: normal;
+	padding-left: 5px;
+}
+div.arguments table tr.option span.need{
+	color: #f60;
+	font-weight: normal;
+	padding-left: 5px;
+}

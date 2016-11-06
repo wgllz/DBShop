@@ -1,0 +1,124 @@
+    		<div style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('商品咨询'); ?></strong></p>
+        	<p class="pull-right">
+        	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('goods_ask_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+        	</p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="25%"><?php echo $this->translate('商品名称'); ?></th>
+                    <th width="30%"><?php echo $this->translate('咨询内容'); ?></th>
+                    <th width="10%"><?php echo $this->translate('咨询人'); ?></th>
+                    <th width="6%"><?php echo $this->translate('显示'); ?></th>
+                    <th width="6%"><?php echo $this->translate('回复'); ?></th>
+                    <th width="10%"><?php echo $this->translate('咨询时间'); ?></th>
+                    <th width="13%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php 
+            if($this->ask_list) {
+            foreach ($this->ask_list as $ask_value) { ?>
+            <tr>
+            	<td><?php echo $this->escapeHtml($ask_value['goods_name']); ?></td>
+            	<td><?php echo $this->escapeHtml($ask_value['ask_content']); ?></td>
+            	<td><?php echo $this->escapeHtml($ask_value['ask_writer']); ?></td>
+            	<td><a href="javascript:;" id="title_<?php echo $ask_value['ask_id']; ?>" title="<?php echo $ask_value['ask_show_state']==1 ? $this->translate('点击关闭显示') : $this->translate('点击开启显示'); ?>" onclick="change_ask_show_state(<?php echo $ask_value['ask_id']; ?>);"><i class="<?php echo $ask_value['ask_show_state']==1 ? 'cus-tick' : 'cus-cross'; ?>" id="ask_show_<?php echo $ask_value['ask_id']; ?>"></i> </a></td>
+                <td><i class="<?php echo $ask_value['reply_ask_time']!='' ? 'cus-tick' : 'cus-cross'; ?>"></i></td>
+                <td><?php echo date('Y-m-d H:i:s',$ask_value['ask_time']); ?></td>
+                <td>
+                <a onclick="reply_goods_ask('<?php echo $this->escapeHtml($ask_value['goods_name']); ?>', '<?php echo $this->escapeHtml($ask_value['ask_content']); ?>','<?php echo $this->escapeHtml($ask_value['reply_ask_content']); ?>','<?php echo $ask_value['ask_id']; ?>', <?php echo $ask_value['ask_show_state']; ?>, '<?php echo $this->escapeHtml($ask_value['ask_writer']); ?>');" href="javascript:;"><?php echo $this->translate('咨询回复'); ?></a>
+                <span>|</span>
+                <a  onclick="return window.confirm('<?php echo $this->translate('您确实要删除该商品咨询吗？'); ?>');" href="<?php echo $this->url('ask/default/ask-id',array('action'=>'del', 'askid'=>$ask_value['ask_id'])); ?>"><?php echo $this->translate('删除'); ?></a>
+                </td>  
+            </tr>
+            <?php if($ask_value['reply_ask_content'] != '') { ?>
+            <tr>
+            	<td colspan="7" style="border-top:1px solid #fff;">
+                <strong><?php echo $this->translate('回复时间'); ?>：</strong><?php echo date("Y-m-d H:i",$ask_value['reply_ask_time']); ?>
+                <strong><?php echo $this->translate('回复人'); ?>：</strong><?php echo $this->escapeHtml($ask_value['reply_ask_writer']); ?><br />
+                <strong><?php echo $this->translate('回复内容'); ?>：</strong><?php echo $this->escapeHtml($ask_value['reply_ask_content']); ?>
+                </td>
+            </tr>
+            <?php } } } ?>
+            <tr>
+           		<td colspan="9" style="background:#FFF">
+                <?php echo ( count($this->ask_list) > 0 ) ? $this->paginationControl($this->ask_list,'Sliding','common/pager',array('page_url'=>$this->url('ask/default/ask-page',array('action'=>'index')))) : ''; ?>              
+                </td> 
+            </tr>
+            </table>
+            
+<form class="form-horizontal" name="ask_reply_form" id="ask_reply_form" action="<?php echo $this->url('ask/default', array('action'=>'replycontent')); ?>" method="post">
+<input type="hidden" name="ask_id" id="ask_id" value="">
+<input type="hidden" name="ask_writer" id="ask_writer" value="">
+<input type="hidden" name="ask_page" value="<?php echo $this->page; ?>" />
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel"><?php echo $this->translate('商品咨询回复'); ?></h3>
+</div>
+<div class="modal-body">
+         	<div class="control-group">
+				<label class="control-label" style="width:80px;"><?php echo $this->translate('商品名称'); ?></label>
+				<div class="controls" style="margin-left:100px;">
+					<div id="reply_goods_name"></div><input type="hidden" name="goods_name" id="goods_name" />
+				</div>
+			</div>
+         	<div class="control-group">
+				<label class="control-label" style="width:80px;"><?php echo $this->translate('咨询内容'); ?></label>
+				<div class="controls" style="margin-left:100px;">
+					<div id="ask_content"></div>
+				</div>
+			</div>
+         	<div class="control-group">
+				<label class="control-label" style="width:80px;"><?php echo $this->translate('咨询回复'); ?><span class="must_add_value">*</span></label>
+				<div class="controls" style="margin-left:100px;">
+					<textarea name="reply_ask_content" id="reply_ask_content" class="span12"></textarea>
+				</div>
+			</div>
+            <div class="control-group">
+                <label class="control-label" style="width:80px;"><?php echo $this->translate('显示状态'); ?></label>
+                <div class="controls" style="margin-left:100px;">
+                    <select name="ask_show_state" id="ask_show_state" class="span3">
+                        <option value="1"><?php echo $this->translate('显示'); ?></option>
+                        <option value="0"><?php echo $this->translate('不显示'); ?></option>
+                    </select>
+                </div>
+            </div>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('关闭'); ?></button>
+<button type="submit" class="btn btn-primary"><?php echo $this->translate('回复商品咨询'); ?></button>
+</div>
+</div>
+</form>
+
+<script>
+function reply_goods_ask(goods_name, ask_content, reply_content, ask_id, ask_show_state, ask_writer) {
+	$('#reply_goods_name').html(goods_name);
+	$('#ask_content').html(ask_content);
+	$('#reply_ask_content').val(reply_content);
+	$('#ask_id').val(ask_id);
+	$('#goods_name').val(goods_name);
+    $('#ask_writer').val(ask_writer);
+    $("#ask_show_state").attr("value",ask_show_state);
+
+	$('#myModal').modal('show');
+}
+
+function change_ask_show_state(ask_id) {
+	$.post("<?php echo $this->url('ask/default', array('action'=>'changeShowState')); ?>",{ask_id:ask_id},
+	function(data){
+		if(data != '') {
+			$('#ask_show_'+ask_id).removeClass();
+			if(data == 2) {
+				$('#ask_show_'+ask_id).addClass('cus-cross');
+				$('#title_'+ask_id).attr("title", '<?php echo $this->translate('点击开启显示'); ?>');
+			} else {
+				$('#ask_show_'+ask_id).addClass('cus-tick');
+				$('#title_'+ask_id).attr("title", '<?php echo $this->translate('点击关闭显示'); ?>');
+			}
+ 		}
+  }); 	
+}
+</script>

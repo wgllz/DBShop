@@ -1,0 +1,18 @@
+<?php if ($this->goods_list->getTotalItemCount() > 0) { foreach ($this->goods_list as $goods_value) { ?>
+    <li class="single_item">
+        <a href="<?php echo $this->url('m_goods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$this->class_info->class_id)); ?>"><img alt="<?php echo $this->escapeHtml($goods_value['goods_name']); ?>" src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($goods_value['goods_thumbnail_image'])); ?>"></a>
+        <dl>
+            <dt>
+            <h4 class="title"><a href="<?php echo $this->url('m_goods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$this->class_info->class_id)); ?>"><?php echo $this->escapeHtml($goods_value['goods_name']); ?></a></h4>
+            </dt>
+            <dd>
+                    <span class="pull-left"><strong><?php echo $this->translate('价格'); ?>：<b class="ect-colory"><?php echo $this->frontwebsite()->shopPriceExtend($goods_value['goods_shop_price']); ?></b></strong>
+                        <?php if(isset($goods_value['goods_price'])) { ?><small class="ect-margin-lr"><del><?php echo $this->frontwebsite()->shopPriceExtend($goods_value['goods_price']); ?></del></small><?php } ?>
+                    </span>
+            </dd>
+            <dd><span class="pull-left "><i class="fa fa-heart-o"></i> <?php echo $goods_value['favorites_num']; ?><?php echo $this->translate('人喜欢'); ?></span><span class="pull-right"><?php echo $this->translate('销量'); ?>：<?php echo intval($goods_value['buy_num']+$goods_value['virtual_sales']); ?><?php echo $this->translate('件'); ?></span> </dd>
+        </dl>
+    </li>
+<?php } ?>
+<li class="more_goods_page"><?php echo ( count($this->goods_list) > 0 ) ? $this->paginationControl($this->goods_list, 'Sliding', 'mobile/moreajax',array('page_url'=>$this->url('m_class/default',array('action'=>'list', 'controller'=>'Class', 'class_id'=>$this->class_info->class_id)), 'ajaxFunction'=>'goods_ajax_list')) : ""; ?></li>
+<?php } else { echo '<li>' . $this->translate('本分类暂无商品！') . '</li>'; } ?>

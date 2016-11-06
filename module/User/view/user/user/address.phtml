@@ -1,0 +1,41 @@
+<table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="12%"><?php echo $this->translate('姓名'); ?></th>
+                    <th width="38%"><?php echo $this->translate('地址'); ?></th>
+                    <th width="10%"><?php echo $this->translate('手机'); ?></th>
+                    <th width="10%"><?php echo $this->translate('电话'); ?></th>
+                    <th width="6%"><?php echo $this->translate('邮编'); ?></th>
+                    <th width="8%"><?php echo $this->translate('默认地址'); ?></th>
+                    <th width="6%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php if(!$this->addressArray) { ?>
+            <tr>
+            	<td colspan="7"><?php echo $this->translate('还没有地址信息'); ?></td>  
+            </tr>
+            <?php } else {
+            foreach($this->addressArray as $value) { ?>
+            <tr>
+            	<td><?php echo $this->escapeHtml($value['true_name']); ?></td>
+            	<td><?php echo $this->escapeHtml($value['address']); ?><br>
+                    <?php
+                    $region_array = @explode(' ', $value['region_value']);
+                    $region_array = array_reverse($region_array);
+                    echo $this->escapeHtml(implode(',', $region_array));
+                    ?>
+                </td>
+            	<td><?php echo $this->escapeHtml($value['mod_phone']); ?></td>
+            	<td><?php echo $this->escapeHtml($value['tel_area_code'].$value['tel_phone'].$value['tel_ext']); ?></td> 
+            	<td><?php echo $this->escapeHtml($value['zip_code']); ?></td>
+            	<td><?php if ($value['addr_default'] == 1) echo $this->translate('是'); else echo $this->translate('否'); ?></td>
+            	<td>
+                <a href="javascript:;" onClick="ajax_add_address(<?php echo $value['address_id']; ?>);"><?php echo $this->translate('编辑'); ?></a>
+                <a href="javascript:;" onClick="return del_address_js(<?php echo $value['address_id']; ?>);"><?php echo $this->translate('删除'); ?></a>
+                </td>  
+            </tr>
+            <?php } } ?>
+            <tr>
+            	<td colspan="7" style="background:#FFF"><p class="pull-right"><button class="btn btn-small btn-primary" type="button" onClick="ajax_add_address(0);"><i class="icon-plus icon-white"></i> <?php echo $this->translate('添加地址'); ?></button></p></td>
+            </tr>
+            </table>

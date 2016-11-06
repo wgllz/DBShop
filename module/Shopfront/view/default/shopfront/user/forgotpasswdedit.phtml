@@ -1,0 +1,104 @@
+<div class="row-fluid"  id="user_register">
+	<div class="span10 offset1">
+		<div class="span12">
+        	<?php echo $this->translate('重新设置密码'); ?>
+        </div>
+        <div class="well">
+            <?php
+            if (isset($this->message) and $this->message != '') {
+                echo '<br><h4>' . $this->message . '</h4>';
+            } else {?>
+        	<form name="forgot_form" id="forgot_form" method="post" class="form-horizontal" action="">
+            	<div class="control-group">
+            	<label for="input01" class="control-label"><?php echo $this->translate('会员名称'); ?>：</label>
+            		<div class="controls">
+              		<?php echo $this->user_name; ?>
+            		</div>
+          		</div>
+            	<div class="control-group">
+            	<label for="input01" class="control-label"><?php echo $this->translate('会员新密码'); ?>：</label>
+            		<div class="controls">
+              		<input type="password" id="user_password" class="span3" name="user_password" placeholder="<?php echo $this->translate('输入新密码'); ?>">
+            		</div>
+          		</div>
+            	<div class="control-group">
+            	<label for="input01" class="control-label"><?php echo $this->translate('确认密码'); ?>：</label>
+            		<div class="controls">
+              		<input type="password" id="user_com_passwd" class="span3" name="user_com_passwd" placeholder="<?php echo $this->translate('输入确认密码'); ?>">
+            		</div>
+          		</div>
+            	<div class="control-group">
+            	<label for="input01" class="control-label"><?php echo $this->translate('验证码'); ?>：</label>
+            		<div class="controls">
+              		<input type="text" class="input-small" id="captcha_code" name="captcha_code" placeholder="<?php echo $this->translate('输入验证码'); ?>">&nbsp;<span id="forgot_captcha_id"></span>
+            		</div>
+          		</div>
+            	<div class="control-group">
+            		<div class="controls">
+              		<button class="btn btn-primary" type="submit"><?php echo $this->translate('提交设定新密码'); ?></button>
+            		</div>
+          		</div> 
+            </form>
+            <?php } ?>
+        </div>
+    </div>   
+</div>
+<script>
+$(document).ready(function() {
+	$("#forgot_form").validate({
+		success : function(label){
+			label.addClass('validate_right').text('OK!');
+		},
+		rules: {
+            user_password: {
+				required: true,
+				minlength: 6,
+				maxlength: 20
+			},
+			user_com_passwd: {
+				required: true,
+				minlength: 6,
+				maxlength: 20,
+				equalTo: '#user_password'
+			},
+			captcha_code: {
+				required:true,
+				remote :{
+					url : '<?php echo $this->url('shopfront/default/captcha-check',array('action'=>'captcha','captcha_check'=>1)); ?>',
+					type : 'post',
+					date : {
+						captcha_code :function(){
+							return $("#captcha_code").val();
+						}
+					}
+				}
+			}
+		},
+		messages: {
+            user_password: {
+				required: "<?php echo $this->translate('请输入新密码！'); ?>",
+				minlength: "<?php echo $this->translate('至少输入6位密码！'); ?>",
+				maxlength: "<?php echo $this->translate('密码最长为20位！'); ?>"
+			},
+			user_com_passwd: {
+				required: "<?php echo $this->translate('请输入确认密码！'); ?>",
+				minlength: "<?php echo $this->translate('至少输入6位确认密码！'); ?>",
+				maxlength: "<?php echo $this->translate('确认密码最长为20位！'); ?>",
+				equalTo: "<?php echo $this->translate('两次输入的密码不一致！'); ?>"
+			},
+			captcha_code: {
+				required:"<?php echo $this->translate('验证码不能为空！'); ?>",
+				remote : "<?php echo $this->translate('验证码错误！'); ?>"
+			}
+		}
+	});
+});
+//验证码添加
+function captchaAdd() {
+	$.post("<?php echo $this->url('shopfront/default',array('action'=>'captcha')); ?>",'',
+	function(data){
+		$("#forgot_captcha_id").html('<img src="<?php echo $this->basePath('/'); ?>'+data.captcha_file+'" border="0" >&nbsp;&nbsp;<a href="javascript:;" onclick="captchaAdd()"><?php echo $this->translate('更换验证码'); ?></a>');
+},'json');
+}
+captchaAdd();
+</script>

@@ -1,0 +1,51 @@
+    		<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('特定商品标签'); ?></strong></p>
+        	<p class="pull-right">
+            <a href="<?php echo $this->url('tag/default',array('action'=>'addSpecTag','controller'=>'tag')); ?>" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> <?php echo $this->translate('添加特定商品标签'); ?></a>&nbsp;
+            <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('goods_tag_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+            </p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="5%">ID</th>
+                    <th width="35%"><?php echo $this->translate('标签名称'); ?></th>
+                    <th width="18%"><?php echo $this->translate('标签类型'); ?></th>
+                    <th width="10%"><?php echo $this->translate('商品数量'); ?></th>
+                    <th width="10%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php
+			if ($this->tag_array) {
+				foreach ($this->tag_array as $tag_val) {
+			?>            
+            <tr>
+            	<td><?php echo $tag_val['tag_id']; ?></td>
+            	<td><?php echo $this->escapeHtml($tag_val['tag_name']); ?></td>
+                <td><?php echo ($tag_val['tag_type'] != '' ? $this->tag_type[$tag_val['tag_type']] :$this->translate('无')); ?></td>
+                <td><?php echo $tag_val['tag_goods_num']; ?></td>
+            	<td><a href="<?php echo $this->url('tag/default',array('action'=>'editSpecTag','tag_id'=>$tag_val['tag_id'])); ?>"><?php echo $this->translate('编辑'); ?></a><span>|</span><a href="javascript:;" onclick="return tag_del_js(<?php echo $tag_val['tag_id']; ?>);"><?php echo $this->translate('删除'); ?></a></td>
+            </tr>
+            <?php
+				}
+			}
+			?>
+            </table>
+            
+<script>
+//标签删除js
+function tag_del_js(tag_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该标签吗？'); ?>')) {
+	$.post("<?php echo $this->url('tag/default',array('action'=>'delSpecTag')); ?>",{tag_id:tag_id},
+	function(data){
+		if(data != 'false') {
+			window.location.href='<?php echo $this->url('tag/default',array('action'=>'specTag')); ?>';
+			return true;
+		} else {
+			alert('<?php echo $this->translate('标签删除失败！'); ?>');
+		}
+	});
+	}
+	return false;
+}
+</script>

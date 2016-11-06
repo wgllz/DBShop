@@ -1,0 +1,73 @@
+<div style="height:30px;border-bottom:4px solid #DFDFDF;margin-bottom:10px;">
+  <p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('系统更新操作'); ?></strong></p>
+  <p class="pull-right"> <a href="<?php echo $this->url('package/default'); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回系统更新列表'); ?></a>&nbsp; <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('online_package'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a> </p>
+</div>
+<div class="alert alert-error" id="warning_info"> <strong><?php echo $this->translate('建议您在更新前，备份相关的程序及数据信息，以免更新失败给您造成不必要的损失。'); ?></strong> </div>
+<div class="alert" id="permission_error" style="display:none;"></div>
+<div class="alert alert-success" id="permission_success" style="display:none;"></div>
+<div class="alert alert-success" id="check_permission" style="display:none; background-color:#FFF;"> <img src="<?php echo $this->basePath('public/admin/img/update_loading.gif'); ?>" border="0" /><strong><?php echo $this->translate('系统正在检查更新权限……，请您耐心等待！'); ?></strong> </div>
+<div class="alert alert-success" id="start_update_info" style="display:none; background-color:#FFF;"> <img src="<?php echo $this->basePath('public/admin/img/update_loading.gif'); ?>" border="0" /><strong><?php echo $this->translate('系统正在更新中……，请您耐心等待，更新过程中请不要关闭此页面！'); ?></strong> </div>
+<div>
+  <table class="table table-bordered">
+    <tr>
+      <td width="15%" style="background-color:#999;color:#FFF;"><strong><?php echo $this->translate('更新名称'); ?></strong></td>
+      <td><?php echo (isset($this->packageInfo->update_name) and $this->packageInfo->update_name != '') ? $this->packageInfo->update_name : '&nbsp;'; ?></td>
+    </tr>
+    <tr>
+      <td width="15%" style="background-color:#999;color:#FFF;"><strong><?php echo $this->translate('更新包版本'); ?></strong></td>
+      <td><?php echo (isset($this->packageInfo->version_name) and $this->packageInfo->version_name != '') ? $this->packageInfo->version_name : '&nbsp;'; ?></td>
+    </tr>
+    <tr>
+      <td width="15%" style="background-color:#999;color:#FFF;"><strong><?php echo $this->translate('更新描述'); ?></strong></td>
+      <td><?php echo (isset($this->packageInfo->update_info) and $this->packageInfo->update_info != '') ? $this->packageInfo->update_info : '&nbsp;'; ?></td>
+    </tr>
+  </table>
+</div>
+<div class="text-center">
+    <form name="check_form" id="check_form" method="post" action="">
+        <input type="hidden" name="update_state" value="check_permission" />
+        <button type="button" onclick="dbshop_check_permission();" class="btn btn-large btn-primary"><?php echo $this->translate('点击检查权限通过后，进行更新处理'); ?></button>
+    </form>
+  <form name="update_form" id="update_form" method="post" action="" style="display: none;">
+    <input type="hidden" name="update_state" value="start_update" />
+    <button type="button" onclick="dbshop_start_update();" class="btn btn-large btn-primary"><?php echo $this->translate('点击进行更新'); ?></button>
+  </form>
+</div>
+<script>
+function dbshop_check_permission() {
+    $('#check_permission').css('display', '');
+
+    $.post("<?php echo $this->url('package/default/package_id',array('controller'=>'package','action'=>'onlineupdate','package_id'=>$this->packageInfo->v_id)); ?>",$('#check_form').formSerialize(),
+        function(data){
+            if(data == 'permission_ok') {
+                $('#check_permission').css('display', 'none');
+                $('#permission_error').css('display', 'none');
+                $('#permission_success').css('display', '');
+                $('#permission_success').html('<?php echo $this->translate('权限符合更新要求，可以正常更新！'); ?>');
+                $('#check_form').css('display', 'none');
+                $('#update_form').css('display', '');
+            } else {
+                $('#permission_error').css('display', '');
+                $('#permission_error').html(data);
+            }
+        });
+}
+
+function dbshop_start_update() {
+    $('#permission_success').css('display', 'none');
+
+	$('#update_form').css('display', 'none');
+	$('#start_update_info').css('display', '');
+	$.post("<?php echo $this->url('package/default/package_id',array('controller'=>'package','action'=>'onlineupdate','package_id'=>$this->packageInfo->v_id)); ?>",$('#update_form').formSerialize(),
+			function(data){
+				if(data == 'true') {
+					alert('<?php echo $this->translate('更新成功！'); ?>');
+					window.location.href="<?php echo $this->url('package/default'); ?>";
+				} else {
+					alert(data);
+                    return false;
+                    window.location.href="<?php echo $this->url('package/default/package_id',array('controller'=>'package','action'=>'onlineupdate','package_id'=>$this->packageInfo->v_id)); ?>";
+				}
+		  });	
+}
+</script> 

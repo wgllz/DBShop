@@ -1,0 +1,208 @@
+<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+    <p class="span4 pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('提现申请'); ?></strong></p>
+    <p class="span8 text-right">
+        <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('user_withdraw_log'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+    </p>
+</div>
+<table class="table table-hover">
+    <thead style="background:#CCC;">
+    <tr>
+        <th width="10%"><?php echo $this->translate('时间'); ?></th>
+        <th width="5%"><?php echo $this->translate('状态'); ?></th>
+        <th width="10%"><?php echo $this->translate('申请人'); ?></th>
+        <th width="8%"><?php echo $this->translate('审核人'); ?></th>
+        <th width="8%"><?php echo $this->translate('提现金额/货币'); ?></th>
+        <th width="8%"><?php echo $this->translate('审核时间'); ?></th>
+        <th width="20%"><?php echo $this->translate('备注'); ?></th>
+        <th width="8%"><?php echo $this->translate('操作'); ?></th>
+    </tr>
+    </thead>
+    <form method="GET" action="<?php echo $this->url('usermoney/default',array('action'=>'withdraw')); ?>">
+    <tr class="goods_search" style="background:#F5F5F5;">
+        <td>
+            <p>&nbsp;<?php echo $this->translate('始'); ?><input type="text" name="withdraw_start_time" id="withdraw_start_time" value="<?php if ($this->searchArray and isset($this->searchArray['withdraw_start_time'])) echo $this->searchArray['withdraw_start_time']; ?>" onclick="WdatePicker({el:'withdraw_start_time'})"  class="span8"></p>
+            <p>&nbsp;<?php echo $this->translate('终'); ?><input type="text" name="withdraw_end_time" id="withdraw_end_time" value="<?php if ($this->searchArray and isset($this->searchArray['withdraw_end_time'])) echo $this->searchArray['withdraw_end_time']; ?>" onclick="WdatePicker({el:'withdraw_end_time'})" class="span8"></p>
+        </td>
+        <td>
+            <select id="withdraw_state" name="withdraw_state" class="span11">
+                <option value=""><?php echo $this->translate('请选择'); ?></option>
+                <option value="0" <?php if ($this->searchArray and isset($this->searchArray['withdraw_state']) and $this->searchArray['withdraw_state'] == 0) echo 'selected'; ?>><?php echo $this->translate('待处理'); ?></option>
+                <option value="1" <?php if ($this->searchArray and isset($this->searchArray['withdraw_state']) and $this->searchArray['withdraw_state'] == 1) echo 'selected'; ?>><?php echo $this->translate('已同意'); ?></option>
+                <option value="2" <?php if ($this->searchArray and isset($this->searchArray['withdraw_state']) and $this->searchArray['withdraw_state'] == 2) echo 'selected'; ?>><?php echo $this->translate('已拒绝'); ?></option>
+            </select>
+        </td>
+        <td>
+            <input type="text" name="user_name" value="<?php if ($this->searchArray and isset($this->searchArray['user_name'])) echo $this->searchArray['user_name']; ?>" class="span11">
+        </td>
+        <td>
+            <input type="text" name="admin_name" value="<?php if ($this->searchArray and isset($this->searchArray['admin_name'])) echo $this->searchArray['admin_name']; ?>" class="span11">
+        </td>
+        <td>
+            <input type="text" name="money_change_num" value="<?php if ($this->searchArray and isset($this->searchArray['money_change_num'])) echo $this->searchArray['money_change_num']; ?>" class="span11">
+        </td>
+        <td>
+            <p>&nbsp;<?php echo $this->translate('始'); ?><input type="text" name="withdraw_start_finish_time" id="withdraw_start_finish_time" value="<?php if ($this->searchArray and isset($this->searchArray['withdraw_start_finish_time'])) echo $this->searchArray['withdraw_start_finish_time']; ?>" onclick="WdatePicker({el:'withdraw_start_finish_time'})"  class="span8"></p>
+            <p>&nbsp;<?php echo $this->translate('终'); ?><input type="text" name="withdraw_end_finish_time" id="withdraw_end_finish_time" value="<?php if ($this->searchArray and isset($this->searchArray['withdraw_end_finish_time'])) echo $this->searchArray['withdraw_end_finish_time']; ?>" onclick="WdatePicker({el:'withdraw_end_finish_time'})" class="span8"></p>
+        </td>
+        <td>
+            <input type="text" name="withdraw_info" value="<?php if ($this->searchArray and isset($this->searchArray['withdraw_info'])) echo $this->searchArray['withdraw_info']; ?>" class="span10">
+        </td>
+        <td>
+            <button class="btn btn-small btn-primary" type="submit"><i class="icon-search icon-white"></i> <?php echo $this->translate('搜索'); ?></button>
+            <?php if ($this->searchArray and !empty($this->searchArray)) { ?>
+                &nbsp;&nbsp;<a href="<?php echo $this->url('usermoney/default',array('action'=>'withdraw')); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回'); ?></a>
+            <?php } ?>
+        </td>
+    </tr>
+    </form>
+    <?php
+    $state_array = array(1=>'<font color="green">'.$this->translate('同意且已完成').'</font>', 2=>'<font color="red">'.$this->translate('拒绝提现').'</font>', 0=>$this->translate('等待处理'));
+    ?>
+    <?php if($this->user_withdraw_log) foreach ($this->user_withdraw_log as $log_value) { ?>
+        <tr>
+            <td><?php echo date("Y-m-d H:i:s", $log_value['withdraw_time']); ?></td>
+            <td><?php echo $state_array[$log_value['withdraw_state']]; ?></td>
+            <td><?php echo $log_value['user_name'];?></td>
+            <td><?php echo !empty($log_value['admin_name']) ? $log_value['admin_name'].' - [<strong>'.$this->translate('管理员').'</strong>]' : ''; ?></td>
+            <td><?php echo $log_value['money_change_num'] . ' / ' . $log_value['currency_code']; ?></td>
+            <td><?php if(!empty($log_value['withdraw_finish_time'])) echo date("Y-m-d H:i:s", $log_value['withdraw_finish_time']); ?></td>
+            <td><?php echo $this->escapeHtml($log_value['withdraw_info']); ?></td>
+            <td>
+                <?php if($log_value['withdraw_state'] == 0) { ?>
+                <a href="javascript:;" onclick="oper_withdraw(<?php echo $log_value['withdraw_id']; ?>);"><?php echo $this->translate('审核'); ?></a>
+                <span>|</span>
+                <?php } ?>
+                <a href="javascript:;" onClick="return del_withdraw_js(<?php echo $log_value['withdraw_id']; ?>);"><?php echo $this->translate('删除'); ?></a>
+            </td>
+        </tr>
+        <?php
+    }
+    ?>
+    <tr>
+        <td colspan="8" style="background: #FFF">
+            <?php echo ( count($this->user_withdraw_log) > 0 ) ? $this->paginationControl($this->user_withdraw_log, 'Sliding', 'common/pager',array('page_url'=>$this->url('usermoney/default/money_log_page',array('action'=>'withdraw')))) : ""; ?>
+        </td>
+    </tr>
+</table>
+<script src="<?php echo $this->basePath('/public/js/DatePicker/WdatePicker.js'); ?>"></script>
+
+<form class="form-horizontal" name="user_money_form" id="user_money_form" method="post">
+    <input type="hidden" name="withdraw_id" id="withdraw_id" value="">
+    <div id="myModal" class="modal hide fade" style="width: 620px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel"><?php echo $this->translate('审核提现'); ?></h3>
+        </div>
+        <div class="modal-body">
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('可提现金额'); ?></label>
+                <div class="controls">
+                    <label style="color: red;height: 30px;line-height: 30px;" id="user_money"></label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('提现金额'); ?></label>
+                <div class="controls">
+                    <input type="text" id="money_change_num" readonly value="" class="span6">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('提现货币'); ?></label>
+                <div class="controls">
+                    <input type="text" id="currency_code" readonly value="" class="span6">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('支付名称/开户银行'); ?></label>
+                <div class="controls">
+                    <input type="text" readonly id="bank_name" value="" class="span6">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('账户名称/开户名称'); ?></label>
+                <div class="controls">
+                    <input type="text" readonly id="bank_account" value="" class="span6">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('账号/卡号'); ?></label>
+                <div class="controls">
+                    <input type="text" readonly id="bank_card_number" value="" class="span6">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('提现状态'); ?></label>
+                <div class="controls">
+                    <label class="radio inline">
+                        <input type="radio" checked name="withdraw_state" value="1"><?php echo $this->translate('同意且已完成'); ?>
+                    </label>
+                    <label class="radio inline">
+                        <input type="radio" name="withdraw_state" value="2"><?php echo $this->translate('拒绝提现'); ?>
+                    </label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('审核意见'); ?></label>
+                <div class="controls">
+                    <textarea name="withdraw_info" id="withdraw_info" class="span8"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" onclick="update_withdraw();" class="btn btn-primary"><?php echo $this->translate('保存审核'); ?></button>
+            &nbsp;&nbsp;
+            <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('关闭'); ?></button>
+        </div>
+    </div>
+</form>
+
+<script>
+    function oper_withdraw(withdraw_id) {
+        if(withdraw_id != '') {
+            $.post('<?php echo $this->url('usermoney/default',array('action'=>'withdrawInfo')); ?>', {'withdraw_id':withdraw_id}, function(data){
+                    if (data.state == 'true')
+                    {
+                        $('#user_money').html(data.user_money);
+                        $('#withdraw_id').val(data.withdraw_id);
+                        $('#money_change_num').val(data.money_change_num);
+                        $('#currency_code').val(data.currency_code);
+                        $('#bank_name').val(data.bank_name);
+                        $('#bank_account').val(data.bank_account);
+                        $('#bank_card_number').val(data.bank_card_number);
+                    } else {
+                        alert(data.message);
+                        return false;
+                    }
+                },
+                'json');
+
+            $('#myModal').modal('show');
+        } else {
+            alert(<?php echo $this->translate('无法进行审核'); ?>);
+        }
+    }
+    function update_withdraw() {
+        $.post("<?php echo $this->url('usermoney/default',array('action'=>'withdrawUdate')); ?>",$('#user_money_form').formSerialize(),
+            function(data){
+                if(data == 'true') {
+                    window.location.reload();
+                } else {
+                    alert(data);
+                }
+            });
+    }
+    function del_withdraw_js(withdraw_id) {
+        if(window.confirm('<?php echo $this->translate('您确实要删除该提现记录吗？'); ?>')) {
+            $.post("<?php echo $this->url('usermoney/default',array('action'=>'withdrawDel')); ?>",{withdraw_id:withdraw_id},
+                function(data){
+                    if(data != 'false') {
+                        window.location.reload();
+                        return true;
+                    } else {
+                        alert('<?php echo $this->translate('提现记录删除失败！'); ?>');
+                    }
+                });
+        }
+        return false;
+    }
+</script>

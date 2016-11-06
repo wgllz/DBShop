@@ -1,0 +1,207 @@
+<div class="row-fluid" style="margin-top:20px;"> <?php echo $this->partial('shopfront/home/left_menu.phtml'); ?>
+  <div class="span8" id="home_user_info">
+    <div class="well">
+      <h5><?php echo $this->translate('申请退货'); ?></h5>
+      <form class="form-horizontal" method="post" name="order_refund_form" id="order_refund_form">
+        <input type="hidden" name="hidden_order_sn" id="hidden_order_sn" value="">
+        <div class="control-group">
+          <label class="control-label"><?php echo $this->translate('订单编号'); ?><span class="must_add_value">*</span>：</label>
+          <div class="controls">
+            <input type="text" class="span5" id="order_sn" value="" name="order_sn" placeholder="<?php echo $this->translate('必须是已发货或者已收货的订单'); ?>">
+            <button type="button" class="btn btn-small btn-primary" id="search-order" onclick="search_order_goods();"><?php echo $this->translate('点击查询'); ?></button>
+          </div>
+        </div>
+        <div class="control-group order-goods" style="display: none;">
+          <label class="control-label"><?php echo $this->translate('退货商品'); ?><span class="must_add_value">*</span>：</label>
+          <div class="controls" id="order-goods-list">
+            
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label"><?php echo $this->translate('退款方式'); ?><span class="must_add_value">*</span>：</label>
+          <div class="controls">
+            <label class="radio">
+              <input type="radio" name="refund_type" value="1" onclick="select_radio(1);" checked><?php echo $this->translate('退款到账户余额'); ?>
+            </label>
+            <label class="radio">
+              <input type="radio" name="refund_type" value="2"  onclick="select_radio(2);"><?php echo $this->translate('退款到银行卡'); ?>
+            </label>
+            <label class="radio">
+              <input type="radio" name="refund_type" value="3"  onclick="select_radio(3);"><?php echo $this->translate('退款到第三方支付'); ?>
+            </label>
+          </div>
+        </div>
+        <div class="control-group refund-bank" style="display: none;">
+          <label class="control-label"><?php echo $this->translate('开户行'); ?><span class="must_add_value">*</span>：</label>
+          <div class="controls">
+            <input type="text" class="span5" id="bank_name" value="" name="bank_name">
+          </div>
+        </div>
+        <div class="control-group refund-bank" style="display: none;">
+          <label class="control-label"><?php echo $this->translate('姓名'); ?><span class="must_add_value">*</span>：</label>
+          <div class="controls">
+            <input type="text" class="span5" id="bank_account" value="" name="bank_account">
+          </div>
+        </div>
+        <div class="control-group refund-bank" style="display: none;">
+          <label class="control-label"><?php echo $this->translate('收款卡号'); ?><span class="must_add_value">*</span>：</label>
+          <div class="controls">
+            <input type="text" class="span5" id="bank_card_number" value="" name="bank_card_number">
+          </div>
+        </div>
+        <div class="control-group refund-pay" style="display: none;">
+          <label class="control-label"><?php echo $this->translate('支付名称'); ?><span class="must_add_value">*</span>：</label>
+          <div class="controls">
+            <input type="text" class="span5" id="pay_name" value="" name="pay_name">
+          </div>
+        </div>
+        <div class="control-group refund-pay" style="display: none;">
+          <label class="control-label"><?php echo $this->translate('姓名'); ?><span class="must_add_value">*</span>：</label>
+          <div class="controls">
+            <input type="text" class="span5" id="pay_user_name" value="" name="pay_user_name">
+          </div>
+        </div>
+        <div class="control-group refund-pay" style="display: none;">
+          <label class="control-label"><?php echo $this->translate('收款帐号'); ?><span class="must_add_value">*</span>：</label>
+          <div class="controls">
+            <input type="text" class="span5" id="pay_account" value="" name="pay_account">
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="input01" class="control-label"><?php echo $this->translate('退货原因'); ?><span class="must_add_value">*</span>：</label>
+          <div class="controls">
+            <textarea class="span6" rows="3" name="refund_info" id="refund_info" placeholder="<?php echo $this->translate('最多100字'); ?>"></textarea>
+          </div>
+        </div>
+        <div class="offset3">
+          <button class="btn btn-primary" type="submit"><?php echo $this->translate('申请退货'); ?></button>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="<?php echo $this->url('frontrefund/default'); ?>" class="btn"><?php echo $this->translate('返回'); ?></a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+  $("#order_refund_form").validate({
+    rules: {
+      order_sn: {
+        required: true
+      },
+      refund_info: {
+        required: true
+      }
+    },
+    messages: {
+      order_sn: {
+        required: "<?php echo $this->translate('订单编号不能为空！'); ?>"
+      },
+      refund_info: {
+        required: "<?php echo $this->translate('退货原因不能为空！'); ?>"
+      }
+    },
+    submitHandler:function(form){
+      order_refund_save();
+    }
+  });
+})
+
+function order_refund_save() {
+  var hidden_order_sn = $('#hidden_order_sn').val();
+  if(hidden_order_sn != '') {
+    var refund_type = $('input[name="refund_type"]:checked').val();
+    var bank_name   = $.trim($('#bank_name').val());
+    var bank_account= $.trim($('#bank_account').val());
+    var bank_card_number= $.trim($('#bank_card_number').val());
+    var pay_name    = $.trim($('#pay_name').val());
+    var pay_account = $.trim($('#pay_account').val());
+    var pay_user_name = $.trim($('#pay_user_name').val());
+
+    if(refund_type == 2) {
+      if(bank_name == '' || bank_account == '' || bank_card_number == '') {
+        alert('<?php echo $this->translate('开户行 姓名 收款卡号 不能为空！'); ?>');
+        return ;
+      }
+    }
+    if(refund_type == 3) {
+      if(pay_name == '' || pay_account == '' || pay_user_name == '') {
+        alert('<?php echo $this->translate('支付名称 姓名 收款账号 不能为空！'); ?>');
+        return ;
+      }
+    }
+
+    $.post("<?php echo $this->url('frontrefund/default', array('action'=>'saveRefund')); ?>",$('#order_refund_form').formSerialize(),
+        function(data){
+          if(data == 'true') {
+            alert('<?php echo $this->translate('退货申请提交成功！'); ?>');
+            window.location.href= '<?php echo $this->url('frontrefund/default'); ?>';
+          } else {
+            alert(data);
+            return false;
+          }
+        });
+
+  }else {
+    alert('<?php echo $this->translate('需要 点击查询 按钮，添加退货商品！'); ?>');
+  }
+}
+
+function select_radio(refund_type) {
+  if(refund_type == 1){
+    $(".refund-bank").css('display', 'none');
+    $(".refund-pay").css('display', 'none');
+  }
+  if(refund_type == 2) {
+    $(".refund-pay").css('display', 'none');
+    $(".refund-bank").css('display', '');
+  }
+  if(refund_type == 3) {
+    $(".refund-bank").css('display', 'none');
+    $(".refund-pay").css('display', '');
+  }
+}
+
+function search_order_goods() {
+  var order_sn = $('#order_sn').val();
+  var hidden_order_sn = $('#hidden_order_sn').val();
+
+  if(order_sn == '') {
+    alert('<?php echo $this->translate('订单编号不能为空！'); ?>');
+    return ;
+  }
+
+  if(hidden_order_sn != '') {//修改操作
+    $('#order_sn').removeAttr('readonly');
+    $('#search-order').text('<?php echo $this->translate('点击查询'); ?>');
+    $('#search-order').addClass('btn-primary');
+    $('#order-goods-list').html('');
+    $('.order-goods').css('display', 'none');
+    $('#hidden_order_sn').val('');
+    return ;
+  }
+
+  $.post("<?php echo $this->url('frontrefund/default', array('action'=>'searchOrderGoods')); ?>",{order_sn:order_sn},
+      function(data){
+        if(data.state == 'true') {
+          var i,html = '';
+          for(i=0; i<data.goods.length; i++) {
+            html += '<label class="checkbox"><input type="checkbox" name="goods_id['+data.goods[i].goods_id+']" value="'+data.goods[i].goods_id+'" checked>'+data.goods[i].goods_name+'</label>';
+          }
+          $('#order_sn').attr('readonly', 'readonly');
+          $('#search-order').text('<?php echo $this->translate('修改编号'); ?>');
+          $('#search-order').removeClass('btn-primary');
+          $('#hidden_order_sn').val(order_sn);
+          //$('#order_sn').removeAttr('readonly');
+
+          $('.order-goods').css('display', '');
+          $('#order-goods-list').html(html);
+        } else {
+          alert(data.message);
+          $('#order_sn').val('');
+          return false;
+        }
+      },'json');
+}
+</script>

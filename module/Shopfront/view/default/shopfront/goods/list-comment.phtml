@@ -1,0 +1,22 @@
+<?php if ($this->goods_comment->getTotalItemCount() > 0) { ?>
+<ul class="media-list">
+  <?php foreach ($this->goods_comment as $comment_value) { ?>
+  <li class="media"> <a class="pull-left" href="javascript:;"><img class="media-object" src="<?php echo $this->basePath((empty($comment_value['user_avatar']) ? $this->frontwebsite()->getUserIni('default_avatar') : $comment_value['user_avatar'])); ?>" style="height:64px; width:64px;"></a>
+    <div class="media-body well well-small">
+      <h4 class="media-heading"><?php echo $comment_value['comment_writer']; ?> <small><?php echo date("Y-m-d H:i:s", $comment_value['comment_time']); ?></small><span class="pull-right">
+        <div class="rating">
+          <div class="value" style="width:<?php echo $comment_value['goods_evaluation'] * 20; ?>%"></div>
+        </div>
+        </span></h4>
+      <p><?php echo $this->escapeHtml($comment_value['comment_body']); ?></p>
+    </div>
+  </li>
+  <?php } ?>
+  <li style="padding-bottom:8px;"> <?php echo ( count($this->goods_comment) > 0 ) ? $this->paginationControl($this->goods_comment, 'Sliding', 'site/ajax-dbpage',array('page_url'=>$this->url('frontgoods/default',array('action'=>'listComment','goods_id'=>$this->goods_id,'class_id'=>$this->class_id)), 'ajaxFunction'=>'comment_ajax_list')) : ""; ?> </li>
+</ul>
+<?php } else { ?>
+<div class="alert alert-info"> <strong><?php echo $this->translate('该商品暂无评价！'); ?></strong> </div>
+<?php } ?>
+<script>
+$('#goods_comment_num').html('&nbsp;<a href="#comment"><?php echo $this->goods_comment->getTotalItemCount(); ?><?php echo $this->translate('篇口碑报告'); ?></a>');
+</script>

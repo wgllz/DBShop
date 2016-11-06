@@ -1,0 +1,62 @@
+<div style="height:30px;border-bottom:4px solid #DFDFDF;">
+    <p class="pull-left" style="font-size:16px; line-height:30px;">
+        <strong><?php echo $this->express_info->express_name; ?>-<?php echo $this->translate('快递单号'); ?></strong></p>
+
+    <p class="pull-right">
+        <a href="<?php echo $this->url('orders/default', array('action' => 'expressNumber', 'controller' => 'Orders')); ?>"
+           class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回快递单号管理'); ?></a>
+    </p>
+</div>
+<table class="table table-hover">
+    <thead style="background:#CCC;">
+    <tr>
+        <th width="10%"><?php echo $this->translate('快递单号'); ?></th>
+        <th width="10%"><?php echo $this->translate('订单编号'); ?></th>
+        <th width="10%"><?php echo $this->translate('使用状态'); ?></th>
+        <th width="10%"><?php echo $this->translate('使用时间'); ?></th>
+        <th width="10%"><?php echo $this->translate('操作'); ?></th>
+    </tr>
+    </thead>
+    <?php
+    if ($this->number_list) {
+        foreach ($this->number_list as $number_val) {
+            ?>
+            <tr>
+                <td><?php echo $number_val['express_number']; ?></td>
+                <td><?php echo($number_val['order_sn'] == '' ? $this->translate('无') : $number_val['order_sn']); ?></td>
+                <td><?php echo($number_val['express_number_state'] == 1 ? $this->translate('已使用') : $this->translate('未使用')); ?></td>
+                <td><?php echo($number_val['express_number_use_time'] == '' ? $this->translate('无') : date("Y-m-d H:i", $number_val['express_number_use_time'])); ?></td>
+                <td>
+                    <?php if ($number_val['express_number_state'] == 0) { ?>
+                        <a href="javascript:;"
+                           onclick="express_number_del_js(<?php echo $number_val['express_number_id']; ?>);"><?php echo $this->translate('删除快递单号'); ?></a>
+                    <?php } ?>
+                </td>
+            </tr>
+        <?php
+        }
+    }
+    ?>
+    <tr>
+        <td colspan="5" style="background: #FFF">
+            <?php echo (count($this->number_list) > 0) ? $this->paginationControl($this->number_list, 'Sliding', 'common/pager', array('page_url' => $this->url('orders/default/order-express-id', array('controller' => 'Orders', 'action' => 'expressNumberList', 'express_id' => $this->express_info->express_id)))) : ""; ?>
+        </td>
+    </tr>
+</table>
+<script>
+    //删除js
+    function express_number_del_js(express_number_id) {
+        if (window.confirm('<?php echo $this->translate('您确实要删除该快递单号吗？'); ?>')) {
+            $.post("<?php echo $this->url('orders/default',array('action' => 'delExpressNumber', 'controller' => 'Orders')); ?>", {express_number_id: express_number_id},
+                function (data) {
+                    if (data != 'false') {
+                        window.location.href = '<?php echo $this->url('orders/default/order-express-id',array('controller'=>'Orders','action'=>'expressNumberList', 'express_id'=>$this->express_info->express_id)); ?>';
+                        return true;
+                    } else {
+                        alert('<?php echo $this->translate('快递单号删除失败！'); ?>');
+                    }
+                });
+        }
+        return false;
+    }
+</script>

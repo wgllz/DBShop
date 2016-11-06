@@ -1,0 +1,58 @@
+    		<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('在线客服组管理'); ?></strong></p>
+        	<p class="pull-right">
+            <a href="<?php echo $this->url('online/default',array('action'=>'groupadd')); ?>" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> <?php echo $this->translate('添加在线客服组'); ?></a>&nbsp;
+            <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('online_group_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+            </p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="5%">ID</th>
+                    <th width="30%"><?php echo $this->translate('客服组名称'); ?></th>
+                    <th width="10%"><?php echo $this->translate('客服组排序'); ?></th>
+                    <th width="10%"><?php echo $this->translate('客服组状态'); ?></th>
+                    <th width="10%"><?php echo $this->translate('显示位置'); ?></th>
+                    <th width="8%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php if($this->group_list) foreach ($this->group_list as $group_value) { ?>            
+            <tr>
+            	<td><?php echo $group_value['online_group_id']; ?></td>
+            	<td><?php echo $this->escapeHtml($group_value['online_group_name']); ?></td>
+                <td><?php echo $group_value['online_group_sort']; ?></td>
+                <td><?php echo ($group_value['online_group_state'] == 1 ? $this->translate('启用') : $this->translate('禁用')); ?></td>
+                <td><?php
+				if($group_value['index_show'] == '' and $group_value['class_show'] == '' and $group_value['goods_show'] == '') echo $this->translate('未设置');
+                if($group_value['index_show'] == 'true') echo $this->translate('首页显示').'<br>';
+				if($group_value['class_show'] == 'true') echo $this->translate('商品列表页').'<br>';
+				if($group_value['goods_show'] == 'true') echo $this->translate('商品内容页').'<br>';
+				?></td>
+            	<td><a href="<?php echo $this->url('online/default/online_group_id',array('action'=>'groupedit','online_group_id'=>$group_value['online_group_id'])); ?>"><?php echo $this->translate('编辑'); ?></a><span>|</span><a href="javascript:;" onclick="return online_group_del_js(<?php echo $group_value['online_group_id']; ?>);"><?php echo $this->translate('删除'); ?></a></td>  
+            </tr>
+            <?php
+				}
+			?>
+            </table>
+            
+<script>
+//客服组删除js
+function online_group_del_js(online_group_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该客服组吗？'); ?>')) {
+	$.post("<?php echo $this->url('online/default', array('action'=>'groupdel')); ?>",{online_group_id:online_group_id},
+	function(data){
+		if(data != 'false') {
+			if(data == 'online_exists') {
+				alert('<?php echo $this->translate('该客服组已经使用，不能删除！'); ?>');
+				return false;	
+			}
+			window.location.href='<?php echo $this->url('online/default', array('action'=>'group')); ?>';
+			return true;
+		} else {
+			alert('<?php echo $this->translate('客服组删除失败！'); ?>');
+		}
+	});
+	}
+	return false;
+}
+</script>

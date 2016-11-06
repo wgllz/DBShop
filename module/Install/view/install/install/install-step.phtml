@@ -1,0 +1,121 @@
+<div class="row-fluid">
+	<div class="row span8 offset2">
+    	<table class="table table-bordered" style=" margin-bottom:13px; margin-top:8px;">
+        	<thead>
+        	<tr>
+            	<th colspan="4" style="padding-left:5px;"><h4><?php echo $this->translate('DBShop安装环境检测'); ?></h4></th>
+            </tr>
+            </thead>
+            <tbody>
+            	<tr>
+                	<td width="25%" style="text-align:right; font-weight:bold;"><?php echo $this->translate('操作系统'); ?>：</td><td width="25%"><?php echo $this->os_version; ?></td>
+                    <td width="25%" style="text-align:right; font-weight:bold;"><?php echo $this->translate('WEB服务器'); ?>：</td><td width="25%"><?php echo $this->web_version; ?></td>
+                </tr>
+            	<tr>
+                	<td width="25%" style="text-align:right; font-weight:bold;"><?php echo $this->translate('PHP版本'); ?>：</td><td width="25%"><?php echo $this->php_version; ?></td>
+                    <td width="25%" style="text-align:right; font-weight:bold;"><?php echo $this->translate('GD库'); ?>：</td><td width="25%"><?php echo $this->gd_version; ?></td>
+                </tr>
+                <tr>
+                <td colspan="4"><strong><?php echo $this->translate('目录权限'); ?></strong></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">./data/</td><td><?php echo $this->dir_file_check['./data/']; ?></td>
+                    <td style="text-align:right; font-weight:bold;">./public/</td><td><?php echo $this->dir_file_check['./public/']; ?></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">./data/cache/</td><td><?php echo $this->dir_file_check['./data/cache/']; ?></td>
+                    <td style="text-align:right; font-weight:bold;">./public/upload/ad/</td><td><?php echo $this->dir_file_check['./public/upload/ad/']; ?></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">./data/moduledata/</td><td><?php echo $this->dir_file_check['./data/moduledata/']; ?></td>
+                    <td style="text-align:right; font-weight:bold;">./public/upload/brand/</td><td><?php echo $this->dir_file_check['./public/upload/brand/']; ?></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">./data/moduledata/Ad/</td><td><?php echo $this->dir_file_check['./data/moduledata/Ad/']; ?></td>
+                    <td style="text-align:right; font-weight:bold;">./public/upload/captcha/</td><td><?php echo $this->dir_file_check['./public/upload/captcha/']; ?></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">./data/moduledata/Currency/</td><td><?php echo $this->dir_file_check['./data/moduledata/Currency/']; ?></td>
+                    <td style="text-align:right; font-weight:bold;">./public/upload/class/</td><td><?php echo $this->dir_file_check['./public/upload/class/']; ?></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">./data/moduledata/Dbsql/</td><td><?php echo $this->dir_file_check['./data/moduledata/Dbsql/']; ?></td>
+                    <td style="text-align:right; font-weight:bold;">./public/upload/common/</td><td><?php echo $this->dir_file_check['./public/upload/common/']; ?></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">./data/moduledata/Email/</td><td><?php echo $this->dir_file_check['./data/moduledata/Email/']; ?></td>
+                    <td style="text-align:right; font-weight:bold;">./public/upload/editor/</td><td><?php echo $this->dir_file_check['./public/upload/editor/']; ?></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">./data/moduledata/Errorlog/</td><td><?php echo $this->dir_file_check['./data/moduledata/Errorlog/']; ?></td>
+                    <td style="text-align:right; font-weight:bold;">./public/upload/goods/</td><td><?php echo $this->dir_file_check['./public/upload/goods/']; ?></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">./data/moduledata/Express/</td><td><?php echo $this->dir_file_check['./data/moduledata/Express/']; ?></td>
+                    <td style="text-align:right; font-weight:bold;">./public/upload/links/</td><td><?php echo $this->dir_file_check['./public/upload/links/']; ?></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">./data/moduledata/Navigation/</td><td><?php echo $this->dir_file_check['./data/moduledata/Navigation/']; ?></td>
+                    <td style="text-align:right; font-weight:bold;">./data/moduledata/User/</td><td><?php echo $this->dir_file_check['./data/moduledata/User/']; ?></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">./data/moduledata/Payment/</td><td><?php echo $this->dir_file_check['./data/moduledata/Payment/']; ?></td>
+                    <td style="text-align:right; font-weight:bold;">./data/Database.ini.php</td><td><?php echo $this->dir_file_check['./data/Database.ini.php']; ?></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">./data/moduledata/System/</td><td><?php echo $this->dir_file_check['./data/moduledata/System/']; ?></td>
+                    <td style="text-align:right; font-weight:bold;">./data/Version.php</td><td><?php echo $this->dir_file_check['./data/Version.php']; ?></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">./data/moduledata/Upload/</td><td><?php echo $this->dir_file_check['./data/moduledata/Upload/']; ?></td>
+                    <td style="text-align:right; font-weight:bold;">./config/autoload/</td><td><?php echo $this->dir_file_check['./config/autoload/']; ?></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">./data/moduledata/Shopfront/</td><td><?php echo $this->dir_file_check['./data/moduledata/Shopfront/']; ?></td>
+                    <td style="text-align:right; font-weight:bold;">./module/</td><td><?php echo $this->dir_file_check['./module/']; ?></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">./data/moduledata/Package/</td><td><?php echo $this->dir_file_check['./data/moduledata/Package/']; ?></td>
+                    <td style="text-align:right; font-weight:bold;"></td><td></td>
+                </tr>
+                <tr>
+                <td colspan="4"><strong><?php echo $this->translate('函数依赖性检查'); ?></strong></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">file_get_contents()</td><td><?php echo $this->file_get_contents_open; ?></td>
+                    <td style="text-align:right; font-weight:bold;">file_put_contents()</td><td><?php echo $this->file_put_contents_open; ?></td>
+                </tr>
+                <tr>
+                	<td style="text-align:right; font-weight:bold;">curl_init()</td><td><?php echo $this->curl_open; ?></td>
+                    <td style="text-align:right; font-weight:bold;">PDO</td><td><?php echo $this->pdo_open; ?></td>
+                </tr>
+                <tr>
+                    <td colspan="4"><strong><?php echo $this->translate('模块载入检查'); ?></strong></td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; font-weight:bold;">Soap</td><td colspan="3" style="font-weight:bold;"><?php echo $this->php_soap; ?></td>
+                </tr>
+                <tr>
+                    <td style="text-align:right; font-weight:bold;">Rewrite</td><td colspan="3" style="font-weight:bold;color:red;">
+                        <?php
+                        $rewriteHelpUlr = $this->translate('重写模块 DBShop系统正常使用，此模块必须开启。因为没有统一的程序检查方法，所以写此重要提示。手动检查是否开启 重写模块 的方法 ');
+                        $rewriteHelpUlr1= '<a href="http://help.dbshop.net/index.php/%E7%B3%BB%E7%BB%9F%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB#.E5.BF.85.E9.A1.BB.E5.BC.80.E5.90.AF.E9.87.8D.E5.86.99.E5.8A.9F.E8.83.BD" target="_blank">'.$this->translate('请点击此链接查看开启方法').'</a>';
+                        if(isset($this->curl_open_state) and $this->curl_open_state == 1) {
+                            echo $this->rewrite_open;
+                            if($this->rewrite_open == '<i class="cus-exclamation"></i>') echo $rewriteHelpUlr1;
+                        } else echo $rewriteHelpUlr.$rewriteHelpUlr1;
+                        ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="text-center">
+            <?php if ($this->check_state == 'true') { ?>
+            <a href="<?php echo $this->url('install/default'); ?>" class="btn btn-large btn-primary"><i class="icon-arrow-left icon-white"></i> <?php echo $this->translate('返回上一步'); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;
+        	<a href="<?php echo $this->url('install/default/install_step', array('controller'=>'Install', 'action'=>'installStepStart', 'step'=>'step_2')); ?>" class="btn btn-large btn-primary"><i class="icon-arrow-right icon-white"></i> <?php echo $this->translate('继续下一步'); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <?php } else { ?>
+            <a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-large btn-warning"><i class="icon-wrench icon-white"></i> <?php echo $this->translate('请设置满足条件的安装环境后，点此按钮刷新'); ?></a>
+            <?php } ?>
+        </p>
+    </div>
+</div>

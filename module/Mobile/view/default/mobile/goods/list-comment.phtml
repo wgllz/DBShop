@@ -1,0 +1,20 @@
+<?php $totalItemCont = $this->goods_comment->getTotalItemCount(); if ($totalItemCont > 0) { ?>
+    <?php foreach ($this->goods_comment as $ask_value) { ?>
+<li>
+    <p><?php echo $this->escapeHtml($ask_value['comment_body']); ?></p>
+    <p><span class="pull-left"><?php echo $ask_value['comment_writer']; ?></span><span class="pull-right"><?php echo date("Y-m-d H:i:s", $ask_value['comment_time']); ?></span></p>
+</li>
+    <?php } ?>
+
+<div class="f_r" id="pagebar">
+    <?php echo ( count($this->goods_comment) > 0 ) ? $this->paginationControl($this->goods_comment, 'Sliding', 'mobile/ajaxpage',array('page_url'=>$this->url('m_goods/default',array('action'=>'listComment','goods_id'=>$this->goods_id,'class_id'=>$this->class_id)), 'ajaxFunction'=>'ask_ajax_list', 'totalItemCount'=>$totalItemCont)) : ""; ?>
+    </div>
+</div>
+<?php } else { ?>
+    <li>
+        <p><?php echo $this->translate('该商品暂无评价！'); ?></p>
+    </li>
+<?php } ?>
+<script>
+    $('#comment_span').html(<?php echo $totalItemCont; ?>);
+</script>

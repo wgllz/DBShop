@@ -1,0 +1,41 @@
+<div class="row-fluid" style="margin-top:20px;">
+  <?php echo $this->partial('shopfront/home/left_menu.phtml'); ?>
+  <div class="span8" id="home_goods_order">
+  	<div class="well">
+    	<h5><?php echo $this->translate('我的咨询'); ?></h5>
+            <table class="table table-bordered">
+            	<thead>
+                	<tr class="home-user-tr">
+                    	<th width="90%"><?php echo $this->translate('咨询信息'); ?></th>
+                        <th width="10%"><?php echo $this->translate('操作'); ?></th>
+                    </tr>
+                </thead>
+                <?php if ($this->ask_list->getTotalItemCount() > 0) { foreach ($this->ask_list as $ask_value) { ?>
+               	<tr>
+                	<td>
+                    	<strong><?php echo $this->translate('咨询时间'); ?>：</strong><?php echo date('Y-m-d H:i:s',$ask_value['ask_time']); ?><br />
+                        <strong><?php echo $this->translate('咨询商品'); ?>：</strong><?php echo $this->escapeHtml($ask_value['goods_name']); ?><br />
+                        <strong><?php echo $this->translate('咨询内容'); ?>：</strong><?php echo $this->escapeHtml($ask_value['ask_content']); ?><br />
+                        <?php if ($ask_value['reply_ask_content'] != '') { ?>
+                        <br />
+                        <strong><?php echo $this->translate('回复时间'); ?>：</strong><?php echo date("Y-m-d H:i",$ask_value['reply_ask_time']); ?>
+                        <strong><?php echo $this->translate('回复人'); ?>：</strong><?php echo $this->escapeHtml($ask_value['reply_ask_writer']); ?><br />
+                        <strong><?php echo $this->translate('回复内容'); ?>：</strong><?php echo $this->escapeHtml($ask_value['reply_ask_content']); ?>
+                        <?php } ?>
+                    </td>
+                    <td><a href="<?php echo $this->url('fronthome/default/front-ask-id', array('action'=>'askdel','ask_id'=>$ask_value['ask_id'])); ?>" onclick="return window.confirm('<?php echo $this->translate('您确实要删除该商品咨询吗？'); ?>');"><?php echo $this->translate('删除'); ?></a></td>
+                </tr>
+                <?php } } else { ?>
+                <tr>
+                	<td colspan="2"><?php echo $this->translate('暂无商品咨询！'); ?></td>
+                </tr>
+                <?php } ?>
+                    <tr>
+                    <td colspan="2">
+        		<?php echo ( count($this->ask_list) > 0 ) ? $this->paginationControl($this->ask_list, 'Sliding', 'site/dbpage',array('page_url'=>$this->url('fronthome/default', array('action'=>'goodsask')))) : ""; ?>
+                    </td>
+                    </tr>
+    		</table>
+    </div>
+  </div>
+</div>

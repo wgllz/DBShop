@@ -1,0 +1,20 @@
+<div class="row-fluid" id="goods_list">
+    <div class="row span10 offset1">
+        <div class="span12 goods_img_list">
+        <div class="span12 goods_img_list_line">
+        	<strong style="color:#FFF; padding-left:8px;"><?php echo $this->translate('商品品牌'); ?></strong>            
+        </div>
+        <div class="well well-small" id="right_goods_brand">
+        	<ul class="thumbnails">
+            	<?php if ($this->brand_array) { foreach ($this->brand_array as $brand_value) { ?>
+            	<li class="span2">
+                <a class="thumbnail" href="<?php echo $this->url('frontbrand/default/front-brand-id', array('action'=>'brandGoods', 'brand_id'=>$brand_value['brand_id'])); ?>" title="<?php echo $brand_value['brand_name']; ?>"><img src="<?php echo ($brand_value['brand_logo'] != '' ? $this->basePath($brand_value['brand_logo']) : $this->basePath($this->frontwebsite()->getGoodsUploadIni('brand', 'brand_image_default'))); ?>"  border="0" alt="<?php echo $brand_value['brand_name']; ?>"></a>
+                </li>
+                <?php } } else { echo '<li>' . $this->translate('暂无品牌') . '</li>'; } ?>
+            </ul>
+        </div>
+        </div>
+    </div>
+    
+     
+</div>

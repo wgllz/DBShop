@@ -1,0 +1,164 @@
+<div class="tabbable tabs-left">
+              <ul class="nav nav-tabs">
+              	<li><h5><?php echo $this->translate('标签信息'); ?></h5></li>
+                <li class="active"><a data-toggle="tab" href="#tag_a"><?php echo $this->translate('基本信息'); ?></a></li>
+                <?php if($this->tag_info) { ?>
+                <li><a data-toggle="tab" href="#tag_b"><?php echo $this->translate('标签商品'); ?></a></li>
+                <?php } ?>
+              </ul>
+              <form class="form-horizontal" name="tag_form" id="tag_form" method="post" action="">
+              <input type="hidden" name="tag_id" id="tag_id" value="<?php if($this->tag_info) echo $this->tag_info->tag_id; else echo ''; ?>" />
+              <div class="tab-content">
+    			<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        			<div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php if($this->tag_info) echo $this->translate('编辑'); else echo $this->translate('新加'); ?><?php echo $this->translate('特定商品标签'); ?></strong></div>
+        			<div class="pull-right">
+                	<a href="<?php echo $this->url('tag/default',array('action'=>'specTag')); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回标签列表'); ?></a>&nbsp;
+                	<a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>&nbsp;
+                    <?php if($this->tag_info) { ?>
+                    <a href="javascript:;" onclick="return tag_del_js(<?php echo $this->tag_info->tag_id ?>);" class="btn btn-small btn-danger"><i class="icon-remove icon-white"></i> <?php echo $this->translate('删除标签'); ?></a>&nbsp;
+                    <?php } ?>
+                	<button type="submit" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存标签信息'); ?></button>&nbsp;
+                	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('goods_tag_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+                	</div>
+        		</div>
+                <div id="tag_a" class="tab-pane active">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('基本信息'); ?></div>
+                	<div class="well admin_add_well">
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('标签类型'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<select id="tag_type" name="tag_type" class="span2">
+                                	<option value=""><?php echo $this->translate('请选择标签类型'); ?></option>
+                                	<?php
+                                	if(isset($this->tag_type) and !empty($this->tag_type)) {
+                                	   foreach ($this->tag_type as $tagKey => $tagVal) {
+                                	?>
+                                    <option <?php echo ($this->tag_info and $this->tag_info->tag_type == $tagKey) ? 'selected="selected"' : ''; ?> value="<?php echo $tagKey; ?>"><?php echo $tagVal; ?></option>
+                                    <?php } } ?>
+                                </select>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('标签名称'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<input type="text" id="tag_name"  name="tag_name" class="span6" value="<?php echo ($this->tag_info ? $this->escapeHtml($this->tag_info->tag_name) : ''); ?>">
+            				</div>                        
+                        </div>
+                                                                                                                       
+                  	</div>
+                </div>
+				<div id="tag_b" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('标签商品'); ?></div>
+                	<div class="well admin_add_well">
+                        <div class="message_one">
+                    	</div>
+                        <?php if($this->tag_info) { ?>
+                        <div class="control-group">
+                            <input type="text" placeholder="<?php echo $this->translate('请输入需要添加的商品部分或者全部名称'); ?>" id="tag_goods_keyword" name="tag_goods_keyword"  value="" class="span5"><input type="hidden" name="tag_goods_id" id="tag_goods_id" value="" />&nbsp;&nbsp;<button type="button" onclick="add_tag_goods_js();" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> <?php echo $this->translate('点击添加标签商品'); ?></button>
+                            <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('在输入框中输入商品部分或者全部名称，然后点击添加按钮，即可添加标签商品'); ?>"></i>
+                        </div>
+                        <?php } ?>
+                        <table class="table table-hover" id="list_goods_show">
+
+            			</table>                  
+                                                                                                                       
+                  	</div>
+                </div>
+                
+             </div>
+              </form>
+</div>
+<link href="<?php echo $this->basePath('public/js/jquery-autocomplete/jquery.autocomplete.css'); ?>" rel="stylesheet">
+<script src="<?php echo $this->basePath('public/js/jquery-autocomplete/jquery.autocomplete.min.js'); ?>"></script>
+<script>
+$(document).ready(function() {
+	$("#tag_form").validate({
+		rules: {
+            tag_type: {
+                required: true
+            },
+			tag_name: {
+				required: true,
+				maxlength:60
+			}
+		},
+		messages: {
+            tag_type: {
+                required: "<?php echo $this->translate('请选择标签类型'); ?>"
+            },
+			tag_name: {
+				required: "<?php echo $this->translate('请输入标签名称！'); ?>",
+				maxlength:"<?php echo $this->translate('标签名称最长为60个汉字！'); ?>"
+			}
+		}
+	});
+});
+
+//标签删除js
+function tag_del_js(tag_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该标签吗？'); ?>')) {
+	$.post("<?php echo $this->url('tag/default',array('action'=>'delSpecTag')); ?>",{tag_id:tag_id},
+	function(data){
+		if(data != 'false') {
+			window.location.href='<?php echo $this->url('tag/default',array('action'=>'specTag')); ?>';
+			return true;
+		} else {
+			alert('<?php echo $this->translate('标签删除失败！'); ?>');
+		}
+	});
+	}
+	return false;
+}
+
+<?php if($this->tag_info) { ?>
+//ajax获取标签下面的商品
+dbshop_ajax_list('<?php echo $this->url('tag/default',array('action'=>'ajaxgoods','tag_id'=>$this->tag_info->tag_id)); ?>', 'list_goods_show');
+//单次删除标签中的商品
+function del_tag_goods_js(goods_id) {
+    if(window.confirm('<?php echo $this->translate('您确实要将此商品从该标签中删除吗？'); ?>')) {
+        $.post("<?php echo $this->url('tag/default',array('action'=>'delOneTagGoods')); ?>",{goods_id:goods_id,tag_id:<?php echo $this->tag_info->tag_id; ?>},
+            function(data){
+                if(data != 'false') {
+                    //ajax获取标签下面的商品
+                    dbshop_ajax_list('<?php echo $this->url('tag/default',array('action'=>'ajaxgoods','tag_id'=>$this->tag_info->tag_id)); ?>', 'list_goods_show');
+                } else {
+                    alert('<?php echo $this->translate('删除失败！'); ?>');
+                }
+            });
+    }
+}
+
+//jquery-autocomplete查询商品
+$("#tag_goods_keyword").autocomplete("<?php echo $this->url('goods/default',array('action'=>'autocompleteGoodsSearch')); ?>", {
+    //mustMatch: true,
+    max: 20,
+    minChars:1,
+    scrollHeight:400
+});
+$("#tag_goods_keyword").result(function(event, data, formatted) {
+    if (data) $("#tag_goods_id").val(data[1]);
+});
+//添加标签商品
+function add_tag_goods_js() {
+    var tag_id 	     = $('#tag_id').val();
+    var tag_goods_id = $('#tag_goods_id').val();
+    if(tag_goods_id == '') {
+        alert('<?php echo $this->translate('该商品不存在，请从新选择！'); ?>');
+        return false;
+    }
+    $.post("<?php echo $this->url('tag/default',array('action'=>'addTagGoods', 'controller'=>'tag')); ?>",{tag_id:tag_id,tag_goods_id:tag_goods_id},
+        function(data){
+            if(data.state == 'true') {
+                $('#tag_goods_keyword').val('');
+                $('#tag_goods_id').val('');
+                dbshop_ajax_list('<?php echo $this->url('tag/default',array('action'=>'ajaxgoods','tag_id'=>$this->tag_info->tag_id)); ?>', 'list_goods_show');
+            } else if(data.state == 'have') {
+                alert('<?php echo $this->translate('该标签商品已经存在，无需再次添加！'); ?>');
+            } else {
+                alert('<?php echo $this->translate('标签商品添加失败！'); ?>');
+            }
+        },'json');
+}
+
+<?php } ?>
+</script>

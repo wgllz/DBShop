@@ -1,0 +1,25 @@
+<form class="validforms" enctype="multipart/form-data" method="post" name="user_edit_form" id="user_edit_form">
+<section class="flow-consignee ect-bg-colorf">
+    <ul>
+        <li>
+            <div class="input-text"><b class="pull-left"><?php echo $this->translate('用户名称'); ?>：</b><span>
+                <?php echo $this->escapeHtml($this->user_info->user_name); ?>
+          </span></div>
+        </li>
+        <li>
+            <div class="input-text"><b class="pull-left"><?php echo $this->translate('电子邮件'); ?>：</b><span>
+          <input type="text" datatype="e" value="<?php echo $this->user_info->user_email; ?>" placeholder="<?php echo $this->translate('请输入电子邮箱'); ?>" nullmsg="<?php echo $this->translate('请输入电子邮箱'); ?>" name="user_email">
+          </span></div>
+        </li>
+        <li>
+            <div class="input-text"><b class="pull-left"><?php echo $this->translate('手机号码'); ?>：</b><span>
+          <input type="text" value="<?php echo $this->user_info->user_phone; ?>" placeholder="<?php echo $this->translate('请输入手机号码'); ?>"  name="user_phone">
+          </span></div>
+        </li>
+    </ul>
+</section>
+
+<div class="two-btn ect-padding-tb ect-padding-lr ect-margin-tb text-center">
+    <input type="submit" class="btn btn-info" value="<?php echo $this->translate('确认修改'); ?>" name="submit">
+</div>
+</form>

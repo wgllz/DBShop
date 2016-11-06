@@ -1,0 +1,5 @@
+<li <?php if($this->myviewalias()->returnActionname() == 'index') echo 'class="active"'; ?>><a href="<?php echo $this->url('frontmoney/default'); ?>"><?php echo $this->translate('账户余额记录'); ?></a></li>
+<li <?php if($this->myviewalias()->returnActionname() == 'paylog') echo 'class="active"'; ?>><a href="<?php echo $this->url('frontmoney/default', array('action'=>'paylog')); ?>"><?php echo $this->translate('账户消费记录'); ?></a></li>
+<li <?php if($this->myviewalias()->returnActionname() == 'paychecklog') echo 'class="active"'; ?>><a href="<?php echo $this->url('frontmoney/default', array('action'=>'paychecklog')); ?>"><?php echo $this->translate('账户充值记录'); ?></a></li>
+<li <?php if($this->myviewalias()->returnActionname() == 'withdrawlog') echo 'class="active"'; ?>><a href="<?php echo $this->url('frontmoney/default', array('action'=>'withdrawlog')); ?>"><?php echo $this->translate('账户提现记录'); ?></a></li>
+<li <?php if($this->myviewalias()->returnActionname() == 'refundlog') echo 'class="active"'; ?>><a href="<?php echo $this->url('frontmoney/default', array('action'=>'refundlog')); ?>"><?php echo $this->translate('账户退款记录'); ?></a></li>

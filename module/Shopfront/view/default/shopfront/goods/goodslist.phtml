@@ -1,0 +1,145 @@
+<div class="row-fluid" id="list_location">
+	<div class="span10 offset1">
+    	<a href="<?php echo $this->url('shopfront/default'); ?>"><?php echo $this->translate('首页'); ?></a> <span class="divider">&gt;</span>
+        <?php if($this->class_menu) { foreach($this->class_menu as $menu_val) { 
+			if($menu_val['class_id'] != $this->class_info->class_id) {
+		?>
+        <a href="<?php echo $this->url('frontgoodslist/default', array('class_id'=>$menu_val['class_id'])); ?>"><?php echo $this->escapeHtml($menu_val['class_name']); ?></a> <span class="divider">&gt;</span>
+        <?php } } } ?>
+            <?php echo $this->class_info->class_name; ?>
+    </div>
+</div>
+
+<?php
+//商品分类banner广告
+$goodslist_banner = $this->frontwebsite()->getShopAd('goodsclass', 'goodslist_banner');
+if($goodslist_banner != '') {
+ echo $goodslist_banner;
+}
+?>
+
+<div class="row-fluid" id="goods_list">
+	<div class="row span2 offset1">
+		<div class="span12 list_left_menu menu">
+        	<?php echo $this->translate('同级分类'); ?>
+        </div>
+        <div class="span12 sub_menu">
+		<ul class="nav nav-tabs nav-stacked">
+        	<?php foreach ($this->current_class as $curr_class_val) { if($curr_class_val['class_state'] == 0) continue; ?>
+        	<li <?php if($curr_class_val['class_id'] == $this->class_info->class_id) echo 'class="active"'; ?>><a href="<?php echo $this->url('frontgoodslist/default', array('class_id'=>$curr_class_val['class_id'])); ?>"><?php echo $this->escapeHtml($curr_class_val['class_name']); ?></a></li>
+            <?php } ?>
+      	</ul>
+        </div>
+        <?php  if ($this->sub_class) { ?>
+		<div class="span12 list_left_menu menu">
+        	<?php echo $this->translate('下级分类'); ?>
+        </div>
+        <div class="span12 sub_menu">
+		<ul class="nav nav-tabs nav-stacked">
+        	<?php foreach($this->sub_class as $sub_class_val) { if($sub_class_val['class_state'] == 0) continue; ?>
+        	<li><a href="<?php echo $this->url('frontgoodslist/default', array('class_id'=>$sub_class_val['class_id'])); ?>"><?php echo $this->escapeHtml($sub_class_val['class_name']); ?></a></li>
+            <?php } ?>
+      	</ul>
+        </div>
+        <?php } ?>
+		
+		<?php
+			//商品分类左侧菜单下面的广告
+			$goodslist_leftmenu_down = $this->frontwebsite()->getShopAd('goodsclass', 'goodslist_leftmenu_down');
+			if($goodslist_leftmenu_down != '') {
+ 				echo $goodslist_leftmenu_down;
+			}
+		?>
+    </div>
+    <?php
+		$tag_c_str    = $this->tag_c != ''  ? '&tag_c=' . $this->tag_c   : '';
+		$sort_c_str   = $this->sort_c != '' ? '&sort_c=' . $this->sort_c : '';
+		$sort_tag_str = $tag_c_str . $sort_c_str;
+	?>
+    <div class="row span8">
+    
+    <?php if (isset($this->recommend_goods) and !empty($this->recommend_goods)) { ?>
+		<div class="span12 well well-small">
+         <div class="span12">
+        	<h5><?php echo $this->translate('热卖推荐'); ?></h5>
+        </div>
+        	<ul class="thumbnails">
+          <?php foreach ($this->recommend_goods as $recommend_goods_value) { ?>
+        	<li class="span2" style="margin-bottom:0;">
+            	<a class="thumbnail" title="<?php echo $this->escapeHtml($recommend_goods_value['goods_name']); ?>" href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$recommend_goods_value['goods_id'], 'class_id'=>$this->class_info->class_id)); ?>"><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($recommend_goods_value['goods_thumbnail_image'])); ?>" border="0"></a>
+                <p class="goods_title link_googds_name"><a href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$recommend_goods_value['goods_id'], 'class_id'=>$this->class_info->class_id)); ?>"><?php echo $this->escapeHtml($recommend_goods_value['goods_name']); ?></a></p>
+                <strong><?php echo $this->frontwebsite()->shopPriceExtend($recommend_goods_value['goods_shop_price']); ?></strong>
+            </li>
+            <?php } ?>            
+            </ul>
+        </div>
+        <?php } ?>
+        
+    	<?php if ($this->goods_tag_group) { ?>
+    	<div class="span12 well well-small list_goods_right_top">
+        	<?php
+				foreach($this->goods_tag_group as $tag_group_key => $tag_group) {
+			?> 
+        	<dl class="dl-horizontal">
+            	<dt><?php echo $tag_group; ?>：</dt>
+                <dd>
+                <span><a href="?tag_id=<?php echo '|' . $tag_group_key . $tag_c_str; ?>" <?php if (!isset($this->s_tag[$tag_group_key])) echo 'style="background:#ed145b;color:#FFF"'; ?>><?php echo $this->translate('全部'); ?></a></span>
+				<?php if ($this->goods_tag[$tag_group_key]) {
+							foreach($this->goods_tag[$tag_group_key] as $tag_val) {
+				?>
+                <span><a href="?tag_id=<?php echo $tag_val['tag_id'] . '|' . $tag_group_key . $sort_tag_str; ?>" <?php if(isset($this->s_tag[$tag_group_key]) and $this->s_tag[$tag_group_key] ==$tag_val['tag_id']) echo 'style="background:#ed145b;color:#FFF"'; ?>><?php echo $tag_val['tag_name']; ?></a></span>
+                <?php } } ?>
+                </dd>
+            </dl>
+            <?php } ?>
+        </div>
+        <?php } ?>
+        <div class="span12 goods_img_list">
+        <div class="span12 goods_img_list_line">
+        	<div class="span8">
+        	    <div class="btn-group" style="padding-left:5px;">
+          		<button data-toggle="dropdown" class="btn dropdown-toggle"><?php echo $this->translate('价格'); ?> <span class="caret"></span></button>
+          		<ul class="dropdown-menu">
+            		<li><a href="?price_sort=ASC<?php echo $sort_tag_str; ?>"><?php echo $this->translate('价格上升'); ?><?php if(isset($this->sort_selected) and $this->sort_selected == 'goods_shop_priceASC') echo '&nbsp;<i class="icon-ok"></i>'; ?></a></li>
+            		<li><a href="?price_sort=DESC<?php echo $sort_tag_str; ?>"><?php echo $this->translate('价格下降'); ?><?php if(isset($this->sort_selected) and $this->sort_selected == 'goods_shop_priceDESC') echo '&nbsp;<i class="icon-ok"></i>'; ?></a></li>
+          		</ul>
+       	 	</div>
+        	<div class="btn-group">
+          		<button data-toggle="dropdown" class="btn dropdown-toggle"><?php echo $this->translate('人气'); ?> <span class="caret"></span></button>
+          		<ul class="dropdown-menu">
+            		<li><a href="?click_sort=ASC<?php echo $sort_tag_str; ?>"><?php echo $this->translate('人气上升'); ?><?php if(isset($this->sort_selected) and $this->sort_selected == 'goods_clickASC') echo '&nbsp;<i class="icon-ok"></i>'; ?></a></li>
+            		<li><a href="?click_sort=DESC<?php echo $sort_tag_str; ?>"><?php echo $this->translate('人气下降'); ?><?php if(isset($this->sort_selected) and $this->sort_selected == 'goods_clickDESC') echo '&nbsp;<i class="icon-ok"></i>'; ?></a></li>
+          		</ul>
+       	 	</div>
+        	<div class="btn-group">
+          		<button data-toggle="dropdown" class="btn dropdown-toggle"><?php echo $this->translate('上架时间'); ?> <span class="caret"></span></button>
+          		<ul class="dropdown-menu">
+            		<li><a href="?time_sort=ASC<?php echo $sort_tag_str; ?>"><?php echo $this->translate('时间上升'); ?><?php if(isset($this->sort_selected) and $this->sort_selected == 'goods_add_timeASC') echo '&nbsp;<i class="icon-ok"></i>'; ?></a></li>
+            		<li><a href="?time_sort=DESC<?php echo $sort_tag_str; ?>"><?php echo $this->translate('时间下降'); ?><?php if(isset($this->sort_selected) and $this->sort_selected == 'goods_add_timeDESC') echo '&nbsp;<i class="icon-ok"></i>'; ?></a></li>
+          		</ul>
+       	 	</div>
+           </div>
+           <div class="span4">  
+            <span class="pull-right"><?php echo $this->translate('共'); ?> <font color="#ED154B"><?php echo $this->goods_list->getTotalItemCount(); ?><?php echo $this->translate('个'); ?></font> <?php echo $this->translate('商品'); ?>&nbsp;&nbsp;</span>
+            </div>
+        </div>
+        <div class="well" id="right_goods_list">
+        	<ul class="thumbnails">
+            	<?php if ($this->goods_list->getTotalItemCount() > 0) { foreach ($this->goods_list as $goods_value) { ?>
+            	<li class="span3">
+                <a class="thumbnail" title="<?php echo $this->escapeHtml($goods_value['goods_name']); ?>" href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$this->class_info->class_id)); ?>"><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($goods_value['goods_thumbnail_image'])); ?>" border="0"></a>
+                <p class="goods_title link_googds_name"><a href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$this->class_info->class_id)); ?>"><?php echo $this->escapeHtml($goods_value['goods_name']); ?></a></p>
+                <?php if ($goods_value['goods_extend_name'] != '') { ?>
+                <p class="goods_title extend_goods_name" style="color: #ed145b;"><?php echo $this->escapeHtml($goods_value['goods_extend_name']); ?></p>
+                <?php } ?>
+                <p><?php echo $this->translate('价格');?>:<strong class="goods_price"><?php echo $this->frontwebsite()->shopPriceExtend($goods_value['goods_shop_price']); ?></strong></p>
+                </li>
+                <?php } } else { echo '<li>' . $this->translate('本分类暂无商品！') . '</li>'; } ?>
+            </ul>
+        </div>
+        		<?php echo ( count($this->goods_list) > 0 ) ? $this->paginationControl($this->goods_list, 'Sliding', 'site/dbpage',array('page_url'=>$this->url('frontgoodslist/default',array('class_id'=>$this->class_info->class_id)))) : ""; ?>
+        </div>
+    </div>
+    
+     
+</div>

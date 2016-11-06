@@ -1,0 +1,33 @@
+        <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="37%"><?php echo $this->translate('评价内容'); ?></th>
+                    <th width="8%"><?php echo $this->translate('评价时间'); ?></th>
+                    <th width="8%"><?php echo $this->translate('评价人'); ?></th>
+                    <th width="8%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php 
+            if($this->comment_list->getTotalItemCount() > 0) {
+            foreach ($this->comment_list as $comment_value) { ?>
+            <tr>
+            	<td><?php echo $this->escapeHtml($comment_value['comment_body']); ?></td>
+            	<td><?php echo date('Y-m-d H:i:s',$comment_value['comment_time']); ?></td>
+            	<td><?php echo $this->escapeHtml($comment_value['comment_writer']); ?></td>
+                <td>
+				<a href="javascript:;" onclick="del_one_comment(<?php echo $comment_value['comment_id']; ?>, <?php echo $comment_value['goods_id']; ?>);"><?php echo $this->translate('删除'); ?></a>
+                </td>  
+            </tr>
+            <?php 
+                    }
+                } else { ?>
+                <tr>
+                	<td colspan="4"><?php echo $this->translate('暂无商品评价！'); ?></td>
+                </tr>                
+            <?php } ?>
+            <tr>
+           		<td colspan="9" style="background:#FFF">
+                <?php echo ( count($this->comment_list) > 0 ) ? $this->paginationControl($this->comment_list,'Sliding','common/ajax-pages',array('page_url'=>$this->url('comment/default/user-name',array('action'=>'userajaxcomment','user_name'=>$this->comment_writer)),'show_div_id'=>$this->show_div_id)) : ''; ?>              
+                </td> 
+            </tr>
+      </table>

@@ -1,0 +1,53 @@
+<div class="tabbable tabs-left">
+              <ul class="nav nav-tabs">
+              	<li><h5><?php echo $this->translate('支付方式'); ?></h5></li>
+                <li class="active"><a data-toggle="tab" href="#express_a"><?php echo $this->translate('基本信息'); ?></a></li>
+              </ul>
+              <form class="form-horizontal" name="payment_form" id="payment_form" method="post" action="">
+              <div class="tab-content">
+    			<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        			<div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php echo $this->translate('编辑'); ?><?php echo $this->translate('支付方式'); ?></strong></div>
+        			<div class="pull-right">
+                	<a href="<?php echo $this->url('payment/default',array('action'=>'index')); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回支付方式列表'); ?></a>&nbsp;
+                	<a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>&nbsp;
+                	<button type="submit" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存支付方式信息'); ?></button>&nbsp;
+                	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('payment_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+                	</div>
+        		</div>
+                <div id="express_a" class="tab-pane active">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('基本信息'); ?></div>
+                	<div class="well admin_add_well">
+                        <div class="message_one">
+                        </div>
+                    	<?php if($this->form_input) foreach ($this->form_input as $value) { ?>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->escapeHtml($value['name']); ?>：</label>
+           					<div class="controls">
+              					<?php echo ($value['type'] == 'image' ? '<img src="' . $this->basePath($value['input']) . '" style="border:1px solid #DDDDDD" />' . $value['hidden'] : $value['input'] . ($value['name_type'] == 'payment_fee' ? ' <i class="cus-help shop_admin_help_note" data-content="'.$this->translate("支付手续费可以设置费用数 如 10 ，也可以设置为订单价格的百分比 如 10%").'"></i>' : '')); ?>
+            				</div>                        
+                        </div>
+                        <?php } ?>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('订单状态'); ?>：</label>
+           					<div class="controls">
+              					<select name="orders_state" class="span2">
+                                
+                                <?php foreach ($this->frontwebsite()->getOrderState() as $key => $state_value) { ?>
+                                	<option value="<?php echo $key; ?>" <?php if(isset($this->select_orders_state) and $key == $this->select_orders_state) echo 'selected="selected"'; ?>><?php echo $this->escapeHtml($state_value); ?></option>
+                                <?php } ?>
+                                </select>
+                                <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('订单提交时的初始状态，如：购物支付方式为支付宝，那么提交订单状态时，就是待付款状态'); ?>"></i>
+            				</div>                        
+                        </div>                                                                                                                                               
+                  	</div>
+                </div>
+                                
+                
+             </div>
+              </form>
+</div>
+<script>
+    <?php if (isset($this->success_msg) and $this->success_msg != '') { ?>
+    show_message('.message_one','<?php echo date("Y-m-d H:i:s"); ?>','<?php echo $this->success_msg; ?>','alert-success');
+    <?php } ?>
+</script>

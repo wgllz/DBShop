@@ -1,0 +1,1010 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DBShop\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-21 12:50+0800\n"
+"PO-Revision-Date: 2016-09-21 12:50+0800\n"
+"Last-Translator: DBShop <team@dbshop.net>\n"
+"Language-Team: DBShop <team@dbshop.net>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../src/System/Controller/OnlineController.php:52
+#: ../src/System/Controller/OnlineController.php:85
+#: ../src/System/Controller/OnlineController.php:113
+msgid "客服管理"
+msgstr ""
+
+#: ../src/System/Controller/OnlineController.php:52
+msgid "添加客服"
+msgstr ""
+
+#: ../src/System/Controller/OnlineController.php:85
+msgid "更新客服"
+msgstr ""
+
+#: ../src/System/Controller/OnlineController.php:113
+msgid "删除客服"
+msgstr ""
+
+#: ../src/System/Controller/OnlineController.php:174
+#: ../src/System/Controller/OnlineController.php:196
+#: ../src/System/Controller/OnlineController.php:227
+msgid "客服组管理"
+msgstr ""
+
+#: ../src/System/Controller/OnlineController.php:174
+msgid "添加客服组"
+msgstr ""
+
+#: ../src/System/Controller/OnlineController.php:196
+msgid "更新客服组"
+msgstr ""
+
+#: ../src/System/Controller/OnlineController.php:227
+msgid "删除客服组"
+msgstr ""
+
+#: ../src/System/Controller/OptimizationController.php:51
+#: ../view/system/optimization/index.phtml:3
+#: ../view/system/optimization/index.phtml:10
+msgid "性能优化"
+msgstr ""
+
+#: ../src/System/Controller/OptimizationController.php:51
+msgid "性能优化设置"
+msgstr ""
+
+#: ../src/System/Controller/OptimizationController.php:60
+msgid "性能优化设置保存成功！"
+msgstr ""
+
+#: ../src/System/Controller/SystemController.php:45
+#: ../view/system/system/index.phtml:3 ../view/system/system/index.phtml:16
+msgid "系统设置"
+msgstr ""
+
+#: ../src/System/Controller/SystemController.php:45
+msgid "更新系统设置"
+msgstr ""
+
+#: ../src/System/Controller/SystemController.php:55
+msgid "系统设置保存成功！"
+msgstr ""
+
+#: ../src/System/Controller/SystemController.php:95
+msgid "附件设置"
+msgstr ""
+
+#: ../src/System/Controller/SystemController.php:95
+msgid "更新附件设置"
+msgstr ""
+
+#: ../src/System/Controller/SystemController.php:100
+msgid "附件设置保存成功！"
+msgstr ""
+
+#: ../src/System/Controller/SystemController.php:130
+#: ../view/system/system/userset.phtml:3
+#: ../view/system/system/userset.phtml:10
+msgid "客户设置"
+msgstr ""
+
+#: ../src/System/Controller/SystemController.php:130
+msgid "更新客户设置"
+msgstr ""
+
+#: ../src/System/Controller/SystemController.php:135
+msgid "客户设置保存成功！"
+msgstr ""
+
+#: ../src/System/Controller/SystemController.php:189
+msgid "消息提醒设置保存成功！"
+msgstr ""
+
+#: ../src/System/FormValidate/FormSystemValidate.php:59
+#: ../view/system/system/index.phtml:364
+msgid "网站名称不能为空"
+msgstr ""
+
+#: ../src/System/FormValidate/FormSystemValidate.php:65
+#: ../view/system/system/index.phtml:367
+msgid "系统时区不能为空"
+msgstr ""
+
+#: ../src/System/FormValidate/FormSystemValidate.php:71
+#: ../src/System/FormValidate/FormSystemValidate.php:78
+#: ../view/system/system/index.phtml:370
+msgid "发信人邮件地址不能为空"
+msgstr ""
+
+#: ../src/System/FormValidate/FormSystemValidate.php:72
+#: ../src/System/FormValidate/FormSystemValidate.php:79
+#: ../view/system/system/index.phtml:371
+msgid "请正确填写邮件地址"
+msgstr ""
+
+#: ../src/System/FormValidate/FormSystemValidate.php:91
+#: ../view/system/system/userset.phtml:149
+msgid "请选择客户默认组！"
+msgstr ""
+
+#: ../src/System/FormValidate/FormSystemValidate.php:103
+#: ../view/system/system/send-message-set.phtml:303
+msgid "管理员接收邮件不能为空！"
+msgstr ""
+
+#: ../src/System/FormValidate/FormSystemValidate.php:104
+#: ../src/System/FormValidate/FormSystemValidate.php:111
+#: ../src/System/FormValidate/FormSystemValidate.php:118
+#: ../view/system/system/send-message-set.phtml:304
+#: ../view/system/system/send-message-set.phtml:307
+#: ../view/system/system/send-message-set.phtml:310
+msgid "请正确填写邮件地址！"
+msgstr ""
+
+#: ../view/system/online/add.phtml:3 ../view/system/online/add.phtml:10
+msgid "在线客服"
+msgstr ""
+
+#: ../view/system/online/add.phtml:4 ../view/system/online/add.phtml:22
+#: ../view/system/online/groupadd.phtml:4
+#: ../view/system/online/groupadd.phtml:22 ../view/system/system/index.phtml:4
+#: ../view/system/system/index.phtml:24
+#: ../view/system/system/send-message-set.phtml:4
+#: ../view/system/system/send-message-set.phtml:24
+msgid "基本信息"
+msgstr ""
+
+#: ../view/system/online/add.phtml:10 ../view/system/online/group.phtml:31
+#: ../view/system/online/groupadd.phtml:10
+#: ../view/system/online/index.phtml:28
+msgid "编辑"
+msgstr ""
+
+#: ../view/system/online/add.phtml:10 ../view/system/online/groupadd.phtml:10
+msgid "新加"
+msgstr ""
+
+#: ../view/system/online/add.phtml:12
+msgid "返回在线客服列表"
+msgstr ""
+
+#: ../view/system/online/add.phtml:13 ../view/system/online/groupadd.phtml:13
+#: ../view/system/optimization/index.phtml:12
+#: ../view/system/system/index.phtml:18
+#: ../view/system/system/send-message-set.phtml:18
+#: ../view/system/system/userset.phtml:12
+msgid "刷新"
+msgstr ""
+
+#: ../view/system/online/add.phtml:15
+msgid "删除在线客服"
+msgstr ""
+
+#: ../view/system/online/add.phtml:17
+msgid "保存在线客服信息"
+msgstr ""
+
+#: ../view/system/online/add.phtml:18 ../view/system/online/group.phtml:5
+#: ../view/system/online/groupadd.phtml:18 ../view/system/online/index.phtml:5
+#: ../view/system/optimization/index.phtml:14
+#: ../view/system/system/index.phtml:20
+#: ../view/system/system/send-message-set.phtml:20
+#: ../view/system/system/userset.phtml:14
+msgid "查看帮助说明"
+msgstr ""
+
+#: ../view/system/online/add.phtml:25
+msgid "在线客服名称"
+msgstr ""
+
+#: ../view/system/online/add.phtml:31 ../view/system/online/group.phtml:12
+#: ../view/system/online/groupadd.phtml:25
+#: ../view/system/online/index.phtml:13
+msgid "客服组名称"
+msgstr ""
+
+#: ../view/system/online/add.phtml:34
+msgid "请选择客户组"
+msgstr ""
+
+#: ../view/system/online/add.phtml:42 ../view/system/online/index.phtml:14
+msgid "通讯工具"
+msgstr ""
+
+#: ../view/system/online/add.phtml:45
+msgid "选择通讯工具"
+msgstr ""
+
+#: ../view/system/online/add.phtml:50
+msgid ""
+"如果您设置的是QQ 需要到这里开通下 <a href='http://shang.qq.com/widget/set."
+"php' target='_blank'>http://shang.qq.com/widget/set.php</a>"
+msgstr ""
+
+#: ../view/system/online/add.phtml:54
+msgid "通讯帐号"
+msgstr ""
+
+#: ../view/system/online/add.phtml:60
+msgid "客服排序"
+msgstr ""
+
+#: ../view/system/online/add.phtml:66
+msgid "客服状态"
+msgstr ""
+
+#: ../view/system/online/add.phtml:68 ../view/system/online/group.phtml:24
+#: ../view/system/online/groupadd.phtml:47
+#: ../view/system/online/index.phtml:27 ../view/system/system/index.phtml:88
+#: ../view/system/system/index.phtml:318
+msgid "启用"
+msgstr ""
+
+#: ../view/system/online/add.phtml:69 ../view/system/online/group.phtml:24
+#: ../view/system/online/groupadd.phtml:48
+#: ../view/system/online/index.phtml:27
+msgid "禁用"
+msgstr ""
+
+#: ../view/system/online/add.phtml:106
+msgid "在线客服名称不能为空！"
+msgstr ""
+
+#: ../view/system/online/add.phtml:107
+msgid "在线客服名称最多输入30个汉字！"
+msgstr ""
+
+#: ../view/system/online/add.phtml:110
+msgid "请选择客户组！"
+msgstr ""
+
+#: ../view/system/online/add.phtml:113
+msgid "请选择通讯工具！"
+msgstr ""
+
+#: ../view/system/online/add.phtml:116
+msgid "在线客服帐号不能为空！"
+msgstr ""
+
+#: ../view/system/online/add.phtml:117
+msgid "在线客服帐号最多输入100个字符！"
+msgstr ""
+
+#: ../view/system/online/add.phtml:120
+msgid "在线客服排序不能为空！"
+msgstr ""
+
+#: ../view/system/online/add.phtml:121
+msgid "在线客服排序必须为数字！"
+msgstr ""
+
+#: ../view/system/online/add.phtml:122
+msgid "在线客服排序最小为1！"
+msgstr ""
+
+#: ../view/system/online/add.phtml:123
+msgid "在线客服排序最大为255！"
+msgstr ""
+
+#: ../view/system/online/add.phtml:131 ../view/system/online/index.phtml:38
+msgid "您确实要删除该在线客服吗？"
+msgstr ""
+
+#: ../view/system/online/add.phtml:138 ../view/system/online/index.phtml:45
+msgid "在线客服删除失败！"
+msgstr ""
+
+#: ../view/system/online/group.phtml:2
+msgid "在线客服组管理"
+msgstr ""
+
+#: ../view/system/online/group.phtml:4
+msgid "添加在线客服组"
+msgstr ""
+
+#: ../view/system/online/group.phtml:13
+msgid "客服组排序"
+msgstr ""
+
+#: ../view/system/online/group.phtml:14
+#: ../view/system/online/groupadd.phtml:45
+msgid "客服组状态"
+msgstr ""
+
+#: ../view/system/online/group.phtml:15
+#: ../view/system/online/groupadd.phtml:31
+msgid "显示位置"
+msgstr ""
+
+#: ../view/system/online/group.phtml:16 ../view/system/online/index.phtml:17
+msgid "操作"
+msgstr ""
+
+#: ../view/system/online/group.phtml:26
+msgid "未设置"
+msgstr ""
+
+#: ../view/system/online/group.phtml:27
+msgid "首页显示"
+msgstr ""
+
+#: ../view/system/online/group.phtml:28
+#: ../view/system/online/groupadd.phtml:34
+msgid "商品列表页"
+msgstr ""
+
+#: ../view/system/online/group.phtml:29
+#: ../view/system/online/groupadd.phtml:35
+msgid "商品内容页"
+msgstr ""
+
+#: ../view/system/online/group.phtml:31 ../view/system/online/index.phtml:28
+msgid "删除"
+msgstr ""
+
+#: ../view/system/online/group.phtml:41
+#: ../view/system/online/groupadd.phtml:90
+msgid "您确实要删除该客服组吗？"
+msgstr ""
+
+#: ../view/system/online/group.phtml:46
+#: ../view/system/online/groupadd.phtml:95
+msgid "该客服组已经使用，不能删除！"
+msgstr ""
+
+#: ../view/system/online/group.phtml:52
+#: ../view/system/online/groupadd.phtml:101
+msgid "客服组删除失败！"
+msgstr ""
+
+#: ../view/system/online/groupadd.phtml:3
+msgid "在线客户组"
+msgstr ""
+
+#: ../view/system/online/groupadd.phtml:10
+msgid "客户组"
+msgstr ""
+
+#: ../view/system/online/groupadd.phtml:12
+msgid "返回客服组列表"
+msgstr ""
+
+#: ../view/system/online/groupadd.phtml:15
+msgid "删除客户组"
+msgstr ""
+
+#: ../view/system/online/groupadd.phtml:17
+msgid "保存客户组信息"
+msgstr ""
+
+#: ../view/system/online/groupadd.phtml:33
+msgid "首页"
+msgstr ""
+
+#: ../view/system/online/groupadd.phtml:39
+msgid "客户组排序"
+msgstr ""
+
+#: ../view/system/online/groupadd.phtml:75
+msgid "客服组名称不能为空！"
+msgstr ""
+
+#: ../view/system/online/groupadd.phtml:76
+msgid "客服组名称最多输入30个汉字！"
+msgstr ""
+
+#: ../view/system/online/groupadd.phtml:79
+msgid "客服组排序不能为空！"
+msgstr ""
+
+#: ../view/system/online/groupadd.phtml:80
+msgid "客服组排序必须为数字！"
+msgstr ""
+
+#: ../view/system/online/groupadd.phtml:81
+msgid "客服组排序最小为1！"
+msgstr ""
+
+#: ../view/system/online/groupadd.phtml:82
+msgid "客服组排序最大为255！"
+msgstr ""
+
+#: ../view/system/online/index.phtml:2
+msgid "在线客服管理"
+msgstr ""
+
+#: ../view/system/online/index.phtml:4
+msgid "添加在线客服"
+msgstr ""
+
+#: ../view/system/online/index.phtml:12
+msgid "客服名称"
+msgstr ""
+
+#: ../view/system/online/index.phtml:15
+msgid "排序"
+msgstr ""
+
+#: ../view/system/online/index.phtml:16
+msgid "状态"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:4
+#: ../view/system/optimization/index.phtml:18
+msgid "基本优化"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:5
+#: ../view/system/optimization/index.phtml:47
+msgid "前台缓存"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:13
+msgid "保存性能优化设置"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:23
+msgid "后台Gzip压缩"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:28
+#: ../view/system/optimization/index.phtml:38
+msgid "php中的gzencode函数不可用"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:33
+msgid "前台Gzip压缩"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:52
+msgid ""
+"如果您现在正在添加商品或者对系统进行设置，建议不要开启前台缓存，商品添加完毕"
+"后，可以根据情况开启前台缓存。开启后，后台新添加的商品，可能不会在前台即时显"
+"示，需要清理缓存后才可显示。"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:55
+msgid "前台缓存状态"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:58
+#: ../view/system/system/userset.phtml:49
+msgid "请选择"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:59
+#: ../view/system/system/index.phtml:327
+#: ../view/system/system/userset.phtml:25
+#: ../view/system/system/userset.phtml:112
+msgid "开启"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:60
+#: ../view/system/system/index.phtml:326
+#: ../view/system/system/userset.phtml:26
+#: ../view/system/system/userset.phtml:113
+msgid "关闭"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:65
+msgid "前台缓存时间"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:70
+msgid "分钟"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:71
+msgid "小时"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:72
+msgid "天"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:97
+msgid "前台缓存时间必须为数字！"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:98
+msgid "前台缓存时间不能小于1！"
+msgstr ""
+
+#: ../view/system/system/index.phtml:5 ../view/system/system/index.phtml:153
+msgid "常规信息"
+msgstr ""
+
+#: ../view/system/system/index.phtml:6 ../view/system/system/index.phtml:162
+msgid "内容信息"
+msgstr ""
+
+#: ../view/system/system/index.phtml:7 ../view/system/system/index.phtml:185
+msgid "验证码设置"
+msgstr ""
+
+#: ../view/system/system/index.phtml:8
+msgid "邮件服务器"
+msgstr ""
+
+#: ../view/system/system/index.phtml:9 ../view/system/system/index.phtml:214
+msgid "商品设置"
+msgstr ""
+
+#: ../view/system/system/index.phtml:10 ../view/system/system/index.phtml:241
+msgid "手机短信"
+msgstr ""
+
+#: ../view/system/system/index.phtml:11 ../view/system/system/index.phtml:311
+msgid "二维码设置"
+msgstr ""
+
+#: ../view/system/system/index.phtml:19
+msgid "保存系统设置"
+msgstr ""
+
+#: ../view/system/system/index.phtml:29
+#: ../view/system/system/send-message-set.phtml:72
+#: ../view/system/system/send-message-set.phtml:104
+#: ../view/system/system/send-message-set.phtml:136
+#: ../view/system/system/send-message-set.phtml:168
+#: ../view/system/system/send-message-set.phtml:200
+#: ../view/system/system/send-message-set.phtml:233
+#: ../view/system/system/send-message-set.phtml:265
+msgid "网站名称"
+msgstr ""
+
+#: ../view/system/system/index.phtml:35
+msgid "扩展名称"
+msgstr ""
+
+#: ../view/system/system/index.phtml:41
+msgid "网站关键字"
+msgstr ""
+
+#: ../view/system/system/index.phtml:47
+msgid "网站描述"
+msgstr ""
+
+#: ../view/system/system/index.phtml:53
+msgid "热门关键字"
+msgstr ""
+
+#: ../view/system/system/index.phtml:56
+msgid "热门关键字请用 | 分割，如 手机|手表|服装"
+msgstr ""
+
+#: ../view/system/system/index.phtml:60
+msgid "网站LOGO"
+msgstr ""
+
+#: ../view/system/system/index.phtml:70
+msgid "网站favicon"
+msgstr ""
+
+#: ../view/system/system/index.phtml:80
+msgid "网站备案号"
+msgstr ""
+
+#: ../view/system/system/index.phtml:86
+msgid "购物发票"
+msgstr ""
+
+#: ../view/system/system/index.phtml:92
+msgid "统计代码"
+msgstr ""
+
+#: ../view/system/system/index.phtml:98
+msgid "暂时关闭"
+msgstr ""
+
+#: ../view/system/system/index.phtml:104
+msgid "关闭原因"
+msgstr ""
+
+#: ../view/system/system/index.phtml:110
+msgid "系统时区"
+msgstr ""
+
+#: ../view/system/system/index.phtml:126
+msgid "商店地址"
+msgstr ""
+
+#: ../view/system/system/index.phtml:132
+msgid "商店电话"
+msgstr ""
+
+#: ../view/system/system/index.phtml:138
+msgid "商店邮编"
+msgstr ""
+
+#: ../view/system/system/index.phtml:144
+msgid "商店邮箱"
+msgstr ""
+
+#: ../view/system/system/index.phtml:165
+msgid "商品品质保证内容"
+msgstr ""
+
+#: ../view/system/system/index.phtml:171
+msgid "商品售后服务"
+msgstr ""
+
+#: ../view/system/system/index.phtml:177
+msgid "商品如何购买"
+msgstr ""
+
+#: ../view/system/system/index.phtml:190
+msgid "注册需验证码"
+msgstr ""
+
+#: ../view/system/system/index.phtml:196
+msgid "登录需验证码"
+msgstr ""
+
+#: ../view/system/system/index.phtml:202
+msgid "商品咨询需验证码"
+msgstr ""
+
+#: ../view/system/system/index.phtml:219
+msgid "商品分享"
+msgstr ""
+
+#: ../view/system/system/index.phtml:222
+msgid "不启用分享"
+msgstr ""
+
+#: ../view/system/system/index.phtml:223
+msgid "百度分享(图标式)"
+msgstr ""
+
+#: ../view/system/system/index.phtml:224
+msgid "百度分享(文字式)"
+msgstr ""
+
+#: ../view/system/system/index.phtml:225
+msgid "百度分享(浮窗式)"
+msgstr ""
+
+#: ../view/system/system/index.phtml:227
+msgid "显示在前台商品详细页面，用于分享商品到其他系统功能。"
+msgstr ""
+
+#: ../view/system/system/index.phtml:231
+msgid "商品货号前缀"
+msgstr ""
+
+#: ../view/system/system/index.phtml:234
+msgid "当添加商品时，没有添加商品货号，商品货号会自动生成，货号前缀+数字字符串"
+msgstr ""
+
+#: ../view/system/system/index.phtml:246
+msgid "设置类型"
+msgstr ""
+
+#: ../view/system/system/index.phtml:249
+msgid "无类型"
+msgstr ""
+
+#: ../view/system/system/index.phtml:250
+msgid "阿里大于"
+msgstr ""
+
+#: ../view/system/system/index.phtml:252
+msgid "阿里大于为阿里巴巴旗下的通讯平台。"
+msgstr ""
+
+#: ../view/system/system/index.phtml:257
+msgid "签名名称"
+msgstr ""
+
+#: ../view/system/system/index.phtml:263 ../view/system/system/index.phtml:269
+msgid "应用"
+msgstr ""
+
+#: ../view/system/system/index.phtml:275
+msgid "模板ID是空，为关闭此信息提醒；如果模板ID非空，为开启此信息提醒。"
+msgstr ""
+
+#: ../view/system/system/index.phtml:278
+msgid "订单提交模板ID"
+msgstr ""
+
+#: ../view/system/system/index.phtml:284
+msgid "付款完成模板ID"
+msgstr ""
+
+#: ../view/system/system/index.phtml:290
+msgid "发货完成模板ID"
+msgstr ""
+
+#: ../view/system/system/index.phtml:296
+msgid "确认收货模板ID"
+msgstr ""
+
+#: ../view/system/system/index.phtml:302
+msgid "订单取消模板ID"
+msgstr ""
+
+#: ../view/system/system/index.phtml:316
+msgid "站点二维码"
+msgstr ""
+
+#: ../view/system/system/index.phtml:319
+msgid "开启后，前台顶部出现二维码，用户可以通过手机扫描，进行手机访问"
+msgstr ""
+
+#: ../view/system/system/index.phtml:323
+msgid "前台商品二维码"
+msgstr ""
+
+#: ../view/system/system/index.phtml:329
+msgid ""
+"启用前台商品二维码后，用户通过手机扫描前台商品内容页面里的二维码，可以进行手"
+"机访问。"
+msgstr ""
+
+#: ../view/system/system/index.phtml:374
+msgid "发送人名称不能为空"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:3
+#: ../view/system/system/send-message-set.phtml:16
+msgid "消息提醒设置"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:5
+#: ../view/system/system/send-message-set.phtml:52
+msgid "提交订单"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:6
+#: ../view/system/system/send-message-set.phtml:84
+msgid "付款完成"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:7
+#: ../view/system/system/send-message-set.phtml:116
+msgid "发货完成"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:8
+#: ../view/system/system/send-message-set.phtml:148
+msgid "交易完成"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:9
+#: ../view/system/system/send-message-set.phtml:180
+msgid "取消订单"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:10
+#: ../view/system/system/send-message-set.phtml:213
+msgid "商品咨询"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:11
+#: ../view/system/system/send-message-set.phtml:245
+msgid "咨询回复"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:19
+msgid "保存提醒设置"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:29
+msgid ""
+"使用邮件提醒信息，需要先开启邮件服务，开启的位置是 系统管理->系统设置->邮件服"
+"务器"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:32
+msgid "管理员接收邮箱1"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:38
+msgid "管理员接收邮箱2"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:44
+msgid "管理员接收邮箱3"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:57
+#: ../view/system/system/send-message-set.phtml:89
+#: ../view/system/system/send-message-set.phtml:121
+#: ../view/system/system/send-message-set.phtml:153
+#: ../view/system/system/send-message-set.phtml:185
+#: ../view/system/system/send-message-set.phtml:218
+#: ../view/system/system/send-message-set.phtml:250
+msgid "发给管理员"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:63
+#: ../view/system/system/send-message-set.phtml:95
+#: ../view/system/system/send-message-set.phtml:127
+#: ../view/system/system/send-message-set.phtml:159
+#: ../view/system/system/send-message-set.phtml:191
+msgid "发给买家"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:69
+#: ../view/system/system/send-message-set.phtml:101
+#: ../view/system/system/send-message-set.phtml:133
+#: ../view/system/system/send-message-set.phtml:165
+#: ../view/system/system/send-message-set.phtml:197
+#: ../view/system/system/send-message-set.phtml:230
+#: ../view/system/system/send-message-set.phtml:262
+msgid "消息内容"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:73
+#: ../view/system/system/send-message-set.phtml:105
+#: ../view/system/system/send-message-set.phtml:137
+#: ../view/system/system/send-message-set.phtml:169
+#: ../view/system/system/send-message-set.phtml:201
+msgid "买家名称"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:74
+#: ../view/system/system/send-message-set.phtml:106
+#: ../view/system/system/send-message-set.phtml:138
+#: ../view/system/system/send-message-set.phtml:170
+#: ../view/system/system/send-message-set.phtml:202
+msgid "订单编号"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:75
+msgid "订单提交时间"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:76
+#: ../view/system/system/send-message-set.phtml:108
+#: ../view/system/system/send-message-set.phtml:140
+#: ../view/system/system/send-message-set.phtml:172
+#: ../view/system/system/send-message-set.phtml:204
+#: ../view/system/system/send-message-set.phtml:237
+#: ../view/system/system/send-message-set.phtml:270
+msgid "网站网址"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:107
+msgid "订单付款时间"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:139
+msgid "订单发货时间"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:171
+msgid "交易完成时间"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:203
+msgid "订单取消时间"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:205
+msgid "取消原因"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:224
+#: ../view/system/system/send-message-set.phtml:256
+msgid "发给咨询者"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:234
+#: ../view/system/system/send-message-set.phtml:266
+msgid "商品名称"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:235
+#: ../view/system/system/send-message-set.phtml:267
+msgid "咨询者名称"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:236
+msgid "咨询时间"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:268
+msgid "回复者名称"
+msgstr ""
+
+#: ../view/system/system/send-message-set.phtml:269
+msgid "回复时间"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:4
+#: ../view/system/system/userset.phtml:18
+msgid "基本设置"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:5
+#: ../view/system/system/userset.phtml:106
+msgid "第三方登录"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:13
+msgid "保存客户设置"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:23
+msgid "客户注册状态"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:30
+msgid "注册关闭显示信息"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:36
+msgid "默认头像"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:46
+msgid "客户注册默认组"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:61
+msgid "新客户注册验证"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:64
+msgid "无需验证"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:65
+msgid "注册邮箱验证"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:66
+msgid "人工审核验证"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:71
+msgid "客户注册保留关键字"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:74
+msgid "输入注册客户名限制内容并用 | 分割，如 管理员|超级管理员|店主"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:78
+msgid "发送欢迎Email"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:84
+msgid "欢迎Email标题"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:87
+#: ../view/system/system/userset.phtml:94
+msgid ""
+"{username} 表示注册的会员名称<br>{shopname} 表示网店名称<br>{shopnameurl} 表"
+"示带url地址的店铺名称<br>{adminemail} 管理员邮箱<br>{time} 注册时间，精确到分"
+"钟"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:91
+msgid "欢迎Email内容"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:98
+msgid "客户注册协议"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:110
+msgid "QQ互联登录"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:119
+msgid "点击查看如何获取QQ互联的APP ID 和 APP KEY"
+msgstr ""

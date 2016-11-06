@@ -1,0 +1,207 @@
+    		<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('地区管理'); ?><?php if($this->region_info) echo '&nbsp;&nbsp;'.$this->escapeHtml($this->region_info['region_name']); ?></strong>&nbsp;&nbsp;<SMALL style="color:#F00;"><?php echo $this->translate('地区下级还有其他地区时，该地区不能删除'); ?></SMALL></p>
+        	<p class="pull-right">
+        	<?php if ($this->region_info) { ?>
+        	<a href="<?php echo $this->url('region/default',array('controller'=>'region')); ?>" class="btn btn-small btn-primary"><i class="icon-arrow-left icon-white"></i> <?php echo $this->translate('返回顶级'); ?></a>&nbsp;
+        	<a href="<?php echo $this->url('region/default/region_top_id',array('controller'=>'region','region_top_id'=>$this->region_info['region_top_id'])); ?>" class="btn btn-small btn-primary"><i class="icon-arrow-left icon-white"></i> <?php echo $this->translate('返回上一级'); ?></a>&nbsp;
+        	<?php } ?>
+        	<?php if(($this->region_info and count(@explode(',',$this->region_info['region_path'])) <= 3) or $this->region_top_id == 0) { ?>
+            <a href="javascript:;" onclick="region_add_js();" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> <?php echo $this->translate('添加地区'); ?></a>&nbsp;
+            <?php } ?>
+            <!-- <?php if ($this->region_top_id == 0) { ?>
+            <a href="javascript:;" onclick="region_add_js();" class="btn btn-small btn-primary"><i class="icon-share-alt icon-white"></i> <?php echo $this->translate('地区导入'); ?></a>&nbsp;
+            <?php } ?> -->
+            <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('region_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+            </p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="3%"><input type="checkbox" id="select_checkbox_state" onclick="selectCheckBox('region_id', 'select_checkbox_state');"></th>
+                    <th width="5%">ID</th>
+                    <th width="40%"><?php echo $this->translate('地区名称'); ?></th>
+                    <th width="10%"><?php echo $this->translate('地区排序'); ?></th>
+                    <th width="15%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <form action="<?php echo $this->url('region/default/region_top_id',array('action'=>'editall', 'region_top_id'=>$this->region_top_id)); ?>" method="post">
+            <?php if($this->region_array) {
+                foreach ($this->region_array as $region_value) { ?>
+                    <tr>
+                        <td>
+                            <input name="region_id[]" type="checkbox"
+                                   value="<?php echo $region_value['region_id']; ?>">
+                        </td>
+                        <td><?php echo $region_value['region_id']; ?></td>
+                        <td id="region_name_<?php echo $region_value['region_id']; ?>"><?php echo $this->escapeHtml($region_value['region_name']); ?></td>
+                        <td id="region_sort_<?php echo $region_value['region_id']; ?>"><?php echo $region_value['region_sort']; ?></td>
+                        <td>
+                            <span id="edit_<?php echo $region_value['region_id']; ?>" style="margin:0;"><a href="javascript:;" onclick="edit_region_js(<?php echo $region_value['region_id']; ?>);"><?php echo $this->translate('编辑'); ?></a></span>
+                            <span>|</span>
+                            <a href="<?php echo $this->url('region/default/region_top_id',array('action'=>'index','controller'=>'region','region_top_id'=>$region_value['region_id'])); ?>"><?php echo $this->translate('查看下级'); ?></a>
+                            <span>|</span>
+                            <a href="javascript:;" onclick="return region_del_js(<?php echo $region_value['region_id']; ?>);"><?php echo $this->translate('删除'); ?></a>
+                        </td>
+                    </tr>
+                <?php }
+                ?>
+                <tr>
+                    <td colspan="5" style="background: #FFF">
+                        <div class="pull-left span6" style="height: 30px; line-height: 30px;">
+                            <input type="checkbox" id="select_checkbox_state_1" onclick="selectCheckBox('region_id', 'select_checkbox_state_1');">
+                            &nbsp;<?php echo $this->translate('全选'); ?>&nbsp;
+                            <select class="span2" name="allEdit" id="allEdit">
+                                <option value=""><?php echo $this->translate('请选择'); ?></option>
+                                <option value="del"><?php echo $this->translate('删除'); ?></option>
+                            </select>&nbsp;
+                            <button type="submit" onclick="return editAllRegion();" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('提交操作'); ?></button>
+                        </div>
+                    </td>
+                </tr>
+            <?php } ?>
+            </form>
+            </table>
+
+<form class="form-horizontal" name="region_add_form" id="region_add_form" action="<?php echo $this->url('region/default',array('action'=>'add','controller'=>'region')); ?>" method="post">           
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel"><?php echo $this->translate('地區信息添加'); ?></h3>
+</div>
+<div class="modal-body">
+        <input type="hidden" name="region_top_id" id="region_top_id" value="<?php echo $this->region_top_id; ?>" />
+         	<div class="control-group">
+				<label class="control-label"><?php echo $this->translate('地区名称'); ?><span class="must_add_value">*</span></label>
+				<div class="controls">
+				<textarea rows="6" class="span10" name="region_name" id="region_name" placeholder="<?php echo $this->translate('可同时添加多个，一行一个地区'); ?>"></textarea>
+				</div>
+			</div>
+         	<div class="control-group">
+				<label class="control-label"><?php echo $this->translate('地区排序'); ?></label>
+				<div class="controls">
+				<input type="text"  class="span4" name="region_sort" id="region_sort" value="255" placeholder="<?php echo $this->translate('地区排序'); ?>">
+				</div>
+			</div>
+</div>
+<div class="modal-footer">
+<button type="submit" class="btn btn-primary"><?php echo $this->translate('保存'); ?></button>
+</div>
+</div>
+</form>
+
+<script>
+//地区保存验证
+$(document).ready(function() {
+	$("#region_add_form").validate({
+		rules: {
+			region_name: {
+				required: true
+			},
+			region_sort: {
+				number: true,
+				min:1,
+				max:255
+			}
+		},
+		messages: {
+			region_name: {
+				required: "<?php echo $this->translate('请输入地区名称！'); ?>"
+			},
+			region_sort: {
+				number: "<?php echo $this->translate('地区排序必须为数字'); ?>",
+				min:"<?php echo $this->translate('地区排序最小为1'); ?>",
+				max:"<?php echo $this->translate('地区排序最大为255'); ?>"
+			}
+		}
+	});
+});
+
+//下拉显示添加地区层
+function region_add_js() {
+	$('#region_name').val('');
+
+	$('#myModal').modal('show');
+}
+//编辑地区
+function edit_region_js(region_id,edit_state) {
+	$.post("<?php echo $this->url('region/default',array('action'=>'jsonregion','controller'=>'region')); ?>",{region_id:region_id},
+	function(data){
+		if(data != '') {
+			if(edit_state == 'cancel') {
+				$('#region_name_'+region_id).html(data.region_name);
+				$('#region_sort_'+region_id).html(data.region_sort);
+				$('#edit_'+region_id).html('<span id="edit_'+region_id+'" style="margin:0;"><a href="javascript:;" onclick="edit_region_js('+region_id+');"><?php echo $this->translate('编辑'); ?></a></span>');
+			} else {
+				$('#region_name_'+region_id).html('<input type="text" class="span5" name="edit_region_name'+region_id+'" id="edit_region_name'+region_id+'" value="'+data.region_name+'" />');
+				$('#region_sort_'+region_id).html('<input type="text" class="span5" name="edit_region_sort'+region_id+'" id="edit_region_sort'+region_id+'" value="'+data.region_sort+'" />');
+				$('#edit_'+region_id).html('<button type="button" onclick="edit_region_js('+region_id+',\'cancel\');" class="btn btn-small btn-warning"><i class="icon-ban-circle icon-white"></i> <?php echo $this->translate('取消编辑'); ?></button>&nbsp;&nbsp;<button type="button" onclick="update_region_js('+region_id+');" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存'); ?></button>');
+
+			}
+		}
+	},
+	'json');
+}
+function update_region_js(region_id) {
+	if(check_region_js(region_id)) {
+	$.post("<?php echo $this->url('region/default',array('action'=>'edit','controller'=>'region')); ?>",{region_id:region_id,region_name:$('#edit_region_name'+region_id).val(),region_sort:$('#edit_region_sort'+region_id).val()},
+		function(data){
+			if(data == 'true') {
+				edit_region_js(region_id,'cancel');
+			}
+		})
+	}
+}
+//检查编辑地区内的信息
+function check_region_js(region_id) {
+	var error_message = '';
+	if($('#edit_region_name'+region_id).val() == '') {
+		error_message = '<?php echo $this->translate('地区名称不能为空！'); ?>';
+		$('#edit_region_name'+region_id).focus();
+		alert(error_message);
+		return false;
+	}
+
+	if(!/^\d+$/.test($('#edit_region_sort'+region_id).val()) || $('#edit_region_sort'+region_id).val() < 0 || $('#edit_region_sort'+region_id).val() > 255) {
+		error_message = '<?php echo $this->translate('地区排序必须为数字，且大于等于0，小于等于255！'); ?>';
+		$('#edit_region_sort'+region_id).focus();
+		alert(error_message);
+		return false;
+	}
+
+	return true;
+}
+//地区删除
+function region_del_js(region_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该地区吗？'); ?>')) {
+	$.post("<?php echo $this->url('region/default',array('action'=>'del','controller'=>'region')); ?>",{region_id:region_id},
+	function(data){
+		if(data != 'false') {
+			window.location.href='<?php echo $this->url('region/default/region_top_id',array('action'=>'index','region_top_id'=>$this->region_top_id)); ?>';
+			return true;
+		} else {
+			alert('<?php echo $this->translate('地区删除失败，该地区还有下级地区存在！'); ?>');
+		}
+	});
+	}
+	return false;	
+}
+
+function editAllRegion() {
+    var num = 0;
+    $("input[name='region_id[]']").each(function() {
+        if (this.checked == true) {
+            num++;
+        }
+    });
+    if(num < 1) {
+        alert('<?php echo $this->translate('请至少选择一条地区信息！'); ?>');
+        return false;
+    }else {
+        if($("#allEdit").val()=='') {
+            alert('<?php echo $this->translate('请选择操作事件！'); ?>');
+            return false;
+        }
+        return window.confirm('<?php echo $this->translate('您确实要执行该操作吗？'); ?>');
+    }
+}
+</script>

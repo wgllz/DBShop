@@ -1,0 +1,116 @@
+<div class="user-info">
+    <div class="user-img pull-left"><img src="<?php echo $this->basePath($this->frontwebsite()->getUserSession('user_avatar')); ?>" style="height:80px; width:80px;"></div>
+    <dl class="pull-left">
+        <dt>
+        <h4><?php echo $this->frontwebsite()->getUserSession('user_name'); ?> | <a class="ect-colorf" href="<?php echo $this->url('m_user/default',array('action'=>'loginout')); ?>"><?php echo $this->translate('退出'); ?></a></h4>
+        </dt>
+        <dd><?php echo $this->translate('您的等级'); ?>：<?php echo $this->frontwebsite()->getUserSession('user_group_name'); ?> </dd>
+        <dd><?php echo $this->translate('账户余额'); ?>：<?php echo $this->frontwebsite()->shopPriceExtend($this->user_info->user_money); ?> </dd>
+        <dd><?php echo $this->user_info->user_integral_num; ?><?php echo $this->translate('消费积分'); ?></dd>
+        <dd><?php echo $this->user_info->integral_type_2_num; ?><?php echo $this->translate('等级积分'); ?></dd>
+    </dl>
+</div>
+
+<section class="container-fluid user-nav">
+    <ul class="row ect-row-nav text-center">
+        <a href="<?php echo $this->url('m_order/default'); ?>">
+            <li class="col-sm-3 col-xs-3"> <i class="fa fa-file-text"></i>
+                <p class="text-center"><?php echo $this->translate('全部订单'); ?></p>
+            </li>
+        </a>
+        <a href="<?php echo $this->url('m_address/default'); ?>">
+            <li class="col-sm-3 col-xs-3"><i class="glyphicon glyphicon-map-marker"></i>
+                <p class="text-center"><?php echo $this->translate('收货地址'); ?></p>
+            </li>
+        </a>
+        <a href="<?php echo $this->url('m_home/default', array('action'=>'userpasswd')); ?>">
+            <li class="col-sm-3 col-xs-3"><i class="fa fa-shield"></i>
+                <p class="text-center"><?php echo $this->translate('修改密码'); ?></p>
+            </li>
+        </a>
+        <a href="<?php echo $this->url('m_home/default', array('action'=>'useredit')); ?>">
+            <li class="col-sm-3 col-xs-3"><i class="fa fa-user"></i>
+                <p class="text-center"><?php echo $this->translate('资料修改'); ?></p>
+            </li>
+        </a>
+    </ul>
+</section>
+
+<section class="user-tab ect-margin-tb ect-margin-bottom0">
+
+    <ul class="nav nav-tabs text-center">
+        <li class="col-xs-4 active"><a data-toggle="tab" role="tab" href="#two"><?php echo $this->translate('最新订单'); ?></a></li>
+        <li class="col-xs-4"><a data-toggle="tab" role="tab" href="#one"><?php echo $this->translate('我的收藏'); ?></a></li>
+        <li class="col-xs-4"><a data-toggle="tab" role="tab" href="#three"><?php echo $this->translate('我的咨询'); ?></a></li>
+    </ul>
+
+    <div id="gwc-tab-xq-bd" class="tab-content">
+        <div id="one" class="tab-pane ect-pro-list" style="min-height: 142.333px;">
+            <ul>
+                <?php if($this->favorites_goods) {
+                    foreach($this->favorites_goods as $favorites_value) {
+                ?>
+                <li><a target="_blank" href="<?php echo $this->url('m_goods/default', array('goods_id'=>$favorites_value['goods_id'], 'class_id'=>$favorites_value['class_id'])); ?>"><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($favorites_value['goods_thumbnail_image'])); ?>"></a>
+                    <dl>
+                        <dt>
+                        <h4 class="title"><a target="_blank" href="<?php echo $this->url('m_goods/default', array('goods_id'=>$favorites_value['goods_id'], 'class_id'=>$favorites_value['class_id'])); ?>"><?php echo $this->escapeHtml($favorites_value['goods_name']); ?></a></h4>
+                        </dt>
+                    </dl>
+                    <a class="pull-right del" onclick="return window.confirm('<?php echo $this->translate('您确实要删除该收藏商品吗？'); ?>');" href="<?php echo $this->url('m_favorites/default/favorites_id', array('action'=>'del','favorites_id'=>$favorites_value['favorites_id']), array('query'=>array('type'=>'home'))); ?>"><i class="glyphicon glyphicon-trash"></i></a>
+                </li>
+                <?php } ?>
+                <a class="more" href="<?php echo $this->url('m_favorites/default'); ?>"><?php echo $this->translate('查看更多'); ?></a>
+                <?php } else { ?>
+                    <p class="text-center ect-margin-tb ect-padding-tb"><?php echo $this->translate('暂无收藏信息！'); ?></p>
+                <?php } ?>
+            </ul>
+
+
+        </div>
+        <div id="two" class="tab-pane active ect-pro-list user-order" style="min-height: 142.333px;">
+            <ul>
+                <?php if ($this->order_list) { ?>
+                    <?php foreach ($this->order_list as $order_value) {
+                        $goodsArray = current(unserialize($order_value['goods_serialize']));
+                        ?>
+                        <li class="single_item">
+                            <a href="<?php echo $this->url('m_order/default/order_id', array('action'=>'showorder', 'order_id'=>$order_value['order_id'], 'order_state'=>$order_value['order_state'], 'page'=>$this->page)); ?>"><img class="pull-left" src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($goodsArray['goods_image'])); ?>">
+                                <dl>
+                                    <dt>
+                                    <h4 class="title"><?php echo $this->translate('订单号'); ?>：<?php echo $order_value['order_sn']; ?></h4>
+                                    </dt>
+                                    <dd><?php echo $this->translate('订单状态'); ?>：<?php echo $this->frontwebsite()->getOneOrderStateInfo($order_value['order_state']); ?></dd>
+                                    <dd><?php echo $this->translate('订单总金额'); ?>：<span class="ect-color"><?php echo $order_value['currency_symbol'] . $order_value['order_amount'] . $order_value['currency_unit']; ?></span></dd>
+                                    <dd><?php echo $this->translate('下单时间'); ?>：<?php echo date("Y-m-d H:i:s",$order_value['order_time']); ?></dd>
+                                </dl>
+                                <i class="pull-right fa fa-angle-right"></i> </a>
+                        </li>
+                    <?php } ?>
+                    <a class="more" href="<?php echo $this->url('m_order/default'); ?>"><?php echo $this->translate('查看更多'); ?></a>
+                <?php } else { ?>
+                    <?php echo '<p class="text-center ect-margin-tb ect-padding-tb">' . $this->translate('暂无订单信息！') . '</p>'; ?>
+                <?php } ?>
+            </ul>
+        </div>
+        <div id="three" class="tab-pane ect-pro-list" style="min-height: 142.333px;">
+            <ul class="msg">
+            <?php if ($this->goods_ask_list) { ?>
+            <?php foreach ($this->goods_ask_list as $ask_value) { ?>
+                <li>
+                    <p><?php echo $this->escapeHtml($ask_value['ask_content']); ?></p>
+                    <p><span class="pull-left"><?php echo $this->translate('用户名'); ?>：<?php echo $ask_value['ask_writer']; ?></span>&nbsp;&nbsp;<?php echo date("Y-m-d H:i:s", $ask_value['ask_time']); ?><a class="pull-right del" onclick="return window.confirm('<?php echo $this->translate('您确实要删除该咨询信息吗？'); ?>');" href="<?php echo $this->url('m_home/default/front-ask-id', array('action'=>'askdel','ask_id'=>$ask_value['ask_id']), array('query'=>array('type'=>'home'))); ?>"><i class="glyphicon glyphicon-trash"></i></a></p>
+                    <?php if($ask_value['reply_ask_content'] != '') { ?>
+                        <br>
+                        <p><?php echo $this->escapeHtml($ask_value['reply_ask_content']); ?></p>
+                        <p><span class="pull-left"><?php echo $this->translate('回答者'); ?>：<?php echo $ask_value['reply_ask_writer']; ?></span>&nbsp;&nbsp;<?php echo date("Y-m-d H:i:s", $ask_value['reply_ask_time']); ?></p>
+                    <?php } ?>
+                </li>
+            <?php } ?>
+                <a class="more" href="<?php echo $this->url('m_home/default', array('action'=>'goodsask')); ?>"><?php echo $this->translate('查看更多'); ?></a>
+        <?php } else { ?>
+                <p class="text-center ect-margin-tb ect-padding-tb"><?php echo $this->translate('暂无咨询信息！'); ?></p>
+        <?php } ?>
+        </ul>
+        </div>
+    </div>
+</section>

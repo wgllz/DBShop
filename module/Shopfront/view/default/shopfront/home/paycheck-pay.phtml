@@ -1,0 +1,14 @@
+<div class="row-fluid"  id="goods_cart">
+	<div class="span6 offset3">
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                <p><b><?php echo $this->translate('账户充值'); ?>：</b><?php echo $this->paycheckinfo->money_change_num; ?></p>
+                <p><b><?php echo $this->translate('微信扫码支付'); ?>：</b>
+                    <img alt="<?php echo $this->translate('微信二维码扫码支付'); ?>" src="<?php echo $this->qrcode_url; ?>" style="width:260px;height:260px;"/>
+                </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,1458 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DBShop\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-05 15:30+0800\n"
+"PO-Revision-Date: 2016-11-05 15:30+0800\n"
+"Last-Translator: DBShop <team@dbshop.net>\n"
+"Language-Team: DBShop <team@dbshop.net>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../src/User/Controller/IntegralController.php:72
+msgid "积分类型信息编辑成功！"
+msgstr ""
+
+#: ../src/User/Controller/IntegralController.php:74
+#: ../view/user/integral/integral-type.phtml:2
+#: ../view/user/integral/integrallog.phtml:13
+msgid "积分类型"
+msgstr ""
+
+#: ../src/User/Controller/IntegralController.php:74
+#: ../view/user/integral/integral-type-edit.phtml:10
+msgid "编辑积分类型"
+msgstr ""
+
+#: ../src/User/Controller/IntegralController.php:123
+#: ../src/User/Controller/IntegralController.php:169
+#: ../src/User/Controller/IntegralController.php:202
+#: ../view/user/integral/add-integral-rule.phtml:5
+#: ../view/user/integral/add-integral-rule.phtml:14
+#: ../view/user/integral/add-integral-rule.phtml:95
+#: ../view/user/integral/integral-rule.phtml:2
+msgid "积分规则"
+msgstr ""
+
+#: ../src/User/Controller/IntegralController.php:123
+msgid "添加积分规则"
+msgstr ""
+
+#: ../src/User/Controller/IntegralController.php:169
+msgid "编辑积分规则"
+msgstr ""
+
+#: ../src/User/Controller/IntegralController.php:174
+msgid "积分规则编辑成功！"
+msgstr ""
+
+#: ../src/User/Controller/IntegralController.php:202
+#: ../view/user/integral/add-integral-rule.phtml:19
+msgid "删除积分规则"
+msgstr ""
+
+#: ../src/User/Controller/IntegralController.php:211
+msgid "用户积分调整失败！"
+msgstr ""
+
+#: ../src/User/Controller/IntegralController.php:228
+msgid "管理员调整消费积分："
+msgstr ""
+
+#: ../src/User/Controller/IntegralController.php:234
+#: ../view/user/user/add.phtml:50 ../view/user/user/index.phtml:160
+msgid "消费积分"
+msgstr ""
+
+#: ../src/User/Controller/IntegralController.php:234
+#: ../src/User/Controller/IntegralController.php:248
+msgid "管理员调整处理"
+msgstr ""
+
+#: ../src/User/Controller/IntegralController.php:234
+#: ../src/User/Controller/IntegralController.php:248
+msgid "被调整人:"
+msgstr ""
+
+#: ../src/User/Controller/IntegralController.php:234
+#: ../src/User/Controller/IntegralController.php:248
+msgid "调整值:"
+msgstr ""
+
+#: ../src/User/Controller/IntegralController.php:242
+msgid "管理员调整等级积分："
+msgstr ""
+
+#: ../src/User/Controller/IntegralController.php:248
+#: ../view/user/user/add.phtml:63 ../view/user/user/index.phtml:171
+msgid "等级积分"
+msgstr ""
+
+#: ../src/User/Controller/UserController.php:64
+msgid "会员注册默认起始积分数："
+msgstr ""
+
+#: ../src/User/Controller/UserController.php:93
+#: ../src/User/Controller/UserController.php:157
+#: ../src/User/Controller/UserController.php:190
+#: ../view/user/user/index.phtml:2
+msgid "管理客户"
+msgstr ""
+
+#: ../src/User/Controller/UserController.php:93
+msgid "添加客户"
+msgstr ""
+
+#: ../src/User/Controller/UserController.php:135
+#: ../src/User/Controller/UserController.php:145
+msgid "修改密码通知"
+msgstr ""
+
+#: ../src/User/Controller/UserController.php:136
+#: ../src/User/Controller/UserController.php:146
+#, php-format
+msgid "您在%s修改了新密码为："
+msgstr ""
+
+#: ../src/User/Controller/UserController.php:157
+msgid "更新客户"
+msgstr ""
+
+#: ../src/User/Controller/UserController.php:160
+msgid "客户信息编辑成功！"
+msgstr ""
+
+#: ../src/User/Controller/UserController.php:190
+#: ../view/user/user/add.phtml:25 ../view/user/user/index.phtml:97
+msgid "删除客户"
+msgstr ""
+
+#: ../src/User/Controller/UsergroupController.php:49
+#: ../src/User/Controller/UsergroupController.php:70
+#: ../src/User/Controller/UsergroupController.php:103
+#: ../view/user/usergroup/index.phtml:2
+msgid "管理客户组"
+msgstr ""
+
+#: ../src/User/Controller/UsergroupController.php:49
+#: ../view/user/usergroup/index.phtml:4
+msgid "添加客户组"
+msgstr ""
+
+#: ../src/User/Controller/UsergroupController.php:70
+msgid "更新客户组"
+msgstr ""
+
+#: ../src/User/Controller/UsergroupController.php:103
+#: ../view/user/usergroup/add.phtml:15
+msgid "删除客户组"
+msgstr ""
+
+#: ../src/User/Controller/UserintegrationController.php:53
+msgid "整合设置"
+msgstr ""
+
+#: ../src/User/Controller/UserintegrationController.php:53
+msgid "更新整合"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:45
+msgid "用户充值失败！"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:77
+#: ../view/user/usermoney/index.phtml:14
+msgid "账户余额"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:77
+msgid "管理员充值处理"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:77
+#: ../src/User/Controller/UsermoneyController.php:114
+msgid "被充值人:"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:77
+#: ../src/User/Controller/UsermoneyController.php:114
+msgid "充值金额:"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:113
+#: ../view/user/usermoney/paycheck.phtml:29
+#: ../view/user/usermoney/paycheck.phtml:58
+msgid "未充值"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:113
+#: ../view/user/usermoney/paycheck.phtml:30
+#: ../view/user/usermoney/paycheck.phtml:58
+msgid "充值完成"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:114
+#: ../view/user/usermoney/paycheck.phtml:2
+msgid "充值记录"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:114
+msgid "删除充值记录"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:114
+msgid "当前充值状态:"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:143
+msgid "获取提现信息失败！"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:150
+msgid "获取提现信息失败,已经处理，不能进行重复处理！"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:183
+#: ../src/User/Controller/UsermoneyController.php:208
+#: ../src/User/Controller/UsermoneyController.php:229
+#: ../view/user/usermoney/withdraw.phtml:2
+msgid "提现申请"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:183
+#: ../src/User/Controller/UsermoneyController.php:208
+msgid "审核提现申请"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:183
+#: ../src/User/Controller/UsermoneyController.php:208
+#: ../src/User/Controller/UsermoneyController.php:229
+msgid "申请人:"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:183
+msgid "状态修改为:拒绝提现"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:183
+#: ../src/User/Controller/UsermoneyController.php:208
+#: ../src/User/Controller/UsermoneyController.php:229
+msgid "提现金额:"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:188
+msgid "提现额度超出账户余额，无法提现！"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:202
+msgid "提现已经完成"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:208
+msgid "状态修改为:提现已经完成"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:214
+msgid "审核操作处理失败！"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:228
+msgid "处理中"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:228
+#: ../view/user/usermoney/withdraw.phtml:59
+#: ../view/user/usermoney/withdraw.phtml:137
+msgid "同意且已完成"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:228
+#: ../view/user/usermoney/withdraw.phtml:59
+#: ../view/user/usermoney/withdraw.phtml:140
+msgid "拒绝提现"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:229
+msgid "删除提现申请"
+msgstr ""
+
+#: ../src/User/Controller/UsermoneyController.php:229
+msgid "当前申请状态:"
+msgstr ""
+
+#: ../src/User/FormValidate/FormMessage.php:57
+#: ../src/User/FormValidate/FormMessage.php:67
+msgid "系统提示"
+msgstr ""
+
+#: ../src/User/FormValidate/FormMessage.php:69
+msgid "返回上一步"
+msgstr ""
+
+#: ../src/User/FormValidate/FormUserValidate.php:60
+#: ../src/User/FormValidate/FormUserValidate.php:99
+#: ../src/User/FormValidate/FormUserValidate.php:124
+#: ../view/user/user/add.phtml:349
+msgid "请输入客户登录名称！"
+msgstr ""
+
+#: ../src/User/FormValidate/FormUserValidate.php:66
+#: ../src/User/FormValidate/FormUserValidate.php:105
+#: ../src/User/FormValidate/FormUserValidate.php:162
+#: ../src/User/FormValidate/FormUserValidate.php:182
+#: ../view/user/user/add.phtml:361
+msgid "请输入密码！"
+msgstr ""
+
+#: ../src/User/FormValidate/FormUserValidate.php:72
+#: ../src/User/FormValidate/FormUserValidate.php:169
+#: ../src/User/FormValidate/FormUserValidate.php:189
+#: ../view/user/user/add.phtml:368
+msgid "请输入确认密码！"
+msgstr ""
+
+#: ../src/User/FormValidate/FormUserValidate.php:73
+#: ../src/User/FormValidate/FormUserValidate.php:170
+#: ../src/User/FormValidate/FormUserValidate.php:190
+#: ../view/user/user/add.phtml:372
+msgid "两次输入的密码不一致！"
+msgstr ""
+
+#: ../src/User/FormValidate/FormUserValidate.php:79
+#: ../src/User/FormValidate/FormUserValidate.php:130
+#: ../src/User/FormValidate/FormUserValidate.php:143
+#: ../view/user/user/add.phtml:355
+msgid "请输入电子邮箱！"
+msgstr ""
+
+#: ../src/User/FormValidate/FormUserValidate.php:80
+#: ../src/User/FormValidate/FormUserValidate.php:131
+#: ../src/User/FormValidate/FormUserValidate.php:144
+#: ../view/user/user/add.phtml:356
+msgid "电子邮箱格式错误！"
+msgstr ""
+
+#: ../src/User/FormValidate/FormUserValidate.php:86
+#: ../src/User/FormValidate/FormUserValidate.php:87
+msgid "注册时间超时，请重新注册"
+msgstr ""
+
+#: ../src/User/FormValidate/FormUserValidate.php:111
+#: ../src/User/FormValidate/FormUserValidate.php:112
+msgid "登录时间超时，请重新登录"
+msgstr ""
+
+#: ../src/User/FormValidate/FormUserValidate.php:156
+msgid "请输入原始密码！"
+msgstr ""
+
+#: ../src/User/FormValidate/FormUserValidate.php:163
+#: ../src/User/FormValidate/FormUserValidate.php:183
+msgid "至少输入6位新密码，至多输入20位新密码！"
+msgstr ""
+
+#: ../src/User/FormValidate/FormUserValidate.php:202
+msgid "提现金额不能为空！"
+msgstr ""
+
+#: ../src/User/FormValidate/FormUserValidate.php:208
+msgid "支付名称/开户银行 不能为空！"
+msgstr ""
+
+#: ../src/User/FormValidate/FormUserValidate.php:214
+msgid "账户名称/开户名称 不能为空！"
+msgstr ""
+
+#: ../src/User/FormValidate/FormUserValidate.php:220
+msgid "账号/卡号 不能为空！"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:3
+msgid "规则信息"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:4
+#: ../view/user/integral/add-integral-rule.phtml:27
+#: ../view/user/integral/integral-type-edit.phtml:4
+#: ../view/user/integral/integral-type-edit.phtml:19
+#: ../view/user/user/add.phtml:5 ../view/user/user/add.phtml:33
+#: ../view/user/usergroup/add.phtml:4 ../view/user/usergroup/add.phtml:22
+#: ../view/user/userintegration/edit.phtml:4
+#: ../view/user/userintegration/edit.phtml:18
+msgid "基本信息"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:6
+#: ../view/user/integral/add-integral-rule.phtml:67
+msgid "选择客户组"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:7
+#: ../view/user/integral/add-integral-rule.phtml:122
+msgid "选择商品"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:14
+#: ../view/user/integral/integral-rule.phtml:39
+#: ../view/user/integral/integral-type.phtml:21 ../view/user/user/add.phtml:20
+#: ../view/user/user/add.phtml:530 ../view/user/user/address.phtml:33
+#: ../view/user/user/index.phtml:79 ../view/user/usergroup/add.phtml:10
+#: ../view/user/usergroup/index.phtml:27
+#: ../view/user/userintegration/edit.phtml:9
+#: ../view/user/userintegration/index.phtml:23
+msgid "编辑"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:14
+#: ../view/user/user/add.phtml:20 ../view/user/usergroup/add.phtml:10
+msgid "新加"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:16
+msgid "返回规则列表"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:17
+#: ../view/user/integral/integral-type-edit.phtml:13
+#: ../view/user/user/add.phtml:23 ../view/user/usergroup/add.phtml:13
+#: ../view/user/userintegration/edit.phtml:12
+msgid "刷新"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:19
+#: ../view/user/integral/integral-rule.phtml:41
+msgid "您确实要删除该积分规则吗？"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:20
+msgid "保存积分规则并继续编辑"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:22
+msgid "保存积分规则"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:23
+#: ../view/user/integral/integral-rule.phtml:5
+#: ../view/user/integral/integral-type-edit.phtml:15
+#: ../view/user/integral/integral-type.phtml:4
+#: ../view/user/integral/integrallog.phtml:4 ../view/user/user/add.phtml:29
+#: ../view/user/user/index.phtml:5 ../view/user/usergroup/add.phtml:18
+#: ../view/user/usergroup/index.phtml:5
+#: ../view/user/userintegration/edit.phtml:14
+#: ../view/user/userintegration/index.phtml:4
+#: ../view/user/usermoney/index.phtml:4
+#: ../view/user/usermoney/paycheck.phtml:4
+#: ../view/user/usermoney/withdraw.phtml:4
+msgid "查看帮助说明"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:32
+msgid "规则名称"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:38
+msgid "规则描述"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:40
+msgid "前台购物车处显示此信息。"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:44
+msgid "开始时间"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:46
+msgid "请在此填写有效的开始时间，为空，则不限时间。"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:50
+msgid "结束时间"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:52
+msgid "请在此填写有效的结束时间，为空，则不限时间。"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:56
+msgid "规则状态"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:59
+#: ../view/user/integral/integral-rule.phtml:37
+#: ../view/user/user/add.phtml:153 ../view/user/user/index.phtml:44
+#: ../view/user/user/index.phtml:74
+#: ../view/user/userintegration/index.phtml:21
+msgid "开启"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:60
+#: ../view/user/integral/integral-rule.phtml:37
+#: ../view/user/user/add.phtml:154 ../view/user/user/index.phtml:45
+#: ../view/user/user/index.phtml:74 ../view/user/user/index.phtml:139
+#: ../view/user/user/index.phtml:190 ../view/user/usergroup/index.phtml:26
+#: ../view/user/userintegration/index.phtml:21
+#: ../view/user/usermoney/withdraw.phtml:154
+msgid "关闭"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:72
+msgid "选择客户组类型"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:75
+msgid "所有客户"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:76
+#: ../view/user/integral/add-integral-rule.phtml:81
+msgid "个性化客户组"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:100
+msgid "购物金额满"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:102
+msgid "元"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:106
+#: ../view/user/integral/integrallog.phtml:22
+msgid "获得"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:116
+#: ../view/user/integral/integrallog.phtml:11 ../view/user/user/add.phtml:58
+#: ../view/user/user/add.phtml:71
+msgid "积分"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:127
+msgid "选择商品类型"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:130
+msgid "所有商品"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:131
+#: ../view/user/integral/add-integral-rule.phtml:140
+msgid "商品分类"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:132
+#: ../view/user/integral/add-integral-rule.phtml:154
+msgid "商品品牌"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:194
+msgid "积分规则名称不能为空！"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:197
+msgid "购物金额满不能为空！"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:198
+msgid "购物金额满必须为数字！"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:199
+msgid "数字最小为1"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:202
+msgid "获得积分数不能为空！"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:203
+msgid "获得积分数必须为数字！"
+msgstr ""
+
+#: ../view/user/integral/add-integral-rule.phtml:204
+msgid "获得积分数最小为1"
+msgstr ""
+
+#: ../view/user/integral/integral-rule.phtml:4
+msgid "添加新规则"
+msgstr ""
+
+#: ../view/user/integral/integral-rule.phtml:11
+msgid "积分规则名称"
+msgstr ""
+
+#: ../view/user/integral/integral-rule.phtml:12
+msgid "积分规则描述"
+msgstr ""
+
+#: ../view/user/integral/integral-rule.phtml:13
+msgid "有效时间"
+msgstr ""
+
+#: ../view/user/integral/integral-rule.phtml:14
+#: ../view/user/usermoney/paycheck.phtml:11
+#: ../view/user/usermoney/withdraw.phtml:11
+msgid "状态"
+msgstr ""
+
+#: ../view/user/integral/integral-rule.phtml:15
+#: ../view/user/integral/integral-type.phtml:13
+#: ../view/user/user/address.phtml:10 ../view/user/user/index.phtml:20
+#: ../view/user/user/maillog.phtml:8 ../view/user/usergroup/index.phtml:15
+#: ../view/user/userintegration/index.phtml:12
+#: ../view/user/usermoney/paycheck.phtml:17
+#: ../view/user/usermoney/withdraw.phtml:17
+msgid "操作"
+msgstr ""
+
+#: ../view/user/integral/integral-rule.phtml:29
+msgid "长期有效"
+msgstr ""
+
+#: ../view/user/integral/integral-rule.phtml:31
+msgid "已经过期"
+msgstr ""
+
+#: ../view/user/integral/integral-rule.phtml:33
+msgid "无"
+msgstr ""
+
+#: ../view/user/integral/integral-rule.phtml:41
+#: ../view/user/user/address.phtml:34 ../view/user/user/index.phtml:85
+#: ../view/user/user/maillog.phtml:23 ../view/user/usergroup/index.phtml:27
+#: ../view/user/usermoney/paycheck.phtml:72
+#: ../view/user/usermoney/withdraw.phtml:75
+msgid "删除"
+msgstr ""
+
+#: ../view/user/integral/integral-rule.phtml:48
+msgid "暂无积分规则"
+msgstr ""
+
+#: ../view/user/integral/integral-type-edit.phtml:3
+msgid "积分类型信息"
+msgstr ""
+
+#: ../view/user/integral/integral-type-edit.phtml:12
+msgid "返回积分类型列表"
+msgstr ""
+
+#: ../view/user/integral/integral-type-edit.phtml:14
+msgid "保存积分类型"
+msgstr ""
+
+#: ../view/user/integral/integral-type-edit.phtml:24
+msgid "类型名称"
+msgstr ""
+
+#: ../view/user/integral/integral-type-edit.phtml:30
+msgid "积分换算比例"
+msgstr ""
+
+#: ../view/user/integral/integral-type-edit.phtml:34
+msgid "每100积分可以抵多少元(基础货币)"
+msgstr ""
+
+#: ../view/user/integral/integral-type-edit.phtml:36
+msgid "只有消费积分可以设置"
+msgstr ""
+
+#: ../view/user/integral/integral-type-edit.phtml:41
+msgid "初始积分数"
+msgstr ""
+
+#: ../view/user/integral/integral-type-edit.phtml:74
+msgid "积分类型名称不能为空！"
+msgstr ""
+
+#: ../view/user/integral/integral-type-edit.phtml:78
+msgid "积分换算比例不能为空！"
+msgstr ""
+
+#: ../view/user/integral/integral-type-edit.phtml:79
+msgid "积分换算比例必须为正整数！"
+msgstr ""
+
+#: ../view/user/integral/integral-type-edit.phtml:80
+msgid "积分换算比例最小为1"
+msgstr ""
+
+#: ../view/user/integral/integral-type-edit.phtml:84
+msgid "初始积分数不能为空！"
+msgstr ""
+
+#: ../view/user/integral/integral-type-edit.phtml:85
+msgid "初始积分数必须为数字！"
+msgstr ""
+
+#: ../view/user/integral/integral-type-edit.phtml:86
+msgid "初始积分数最小为0"
+msgstr ""
+
+#: ../view/user/integral/integral-type.phtml:10
+msgid "积分类型名称"
+msgstr ""
+
+#: ../view/user/integral/integral-type.phtml:11
+msgid "初始积分"
+msgstr ""
+
+#: ../view/user/integral/integral-type.phtml:12
+msgid "每100积分可抵现金（基础货币）数"
+msgstr ""
+
+#: ../view/user/integral/integral-type.phtml:20
+msgid "不可用(只消费积分可用)"
+msgstr ""
+
+#: ../view/user/integral/integrallog.phtml:2
+msgid "积分历史记录"
+msgstr ""
+
+#: ../view/user/integral/integrallog.phtml:10
+msgid "会员名称"
+msgstr ""
+
+#: ../view/user/integral/integrallog.phtml:12
+msgid "操作类型"
+msgstr ""
+
+#: ../view/user/integral/integrallog.phtml:14
+msgid "操作描述"
+msgstr ""
+
+#: ../view/user/integral/integrallog.phtml:15
+msgid "操作时间"
+msgstr ""
+
+#: ../view/user/integral/integrallog.phtml:22
+#: ../view/user/usermoney/index.phtml:29 ../view/user/usermoney/index.phtml:56
+msgid "消费"
+msgstr ""
+
+#: ../view/user/user/add.phtml:3
+msgid "客户信息"
+msgstr ""
+
+#: ../view/user/user/add.phtml:4 ../view/user/user/add.phtml:178
+msgid "客户总览"
+msgstr ""
+
+#: ../view/user/user/add.phtml:7 ../view/user/user/add.phtml:171
+msgid "地址信息"
+msgstr ""
+
+#: ../view/user/user/add.phtml:8 ../view/user/user/add.phtml:185
+msgid "客户订单"
+msgstr ""
+
+#: ../view/user/user/add.phtml:9 ../view/user/user/add.phtml:192
+msgid "产品评价"
+msgstr ""
+
+#: ../view/user/user/add.phtml:10 ../view/user/user/add.phtml:199
+msgid "邮件信息"
+msgstr ""
+
+#: ../view/user/user/add.phtml:11
+msgid "购物车信息"
+msgstr ""
+
+#: ../view/user/user/add.phtml:12 ../view/user/user/add.phtml:206
+msgid "收藏商品"
+msgstr ""
+
+#: ../view/user/user/add.phtml:20 ../view/user/usermoney/index.phtml:65
+msgid "客户"
+msgstr ""
+
+#: ../view/user/user/add.phtml:22
+msgid "返回客户列表"
+msgstr ""
+
+#: ../view/user/user/add.phtml:26
+msgid "保存客户信息并继续编辑"
+msgstr ""
+
+#: ../view/user/user/add.phtml:28
+msgid "保存客户信息"
+msgstr ""
+
+#: ../view/user/user/add.phtml:38
+msgid "头像"
+msgstr ""
+
+#: ../view/user/user/add.phtml:76 ../view/user/user/index.phtml:18
+msgid "客户余额"
+msgstr ""
+
+#: ../view/user/user/add.phtml:88
+msgid "客户分组"
+msgstr ""
+
+#: ../view/user/user/add.phtml:91 ../view/user/user/add.phtml:237
+#: ../view/user/user/add.phtml:487 ../view/user/user/index.phtml:31
+#: ../view/user/user/index.phtml:43 ../view/user/user/index.phtml:96
+#: ../view/user/usermoney/index.phtml:27
+#: ../view/user/usermoney/paycheck.phtml:28
+#: ../view/user/usermoney/withdraw.phtml:28
+msgid "请选择"
+msgstr ""
+
+#: ../view/user/user/add.phtml:100
+msgid ""
+"变更客户分组时，请先确定要变更的分组没有开启等级积分范围或者当前用户的等级积"
+"分符合要求，否则客户前台登录会自动变回原分组"
+msgstr ""
+
+#: ../view/user/user/add.phtml:104
+msgid "登录名称"
+msgstr ""
+
+#: ../view/user/user/add.phtml:110
+msgid "性别"
+msgstr ""
+
+#: ../view/user/user/add.phtml:113
+msgid "保密"
+msgstr ""
+
+#: ../view/user/user/add.phtml:114
+msgid "男"
+msgstr ""
+
+#: ../view/user/user/add.phtml:115
+msgid "女"
+msgstr ""
+
+#: ../view/user/user/add.phtml:120
+msgid "生日"
+msgstr ""
+
+#: ../view/user/user/add.phtml:126 ../view/user/user/index.phtml:14
+msgid "电子邮件"
+msgstr ""
+
+#: ../view/user/user/add.phtml:132
+msgid "客户密码"
+msgstr ""
+
+#: ../view/user/user/add.phtml:138
+msgid "确认密码"
+msgstr ""
+
+#: ../view/user/user/add.phtml:144 ../view/user/user/add.phtml:264
+msgid "手机号码"
+msgstr ""
+
+#: ../view/user/user/add.phtml:150 ../view/user/user/index.phtml:16
+msgid "客户状态"
+msgstr ""
+
+#: ../view/user/user/add.phtml:155 ../view/user/user/index.phtml:46
+#: ../view/user/user/index.phtml:74
+msgid "待审核"
+msgstr ""
+
+#: ../view/user/user/add.phtml:161
+msgid "将密码发给客户"
+msgstr ""
+
+#: ../view/user/user/add.phtml:223
+msgid "地址信息添加"
+msgstr ""
+
+#: ../view/user/user/add.phtml:227
+msgid "收货人姓名"
+msgstr ""
+
+#: ../view/user/user/add.phtml:229
+msgid "填写收货人姓名"
+msgstr ""
+
+#: ../view/user/user/add.phtml:233
+msgid "省市区"
+msgstr ""
+
+#: ../view/user/user/add.phtml:252
+msgid "街道地址"
+msgstr ""
+
+#: ../view/user/user/add.phtml:254
+msgid "填写街道详细地址"
+msgstr ""
+
+#: ../view/user/user/add.phtml:258
+msgid "邮政编码"
+msgstr ""
+
+#: ../view/user/user/add.phtml:260
+msgid "填写邮政编码"
+msgstr ""
+
+#: ../view/user/user/add.phtml:266
+msgid "添加手机号码"
+msgstr ""
+
+#: ../view/user/user/add.phtml:270 ../view/user/user/add.phtml:272
+msgid "电话号码"
+msgstr ""
+
+#: ../view/user/user/add.phtml:272
+msgid "区号"
+msgstr ""
+
+#: ../view/user/user/add.phtml:272
+msgid "分机"
+msgstr ""
+
+#: ../view/user/user/add.phtml:276 ../view/user/user/address.phtml:9
+msgid "默认地址"
+msgstr ""
+
+#: ../view/user/user/add.phtml:285
+msgid "保存修改"
+msgstr ""
+
+#: ../view/user/user/add.phtml:345
+msgid "请选择客户分组"
+msgstr ""
+
+#: ../view/user/user/add.phtml:350
+msgid "客户登录名称最长为30个汉字！"
+msgstr ""
+
+#: ../view/user/user/add.phtml:351
+msgid "该用户名已经存在！"
+msgstr ""
+
+#: ../view/user/user/add.phtml:357
+msgid "该邮箱已经存在"
+msgstr ""
+
+#: ../view/user/user/add.phtml:363
+msgid "至少输入6位密码！"
+msgstr ""
+
+#: ../view/user/user/add.phtml:364
+msgid "密码最长为20位！"
+msgstr ""
+
+#: ../view/user/user/add.phtml:370
+msgid "至少输入6位确认密码！"
+msgstr ""
+
+#: ../view/user/user/add.phtml:371
+msgid "确认密码最长为20位！"
+msgstr ""
+
+#: ../view/user/user/add.phtml:400
+msgid "请输入收货人姓名！"
+msgstr ""
+
+#: ../view/user/user/add.phtml:401
+msgid "收货人姓名最长为30个汉字！"
+msgstr ""
+
+#: ../view/user/user/add.phtml:404
+msgid "省市区不能为空"
+msgstr ""
+
+#: ../view/user/user/add.phtml:407
+msgid "街道地址不能为空！"
+msgstr ""
+
+#: ../view/user/user/add.phtml:408
+msgid "街道地址最长90个汉字！"
+msgstr ""
+
+#: ../view/user/user/add.phtml:411
+msgid "手机号码不能为空！"
+msgstr ""
+
+#: ../view/user/user/add.phtml:414
+msgid "邮政编码不能为空！"
+msgstr ""
+
+#: ../view/user/user/add.phtml:430 ../view/user/user/index.phtml:280
+msgid "您确实要删除该客户吗？"
+msgstr ""
+
+#: ../view/user/user/add.phtml:437 ../view/user/user/index.phtml:287
+msgid "客户删除失败！"
+msgstr ""
+
+#: ../view/user/user/add.phtml:454
+msgid "您确实要删除该邮件记录吗？"
+msgstr ""
+
+#: ../view/user/user/add.phtml:461
+msgid "邮件记录删除失败！"
+msgstr ""
+
+#: ../view/user/user/add.phtml:472
+msgid "您确实要删除该收货地址吗？"
+msgstr ""
+
+#: ../view/user/user/add.phtml:479
+msgid "收货地址删除失败！"
+msgstr ""
+
+#: ../view/user/user/address.phtml:4
+msgid "姓名"
+msgstr ""
+
+#: ../view/user/user/address.phtml:5
+msgid "地址"
+msgstr ""
+
+#: ../view/user/user/address.phtml:6
+msgid "手机"
+msgstr ""
+
+#: ../view/user/user/address.phtml:7
+msgid "电话"
+msgstr ""
+
+#: ../view/user/user/address.phtml:8
+msgid "邮编"
+msgstr ""
+
+#: ../view/user/user/address.phtml:15
+msgid "还没有地址信息"
+msgstr ""
+
+#: ../view/user/user/address.phtml:31
+msgid "是"
+msgstr ""
+
+#: ../view/user/user/address.phtml:31
+msgid "否"
+msgstr ""
+
+#: ../view/user/user/address.phtml:39
+msgid "添加地址"
+msgstr ""
+
+#: ../view/user/user/ajaxfavorites.phtml:4
+msgid "商品信息"
+msgstr ""
+
+#: ../view/user/user/ajaxfavorites.phtml:13
+msgid "暂无商品收藏！"
+msgstr ""
+
+#: ../view/user/user/index.phtml:4
+msgid "添加新客户"
+msgstr ""
+
+#: ../view/user/user/index.phtml:13
+msgid "客户姓名"
+msgstr ""
+
+#: ../view/user/user/index.phtml:15 ../view/user/usergroup/add.phtml:10
+msgid "客户组"
+msgstr ""
+
+#: ../view/user/user/index.phtml:17
+msgid "客户加入时间"
+msgstr ""
+
+#: ../view/user/user/index.phtml:19
+msgid "(消费/等级)积分"
+msgstr ""
+
+#: ../view/user/user/index.phtml:26 ../view/user/user/index.phtml:49
+#: ../view/user/usermoney/index.phtml:22
+#: ../view/user/usermoney/paycheck.phtml:23
+#: ../view/user/usermoney/paycheck.phtml:43
+#: ../view/user/usermoney/withdraw.phtml:23
+#: ../view/user/usermoney/withdraw.phtml:44
+msgid "始"
+msgstr ""
+
+#: ../view/user/user/index.phtml:26 ../view/user/user/index.phtml:49
+#: ../view/user/usermoney/index.phtml:23
+#: ../view/user/usermoney/paycheck.phtml:24
+#: ../view/user/usermoney/paycheck.phtml:44
+#: ../view/user/usermoney/withdraw.phtml:24
+#: ../view/user/usermoney/withdraw.phtml:45
+msgid "终"
+msgstr ""
+
+#: ../view/user/user/index.phtml:57 ../view/user/usermoney/index.phtml:48
+#: ../view/user/usermoney/paycheck.phtml:50
+#: ../view/user/usermoney/withdraw.phtml:51
+msgid "搜索"
+msgstr ""
+
+#: ../view/user/user/index.phtml:59 ../view/user/usermoney/index.phtml:50
+#: ../view/user/usermoney/paycheck.phtml:52
+#: ../view/user/usermoney/withdraw.phtml:53
+msgid "返回"
+msgstr ""
+
+#: ../view/user/user/index.phtml:81 ../view/user/user/index.phtml:114
+msgid "余额充值"
+msgstr ""
+
+#: ../view/user/user/index.phtml:83 ../view/user/user/index.phtml:150
+msgid "积分调整"
+msgstr ""
+
+#: ../view/user/user/index.phtml:94
+msgid "全选操作"
+msgstr ""
+
+#: ../view/user/user/index.phtml:98
+msgid "更换客户组"
+msgstr ""
+
+#: ../view/user/user/index.phtml:100
+msgid "提交操作"
+msgstr ""
+
+#: ../view/user/user/index.phtml:118 ../view/user/usermoney/paycheck.phtml:12
+msgid "被充值人"
+msgstr ""
+
+#: ../view/user/user/index.phtml:124
+msgid "充值金额"
+msgstr ""
+
+#: ../view/user/user/index.phtml:130 ../view/user/user/index.phtml:182
+msgid "备注内容"
+msgstr ""
+
+#: ../view/user/user/index.phtml:138
+msgid "提交充值"
+msgstr ""
+
+#: ../view/user/user/index.phtml:154
+msgid "被调整人"
+msgstr ""
+
+#: ../view/user/user/index.phtml:163 ../view/user/user/index.phtml:174
+msgid "增加"
+msgstr ""
+
+#: ../view/user/user/index.phtml:164 ../view/user/user/index.phtml:175
+msgid "减少"
+msgstr ""
+
+#: ../view/user/user/index.phtml:167 ../view/user/user/index.phtml:178
+msgid "当前值"
+msgstr ""
+
+#: ../view/user/user/index.phtml:189
+msgid "提交调整"
+msgstr ""
+
+#: ../view/user/user/index.phtml:211
+msgid "充值金额不能为空！"
+msgstr ""
+
+#: ../view/user/user/index.phtml:212
+msgid "充值金额必须为数字且为整数！"
+msgstr ""
+
+#: ../view/user/user/index.phtml:213
+msgid "充值金额最小为1"
+msgstr ""
+
+#: ../view/user/user/index.phtml:216 ../view/user/user/index.phtml:250
+msgid "备注内容不能为空！"
+msgstr ""
+
+#: ../view/user/user/index.phtml:242
+msgid "消费积分调整值必须为数字且为整数！"
+msgstr ""
+
+#: ../view/user/user/index.phtml:243
+msgid "消费积分调整值最小为1"
+msgstr ""
+
+#: ../view/user/user/index.phtml:246
+msgid "等级积分调整值必须为数字且为整数！"
+msgstr ""
+
+#: ../view/user/user/index.phtml:247
+msgid "等级积分调整值最小为1"
+msgstr ""
+
+#: ../view/user/user/index.phtml:268
+msgid "请至少选择一条客户信息！"
+msgstr ""
+
+#: ../view/user/user/index.phtml:272
+msgid "请选择操作事件！"
+msgstr ""
+
+#: ../view/user/user/index.phtml:275
+msgid "您确实要执行该操作吗？"
+msgstr ""
+
+#: ../view/user/user/maillog.phtml:4
+msgid "邮件标题"
+msgstr ""
+
+#: ../view/user/user/maillog.phtml:5
+msgid "邮件内容"
+msgstr ""
+
+#: ../view/user/user/maillog.phtml:6
+msgid "发送时间"
+msgstr ""
+
+#: ../view/user/user/maillog.phtml:7
+msgid "发送状态"
+msgstr ""
+
+#: ../view/user/user/maillog.phtml:13
+msgid "还没有发送过邮件"
+msgstr ""
+
+#: ../view/user/user/maillog.phtml:21
+msgid "成功"
+msgstr ""
+
+#: ../view/user/user/maillog.phtml:21
+msgid "失败"
+msgstr ""
+
+#: ../view/user/usergroup/add.phtml:3
+msgid "客户组信息"
+msgstr ""
+
+#: ../view/user/usergroup/add.phtml:12
+msgid "返回客户组列表"
+msgstr ""
+
+#: ../view/user/usergroup/add.phtml:17
+msgid "保存客户组信息"
+msgstr ""
+
+#: ../view/user/usergroup/add.phtml:25 ../view/user/usergroup/index.phtml:12
+msgid "客户组名称"
+msgstr ""
+
+#: ../view/user/usergroup/add.phtml:31 ../view/user/usergroup/index.phtml:13
+msgid "等级积分范围"
+msgstr ""
+
+#: ../view/user/usergroup/add.phtml:37 ../view/user/usergroup/index.phtml:26
+msgid "启用"
+msgstr ""
+
+#: ../view/user/usergroup/add.phtml:57
+msgid "请输入客户组名称！"
+msgstr ""
+
+#: ../view/user/usergroup/add.phtml:58
+msgid "客户组名称最长为60个汉字！"
+msgstr ""
+
+#: ../view/user/usergroup/add.phtml:65 ../view/user/usergroup/index.phtml:38
+msgid "您确实要删除该客户组吗？"
+msgstr ""
+
+#: ../view/user/usergroup/add.phtml:72 ../view/user/usergroup/index.phtml:45
+msgid "客户组删除失败，该客户组下已经有客户存在，需要先删除组下客户信息！"
+msgstr ""
+
+#: ../view/user/usergroup/index.phtml:14
+msgid "等级积分状态"
+msgstr ""
+
+#: ../view/user/userintegration/edit.phtml:3
+#: ../view/user/userintegration/edit.phtml:9
+msgid "系统整合"
+msgstr ""
+
+#: ../view/user/userintegration/edit.phtml:11
+msgid "返回系统整合列表"
+msgstr ""
+
+#: ../view/user/userintegration/edit.phtml:13
+msgid "保存系统整合信息"
+msgstr ""
+
+#: ../view/user/userintegration/index.phtml:2
+msgid "管理整合"
+msgstr ""
+
+#: ../view/user/userintegration/index.phtml:10
+msgid "接口名称"
+msgstr ""
+
+#: ../view/user/userintegration/index.phtml:11
+msgid "接口状态"
+msgstr ""
+
+#: ../view/user/usermoney/index.phtml:2
+msgid "余额记录"
+msgstr ""
+
+#: ../view/user/usermoney/index.phtml:10
+#: ../view/user/usermoney/paycheck.phtml:10
+#: ../view/user/usermoney/withdraw.phtml:10
+msgid "时间"
+msgstr ""
+
+#: ../view/user/usermoney/index.phtml:11
+msgid "类型"
+msgstr ""
+
+#: ../view/user/usermoney/index.phtml:12
+msgid "操作者"
+msgstr ""
+
+#: ../view/user/usermoney/index.phtml:13
+msgid "金额"
+msgstr ""
+
+#: ../view/user/usermoney/index.phtml:15
+msgid "客户账户"
+msgstr ""
+
+#: ../view/user/usermoney/index.phtml:16
+#: ../view/user/usermoney/paycheck.phtml:16
+#: ../view/user/usermoney/withdraw.phtml:16
+msgid "备注"
+msgstr ""
+
+#: ../view/user/usermoney/index.phtml:28 ../view/user/usermoney/index.phtml:56
+msgid "充值"
+msgstr ""
+
+#: ../view/user/usermoney/index.phtml:30 ../view/user/usermoney/index.phtml:56
+msgid "提现"
+msgstr ""
+
+#: ../view/user/usermoney/index.phtml:31 ../view/user/usermoney/index.phtml:56
+msgid "退款"
+msgstr ""
+
+#: ../view/user/usermoney/index.phtml:64
+#: ../view/user/usermoney/paycheck.phtml:67
+#: ../view/user/usermoney/withdraw.phtml:66
+msgid "管理员"
+msgstr ""
+
+#: ../view/user/usermoney/paycheck.phtml:13
+#: ../view/user/usermoney/withdraw.phtml:13
+msgid "审核人"
+msgstr ""
+
+#: ../view/user/usermoney/paycheck.phtml:14
+msgid "充值金额/货币"
+msgstr ""
+
+#: ../view/user/usermoney/paycheck.phtml:15
+msgid "完成时间"
+msgstr ""
+
+#: ../view/user/usermoney/paycheck.phtml:67
+msgid "客户自行处理"
+msgstr ""
+
+#: ../view/user/usermoney/paycheck.phtml:87
+msgid "您确实要删除该充值记录吗？"
+msgstr ""
+
+#: ../view/user/usermoney/paycheck.phtml:94
+msgid "充值记录删除失败！"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:12
+msgid "申请人"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:14
+msgid "提现金额/货币"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:15
+msgid "审核时间"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:29
+msgid "待处理"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:30
+msgid "已同意"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:31
+msgid "已拒绝"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:59
+msgid "等待处理"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:72
+msgid "审核"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:94
+msgid "审核提现"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:98
+msgid "可提现金额"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:104
+msgid "提现金额"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:110
+msgid "提现货币"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:116
+msgid "支付名称/开户银行"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:122
+msgid "账户名称/开户名称"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:128
+msgid "账号/卡号"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:134
+msgid "提现状态"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:145
+msgid "审核意见"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:152
+msgid "保存审核"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:181
+msgid "无法进行审核"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:195
+msgid "您确实要删除该提现记录吗？"
+msgstr ""
+
+#: ../view/user/usermoney/withdraw.phtml:202
+msgid "提现记录删除失败！"
+msgstr ""

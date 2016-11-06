@@ -1,0 +1,492 @@
+<div class="tabbable tabs-left">
+              <ul class="nav nav-tabs">
+              	<li><h5><?php echo $this->translate('附件设置'); ?></h5></li>
+                <li class="active"><a data-toggle="tab" href="#upload_a"><?php echo $this->translate('基本设置'); ?></a></li>
+                <li><a data-toggle="tab" href="#upload_b"><?php echo $this->translate('商品图片'); ?></a></li>
+                <li><a data-toggle="tab" href="#upload_c"><?php echo $this->translate('水印设置'); ?></a></li>
+                <li><a data-toggle="tab" href="#upload_d"><?php echo $this->translate('存储方式'); ?></a></li>
+              </ul>
+              <form class="form-horizontal" enctype="multipart/form-data" name="upload_form" id="upload_form" method="post">
+              <div class="tab-content">
+    			<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        			<div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php echo $this->translate('附件设置'); ?></strong></div>
+        			<div class="pull-right">
+        			<a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>&nbsp;
+                	<button type="submit" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存附件设置'); ?></button>&nbsp;
+                	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('upload_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+                	</div>
+        		</div>
+                <div id="upload_a" class="tab-pane active">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('基本设置'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('图片附件最大尺寸'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" name="upload_image_max" id="upload_image_max" value="<?php echo $this->upload['image']['upload_image_max']; ?>" class="span2"> KB <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('1 MB=1024 KB ，1 GB=1024 MB'); ?>"></i>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('图片附件允许上传类型'); ?>：</label>
+           					<div class="controls">
+              					<label class="checkbox inline"><input <?php if($this->upload['image']['upload_image_type']['jpg'] == 'jpg,pjpeg,jpeg') echo 'checked="checked"'; ?> type="checkbox" name="jpg" value="jpg,pjpeg,jpeg" />jpg</label>
+                                <label class="checkbox inline"><input <?php if($this->upload['image']['upload_image_type']['gif'] == 'gif') echo 'checked="checked"'; ?> type="checkbox" name="gif" value="gif" />gif</label>
+                                <label class="checkbox inline"><input <?php if($this->upload['image']['upload_image_type']['png'] == 'png,x-png') echo 'checked="checked"'; ?> type="checkbox" name="png" value="png,x-png" />png</label>
+                                <label class="checkbox inline"><input <?php if($this->upload['image']['upload_image_type']['bmp'] == 'bmp') echo 'checked="checked"'; ?> type="checkbox" name="bmp" value="bmp" />bmp</label>
+                                <label class="checkbox inline"><input <?php if($this->upload['image']['upload_image_type']['ico'] == 'ico') echo 'checked="checked"'; ?> type="checkbox" name="ico" value="ico" />ico</label>
+            				</div>                        
+                        </div>                       
+
+                                                                                                                       
+                  	</div>
+                </div>              
+                 <div id="upload_b" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('商品图片'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><strong><?php echo $this->translate('商品图片'); ?></strong></label>
+           					<div class="controls">
+              					<i class="cus-help shop_admin_help_note" data-content="<?php echo sprintf($this->translate('%s商品图片%s：当设置宽度和高度任意一个值为0时，视为不限制宽高，而且不进行任何裁切操作。'),'<strong>','</strong>'); ?>"></i>
+            				</div>                        
+                        </div>  
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('缩微图宽度'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" name="goods_thumb_width" id="goods_thumb_width" value="<?php echo $this->goods['goods']['goods_thumb_width']; ?>" class="span2"> <?php echo $this->myviewalias()->defaultShopSet('shop_goods'); ?>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('缩微图高度'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" name="goods_thumb_heigth" id="goods_thumb_heigth" value="<?php echo $this->goods['goods']['goods_thumb_width']; ?>" class="span2">
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('缩微图裁切方式'); ?>：</label>
+           					<div class="controls">
+              					<select class="span2" id="goods_image_crop" name="goods_image_crop">
+                                	<option value="false" <?php if ($this->goods['goods']['goods_image_crop'] == 'false') echo 'selected="selected"'; ?>><?php echo $this->translate('自适应裁切'); ?></option>
+                                    <option value="true" <?php if ($this->goods['goods']['goods_image_crop'] == 'true') echo 'selected="selected"'; ?>><?php echo $this->translate('绝对裁切'); ?></option>
+                                </select>
+                                <i class="cus-help shop_admin_help_note" data-content="<?php echo sprintf($this->translate('%s自适应裁切%s：指以缩微图宽度为定值，按照比例裁切，最终图片等比例变化。%s绝对裁切%s：以图片中心裁切缩微图宽高，最终图片部分内容被裁掉。%s当宽高任意值设置为0时，%s裁切不做任何操作%s。%s'),'<strong>','</strong>','<br><strong>','</strong>','<br><strong>','<font color=red>','</font>','</strong>'); ?>"></i>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('图片添加水印'); ?>：</label>
+           					<div class="controls">
+              					<input type="checkbox" name="goods_watermark_state" <?php if ($this->goods['goods']['goods_watermark_state'] == 1) echo 'checked="checked"'; ?> value="1" />
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('图片命名方式'); ?>：</label>
+           					<div class="controls">
+              					<select class="span2" id="goods_image_name_type" name="goods_image_name_type">
+                                	<option value="original" <?php if ($this->goods['goods']['goods_image_name_type'] == 'original') echo 'selected="selected"'; ?>><?php echo $this->translate('图片原始名称'); ?></option>
+                                    <option value="random" <?php if ($this->goods['goods']['goods_image_name_type'] == 'random') echo 'selected="selected"'; ?>><?php echo $this->translate('图片随机命名'); ?></option>
+                                </select>
+            				</div>                        
+                        </div> 
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品默认图片'); ?>：</label>
+           					<div class="controls">
+              					<?php if(isset($this->goods['goods']['goods_image_default']) and !empty($this->goods['goods']['goods_image_default'])) { ?><img src="<?php echo $this->basePath($this->goods['goods']['goods_image_default']); ?>" style="width: 200px;" border="0" /><br /><?php } ?>
+                                <input type="hidden" name="old_goods_image_default" id="old_goods_image_default" value="<?php echo $this->goods['goods']['goods_image_default']; ?>" />
+                                <input type="file" name="goods_image_default" id="goods_image_default" />
+            				</div>                        
+                        </div>
+                        <!--
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><strong><?php echo $this->translate('分类图片'); ?></strong></label>
+           					<div class="controls">
+              					<i class="cus-help shop_admin_help_note" data-content="<?php echo sprintf($this->translate('%s分类图片%s：当设置宽度和高度任意一个值为0时，视为不限制宽高，而且不进行任何裁切操作。'),'<strong>','</strong>'); ?>"></i>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('分类ICO图片宽度'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" name="class_ico_width" id="class_ico_width" value="<?php //echo $this->goods['class']['class_ico_width']; ?>" class="span2"> <?php echo $this->myviewalias()->defaultShopSet('shop_class_ico'); ?>
+            				</div>                        
+                        </div>  
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('分类ICO图片高度'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" name="class_ico_height" id="class_ico_height" value="<?php //echo $this->goods['class']['class_ico_height']; ?>" class="span2">
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('分类ICO裁切方式'); ?>：</label>
+           					<div class="controls">
+              					<select class="span2" id="class_ico_crop" name="class_ico_crop">
+                                	<option value="false" <?php //if ($this->goods['class']['class_ico_crop'] == 'false') echo 'selected="selected"'; ?>><?php echo $this->translate('自适应裁切'); ?></option>
+                                    <option value="true" <?php //if ($this->goods['class']['class_ico_crop'] == 'true') echo 'selected="selected"'; ?>><?php echo $this->translate('绝对裁切'); ?></option>
+                                </select>
+                                <i class="cus-help shop_admin_help_note" data-content="<?php echo sprintf($this->translate('%s自适应裁切%s：指以缩微图宽度为定值，按照比例裁切，最终图片等比例变化。%s绝对裁切%s：以图片中心裁切缩微图宽高，最终图片部分内容被裁掉。%s当宽高任意值设置为0时，%s裁切不做任何操作%s。%s'),'<strong>','</strong>','<br><strong>','</strong>','<br><strong>','<font color=red>','</font>','</strong>'); ?>"></i>
+            				</div>                        
+                        </div> 
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('分类图片宽度'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" name="class_image_width" id="class_image_width" value="<?php //echo $this->goods['class']['class_image_width']; ?>" class="span2"> <?php echo $this->myviewalias()->defaultShopSet('shop_class'); ?>
+            				</div>                        
+                        </div> 
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('分类图片高度'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" name="class_image_height" id="class_image_height" value="<?php //echo $this->goods['class']['class_image_height']; ?>" class="span2">
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('分类图片裁切方式'); ?>：</label>
+           					<div class="controls">
+              					<select class="span2" id="class_image_crop" name="class_image_crop">
+                                	<option value="false" <?php //if ($this->goods['class']['class_image_crop'] == 'false') echo 'selected="selected"'; ?>><?php echo $this->translate('自适应裁切'); ?></option>
+                                    <option value="true" <?php //if ($this->goods['class']['class_image_crop'] == 'true') echo 'selected="selected"'; ?>><?php echo $this->translate('绝对裁切'); ?></option>
+                                </select>
+                                <i class="cus-help shop_admin_help_note" data-content="<?php echo sprintf($this->translate('%s自适应裁切%s：指以缩微图宽度为定值，按照比例裁切，最终图片等比例变化。%s绝对裁切%s：以图片中心裁切缩微图宽高，最终图片部分内容被裁掉。%s当宽高任意值设置为0时，%s裁切不做任何操作%s。%s'),'<strong>','</strong>','<br><strong>','</strong>','<br><strong>','<font color=red>','</font>','</strong>'); ?>"></i>
+            				</div>                        
+                        </div> -->
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><strong><?php echo $this->translate('品牌图片'); ?></strong></label>
+           					<div class="controls">
+              					<i class="cus-help shop_admin_help_note" data-content="<?php echo sprintf($this->translate('%s品牌图片%s：当设置宽度和高度任意一个值为0时，视为不限制宽高，而且不进行任何裁切操作。'),'<strong>','</strong>'); ?>"></i>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('品牌logo宽度'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" name="brand_logo_width" id="brand_logo_width" value="<?php echo $this->goods['brand']['brand_logo_width']; ?>" class="span2"> <?php echo $this->myviewalias()->defaultShopSet('shop_brand'); ?>
+            				</div>                        
+                        </div>
+                        <div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('品牌logo高度'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" name="brand_logo_height" id="brand_logo_height" value="<?php echo $this->goods['brand']['brand_logo_height']; ?>" class="span2">
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('品牌logo裁切方式'); ?>：</label>
+           					<div class="controls">
+              					<select class="span2" id="brand_logo_crop" name="brand_logo_crop">
+                                	<option value="false" <?php if ($this->goods['brand']['brand_logo_crop'] == 'false') echo 'selected="selected"'; ?>><?php echo $this->translate('自适应裁切'); ?></option>
+                                    <option value="true" <?php if ($this->goods['brand']['brand_logo_crop'] == 'true') echo 'selected="selected"'; ?>><?php echo $this->translate('绝对裁切'); ?></option>
+                                </select>
+                                <i class="cus-help shop_admin_help_note" data-content="<?php echo sprintf($this->translate('%s自适应裁切%s：指以缩微图宽度为定值，按照比例裁切，最终图片等比例变化。%s绝对裁切%s：以图片中心裁切缩微图宽高，最终图片部分内容被裁掉。%s当宽高任意值设置为0时，%s裁切不做任何操作%s。%s'),'<strong>','</strong>','<br><strong>','</strong>','<br><strong>','<font color=red>','</font>','</strong>'); ?>"></i>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('品牌默认图片'); ?>：</label>
+           					<div class="controls">
+              					<?php if(isset($this->goods['brand']['brand_image_default']) and !empty($this->goods['brand']['brand_image_default'])) { ?><img src="<?php echo $this->basePath($this->goods['brand']['brand_image_default']); ?>" border="0" /><br /><?php } ?>
+                                <input type="hidden" name="old_brand_logo_default" id="old_brand_logo_default" value="<?php echo $this->goods['brand']['brand_image_default']; ?>" />
+                                <input type="file" name="brand_logo_default" id="brand_logo_default" />
+            				</div>                        
+                        </div>                                                                                                                                                                 
+                  	</div>                                         	
+              </div>
+                 <div id="upload_c" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('水印设置'); ?></div>
+                	<div class="well admin_add_well">
+                        <div class="message_one">
+                    	</div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('水印设置状态'); ?>：</label>
+           					<div class="controls">
+              					<select name="watermark_state" id="watermark_state" class="span2" onchange="change_show_js('watermark_state','open','watermark-open');">
+                                	<option value="open" <?php if ($this->watermark['config']['watermark_state'] == 'open') echo 'selected="selected"'; ?>><?php echo $this->translate('开启'); ?></option>
+                                    <option value="close" <?php if ($this->watermark['config']['watermark_state'] == 'close') echo 'selected="selected"'; ?>><?php echo $this->translate('关闭'); ?></option>                               
+                                </select>
+            				</div>                        
+                        </div>
+                    	<div class="control-group watermark-open">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('水印设置类型'); ?>：</label>
+           					<div class="controls">
+              					<select name="watermark_type" id="watermark_type" class="span2" onchange="change_type_show_js();">
+                                	<option value="image" <?php if ($this->watermark['config']['watermark_type'] == 'image') echo 'selected="selected"'; ?>><?php echo $this->translate('图片'); ?></option>
+                                    <option value="text" <?php if ($this->watermark['config']['watermark_type'] == 'text') echo 'selected="selected"'; ?>><?php echo $this->translate('文字'); ?></option>                               
+                                </select>
+            				</div>                        
+                        </div>
+                    	<div class="control-group watermark-open watermark-image">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('水印图片宽度'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" name="watermark_image_width" id="watermark_image_width" value="<?php echo $this->watermark['image']['watermark_image_width']; ?>" class="span2">
+            				</div>                        
+                        </div>                        
+                    	<div class="control-group watermark-open watermark-image">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('水印图片高度'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" name="watermark_image_height" id="watermark_image_height" value="<?php echo $this->watermark['image']['watermark_image_height']; ?>" class="span2">
+            				</div>                        
+                        </div>
+                    	<div class="control-group watermark-open watermark-image">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('水印图片'); ?>：</label>
+           					<div class="controls">
+                            	<img src="<?php echo $this->basePath($this->watermark['image']['watermark_image']); ?>" border="0" style="max-width:300px;" /><br />
+                                <input type="hidden" name="old_watermark_image" id="old_watermark_image" value="<?php echo $this->watermark['image']['watermark_image']; ?>" />
+              					<input type="file" name="watermark_image" id="watermark_image">
+            				</div>                        
+                        </div>
+                    	<div class="control-group watermark-open watermark-text">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('水印文字'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" name="watermark_text" id="watermark_text" value="<?php echo $this->watermark['text']['watermark_text']; ?>" class="span2">
+            				    <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('不支持中文。'); ?>"></i>
+            				</div>                        
+                        </div>
+                    	<div class="control-group watermark-open watermark-text">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('水印文字大小'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" name="watermark_text_size" id="watermark_text_size" value="<?php echo $this->watermark['text']['watermark_text_size']; ?>" class="span2">
+            				    <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('文字大小值为1-5，数值越大字越大。'); ?>"></i>
+            				</div>                        
+                        </div>
+                    	<div class="control-group watermark-open watermark-text">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('水印文字颜色'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" name="watermark_text_color" id="watermark_text_color" readonly="readonly" class="span2 iColorPicker"  value="<?php echo $this->watermark['text']['watermark_text_color']; ?>">
+            				</div>                        
+                        </div>                      
+                    	<div class="control-group watermark-open">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('水印透明度'); ?>：</label>
+           					<div class="controls">
+                            	<input type="text" name="watermark_trans" id="watermark_trans" value="<?php echo $this->watermark['config']['watermark_trans']; ?>" class="span2">
+                                <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('水印透明度值越高透明度越低。'); ?>"></i>
+            				</div>                        
+                        </div>
+                    	<div class="control-group watermark-open">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('水印图片位置'); ?>：</label>
+           					<div class="controls">
+                            	<label class="radio inline"><input <?php if ($this->watermark['config']['watermark_location'] == 1) echo 'checked="checked"'; ?> type="radio" name="watermark_location" value="1" /><?php echo $this->translate('顶部居左'); ?></label>
+                            	<label class="radio inline"><input <?php if ($this->watermark['config']['watermark_location'] == 2) echo 'checked="checked"'; ?> type="radio" name="watermark_location" value="2" /><?php echo $this->translate('顶部居中'); ?></label>
+                                <label class="radio inline"><input <?php if ($this->watermark['config']['watermark_location'] == 3) echo 'checked="checked"'; ?> type="radio" name="watermark_location" value="3" /><?php echo $this->translate('顶部居右'); ?></label>
+                                <label class="radio inline"><input <?php if ($this->watermark['config']['watermark_location'] == 4) echo 'checked="checked"'; ?> type="radio" name="watermark_location" value="4" /><?php echo $this->translate('中部居左'); ?></label>
+                                <label class="radio inline"><input <?php if ($this->watermark['config']['watermark_location'] == 5) echo 'checked="checked"'; ?> type="radio" name="watermark_location" value="5" /><?php echo $this->translate('中部居中'); ?></label>
+                                <label class="radio inline"><input <?php if ($this->watermark['config']['watermark_location'] == 6) echo 'checked="checked"'; ?> type="radio" name="watermark_location" value="6" /><?php echo $this->translate('中部居右'); ?></label>
+                                <label class="radio inline"><input <?php if ($this->watermark['config']['watermark_location'] == 7) echo 'checked="checked"'; ?> type="radio" name="watermark_location" value="7" /><?php echo $this->translate('底部居左'); ?></label>
+                                <label class="radio inline"><input <?php if ($this->watermark['config']['watermark_location'] == 8) echo 'checked="checked"'; ?> type="radio" name="watermark_location" value="8" /><?php echo $this->translate('底部居中'); ?></label>
+                                <label class="radio inline"><input <?php if ($this->watermark['config']['watermark_location'] == 9) echo 'checked="checked"'; ?> type="radio" name="watermark_location" value="9" /><?php echo $this->translate('底部居右'); ?></label>                                
+                                <label class="radio inline"><input <?php if ($this->watermark['config']['watermark_location'] == 10) echo 'checked="checked"'; ?> type="radio" name="watermark_location" value="10" /><?php echo $this->translate('随机位置'); ?></label>
+            				</div>                        
+                        </div>                        
+                                                                                                                                          
+                  	</div>                                         	
+              </div>
+                <div id="upload_d" class="tab-pane">
+                    <div class="well admin_add_header_well"><?php echo $this->translate('存储方式'); ?></div>
+                    <div class="well admin_add_well">
+                        <div class="message_one">
+                        </div>
+                        <div class="control-group">
+                            <label for="input01"><strong style="color: red;"><?php echo $this->translate('如果您设置的是云存储，一定要确保对应的云存储空间访问权限为 “公有” 或者 “公共可读”，否则上传的图片将无法在系统中被调用显示。'); ?></strong></label>
+                        </div>
+                        <div class="control-group">
+                            <label for="input01" class="control-label"><?php echo $this->translate('商品图片'); ?>：</label>
+                            <div class="controls">
+                                <select name="storage_type" id="storage_type" class="span2" onchange="change_storage_type_show_js();">
+                                    <option value="Local" <?php if($this->storage['storage_type']== 'Local' or $this->storage['storage_type']== '') echo 'selected'; ?>><?php echo $this->translate('本地存储'); ?></option>
+                                    <option value="Qiniu" <?php if($this->storage['storage_type']== 'Qiniu') echo 'selected'; ?>><?php echo $this->translate('七牛云存储'); ?></option>
+                                    <option value="Aliyun" <?php if($this->storage['storage_type']== 'Aliyun') echo 'selected'; ?>><?php echo $this->translate('阿里云存储'); ?></option>
+                                </select>
+								&nbsp;&nbsp;
+								<a href="http://www.qiniu.com/" target="_blank" id="qiniu_href" style="display: none;"><?php echo $this->translate('点击访问七牛云存储官网'); ?></a>
+								<a href="http://www.aliyun.com/" target="_blank" id="aliyun_href" style="display: none;"><?php echo $this->translate('点击访问阿里云存储官网'); ?></a>
+                            </div>
+                        </div>
+                        <div class="control-group qiniustorage">
+                            <label for="input01" class="control-label"><?php echo $this->translate('七牛空间名称'); ?>：</label>
+                            <div class="controls">
+                                <input type="text" class="span2" name="qiniu_space_name" id="qiniu_space_name" value="<?php if(isset($this->storage['qiniu_space_name'])) echo $this->storage['qiniu_space_name']; ?>">
+                            </div>
+                        </div>
+                        <div class="control-group qiniustorage">
+                            <label for="input01" class="control-label"><?php echo $this->translate('七牛AccessKey'); ?>：</label>
+                            <div class="controls">
+                                <input type="text" class="span3" name="qiniu_ak" id="qiniu_ak" value="<?php if(isset($this->storage['qiniu_ak'])) echo $this->storage['qiniu_ak']; ?>">
+                            </div>
+                        </div>
+                        <div class="control-group qiniustorage">
+                            <label for="input01" class="control-label"><?php echo $this->translate('七牛SecretKey'); ?>：</label>
+                            <div class="controls">
+                                <input type="text" class="span3" name="qiniu_sk" id="qiniu_sk" value="<?php if(isset($this->storage['qiniu_sk'])) echo $this->storage['qiniu_sk']; ?>">
+                            </div>
+                        </div>
+                        <div class="control-group qiniustorage">
+                            <label for="input01" class="control-label"><?php echo $this->translate('七牛域名'); ?>：</label>
+                            <div class="controls">
+                                http://<input type="text" class="span4" name="qiniu_domain" id="qiniu_domain" value="<?php if(isset($this->storage['qiniu_domain'])) echo $this->storage['qiniu_domain']; ?>">
+                            </div>
+                        </div>
+
+                        <div class="control-group aliyunstorage">
+                            <label for="input01" class="control-label"><?php echo $this->translate('阿里云空间名称'); ?>：</label>
+                            <div class="controls">
+                                <input type="text" class="span2" name="aliyun_space_name" id="aliyun_space_name" value="<?php if(isset($this->storage['aliyun_space_name'])) echo $this->storage['aliyun_space_name']; ?>">
+                            </div>
+                        </div>
+                        <div class="control-group aliyunstorage">
+                            <label for="input01" class="control-label"><?php echo $this->translate('阿里云节点'); ?>：</label>
+                            <div class="controls">
+                                <select name="aliyun_oss_domain" id="aliyun_oss_domain" class="span2">
+                                    <option value=""><?php echo $this->translate('请选择节点'); ?></option>
+                                    <option value="oss-cn-qingdao.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-cn-qingdao.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('青岛'); ?></option>
+                                    <option value="oss-cn-beijing.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-cn-beijing.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('北京'); ?></option>
+                                    <option value="oss-cn-hangzhou.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-cn-hangzhou.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('杭州'); ?></option>
+                                    <option value="oss-cn-hongkong.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-cn-hongkong.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('香港'); ?></option>
+                                    <option value="oss-cn-shenzhen.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-cn-shenzhen.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('深圳'); ?></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group aliyunstorage">
+                            <label for="input01" class="control-label"><?php echo $this->translate('Access Key ID'); ?>：</label>
+                            <div class="controls">
+                                <input type="text" class="span3" name="aliyun_ak" id="aliyun_ak" value="<?php if(isset($this->storage['aliyun_ak'])) echo $this->storage['aliyun_ak']; ?>">
+                            </div>
+                        </div>
+                        <div class="control-group aliyunstorage">
+                            <label for="input01" class="control-label"><?php echo $this->translate('Access Key Secret'); ?>：</label>
+                            <div class="controls">
+                                <input type="text" class="span3" name="aliyun_sk" id="aliyun_sk" value="<?php if(isset($this->storage['aliyun_sk'])) echo $this->storage['aliyun_sk']; ?>">
+                            </div>
+                        </div>
+                        <div class="control-group aliyunstorage">
+                            <label for="input01" class="control-label"><?php echo $this->translate('访问域名'); ?>：</label>
+                            <div class="controls">
+                                http://<input type="text" class="span4" name="aliyun_domain" id="aliyun_domain" value="<?php if(isset($this->storage['aliyun_domain'])) echo $this->storage['aliyun_domain']; ?>">
+                                <button class="btn btn-small btn-primary" type="button" onclick="add_aliyun_url_js();"><?php echo $this->translate('获取阿里云默认域名'); ?></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+              </form>
+</div>
+
+<script>var imageUrl='<?php echo $this->basePath('/public/js/iColorPicker/color.png'); ?>';</script>
+<script src="<?php echo $this->basePath('/public/js/iColorPicker/iColorPicker.js'); ?>"></script>
+<script>
+<?php if ($this->success_msg != '') { ?>
+show_message('.message_one','<?php echo date("Y-m-d H:i:s"); ?>','<?php echo $this->success_msg; ?>','alert-success');
+<?php } ?>
+
+//系统设置保存
+$(document).ready(function() {
+	$("#upload_form").validate({
+		rules: {
+			goods_thumb_width: {
+				number  : true
+			},
+			goods_thumb_heigth: {
+				number  : true
+			},
+			class_ico_width: {
+				number  : true
+			},
+			class_ico_height: {
+				number  : true
+			},
+			class_image_width: {
+				number  : true
+			},
+			class_image_height: {
+				number  : true
+			},
+			brand_logo_width: {
+				number  : true
+			},
+			brand_logo_height: {
+				number  : true
+			}
+		},
+		messages: {
+			goods_thumb_width: {
+				number  : "<?php echo $this->translate('宽度必须为数字'); ?>"
+			},
+			goods_thumb_heigth: {
+				number  : "<?php echo $this->translate('高度必须为数字'); ?>"
+			},
+			class_ico_width: {
+				number  : "<?php echo $this->translate('宽度必须为数字'); ?>"
+			},
+			class_ico_height: {
+				number  : "<?php echo $this->translate('高度必须为数字'); ?>"
+			},
+			class_image_width: {
+				number  : "<?php echo $this->translate('宽度必须为数字'); ?>"
+			},
+			class_image_height: {
+				number  : "<?php echo $this->translate('高度必须为数字'); ?>"
+			},
+			brand_logo_width: {
+				number  : "<?php echo $this->translate('宽度必须为数字'); ?>"
+			},
+			brand_logo_height: {
+				number  : "<?php echo $this->translate('高度必须为数字'); ?>"
+			},
+		}
+	});
+});
+
+//水印设置中的切换
+function change_show_js() {
+	var show_type = $('#watermark_state').val();
+	if(show_type == 'open') {
+		$('.watermark-open').show();
+		change_type_show_js();
+	} else {
+		$('.watermark-open').hide();
+	}
+}
+change_show_js();
+
+//水印类型切换
+function change_type_show_js() {
+	if($('#watermark_state').val() == 'close') return ;
+	var watermark_type = $('#watermark_type').val();
+	if(watermark_type == 'image') {
+		$('.watermark-image').show();
+		$('.watermark-text').hide();
+	} else {
+		$('.watermark-image').hide();
+		$('.watermark-text').show();
+	}
+}
+change_type_show_js();
+
+//存储方式切换
+function change_storage_type_show_js() {
+    var storage_type = $('#storage_type').val();
+    if(storage_type == 'Qiniu') {
+        $('.qiniustorage').show();
+        $('#qiniu_href').show();
+
+        $('.aliyunstorage').hide();
+        $('#aliyun_href').hide();
+    } else if(storage_type == 'Aliyun') {
+        $('.aliyunstorage').show();
+        $('#aliyun_href').show();
+
+        $('.qiniustorage').hide();
+		$('#qiniu_href').hide();
+    } else {
+        $('.qiniustorage').hide();
+        $('.aliyunstorage').hide();
+		$('#aliyun_href').hide();
+		$('#qiniu_href').hide();
+    }
+}
+change_storage_type_show_js();
+
+//添加品牌url
+function add_aliyun_url_js() {
+    var aliyun_space_name = $('#aliyun_space_name').val();
+    var aliyun_oss_domain = $('#aliyun_oss_domain').val();
+    if(aliyun_oss_domain !='' && aliyun_space_name != '') {
+        $('#aliyun_domain').val(aliyun_space_name+'.'+aliyun_oss_domain);
+    } else {
+        alert("<?php echo $this->translate('阿里云节点和空间名称不能为空!'); ?>");
+    }
+}
+</script>

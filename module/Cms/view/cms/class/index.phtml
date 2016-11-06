@@ -1,0 +1,79 @@
+    		<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('管理分类'); ?></strong></p>
+        	<p class="pull-right">
+        	<a href="<?php echo $this->url('cms/default',array('action'=>'add','controller'=>'class')); ?>" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> <?php echo $this->translate('添加分类'); ?></a>&nbsp;
+        	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('cms_class_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+        	</p>
+        	</div>
+            <form action="<?php echo $this->url('cms/default',array('action'=>'allUpdate','controller'=>'class')); ?>" name="article_class_form" id="article_class_form" method="post">
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="40%"><?php echo $this->translate('文章分类名称 (分类ID)'); ?></th>
+                    <th width="8%"><?php echo $this->translate('文章数量'); ?></th>
+                    <th width="6%"><?php echo $this->translate('分类排序'); ?></th>
+                    <th width="5%"><?php echo $this->translate('状态'); ?></th>
+                    <th width="30%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php
+			if ($this->article_class) {
+				foreach ($this->article_class as $class_val) {
+			?>
+            <tr>
+            	<td>
+                    <?php echo str_repeat('&nbsp;', $class_val['class_level'] * 5); ?><i class="icon-chevron-right"></i><?php echo $this->escapeHtml($class_val['article_class_name']); ?> (ID:<?php echo $class_val['article_class_id']; ?>)
+                    <?php if($this->myviewalias()->defaultShopSet('dbshop_news', 'index') and $class_val['index_news'] == 1) echo '&nbsp;<strong>['.$this->translate('首页新闻').']</strong>'; ?>
+                </td>
+            	<td><?php echo $class_val['article_num']; ?></td>
+            	<td><input type="text" class="span8" name="article_class_sort[<?php echo $class_val['article_class_id']; ?>]" value="<?php echo $class_val['article_class_sort']; ?>"></td>
+            	<td><?php if($class_val['article_class_state'] == 1) { echo $this->translate('已启用'); } else { echo $this->translate('已禁用');} ?></td>
+            	<td>
+                	<a href="<?php echo $this->url('cms/default/article_class_id',array('action'=>'add','controller'=>'class','article_class_id'=>$class_val['article_class_id'])); ?>"><?php echo $this->translate('添加子类'); ?></a>
+                    <span>|</span>
+                    <a href="<?php echo $this->url('cms/default/article_class_id',array('action'=>'edit','controller'=>'class','article_class_id'=>$class_val['article_class_id']),null,true); ?>"><?php echo $this->translate('分类编辑'); ?></a>
+                    <span>|</span>
+                    <a href="javascript:;" onclick="return class_del_js(<?php echo $class_val['article_class_id']; ?>);"><?php echo $this->translate('删除分类'); ?></a>
+                    <span>|</span>
+                    <a href="<?php echo $this->url('cms/default/article_class_id',array('controller'=>'cms','action'=>'add','article_class_id'=>$class_val['article_class_id'])); ?>"><?php echo $this->translate('文章添加'); ?></a>
+                    <span>|</span>
+                    <a target="_blank" href="<?php echo $this->url('frontarticle/default/cms_class_id',array('action'=>'index','cms_class_id'=>$class_val['article_class_id'])); ?>"><?php echo $this->translate('分类预览'); ?></a>
+                </td>  
+            </tr>
+            <?php
+				}
+            ?>
+            <tr>
+                <td colspan="5" style="background: #FFF">
+                    <div class="pull-left span6" style="height: 30px; line-height: 30px;">
+                        <button type="submit" class="btn btn-small btn-primary"><i class="icon-tasks icon-white"></i> <?php echo $this->translate('批量修改'); ?></button>
+                    </div>
+                </td>
+            </tr>
+			<?php } else {
+			?>
+			<tr><td colspan="5"><?php echo $this->translate('暂无文章分类'); ?></td></tr>
+			<?php } ?> 
+            </table>
+            </form>
+<script>
+//分类删除操作js，检查分类下是否有子分类
+function class_del_js(article_class_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该分类吗？'); ?>')) {
+	$.post("<?php echo $this->url('cms/default',array('action'=>'del','controller'=>'class')); ?>",{article_class_id:article_class_id},
+	function(data){
+		if(data == 'true') {
+			window.location.href='<?php echo $this->url('cms/default',array('controller'=>'class')); ?>';
+			return true;
+		} else {
+			if(data == 'error_article') {
+				alert('<?php echo $this->translate('该分类下还有文章，无法删除该分类！'); ?>');
+				return false;	
+			}
+			alert('<?php echo $this->translate('该分类下还有子分类，无法删除该分类！'); ?>');
+		}
+	});
+	}
+	return false;
+}
+</script>

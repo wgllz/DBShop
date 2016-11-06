@@ -1,0 +1,1321 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DBShop\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-04 21:32+0800\n"
+"PO-Revision-Date: 2016-11-04 21:32+0800\n"
+"Last-Translator: DBShop <team@dbshop.net>\n"
+"Language-Team: DBShop <team@dbshop.net>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../src/Orders/Controller/OrdersController.php:181
+msgid "订单付款完成"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:208
+#: ../src/Orders/Controller/OrdersController.php:262
+#: ../src/Orders/Controller/OrdersController.php:326
+#: ../src/Orders/Controller/OrdersController.php:409
+#: ../src/Orders/Controller/OrdersController.php:433
+#: ../src/Orders/Controller/OrdersController.php:608
+#: ../view/orders/orders/index.phtml:3
+msgid "订单管理"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:208
+msgid "更新订单支付状态"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:262
+msgid "更新订单配送状态"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:271
+#: ../src/Orders/Controller/OrdersController.php:735
+msgid "订单发货完成|管理员操作"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:326
+#: ../src/Orders/Controller/OrdersController.php:433
+msgid "更新订单状态"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:333
+msgid "商品购物，订单号为："
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:361
+msgid "订单交易完成|管理员操作"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:409
+msgid "订单批量删除"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:437
+msgid "无说明"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:448
+msgid "订单取消|管理员操作"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:533
+msgid "订单退货"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:533
+msgid "退货订单编号为："
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:542
+#: ../view/orders/orders/refund.phtml:2
+msgid "退货管理"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:542
+msgid "退货订单处理"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:542
+msgid "退货状态:"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:542
+#: ../view/orders/orders/oper-refund.phtml:74
+msgid "同意退货"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:542
+#: ../view/orders/orders/oper-refund.phtml:75
+msgid "拒绝退货"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:542
+msgid "退货的订单编号为:"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:608
+msgid "订单删除"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1055
+#: ../src/Orders/Controller/OrdersController.php:1187
+#: ../view/orders/orders/shiplist.phtml:2
+msgid "发货单"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1078
+#: ../view/orders/orders/ajax-order-list.phtml:6
+#: ../view/orders/orders/edit.phtml:77
+#: ../view/orders/orders/export-ship.phtml:25
+#: ../view/orders/orders/index.phtml:20
+#: ../view/orders/orders/orderprint.phtml:37
+#: ../view/orders/orders/shiplist.phtml:15
+#: ../view/orders/orders/show-ship.phtml:40
+msgid "收货人"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1079
+#: ../view/orders/orders/edit.phtml:78
+#: ../view/orders/orders/export-ship.phtml:26
+#: ../view/orders/orders/orderprint.phtml:41
+#: ../view/orders/orders/show-ship.phtml:41
+msgid "收货地址"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1080
+#: ../view/orders/orders/edit.phtml:88
+#: ../view/orders/orders/export-ship.phtml:27
+#: ../view/orders/orders/show-ship.phtml:51
+msgid "联系方式"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1081
+#: ../view/orders/orders/edit.phtml:87
+#: ../view/orders/orders/export-ship.phtml:28
+#: ../view/orders/orders/show-ship.phtml:50
+msgid "邮政编码"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1082
+#: ../view/orders/orders/edit.phtml:98
+#: ../view/orders/orders/export-ship.phtml:29
+#: ../view/orders/orders/shipoper.phtml:37
+#: ../view/orders/orders/show-ship.phtml:61
+msgid "送货时间"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1083
+#: ../view/orders/orders/export-ship.phtml:30
+msgid "付款方式"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1084
+msgid "应收货款(包括运费)"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1088
+#: ../view/orders/orders/edit.phtml:96
+#: ../view/orders/orders/export-ship.phtml:37
+#: ../view/orders/orders/shipoper.phtml:25
+#: ../view/orders/orders/show-ship.phtml:59
+msgid "快递信息"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1089
+#: ../view/orders/orders/edit.phtml:97 ../view/orders/orders/edit.phtml:187
+#: ../view/orders/orders/export-ship.phtml:38
+#: ../view/orders/orders/oper-refund.phtml:126
+#: ../view/orders/orders/shipoper.phtml:31
+#: ../view/orders/orders/show-refund.phtml:118
+#: ../view/orders/orders/show-ship.phtml:60
+msgid "配送费用"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1090
+#: ../view/orders/orders/edit.phtml:99
+#: ../view/orders/orders/export-ship.phtml:39
+#: ../view/orders/orders/express-number-list.phtml:3
+#: ../view/orders/orders/express-number-list.phtml:13
+#: ../view/orders/orders/express-number.phtml:47
+#: ../view/orders/orders/shipoper.phtml:49
+#: ../view/orders/orders/show-ship.phtml:62
+msgid "快递单号"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1091
+#: ../view/orders/orders/edit.phtml:116
+#: ../view/orders/orders/oper-refund.phtml:93
+#: ../view/orders/orders/orderprint.phtml:57
+#: ../view/orders/orders/show-refund.phtml:85
+#: ../view/orders/orders/show-ship.phtml:78
+msgid "商品名称"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1092
+#: ../view/orders/orders/edit.phtml:117
+#: ../view/orders/orders/oper-refund.phtml:94
+#: ../view/orders/orders/show-refund.phtml:86
+#: ../view/orders/orders/show-ship.phtml:79
+msgid "商品货号"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1093
+msgid "商品属性"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1094
+msgid "购买数量"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1123
+msgid "座机"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1124
+#: ../view/orders/orders/edit.phtml:88
+#: ../view/orders/orders/orderprint.phtml:51
+#: ../view/orders/orders/show-ship.phtml:51
+msgid "手机"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1137
+#: ../view/orders/orders/index.phtml:52 ../view/orders/orders/payoper.phtml:32
+msgid "已付款"
+msgstr ""
+
+#: ../src/Orders/Controller/OrdersController.php:1137
+msgid "未付款"
+msgstr ""
+
+#: ../view/orders/orders/ajax-order-list.phtml:4
+#: ../view/orders/orders/index.phtml:18 ../view/orders/orders/paylog.phtml:10
+#: ../view/orders/orders/shiplist.phtml:13
+#: ../view/orders/orders/show-ship.phtml:19
+msgid "订单号"
+msgstr ""
+
+#: ../view/orders/orders/ajax-order-list.phtml:5
+#: ../view/orders/orders/edit.phtml:63 ../view/orders/orders/index.phtml:19
+#: ../view/orders/orders/paylog.phtml:13
+msgid "购买人"
+msgstr ""
+
+#: ../view/orders/orders/ajax-order-list.phtml:7
+#: ../view/orders/orders/edit.phtml:47 ../view/orders/orders/edit.phtml:225
+#: ../view/orders/orders/finishoper.phtml:21
+#: ../view/orders/orders/index.phtml:21
+#: ../view/orders/orders/show-ship.phtml:123
+msgid "订单状态"
+msgstr ""
+
+#: ../view/orders/orders/ajax-order-list.phtml:8
+#: ../view/orders/orders/edit.phtml:179 ../view/orders/orders/edit.phtml:210
+#: ../view/orders/orders/index.phtml:22
+#: ../view/orders/orders/oper-refund.phtml:139
+#: ../view/orders/orders/show-refund.phtml:131
+msgid "订单总额"
+msgstr ""
+
+#: ../view/orders/orders/ajax-order-list.phtml:9
+#: ../view/orders/orders/edit.phtml:48 ../view/orders/orders/index.phtml:23
+#: ../view/orders/orders/orderprint.phtml:26
+#: ../view/orders/orders/paylog.phtml:12
+#: ../view/orders/orders/shiplist.phtml:14
+msgid "下单时间"
+msgstr ""
+
+#: ../view/orders/orders/cancel-order.phtml:3
+#: ../view/orders/orders/finishoper.phtml:3
+#: ../view/orders/orders/payoper.phtml:3
+#: ../view/orders/orders/shipoper.phtml:3
+msgid "订单操作"
+msgstr ""
+
+#: ../view/orders/orders/cancel-order.phtml:4
+msgid "取消操作"
+msgstr ""
+
+#: ../view/orders/orders/cancel-order.phtml:10
+#: ../view/orders/orders/edit.phtml:20
+#: ../view/orders/orders/finishoper.phtml:10
+#: ../view/orders/orders/payoper.phtml:10
+#: ../view/orders/orders/shipoper.phtml:10
+msgid "订单"
+msgstr ""
+
+#: ../view/orders/orders/cancel-order.phtml:12
+#: ../view/orders/orders/finishoper.phtml:12
+#: ../view/orders/orders/payoper.phtml:12
+#: ../view/orders/orders/shipoper.phtml:15
+msgid "返回订单"
+msgstr ""
+
+#: ../view/orders/orders/cancel-order.phtml:13
+#: ../view/orders/orders/payoper.phtml:13
+msgid "提交保存"
+msgstr ""
+
+#: ../view/orders/orders/cancel-order.phtml:14
+#: ../view/orders/orders/edit.phtml:38
+#: ../view/orders/orders/export-ship.phtml:14
+#: ../view/orders/orders/express-number.phtml:4
+#: ../view/orders/orders/finishoper.phtml:14
+#: ../view/orders/orders/import-express-number.phtml:14
+#: ../view/orders/orders/index.phtml:7
+#: ../view/orders/orders/moreshipoper.phtml:10
+#: ../view/orders/orders/oper-refund.phtml:28
+#: ../view/orders/orders/paylog.phtml:4 ../view/orders/orders/payoper.phtml:14
+#: ../view/orders/orders/refund.phtml:4 ../view/orders/orders/shiplist.phtml:5
+#: ../view/orders/orders/shipoper.phtml:18
+#: ../view/orders/orders/show-refund.phtml:23
+#: ../view/orders/orders/show-ship.phtml:30
+msgid "查看帮助说明"
+msgstr ""
+
+#: ../view/orders/orders/cancel-order.phtml:18
+msgid "取消订单操作"
+msgstr ""
+
+#: ../view/orders/orders/cancel-order.phtml:21
+msgid "取消说明"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:14
+msgid "订单详细信息"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:15
+#: ../view/orders/orders/show-ship.phtml:15
+msgid "基本信息"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:20 ../view/orders/orders/index.phtml:100
+msgid "已退货"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:22
+#: ../view/orders/orders/moreshipoper.phtml:7
+msgid "返回订单列表"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:24
+msgid "您确实要删除该订单吗？"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:24
+msgid "删除订单"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:26
+msgid "取消订单"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:28 ../view/orders/orders/payoper.phtml:4
+#: ../view/orders/orders/payoper.phtml:18
+msgid "付款操作"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:30 ../view/orders/orders/shipoper.phtml:4
+#: ../view/orders/orders/shipoper.phtml:22
+#: ../view/orders/orders/show-ship.phtml:28
+msgid "发货操作"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:32
+msgid "完成订单"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:36
+msgid "订单打印"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:44
+msgid "订单状态与时间信息"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:48 ../view/orders/orders/edit.phtml:50
+#: ../view/orders/orders/edit.phtml:52 ../view/orders/orders/edit.phtml:54
+#: ../view/orders/orders/oper-refund.phtml:38
+#: ../view/orders/orders/show-refund.phtml:33
+msgid "年"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:48 ../view/orders/orders/edit.phtml:50
+#: ../view/orders/orders/edit.phtml:52 ../view/orders/orders/edit.phtml:54
+#: ../view/orders/orders/oper-refund.phtml:38
+#: ../view/orders/orders/show-refund.phtml:33
+msgid "月"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:48 ../view/orders/orders/edit.phtml:50
+#: ../view/orders/orders/edit.phtml:52 ../view/orders/orders/edit.phtml:54
+#: ../view/orders/orders/oper-refund.phtml:38
+#: ../view/orders/orders/show-refund.phtml:33
+msgid "日"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:48 ../view/orders/orders/edit.phtml:50
+#: ../view/orders/orders/edit.phtml:52 ../view/orders/orders/edit.phtml:54
+#: ../view/orders/orders/oper-refund.phtml:38
+#: ../view/orders/orders/show-refund.phtml:33
+msgid "时"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:48 ../view/orders/orders/edit.phtml:50
+#: ../view/orders/orders/edit.phtml:52 ../view/orders/orders/edit.phtml:54
+#: ../view/orders/orders/oper-refund.phtml:38
+#: ../view/orders/orders/show-refund.phtml:33
+msgid "分"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:48 ../view/orders/orders/edit.phtml:50
+#: ../view/orders/orders/edit.phtml:52 ../view/orders/orders/edit.phtml:54
+#: ../view/orders/orders/oper-refund.phtml:38
+#: ../view/orders/orders/show-refund.phtml:33
+msgid "秒"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:50
+#: ../view/orders/orders/orderprint.phtml:31
+msgid "付款时间"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:52
+#: ../view/orders/orders/orderprint.phtml:32
+#: ../view/orders/orders/shiplist.phtml:16
+msgid "发货时间"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:54
+msgid "收货时间"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:60
+msgid "账户信息"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:64
+msgid "电子邮箱"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:65 ../view/orders/orders/edit.phtml:190
+#: ../view/orders/orders/oper-refund.phtml:132
+#: ../view/orders/orders/orderprint.phtml:97
+#: ../view/orders/orders/show-refund.phtml:124
+msgid "会员优惠"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:74
+#: ../view/orders/orders/show-ship.phtml:37
+msgid "收货信息"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:88
+#: ../view/orders/orders/show-ship.phtml:51
+msgid "固定电话"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:93
+#: ../view/orders/orders/show-ship.phtml:56
+msgid "配送信息"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:101
+#: ../view/orders/orders/show-ship.phtml:64
+msgid "货物重量"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:101
+#: ../view/orders/orders/show-ship.phtml:64
+msgid "千克"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:111
+#: ../view/orders/orders/oper-refund.phtml:88
+#: ../view/orders/orders/show-refund.phtml:80
+#: ../view/orders/orders/show-ship.phtml:73
+msgid "订单商品信息"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:118
+#: ../view/orders/orders/oper-refund.phtml:95
+#: ../view/orders/orders/orderprint.phtml:59
+#: ../view/orders/orders/show-refund.phtml:87
+#: ../view/orders/orders/show-ship.phtml:80
+msgid "属性"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:119
+#: ../view/orders/orders/oper-refund.phtml:96
+#: ../view/orders/orders/orderprint.phtml:61
+#: ../view/orders/orders/show-refund.phtml:88
+#: ../view/orders/orders/show-ship.phtml:81
+msgid "数量"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:120
+#: ../view/orders/orders/oper-refund.phtml:97
+#: ../view/orders/orders/show-refund.phtml:89
+#: ../view/orders/orders/show-ship.phtml:82
+msgid "单价"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:121
+#: ../view/orders/orders/oper-refund.phtml:98
+#: ../view/orders/orders/orderprint.phtml:62
+#: ../view/orders/orders/show-refund.phtml:90
+#: ../view/orders/orders/show-ship.phtml:83
+msgid "小计"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:131
+msgid "该商品已经退货"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:141
+#: ../view/orders/orders/express-number-list.phtml:26
+#: ../view/orders/orders/express-number-list.phtml:28
+#: ../view/orders/orders/oper-refund.phtml:111
+#: ../view/orders/orders/orderprint.phtml:73
+#: ../view/orders/orders/paylog.phtml:27
+#: ../view/orders/orders/shiplist.phtml:26
+#: ../view/orders/orders/shiplist.phtml:31
+#: ../view/orders/orders/show-refund.phtml:103
+#: ../view/orders/orders/show-ship.phtml:95
+msgid "无"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:157
+#: ../view/orders/orders/show-ship.phtml:106
+msgid "买家留言"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:167
+msgid "支付信息"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:170
+#: ../view/orders/orders/orderprint.phtml:27
+#: ../view/orders/orders/paylog.phtml:11
+#: ../view/orders/orders/payoper.phtml:21
+msgid "支付方式"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:171
+msgid "支付费用"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:173
+msgid "支付证明"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:181
+msgid "修改订单总额"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:186
+#: ../view/orders/orders/oper-refund.phtml:124
+#: ../view/orders/orders/show-refund.phtml:116
+msgid "商品总价"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:188
+#: ../view/orders/orders/oper-refund.phtml:128
+#: ../view/orders/orders/orderprint.phtml:95
+#: ../view/orders/orders/show-refund.phtml:120
+msgid "支付手续"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:189
+#: ../view/orders/orders/oper-refund.phtml:130
+#: ../view/orders/orders/orderprint.phtml:96
+#: ../view/orders/orders/show-refund.phtml:122
+msgid "购买优惠"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:192
+#: ../view/orders/orders/oper-refund.phtml:135
+#: ../view/orders/orders/orderprint.phtml:99
+#: ../view/orders/orders/show-refund.phtml:127
+msgid "积分购买"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:195
+msgid "总额修改"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:202
+msgid "时间"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:203
+msgid "备注"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:219
+#: ../view/orders/orders/show-ship.phtml:117
+msgid "操作历史"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:223
+#: ../view/orders/orders/orderprint.phtml:114
+#: ../view/orders/orders/show-ship.phtml:121
+msgid "操作者"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:224
+#: ../view/orders/orders/show-ship.phtml:122
+msgid "操作时间"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:226 ../view/orders/orders/edit.phtml:294
+#: ../view/orders/orders/show-ship.phtml:124
+msgid "备注说明"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:242
+#: ../view/orders/orders/show-ship.phtml:140
+msgid "物流信息"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:261 ../view/orders/orders/edit.phtml:272
+msgid "订单总额修改"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:266
+msgid "当前订单总额"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:275 ../view/orders/orders/index.phtml:117
+msgid "请选择"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:276
+msgid "减少"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:277
+msgid "增加"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:285
+msgid "修改后金额为"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:290
+msgid "点击计算"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:301
+msgid "保存修改"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:320
+msgid "请选择修改类型！"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:323
+msgid "修改金额不能为空！"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:324
+msgid "金额必须为整数！"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:325
+msgid "金额最小为1"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:337
+msgid "编辑订单总额成功！"
+msgstr ""
+
+#: ../view/orders/orders/edit.phtml:340
+msgid "编辑订单总额失败！"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:3
+msgid "导出设置"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:4
+#: ../view/orders/orders/export-ship.phtml:18
+#: ../view/orders/orders/import-express-number.phtml:4
+#: ../view/orders/orders/import-express-number.phtml:18
+msgid "基本设置"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:9
+#: ../view/orders/orders/shiplist.phtml:4
+msgid "导出发货单"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:11
+#: ../view/orders/orders/show-ship.phtml:26
+msgid "返回发货单列表"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:12
+#: ../view/orders/orders/import-express-number.phtml:12
+msgid "刷新"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:13
+msgid "导出Excel文件"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:23
+msgid "必选导出"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:31
+msgid "应收货款"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:35
+msgid "可选导出"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:40
+msgid "商品信息之商品名称"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:41
+msgid "商品信息之商品货号"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:42
+msgid "商品信息之商品属性"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:43
+msgid "商品信息之购买数量"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:47
+msgid "开始时间"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:50
+#: ../view/orders/orders/export-ship.phtml:57
+msgid "订单下单时间"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:54
+msgid "结束时间"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:61
+#: ../view/orders/orders/express-number.phtml:10
+#: ../view/orders/orders/import-express-number.phtml:29
+#: ../view/orders/orders/moreshipoper.phtml:16
+#: ../view/orders/orders/orderprint.phtml:33
+msgid "配送方式"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:64
+msgid "全部方式"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:72
+#: ../view/orders/orders/shiplist.phtml:17
+#: ../view/orders/orders/shipoper.phtml:43
+msgid "发货状态"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:75
+msgid "全部状态"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:76
+#: ../view/orders/orders/shiplist.phtml:33
+#: ../view/orders/orders/show-ship.phtml:21
+msgid "未发货"
+msgstr ""
+
+#: ../view/orders/orders/export-ship.phtml:77
+#: ../view/orders/orders/index.phtml:54
+#: ../view/orders/orders/shiplist.phtml:34
+#: ../view/orders/orders/show-ship.phtml:22
+msgid "已发货"
+msgstr ""
+
+#: ../view/orders/orders/express-number-list.phtml:7
+#: ../view/orders/orders/import-express-number.phtml:11
+msgid "返回快递单号管理"
+msgstr ""
+
+#: ../view/orders/orders/express-number-list.phtml:14
+#: ../view/orders/orders/oper-refund.phtml:37
+#: ../view/orders/orders/orderprint.phtml:28
+#: ../view/orders/orders/refund.phtml:10
+#: ../view/orders/orders/show-refund.phtml:32
+msgid "订单编号"
+msgstr ""
+
+#: ../view/orders/orders/express-number-list.phtml:15
+msgid "使用状态"
+msgstr ""
+
+#: ../view/orders/orders/express-number-list.phtml:16
+msgid "使用时间"
+msgstr ""
+
+#: ../view/orders/orders/express-number-list.phtml:17
+#: ../view/orders/orders/express-number.phtml:13
+#: ../view/orders/orders/index.phtml:24
+#: ../view/orders/orders/moreshipoper.phtml:20
+#: ../view/orders/orders/refund.phtml:15
+#: ../view/orders/orders/shiplist.phtml:18
+msgid "操作"
+msgstr ""
+
+#: ../view/orders/orders/express-number-list.phtml:27
+msgid "已使用"
+msgstr ""
+
+#: ../view/orders/orders/express-number-list.phtml:27
+msgid "未使用"
+msgstr ""
+
+#: ../view/orders/orders/express-number-list.phtml:32
+msgid "删除快递单号"
+msgstr ""
+
+#: ../view/orders/orders/express-number-list.phtml:49
+msgid "您确实要删除该快递单号吗？"
+msgstr ""
+
+#: ../view/orders/orders/express-number-list.phtml:56
+msgid "快递单号删除失败！"
+msgstr ""
+
+#: ../view/orders/orders/express-number.phtml:2
+msgid "快递单号管理"
+msgstr ""
+
+#: ../view/orders/orders/express-number.phtml:11
+#: ../view/orders/orders/moreshipoper.phtml:18
+#: ../view/orders/orders/moreshipoper.phtml:56
+msgid "可用快递单号"
+msgstr ""
+
+#: ../view/orders/orders/express-number.phtml:12
+#: ../view/orders/orders/moreshipoper.phtml:19
+msgid "已用快递单号"
+msgstr ""
+
+#: ../view/orders/orders/express-number.phtml:25
+msgid "单独添加快递单号"
+msgstr ""
+
+#: ../view/orders/orders/express-number.phtml:27
+#: ../view/orders/orders/import-express-number.phtml:9
+msgid "批量导入快递单号"
+msgstr ""
+
+#: ../view/orders/orders/express-number.phtml:29
+msgid "查看快递单号"
+msgstr ""
+
+#: ../view/orders/orders/express-number.phtml:49
+msgid "可同时添加多个，一行一个快递单号"
+msgstr ""
+
+#: ../view/orders/orders/express-number.phtml:54
+msgid "保存"
+msgstr ""
+
+#: ../view/orders/orders/express-number.phtml:68
+msgid "请输入快递单号！"
+msgstr ""
+
+#: ../view/orders/orders/express-number.phtml:75
+msgid "快递单号添加"
+msgstr ""
+
+#: ../view/orders/orders/finishoper.phtml:4
+#: ../view/orders/orders/finishoper.phtml:18
+msgid "收货操作"
+msgstr ""
+
+#: ../view/orders/orders/finishoper.phtml:13
+msgid "点击完成订单"
+msgstr ""
+
+#: ../view/orders/orders/finishoper.phtml:23
+msgid "确认收货"
+msgstr ""
+
+#: ../view/orders/orders/finishoper.phtml:27
+#: ../view/orders/orders/moreshipoper.phtml:62
+#: ../view/orders/orders/payoper.phtml:37
+#: ../view/orders/orders/shipoper.phtml:55
+msgid "操作说明"
+msgstr ""
+
+#: ../view/orders/orders/import-express-number.phtml:3
+msgid "批量导入"
+msgstr ""
+
+#: ../view/orders/orders/import-express-number.phtml:13
+msgid "导入Excel文件"
+msgstr ""
+
+#: ../view/orders/orders/import-express-number.phtml:23
+msgid "导入文件"
+msgstr ""
+
+#: ../view/orders/orders/import-express-number.phtml:39
+msgid "例子文件"
+msgstr ""
+
+#: ../view/orders/orders/import-express-number.phtml:41
+msgid "下载Excel例子文件"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:6
+#: ../view/orders/orders/moreshipoper.phtml:3
+msgid "批量订单发货"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:49
+msgid "默认状态"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:50
+msgid "已取消"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:51 ../view/orders/orders/payoper.phtml:30
+msgid "待付款"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:53
+msgid "待发货"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:55
+msgid "订单完成"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:59 ../view/orders/orders/index.phtml:63
+#: ../view/orders/orders/refund.phtml:40 ../view/orders/orders/refund.phtml:44
+msgid "始"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:60 ../view/orders/orders/index.phtml:64
+#: ../view/orders/orders/refund.phtml:41 ../view/orders/orders/refund.phtml:45
+msgid "终"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:71 ../view/orders/orders/refund.phtml:48
+msgid "搜索"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:80 ../view/orders/orders/refund.phtml:50
+msgid "返回"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:105
+msgid "详情查看"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:105
+msgid "编辑查看"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:107
+msgid "打印订单"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:115
+msgid "全选操作"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:118
+msgid "删除"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:120
+msgid "提交操作"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:137
+msgid "请至少选择一条订单信息！"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:141
+msgid "请选择操作事件！"
+msgstr ""
+
+#: ../view/orders/orders/index.phtml:144
+msgid "只能删除订单状态为 已取消 的订单，您确实要执行该操作吗？"
+msgstr ""
+
+#: ../view/orders/orders/moreshipoper.phtml:17
+#: ../view/orders/orders/moreshipoper.phtml:50
+msgid "待发货订单"
+msgstr ""
+
+#: ../view/orders/orders/moreshipoper.phtml:33
+msgid "点击批量发货"
+msgstr ""
+
+#: ../view/orders/orders/moreshipoper.phtml:64
+msgid "只处理可用快递单号数的订单发货，多出的待发货订单不予处理。"
+msgstr ""
+
+#: ../view/orders/orders/moreshipoper.phtml:69
+msgid "批量发货处理"
+msgstr ""
+
+#: ../view/orders/orders/moreshipoper.phtml:75
+msgid "批量发货"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:17
+#: ../view/orders/orders/refund.phtml:26 ../view/orders/orders/refund.phtml:57
+#: ../view/orders/orders/show-refund.phtml:16
+msgid "退款到账户余额"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:17
+#: ../view/orders/orders/refund.phtml:27 ../view/orders/orders/refund.phtml:57
+#: ../view/orders/orders/show-refund.phtml:16
+msgid "退款到银行"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:17
+#: ../view/orders/orders/refund.phtml:28 ../view/orders/orders/refund.phtml:57
+#: ../view/orders/orders/show-refund.phtml:16
+msgid "退款到第三方支付"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:18
+#: ../view/orders/orders/refund.phtml:34 ../view/orders/orders/refund.phtml:58
+#: ../view/orders/orders/show-refund.phtml:17
+msgid "等待处理"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:18
+#: ../view/orders/orders/refund.phtml:35 ../view/orders/orders/refund.phtml:58
+#: ../view/orders/orders/show-refund.phtml:17
+msgid "退款成功"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:18
+#: ../view/orders/orders/refund.phtml:36 ../view/orders/orders/refund.phtml:58
+#: ../view/orders/orders/show-refund.phtml:17
+msgid "退款拒绝"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:20
+#: ../view/orders/orders/show-refund.phtml:19
+msgid "退货订单"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:22
+#: ../view/orders/orders/show-refund.phtml:21
+msgid "返回退货列表"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:25
+msgid "提交处理结果"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:34
+#: ../view/orders/orders/show-refund.phtml:29
+msgid "退货申请详情"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:38
+#: ../view/orders/orders/refund.phtml:13
+#: ../view/orders/orders/show-refund.phtml:33
+msgid "申请时间"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:39
+#: ../view/orders/orders/refund.phtml:11
+#: ../view/orders/orders/show-refund.phtml:34
+msgid "退款方式"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:41
+#: ../view/orders/orders/show-refund.phtml:36
+msgid "退款账号"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:43
+#: ../view/orders/orders/show-refund.phtml:38
+msgid "开户银行"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:44
+#: ../view/orders/orders/show-refund.phtml:39
+msgid "开户姓名"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:45
+#: ../view/orders/orders/show-refund.phtml:40
+msgid "收款卡号"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:47
+#: ../view/orders/orders/show-refund.phtml:42
+msgid "支付名称"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:48
+#: ../view/orders/orders/show-refund.phtml:43
+msgid "真实姓名"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:49
+#: ../view/orders/orders/show-refund.phtml:44
+msgid "收款账号"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:51
+#: ../view/orders/orders/show-refund.phtml:46
+msgid "退货原因"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:56
+#: ../view/orders/orders/show-refund.phtml:51
+msgid "退货商品"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:72
+#: ../view/orders/orders/show-refund.phtml:67
+msgid "退货处理"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:79
+#: ../view/orders/orders/show-refund.phtml:71
+msgid "退款金额"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:82
+#: ../view/orders/orders/show-refund.phtml:74
+msgid ""
+"退款方式为 退款到账户余额 时，当 同意退货 并提交处理后，系统会将金额自动退还"
+"入账户余额；如果是其他退款方式，管理员需要手动去处理。"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:85
+#: ../view/orders/orders/show-refund.phtml:77
+msgid "处理意见"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:99
+#: ../view/orders/orders/show-refund.phtml:91
+msgid "状态"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:119
+#: ../view/orders/orders/show-refund.phtml:111
+msgid "已申请退货"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:163
+msgid "退款金额不能为空！"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:164
+msgid "退款金额必须为数字！"
+msgstr ""
+
+#: ../view/orders/orders/oper-refund.phtml:165
+msgid "退款金额最少为0！"
+msgstr ""
+
+#: ../view/orders/orders/orderprint.phtml:5
+#: ../view/orders/orders/orderprint.phtml:21
+msgid "订单信息"
+msgstr ""
+
+#: ../view/orders/orders/orderprint.phtml:24
+msgid "购 货 人"
+msgstr ""
+
+#: ../view/orders/orders/orderprint.phtml:34
+#: ../view/orders/orders/shiplist.phtml:11
+msgid "发货单号"
+msgstr ""
+
+#: ../view/orders/orders/orderprint.phtml:49
+msgid "邮编"
+msgstr ""
+
+#: ../view/orders/orders/orderprint.phtml:50
+msgid "电话"
+msgstr ""
+
+#: ../view/orders/orders/orderprint.phtml:58
+msgid "货号"
+msgstr ""
+
+#: ../view/orders/orders/orderprint.phtml:60
+msgid "价格"
+msgstr ""
+
+#: ../view/orders/orders/orderprint.phtml:88
+msgid "商品总金额"
+msgstr ""
+
+#: ../view/orders/orders/orderprint.phtml:94
+msgid "商品运费"
+msgstr ""
+
+#: ../view/orders/orders/orderprint.phtml:105
+msgid "应付款金额"
+msgstr ""
+
+#: ../view/orders/orders/orderprint.phtml:114
+msgid "打印时间"
+msgstr ""
+
+#: ../view/orders/orders/orderprint.phtml:117
+msgid "订 单 打 印"
+msgstr ""
+
+#: ../view/orders/orders/paylog.phtml:2
+msgid "支付记录"
+msgstr ""
+
+#: ../view/orders/orders/paylog.phtml:2
+msgid "此处显示的是已付款或者货到付款订单的支付记录"
+msgstr ""
+
+#: ../view/orders/orders/paylog.phtml:14
+msgid "支付时间"
+msgstr ""
+
+#: ../view/orders/orders/paylog.phtml:15
+msgid "支付状态"
+msgstr ""
+
+#: ../view/orders/orders/paylog.phtml:29 ../view/orders/orders/paylog.phtml:31
+msgid "已支付"
+msgstr ""
+
+#: ../view/orders/orders/paylog.phtml:30
+msgid "未支付"
+msgstr ""
+
+#: ../view/orders/orders/payoper.phtml:27
+msgid "付款状态"
+msgstr ""
+
+#: ../view/orders/orders/payoper.phtml:31
+msgid "付款中"
+msgstr ""
+
+#: ../view/orders/orders/refund.phtml:12
+msgid "处理状态"
+msgstr ""
+
+#: ../view/orders/orders/refund.phtml:14
+msgid "处理时间"
+msgstr ""
+
+#: ../view/orders/orders/refund.phtml:25
+msgid "选择退款方式"
+msgstr ""
+
+#: ../view/orders/orders/refund.phtml:33
+msgid "选择处理状态"
+msgstr ""
+
+#: ../view/orders/orders/refund.phtml:69
+msgid "处理退货"
+msgstr ""
+
+#: ../view/orders/orders/refund.phtml:72
+msgid "查看详情"
+msgstr ""
+
+#: ../view/orders/orders/shiplist.phtml:2
+msgid "此处显示的是已付款或者货到付款订单的发货信息"
+msgstr ""
+
+#: ../view/orders/orders/shiplist.phtml:12
+msgid "物流公司"
+msgstr ""
+
+#: ../view/orders/orders/shiplist.phtml:35
+#: ../view/orders/orders/show-ship.phtml:23
+msgid "已收货"
+msgstr ""
+
+#: ../view/orders/orders/shiplist.phtml:38
+msgid "查看"
+msgstr ""
+
+#: ../view/orders/orders/shipoper.phtml:13
+msgid "返回发货单"
+msgstr ""
+
+#: ../view/orders/orders/shipoper.phtml:17
+msgid "点击发货"
+msgstr ""
+
+#: ../view/orders/orders/shipoper.phtml:45
+msgid "发货"
+msgstr ""
+
+#: ../view/orders/orders/show-ship.phtml:14
+#: ../view/orders/orders/show-ship.phtml:19
+msgid "发货单信息"
+msgstr ""

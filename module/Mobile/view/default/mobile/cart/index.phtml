@@ -1,0 +1,102 @@
+<?php if ($this->cart_array) { ?>
+<p class="flow-price ect-padding-lr ect-padding-tb">
+    <?php echo $this->translate('共'); ?><b id="total_number"><?php echo $this->frontwebsite()->cartGoodsNum(); ?></b><?php echo $this->translate('种商品'); ?>，<?php echo $this->translate('总价(不含运费)'); ?>：<b id="goods_subtotal" class="ect-colory"><?php echo $this->frontwebsite()->shopPriceSymbol().$this->frontwebsite()->getCartTotal().$this->frontwebsite()->shopPriceUnit(); ?></b>
+    <?php if($this->promotionsCost['discountCost'] and $this->promotionsCost['discountCost'] > 0) { ?>
+        <?php echo '<br>'.$this->translate('优惠金额'); if(!empty($this->promotionsCost['discountName'])) echo '(<font color="#139EE6">' . $this->promotionsCost['discountName'] . '</font>)'; ?>：<b class="ect-colory">-<?php echo $this->frontwebsite()->shopPriceSymbol().$this->frontwebsite()->shopPrice($this->promotionsCost['discountCost']).$this->frontwebsite()->shopPriceUnit(); ?></b>
+    <?php } ?>
+    <?php if($this->integralInfo['integralNum'] and $this->integralInfo['integralNum'] > 0) { ?>
+        <?php echo '<br>'.$this->translate('消费积分'); if(!empty($this->integralInfo['integalRuleInfo'])) echo '(<font color="#139EE6">' . $this->integralInfo['integalRuleInfo'] . '</font>)'; ?>：<b class="ect-colory"><?php echo $this->integralInfo['integralNum']; echo $this->translate('积分'); ?></b>
+    <?php } ?>
+    <?php if($this->integralInfo1['integralNum'] and $this->integralInfo1['integralNum'] > 0) { ?>
+        <?php echo '<br>'.$this->translate('等级积分'); if(!empty($this->integralInfo1['integalRuleInfo'])) echo '(<font color="#139EE6">' . $this->integralInfo1['integalRuleInfo'] . '</font>)'; ?>：<b class="ect-colory"><?php echo $this->integralInfo1['integralNum']; echo $this->translate('积分'); ?></b>
+    <?php } ?>
+</p>
+    <section class="ect-pro-list flow-pic ect-border-bottom0">
+        <ul>
+            <?php foreach ($this->cart_array as $cart_key => $goods_value) { ?>
+            <li>
+                <div class="ect-clear-over">
+                    <a href="<?php echo $this->url('m_goods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$goods_value['class_id'])); ?>">
+                        <img title="<?php echo $this->escapeHtml($goods_value['goods_name']); ?>" src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($goods_value['goods_image'])); ?>">
+                    </a>
+                    <dl>
+                        <dt>
+                        <h4 class="title">
+                            <a href="<?php echo $this->url('m_goods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$goods_value['class_id'])); ?>"><?php echo $this->escapeHtml($goods_value['goods_name']); ?></a>
+                        </h4>
+                        </dt>
+                        <dd class="ect-color999">
+                            <?php
+                            if($goods_value['goods_color_name'] == '' and $goods_value['goods_size_name'] == '') {
+                                //echo $this->translate('无');
+                            } else {
+                                echo '<p>';
+                                if($goods_value['goods_color_name'] != '') echo $goods_value['goods_color_name'] . '&nbsp;&nbsp;';
+                                if($goods_value['goods_size_name'] != '') echo $goods_value['goods_size_name'];
+                                echo '</p>';
+                            }
+                            ?>
+                            <p><strong class="ect-colory"><?php echo $this->frontwebsite()->shopPriceExtend($goods_value['goods_shop_price']); ?></strong></p>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="ect-margin-tb ect-margin-bottom0 ect-clear-over flow-num-del">
+                    <div class="pull-left wrap form-select">
+                        <?php echo $this->translate('购买数'); ?>：
+                        <i class="fa fa-sort"></i>
+                        <select id="<?php echo $cart_key; ?>buy_num" name="<?php echo $cart_key; ?>buy_num" onchange="edit_cart_goods_buy_num('<?php echo $cart_key; ?>','<?php echo $cart_key; ?>buy_num');">
+                            <?php
+                            $cart_buy_min_num = ($goods_value['buy_min_num'] > 0 ? $goods_value['buy_min_num'] : 1);
+                            if($goods_value['goods_stock_state'] == 1) {//当有货开启时，不对库存进行刻意判断
+                                $buy_max_num = ($goods_value['buy_num'] > 50 ? $goods_value['buy_num'] : 50);
+                            } else {
+                                $buy_max_num = ($goods_value['goods_stock']>50 ? ($goods_value['buy_num'] <= 50 ? 50 : $goods_value['buy_num']) : $goods_value['goods_stock']);
+                            }
+                            $cart_buy_max_num = ($goods_value['buy_max_num'] > 0 ? $goods_value['buy_max_num'] : $buy_max_num);
+
+                            for ($i = $cart_buy_min_num; $i <= $cart_buy_max_num; $i++) { ?>
+                                <option value="<?php echo $i; ?>" <?php if ($i == $goods_value['buy_num']) echo 'selected="selected"'; ?>><?php echo $i; ?></option>
+                            <?php } ?>
+                        </select>
+                        </div>
+
+                    <div class="pull-right flow-del text-center"> <a style="padding: 2px 5px;" onclick="del_cart_goods('<?php echo $cart_key; ?>');"><?php echo $this->translate('删除'); ?></a> </div>
+                </div>
+            </li>
+            <?php } ?>
+        </ul>
+    </section>
+
+    <div class="flow-jiesuan ect-padding-lr ect-padding-tb">
+        <a class="btn btn-info ect-btn-info ect-bg" type="button" href="<?php echo $this->url('m_cart/default', array('action'=>'setaddress')); ?>"><?php echo $this->translate('立即结算'); ?></a>
+    </div>
+<script>
+    //删除购物车中的商品
+    function del_cart_goods(cart_key) {
+        if(window.confirm('<?php echo $this->translate('您确实要将购物车中的该商品删除吗？'); ?>')) {
+            $.post("<?php echo $this->url('frontcart/default',array('action'=>'delCartGoods')); ?>",{cart_key:cart_key},
+                function(data){
+                    if(data == 'true') {
+                        window.location.href="<?php echo $this->url('m_cart/default'); ?>";
+                    }
+                });
+        }
+    }
+    //编辑购物车
+    function edit_cart_goods_buy_num (cart_key, buy_num_id) {
+        var edit_buy_num = $('#'+buy_num_id).val();
+        $.post("<?php echo $this->url('frontcart/default',array('action'=>'editCartGoods')); ?>",{cart_key:cart_key,type:'buy_num',buy_num:edit_buy_num},
+            function(data){
+                if(data != 'true') {
+                    alert(data);
+                }
+                window.location.href="<?php echo $this->url('m_cart/default'); ?>";
+            });
+    }
+</script>
+<?php } else { ?>
+<div class="flow-no-pro"> <img src="<?php echo $this->basePath('public/mobile/default/images/gwc.png'); ?>">
+    <p class="text-center"><?php echo $this->translate('购物车什么都没有，赶快去购物吧'); ?></p>
+    <a class="btn btn-info ect-btn-info" href="<?php echo $this->url('mobile/default'); ?>" type="button"><?php echo $this->translate('去购物'); ?></a>
+</div>
+<?php } ?>

@@ -1,0 +1,1322 @@
+<div class="tabbable tabs-left">
+              <ul class="nav nav-tabs">
+              	<li><h5><?php echo $this->translate('商品信息'); ?></h5></li>
+                <li class="active"><a data-toggle="tab" href="#goods_a"><?php echo $this->translate('基本信息'); ?></a></li>
+                <li><a data-toggle="tab" href="#goods_c"><?php echo $this->translate('商品分类'); ?></a></li>
+                <li><a data-toggle="tab" href="#goods_d"><?php echo $this->translate('商品图片'); ?></a></li>
+                <li><a data-toggle="tab" href="#goods_h"><?php echo $this->translate('商品库存'); ?></a></li>
+                <li><a data-toggle="tab" href="#goods_b"><?php echo $this->translate('优惠价格'); ?></a></li>
+                <li><a data-toggle="tab" href="#goods_i"><?php echo $this->translate('销售规格'); ?></a></li>
+                <li><a data-toggle="tab" href="#goods_k"><?php echo $this->translate('商品属性'); ?></a></li>
+                <li><a data-toggle="tab" href="#goods_l"><?php echo $this->translate('商品标签'); ?></a></li>
+                <li><a data-toggle="tab" href="#goods_f"><?php echo $this->translate('商品自定义'); ?></a></li>
+                <li><a data-toggle="tab" href="#goods_e"><?php echo $this->translate('相关商品'); ?></a></li>
+                <li><a data-toggle="tab" href="#goods_m"><?php echo $this->translate('组合商品'); ?></a></li>
+                <?php if($this->goods_info) { ?>
+                <li><a data-toggle="tab" href="#goods_j"><?php echo $this->translate('商品评价'); ?></a></li>
+                <?php } ?>
+                <li><a data-toggle="tab" href="#goods_g"><?php echo $this->translate('搜索引擎优化'); ?></a></li>
+              </ul>
+              <!--form class="form-horizontal" id="form_goods_add" method="post" onsubmit="return check_size_goods();" action="<?php //echo $this->url(($this->goods_info ? 'goods/default/goods_id' : 'goods/default'),array('action'=>($this->goods_info ? 'edit' : 'add'),'controller'=>'goods','goods_id'=>($this->goods_info ? $this->goods_info->goods_id : '0'))); ?>" -->
+              <form class="form-horizontal" id="form_goods_add" method="post" onsubmit="return check_size_goods();">
+              <input type="hidden" name="goods_id" id="goods_id" value="<?php echo ($this->goods_info ? $this->goods_info->goods_id : ''); ?>" />
+              <input type="hidden" name="goods_save_type" id="goods_save_type" value="">
+              <div class="tab-content">
+    			<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        			<div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php if($this->goods_info) { echo $this->translate('编辑'); } else { echo $this->translate('新加');} ?><?php echo $this->translate('商品'); ?></strong></div>
+        			<div id="sticky_navigation_right" class="pull-right">
+                	<a href="<?php echo isset($this->goods_info) ? $this->url('goods/default/page',array('action'=>'index','controller'=>'goods', 'page'=>$this->page), array('query'=>$this->query)) : $this->url('goods/default',array('controller'=>'goods')); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回列表'); ?></a>&nbsp;
+                	<a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>&nbsp;
+                    <?php if($this->goods_info) { ?>
+                    <a href="javascript:;" onclick="return goods_del_js(<?php echo $this->goods_info->goods_id; ?>)" class="btn btn-small btn-danger"><i class="icon-remove icon-white"></i> <?php echo $this->translate('删除商品'); ?></a>&nbsp;
+                	<button type="submit" onclick="$('#goods_save_type').val('save_return_edit');" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存商品并继续编辑'); ?></button>&nbsp;
+                    <?php } ?>
+                	<button type="submit" onclick="$('#goods_save_type').val('');" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存商品'); ?></button>&nbsp;
+                	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('goods_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+                	</div>
+        		</div>
+                <div id="goods_a" class="tab-pane active">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('基本信息'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品名称'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<input type="text" id="goods_name"  name="goods_name" placeholder="<?php echo $this->translate('输入商品名称'); ?>" value="<?php echo ($this->goods_info ? $this->escapeHtml($this->goods_info->goods_name) : ''); ?>" class="span12">
+            				</div>                        
+                        </div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品扩展名称'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="goods_extend_name"  name="goods_extend_name" value="<?php echo ($this->goods_info ? $this->escapeHtml($this->goods_info->goods_extend_name) : ''); ?>" class="span12">
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品货号'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="goods_item"  name="goods_item" placeholder="<?php echo $this->translate('输入商品货号'); ?>" value="<?php echo ($this->goods_info ? $this->goods_info->goods_item : ''); ?>" class="span3">
+								<i class="cus-help shop_admin_help_note" data-content="<?php echo sprintf($this->translate('商品货号留空，会自动生成，自动生成的货号前缀到 %s系统管理->系统设置->商品设置%s 进行设置'), '<b>', '</b>'); ?>"></i>
+							</div>
+                        </div>
+                        <div class="control-group">
+                            <label for="input01" class="control-label"><?php echo $this->translate('市场价格'); ?>：</label>
+                            <div class="controls">
+                                <input type="text" id="goods_price"  name="goods_price" value="<?php echo ($this->goods_info ? $this->goods_info->goods_price : ''); ?>" class="span4">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="input01" class="control-label"><?php echo $this->translate('本店价格'); ?><span class="must_add_value">*</span>：</label>
+                            <div class="controls">
+                                <input type="text" id="goods_shop_price"  name="goods_shop_price" placeholder="<?php echo $this->translate('输入本店价格'); ?>" value="<?php echo ($this->goods_info ? $this->goods_info->goods_shop_price : ''); ?>" class="span4">
+                            </div>
+                        </div>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('商品类型'); ?><span class="must_add_value">*</span>：</label>
+							<div class="controls">
+								<select name="goods_type" id="goods_type" class="span2">
+									<option value=""><?php echo $this->translate('选择类型'); ?></option>
+									<option value="1" <?php if ($this->goods_info and $this->goods_info->goods_type==1) { ?>selected="selected"<?php } ?>><?php echo $this->translate('实物商品'); ?></option>
+									<option value="2" <?php if ($this->goods_info and $this->goods_info->goods_type==2) { ?>selected="selected"<?php } ?>><?php echo $this->translate('虚拟商品'); ?></option>
+								</select>
+								<i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('虚拟商品需要保存后，在商品列表中，找到该商品进行具体的虚拟商品信息添加。'); ?>"></i>
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('积分购买'); ?>：</label>
+							<div class="controls">
+								<input type="text" id="goods_integral_num" readonly name="goods_integral_num" placeholder="<?php echo $this->translate('输入购买该商品需要的积分数'); ?>" value="<?php echo ($this->goods_info ? intval($this->goods_info->goods_integral_num) : '0'); ?>" class="span2">
+								<button type="button" class="btn btn-small btn-primary" onclick="price_change_integral();"><?php echo $this->translate('点击将价格换算为积分'); ?></button>
+								<i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('当积分数为0该商品不支持积分购买，如果这里输入的积分大于0，则该商品支持积分购买，这里的积分指的是 消费积分。'); ?>"></i>
+								<a href="<?php echo $this->url('integral/default/integral_type_id',array('action'=>'integralTypeEdit', 'integral_type_id'=>1)); ?>" target="_blank"><?php echo $this->translate('点击去设置积分与基础货币换算比例'); ?></a>
+							</div>
+						</div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品品牌'); ?>：</label>
+           					<div class="controls">
+                            	<select name="brand_id" id="brand_id" class="span2">
+                                <option value="0"><?php echo $this->translate('选择品牌'); ?></option>
+                                <?php
+                                if ($this->goods_brand) {
+									foreach($this->goods_brand as $brand_val) {	
+								?>
+								<option value="<?php echo $brand_val['brand_id']; ?>" <?php if ($this->goods_info and $brand_val['brand_id']==$this->goods_info->brand_id) { ?>selected="selected"<?php } ?>><?php echo $this->escapeHtml($brand_val['brand_name']); ?></option>
+                                <?php
+									}
+								}
+								?>
+                                </select>
+            				</div>                        
+                        </div>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('虚拟销量'); ?>：</label>
+							<div class="controls">
+								<input type="text" id="virtual_sales"  name="virtual_sales" placeholder="<?php echo $this->translate('输入虚拟销量'); ?>" value="<?php echo ($this->goods_info ? intval($this->goods_info->virtual_sales) : 0); ?>" class="span2">
+								<i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('PC前端体现在商品详情页面中的购买人数；PHONE端体现在销量上。'); ?>"></i>
+							</div>
+						</div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品重量'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="goods_weight"  name="goods_weight" value="<?php echo ($this->goods_info ? $this->goods_info->goods_weight : ''); ?>" class="span2"> <?php echo $this->translate('千克'); ?>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品状态'); ?>：</label>
+           					<div class="controls">
+              					<select id="goods_state" name="goods_state" class="span2">
+                                <option value="1" <?php if($this->goods_info and $this->goods_info->goods_state == 1) echo 'selected="selected"'; ?>><?php echo $this->translate('上架'); ?></option>
+                                <option value="2" <?php if($this->goods_info and $this->goods_info->goods_state == 2) echo 'selected="selected"'; ?>><?php echo $this->translate('下架'); ?></option>
+                                </select>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品详述'); ?>：</label>
+           					<div class="controls">
+              					<script type="text/plain" id="goods_body" name="goods_body"><?php echo ($this->goods_info ? $this->goods_info->goods_body : ''); ?></script>
+            				</div>                        
+                        </div>
+                      
+                  	</div>
+                </div>
+                <div id="goods_b" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('优惠价格'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('优惠价格'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="goods_preferential_price"  name="goods_preferential_price" value="<?php echo ($this->goods_info ? $this->goods_info->goods_preferential_price : ''); ?>" class="span4"> <i class="cus-help shop_admin_help_note" data-content="<?php echo sprintf($this->translate('当设置了优惠价格，且在下面的优惠时间内，则购买商品价格都为优惠价格，%s即使销售价格中设置了不同规格的价格，也无效。需要等优惠期过后，才有效。%s'),'<strong>','</strong>'); ?>"></i>
+            				</div>                        
+                        </div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('优惠开始时间'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="goods_preferential_start_time"  name="goods_preferential_start_time" value="<?php if ($this->goods_info and $this->goods_info->goods_preferential_start_time != '') echo date("Y-m-d H:i",$this->goods_info->goods_preferential_start_time); ?>" onclick="WdatePicker({el:'goods_preferential_start_time', dateFmt:'yyyy-MM-dd HH:mm'})" class="span2 Wdate"> <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('当优惠价价格为有效价格时，在此设置时间才有效，为空，则不限时间。'); ?>"></i>
+            				</div>                        
+                        </div> 
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('优惠结束时间'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="goods_preferential_end_time"  name="goods_preferential_end_time" value="<?php if ($this->goods_info and $this->goods_info->goods_preferential_end_time != '') echo date("Y-m-d H:i",$this->goods_info->goods_preferential_end_time); ?>" onclick="WdatePicker({el:'goods_preferential_end_time', dateFmt:'yyyy-MM-dd HH:mm'})" class="span2 Wdate"> <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('当优惠价价格为有效价格时，在此设置时间才有效，为空，则不限时间。'); ?>"></i>
+            				</div>                        
+                        </div>
+                     	<!-- <div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('客户组价格'); ?>：</label>
+           					<div class="controls">
+              					
+            				</div>                        
+                        </div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('购物数价格'); ?>：</label>
+           					<div class="controls">
+              					
+            				</div>                        
+                        </div> -->            
+                  	</div>
+                </div>
+                 <div id="goods_i" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('销售规格'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                        
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label">
+                  			<input type="text" class="span6" value="<?php if ($this->goods_color) echo $this->goods_color->extend_name; else echo $this->translate('颜色'); ?>" id="goods_options_one" name="goods_options_one" style="text-align:right">：</label>
+           					<div class="controls goods_color_select">
+                            	<table class="table table-condensed">
+                            		<tr>
+                                        <td colspan="5">
+                                        	<SELECT class="span2" name="extend_show_type">
+                  								<OPTION value="1" <?php echo (isset($this->goods_color->extend_show_type) and $this->goods_color->extend_show_type == 1) ? 'selected="selected"' : ''; ?>><?php echo $this->translate('显示文字'); ?></OPTION>
+                  								<OPTION value="2" <?php echo (isset($this->goods_color->extend_show_type) and $this->goods_color->extend_show_type == 2) ? 'selected="selected"' : ''; ?>><?php echo $this->translate('显示颜色'); ?></OPTION>
+                  							</SELECT>
+                                            <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('此为前台商品详情中的规格显示设置，显示文字即为显示颜色文字，显示颜色即为显示下面的颜色色块。'); ?>"></i>
+                            			</td>
+                            		</tr>
+                                	<tr>
+                                    	<td width="20%"><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('军绿色'); ?>"   id="5d762a" <?php if($this->color_array and isset($this->color_array['5d762a'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('5d762a');" /><label style="background-color:#5d762a;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['5d762a'])) { ?><span id="span_5d762a"><input type="hidden" value="5d762a" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['5d762a'];?>" onblur="edit_all_color_value('edit5d762a');" name="goods_color_info[]" id="edit5d762a" class="span8"></span><?php } else { ?><span id="span_5d762a"><?php echo $this->translate('军绿色'); ?></span><?php } ?></div></td>
+                                        <td width="20%"><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('天蓝色'); ?>"   id="1eddff" <?php if($this->color_array and isset($this->color_array['1eddff'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('1eddff');" /><label style="background-color:#1eddff;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['1eddff'])) { ?><span id="span_1eddff"><input type="hidden" value="1eddff" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['1eddff'];?>" onblur="edit_all_color_value('edit1eddff');" name="goods_color_info[]" id="edit1eddff" class="span8"></span><?php } else { ?><span id="span_1eddff"><?php echo $this->translate('天蓝色'); ?></span><?php } ?></div></td>
+                                        <td width="20%"><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('巧克力色'); ?>" id="d2691e" <?php if($this->color_array and isset($this->color_array['d2691e'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('d2691e');" /><label style="background-color:#d2691e;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['d2691e'])) { ?><span id="span_d2691e"><input type="hidden" value="d2691e" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['d2691e'];?>" onblur="edit_all_color_value('editd2691e');" name="goods_color_info[]" id="editd2691e" class="span8"></span><?php } else { ?><span id="span_d2691e"><?php echo $this->translate('巧克力色'); ?></span><?php } ?></div></td>
+                                        <td width="20%"><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('桔红色'); ?>"   id="ffa500" <?php if($this->color_array and isset($this->color_array['ffa500'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('ffa500');" /><label style="background-color:#ffa500;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['ffa500'])) { ?><span id="span_ffa500"><input type="hidden" value="ffa500" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['ffa500'];?>" onblur="edit_all_color_value('editffa500');" name="goods_color_info[]" id="editffa500" class="span8"></span><?php } else { ?><span id="span_ffa500"><?php echo $this->translate('桔红色'); ?></span><?php } ?></div></td>
+                                        <td width="20%"><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('浅灰色'); ?>"   id="e4e4e4" <?php if($this->color_array and isset($this->color_array['e4e4e4'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('e4e4e4');" /><label style="background-color:#e4e4e4;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['e4e4e4'])) { ?><span id="span_e4e4e4"><input type="hidden" value="e4e4e4" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['e4e4e4'];?>" onblur="edit_all_color_value('edite4e4e4');" name="goods_color_info[]" id="edite4e4e4" class="span8"></span><?php } else { ?><span id="span_e4e4e4"><?php echo $this->translate('浅灰色'); ?></span><?php } ?></div></td>
+                                    </tr>
+                                	<tr>
+                                    	<td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('浅绿色'); ?>" id="98fb98" <?php if($this->color_array and isset($this->color_array['98fb98'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('98fb98');" /><label style="background-color:#98fb98;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['98fb98'])) { ?><span id="span_98fb98"><input type="hidden" value="98fb98" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['98fb98'];?>" onblur="edit_all_color_value('edit98fb98');" name="goods_color_info[]" id="edit98fb98" class="span8"></span><?php } else { ?><span id="span_98fb98"><?php echo $this->translate('浅绿色'); ?></span><?php } ?></div></td>
+                                        <td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('浅黄色'); ?>" id="ffffb1" <?php if($this->color_array and isset($this->color_array['ffffb1'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('ffffb1');" /><label style="background-color:#ffffb1;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['ffffb1'])) { ?><span id="span_ffffb1"><input type="hidden" value="ffffb1" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['ffffb1'];?>" onblur="edit_all_color_value('editffffb1');" name="goods_color_info[]" id="editffffb1" class="span8"></span><?php } else { ?><span id="span_ffffb1"><?php echo $this->translate('浅黄色'); ?></span><?php } ?></div></td>
+                                        <td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('卡其色'); ?>" id="bdb76b" <?php if($this->color_array and isset($this->color_array['bdb76b'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('bdb76b');" /><label style="background-color:#bdb76b;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['bdb76b'])) { ?><span id="span_bdb76b"><input type="hidden" value="bdb76b" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['bdb76b'];?>" onblur="edit_all_color_value('editbdb76b');" name="goods_color_info[]" id="editbdb76b" class="span8"></span><?php } else { ?><span id="span_bdb76b"><?php echo $this->translate('卡其色'); ?></span><?php } ?></div></td>
+                                        <td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('深灰色'); ?>" id="666666" <?php if($this->color_array and isset($this->color_array['666666'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('666666');" /><label style="background-color:#666666;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['666666'])) { ?><span id="span_666666"><input type="hidden" value="666666" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['666666'];?>" onblur="edit_all_color_value('edit666666');" name="goods_color_info[]" id="edit666666" class="span8"></span><?php } else { ?><span id="span_666666"><?php echo $this->translate('深灰色'); ?></span><?php } ?></div></td>
+                                        <td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('深紫色'); ?>" id="4b0082" <?php if($this->color_array and isset($this->color_array['4b0082'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('4b0082');" /><label style="background-color:#4b0082;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['4b0082'])) { ?><span id="span_4b0082"><input type="hidden" value="4b0082" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['4b0082'];?>" onblur="edit_all_color_value('edit4b0082');" name="goods_color_info[]" id="edit4b0082" class="span8"></span><?php } else { ?><span id="span_4b0082"><?php echo $this->translate('深紫色'); ?></span><?php } ?></div></td>
+                                    </tr>
+                                	<tr>
+                                    	<td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('深蓝色'); ?>"   id="041690" <?php if($this->color_array and isset($this->color_array['041690'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('041690');" /><label style="background-color:#041690;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['041690'])) { ?><span id="span_041690"><input type="hidden" value="041690" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['041690'];?>" onblur="edit_all_color_value('edit041690');" name="goods_color_info[]" id="edit041690" class="span8"></span><?php } else { ?><span id="span_041690"><?php echo $this->translate('深蓝色'); ?></span><?php } ?></div></td>
+                                        <td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('白色'); ?>"     id="ffffff" <?php if($this->color_array and isset($this->color_array['ffffff'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('ffffff');" /><label style="background-color:#ffffff;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['ffffff'])) { ?><span id="span_ffffff"><input type="hidden" value="ffffff" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['ffffff'];?>" onblur="edit_all_color_value('editffffff');" name="goods_color_info[]" id="editffffff" class="span8"></span><?php } else { ?><span id="span_ffffff"><?php echo $this->translate('白色'); ?></span><?php } ?></div></td>
+                                        <td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('粉红色'); ?>"   id="ffb6c1" <?php if($this->color_array and isset($this->color_array['ffb6c1'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('ffb6c1');" /><label style="background-color:#ffb6c1;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['ffb6c1'])) { ?><span id="span_ffb6c1"><input type="hidden" value="ffb6c1" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['ffb6c1'];?>" onblur="edit_all_color_value('editffb6c1');" name="goods_color_info[]" id="editffb6c1" class="span8"></span><?php } else { ?><span id="span_ffb6c1"><?php echo $this->translate('粉红色'); ?></span><?php } ?></div></td>
+                                        <td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('紫罗兰色'); ?>" id="dda0dd" <?php if($this->color_array and isset($this->color_array['dda0dd'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('dda0dd');" /><label style="background-color:#dda0dd;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['dda0dd'])) { ?><span id="span_dda0dd"><input type="hidden" value="dda0dd" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['dda0dd'];?>" onblur="edit_all_color_value('editdda0dd');" name="goods_color_info[]" id="editdda0dd" class="span8"></span><?php } else { ?><span id="span_dda0dd"><?php echo $this->translate('紫罗兰色'); ?></span><?php } ?></div></td>
+                                        <td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('紫色'); ?>"     id="800080" <?php if($this->color_array and isset($this->color_array['800080'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('800080');" /><label style="background-color:#800080;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['800080'])) { ?><span id="span_800080"><input type="hidden" value="800080" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['800080'];?>" onblur="edit_all_color_value('edit800080');" name="goods_color_info[]" id="edit800080" class="span8"></span><?php } else { ?><span id="span_800080"><?php echo $this->translate('紫色'); ?></span><?php } ?></div></td>
+                                    </tr>
+                                	<tr>
+                                    	<td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('红色'); ?>" id="ff0000" <?php if($this->color_array and isset($this->color_array['ff0000'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('ff0000');" /><label style="background-color:#ff0000;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['ff0000'])) { ?><span id="span_ff0000"><input type="hidden" value="ff0000" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['ff0000'];?>" onblur="edit_all_color_value('editff0000');" name="goods_color_info[]" id="editff0000" class="span8"></span><?php } else { ?><span id="span_ff0000"><?php echo $this->translate('红色'); ?></span><?php } ?></div></td>
+                                        <td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('绿色'); ?>" id="008000" <?php if($this->color_array and isset($this->color_array['008000'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('008000');" /><label style="background-color:#008000;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['008000'])) { ?><span id="span_008000"><input type="hidden" value="008000" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['008000'];?>" onblur="edit_all_color_value('edit008000');" name="goods_color_info[]" id="edit008000" class="span8"></span><?php } else { ?><span id="span_008000"><?php echo $this->translate('绿色'); ?></span><?php } ?></div></td>
+                                        <td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('蓝色'); ?>" id="0000ff" <?php if($this->color_array and isset($this->color_array['0000ff'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('0000ff');" /><label style="background-color:#0000ff;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['0000ff'])) { ?><span id="span_0000ff"><input type="hidden" value="0000ff" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['0000ff'];?>" onblur="edit_all_color_value('edit0000ff');" name="goods_color_info[]" id="edit0000ff" class="span8"></span><?php } else { ?><span id="span_0000ff"><?php echo $this->translate('蓝色'); ?></span><?php } ?></div></td>
+                                        <td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('褐色'); ?>" id="855b00" <?php if($this->color_array and isset($this->color_array['855b00'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('855b00');" /><label style="background-color:#855b00;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['855b00'])) { ?><span id="span_855b00"><input type="hidden" value="855b00" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['855b00'];?>" onblur="edit_all_color_value('edit855b00');" name="goods_color_info[]" id="edit855b00" class="span8"></span><?php } else { ?><span id="span_855b00"><?php echo $this->translate('褐色'); ?></span><?php } ?></div></td>
+                                        <td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('酒红色'); ?>" id="990000" <?php if($this->color_array and isset($this->color_array['990000'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('990000');" /><label style="background-color:#990000;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['990000'])) { ?><span id="span_990000"><input type="hidden" value="990000" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['990000'];?>" onblur="edit_all_color_value('edit990000');" name="goods_color_info[]" id="edit990000" class="span8"></span><?php } else { ?><span id="span_990000"><?php echo $this->translate('酒红色'); ?></span><?php } ?></div></td>
+                                    </tr>
+                                	<tr>
+                                    	<td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('黄色'); ?>" id="ffff00" <?php if($this->color_array and isset($this->color_array['ffff00'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('ffff00');" /><label style="background-color:#ffff00;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['ffff00'])) { ?><span id="span_ffff00"><input type="hidden" value="ffff00" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['ffff00'];?>" onblur="edit_all_color_value('editffff00');" name="goods_color_info[]" id="editffff00" class="span8"></span><?php } else { ?><span id="span_ffff00"><?php echo $this->translate('黄色'); ?></span><?php } ?></div></td>
+                                        <td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('黑色'); ?>" id="000000" <?php if($this->color_array and isset($this->color_array['000000'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('000000');" /><label style="background-color:#000000;" class="color-lump"></label><?php if($this->color_array and isset($this->color_array['000000'])) { ?><span id="span_000000"><input type="hidden" value="000000" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['000000'];?>" onblur="edit_all_color_value('edit000000');" name="goods_color_info[]" id="edit000000" class="span8"></span><?php } else { ?><span id="span_000000"><?php echo $this->translate('黑色'); ?></span><?php } ?></div></td>
+                                        <td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('空值不显示'); ?>" id="kongzhi" <?php if($this->color_array and isset($this->color_array['kongzhi'])) echo 'checked'; ?> name="goods_color[]" onclick="color_select_js('kongzhi');" /><?php if($this->color_array and isset($this->color_array['kongzhi'])) { ?><span id="span_kongzhi"><input type="hidden" value="kongzhi" name="goods_color_value[]"><input type="text" value="<?php echo $this->color_array['kongzhi'];?>" readonly name="goods_color_info[]" id="editkongzhi" class="span8"></span><?php } else { ?><span id="span_kongzhi"><?php echo $this->translate('空值不显示'); ?></span><?php } ?></div></td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                </table>
+                                
+                                <table class="table table-bordered" style="width:30%;<?php if($this->color_list and !empty($this->color_list)) echo ''; else echo 'display:none'; ?>;" id="select_goods_color_in">
+									<thead style="background:#CCC;">
+                						<tr>
+                  							<th id="color_th"><?php if ($this->goods_color) echo $this->goods_color->extend_name; else echo $this->translate('颜色'); ?></th>
+                						</tr>
+              						</thead>
+              						<?php if($this->color_list and !empty($this->color_list)) {
+              							foreach ($this->color_list as $color_v) {
+              						?>
+              						<tr id="show_in_<?php echo $color_v['color_value']; ?>"><td><label class="color-lump" style="background-color:#<?php echo $color_v['color_value']; ?>;"></label><span id="edit<?php echo $color_v['color_value']; ?>_one"><?php echo $color_v['color_info']; ?></span></td></tr>
+              						<?php
+              							}
+              						}
+              						?>
+                                </table>                             
+            				</div>                        
+                        </div>
+                        <div class="control-group">
+                        </div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><input type="text" class="span6" value="<?php if ($this->goods_size) echo $this->goods_size->extend_name; else echo $this->translate('尺寸'); ?>" id="goods_options_two" name="goods_options_two" style="text-align:right">：</label>
+           					<div class="controls goods_color_select">
+                            	<table class="table table-condensed">
+                                	<tr>
+                                    	<td width="20%"><div class="checkbox"><input type="checkbox" <?php if($this->size_array and isset($this->size_array['XXS'])) echo 'checked'; ?> value="XXS" id="XXS" name="goods_size[]" onclick="size_select_js('XXS');" /><?php if($this->size_array and isset($this->size_array['XXS'])) { ?><span id="span_XXS"><input type="hidden" value="XXS" name="goods_size_value[]"><input type="text" value="<?php echo $this->size_array['XXS'];?>" onblur="edit_all_size_value('editXXS');" name="goods_size_info[]" id="editXXS" class="span8"></span><?php } else { ?><span id="span_XXS">XXS</span><?php } ?></div></td>
+                                        <td width="20%"><div class="checkbox"><input type="checkbox" <?php if($this->size_array and isset($this->size_array['XS'])) echo 'checked'; ?> value="XS" id="XS" name="goods_size[]" onclick="size_select_js('XS');" /><?php if($this->size_array and isset($this->size_array['XS'])) { ?><span id="span_XS"><input type="hidden" value="XS" name="goods_size_value[]"><input type="text" value="<?php echo $this->size_array['XS'];?>" onblur="edit_all_size_value('editXS');" name="goods_size_info[]" id="editXS" class="span8"></span><?php } else { ?><span id="span_XS">XS</span><?php } ?></div></td>
+                                        
+                                        <td width="20%"><div class="checkbox"><input type="checkbox" <?php if($this->size_array and isset($this->size_array['S'])) echo 'checked'; ?> value="S" id="S" name="goods_size[]" onclick="size_select_js('S');" /><?php if($this->size_array and isset($this->size_array['S'])) { ?><span id="span_S"><input type="hidden" value="S" name="goods_size_value[]"><input type="text" value="<?php echo $this->size_array['S'];?>" onblur="edit_all_size_value('editS');" name="goods_size_info[]" id="editS" class="span8"></span><?php } else { ?><span id="span_S">S</span><?php } ?></div></td>
+                                        
+                                        <td width="20%"><div class="checkbox"><input type="checkbox" <?php if($this->size_array and isset($this->size_array['M'])) echo 'checked'; ?> value="M" id="M" name="goods_size[]" onclick="size_select_js('M');" /><?php if($this->size_array and isset($this->size_array['M'])) { ?><span id="span_M"><input type="hidden" value="M" name="goods_size_value[]"><input type="text" value="<?php echo $this->size_array['M'];?>" onblur="edit_all_size_value('editM');" name="goods_size_info[]" id="editM" class="span8"></span><?php } else { ?><span id="span_M">M</span><?php } ?></div></td>
+                                        <td width="20%"><div class="checkbox"><input type="checkbox" <?php if($this->size_array and isset($this->size_array['L'])) echo 'checked'; ?> value="L" id="L" name="goods_size[]" onclick="size_select_js('L');" /><?php if($this->size_array and isset($this->size_array['L'])) { ?><span id="span_L"><input type="hidden" value="L" name="goods_size_value[]"><input type="text" value="<?php echo $this->size_array['L'];?>" onblur="edit_all_size_value('editL');" name="goods_size_info[]" id="editL" class="span8"></span><?php } else { ?><span id="span_L">L</span><?php } ?></div></td>
+                                    </tr>
+                                    <tr>
+                                    	<td><div class="checkbox"><input type="checkbox" value="XL" <?php if($this->size_array and isset($this->size_array['XL'])) echo 'checked'; ?> id="XL" name="goods_size[]" onclick="size_select_js('XL');" /><?php if($this->size_array and isset($this->size_array['XL'])) { ?><span id="span_XL"><input type="hidden" value="XL" name="goods_size_value[]"><input type="text" value="<?php echo $this->size_array['XL'];?>" onblur="edit_all_size_value('editXL');" name="goods_size_info[]" id="editXL" class="span8"></span><?php } else { ?><span id="span_XL">XL</span><?php } ?></div></td>
+                                    	<td><div class="checkbox"><input type="checkbox" value="XXL" <?php if($this->size_array and isset($this->size_array['XXL'])) echo 'checked'; ?> id="XXL" name="goods_size[]" onclick="size_select_js('XXL');" /><?php if($this->size_array and isset($this->size_array['XXL'])) { ?><span id="span_XXL"><input type="hidden" value="XXL" name="goods_size_value[]"><input type="text" value="<?php echo $this->size_array['XXL'];?>" onblur="edit_all_size_value('editXXL');" name="goods_size_info[]" id="editXXL" class="span8"></span><?php } else { ?><span id="span_XXL">XXL</span><?php } ?></div></td>
+                                    	<td><div class="checkbox"><input type="checkbox" value="XXXL" <?php if($this->size_array and isset($this->size_array['XXXL'])) echo 'checked'; ?> id="XXXL" name="goods_size[]" onclick="size_select_js('XXXL');" /><?php if($this->size_array and isset($this->size_array['XXXL'])) { ?><span id="span_XXXL"><input type="hidden" value="XXXL" name="goods_size_value[]"><input type="text" value="<?php echo $this->size_array['XXXL'];?>" onblur="edit_all_size_value('editXXXL');" name="goods_size_info[]" id="editXXXL" class="span8"></span><?php } else { ?><span id="span_XXXL">XXXL</span><?php } ?></div></td>
+                                    	<td><div class="checkbox"><input type="checkbox" value="XXXXL" <?php if($this->size_array and isset($this->size_array['XXXXL'])) echo 'checked'; ?> id="XXXXL" name="goods_size[]" onclick="size_select_js('XXXXL');" /><?php if($this->size_array and isset($this->size_array['XXXXL'])) { ?><span id="span_XXXXL"><input type="hidden" value="XXXXL" name="goods_size_value[]"><input type="text" value="<?php echo $this->size_array['XXXXL'];?>" onblur="edit_all_size_value('editXXXXL');" name="goods_size_info[]" id="editXXXXL" class="span8"></span><?php } else { ?><span id="span_XXXXL">XXXXL</span><?php } ?></div></td>
+                                    	<td><div class="checkbox"><input type="checkbox" value="<?php echo $this->translate('均码'); ?>" <?php if($this->size_array and isset($this->size_array['jm'])) echo 'checked'; ?> id="jm" name="goods_size[]" onclick="size_select_js('jm');" /><?php if($this->size_array and isset($this->size_array['jm'])) { ?><span id="span_jm"><input type="hidden" value="jm" name="goods_size_value[]"><input type="text" value="<?php echo $this->size_array['jm'];?>" onblur="edit_all_size_value('editjm');" name="goods_size_info[]" id="editjm" class="span8"></span><?php } else { ?><span id="span_jm"><?php echo $this->translate('均码'); ?></span><?php } ?></div></td>
+                                    </tr>
+                                </table>
+                                
+                                <table class="table table-bordered" style="width:80%;<?php if($this->price_goods_array and !empty($this->price_goods_array)) echo ''; else echo 'display:none;'; ?>" id="select_goods_color_size_in">
+									<thead style="background:#CCC;">
+                						<tr>
+                  							<th width="20%" id="color_size_th" style="vertical-align:middle;"><?php if ($this->goods_color) echo $this->goods_color->extend_name; else echo $this->translate('颜色'); ?></th>
+                  							<th width="20%" id="size_th" style="vertical-align:middle;"><?php if ($this->goods_size) echo $this->goods_size->extend_name; else echo $this->translate('尺寸'); ?></th>
+                                            <th width="15%"><?php echo $this->translate('价格'); ?><span class="must_add_value">*</span>&nbsp;<input type="text" class="span8" id="edit_color_size_price" onblur="edit_color_size_price_stock('edit_color_size_price');" /></th>
+                                            <th width="15%"><?php echo $this->translate('库存'); ?><span class="must_add_value">*</span>&nbsp;<input type="text" class="span8" id="edit_color_size_stock" onblur="edit_color_size_price_stock('edit_color_size_stock');" /></th>
+                                            <th width="30%" style="vertical-align:middle;"><?php echo $this->translate('商品货号'); ?>&nbsp;<input type="text" class="span5" id="edit_goods_item" onblur="edit_goods_item_all();" /></th>
+                						</tr>
+              						</thead>
+              						<?php if($this->price_goods_array and !empty($this->price_goods_array)) {
+              							foreach ($this->price_goods_array as $price_goods_k => $price_goods_v) {
+              								foreach ($price_goods_v as $p_g_k => $p_g_v) {
+              						?>
+              								<tr class="<?php echo $price_goods_k; ?>">
+              								<?php if($p_g_k == 0) { ?>
+              								<td rowspan="<?php echo count($price_goods_v); ?>"><label class="color-lump" style="background-color:#<?php echo $price_goods_k; ?>;"></label><span id="edit<?php echo $price_goods_k; ?>_two"><?php echo $this->color_array[$price_goods_k]; ?></span></td>
+              								<?php } ?>
+              								<td class="edit<?php echo $p_g_v['goods_size']; ?>_two"><?php echo $this->size_array[$p_g_v['goods_size']]; ?></td><td><input type="text" value="<?php echo $p_g_v['goods_extend_price']; ?>" name="color_size_price[]" id="price_<?php echo $price_goods_k.$p_g_v['goods_size']; ?>"><input type="hidden" value="<?php echo $price_goods_k; ?>" name="color_size_color[]"><input type="hidden" value="<?php echo $p_g_v['goods_size']; ?>" class="edit<?php echo $p_g_v['goods_size']; ?>_two_input" name="color_size_size[]"></td><td><input type="text" value="<?php echo $p_g_v['goods_extend_stock']; ?>" name="color_size_stock[]" id="stock_<?php echo $price_goods_k.$p_g_v['goods_size']; ?>"></td><td><input type="text" value="<?php echo $p_g_v['goods_extend_item']; ?>" name="color_size_item[]" id="item_<?php echo $price_goods_k.$p_g_v['goods_size']; ?>"></td></tr>
+              						<?php
+              								}
+              							}
+              						}
+              						?>              						
+                                </table>
+                                              					
+            				</div>                        
+                        </div>
+                               	                  
+                  	</div>
+                </div>
+                <div id="goods_c" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('商品分类'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                                <?php
+                                if ($this->goods_class) {
+                                	foreach ($this->goods_class as $class_val) {
+								?>
+                  				<label class="checkbox"  style="margin-left:<?php echo $class_val['class_level'] * 20; ?>px;"><input <?php if($class_val['class_top_id'] != 0) echo 'onclick="select_goods_class(\''.$class_val['class_path'].'\', '.$class_val['class_id'].');"'; ?> type="checkbox" name="class_id[]" id="class_id_<?php echo $class_val['class_id']; ?>" value="<?php echo $class_val['class_id']; ?>" <?php if(($this->in_class and in_array($class_val['class_id'],$this->in_class) or $this->get_class_id == $class_val['class_id'])) { ?>checked="checked"<?php } ?>><?php echo $this->escapeHtml($class_val['class_name']); ?> <?php if($class_val['class_state'] == 0) echo ' [<font color="red"><strong>'.$this->translate('已禁用').'</strong></font>]'; ?></label>
+                                <?php
+                                	}
+                                } else {
+								?>
+								<label><?php echo $this->translate('还没有商品分类'); ?> <a href="<?php echo $this->url('class/default',array('action'=>'add','controller'=>'class')); ?>" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> <?php echo $this->translate('马上去创建商品分类'); ?></a></label>
+                  	            <?php } ?>
+                  	</div>
+                </div>
+                <div id="goods_h" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('商品库存'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('库存数量'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="goods_stock"  name="goods_stock" value="<?php echo ($this->goods_info ? $this->goods_info->goods_stock : '10'); ?>" class="span4">
+            				</div>                        
+                        </div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('库存状态'); ?>：</label>
+           					<div class="controls">
+              					<select class="span2" name="goods_stock_state" id="goods_stock_state">
+                                <?php if($this->stock_state_array) foreach ($this->stock_state_array as $stock_state_value) {
+											if($stock_state_value['stock_type_state'] == 2) continue;
+									?>
+                                <option value="<?php echo $stock_state_value['stock_state_id']; ?>"
+								<?php if($this->goods_info and $this->goods_info->goods_stock_state == $stock_state_value['stock_state_id']) echo 'selected="selected"';
+								elseif ($stock_state_value['state_type'] == 1 and !$this->goods_info) echo 'selected="selected"'; ?> ><?php echo $stock_state_value['stock_state_name']; ?></option>
+                                <?php } ?>
+                                </select>
+                                <label class="checkbox inline"><input type="checkbox" name="goods_stock_state_open" value="1" <?php if($this->goods_info) { echo ($this->goods_info->goods_stock_state_open == 1 ? 'checked="checked"' : ''); } else { echo 'checked="checked"'; } ?> ><?php echo $this->translate('启用'); ?></label>
+                                 <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('当启用了库存状态，前台库存显示下拉菜单选中的文字，不显示库存数量，同时正常购物库存不减少！'); ?>"></i>
+            				</div>                        
+                        </div> 
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品缺货时数量'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="goods_out_of_stock_set"  name="goods_out_of_stock_set" value="<?php echo ($this->goods_info ? $this->goods_info->goods_out_of_stock_set : ''); ?>" class="span4">
+            				</div>                        
+                        </div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('缺货状态'); ?>：</label>
+           					<div class="controls">
+              					<select class="span2" name="goods_out_stock_state" id="goods_out_stock_state">
+                                <?php if($this->stock_state_array) foreach ($this->stock_state_array as $stock_state_value) {
+											if($stock_state_value['stock_type_state'] == 1) continue;
+								?>
+                                <option value="<?php echo $stock_state_value['stock_state_id']; ?>"
+								<?php if($this->goods_info and $this->goods_info->goods_out_stock_state == $stock_state_value['stock_state_id']) echo 'selected="selected"';
+								elseif ($stock_state_value['state_type'] == 1 and !$this->goods_info) echo 'selected="selected"'; ?> ><?php echo $stock_state_value['stock_state_name']; ?></option>
+                                <?php } ?>
+                                </select>
+                                <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('前台商品缺货状态下显示的文字！'); ?>"></i>
+            				</div>                        
+                        </div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('购物车购买最少数量'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="goods_cart_buy_min_num"  name="goods_cart_buy_min_num"  value="<?php echo ($this->goods_info ? $this->goods_info->goods_cart_buy_min_num : ''); ?>" class="span4">
+            				</div>                        
+                        </div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('购物车购买最多数量'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="goods_cart_buy_max_num"  name="goods_cart_buy_max_num"  value="<?php echo ($this->goods_info ? $this->goods_info->goods_cart_buy_max_num : ''); ?>" class="span4">
+            				</div>                        
+                        </div>
+                                         
+                  	</div>
+                </div> 
+                 <div id="goods_d" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('商品图片'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                    <script src="<?php echo $this->basePath('/public/js/uploadify/jquery.uploadify.min.js'); ?>" type="text/javascript"></script>
+					<link rel="stylesheet" type="text/css" href="<?php echo $this->basePath('/public/js/uploadify/uploadify.css'); ?>">
+                    <div id="queue"></div>
+                    <button type="button" class="pull-right btn btn-small btn-primary" onclick="get_editor_new_image(<?php echo ($this->goods_info ? $this->goods_info->goods_id : 0); ?>);"><i class="icon-magnet icon-white"></i> <?php echo $this->translate('点击获取在编辑器中新上传的商品图片'); ?></button>
+					<input id="file_upload" name="file_upload" type="file" multiple="true">
+
+                	<div id="image_message_one">
+                    </div>
+
+               		<table class="table table-hover" id="goods_more_image">
+                    <thead style="background:#CCC;">
+                    	<th width="10%"><?php echo $this->translate('图片'); ?></th>
+                        <th width="20%"><?php echo $this->translate('图片名称'); ?></th>
+                        <th width="10%"><?php echo $this->translate('封面图片'); ?></th>
+                        <th width="5%"><?php echo $this->translate('切换显示'); ?> <i class="cus-help shop_admin_help_note" data-content="<?php echo$this->translate('前台模板的商品详细页面，有切换效果时，显示；这里的设置并不影响图片的显示，这个选项只是针对切换效果。'); ?>"></i></th>
+                        <th width="10%"><?php echo $this->translate('图片排序'); ?></th>
+                        <th width="10%"><?php echo $this->translate('操作'); ?></th>
+                    </thead>
+               		<?php 
+               		if($this->goods_images) {
+               			foreach ($this->goods_images as $image) {
+               		?>
+               		<tr id="image_<?php echo $image->goods_image_id; ?>">
+               		<td><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($image->goods_thumbnail_image)); ?>" style="width: 100px;" border="0"></td>
+               		<td style="vertical-align:middle"><?php  $image_array = array();$image_array = pathinfo($image->goods_title_image); echo $image_array['basename']; ?><input type="hidden" name="image_more[]" value="<?php echo $image->goods_image_id; ?>"></td>
+               		<td style="vertical-align:middle"><input type="radio" name="default_image" <?php if ($this->goods_info and $this->goods_info['goods_image_id']==$image->goods_image_id) { ?>checked="checked"<?php } ?> value="<?php echo $image->goods_image_id; ?>"></td>
+                    <td style="vertical-align:middle"><label class="checkbox"><input type="checkbox" <?php if (isset($image->image_slide) and $image->image_slide==1) { ?>checked="checked"<?php } ?> name="image_slide_<?php echo $image->goods_image_id; ?>" id="image_slide_<?php echo $image->goods_image_id; ?>" onclick="edit_image_slide_state(<?php echo $image->goods_image_id; ?>, 'image_slide_<?php echo $image->goods_image_id; ?>');" value="1"></label></td>
+                    <td style="vertical-align:middle"><input type="text" class="span4" value="<?php echo $image->image_sort; ?>" name="image_sort_<?php echo $image->goods_image_id; ?>" id="image_sort_<?php echo $image->goods_image_id; ?>" /></td>
+               		<td style="vertical-align:middle">
+                    <a href="javascript:;" onclick="edit_goods_image(<?php echo $image->goods_image_id; ?>,'image_sort_<?php echo $image->goods_image_id; ?>','image_slide_<?php echo $image->goods_image_id; ?>','<?php echo $image_array['basename']; ?>');" class="btn btn-small btn-primary"><i class="icon-refresh icon-white"></i> <?php echo $this->translate('更新'); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="javascript:;" onclick="del_goods_image(<?php echo $image->goods_image_id,',\''.$image_array['basename'].'\''; ?>);" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> <?php echo $this->translate('删除'); ?></a>
+                    </td>
+               		</tr>
+               		<?php
+               			}
+               		}
+               		?>
+               		</table>
+					
+                  	</div>
+                </div>               
+                 <div id="goods_e" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('相关商品'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                        <div class="control-group">
+              			<input type="text" placeholder="<?php echo $this->translate('请输入需要添加的商品部分或者全部名称'); ?>" id="related_goods_keyword" name="related_goods_keyword"  value="" class="span5"><input type="hidden" name="related_goods_id" id="related_goods_id" value="" />&nbsp;&nbsp;<button type="button" onclick="add_related_goods_js();" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> <?php echo $this->translate('点击添加相关商品'); ?></button>
+            			<i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('在输入框中输入商品部分或者全部名称，然后点击添加按钮，即可添加相关商品'); ?>"></i>	                      
+                       </div>             	
+            <table class="table table-hover" id="related_goods_table">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="5%">ID</th>
+                    <th width="35%"><?php echo $this->translate('商品名称'); ?></th>
+                    <th width="12%"><?php echo $this->translate('商品货号'); ?></th>
+                    <th width="12%"><?php echo $this->translate('商品价格'); ?></th>
+                    <th width="7%"><?php echo $this->translate('状态'); ?></th>
+                    <th width="6%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php if ($this->related_goods_array) { 
+				foreach($this->related_goods_array as $related_goods_value) {
+			?>
+            <tr id="show_related_goods_<?php echo $related_goods_value['related_id']; ?>">
+            	<td><?php echo $related_goods_value['related_goods_id']; ?></td>
+            	<td><?php echo $this->escapeHtml($related_goods_value['goods_name']); ?></td>
+            	<td><?php echo $related_goods_value['goods_item']; ?></td>
+            	<td><?php echo $related_goods_value['goods_shop_price']; ?></td>
+            	<td><?php echo $related_goods_value['goods_state'] == 1 ? $this->translate('上架') : $this->translate('下架'); ?></td>
+            	<td><a href="javascript:;" onclick="delete_related_goods(<?php echo $related_goods_value['related_id']; ?>);"><?php echo $this->translate('删除'); ?></a></td>  
+            </tr>
+            <?php } } ?>
+            </table>                  
+                  	</div>
+                </div>
+                 <div id="goods_f" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('商品自定义'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                    	  <div class="control-group">
+                  			<label for="input01" class="control-label"><input type="text" class="span10" value="<?php if(isset($this->goods_custom[1]['custom_title']) and !empty($this->goods_custom[1]['custom_title'])) echo $this->escapeHtml($this->goods_custom[1]['custom_title']); ?>" name="custom_title[1]" style="text-align:right">：</label>
+           					<div class="controls">
+              					<input type="text" name="custom_content[1]" value="<?php if(isset($this->goods_custom[1]['custom_content']) and !empty($this->goods_custom[1]['custom_content'])) echo $this->escapeHtml($this->goods_custom[1]['custom_content']); ?>" class="span11" style="margin-top:5px;">
+            				</div>                        
+                        </div>  
+                    	  <div class="control-group">
+                  			<label for="input01" class="control-label"><input type="text" class="span10" value="<?php if(isset($this->goods_custom[2]['custom_title']) and !empty($this->goods_custom[2]['custom_title'])) echo $this->escapeHtml($this->goods_custom[2]['custom_title']); ?>" name="custom_title[2]" style="text-align:right">：</label>
+           					<div class="controls">
+              					<input type="text" name="custom_content[2]" value="<?php if(isset($this->goods_custom[2]['custom_content']) and !empty($this->goods_custom[2]['custom_content'])) echo $this->escapeHtml($this->goods_custom[2]['custom_content']); ?>" class="span11" style="margin-top:5px;">
+            				</div>                        
+                        </div>
+                    	  <div class="control-group">
+                  			<label for="input01" class="control-label"><input type="text" class="span10" value="<?php if(isset($this->goods_custom[3]['custom_title']) and !empty($this->goods_custom[3]['custom_title'])) echo $this->escapeHtml($this->goods_custom[3]['custom_title']); ?>" name="custom_title[3]" style="text-align:right">：</label>
+           					<div class="controls">
+              					<input type="text" name="custom_content[3]" value="<?php if(isset($this->goods_custom[3]['custom_content']) and !empty($this->goods_custom[3]['custom_content'])) echo $this->escapeHtml($this->goods_custom[3]['custom_content']); ?>" class="span11" style="margin-top:5px;">
+            				</div>                        
+                        </div>
+                    	  <div class="control-group">
+                  			<label for="input01" class="control-label"><input type="text" class="span10" value="<?php if(isset($this->goods_custom[4]['custom_title']) and !empty($this->goods_custom[4]['custom_title'])) echo $this->escapeHtml($this->goods_custom[4]['custom_title']); ?>" name="custom_title[4]" style="text-align:right">：</label>
+           					<div class="controls">
+              					<input type="text" name="custom_content[4]" value="<?php if(isset($this->goods_custom[4]['custom_content']) and !empty($this->goods_custom[4]['custom_content'])) echo $this->escapeHtml($this->goods_custom[4]['custom_content']); ?>" class="span11" style="margin-top:5px;">
+            				</div>                        
+                        </div>
+                    	  <div class="control-group">
+                  			<label for="input01" class="control-label"><input type="text" class="span10" value="<?php if(isset($this->goods_custom[5]['custom_title']) and !empty($this->goods_custom[5]['custom_title'])) echo $this->escapeHtml($this->goods_custom[5]['custom_title']); ?>" name="custom_title[5]" style="text-align:right">：</label>
+           					<div class="controls">
+              					<input type="text" name="custom_content[5]" value="<?php if(isset($this->goods_custom[5]['custom_content']) and !empty($this->goods_custom[5]['custom_content'])) echo $this->escapeHtml($this->goods_custom[5]['custom_content']); ?>" class="span11" style="margin-top:5px;">
+            				</div>                        
+                        </div>
+                    	  <div class="control-group">
+                  			<label for="input01" class="control-label"><input type="text" class="span10" value="<?php if(isset($this->goods_custom[6]['custom_title']) and !empty($this->goods_custom[6]['custom_title'])) echo $this->escapeHtml($this->goods_custom[6]['custom_title']); ?>" name="custom_title[6]" style="text-align:right">：</label>
+           					<div class="controls">
+              					<input type="text" name="custom_content[6]" value="<?php if(isset($this->goods_custom[6]['custom_content']) and !empty($this->goods_custom[6]['custom_content'])) echo $this->escapeHtml($this->goods_custom[6]['custom_content']); ?>" class="span11" style="margin-top:5px;">
+            				</div>                        
+                        </div>
+                    	  <div class="control-group">
+                  			<label for="input01" class="control-label"><input type="text" class="span10" value="<?php if(isset($this->goods_custom[7]['custom_title']) and !empty($this->goods_custom[7]['custom_title'])) echo $this->escapeHtml($this->goods_custom[7]['custom_title']); ?>" name="custom_title[7]" style="text-align:right">：</label>
+           					<div class="controls">
+              					<input type="text" name="custom_content[7]" value="<?php if(isset($this->goods_custom[7]['custom_content']) and !empty($this->goods_custom[7]['custom_content'])) echo $this->escapeHtml($this->goods_custom[7]['custom_content']); ?>" class="span11" style="margin-top:5px;">
+            				</div>                        
+                        </div>
+                    	  <div class="control-group">
+                  			<label for="input01" class="control-label"><input type="text" class="span10" value="<?php if(isset($this->goods_custom[8]['custom_title']) and !empty($this->goods_custom[8]['custom_title'])) echo $this->escapeHtml($this->goods_custom[8]['custom_title']); ?>" name="custom_title[8]" style="text-align:right">：</label>
+           					<div class="controls">
+              					<input type="text" name="custom_content[8]" value="<?php if(isset($this->goods_custom[8]['custom_content']) and !empty($this->goods_custom[8]['custom_content'])) echo $this->escapeHtml($this->goods_custom[8]['custom_content']); ?>" class="span11" style="margin-top:5px;">
+            				</div>                        
+                        </div>
+                    	  <div class="control-group">
+                  			<label for="input01" class="control-label"><input type="text" class="span10" value="<?php if(isset($this->goods_custom[9]['custom_title']) and !empty($this->goods_custom[9]['custom_title'])) echo $this->escapeHtml($this->goods_custom[9]['custom_title']); ?>" name="custom_title[9]" style="text-align:right">：</label>
+           					<div class="controls">
+              					<input type="text" name="custom_content[9]" value="<?php if(isset($this->goods_custom[9]['custom_content']) and !empty($this->goods_custom[9]['custom_content'])) echo $this->escapeHtml($this->goods_custom[9]['custom_content']); ?>" class="span11" style="margin-top:5px;">
+            				</div>                        
+                        </div>
+                    	  <div class="control-group">
+                  			<label for="input01" class="control-label"><input type="text" class="span10" value="<?php if(isset($this->goods_custom[10]['custom_title']) and !empty($this->goods_custom[10]['custom_title'])) echo $this->escapeHtml($this->goods_custom[10]['custom_title']); ?>" name="custom_title[10]" style="text-align:right">：</label>
+           					<div class="controls">
+              					<input type="text" name="custom_content[10]" value="<?php if(isset($this->goods_custom[10]['custom_content']) and !empty($this->goods_custom[10]['custom_content'])) echo $this->escapeHtml($this->goods_custom[10]['custom_content']); ?>" class="span11" style="margin-top:5px;">
+            				</div>                        
+                        </div>
+                                         
+                  	</div>
+                </div>
+                 <div id="goods_m" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('组合商品'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                        <div class="control-group">
+              			<input type="text" placeholder="<?php echo $this->translate('请输入需要添加的商品部分或者全部名称'); ?>" id="combination_goods_keyword" name="combination_goods_keyword"  value="" class="span5"><input type="hidden" name="combination_goods_id" id="combination_goods_id" value="" />&nbsp;&nbsp;<button type="button" onclick="add_combination_goods_js();" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> <?php echo $this->translate('点击添加组合商品'); ?></button>
+            			<i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('在输入框中输入商品部分或者全部名称，然后点击添加按钮，即可添加组合商品'); ?>"></i>	                      
+                       </div>             	
+            <table class="table table-hover" id="combination_goods_table">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="5%">ID</th>
+                    <th width="35%"><?php echo $this->translate('商品名称'); ?></th>
+                    <th width="12%"><?php echo $this->translate('商品货号'); ?></th>
+                    <th width="12%"><?php echo $this->translate('商品价格'); ?></th>
+                    <th width="7%"><?php echo $this->translate('状态'); ?></th>
+                    <th width="6%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php if ($this->combination_goods_array) { 
+				foreach($this->combination_goods_array as $combination_goods_value) {
+			?>
+            <tr id="show_combination_goods_<?php echo $combination_goods_value['combination_id']; ?>">
+            	<td><?php echo $combination_goods_value['combination_goods_id']; ?></td>
+            	<td><?php echo $this->escapeHtml($combination_goods_value['goods_name']); ?></td>
+            	<td><?php echo $combination_goods_value['goods_item']; ?></td>
+            	<td><?php echo $combination_goods_value['goods_shop_price']; ?></td>
+            	<td><?php echo $combination_goods_value['goods_state'] == 1 ? $this->translate('上架') : $this->translate('下架'); ?></td>
+            	<td><a href="javascript:;" onclick="delete_combination_goods(<?php echo $combination_goods_value['combination_id']; ?>);"><?php echo $this->translate('删除'); ?></a></td>  
+            </tr>
+            <?php } } ?>
+            </table>                  
+                  	</div>
+                </div>
+				<div id="goods_l" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('商品标签'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+              			<?php if ($this->goods_tag_group) {
+							foreach($this->goods_tag_group as $tag_group_key => $tag_group) {
+						?>                        
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php if ($tag_group == '') echo $this->translate('未分组'); else echo $tag_group; ?>：</label>
+           					<div class="controls">
+              					<?php if ($this->goods_tag[$tag_group_key]) {
+									foreach($this->goods_tag[$tag_group_key] as $tag_val) {
+								?>
+                                <label class="checkbox inline"><input type="checkbox" name="tag_id[]" <?php if ($this->in_goods_tag and in_array($tag_val['tag_id'], $this->in_goods_tag)) echo 'checked="checked"'; ?> value="<?php echo $tag_val['tag_id']; ?>" ><?php echo $tag_val['tag_name']; ?></label>
+                                <?php } } ?>
+            				</div>                        
+                        </div>
+                        <?php } } ?>                                         
+                  	</div>
+                </div>
+                
+				<div id="goods_k" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('商品属性'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品属性组'); ?>：</label>
+           					<div class="controls">
+                            	<select name="attribute_group_id" id="attribute_group_id" onchange="show_attribute_input();" class="span2">
+                                <option value="0"><?php echo $this->translate('选择属性组'); ?></option>
+                                <?php
+                                if ($this->attribute_group) {
+									foreach($this->attribute_group as $g_val) {	
+								?>
+								<option value="<?php echo $g_val['attribute_group_id']; ?>" <?php if ($this->goods_info and $g_val['attribute_group_id']==$this->goods_info->attribute_group_id) { ?>selected="selected"<?php } ?>><?php echo $this->escapeHtml($g_val['attribute_group_name']); ?></option>
+                                <?php
+									}
+								}
+								?>
+                                </select>            				
+            				</div>                   			                        
+                        </div>
+                        <div id="attribute_input_show">
+                        <?php if(isset($this->attribute_html) and $this->attribute_html != '') echo $this->attribute_html; ?>
+                        </div>                                         
+                  	</div>
+                </div>
+                
+				<div id="goods_j" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('商品评价'); ?></div>
+                	<div class="well admin_add_well" style="padding:2px;">
+                	    <div class="message_one">
+                    	</div>
+                        <table class="table table-hover" id="list_comment_show">
+
+                        </table>                                          
+                  	</div>
+                </div>
+                
+                 <div id="goods_g" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('搜索引擎优化'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品关键词'); ?>：</label>
+           					<div class="controls">
+              					<textarea class="span12" name="goods_keywords" id="goods_keywords" rows="2"><?php echo ($this->goods_info ? $this->escapeHtml($this->goods_info->goods_keywords) : ''); ?></textarea>
+            				</div>                        
+                        </div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品描述'); ?>：</label>
+           					<div class="controls">
+              					<textarea class="span12" name="goods_description" id="goods_description" rows="4"><?php echo ($this->goods_info ? $this->escapeHtml($this->goods_info->goods_description) : ''); ?></textarea>
+            				</div>                        
+                        </div>                                          
+                  	</div>
+                </div>                                         
+              </div>
+              </form>
+</div>
+<link href="<?php echo $this->basePath('public/js/jquery-autocomplete/jquery.autocomplete.css'); ?>" rel="stylesheet">
+<script src="<?php echo $this->basePath('public/js/jquery-autocomplete/jquery.autocomplete.min.js'); ?>"></script>
+
+<script src="<?php echo $this->basePath('/public/js/DatePicker/WdatePicker.js'); ?>"></script>
+
+<script>
+    //编辑器中使用
+    var DBSHOP_GOODS_ID   = <?php echo ($this->goods_info ? $this->goods_info->goods_id : 0); ?>;
+    var DBSHOP_SESSION_ID = '<?php echo md5(session_id()); ?>';
+    var DBSHOP_LANGUAGE   = '<?php echo $this->dbshop_language; ?>';
+</script>
+<?php echo $this->partial('common/editor',array('edit_array'=>array('goods_body'))); ?>
+
+<?php if ($this->success_msg != '') { ?>
+<script>
+show_message('.message_one','<?php echo date("Y-m-d H:i:s",time()); ?>','<?php echo $this->success_msg; ?>','alert-success');
+</script>
+<?php } ?>
+
+<script type="text/javascript">
+//商品保存验证
+$(document).ready(function() {
+	$("#form_goods_add").validate({
+		rules: {
+			goods_name: {
+				required: true,
+				minlength:2,
+				maxlength:80
+			},
+			goods_shop_price: {
+				required:true,
+				number:true,
+				maxlength:20,
+				min:0
+			},
+			goods_type: {
+				required:true
+			},
+			goods_stock: {
+				required:true,
+				digits:true,
+				maxlength:11
+			},
+			//上面为必填，下面为非必填
+			goods_weight: {
+				number:true,
+				maxlength:20,
+				min:0
+			},
+			goods_info: {
+				maxlength:600
+			},
+			goods_price: {
+				number:true,
+				maxlength:20,
+				min:0
+			},
+			goods_preferential_price: {
+				number:true,
+				maxlength:20,
+				min:0
+			},
+			goods_out_of_stock_set: {
+				digits:true,
+				maxlength:11
+			},
+			goods_cart_buy_min_num: {
+				digits:true,
+				maxlength:11
+			},
+			goods_cart_buy_max_num: {
+				digits:true,
+				maxlength:11
+			},
+			goods_extend_name: {
+				maxlength:80
+			},
+			goods_keywords: {
+				maxlength:200
+			},
+			goods_description: {
+				maxlength:500
+			},
+			virtual_sales: {
+				number:true,
+				min:0
+			},
+			goods_integral_num: {
+				number:true,
+				min:0
+			}
+		},
+		messages: {
+			goods_name: {
+				required: "<?php echo $this->translate('商品名称不能为空！'); ?>",
+				minlength:"<?php echo $this->translate('商品名称最少两个字符！'); ?>",
+				maxlength:"<?php echo $this->translate('商品名称最长80个字符！'); ?>"
+			},
+			goods_shop_price: {
+				required: "<?php echo $this->translate('本店价格不能为空！'); ?>",
+				number:"<?php echo $this->translate('价格必须为数字！'); ?>",
+				maxlength:"<?php echo $this->translate('价格最长20个数字！'); ?>",
+				min:"<?php echo $this->translate('本店价格最小为0！'); ?>"
+			},
+			goods_type: {
+				required: "<?php echo $this->translate('商品类型不能为空！'); ?>"
+			},
+			goods_stock: {
+				required:"<?php echo $this->translate('库存不能为空！'); ?>",
+				digits:"<?php echo $this->translate('库存必须为整数！'); ?>",
+				maxlength:"<?php echo $this->translate('数量最多11个字符！'); ?>"
+			},
+			//上面为必填，下面为非必填
+			goods_weight: {
+				number:"<?php echo $this->translate('重量必须为数字！'); ?>",
+				maxlength:"<?php echo $this->translate('重量最长20个数字！'); ?>",
+				min:"<?php echo $this->translate('重量最小为0！'); ?>"
+			},
+			goods_info: {
+				maxlength:"<?php echo $this->translate('商品简述最多600个字符！'); ?>"
+			},
+			goods_price: {
+				number:"<?php echo $this->translate('市场价格必须为数字！'); ?>",
+				maxlength:"<?php echo $this->translate('市场价格最长20个数字！'); ?>",
+				min:"<?php echo $this->translate('市场价格最小为0！'); ?>"
+			},
+			goods_preferential_price: {
+				number:"<?php echo $this->translate('优惠价格必须为数字！'); ?>",
+				maxlength:"<?php echo $this->translate('优惠价格最长20个数字！'); ?>",
+				min:"<?php echo $this->translate('优惠价格最小为0！'); ?>"
+			},
+			goods_out_of_stock_set: {
+				digits:"<?php echo $this->translate('必须输入整数！'); ?>",
+				maxlength:"<?php echo $this->translate('数量最多11个字符！'); ?>"
+			},
+			goods_cart_buy_min_num: {
+				digits:"<?php echo $this->translate('必须输入整数！'); ?>",
+				maxlength:"<?php echo $this->translate('数量最多11个字符！'); ?>"
+			},
+			goods_cart_buy_max_num: {
+				digits:"<?php echo $this->translate('必须输入整数！'); ?>",
+				maxlength:"<?php echo $this->translate('数量最多11个字符！'); ?>"
+			},
+			goods_extend_name: {
+				maxlength:"<?php echo $this->translate('扩展标题最多80个字符！'); ?>"
+			},
+			goods_keywords: {
+				maxlength:"<?php echo $this->translate('商品关键字最多200个字符！'); ?>"
+			},
+			goods_description: {
+				maxlength:"<?php echo $this->translate('商品描述最多500个字符！'); ?>"
+			},
+			virtual_sales: {
+				number:"<?php echo $this->translate('虚拟销量必须为数字！'); ?>",
+				min:"<?php echo $this->translate('虚拟销量最小为0！'); ?>"
+			},
+			goods_integral_num: {
+				number:"<?php echo $this->translate('积分购买必须为数字！'); ?>",
+				min:"<?php echo $this->translate('积分购买最小为0！'); ?>"
+			}
+		}
+	});
+});
+//商品删除
+function goods_del_js(goods_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该商品吗？'); ?>')) {
+	$.post("<?php echo $this->url('goods/default',array('action'=>'del','controller'=>'goods')); ?>",{goods_id:goods_id},
+		function(data){
+			if(data != 'false') {
+				window.location.href='<?php echo $this->url('goods/default',array('controller'=>'goods')); ?>';
+				return true;
+			} else {
+				alert('<?php echo $this->translate('商品删除失败！'); ?>');
+			}
+		});
+	}
+	return false;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//选择颜色
+var select_color_num = <?php if($this->color_array) echo count($this->color_array); else echo '0'; ?>;
+function color_select_js(color_id) {
+	if($("#"+color_id).attr("checked")) {
+		var	color_value = $("#"+color_id).val();
+
+        if(color_id == 'kongzhi') {
+            $("#span_"+color_id).html('<input type="hidden" name="goods_color_value[]" value="'+color_id+'"><input type="text" class="span8" id="edit'+color_id+'" name="goods_color_info[]" readonly value="'+color_value+'" />');
+        } else {
+            $("#span_"+color_id).html('<input type="hidden" name="goods_color_value[]" value="'+color_id+'"><input type="text" class="span8" id="edit'+color_id+'" name="goods_color_info[]" onblur="edit_all_color_value(\'edit'+color_id+'\');" value="'+color_value+'" />');
+        }
+		//生成颜色列表
+		select_color_num++;
+		if(select_color_num == 1) $("#select_goods_color_in").css('display','');
+		$("#select_goods_color_in").append('<tr id="show_in_'+color_id+'"><td><label style="background-color:#'+color_id+';" class="color-lump"></label><span id="edit'+color_id+'_one">'+color_value+'</span></td></tr>');
+		
+		color_size_list_js();
+	} else {
+		$("#span_"+color_id).html($("#"+color_id).val());
+		//删除取消的颜色
+		select_color_num--;
+		$("#show_in_"+color_id).remove();
+		if(select_color_num == 0) $("#select_goods_color_in").css('display','none');
+		
+		color_size_list_js();
+	}
+}
+//选择尺寸
+var select_size_num = <?php if($this->size_array) echo count($this->size_array); else echo '0'; ?>;
+function size_select_js(size_id) {
+	if($("#"+size_id).attr("checked")) {
+		$("#span_"+size_id).html('<input type="hidden" name="goods_size_value[]" value="'+size_id+'"><input type="text" class="span8" id="edit'+size_id+'" name="goods_size_info[]" onblur="edit_all_size_value(\'edit'+size_id+'\');" value="'+$("#"+size_id).val()+'" />');
+		select_size_num++;
+		
+		color_size_list_js();
+	} else {
+		$("#span_"+size_id).html($("#"+size_id).val());
+		select_size_num--;
+		
+		color_size_list_js();
+	}	
+}
+//颜色和尺寸都选择的情况下进行处理
+var select_color_size_num = <?php if($this->price_goods_array) echo count($this->price_goods_array); else echo '0'; ?>;
+function color_size_list_js() {
+	if(select_size_num != 0 && select_color_num != 0) {
+		if(select_color_size_num == 0) {
+			$("#select_goods_color_size_in").css('display','');
+			select_color_size_num = 1;
+		}
+	
+		//进行组合循环
+		$("input[name='goods_color[]']").each(function() {
+			if (this.checked == true) {
+				var color_id        = this.id;
+				var num_count       = 0;
+				var color_size_html = '';
+				$("input[name='goods_size[]']").each(function() {
+					if (this.checked == true) {
+						var price_val = $("#price_"+color_id+this.id).val() ? $("#price_"+color_id+this.id).val() : '';
+						var stock_val = $("#stock_"+color_id+this.id).val() ? $("#stock_"+color_id+this.id).val() : '';
+						var item_val = $("#item_"+color_id+this.id).val() ? $("#item_"+color_id+this.id).val() : '';
+						
+						var size_value_info = $("#edit"+this.id).val() ? $("#edit"+this.id).val() : this.value;//这样取值是因为在尺寸部分勾选后是可以对描述进行修改的
+						if(num_count != 0) color_size_html = color_size_html +'<tr class="'+color_id+'">';
+						
+						color_size_html = color_size_html + '<td class="edit'+this.id+'_two">'+size_value_info+'</td>';
+						color_size_html = color_size_html + '<td><input type="text" id="price_'+color_id+this.id+'" name="color_size_price[]" value="'+price_val+'">';
+						color_size_html = color_size_html + '<input type="hidden" name="color_size_color[]" value="'+color_id+'">';
+						color_size_html = color_size_html + '<input type="hidden" name="color_size_size[]" class="edit'+this.id+'_two_input" value="'+this.id+'"></td>';
+						
+						color_size_html = color_size_html + '<td><input type="text" id="stock_'+color_id+this.id+'" name="color_size_stock[]" value="'+stock_val+'"></td>';
+						color_size_html = color_size_html + '<td><input type="text" id="item_'+color_id+this.id+'" name="color_size_item[]" value="'+item_val+'"></td>';
+						color_size_html = color_size_html +'</tr>';
+						num_count++;
+					}
+				});
+				var color_value_info = $("#edit"+color_id).val() ? $("#edit"+color_id).val() : this.value;//这样取值是因为在颜色部分勾选后是可以对描述进行修改的
+				color_size_html = '<tr class="'+color_id+'"><td rowspan="'+num_count+'"><label style="background-color:#'+color_id+';" class="color-lump"></label><span id="edit'+color_id+'_two">'+color_value_info+'</span></td>'+color_size_html;
+				$("."+color_id).remove();
+				
+				$("#select_goods_color_size_in").append(color_size_html);
+			} else {
+				if($('.'+this.id).html()) {
+					$("."+this.id).remove();
+				}
+			}
+		});
+	} else if(select_size_num == 0 || select_color_num == 0) {
+		$("#select_goods_color_size_in").css('display','none');
+		select_color_size_num = 0;
+	}
+}
+//颜色属性，名称修改时，下面对应的列表颜色或尺寸属性名称变化
+$("#goods_options_one,#goods_options_two").focusout(function(){
+	if(select_color_num != 0) {
+		$("#color_th").html($("#goods_options_one").val());
+		$("#color_size_th").html($("#goods_options_one").val());
+	}
+	if(select_color_size_num != 0) {
+		$("#size_th").html($("#goods_options_two").val());	
+	}
+});
+//颜色或尺寸值，名称修改时，下面对应的列表颜色或尺寸具体值变化
+function edit_all_color_value(edit_id){
+	if(select_color_num != 0) {
+		$("#"+edit_id+'_one').html($("#"+edit_id).val());
+	}
+	if(select_color_size_num != 0) {
+		$("#"+edit_id+'_two').html($("#"+edit_id).val());
+	}
+}
+function edit_all_size_value(edit_id){
+	if(select_color_size_num != 0) {
+		$("."+edit_id+'_two').html($("#"+edit_id).val());
+		//$("."+edit_id+'_two_input').val($("#"+edit_id).val());
+	}
+}
+//扩展列表（颜色和尺寸），商品价格和库存统一修改
+function edit_color_size_price_stock(edit_id) {
+	if(edit_id == 'edit_color_size_price') {
+		var edit_name  = 'color_size_price';
+	} else {
+		var edit_name  = 'color_size_stock';
+	}
+	var edit_value = $('#'+edit_id).val();
+	
+	$("input[name='"+edit_name+"[]']").each(function() {
+		if(!this.value || this.value == 0) {
+			this.value=	edit_value;
+		}
+	})
+}
+//商品货号批量修改
+function edit_goods_item_all() {
+    var edit_goods_item_value = $('#edit_goods_item').val();
+    $("input[name='color_size_item[]']").each(function() {
+        if(!this.value || this.value == 0) {
+            this.value=	edit_goods_item_value;
+        }
+    })
+}
+//对最终的结果进行检测
+function check_size_goods() {
+	if(select_color_size_num != 0) {
+		var error_message = '';
+		$("input[name='color_size_price[]']").each(function() {
+			if(!/^[0-9]+(.[0-9]*)?$/.test($(this).val()) || $(this).val() < 0) {
+				error_message = '<?php echo $this->translate('销售属性中的商品价格不能为空，且不能小于0！'); ?>';
+				$(this).focus();
+				return false;
+			}
+		})
+		if(error_message) { alert(error_message); return false; }
+		
+		$("input[name='color_size_stock[]']").each(function() {
+			if(!/^\d+$/.test($(this).val()) || $(this).val() < 0) {
+				error_message = '<?php echo $this->translate('销售属性中的商品库存不能为空,且必须为数字不能小于0！'); ?>';
+				$(this).focus();
+				return false;
+			}
+		})
+		if(error_message) { alert(error_message); return false; }
+		
+		/*$("input[name='color_size_item[]']").each(function() {
+			if(!this.value || this.value == 0) {
+				error_message = '<?php echo $this->translate('销售属性中的商品货号不能为空！'); ?>';
+				$(this).focus();
+				return false;
+			}
+		})
+		if(error_message) { alert(error_message); return false; }*/
+	}
+	return true;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//属性输入显示
+function show_attribute_input() {
+	var attribute_group_id = $('#attribute_group_id').val();
+	var goods_id		   = $('#goods_id').val();
+	$.post("<?php echo $this->url('goods/default',array('action'=>'attributeInput')); ?>",{attribute_group_id:attribute_group_id,goods_id:goods_id},
+			function(data){
+				$("#attribute_input_show").html(data);
+				return true;
+			});	
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function edit_image_slide_state(goods_image_id, image_slide_input) {
+    if($('#'+image_slide_input).attr("checked")){
+        var image_slide_value= 1;
+    } else {
+        var image_slide_value= 2;
+    }
+    $.post("<?php echo $this->url('goods/default',array('action'=>'updateimage')); ?>",{goods_image_id:goods_image_id,image_slide_value:image_slide_value},
+        function(data){
+            if(data != 'false') {
+                return true;
+            } else {
+                if (image_slide_value == 1) $('#'+image_slide_input).attr("checked", false);
+                if (image_slide_value == 2) $('#'+image_slide_input).attr("checked", true);
+
+                alert('<?php echo $this->translate('更新显示失败！'); ?>');
+            }
+        });
+}
+//商品图片更新
+function edit_goods_image(goods_image_id,image_sort_input,image_slide_input,goods_image_name) {
+	var image_sort_value = $('#'+image_sort_input).val();
+    var default_image    = $('input[name="default_image"]:checked').val();
+
+    if($('#'+image_slide_input).attr("checked") || default_image == goods_image_id){
+        var image_slide_value= 1;
+        $('#'+image_slide_input).attr("checked", 'true');
+    } else {
+        var image_slide_value= 2;
+    }
+
+	if(!/^[0-9]+(.[0-9]*)?$/.test(image_sort_value)) {
+		alert('<?php echo $this->translate('图片排序必须为数字！'); ?>');
+		$("#"+image_sort_input).focus();
+		return false;
+	}
+	if(image_sort_value > 255 || image_sort_value < 0) {
+		alert('<?php echo $this->translate('图片排序不能大于255或小于0'); ?>');
+		$("#"+image_sort_input).focus();
+		return false;
+	}
+
+	$.post("<?php echo $this->url('goods/default',array('action'=>'updateimage')); ?>",{goods_image_id:goods_image_id,image_sort:image_sort_value,image_slide_value:image_slide_value},
+	function(data){
+		if(data != 'false') {
+			show_message('#image_message_one','<?php echo date("Y-m-d H:i:s",time()); ?>','<?php echo $this->translate('图片'); ?>'+goods_image_name+'<?php echo $this->translate('更新成功！'); ?>','alert-success');
+			return true;
+		} else {
+			alert('<?php echo $this->translate('图片'); ?>'+goods_image_name+'<?php echo $this->translate('更新失败！'); ?>');
+		}
+	});
+}
+//商品图片删除
+function del_goods_image(image_id,goods_image_name) {
+	if(window.confirm('<?php echo $this->translate('您确实删除图片'); ?>'+goods_image_name+'？')) {
+		$.post("<?php echo $this->url('goods/default',array('action'=>'delimage')); ?>",{goods_image_id:image_id},
+		function(data){
+			if(data != 'false') {
+				$("#image_"+image_id).remove();
+				return true;
+			} else {
+				alert('<?php echo $this->translate('图片'); ?>'+goods_image_name+'<?php echo $this->translate('删除失败！'); ?>');
+			}
+		});
+	}
+	return false;
+}
+
+<?php $timestamp = time();?>
+$(function() {
+	$('#file_upload').uploadify({
+	'formData'  : {
+	'timestamp' : '<?php echo $timestamp;?>',
+	'token'     : '<?php echo md5('unique_salt' . $timestamp);?>',
+    'editSession': DBSHOP_SESSION_ID
+	},
+	'successTimeout'   : 30,
+	buttonText         : '<?php echo $this->translate('上传商品图片'); ?>',
+	'swf'              : '<?php echo $this->basePath('/public/js/uploadify/uploadify.swf'); ?>',
+	'uploader'         : '<?php echo $this->url('goods/default',array('action'=>'addimage')); ?>',
+	'onUploadSuccess' : function (file, data, response) {
+		if(!data.match("^\{(.+:.+,*){1,}\}$")) {
+		    alert(data);
+		    return false;
+		}
+		if(response) {
+            data = jQuery.parseJSON(data);
+
+            var image_path = '';
+            if(data.yun_type == 'yun') {
+                image_path = '';
+            } else {
+                image_path = '<?php echo rtrim($this->basePath('/'), '/'); ?>';
+            }
+
+			var image_html = '<tr id="image_'+data.image_id+'">';
+			image_html = image_html+'<td><img src="'+image_path+data.image_name+'" style="width: 100px;" broder=0></td>';
+			image_html = image_html+'<td style="vertical-align:middle">'+data.image+'<input type="hidden" name="image_more[]" value="'+data.image_id+'"></td>';
+			image_html = image_html+'<td style="vertical-align:middle"><input type="radio" name="default_image" value="'+data.image_id+'"></td>';
+			image_html = image_html+'<td style="vertical-align:middle"><label class="checkbox"><input type="checkbox" checked name="image_slide_'+data.image_id+'" id="image_slide_'+data.image_id+'" value="1"></label></td>';
+			image_html = image_html+'<td style="vertical-align:middle"><input type="text" class="span4" name="image_sort_'+data.image_id+'" id="image_sort_'+data.image_id+'" value="255" /></td>';
+			image_html = image_html+'<td style="vertical-align:middle"><a href="javascript:;" onclick="edit_goods_image('+data.image_id+',\'image_sort_'+data.image_id+'\',\'image_slide_'+data.image_id+'\',\''+data.image+'\');" class="btn btn-small btn-primary"><i class="icon-refresh icon-white"></i> <?php echo $this->translate('更新'); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="del_goods_image('+data.image_id+',\''+data.image+'\');" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> <?php echo $this->translate('删除'); ?></a></td>';
+			image_html = image_html+'</tr>';
+			$('#goods_more_image').prepend(image_html);
+			return true;
+		}
+		alert(file.name+'<?php echo $this->translate('上传失败！'); ?>');
+	}
+	});
+});
+
+function get_editor_new_image(goods_id) {
+
+    var image_id = '';
+    $("input[name='image_more[]']").each(function() {
+        if(this.value != 0) {
+            image_id += this.value + '|';
+        }
+    })
+
+    $.post("<?php echo $this->url('goods/default',array('action'=>'getEditorImage')); ?>",{goods_id:goods_id, editor_session_str:DBSHOP_SESSION_ID, image_id:image_id},
+        function(data){
+            if(data != null) {
+                var image_path = '';
+                for(var i=0; i<data.length; i++) {
+                    if(data[i].yun_type == 'yun') {
+                        image_path = '';
+                    } else {
+                        image_path = '<?php echo rtrim($this->basePath('/'), '/'); ?>';
+                    }
+
+                    var image_html = '<tr id="image_'+data[i].goods_image_id+'">';
+                    image_html = image_html+'<td><img src="'+image_path+data[i].goods_thumbnail_image+'" style="width: 100px;" broder=0></td>';
+                    image_html = image_html+'<td style="vertical-align:middle">'+data[i].image_name+'<input type="hidden" name="image_more[]" value="'+data[i].goods_image_id+'"></td>';
+                    image_html = image_html+'<td style="vertical-align:middle"><input type="radio" name="default_image" value="'+data[i].goods_image_id+'"></td>';
+                    image_html = image_html+'<td style="vertical-align:middle"><label class="checkbox"><input type="checkbox" '+data[i].checked+' name="image_slide_'+data[i].goods_image_id+'" id="image_slide_'+data[i].goods_image_id+'" value="1"></label></td>';
+                    image_html = image_html+'<td style="vertical-align:middle"><input type="text" class="span4" name="image_sort_'+data[i].goods_image_id+'" id="image_sort_'+data[i].goods_image_id+'" value="'+data[i].image_sort+'" /></td>';
+                    image_html = image_html+'<td style="vertical-align:middle"><a href="javascript:;" onclick="edit_goods_image('+data[i].goods_image_id+',\'image_sort_'+data[i].goods_image_id+'\',\'image_slide_'+data[i].goods_image_id+'\',\''+data[i].image_name+'\');" class="btn btn-small btn-primary"><i class="icon-refresh icon-white"></i> <?php echo $this->translate('更新'); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="del_goods_image('+data[i].goods_image_id+',\''+data[i].image_name+'\');" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> <?php echo $this->translate('删除'); ?></a></td>';
+                    image_html = image_html+'</tr>';
+                    $('#goods_more_image').prepend(image_html);
+                }
+            } else {
+                alert('<?php echo $this->translate('无新的商品图片'); ?>');
+            }
+        },'json');
+}
+
+<?php if (isset($this->goods_info) and $this->goods_info->goods_id != '')  { ?>
+//ajax获取列表信息
+dbshop_ajax_list('<?php echo $this->url('comment/default/goods-id',array('action'=>'ajaxcomment','controller'=>'comment','goods_id'=>$this->goods_info->goods_id)); ?>', 'list_comment_show');
+
+//ajax删除单个评价
+function del_one_comment(comment_id, goods_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该条评价吗？'); ?>')) {
+	$.post("<?php echo $this->url('comment/default',array('action'=>'ajaxdelonecomment')); ?>",{goods_id:goods_id,comment_id:comment_id},
+		function(data){
+			if(data != 'false') {
+				dbshop_ajax_list('<?php echo $this->url('comment/default/goods-id',array('action'=>'ajaxcomment','controller'=>'comment','goods_id'=>$this->goods_info->goods_id)); ?>', 'list_comment_show');
+				return true;
+			} else {
+				alert('<?php echo $this->translate('评价删除失败！'); ?>');
+			}
+		});
+	}
+	return false;	
+}
+<?php } ?>
+
+//jquery-autocomplete查询商品
+$("#related_goods_keyword").autocomplete("<?php echo $this->url('goods/default',array('action'=>'autocompleteGoodsSearch')); ?>", {
+	//mustMatch: true,
+	max: 20,
+	minChars:1,
+	scrollHeight:400
+});
+$("#related_goods_keyword").result(function(event, data, formatted) {
+	if (data) $("#related_goods_id").val(data[1]);
+});
+//添加关联商品
+function add_related_goods_js() {
+	var goods_id 	     = $('#goods_id').val();
+	var related_goods_id = $('#related_goods_id').val();
+	if(related_goods_id == '') {
+		alert('<?php echo $this->translate('该商品不存在，请从新选择！'); ?>');
+		return false;	
+	}
+	$.post("<?php echo $this->url('goods/default',array('action'=>'addRelatedGoods')); ?>",{goods_id:goods_id,related_goods_id:related_goods_id},
+		function(data){
+			if(data.state == 'true') {
+				var html_table = '<tr id="show_related_goods_'+data.related_id+'">';
+				html_table = html_table + '<td>'+data.related_goods_id+'</td>';
+				html_table = html_table + '<td>'+data.goods_name+'</td>';
+				html_table = html_table + '<td>'+data.goods_item+'</td>';
+				html_table = html_table + '<td>'+data.goods_shop_price+'</td>';
+				html_table = html_table + '<td>'+data.goods_state+'</td>';
+				html_table = html_table + '<td><a href="javascript:;" onclick="delete_related_goods('+data.related_id+');"><?php echo $this->translate('删除'); ?></a></td>';
+				html_table = html_table + '</tr>';
+				$('#related_goods_table').prepend(html_table);
+				$('#related_goods_keyword').val('');
+				$('#related_goods_id').val('');
+			} else if(data.state == 'have') {
+				alert('<?php echo $this->translate('该关联商品已经存在，无需再次添加！'); ?>');
+			} else {
+				alert('<?php echo $this->translate('关联商品添加失败！'); ?>');
+			}
+		},'json');
+}
+//删除关联商品
+function delete_related_goods(related_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该关联商品吗？'); ?>')) {
+		$.post("<?php echo $this->url('goods/default',array('action'=>'delRelatedGoods')); ?>",{related_id:related_id},
+		function(data){
+			if(data == 'true') {
+				$("#show_related_goods_"+related_id).remove();
+			} else {
+				alert('<?php echo $this->translate('关联商品删除失败！'); ?>');
+			}
+		});		
+	}
+}
+//jquery-autocomplete查询组合商品
+$("#combination_goods_keyword").autocomplete("<?php echo $this->url('goods/default',array('action'=>'autocompleteGoodsSearch')); ?>", {
+	//mustMatch: true,
+	max: 20,
+	minChars:1,
+	scrollHeight:400
+});
+$("#combination_goods_keyword").result(function(event, data, formatted) {
+	if (data) {
+		$("#combination_goods_id").val(data[1]);
+	}
+});
+//添加组合商品
+function add_combination_goods_js() {
+	var goods_id 	     	 = $('#goods_id').val();
+	var combination_goods_id = $('#combination_goods_id').val();
+	if(combination_goods_id == '') {
+		alert('<?php echo $this->translate('该商品不存在，请从新选择！'); ?>');
+		return false;	
+	}
+	$.post("<?php echo $this->url('goods/default',array('action'=>'addCombinationGoods')); ?>",{goods_id:goods_id,combination_goods_id:combination_goods_id},
+		function(data){
+			if(data.state == 'true') {
+				var html_table = '<tr id="show_combination_goods_'+data.combination_id+'">';
+				html_table = html_table + '<td>'+data.combination_goods_id+'</td>';
+				html_table = html_table + '<td>'+data.goods_name+'</td>';
+				html_table = html_table + '<td>'+data.goods_item+'</td>';
+				html_table = html_table + '<td>'+data.goods_shop_price+'</td>';
+				html_table = html_table + '<td>'+data.goods_state+'</td>';
+				html_table = html_table + '<td><a href="javascript:;" onclick="delete_combination_goods('+data.combination_id+');"><?php echo $this->translate('删除'); ?></a></td>';
+				html_table = html_table + '</tr>';
+				$('#combination_goods_table').prepend(html_table);
+				$('#combination_goods_keyword').val('');
+				$('#combination_goods_id').val('');
+			} else if(data.state == 'have') {
+				alert('<?php echo $this->translate('该组合商品已经存在，无需再次添加！'); ?>');
+			} else {
+				alert('<?php echo $this->translate('组合商品添加失败！'); ?>');
+			}
+		},'json');
+}
+//删除组合商品
+function delete_combination_goods(combination_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该组合商品吗？'); ?>')) {
+		$.post("<?php echo $this->url('goods/default',array('action'=>'delCombinationGoods')); ?>",{combination_id:combination_id},
+		function(data){
+			if(data == 'true') {
+				$("#show_combination_goods_"+combination_id).remove();
+			} else {
+				alert('<?php echo $this->translate('组合商品删除失败！'); ?>');
+			}
+		});		
+	}
+}
+//将商品价格转换为积分
+function price_change_integral() {
+	var goods_price = $('#goods_shop_price').val();
+	if(goods_price == '') { alert('<?php echo $this->translate('请先输入商品价格！'); ?>'); return; }
+	$.post("<?php echo $this->url('integral/default',array('action'=>'goodsPriceChangeIntegral')); ?>",{price:goods_price},
+			function(data){
+				if(data == 'false') {
+					alert('<?php echo $this->translate('积分转换失败！'); ?>');
+				} else {
+					$('#goods_integral_num').val(data);
+				}
+			});
+}
+
+//商品分类选择处理
+function select_goods_class(class_path, class_id) {
+    if($("#class_id_"+class_id).attr("checked")) {
+        var class_array = new Array();
+        class_array     = class_path.split(",");
+        for(i=0; i<class_array.length; i++) {
+            if(class_array[i] != class_id) $("#class_id_"+class_array[i]).attr("checked", "true");
+        }
+    }
+}
+
+<?php if(isset($this->get_class_info) and $this->get_class_info->class_top_id != 0) { ?>
+select_goods_class('<?php echo $this->get_class_info->class_path; ?>', '<?php echo $this->get_class_info->class_id; ?>');
+<?php } ?>
+</script>

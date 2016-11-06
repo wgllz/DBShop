@@ -1,0 +1,73 @@
+<?php if($this->ad_slide) { ?>
+<div id="focus" class="focus ect-margin-tb">
+    <div class="hd">
+        <ul>
+        </ul>
+    </div>
+    <div class="bd">
+        <?php
+        $ad_index_slide = $this->frontwebsite()->getShopAd('index', 'phone_slide', 'phone');
+        if($ad_index_slide != '') {
+            echo $ad_index_slide;
+        }
+        ?>
+    </div>
+</div>
+<?php } ?>
+
+<nav class="container-fluid">
+    <ul class="row ect-row-nav">
+        <a href="<?php echo $this->url('m_class/default'); ?>">
+            <li class="col-sm-3 col-xs-3"><i><img src="<?php echo $this->basePath('public/mobile/default/images/class.png'); ?>" ></i>
+                <p class="text-center"><?php echo $this->translate('全部分类'); ?></p>
+            </li>
+        </a>
+        <a href="<?php echo $this->url('m_order/default'); ?>">
+            <li class="col-sm-3 col-xs-3"><i><img src="<?php echo $this->basePath('public/mobile/default/images/order.png'); ?>" ></i>
+                <p class="text-center"><?php echo $this->translate('我的订单'); ?></p>
+            </li>
+        </a>
+        <a href="<?php echo $this->url('m_home/default'); ?>">
+            <li class="col-sm-3 col-xs-3"><i><img src="<?php echo $this->basePath('public/mobile/default/images/home.png'); ?>" ></i>
+                <p class="text-center"><?php echo $this->translate('会员中心'); ?></p>
+            </li>
+        </a>
+        <a href="<?php echo $this->url('m_cart/default'); ?>">
+            <li class="col-sm-3 col-xs-3"><i><img src="<?php echo $this->basePath('public/mobile/default/images/cart.png'); ?>" ></i>
+                <p class="text-center"><?php echo $this->translate('购物车'); ?></p>
+            </li>
+        </a>
+    </ul>
+</nav>
+
+
+<div class="ect-margin-tb ect-pro-list ect-margin-bottom0" style="border-bottom:none;">
+<ul id="J_ItemList">
+<?php if ($this->index_goods) { foreach($this->index_goods as $index_goods_key => $index_goods_value) { ?>
+<li class="single_item" id="more_element_<?php echo $index_goods_key+1; ?>">
+    <a href="<?php echo $this->url('m_goods/default', array('goods_id'=>$index_goods_value['goods_id'], 'class_id'=>$index_goods_value['one_class_id'])); ?>">
+        <img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($index_goods_value['goods_thumbnail_image'])); ?>" alt="<?php echo $this->escapeHtml($index_goods_value['goods_name']); ?>">
+    </a>
+    <dl>
+        <dt>
+        <h4 class="title">
+            <a href="<?php echo $this->url('m_goods/default', array('goods_id'=>$index_goods_value['goods_id'], 'class_id'=>$index_goods_value['one_class_id'])); ?>"><?php echo $this->escapeHtml($index_goods_value['goods_name'].$index_goods_value['goods_extend_name']); ?></a></h4>
+        </dt>
+        <dd class="dd-price">
+            <span class="pull-left">
+                <strong><?php echo $this->translate('价格'); ?>：<b class="ect-colory"><?php echo $this->frontwebsite()->shopPriceExtend($index_goods_value['goods_shop_price']); ?></b></strong>
+                <?php if($index_goods_value['goods_price'] > 0) { ?>
+                <small class="ect-margin-lr"><del><?php echo $this->frontwebsite()->shopPriceExtend($index_goods_value['goods_price']); ?></del></small>
+                <?php } ?>
+            </span>
+            <span class="ect-pro-price"></span>
+        </dd>
+        <dd class="dd-num"><span class="pull-left"><i class="fa fa-heart-o"></i> <?php echo $index_goods_value['favorites_num']; ?><?php echo $this->translate('人喜欢'); ?></span><span class="pull-right"><?php echo $this->translate('销量'); ?><?php echo intval($index_goods_value['buy_num']+$index_goods_value['virtual_sales']); ?><?php echo $this->translate('件'); ?></span> </dd>
+    </dl>
+</li>
+<?php } ?>
+    <a style="height:45px;line-height:45px;display: block;text-align: center;width: 100%;font-size: 16px;" href="<?php echo $this->url('m_class/default', array('controller'=>'Class', 'action'=>'goodsSearch')); ?>"><?php echo $this->translate('查看更多'); ?></a>
+<?php } ?>
+
+</ul>
+</div>

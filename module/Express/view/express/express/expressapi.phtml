@@ -1,0 +1,24 @@
+    		<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('配送动态API'); ?></strong></p>
+        	<p class="pull-right">
+            <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('express_api'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+            </p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="50%"><?php echo $this->translate('API名称'); ?></th>
+                    <th width="35%"><?php echo $this->translate('API状态'); ?></th>
+                    <th width="15%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php if($this->express_api) foreach ($this->express_api as $api_value) { ?>            
+            <tr>
+            	<td><?php echo $this->escapeHtml($api_value['name']); ?></td>
+                <td><?php if(isset($this->open_api['name_code']) and $this->open_api['name_code'] == $api_value['name_code']) echo $this->translate('开启'); else echo $this->translate('关闭'); ?></td>
+            	<td><a href="<?php echo $this->url('express/default/express-name-code',array('action'=>'apiedit','express_code'=>$api_value['name_code'])); ?>"><?php echo $this->translate('编辑'); ?></a></td>  
+            </tr>
+            <?php
+				}
+			?>
+            </table>

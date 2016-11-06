@@ -1,0 +1,119 @@
+<div class="row-fluid" style="margin-top:20px;">
+  <?php echo $this->partial('shopfront/home/left_menu.phtml'); ?>
+  <div class="span8" id="home_order_view">
+  	<div class="well">
+    	<h5><?php echo $this->translate('确认订单'); ?></h5>
+        <h4><?php echo $this->translate('订单号'); ?>：<?php echo $this->order_info->order_sn; ?><p class="pull-right"><?php echo $this->translate('订单状态'); ?>：<span class="text-success"><?php echo $this->frontwebsite()->getOneOrderStateInfo($this->order_info->order_state); ?>
+        </span></p></h4>
+        <hr>       
+        <p style=" margin-top:10px; margin-bottom:18px;"><button class="btn btn-primary" onclick="location.href='<?php echo $this->url('frontorder/default/order_page', array('action'=>'index', 'page'=>$this->page, 'order_state'=>$this->order_state)); ?>'" type="button"><i class=" icon-arrow-left icon-white"></i> <?php echo $this->translate('返回订单列表'); ?></button></p>
+              
+        <h4><?php echo $this->translate('商品信息'); ?></h4>
+            <table class="table table-bordered">
+            	<thead>
+                	<tr class="home-user-tr">
+                    	<th width="45%"><?php echo $this->translate('商品名称'); ?></th>
+                        <th width="8%"><?php echo $this->translate('货号'); ?></th>
+                        <th width="15%"><?php echo $this->translate('属性'); ?></th>
+                        <th width="10%"><?php echo $this->translate('数量'); ?></th>
+                        <th width="12%"><?php echo $this->translate('单价'); ?></th>
+                        <th width="10%"><?php echo $this->translate('小计'); ?></th>
+                    </tr>
+                </thead>
+                <?php foreach ($this->order_goods as $goods_value) { ?>
+                <tr>
+                	<td><a target="_blank" href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$goods_value['class_id'])); ?>"><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($goods_value['goods_image'])); ?>"  style=" height:55px;width:55px;border:1px solid #D7D7D7"> <?php echo $this->escapeHtml($goods_value['goods_name']); ?></a></td>
+                    <td><?php echo $this->escapeHtml($goods_value['goods_item']);?></td>
+                    <td>
+				<?php 
+				if($goods_value['goods_extend_info']) { 
+					echo $goods_value['goods_extend_info'];
+				} else {
+					echo $this->translate('无');
+				}
+				?>
+                    </td>
+                    <td><?php echo $goods_value['buy_num']; ?></td>
+                    <td><?php echo $this->order_info->currency_symbol . $goods_value['goods_shop_price'] . $this->order_info->currency_unit; ?></td>
+                    <td><strong><?php echo $this->order_info->currency_symbol . $goods_value['goods_amount'] . $this->order_info->currency_unit; ?></strong></td>
+                </tr>
+                <?php } ?>
+            </table>
+         <div>
+         <p class="text-right">
+         <?php if($this->order_info->goods_weight_amount > 0) { echo $this->translate('商品总重量：').'<font color="#ED145B">'.$this->order_info->goods_weight_amount.'</font>'.$this->translate('千克'); ?>&nbsp;&nbsp;|&nbsp;&nbsp;<?php } ?>
+		 <?php echo $this->translate('商品总计'); ?>：<font color="#ED145B"><?php echo $this->order_info->currency_symbol . $this->order_info->goods_amount; ?></font> +
+         <?php echo $this->translate('商品运费'); ?>：<font color="#ED145B"><?php echo $this->order_info->currency_symbol . $this->order_info->express_fee; ?></font> +
+         <?php echo $this->translate('支付手续'); ?>：<font color="#ED145B"><?php echo $this->order_info->currency_symbol . $this->order_info->pay_fee; ?></font> -
+         <?php echo $this->translate('购买优惠'); ?>：<font color="#ED145B"><?php echo $this->order_info->currency_symbol . $this->order_info->buy_pre_fee; ?></font> -
+         <?php echo $this->translate('会员优惠'); ?>：<font color="#ED145B"><?php echo $this->order_info->currency_symbol . $this->order_info->user_pre_fee; ?></font>
+             <?php if(isset($this->order_info->integral_buy_price) and $this->order_info->integral_buy_price > 0) { ?>
+                 - <?php echo $this->translate('积分购买'); ?>：<font color="#ED145B"><?php echo $this->order_info->currency_symbol . $this->order_info->integral_buy_price; ?></font><?php } ?> =
+         <font size="4" color="#ED145B"><?php echo $this->translate('订单总额'); ?>：<?php echo $this->order_info->currency_symbol . $this->order_info->order_amount . $this->order_info->currency_unit; ?></font>
+         </p>
+         <?php if ($this->order_info->integral_num > 0) { ?>
+         <p class="text-right">
+         <font size="4"><?php echo $this->translate('消费积分'); ?></font>(<?php if ($this->order_info->integral_rule_info != '') {echo $this->order_info->integral_rule_info . ',&nbsp;';} echo $this->translate('交易完成确认收货后才得到积分'); ?>)：<font size="4" color="#ED145B"><?php echo $this->order_info->integral_num; ?><?php echo $this->translate('积分'); ?></font>
+         </p>
+         <?php } ?>
+             <?php if ($this->order_info->integral_type_2_num > 0) { ?>
+                 <p class="text-right">
+                     <font size="4"><?php echo $this->translate('等级积分'); ?></font>(<?php if ($this->order_info->integral_type_2_num_rule_info != '') {echo $this->order_info->integral_type_2_num_rule_info . ',&nbsp;';} echo $this->translate('交易完成确认收货后才得到'); ?>)：<font size="4" color="#ED145B"><?php echo $this->order_info->integral_type_2_num; ?><?php echo $this->translate('积分'); ?></font>
+                 </p>
+             <?php } ?>
+         <?php if (isset($this->order_info->invoice_content) and !empty($this->order_info->invoice_content)) { ?>
+         <br />
+         <h4><?php echo $this->translate('购物发票'); ?></h4>
+         <p><?php echo $this->escapeHtml($this->order_info->invoice_content); ?></p>
+         <?php } ?>
+             <?php if ($this->delivery_address) { ?>
+                 <br />
+                 <h4><?php echo $this->translate('配送信息'); ?></h4>
+                 <p><strong><?php echo $this->translate('送货时间'); ?>：</strong><?php echo $this->escapeHtml($this->delivery_address->express_time_info); ?></p>
+                 <p><strong><?php echo $this->translate('快递信息'); ?>：</strong><?php echo $this->delivery_address->express_name; ?></p>
+                 <?php if ($this->delivery_address->express_number != '') { ?>
+                     <p><strong><?php echo $this->translate('快递单号'); ?>：</strong><?php echo $this->delivery_address->express_number; ?></p>
+                 <?php } ?>
+                 <p><strong><?php echo $this->translate('收货人员'); ?>：</strong><?php echo $this->escapeHtml($this->delivery_address->delivery_name); ?></p>
+                 <div><strong class="span1" style="width: 65px;"><?php echo $this->translate('收货地址'); ?>：</strong>
+                     <div><?php
+                         echo $this->escapeHtml($this->delivery_address->region_address).'<br>';
+                         $region_array = @explode(' ', $this->delivery_address->region_info);
+                         $region_array = array_reverse($region_array);
+                         echo $this->escapeHtml(implode(', ', $region_array));
+                         ?>
+                         &nbsp;&nbsp;<?php if($this->delivery_address->zip_code) echo '<strong>'. $this->translate('邮编').'</strong>&nbsp'.$this->escapeHtml($this->delivery_address->zip_code) . '&nbsp;&nbsp;'; ?><?php if($this->delivery_address->mod_phone) {echo '<strong>'.$this->translate('手机'). '</strong>&nbsp;' . $this->escapeHtml($this->delivery_address->mod_phone) . '&nbsp;&nbsp;'; } if($this->delivery_address->tel_phone) {echo '<strong>'.$this->translate('固定电话'). '</strong>&nbsp;' . $this->escapeHtml($this->delivery_address->tel_phone); }?></div>
+                 </div>
+             <?php } ?>
+
+		<?php if (isset($this->order_info->order_message) and !empty($this->order_info->order_message)) { ?>
+        <h4><?php echo $this->translate('买家留言'); ?></h4>
+        <p><strong><?php echo $this->escapeHtml($this->order_info->order_message); ?></strong></p>
+        <?php } ?>
+                
+        <form method="post" onsubmit="return order_confirm();">
+        <input name="order_finish" id="order_finish" type="hidden" value="true" />
+        <p align="center"><button class="btn btn-primary btn-large" type="submit"><i class="icon-ok icon-white"></i> <?php echo $this->translate('确认收货'); ?></button></p>
+        </form>
+        
+        <?php if (isset($this->express_state_array)) { ?>
+        <br />
+        <h4><?php echo $this->translate('物流信息'); ?></h4>
+        	<?php if($this->express_state_array['api_type'] == 'kuaidi100') { ?>
+            <p><?php echo $this->express_state_array['content']; ?></p>
+            <?php } ?>
+        <?php } ?>
+        
+         </div>     
+    </div>
+  </div>
+</div>
+<script>
+function order_confirm() {
+	if(window.confirm('<?php echo $this->translate('您确定要确认收货吗？'); ?>')) {
+		return true;
+	} else {
+		return false;	
+	}
+}
+</script>

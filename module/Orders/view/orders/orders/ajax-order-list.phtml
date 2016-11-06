@@ -1,0 +1,27 @@
+<table class="table table-hover">
+	<thead style="background: #CCC;">
+		<tr>
+			<th width="15%"><?php echo $this->translate('订单号'); ?></th>
+			<th width="18%"><?php echo $this->translate('购买人'); ?></th>
+			<th width="18%"><?php echo $this->translate('收货人'); ?></th>
+			<th width="10%"><?php echo $this->translate('订单状态'); ?></th>
+			<th width="10%"><?php echo $this->translate('订单总额'); ?></th>
+			<th width="10%"><?php echo $this->translate('下单时间'); ?></th>
+		</tr>
+	</thead>
+             <?php foreach ($this->order_list as $order_value) { ?>
+            <tr>
+			<td><a target="_blank" href="<?php echo $this->url('orders/default/order_id',array('action'=>'edit','controller'=>'Orders','order_id'=>$order_value['order_id'])); ?>"><?php echo $order_value['order_sn']; ?></a></td>
+			<td><?php echo $this->escapeHtml($order_value['buyer_name']); ?></td>
+			<td><?php echo $this->escapeHtml($order_value['delivery_name']); ?></td>
+			<td><?php echo $this->frontwebsite()->getOneOrderStateInfo($order_value['order_state']); ?></td>
+			<td><?php echo $order_value['currency_symbol'] . $order_value['order_amount'] . $order_value['currency_unit']; ?></td>
+			<td><?php echo date("Y-m-d H:i",$order_value['order_time']); ?></td>
+		</tr>
+            <?php } ?>
+            <tr>
+			<td colspan="9" style="background: #FFF">
+				<?php echo ( count($this->order_list) > 0 ) ? $this->paginationControl($this->order_list, 'Sliding', 'common/ajax-pages',array('page_url'=>$this->url('orders/default/buyer-id',array('controller'=>'Orders', 'action'=>'ajaxOrderList', 'buyer_id'=>$this->user_id)), 'show_div_id'=>$this->show_div_id)) : ""; ?>
+                </td>
+		</tr>
+</table>

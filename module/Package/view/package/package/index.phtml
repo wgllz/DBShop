@@ -1,0 +1,49 @@
+    		<div style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('系统更新'); ?></strong></p>
+        		<p class="pull-right">
+                	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('online_package'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+	</p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="10%"><?php echo $this->translate('更新状态'); ?></th>
+                    <th width="50%"><?php echo $this->translate('更新名称'); ?></th>
+                    <th width="10%">&nbsp;<?php echo $this->translate('更新包版本'); ?></th>
+                    <th width="10%">&nbsp;<?php echo $this->translate('系统当前版本'); ?></th>
+                    <th width="18%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php
+            if($this->updateArray) { foreach ($this->updateArray as $package_value) {
+            ?>
+            <tr>
+            	<td>
+            	<span class="badge"><?php echo $this->translate('未更新'); ?></span>
+            	</td>
+            	<td><?php echo $this->escapeHtml($package_value['update_name']); ?></td>
+            	<td><span class="label label-info"><?php echo $package_value['version_name']; ?></span></td>
+            	<td><span class="label label-warning"><?php echo DBSHOP_VERSION; ?></span></td>
+            	<td>
+            	<?php if($package_value['v_id'] == $this->updatePackage[0]['v_id']) {?>
+            	   <a href="<?php echo $this->url('package/default/package_id',array('controller'=>'package','action'=>'onlineupdate','package_id'=>$package_value['v_id'])); ?>" class="btn btn-primary btn-small"><i class="icon-globe icon-white"></i> <?php echo $this->translate('在线自动更新'); ?></a>&nbsp;
+            	   <a href="<?php echo $this->url('package/default/package_id',array('controller'=>'package','action'=>'downloadupdate','package_id'=>$package_value['v_id'])); ?>" class="btn btn-primary btn-small"><i class="icon-download-alt icon-white"></i> <?php echo $this->translate('手动下载更新'); ?></a>
+            	<?php } else { ?>
+            	   <span class="badge badge-important"><?php echo $this->translate('请自下而上依次更新'); ?></span>
+            	<?php } ?>
+            	</td>
+            </tr>
+            <?php } } else { ?>
+            <tr>
+                <?php if (isset($this->soap_state) and $this->soap_state!='') { ?>
+                    <?php if($this->soap_state=='false') {?>
+                    <td colspan="5"><span class="label label-important"><h5><?php echo $this->translate('您的环境没有开启soap，不能使用该功能！'); ?></h5></span></td>
+                    <?php } elseif ($this->soap_state=='no_link') {?>
+                    <td colspan="5"><span class="label label-important"><h5><?php echo $this->translate('无法连接更新服务器，不能使用该功能！'); ?></h5></span></td>
+                    <?php } ?>
+                <?php } else { ?>
+                <td colspan="5"><span class="label label-success"><h5><?php echo $this->translate('您的系统目前为最新版本，无需更新！'); ?></h5></span></td>
+                <?php } ?>
+            </tr>
+            <?php } ?>
+            </table>

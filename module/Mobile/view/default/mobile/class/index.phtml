@@ -1,0 +1,37 @@
+<header class="ect-header ect-margin-tb ect-margin-lr text-center"> <a href="javascript:history.go(-1)" class="pull-left ect-icon ect-icon1 ect-icon-history"></a>
+    <span><?php echo $this->translate('所有分类'); ?></span>
+    <a href="javascript:openSearch();" class="pull-right ect-icon ect-icon1 ect-icon-search1"></a>
+</header>
+
+<div class="panel panel-default ect-category-all ect-border-radius0">
+    <ul>
+        <?php
+        if ($this->goods_class) {
+        foreach ($this->goods_class as $class_val) {
+        if($class_val['class_state'] == 0) continue;
+        if($class_val['class_top_id'] == 0) {
+        ?>
+        <li>
+            <div class="media panel-body">
+                <div class="pull-left ect-category-right">
+                    <h3><a href="<?php echo $this->url('m_class/default', array('action'=>'list', 'controller'=>'Class', 'class_id'=>$class_val['class_id'])); ?>"><?php echo $this->escapeHtml($class_val['class_name']); ?></a></h3>
+                    <h5><?php
+                        if(isset($class_val['sub_class'][0])) echo $this->escapeHtml($class_val['sub_class'][0]['class_name']);
+                        if(isset($class_val['sub_class'][1])) echo ' / '.$this->escapeHtml($class_val['sub_class'][1]['class_name']);
+                        if(isset($class_val['sub_class'][2])) echo ' / '.$this->escapeHtml($class_val['sub_class'][2]['class_name']);
+                        ?>
+                    </h5>
+                </div>
+                <i class="fa fa-angle-down ect-transition05"></i>
+            </div>
+            <div class="ect-category-child">
+                <?php if (isset($class_val['sub_class']) and !empty($class_val['sub_class'])) {
+                    foreach($class_val['sub_class'] as $sub_value) {
+                ?>
+                <a href="<?php echo $this->url('m_class/default', array('action'=>'list', 'controller'=>'Class', 'class_id'=>$sub_value['class_id'])); ?>"><?php echo $this->escapeHtml($sub_value['class_name']); ?></a>
+                <?php } } ?>
+            </div>
+        </li>
+        <?php } } } ?>
+    </ul>
+</div>

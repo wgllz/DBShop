@@ -1,0 +1,22 @@
+<?php
+if($this->kefuHtml) {
+?>
+<LINK rel=stylesheet type=text/css href="<?php echo $this->basePath('public/js/kefu/css/kefu.css'); ?>">
+<DIV id=floatTools class=float0831>
+  <DIV class=floatL><A style="DISPLAY: none" id=aFloatTools_Show class=btnOpen 
+title=<?php echo $this->translate('查看在线客服'); ?> 
+onclick="javascript:$('#divFloatToolsView').animate({width: 'show', opacity: 'show'}, 'normal',function(){ $('#divFloatToolsView').show(); });$('#aFloatTools_Show').attr('style','display:none');$('#aFloatTools_Hide').attr('style','display:block');" 
+href="javascript:void(0);"><?php echo $this->translate('展开'); ?></A> <A id=aFloatTools_Hide class=btnCtn 
+title=<?php echo $this->translate('关闭在线客服'); ?> 
+onclick="javascript:$('#divFloatToolsView').animate({width: 'hide', opacity: 'hide'}, 'normal',function(){ $('#divFloatToolsView').hide(); });$('#aFloatTools_Show').attr('style','display:block');$('#aFloatTools_Hide').attr('style','display:none');" 
+href="javascript:void(0);"><?php echo $this->translate('收缩'); ?></A> </DIV>
+  <DIV id=divFloatToolsView class=floatR>
+    <DIV class=tp></DIV>
+    <DIV class=cn>
+      <UL>
+        <?php echo $this->kefuHtml; ?>
+      </UL>
+    </DIV>
+  </DIV>
+</DIV>
+<?php } ?>

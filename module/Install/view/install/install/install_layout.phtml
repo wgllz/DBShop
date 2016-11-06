@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="x-ua-compatible" content="IE=7,8,9" >
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php
+    $this->headtitle($this->translate('DBShop系统安装程序'));
+    $this->headtitle('Powered by DBShop');
+    echo $this->headTitle()->setSeparator(' - ');
+
+    $this->headMeta()->appendName('keywords', $this->translate('DBShop系统安装程序'));
+    $this->headMeta()->appendName('description', $this->translate('DBShop系统安装程序'));
+    $this->headMeta()->appendName('author', 'DBShop');
+	$this->headMeta()->appendName('copyright', 'DBShop Inc. All Rights Reserved');
+    echo $this->headMeta();
+    ?>
+<link href="<?php echo ($this->frontwebsite()->websiteInfo('shop_ico') != '' ? $this->basePath($this->frontwebsite()->websiteInfo('shop_ico')) : ''); ?>" rel="shortcut icon">
+<link href="<?php echo $this->basePath('public/css/default/css/default.css'); ?>" rel="stylesheet">
+<script type="text/javascript">
+if (/MSIE 6/.test(navigator.userAgent)) {
+	window.location = '<?php echo $this->basePath('public/support-browser.html'); ?>';
+}
+</script>
+<!--[if lte IE 8]>
+<script src="<?php echo $this->basePath('public/js/html5.js'); ?>"></script>
+<![endif]-->
+<script src="<?php echo $this->basePath('public/css/default/js/frontJs.js'); ?>"></script>
+</head>
+<body>
+<div class="row-fluid">
+	<div class="span5 offset2" id="shop_logo_img">
+    <a href="<?php echo $this->url('shopfront/default'); ?>"><img src="<?php echo ($this->frontwebsite()->websiteInfo('shop_logo') != '' ? $this->basePath($this->frontwebsite()->websiteInfo('shop_logo')) : $this->basePath('/public/css/default/img/shop_logo.png')); ?>" width="196" height="90" border="0"></a><strong  style="font-size:15px;vertical-align:bottom; text-align:right;"><?php include DBSHOP_PATH . '/data/Version.php'; echo DBSHOP_VERSION; ?></strong>
+	</div>
+    <div class="span3" style="margin-top:5px;">
+    <?php if (isset($this->dbshop_language) and $this->dbshop_language != '') { ?>
+    <select id="dbshop_language" name="dbshop_language" class="pull-right" style="font-size:15px;" onChange="select_dbshop_default_language();">
+    	<option value="zh_CN" <?php if (isset($this->dbshop_language) and $this->dbshop_language == 'zh_CN') echo 'selected'; ?>>安装简体中文</option>
+    	<option value="zh_TW" <?php if (isset($this->dbshop_language) and $this->dbshop_language == 'zh_TW') echo 'selected'; ?>>安装繁體中文</option>
+    </select> 
+    <?php } ?>   
+    </div>
+</div>
+
+<div class="row-fluid" id="shop_header_menu" style="height:2px; line-height:2px;">
+</div>
+
+<?php echo $this->content; ?>
+
+<div class="footer">
+<p align="center" style="padding-top:8px;padding-bottom:8px;">Copyright &copy;<?php echo DBSHOP_YEAR_COPYRIGHT; ?> <a href="<?php echo DBSHOP_FRONT_COPYRIGHT_URL; ?>" target="_blank" style="color:#FFF"><?php echo DBSHOP_FRONT_COPYRIGHT; ?></a> <?php echo $this->translate('版权所有'); ?></p>
+</div>
+<div class="modal hide fade" id="myModal">
+  <div class="modal-header">
+    <h3><?php echo $this->frontwebsite()->websiteInfo('shop_name'); ?> <?php echo $this->translate('提示'); ?></h3>
+  </div>
+  <div class="modal-body">
+    <p id="message_show"></p>
+  </div>
+  <div class="modal-footer" id="message_url">
+  </div>
+</div>
+</body>
+</html>

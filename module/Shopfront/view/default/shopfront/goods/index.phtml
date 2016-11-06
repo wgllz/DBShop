@@ -1,0 +1,663 @@
+<div class="row-fluid" id="list_location">
+  <div class="span10 offset1"> <a href="<?php echo $this->url('shopfront/default'); ?>"><?php echo $this->translate('首页'); ?></a> <span class="divider">&gt;</span>
+    <?php if($this->class_menu) { foreach($this->class_menu as $menu_val) { 
+		?>
+    <a href="<?php echo $this->url('frontgoodslist/default', array('class_id'=>$menu_val['class_id'])); ?>"><?php echo $this->escapeHtml($menu_val['class_name']); ?></a> <span class="divider">&gt;</span>
+    <?php } } ?>
+    <?php echo $this->escapeHtml($this->goods_info->goods_name); ?> </div>
+</div>
+<div class="row-fluid"  id="goods_info">
+  <div class="span10 well well-small offset1" style="padding: 0px;">
+    <div class="span9">
+      <h1 class="title" style="padding-left:10px;"><?php echo $this->escapeHtml($this->goods_info->goods_name); ?> <span style="color: #ed145b;"><?php echo $this->escapeHtml($this->goods_info->goods_extend_name); ?></span></h1>
+      <div class="row-fluid" style="padding-left:10px; padding-bottom:10px;">
+        <div class="span12">
+          <div class="span4"><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($this->goods_info->goods_title_image)); ?>" style="border:1px solid #D7D7D7; "></div>
+          <div class="span8">
+            <form action="<?php echo $this->url('frontcart/default'); ?>" method="post" name="add_goods_cart" id="add_goods_cart">
+              <dl class="dl-horizontal">
+                <dt><?php echo $this->translate('货　号'); ?>：</dt>
+                <dd><span id="goods_item"><?php echo $this->escapeHtml($this->goods_info->goods_item); ?></span></dd>
+                <?php $front_goods_price=intval($this->goods_info->goods_price); if( $front_goods_price>0) { ?>
+                <dt><?php echo $this->translate('市场价'); ?>：</dt>
+                <dd><del><?php echo $this->frontwebsite()->shopPriceExtend($this->goods_info->goods_price); ?></del></dd>
+                <?php } if ($this->goods_info->goods_preferential_price <= 0) { ?>
+                <dt><?php echo $this->translate('店铺价'); ?>：</dt>
+                <dd><span id="goods_price"><?php echo $this->frontwebsite()->shopPriceExtend($this->goods_info->goods_shop_price); ?></span></dd>
+                <?php } else { ?>
+                <dt><?php echo $this->translate('优惠价'); ?>：</dt>
+                <dd><span id="goods_price"><?php echo $this->frontwebsite()->shopPriceExtend($this->goods_info->goods_preferential_price); ?></span></dd>
+                <?php $this->goods_info->goods_shop_price =$this->goods_info->goods_preferential_price;  } if( $front_goods_price>0) { ?>
+                <dt><?php echo $this->translate('您节省'); ?>：</dt>
+                <dd><span id="goods_j"><?php echo $this->frontwebsite()->shopPriceExtend($this->goods_info->goods_shop_price-$this->goods_info->goods_price); ?>(<?php echo round($this->goods_info->goods_shop_price/$this->goods_info->goods_price*10, 2); ?><?php echo $this->translate('折'); ?>)</span></dd>
+                <?php } ?>
+                <?php if (isset($this->brand_info) and !empty($this->brand_info)) { ?>
+                  <dt><?php echo $this->translate('品　牌'); ?>：</dt>
+                  <dd><a href="<?php echo $this->url('frontbrand/default/front-brand-id', array('action'=>'brandGoods', 'brand_id'=>$this->brand_info->brand_id)); ?>"><?php echo $this->escapeHtml($this->brand_info->brand_name); ?></a></dd>
+                  <?php } ?>
+                <?php
+              if (isset($this->goods_custom) and !empty($this->goods_custom)) {
+				  foreach($this->goods_custom as $gc_value) {
+				  ?>
+                <dt><?php echo $this->escapeHtml($gc_value['custom_title']); ?>：</dt>
+                <dd><?php echo $this->escapeHtml($gc_value['custom_content']); ?></dd>
+                <?php } } ?>
+                <dt><?php echo $this->translate('库　存'); ?>：</dt>
+                <dd><span id="goods_stock_show"><?php echo $this->goods_stock; ?></span></dd>
+                <?php if($this->goods_info->goods_weight > 0) { ?>
+                <dt><?php echo $this->translate('重　量'); ?>：</dt>
+                <dd><?php echo $this->goods_info->goods_weight; ?><?php echo $this->translate('千克'); ?></dd>
+                <?php } ?>
+                <dt><?php echo $this->translate('评　分'); ?>：</dt>
+                <dd>
+                  <div class="rating">
+                    <div class="value" style="width:<?php if (isset($this->goods_rating->rating)) echo number_format($this->goods_rating->rating,2) * 20; else echo '0'; ?>%"></div>
+                  </div>
+                  <span id="goods_comment_num"></span></dd>
+              </dl>
+              <?php if(isset($this->goods_info->goods_integral_num) and $this->goods_info->goods_integral_num > 0) { ?>
+                  <hr>
+                  <strong style="font-size: 14px;"><?php echo $this->translate('可用'); ?>&nbsp;<?php echo $this->goods_info->goods_integral_num; ?>&nbsp;<?php echo $this->translate('消费积分进行购买'); ?></strong>
+              <?php } ?>
+              <hr>
+              <?php if ($this->goods_color and $this->goods_color_array and $this->goods_color_array[0]['color_value'] != 'kongzhi') { ?>
+              <dl class="dl-horizontal">
+                <dt><?php echo $this->goods_color->extend_name; ?>：</dt>
+                <dd class="item goods_color">
+                  <?php foreach ($this->goods_color_array as $color_value) { ?>
+                  	<?php if($this->goods_color->extend_show_type == 1) { ?>
+                  <a id="<?php echo $color_value['color_value']; ?>" href="javascript:;" onclick="select_color('<?php echo $color_value['color_value']; ?>');" style="cursor: pointer;" title="<?php echo $this->escapeHtml($color_value['color_info']); ?>"><?php echo $this->escapeHtml($color_value['color_info']); ?></a>                    
+                    <?php } else { ?>
+                  <a id="<?php echo $color_value['color_value']; ?>" href="javascript:;" onclick="select_color('<?php echo $color_value['color_value']; ?>');" style="cursor: pointer;background-color:#<?php echo $color_value['color_value']; ?>;" title="<?php echo $this->escapeHtml($color_value['color_info']); ?>">&nbsp;&nbsp;&nbsp;</a>                    
+                    <?php } ?>
+                  <?php } ?>
+                </dd>
+              </dl>
+              <?php } ?>
+              <?php if ($this->goods_size and $this->goods_size_array) { ?>
+              <dl class="dl-horizontal">
+                <dt><?php echo $this->goods_size->extend_name; ?>：</dt>
+                <dd class="item goods_size">
+                  <?php foreach ($this->goods_size_array as $size_value) { ?>
+                  <a id="<?php echo $size_value['size_value']; ?>" href="javascript:;" onclick="select_size('<?php echo $size_value['size_value']; ?>');" style="cursor: pointer;"><?php echo $this->escapeHtml($size_value['size_info']); ?></a>
+                  <?php } ?>
+                </dd>
+              </dl>
+              <?php } ?>
+              <?php if ((isset($this->goods_color_array) and !empty($this->goods_color_array)) or (isset($this->goods_size_array) and !empty($this->goods_size_array))) { ?>
+              <dl class="dl-horizontal">
+                <dt><?php echo $this->translate('您已选择'); ?></dt>
+                <dd> <span id="select_goods_color" style="color:#ED145B"></span>&nbsp;&nbsp;<span id="select_goods_size" style="color:#ED145B"></span>
+                  <input type="hidden" id="select_color_value" name="select_color_value" value="<?php if(isset($this->goods_color_array[0]['color_value']) and $this->goods_color_array[0]['color_value'] == 'kongzhi') echo 'kongzhi'; ?>" />
+                  <input type="hidden" id="select_size_value" name="select_size_value" value="" />
+                </dd>
+              </dl>
+              <?php } ?>
+              <div class="span12 well" style="background-color:#F5F5F5; margin-left:0px; padding-right: 0px; padding-left: 2px;">
+                <dl class="dl-horizontal">
+                  <dt style="font-size:15px; line-height:30px;"><?php echo $this->translate('我想买'); ?>：</dt>
+                  <dd>
+                    <div style="margin-bottom:8px;">
+                      <button class="btn" id="add_down" style="cursor: pointer;" type="button">-</button>
+                      <input type="text" style="width:25px;margin-bottom:2px;" name="buy_goods_num" id="buy_goods_num" value="1">
+                      <button class="btn" id="add_up" style="cursor: pointer;" type="button">+</button>
+                      <label for="buy_goods_num" generated="true" class="error" style="display: inline-block;"></label>
+                    </div>
+                  </dd>
+                    <?php if ($this->goods_info->goods_state == 1) { ?>
+                  <dt>&nbsp;</dt>
+                  <dd>
+                    <input type="hidden" id="goods_id" name="goods_id" value="<?php echo $this->goods_info->goods_id; ?>" />
+                    <input type="hidden" id="class_id" name="class_id" value="<?php echo $this->class_id; ?>" />
+                    <input type="submit" class="btn btn-large btn-success" id="add_cart_submit" value="<?php echo $this->translate('加入购物车'); ?>">
+                    &nbsp;
+                    <input type="button" class="btn btn-large btn-info" onclick="add_favorites_js(<?php echo $this->goods_info->goods_id; ?>, <?php echo $this->class_id; ?>);" value="<?php echo $this->translate('加入收藏'); ?>">
+                      <?php if($this->frontwebsite()->getDbshopGoodsIni('dbshop_goods_QRcode')) { ?>
+                      &nbsp;<img alt="<?php echo $this->translate('手机扫描后，在手机中访问该商品'); ?>" title="<?php echo $this->translate('手机扫描后，在手机中访问该商品'); ?>" width="50px" src="<?php echo  $this->basePath($this->frontwebsite()->createQRcode($this->serverUrl().$this->url('m_goods/default', array('goods_id'=>$this->goods_info->goods_id, 'class_id'=>$this->class_id)), $this->goods_info->goods_id, 'goods')); ?>">
+                      <?php } ?>
+                  </dd>
+                    <?php } ?>
+                  <dt>&nbsp;</dt>
+                  <dd><?php echo $this->translate('最近'); ?><span id="ajax_order_count"><?php echo $this->order_count; ?></span><?php echo $this->translate('人已经购买'); ?></dd>
+                  <?php
+				  $goods_share_info = $this->frontwebsite()->getDbshopGoodsShare();
+				  if(!empty($goods_share_info['share_type'])) {
+					  if($goods_share_info['share_type'] == '/baidu/window.php') {
+						echo $goods_share_info['share_code'];  
+					  } else {
+						echo '<dt>&nbsp;</dt><dd>'.$goods_share_info['share_code'].'</dd>';
+					  }
+                  } ?>
+                </dl>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row span3" style=" margin-left:10px;">
+      <div class="row-fluid" style="padding-top:15px;">
+        <div class="span12" style="background-color: #CCC;">
+          <h5>&nbsp;<?php echo $this->frontwebsite()->websiteInfo('shop_name'); ?>&nbsp;<?php echo $this->translate('品质保证'); ?></h5>
+        </div>
+        <div class="well" style="min-height:50px; font-size: 14px;"> <?php echo nl2br($this->escapeHtml($this->frontwebsite()->getSystemContent('goods_quality'))); ?> </div>
+      </div>
+      <?php
+			//商品内容品质保证下面的广告图片
+			$goods_info_right = $this->frontwebsite()->getShopAd('goods', 'goods_info_right');
+			if($goods_info_right != '') {
+ 				echo $goods_info_right;
+			}
+		?>
+    </div>
+  </div>
+</div>
+<?php if ($this->combination_goods_array) { ?>
+<div class="row-fluid">
+  	<div class="span10 offset1">
+    	<table style="border:1px solid #DDDDDD;" width="100%">
+        	<tr>
+            	<td bgcolor="#999999" colspan="4"><font color="#FFFFFF" size="3"><?php echo $this->translate('组合商品'); ?></font></td>
+            </tr>
+        	<tr>
+            	<td width="15%"><img border="0" src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($this->goods_info->goods_thumbnail_image)); ?>" style=" width:150px;border:1px solid #D7D7D7"><span class="dbshop_symbol">+</span></td>
+                <td width="70%">
+                	<ul class="thumbnails" style="margin-bottom:0;">
+                    	<?php $combination_goods_count=count($this->combination_goods_array)-1;
+						foreach ($this->combination_goods_array as $combination_key => $combination_goods_value) { ?>
+                    	<li style="margin-bottom:0;"><a href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$combination_goods_value['goods_id'], 'class_id'=>$combination_goods_value['one_class_id'])); ?>" target="_blank" title="<?php echo $this->escapeHtml($combination_goods_value['goods_name']); ?>"><img border="0" src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($combination_goods_value['goods_thumbnail_image'])); ?>" style=" width:150px;border:1px solid #D7D7D7" /></a><?php if($combination_goods_count != $combination_key) { ?>&nbsp;<span class="dbshop_symbol">+</span>&nbsp;<?php } ?>
+						<br />
+                        <a href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$combination_goods_value['goods_id'], 'class_id'=>$combination_goods_value['one_class_id'])); ?>" target="_blank"><?php echo $this->escapeHtml($this->DbshopCommonFun()->dbshopCutStr($combination_goods_value['goods_name'], 15)); ?></a>
+                        <br />
+                        <input type="hidden" name="one_combination_price_<?php echo $combination_goods_value['goods_id']; ?>" id="one_combination_price_<?php echo $combination_goods_value['goods_id']; ?>" value="<?php echo $this->frontwebsite()->shopPrice($combination_goods_value['goods_shop_price']); ?>" />
+						<label class="checkbox"><input type="checkbox" onclick="count_combination_price();" name="combination_goods_id[]" value="<?php echo $combination_goods_value['goods_id']; ?>" /><?php echo $this->frontwebsite()->shopPriceExtend($combination_goods_value['goods_shop_price']); ?></label>
+						</li>
+                        <?php } ?>
+                    </ul>
+                </td>
+                <td width="3%"><span class="dbshop_symbol">=</span></td>
+                <td width="12%">
+                <?php $base_goods_price = $this->frontwebsite()->shopPrice($this->goods_info->goods_shop_price); ?>
+                <input type="hidden" name="base_goods_price" id="base_goods_price" value="<?php echo $base_goods_price; ?>" />
+                <strong style="font-size:16px"><?php echo $this->translate('店铺价'); ?>：<?php echo $this->frontwebsite()->shopPriceSymbol().'<span id="show_combination_count_price">'.$base_goods_price.'</span>'.$this->frontwebsite()->shopPriceUnit(); ?></strong>
+                <br />
+                <input type="button" class="btn btn-large btn-success" onclick="combination_goods_add_cart();" value="<?php echo $this->translate('组合购买'); ?>"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<?php } ?>
+<div class="row-fluid goods_body">
+  <div class="span10 offset1">
+    <div class="tabbable">
+      <ul class="nav nav-tabs" id="sticky_navigation">
+        <li class="active"><a href="#body" data-toggle="tab"><?php echo $this->translate('商品详情'); ?></a></li>
+        <li><a href="#comment" data-toggle="tab"><?php echo $this->translate('商品评价'); ?></a></li>
+        <li><a href="#goodsask" data-toggle="tab"><?php echo $this->translate('商品咨询'); ?></a></li>
+        <li><a href="#service" data-toggle="tab"><?php echo $this->translate('售后服务'); ?></a></li>
+        <li><a href="#buy" data-toggle="tab"><?php echo $this->translate('如何购买'); ?></a></li>
+        <li class="pull-right">
+          <input type="button" class="btn btn-large btn-success" onclick="goods_menu_add_cart();" value="<?php echo $this->translate('加入购物车'); ?>">
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="body">
+          <?php if(isset($this->goods_attribute) and !empty($this->goods_attribute)) { ?>
+          <h4><?php echo $this->translate('商品参数'); ?> <small>SPECS</small></h4>
+          <hr>
+          <div class="row-fluid">
+            <div class="span10">
+              <table class="table table-striped">
+                <tbody>
+                  <?php
+						$b_num = count($this->goods_attribute)-1;
+						foreach($this->goods_attribute as $b_key => $b_val) {
+							$b_y_num = $b_key%3; if ($b_key == 0) echo '<tr>';
+							if ($b_y_num==0 and $b_key!=0) echo '</tr><tr>';
+							if ($b_num==$b_key) {
+					?>
+                
+                  <td width="<?php echo 33*(3-$b_y_num); ?>%" colspan="<?php echo (3-$b_y_num); ?>"><?php echo $b_val; ?></td>
+                </tr>
+                <?php } else { ?>
+                
+                  <td width="33%"><?php echo $b_val; ?></td>
+                  <?php
+							}
+						}
+					?>
+                    </tbody>
+              </table>
+            </div>
+            <div class="span2"> <img border="0" src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($this->goods_info->goods_thumbnail_image)); ?>" style=" width:200px;border:1px solid #D7D7D7"> </div>
+          </div>
+          <?php } ?>
+          <h4><?php echo $this->translate('商品详情'); ?> <small>DETAILS</small></h4>
+          <hr>
+          <div id="goods_info_body" class="edit_table_css"> <?php echo $this->goods_info->goods_body; ?> </div>
+        </div>
+        <div class="tab-pane" id="comment">
+          <h4><?php echo $this->translate('商品评价'); ?> <small>REVIEWS</small></h4>
+          <hr>
+			<div id="list_goodscomment">
+            
+            </div>
+        </div>
+        <div class="tab-pane" id="goodsask">
+          <h4><?php echo $this->translate('商品咨询'); ?> <small>ASK</small></h4>
+          <hr>
+          <div id="list_goodsask">
+          
+          </div>
+          <div class="edit_table_css">
+              <div class="message_one">
+    		  </div>
+              
+          	<form class="form-horizontal" method="post" name="ask_form" id="ask_form">
+            	<div class="control-group">
+                    <textarea rows="3" class="span11" id="goods_ask_content" name="goods_ask_content" placeholder="<?php echo $this->translate('您有任何问题，可以通过这里向卖家咨询'); ?>"></textarea>
+                </div>
+                <?php if ($this->frontwebsite()->websiteInfo('goods_ask_captcha') == 'true') { ?>
+            	<div class="control-group">
+                    <input type="text" class="input-small" id="captcha_code" name="captcha_code" placeholder="<?php echo $this->translate('输入验证码'); ?>">&nbsp;<span id="ask_captcha_id"></span>
+                </div>
+                <?php } ?>
+            	<div class="control-group">
+                	<input type="hidden" name="goods_id" value="<?php echo $this->goods_info->goods_id; ?>" />
+                    <button class="btn btn-primary" type="submit"><?php echo $this->translate('提交咨询'); ?></button>
+                </div>
+            </form>
+          </div>
+        </div>
+        <div class="tab-pane" id="service">
+          <h4><?php echo $this->translate('售后服务'); ?> <small>SERVICE</small></h4>
+          <hr>
+          <div class="edit_table_css"><?php echo $this->frontwebsite()->getSystemContent('buy_service'); ?></div>
+        </div>
+        <div class="tab-pane" id="buy">
+          <h4><?php echo $this->translate('如何购买'); ?> <small>BUY</small></h4>
+          <hr>
+          <div class="edit_table_css"><?php echo $this->frontwebsite()->getSystemContent('buy'); ?></div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<?php if (isset($this->related_goods_array) and !empty($this->related_goods_array)) { ?>
+<div class="row-fluid">
+  	<div class="span10 offset1">
+        <table style="border:1px solid #DDDDDD; margin-bottom: 10px;" width="100%">
+            <tr>
+                <td bgcolor="#999999"><font color="#FFFFFF" size="3"><?php echo $this->translate('相关商品'); ?></font></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="span12">
+                    <ul class="thumbnails">
+                        <?php foreach ($this->related_goods_array as $related_goods_value) { ?>
+                            <li class="span2" style="margin-bottom:0; margin-top: 15px; margin-left: 15px;">
+                                <a title="<?php echo $this->escapeHtml($related_goods_value['goods_name']); ?>" href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$related_goods_value['related_goods_id'], 'class_id'=>$related_goods_value['one_class_id'])); ?>"><img style="border:1px solid #D7D7D7" src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($related_goods_value['goods_thumbnail_image'])); ?>" border="0"></a>
+                                <p class="goods_title link_googds_name"><a href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$related_goods_value['related_goods_id'], 'class_id'=>$related_goods_value['one_class_id'])); ?>"><?php echo $this->escapeHtml($related_goods_value['goods_name']); ?></a></p>
+                                <strong><?php echo $this->frontwebsite()->shopPriceExtend($related_goods_value['goods_shop_price']); ?></strong>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<?php } ?>
+
+<script>
+//购物车添加
+$(document).ready(function() {
+	$("#ask_form").validate({
+		success : function(label){
+			label.addClass('validate_right').text('OK!');
+		},
+		rules: {
+			goods_ask_content: {
+				required: true
+			}
+			<?php if ($this->frontwebsite()->websiteInfo('goods_ask_captcha') == 'true') { ?>
+			,
+			captcha_code: {
+				required:true,
+				remote :{
+					url : '<?php echo $this->url('shopfront/default/captcha-check',array('action'=>'captcha','captcha_check'=>1)); ?>',
+					type : 'post',
+					date : {
+						captcha_code :function(){
+							return $("#captcha_code").val();
+						}
+					}
+				}
+			}
+			<?php } ?>
+		},
+		messages: {
+			goods_ask_content: {
+				required: "<?php echo $this->translate('请输入商品咨询内容！'); ?>"
+			}
+			<?php if ($this->frontwebsite()->websiteInfo('goods_ask_captcha') == 'true') { ?>
+			,
+			captcha_code: {
+				required:"<?php echo $this->translate('验证码不能为空！'); ?>",
+				remote : "<?php echo $this->translate('验证码错误！'); ?>"
+			}
+			<?php } ?>
+		},
+		submitHandler:function(form){
+			add_goods_ask_js();
+		}
+	});
+	
+	
+	$("#add_goods_cart").validate({
+		rules: {
+			buy_goods_num: {
+				required: true,
+				number:true,
+				min:<?php if($this->goods_info->goods_cart_buy_min_num > 0) echo $this->goods_info->goods_cart_buy_min_num; else echo 1; ?>
+				<?php if($this->goods_info->goods_cart_buy_max_num > 0) { ?>
+				,
+				max:<?php echo $this->goods_info->goods_cart_buy_max_num; } ?>
+			}
+			<?php if ($this->goods_color and $this->goods_color_array) { ?>
+			,
+            select_color_value: {
+				required: true
+			}
+			<?php } if ($this->goods_size and $this->goods_size_array) { ?>
+			,
+            select_size_value: {
+				required: true
+			}
+			<?php } ?>
+		},
+		messages: {
+			buy_goods_num: {
+				required: "<?php echo $this->translate('购物数量不能为空！'); ?>",
+				number:"<?php echo $this->translate('购物数量必须为数字！'); ?>",
+				min:"<?php echo sprintf($this->translate('购物数量最少为%s！'),($this->goods_info->goods_cart_buy_min_num > 0 ? $this->goods_info->goods_cart_buy_min_num : 1)); ?>"
+				<?php if($this->goods_info->goods_cart_buy_max_num > 0) { ?>
+				,
+				max:"<?php echo sprintf($this->translate('购物数量最多为%s！'),$this->goods_info->goods_cart_buy_max_num ); ?>"<?php } ?>
+			}
+			<?php if ($this->goods_color and $this->goods_color_array) { ?>
+			,
+            select_color_value: {
+				required: "<?php echo $this->translate('请选择').$this->goods_color->extend_name; ?>"
+			}
+			<?php } if ($this->goods_size and $this->goods_size_array) { ?>
+			,
+            select_size_value: {
+				required: "<?php echo $this->translate('请选择').$this->goods_size->extend_name; ?>"
+			}
+			<?php } ?>
+		},
+		submitHandler:function(form){
+			add_cart_js();
+		}
+	});
+		
+});
+//添加购物车
+function add_cart_js() {
+	$.post("<?php echo $this->url('frontcart/default', array('action'=>'addCart')); ?>",$('#add_goods_cart').formSerialize(),
+	function(data){
+		if(data == 'true') {
+			$("#message_show").html('<img border="0" src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($this->goods_info->goods_thumbnail_image)); ?>" style=" width:65px;border:1px solid #D7D7D7"><?php echo $this->escapeHtml($this->goods_info->goods_name); ?>&nbsp;<strong><?php echo $this->translate('添加购物车成功'); ?></stong>');
+			$("#message_url").html('<a data-dismiss="modal" class="btn btn-primary"><?php echo $this->translate('继续购物'); ?></a><a href="<?php echo $this->url('frontcart/default'); ?>" class="btn btn-primary"><?php echo $this->translate('去购物车结算'); ?></a>');
+			
+			var cart_goods_num = parseInt($('#top_cart').html()) + 1;
+			$('#top_cart').css('display','');
+			$('#top_cart').html(cart_goods_num);
+			
+		} else {
+			$("#message_show").html(data);
+			$("#message_url").html('<a class="btn" data-dismiss="modal"><?php echo $this->translate('关闭'); ?></a>');
+		}
+		$('#myModal').modal('show');
+  }); 
+}
+function goods_menu_add_cart() {
+    var alert_message = '';
+    <?php if ($this->goods_color and $this->goods_color_array) { ?>
+        var js_select_color_value = $('#select_color_value').val();
+        if(js_select_color_value == '') alert_message += "<?php echo $this->translate('请选择').$this->goods_color->extend_name; ?>\n";
+    <?php } if ($this->goods_size and $this->goods_size_array) { ?>
+        var js_select_size_value = $('#select_size_value').val();
+        if(js_select_size_value == '') alert_message += "<?php echo $this->translate('请选择').$this->goods_size->extend_name; ?>";
+    <?php } ?>
+    if(alert_message != '') {
+        alert(alert_message);
+        return false;
+    }
+    $('#add_cart_submit').click();
+}
+//添加收藏
+function add_favorites_js(goods_id,class_id) {
+	$.post("<?php echo $this->url('frontuser/default',array('action'=>'addFavorites')); ?>",{goods_id:goods_id,class_id:class_id},
+	function(data){
+		if(data == 'true') {
+			$("#message_show").html('<?php echo $this->translate('该商品成功加入收藏！'); ?>');
+			$("#message_url").html('<a class="btn" data-dismiss="modal"><?php echo $this->translate('关闭'); ?></a>');
+		} else {
+			var message = '';
+			if(data == 'login_false') {
+				message = '<?php echo $this->translate('您还没有登录，无法收藏商品！'); ?>';
+			} else if (data == 'goods_exists') {
+				message = '<?php echo $this->translate('您已经收藏过该商品！'); ?>';
+			} else {
+				message = '<?php echo $this->translate('商品收藏不成功！'); ?>';
+			}
+			$("#message_show").html(message);
+			$("#message_url").html('<a class="btn btn-warning" data-dismiss="modal"><?php echo $this->translate('关闭'); ?></a>');
+		}
+		$('#myModal').modal('show');
+	});	
+}
+
+
+$("#add_up").click(function() {
+	var buy_num = $("#buy_goods_num").val();
+	var max_num = <?php echo $this->goods_info->goods_cart_buy_max_num; ?>;
+	if(buy_num >= max_num && max_num != 0) {
+		alert('<?php echo $this->translate('您已经到了购买上限！'); ?>');
+		return false;	
+	}
+	$("#buy_goods_num").val(accAdd(buy_num,1));
+});
+$("#add_down").click(function() {
+	var buy_num = $("#buy_goods_num").val();
+	var min_num = 1;
+	if(buy_num <= min_num) {
+		alert('<?php echo $this->translate('您已经到了购买下限！'); ?>');
+		return false;	
+	}
+	$("#buy_goods_num").val(Subtr(buy_num,1));
+});
+//选择尺寸
+function select_size(size_value) {
+	if($('#'+size_value).attr('class') == 'selected') {
+		$('#'+size_value).css({border: ""});
+		$('#'+size_value).attr('class', '');
+		
+		$('#select_goods_size').html('');
+		$('#select_size_value').val('');
+	} else {
+		$('.goods_size a').each(function() {
+			$('#'+this.id).css({border: ""});
+			$('#'+this.id).attr('class', '');
+		});
+		$('#'+size_value).attr('class', 'selected');
+		$('#'+size_value).css({border: "2px solid #E4393C"});
+		
+		$('#select_goods_size').html($('#'+size_value).text());
+		$('#select_size_value').val(size_value);
+		
+		get_goods_stock();
+	}
+}
+//选择颜色
+function select_color(color_value) {
+	if($('#'+color_value).attr('class') == 'selected') {
+		$('#'+color_value).css({border: ""});
+		$('#'+color_value).attr('class', '');
+		
+		$('#select_goods_color').html('');
+		$('#select_color_value').val('');
+	} else {
+		$('.goods_color a').each(function() {
+			$('#'+this.id).css({border: ""});
+			$('#'+this.id).attr('class', '');
+		});
+		$('#'+color_value).attr('class', 'selected');
+		$('#'+color_value).css({border: "2px solid #E4393C"});
+		
+		$('#select_goods_color').html($('#'+color_value).attr('title'));
+		$('#select_color_value').val(color_value);
+		
+		get_goods_stock();
+	}
+}
+//如果有尺寸和颜色，并且已经选择了，那么获取相关库存
+function get_goods_stock() {
+	var goods_color_value = $('#select_color_value').val();
+	var goods_size_value  = $('#select_size_value').val();
+	if(goods_color_value != '' && goods_size_value != '') {
+		$.post("<?php echo $this->url('frontgoods/default',array('action'=>'goodsStock','goods_id'=>$this->goods_info->goods_id)); ?>",{goods_color:goods_color_value,goods_size:goods_size_value},
+			function(data){
+				if(data != '') {
+					$('#goods_stock_show').html(data.stock);
+					$('#goods_item').html(data.goods_item);
+					<?php if ($this->goods_info->goods_preferential_price <= 0) { ?>
+					$('#goods_price').html(data.price);
+					$('#goods_j').html(data.discount);
+					<?php } ?>
+				}
+		},
+		'json');
+	}
+}
+//加入对图片的延迟加载
+$('#goods_info_body img').each(function(){
+	 $(this).addClass('dbshopImgLoading');
+	 $(this).attr('data-original', $(this).attr('src'));
+});
+$("img.dbshopImgLoading").lazyload({ effect : "fadeIn", skip_invisible : true, failure_limit : 1000 });
+
+//菜单置顶
+$(function() {
+	if($('#sticky_navigation').html() != null) {
+		var sticky_navigation_offset_top = $('#sticky_navigation').offset().top;
+		var sticky_navigation = function(){
+			var scroll_top = $(window).scrollTop();
+			if (scroll_top > sticky_navigation_offset_top) {
+				$('#sticky_navigation').css({ 'position': 'fixed', 'top':0, 'left':0 ,'background' :'#E8E8E8','width':'100%','padding-top':'5px'});
+				$('#sticky_navigation_right').css({ 'margin-right': '5px'});
+			} else {
+				$('#sticky_navigation').css({ 'position': 'relative' });
+				$('#sticky_navigation').css({ 'background' :'','width':'','padding-top':''});
+				$('#sticky_navigation_right').css({ 'margin-right': ''});
+			}
+		};
+		sticky_navigation();
+		$(window).scroll(function() {
+			sticky_navigation();
+		});
+	}
+});
+
+//添加商品咨询
+function add_goods_ask_js() {
+	$.post("<?php echo $this->url('frontgoods/default', array('action'=>'addAsk')); ?>",$('#ask_form').formSerialize(),
+	function(data){
+		if(data == 'true') {
+			$('#goods_ask_content').val('');
+			<?php if ($this->frontwebsite()->websiteInfo('goods_ask_captcha') == 'true') { ?>
+			$('#captcha_code').val('');
+			captchaAdd();
+			<?php } ?>
+			show_message('.message_one','<?php echo date("Y-m-d H:i:s",time()); ?>','<?php echo $this->translate('您的咨询信息已经成功提交，卖家审核回复后，将正常显示！'); ?>','alert-success');
+		} else {
+			show_message('.message_one','<?php echo date("Y-m-d H:i:s",time()); ?>',data,'alert-error');
+		}
+  }); 	
+}
+
+<?php if ($this->combination_goods_array) { ?>
+//组合商品js
+/*------计算组合商品价格-------------*/
+function count_combination_price() {
+	var combination_price = $('#base_goods_price').val();
+	$("input[name='combination_goods_id[]']").each(function() {
+		if (this.checked == true) {
+			combination_price = accAdd(combination_price, $('#one_combination_price_'+this.value).val());
+		}
+	});
+	$('#show_combination_count_price').html(combination_price);
+}
+/*------提交组合商品-------------*/
+function combination_goods_add_cart() {
+	$("input[name='combination_goods_id[]']").each(function() {
+		if (this.checked == true) {
+			$.post("<?php echo $this->url('frontcart/default', array('action'=>'getAddCartInfo')); ?>",{goods_id:this.value},
+			function (data) {
+				if(data != '') {
+					$.post("<?php echo $this->url('frontcart/default', array('action'=>'addCart')); ?>",{goods_id:data.goods_id, class_id:data.class_id, buy_goods_num:1, select_color_value:data.select_color_value, select_size_value:data.select_size_value});
+				}
+			},'json');
+		}
+	});
+	$.post("<?php echo $this->url('frontcart/default', array('action'=>'getAddCartInfo')); ?>",{goods_id:<?php echo $this->goods_info->goods_id; ?>,class_id:<?php echo $this->class_id; ?>},
+	function (data) {
+		if(data != '') {
+			$.post("<?php echo $this->url('frontcart/default', array('action'=>'addCart')); ?>",{goods_id:data.goods_id, class_id:data.class_id, buy_goods_num:1, select_color_value:data.select_color_value, select_size_value:data.select_size_value});
+		}
+	},'json');
+	
+	$("#message_show").html('<?php echo $this->translate('组合商品添加购物车成功！'); ?>');
+	$("#message_url").html('<a href="" class="btn btn-primary"><?php echo $this->translate('继续购物'); ?></a><a href="<?php echo $this->url('frontcart/default'); ?>" class="btn btn-primary"><?php echo $this->translate('去购物车结算'); ?></a>');
+	$('#myModal').modal('show');
+}
+<?php } ?>
+
+<?php if ($this->frontwebsite()->websiteInfo('goods_ask_captcha') == 'true') { ?>
+//验证码添加
+function captchaAdd() {
+	$.post("<?php echo $this->url('shopfront/default',array('action'=>'captcha')); ?>",'',
+	function(data){
+		$("#ask_captcha_id").html('<img src="<?php echo $this->basePath('/'); ?>'+data.captcha_file+'" border="0" >&nbsp;&nbsp;<a href="javascript:;" onclick="captchaAdd()"><?php echo $this->translate('更换验证码'); ?></a>');
+},'json');
+}
+captchaAdd();
+<?php } ?>
+
+//商品评价列表
+function comment_ajax_list(list_url) {
+	$.get(list_url,'', function(html){
+		$("#list_goodscomment").html(html);
+	}); 	
+}
+comment_ajax_list('<?php echo $this->url('frontgoods/default',array('action'=>'listComment'),array('query'=>array('goods_id'=>$this->goods_info->goods_id, 'class_id'=>$this->class_id))); ?>');
+//商品咨询列表获取
+function ask_ajax_list(list_url) {
+	$.get(list_url,'', function(html){
+		$("#list_goodsask").html(html);
+	}); 
+}
+ask_ajax_list('<?php echo $this->url('frontgoods/default',array('action'=>'goodsAsk'),array('query'=>array('goods_id'=>$this->goods_info->goods_id, 'class_id'=>$this->class_id))); ?>');
+
+<?php if(defined('FRONT_CACHE_STATE') and FRONT_CACHE_STATE == 'true') { ?>
+$.get('<?php echo $this->url('frontgoods/default',array('action'=>'ajaxgoodsStock'),array('query'=>array('goods_id'=>$this->goods_info->goods_id, 'class_id'=>$this->class_id))); ?>','', function(data){
+    $("#goods_stock_show").html(data.goods_stock);
+    $("#ajax_order_count").html(data.order_count);
+},'json');
+<?php } ?>
+</script>

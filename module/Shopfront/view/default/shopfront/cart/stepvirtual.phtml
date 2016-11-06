@@ -1,0 +1,254 @@
+<div class="row-fluid" style="margin-top:10px;">
+<div class="span10 offset1">
+    <div class="wizard">
+		<ul class="steps">
+			<li class="complete"><span class="badge badge-success"><?php echo $this->translate('第一步'); ?></span><?php echo $this->translate('购物车信息'); ?><span class="chevron"></span></li>
+			<li class="complete"><span class="badge badge-success"><?php echo $this->translate('第二步'); ?></span><?php echo $this->translate('选择收货地址'); ?><span class="chevron"></span></li>
+			<li class="active"><span class="badge badge-info"><?php echo $this->translate('第三步'); ?></span><?php echo $this->translate('确认购物信息'); ?><span class="chevron"></span></li>
+			<li><span class="badge"><?php echo $this->translate('第四步'); ?></span><?php echo $this->translate('购物订单完成'); ?></li>
+			</ul>
+	</div>
+</div>
+</div>
+<div class="row-fluid" id="cart_step">
+<form class="form-horizontal" method="post" action="<?php if(!empty($this->payment)) echo $this->url('frontcart/default', array('action'=>'submitvirtual')); ?>">
+	<div class="span10 well offset1">
+        <div class="span12">
+        <h5 class="pull-left"><?php echo $this->translate('商品清单'); ?></h5><h5 class="pull-right"><a href="<?php echo $this->url('frontcart/default'); ?>"><?php echo $this->translate('《返回修改购物车'); ?></a></h5>
+        </div>
+		<div class="span12">
+        <table class="table table-bordered">
+         	<thead>
+            	<tr class="home-user-tr">
+            	<th width="38%"><?php echo $this->translate('商品'); ?></th>
+                <th width="8%"><?php echo $this->translate('货号'); ?></th>
+                <th width="10%"><?php echo $this->translate('属性'); ?></th>
+                <th width="10%"><?php echo $this->translate('数量'); ?></th>
+                <th width="10%"><?php echo $this->translate('价格'); ?></th>
+                <th width="10%"><?php echo $this->translate('总价'); ?></th>
+                </tr>
+            </thead>
+            <?php
+            $cart_integral_num = 0;//购物车中的积分购买商品数
+            foreach ($this->cart_array as $cart_key => $goods_value) {
+                $cart_integral_num = $cart_integral_num + $goods_value['integral_num'];
+            ?>
+            <tr>
+            	<td><a href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$goods_value['class_id'])); ?>"><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($goods_value['goods_image'])); ?>"  style=" height:65px;width:65px;border:1px solid #D7D7D7"></a>&nbsp;&nbsp;<?php echo $this->escapeHtml($goods_value['goods_name']); ?></td>
+                <td><?php echo $this->escapeHtml($goods_value['goods_item']);?></td>
+                <td>
+				<?php 
+				if($goods_value['goods_color_name'] == '' and $goods_value['goods_size_name'] == '') { 
+					echo $this->translate('无');
+				} else {
+					if($goods_value['goods_color_name'] != '') echo '<p>' . $goods_value['goods_color_name'] . '</p>';
+					if($goods_value['goods_size_name'] != '') echo '<p>' . $goods_value['goods_size_name'] . '</p>';
+				}
+				?>
+                 </td>
+                <td>
+                <?php echo $goods_value['buy_num']; ?>
+                <?php if($goods_value['goods_weight'] > 0) echo '<p>('.$this->translate('单品重:').'<strong>'.$goods_value['goods_weight'].'</strong>'.$this->translate('千克').')</p>'; ?>
+                 </td>
+                <td valign="bottom">
+                    <?php echo $this->frontwebsite()->shopPriceExtend($goods_value['goods_shop_price']); ?>
+                    <?php if(isset($goods_value['integral_num']) and $goods_value['integral_num'] > 0) { ?>
+                        (<?php echo $this->translate('或').$goods_value['integral_num'].$this->translate('积分'); ?>)
+                    <?php } ?>
+                </td>
+                <td>
+                    <?php echo $this->frontwebsite()->shopPriceSymbol().$this->frontwebsite()->shopPrice($goods_value['goods_shop_price'])*$goods_value['buy_num'].$this->frontwebsite()->shopPriceUnit(); ?>
+                    <?php if(isset($goods_value['integral_num']) and $goods_value['integral_num'] > 0) { ?>
+                        (<?php echo $this->translate('或').$goods_value['integral_num']*$goods_value['buy_num'].$this->translate('积分'); ?>)
+                    <?php } ?>
+                </td>
+            </tr>
+            <?php } ?>
+            <tr>
+            	<td colspan="6">
+                <p class="pull-right">
+                <?php if ($this->total_weight > 0) { ?>
+                <strong><?php echo $this->translate('商品总重:').$this->total_weight; ?></strong><?php echo $this->translate('千克'); ?>&nbsp;&nbsp;
+                <?php } ?>
+                <span style="margin-right:50px;"><strong><?php echo $this->translate('应付金额'); ?>：<?php echo $this->frontwebsite()->shopPriceSymbol().$this->frontwebsite()->getCartTotal().$this->frontwebsite()->shopPriceUnit(); ?></strong></span>
+                </p>
+                </td>
+            </tr>
+            <tr>
+            	<td colspan="6">
+                <p class="pull-right"><span style="padding-right:40px;">
+                <strong><?php echo $this->translate('应付金额'); ?>：<font color="#ED145B"><?php echo $this->frontwebsite()->shopPriceSymbol(); ?><span id="goods_total_fee"><?php echo $this->frontwebsite()->getCartTotal(); ?></span></font>
+                  + <?php echo $this->translate('支付手续费'); ?>：<font color="#ED145B"><?php echo $this->frontwebsite()->shopPriceSymbol(); ?><span id="pay_fee"><?php if(isset($this->payment[0]['payment_fee']['content'])) echo $this->payment[0]['payment_fee']['content']; else echo '0'; ?></span></font>
+                   - <?php echo $this->translate('购买优惠'); ?>：<font color="#ED145B"><?php echo $this->frontwebsite()->shopPriceSymbol(); ?><span id="buy_pre_fee"><?php echo isset($this->promotionsCost) ? $this->promotionsCost : 0; ?></span></font>
+                    - <?php echo $this->translate('会员优惠'); ?>：<font color="#ED145B"><?php echo $this->frontwebsite()->shopPriceSymbol(); ?><span id="user_pre_fee">0</span></font>
+                    <?php if ($cart_integral_num > 0) { ?>
+                        - <?php echo $this->translate('积分购买'); ?>：<font color="#ED145B"><?php echo $this->frontwebsite()->shopPriceSymbol(); ?><span id="user_integral_buy">0</span></font>
+                    <?php } ?>
+                    </strong></span></p>
+                </td>
+            </tr>
+            <?php if($this->integralInfo['integralNum'] and $this->integralInfo['integralNum'] > 0) { ?>
+            <tr>
+                <td colspan="6">
+                    <p class="pull-right"><span style="padding-right:40px;">
+                        <strong><?php echo $this->translate('获得消费积分'); if(!empty($this->integralInfo['integalRuleInfo'])) echo '(<font color="#139EE6">' . $this->integralInfo['integalRuleInfo'] . '</font>)'; ?>：<font color="#ED145B"><?php echo $this->integralInfo['integralNum']; echo $this->translate('积分'); ?></font></strong>
+                    </span></p>
+                </td>
+            </tr>
+            <?php } ?>
+            <?php if($this->integralInfo1['integralNum'] and $this->integralInfo1['integralNum'] > 0) { ?>
+                <tr>
+                    <td colspan="6">
+                        <p class="pull-right"><span style="padding-right:40px;">
+                        <strong><?php echo $this->translate('获得等级积分'); if(!empty($this->integralInfo1['integalRuleInfo'])) echo '(<font color="#139EE6">' . $this->integralInfo1['integalRuleInfo'] . '</font>)'; ?>：<font color="#ED145B"><?php echo $this->integralInfo1['integralNum']; echo $this->translate('积分'); ?></font></strong>
+                    </span></p>
+                    </td>
+                </tr>
+            <?php } ?>
+        </table>
+        </div>
+        <div class="span12">
+        <p style="font-size:16px;margin-right:50px; color:#ED145B" class="pull-right"><strong><?php echo $this->translate('应付总金额'); ?>：<?php echo $this->frontwebsite()->shopPriceSymbol(); ?><span id="order_total_fee"><?php echo $this->order_total; ?></span> <?php echo $this->frontwebsite()->shopPriceUnit(); ?></strong></p>
+        <input type="hidden" id="user_pre_price" name="user_pre_price" value="0" />
+        <input type="hidden" id="user_integral_price" name="user_integral_price" value="0" />
+        <input type="hidden" id="buy_pre_price" name="buy_pre_price" value="<?php echo isset($this->promotionsCost) ? $this->promotionsCost : 0; ?>" />
+        <input type="hidden" id="express_price" name="express_price" value="<?php if(isset($this->express_array[0]['express_price'])) echo $this->frontwebsite()->shopPrice($this->express_array[0]['express_price']); else echo '0'; ?>" />
+        <input type="hidden" id="pay_price" name="pay_price" value="<?php if(isset($this->payment[0]['payment_fee']['content'])) echo $this->payment[0]['payment_fee']['content']; else echo '0'; ?>" />
+        <input type="hidden" id="goods_total_price" name="goods_total_price" value="<?php echo $this->frontwebsite()->getCartTotal(); ?>" />
+        <input type="hidden" id="order_total_price" name="order_total_price" value="<?php echo $this->order_total; ?>" />
+        <input type="hidden" id="goods_count_weight" name="goods_count_weight" value="<?php if ($this->total_weight > 0) echo $this->total_weight; else echo 0; ?>" />
+        </div>
+
+        <?php if(isset($this->user_info->user_integral_num) and $this->user_info->user_integral_num > 0 and $cart_integral_num > 0) { ?>
+            <div class="span12">
+                <hr>
+                <label>
+                    <strong><?php echo $this->translate('使用积分购买:'); ?></strong>
+                    <input type="text" name="integral_buy_num" id="integral_buy_num" onblur="calculate_fee('integral_buy_num', 'integral', '');" class="span2">
+                    [<?php echo $this->translate('您可用').' '.$this->user_info->user_integral_num.' '.$this->translate('消费积分'); ?>]
+                </label>
+            </div>
+        <?php } ?>
+
+        <div class="span12">
+        <hr>
+        <h5 class="pull-left"><?php echo $this->translate('支付方式'); ?></h5>
+        </div>
+        <div class="span12">
+        <?php if ($this->payment) {
+			foreach($this->payment as $key => $value) {
+		?>
+        <label>
+        	<input type="radio" name="pyament_code" <?php if(isset($value['selected']) and $value['selected'] == 1) echo 'checked'; ?> value="<?php echo $value['editaction']; ?>" onclick="calculate_fee('payment_price_<?php echo $value['editaction']; ?>', 'payment', '<?php echo $value['editaction']; ?>');"><img src="<?php echo $this->basePath($value['payment_logo']['content']); ?>" style="border:1px solid #D7D7D7; margin-left:8px;">
+            &nbsp;[ <strong><?php echo $this->translate('费用'); ?>：<?php echo $this->frontwebsite()->shopPriceSymbol(); ?><span id="payment_price_<?php echo $value['editaction']; ?>"><?php echo $value['payment_fee']['content']; ?></span><?php echo $this->frontwebsite()->shopPriceUnit(); ?></strong> ]&nbsp;<small><?php echo $value['payment_info']['content']; ?></small>
+        </label>
+        <?php } } ?>
+        </div>
+
+        <?php if ($this->frontwebsite()->websiteInfo('shop_invoice') == 'true') { ?>
+        <div class="span12">
+            <hr />
+            <h5 class="pull-left"><?php echo $this->translate('购物发票'); ?></h5>
+        </div>
+        <div class="span12">
+            <select name="navigation_type" class="span2">
+                <option value="<?php echo $this->translate('个人发票'); ?>"><?php echo $this->translate('个人发票'); ?></option>
+                <option value="<?php echo $this->translate('公司发票'); ?>"><?php echo $this->translate('公司发票'); ?></option>
+            </select>&nbsp;&nbsp;
+            <?php echo $this->translate('发票抬头'); ?>：<input type="text" class="span3" name="invoice_title" id="invoice_title">
+            &nbsp;&nbsp;
+            <?php echo $this->translate('发票内容'); ?>：<input type="text" class="span4" name="invoice_content" id="invoice_content">
+        </div>
+        <?php } ?>
+
+        <div class="span12">
+        <hr />
+        <h5 class="pull-left"><?php echo $this->translate('买家留言'); ?></h5>
+        </div>
+        <div class="span12">
+        <textarea class="span9" id="order_message" name="order_message" rows="2"></textarea>
+        </div>
+        
+        <div class="span12">
+        <hr>
+        	<div class="span4 offset4">
+            <input type="hidden" name="step" value="stepvirtual" />
+            <?php if(!empty($this->payment)) { ?>
+        	<input type="submit" class="btn btn-large btn-primary" value="<?php echo $this->translate('确认订单'); ?>">&nbsp;&nbsp;
+            <?php } ?>
+        	<input type="button" class="btn" style="vertical-align:bottom;" onClick="location.href='<?php echo $this->url('frontcart/default'); ?>'" value="<?php echo $this->translate('返回上一步'); ?>">
+            </div>
+        </div>                
+    </div>
+</form> 
+</div>
+
+<script>
+function calculate_fee(input_id, type, paymentcode) {
+	var html_price = $('#'+input_id).html();
+
+    <?php if(isset($this->user_info->user_integral_num) and $this->user_info->user_integral_num > 0 and $cart_integral_num > 0) { ?>
+    var integral_num = $('#integral_buy_num').val();
+    if(integral_num == '') integral_num = 0;
+    var re = /^[0-9]+.?[0-9]*$/;
+    if(!re.test(integral_num)) {
+        alert('<?php echo $this->translate('积分必须为数字'); ?>'); $('#'+input_id).val(0);
+        integral_num = 0;
+    } else {
+        if(integral_num > 0) {
+            if(integral_num > <?php echo $this->user_info->user_integral_num; ?>) {
+                alert('<?php echo $this->translate('输入的积分数量超过了您拥有的积分数！'); ?>');
+                $('#'+input_id).val(0);
+                integral_num = 0;
+            }
+            if(integral_num > <?php echo $cart_integral_num; ?>) {
+                alert('<?php echo $this->translate('输入的积分数量超过了订单中可用积分购买的最大量！'); ?>');
+                $('#'+input_id).val(0);
+                integral_num = 0;
+            }
+            //从这里开始，integral_num 变成了积分转换后的货币值
+            integral_num = accMul(integral_num, <?php echo $this->integral_currency_con; ?>);
+            var con_order_total = accAdd(parseFloat($('#order_total_price').val()), parseFloat($('#user_integral_price').val()));
+            if(integral_num > con_order_total) {
+                alert('<?php echo $this->translate('输入的积分数量超过订单应付总额，请重新输入！'); ?>');
+                $('#'+input_id).val(0);
+                integral_num = 0;
+            }
+        }
+    }
+    <?php } ?>
+
+	if(type == 'express') {
+		$('#express_price').val(html_price);
+	} else if (type == 'payment') {
+		$('#pay_price').val(html_price);
+		$('#pay_fee').html(html_price);
+		
+		if(paymentcode == 'hdfk') {
+			$('.no_cash_on_delivery').css('display', 'none');
+		} else {
+			$('.no_cash_on_delivery').css('display', '');
+		}
+	} else if (type == 'integral') {//积分购买
+        $('#user_integral_price').val(integral_num);
+        $('#user_integral_buy').html(integral_num);
+    }
+	//order_total = accAdd(parseFloat($('#user_pre_price').val()), parseFloat($('#buy_pre_price').val()));
+	order_total = 0;
+	order_total = accAdd(order_total, parseFloat($('#express_price').val()));
+	order_total = accAdd(order_total, parseFloat($('#pay_price').val()));
+	order_total = accAdd(order_total, parseFloat($('#goods_total_price').val()));
+	
+	order_total = Subtr(order_total, parseFloat($('#buy_pre_price').val()));
+	order_total = Subtr(order_total, parseFloat($('#user_pre_price').val()));
+
+    <?php if(isset($this->user_info->user_integral_num) and $this->user_info->user_integral_num > 0 and $cart_integral_num > 0) { ?>
+    order_total = Subtr(order_total, parseFloat($('#user_integral_price').val()));
+    <?php } ?>
+
+	order_total = advFormatNumber(order_total, 2);
+	
+	$('#order_total_price').val(order_total);
+	$('#order_total_fee').html(order_total);
+}
+</script>

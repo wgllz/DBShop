@@ -1,0 +1,1665 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DBShop V1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-20 16:31+0800\n"
+"PO-Revision-Date: 2016-10-20 16:31+0800\n"
+"Last-Translator: DBShop <team@dbshop.net>\n"
+"Language-Team: DBShop <team@dbshop.net>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../src/Admin/Controller/AdminController.php:67
+#: ../view/admin/admin/index.phtml:4 ../view/admin/admin/index.phtml:32
+msgid "管理员登录"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:67
+msgid "管理员登录成功"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:97
+msgid "管理员退出"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:97
+msgid "管理员退出成功"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:129
+#: ../src/Admin/Controller/AdminController.php:169
+#: ../src/Admin/Controller/AdminController.php:201
+#: ../src/Admin/Controller/AdminController.php:206
+#: ../src/Admin/Controller/AdminController.php:255
+#: ../src/Admin/Controller/AdminController.php:287
+#: ../src/Admin/Controller/AdminController.php:317
+#: ../src/Admin/Controller/AdminController.php:375
+#: ../view/layout/admin_header_layout.phtml:112
+msgid "管理员设置"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:129
+msgid "添加管理员"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:159
+msgid "修改密码通知"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:160
+#, php-format
+msgid "管理员%s您好，您在%s修改了新密码为"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:169
+msgid "编辑管理员"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:173
+msgid "管理员信息编辑成功！"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:201
+#: ../view/admin/admin/adminadd.phtml:16
+msgid "删除管理员"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:206
+msgid "删除管理员失败"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:255
+#: ../view/admin/admin/admingroup.phtml:4
+msgid "添加管理员组"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:287
+msgid "编辑管理员组"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:317
+#: ../view/admin/admin/groupadd.phtml:16
+msgid "删除管理员组"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:356
+#: ../src/Admin/Controller/AdminController.php:357
+#: ../view/layout/admin_header_layout.phtml:87
+msgid "系统管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:358
+#: ../view/admin/home/index.phtml:13
+#: ../view/layout/admin_header_layout.phtml:89
+msgid "系统设置"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:359
+#: ../view/layout/admin_header_layout.phtml:91
+msgid "附件设置"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:360
+#: ../view/layout/admin_header_layout.phtml:92
+msgid "客户设置"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:361
+#: ../view/layout/admin_header_layout.phtml:104
+msgid "消息提醒设置"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:362
+#: ../view/layout/admin_header_layout.phtml:90
+msgid "性能优化"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:363
+msgid "性能优化设置"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:364
+msgid "客服管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:365
+msgid "在线客服查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:366
+msgid "在线客服添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:367
+msgid "在线客服编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:368
+msgid "在线客服删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:369
+msgid "在线客服组查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:370
+msgid "在线客服组添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:371
+msgid "在线客服组编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:372
+msgid "在线客服组删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:374
+msgid "管理员管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:376
+msgid "管理员查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:377
+msgid "管理员添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:378
+msgid "管理员编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:379
+msgid "管理员删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:380
+msgid "管理员组查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:381
+msgid "管理员组添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:382
+msgid "管理员组编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:383
+msgid "管理员组删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:385
+#: ../src/Admin/Controller/AdminController.php:386
+#: ../view/layout/admin_header_layout.phtml:125
+msgid "模板管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:387
+msgid "模板设置"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:389
+#: ../src/Admin/Controller/AdminController.php:390
+#: ../view/layout/admin_header_layout.phtml:126
+msgid "系统更新"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:391
+msgid "更新列表查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:392
+msgid "在线更新操作"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:394
+#: ../src/Admin/Controller/AdminController.php:395
+#: ../view/layout/admin_header_layout.phtml:94
+msgid "货币设置"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:396
+msgid "货币查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:397
+msgid "货币添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:398
+msgid "货币编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:399
+msgid "货币删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:401
+#: ../src/Admin/Controller/AdminController.php:402
+#: ../view/admin/home/index.phtml:14
+#: ../view/layout/admin_header_layout.phtml:95
+msgid "支付设置"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:403
+msgid "支付查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:404
+msgid "支付编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:406
+#: ../src/Admin/Controller/AdminController.php:407
+#: ../view/admin/home/index.phtml:16
+#: ../view/layout/admin_header_layout.phtml:97
+#: ../view/layout/admin_header_layout.phtml:99
+msgid "配送设置"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:408
+msgid "配送查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:409
+msgid "配送添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:410
+msgid "配送编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:411
+msgid "配送删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:412
+msgid "动态API查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:413
+msgid "动态API编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:415
+#: ../view/layout/admin_header_layout.phtml:103
+msgid "地区管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:416
+#: ../view/admin/home/index.phtml:15
+msgid "地区设置"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:417
+msgid "地区查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:418
+msgid "地区添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:419
+msgid "地区编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:420
+msgid "地区删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:422
+#: ../view/layout/admin_header_layout.phtml:106
+msgid "状态设置"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:423
+#: ../view/layout/admin_header_layout.phtml:108
+msgid "库存状态"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:424
+msgid "库存状态查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:425
+msgid "库存状态添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:426
+msgid "库存状态编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:427
+msgid "库存状态删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:429
+#: ../src/Admin/Controller/AdminController.php:430
+#: ../view/layout/admin_header_layout.phtml:71
+msgid "导航设置"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:431
+msgid "导航查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:432
+msgid "导航添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:433
+msgid "导航编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:434
+msgid "导航删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:436
+#: ../src/Admin/Controller/AdminController.php:437
+#: ../view/layout/admin_header_layout.phtml:72
+msgid "友情链接"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:438
+msgid "友情链接查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:439
+msgid "友情链接添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:440
+msgid "友情链接编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:441
+msgid "友情链接删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:443
+msgid "邮件管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:444
+#: ../view/layout/admin_header_layout.phtml:73
+msgid "邮件发送"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:445
+msgid "邮件发送页面"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:446
+msgid "邮件发送操作"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:448
+#: ../view/layout/admin_header_layout.phtml:75
+msgid "广告管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:449
+msgid "广告设置"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:450
+msgid "广告类型查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:451
+msgid "广告查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:452
+msgid "广告添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:453
+msgid "广告编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:454
+msgid "广告删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:455
+msgid "广告类型查看(phone)"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:456
+msgid "广告查看(phone)"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:457
+msgid "广告添加(phone)"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:458
+msgid "广告编辑(phone)"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:459
+msgid "广告删除(phone)"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:461
+#: ../src/Admin/Controller/AdminController.php:462
+msgid "数据库备份还原"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:463
+msgid "数据库备份查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:464
+msgid "数据库备份删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:465
+msgid "数据库备份操作"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:466
+msgid "数据库导入操作"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:468
+#: ../view/layout/admin_header_layout.phtml:82
+msgid "文件管理器"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:469
+msgid "文件管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:470
+msgid "文件管理器操作"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:472
+#: ../src/Admin/Controller/AdminController.php:473
+#: ../view/layout/admin_header_layout.phtml:83
+msgid "操作日志"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:474
+msgid "操作日志查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:475
+msgid "操作日志删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:477
+#: ../view/layout/admin_header_layout.phtml:62
+msgid "CMS管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:478
+msgid "文章管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:479
+msgid "文章查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:480
+msgid "文章添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:481
+msgid "文章编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:482
+msgid "文章删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:483
+msgid "单页文章查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:484
+msgid "单页文章添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:485
+msgid "单页文章编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:486
+msgid "单页文章删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:487
+#: ../src/Admin/Controller/AdminController.php:526
+msgid "分类管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:488
+#: ../src/Admin/Controller/AdminController.php:527
+msgid "分类查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:489
+#: ../src/Admin/Controller/AdminController.php:528
+msgid "分类添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:490
+#: ../src/Admin/Controller/AdminController.php:529
+msgid "分类编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:491
+#: ../src/Admin/Controller/AdminController.php:530
+msgid "分类删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:493
+#: ../src/Admin/Controller/AdminController.php:494
+#: ../view/layout/admin_header_layout.phtml:39
+msgid "客户管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:495
+msgid "客户查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:496
+msgid "客户添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:497
+msgid "客户编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:498
+msgid "客户删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:499
+msgid "客户批量操作"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:500
+msgid "客户组管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:501
+msgid "客户组查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:502
+msgid "客户组添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:503
+msgid "客户组编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:504
+msgid "客户组删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:505
+#: ../view/layout/admin_header_layout.phtml:44
+msgid "客户余额"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:506
+msgid "余额记录查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:507
+msgid "客户充值"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:508
+msgid "充值记录查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:509
+msgid "充值记录删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:510
+msgid "提现记录查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:511
+msgid "审核提现记录"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:512
+msgid "删除提现记录"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:513
+#: ../view/layout/admin_header_layout.phtml:56
+msgid "积分规则"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:514
+msgid "积分规则查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:515
+msgid "积分规则添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:516
+msgid "积分规则编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:517
+msgid "积分规则删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:519
+#: ../src/Admin/Controller/AdminController.php:520
+#: ../view/layout/admin_header_layout.phtml:14
+msgid "商品管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:521
+msgid "商品查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:522
+msgid "商品添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:523
+msgid "商品编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:524
+msgid "商品删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:525
+msgid "商品批量处理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:531
+msgid "品牌管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:532
+msgid "品牌查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:533
+msgid "品牌添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:534
+msgid "品牌编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:535
+msgid "品牌删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:536
+msgid "属性管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:537
+msgid "属性查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:538
+msgid "属性添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:539
+msgid "属性编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:540
+msgid "属性删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:541
+msgid "属性值查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:542
+#: ../src/Admin/Controller/AdminController.php:546
+msgid "属性值添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:543
+#: ../src/Admin/Controller/AdminController.php:547
+msgid "属性值编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:544
+#: ../src/Admin/Controller/AdminController.php:548
+msgid "属性值删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:545
+msgid "属性组查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:549
+msgid "评价管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:550
+msgid "评价查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:551
+msgid "评价编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:552
+msgid "评价删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:553
+msgid "咨询管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:554
+msgid "咨询查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:555
+msgid "咨询删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:556
+msgid "咨询回复"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:557
+msgid "显示状态修改"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:558
+msgid "标签管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:559
+msgid "标签查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:560
+msgid "标签添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:561
+msgid "标签编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:562
+msgid "标签删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:563
+msgid "标签组查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:564
+msgid "标签组添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:565
+msgid "标签组编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:566
+msgid "标签组删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:567
+msgid "优惠规则"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:568
+msgid "规则查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:569
+msgid "规则添加"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:570
+msgid "规则编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:571
+msgid "规则删除"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:573
+#: ../view/layout/admin_header_layout.phtml:5
+msgid "销售管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:574
+#: ../view/layout/admin_header_layout.phtml:7
+msgid "订单管理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:575
+msgid "订单查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:576
+msgid "订单编辑"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:577
+msgid "订单打印"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:578
+msgid "订单支付"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:579
+msgid "订单配送"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:580
+msgid "订单完成"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:581
+msgid "退货记录查看"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:582
+msgid "退货处理"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:583
+msgid "查看退货详情"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:585
+msgid "单独添加快递单号"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:586
+msgid "批量导入快递单号"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:587
+msgid "查看快递单号列表"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:588
+msgid "导出发货单"
+msgstr ""
+
+#: ../src/Admin/Controller/AdminController.php:589
+msgid "批量订单发货"
+msgstr ""
+
+#: ../src/Admin/Controller/HomeController.php:108
+msgid "您的模板有新更新包啦！"
+msgstr ""
+
+#: ../src/Admin/Controller/HomeController.php:108
+#: ../src/Admin/Controller/HomeController.php:114
+msgid "马上去查看一下"
+msgstr ""
+
+#: ../src/Admin/Controller/HomeController.php:114
+msgid "DBShop电子商务系统有新更新包啦！"
+msgstr ""
+
+#: ../src/Admin/Controller/HomeController.php:119
+#: ../src/Admin/Controller/HomeController.php:138
+#: ../src/Admin/Controller/HomeController.php:145
+#: ../view/admin/home/index.phtml:100
+msgid "DBShop新闻动态"
+msgstr ""
+
+#: ../src/Admin/Controller/HomeController.php:130
+msgid "商业授权版本"
+msgstr ""
+
+#: ../src/Admin/Controller/HomeController.php:132
+msgid "免费(非授权)版本"
+msgstr ""
+
+#: ../src/Admin/Controller/HomeController.php:132
+msgid "获取授权"
+msgstr ""
+
+#: ../src/Admin/Controller/HomeController.php:136
+msgid "更新服务器连接失败无法获取更新信息！"
+msgstr ""
+
+#: ../src/Admin/Controller/HomeController.php:139
+msgid "连接失败无法获取DBShop新闻！"
+msgstr ""
+
+#: ../src/Admin/Controller/HomeController.php:143
+msgid "您的环境没有开启soap，更新服务器连接失败无法获取更新信息！"
+msgstr ""
+
+#: ../src/Admin/Controller/HomeController.php:146
+msgid "您的环境没有开启soap，无法获取DBShop新闻！"
+msgstr ""
+
+#: ../src/Admin/FormValidate/FormAdminValidate.php:55
+#: ../view/admin/admin/index.phtml:71
+msgid "请输入用户名！"
+msgstr ""
+
+#: ../src/Admin/FormValidate/FormAdminValidate.php:61
+#: ../view/admin/admin/index.phtml:74
+msgid "请输入用户密码！"
+msgstr ""
+
+#: ../src/Admin/FormValidate/FormAdminValidate.php:67
+#: ../src/Admin/FormValidate/FormAdminValidate.php:68
+msgid "登录时间超时，请重新登录"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:3
+msgid "管理员信息"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:4 ../view/admin/admin/adminadd.phtml:23
+#: ../view/admin/admin/groupadd.phtml:4 ../view/admin/admin/groupadd.phtml:23
+msgid "基本信息"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:11
+#: ../view/admin/admin/admingroup.phtml:23
+#: ../view/admin/admin/administrator.phtml:30
+#: ../view/admin/admin/groupadd.phtml:11
+msgid "编辑"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:11 ../view/admin/admin/groupadd.phtml:11
+msgid "新加"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:11 ../view/admin/admin/index.phtml:13
+#: ../view/layout/admin_header_layout.phtml:114
+msgid "管理员"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:13
+msgid "返回管理员列表"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:14 ../view/admin/admin/groupadd.phtml:14
+msgid "刷新"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:18
+msgid "保存管理员信息"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:19
+#: ../view/admin/admin/admingroup.phtml:5
+#: ../view/admin/admin/administrator.phtml:5
+#: ../view/admin/admin/groupadd.phtml:19
+msgid "查看帮助说明"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:28
+msgid "管理员分组"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:31
+msgid "请选择"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:43
+#: ../view/admin/admin/administrator.phtml:12
+msgid "管理员名称"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:49
+#: ../view/admin/admin/administrator.phtml:13
+msgid "电子邮件"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:55
+msgid "登录密码"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:61
+msgid "确认密码"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:67
+msgid "将密码发给该管理员"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:132
+msgid "请选择管理员分组"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:136
+msgid "请输入管理员登录名称！"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:137
+msgid "管理员登录名称最长为30个汉字！"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:138
+msgid "该管理员已经存在！"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:142
+msgid "请输入电子邮箱！"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:143
+msgid "电子邮箱格式错误！"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:144
+msgid "该邮箱已经存在"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:148
+msgid "请输入密码！"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:150
+msgid "至少输入6位密码！"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:151
+msgid "密码最长为20位！"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:155
+msgid "请输入确认密码！"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:157
+msgid "至少输入6位确认密码！"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:158
+msgid "确认密码最长为20位！"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:159
+msgid "两次输入的密码不一致！"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:169
+#: ../view/admin/admin/administrator.phtml:46
+msgid "您确实要删除该管理员吗？"
+msgstr ""
+
+#: ../view/admin/admin/adminadd.phtml:176
+#: ../view/admin/admin/administrator.phtml:53
+msgid "管理员删除失败！"
+msgstr ""
+
+#: ../view/admin/admin/admingroup.phtml:2
+msgid "管理管理员组"
+msgstr ""
+
+#: ../view/admin/admin/admingroup.phtml:12
+#: ../view/admin/admin/groupadd.phtml:26
+msgid "管理员组名称"
+msgstr ""
+
+#: ../view/admin/admin/admingroup.phtml:13
+#: ../view/admin/admin/administrator.phtml:16
+msgid "操作"
+msgstr ""
+
+#: ../view/admin/admin/admingroup.phtml:26
+#: ../view/admin/admin/administrator.phtml:35
+msgid "删除"
+msgstr ""
+
+#: ../view/admin/admin/admingroup.phtml:38
+#: ../view/admin/admin/groupadd.phtml:111
+msgid "您确实要删除该管理员组吗？"
+msgstr ""
+
+#: ../view/admin/admin/admingroup.phtml:45
+msgid ""
+"管理员组删除失败，该客户组下已经有管理员存在，需要先删除组下管理员信息！"
+msgstr ""
+
+#: ../view/admin/admin/administrator.phtml:2
+msgid "管理管理员"
+msgstr ""
+
+#: ../view/admin/admin/administrator.phtml:4
+msgid "添加新管理员"
+msgstr ""
+
+#: ../view/admin/admin/administrator.phtml:14
+#: ../view/admin/admin/groupadd.phtml:11
+#: ../view/layout/admin_header_layout.phtml:115
+msgid "管理员组"
+msgstr ""
+
+#: ../view/admin/admin/administrator.phtml:15
+msgid "管理员加入时间"
+msgstr ""
+
+#: ../view/admin/admin/groupadd.phtml:3
+msgid "管理员组信息"
+msgstr ""
+
+#: ../view/admin/admin/groupadd.phtml:5 ../view/admin/admin/groupadd.phtml:36
+#: ../view/admin/admin/groupadd.phtml:40
+msgid "权限设置"
+msgstr ""
+
+#: ../view/admin/admin/groupadd.phtml:13
+msgid "返回管理员组列表"
+msgstr ""
+
+#: ../view/admin/admin/groupadd.phtml:18
+msgid "保存管理员组信息"
+msgstr ""
+
+#: ../view/admin/admin/groupadd.phtml:42
+msgid "全部权限"
+msgstr ""
+
+#: ../view/admin/admin/groupadd.phtml:50
+msgid "全选"
+msgstr ""
+
+#: ../view/admin/admin/groupadd.phtml:80
+msgid "请输入管理员组名称！"
+msgstr ""
+
+#: ../view/admin/admin/groupadd.phtml:81
+msgid "管理员组名称最长为60个汉字！"
+msgstr ""
+
+#: ../view/admin/admin/groupadd.phtml:118
+msgid ""
+"管理员组删除失败，该管理员组下已经有管理员存在，需要先删除组下管理员信息！"
+msgstr ""
+
+#: ../view/admin/admin/index.phtml:15
+msgid "管理员帐户"
+msgstr ""
+
+#: ../view/admin/admin/index.phtml:19
+msgid "密码"
+msgstr ""
+
+#: ../view/admin/admin/index.phtml:21
+msgid "管理员密码"
+msgstr ""
+
+#: ../view/admin/admin/index.phtml:25 ../view/admin/admin/index.phtml:27
+msgid "验证码"
+msgstr ""
+
+#: ../view/admin/admin/index.phtml:33
+msgid "返回前台"
+msgstr ""
+
+#: ../view/admin/admin/index.phtml:38
+msgid "版权所有"
+msgstr ""
+
+#: ../view/admin/admin/index.phtml:77
+msgid "验证码不能为空！"
+msgstr ""
+
+#: ../view/admin/admin/index.phtml:78
+msgid "验证码错误！"
+msgstr ""
+
+#: ../view/admin/admin/index.phtml:86
+msgid "登录失败，用户名或密码错误，请重新登录！"
+msgstr ""
+
+#: ../view/admin/admin/index.phtml:93
+msgid "更换验证码"
+msgstr ""
+
+#: ../view/admin/admin/purview-error.phtml:2
+msgid "对不起！您没有该操作权限，请选择其他操作！"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:12
+msgid "快速设置"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:17
+msgid "添加商品分类"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:18
+msgid "添加商品"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:19
+msgid "完成"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:20
+msgid "帮助说明"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:28
+msgid "订单信息"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:31
+msgid "待付款订单"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:33
+msgid "已付款订单"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:37
+msgid "待发货订单"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:39
+msgid "待收货订单"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:43
+msgid "已完成订单"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:45
+msgid "已取消订单"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:53
+msgid "商品信息"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:56
+msgid "上架商品"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:56
+msgid "下架商品"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:59
+msgid "缺货商品"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:59
+msgid "销售商品"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:62
+msgid "优惠商品"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:62
+msgid "商品分类"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:71
+msgid "会员信息"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:74
+msgid "会员总数"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:74
+msgid "购买过商品会员"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:77
+msgid "待审核会员"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:77
+msgid "已关闭会员"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:84
+msgid "其他信息"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:87
+#: ../view/layout/admin_header_layout.phtml:26
+msgid "商品评价"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:89
+#: ../view/layout/admin_header_layout.phtml:27
+msgid "商品咨询"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:104
+msgid "动态新闻加载中……"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:112
+msgid "DBShop系统信息"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:115
+msgid "DBShop版本"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:115
+msgid "编码"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:118
+msgid "安装日期"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:118
+msgid "更新日期"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:121
+msgid "PHP版本"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:121
+msgid "官方网站"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:124
+msgid "使用教程"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:124
+msgid "官方论坛"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:127
+msgid "官方QQ群"
+msgstr ""
+
+#: ../view/admin/home/index.phtml:128
+msgid "授权信息"
+msgstr ""
+
+#: ../view/common/dbshop-ajax-pages.phtml:14
+#: ../view/common/dbshop-ajax-pages.phtml:17 ../view/common/pager.phtml:15
+#: ../view/common/pager.phtml:18
+msgid "首页"
+msgstr ""
+
+#: ../view/common/dbshop-ajax-pages.phtml:34
+#: ../view/common/dbshop-ajax-pages.phtml:37 ../view/common/pager.phtml:35
+#: ../view/common/pager.phtml:38
+msgid "末页"
+msgstr ""
+
+#: ../view/error/404.phtml:6 ../view/error/404.phtml:145
+msgid "没有找到该页面"
+msgstr ""
+
+#: ../view/error/404.phtml:146
+msgid "抱歉, 您正在打开的页面不存在."
+msgstr ""
+
+#: ../view/error/404.phtml:147
+msgid "点击下面的链接回到首页"
+msgstr ""
+
+#: ../view/error/404.phtml:150 ../view/error/index.phtml:150
+msgid "返回后台首页"
+msgstr ""
+
+#: ../view/error/404.phtml:152 ../view/error/index.phtml:152
+msgid "返回前台首页"
+msgstr ""
+
+#: ../view/error/index.phtml:6 ../view/error/index.phtml:145
+msgid "系统错误页面"
+msgstr ""
+
+#: ../view/error/index.phtml:146
+msgid "抱歉, 这是一个系统错误页面."
+msgstr ""
+
+#: ../view/error/index.phtml:147
+msgid "点击下面的链接返回有效页面"
+msgstr ""
+
+#: ../view/error/index.phtml:153
+msgid "将产生这个错误的原因告诉我们"
+msgstr ""
+
+#: ../view/layout/admin.phtml:8
+msgid "DBShop管理后台"
+msgstr ""
+
+#: ../view/layout/admin_footer_layout.phtml:6
+#, php-format
+msgid "Copyright &copy;%s 版权所有"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:8
+msgid "发货单"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:9
+msgid "支付记录"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:10
+msgid "退货管理"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:11
+msgid "快递单号管理"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:16
+msgid "管理商品"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:17
+msgid "管理分类"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:19
+msgid "商品属性"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:21
+msgid "属性"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:22
+msgid "属性分组"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:25
+msgid "商品品牌"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:29
+msgid "商品标签"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:31
+msgid "普通商品标签"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:32
+msgid "特定商品标签"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:33
+msgid "商品标签分组"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:36
+msgid "优惠促销规则"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:41
+msgid "管理客户"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:42
+msgid "管理客户组"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:46
+msgid "充值记录"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:47
+msgid "提现申请"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:48
+msgid "余额记录"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:52
+msgid "管理积分"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:54
+msgid "积分类型"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:55
+msgid "积分历史记录"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:59
+msgid "管理整合"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:64
+msgid "管理文章"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:65
+msgid "管理文章分类"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:66
+msgid "管理单页文章"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:69
+msgid "工具管理"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:77
+msgid "电脑端广告(PC)"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:78
+msgid "手机端广告(Phone)"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:81
+msgid "数据库备份"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:84
+msgid "错误日志"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:93
+msgid "语言设置"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:100
+msgid "动态API"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:119
+msgid "在线客服设置"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:121
+msgid "在线客服成员"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:122
+msgid "在线客服分组"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:131
+msgid "后台首页"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:133
+msgid "前台首页"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:140
+msgid "暂无新消息"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:141
+msgid "星期一"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:141
+msgid "星期二"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:141
+msgid "星期三"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:141
+msgid "星期四"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:141
+msgid "星期五"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:141
+msgid "星期六"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:141
+msgid "星期日"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:143
+msgid "缓存清理"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:145
+msgid "退出系统"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:153
+msgid "缓存清理完毕！"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:155
+msgid "缓存清理失败！"
+msgstr ""

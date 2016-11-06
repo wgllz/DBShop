@@ -1,0 +1,76 @@
+<div class="row-fluid" id="list_location">
+	<div class="span10 offset1">
+    	<a href="<?php echo $this->url('shopfront/default'); ?>"><?php echo $this->translate('首页'); ?></a> <span class="divider">></span>
+        <?php if($this->class_menu) { foreach($this->class_menu as $menu_val) { 
+			if($menu_val['article_class_id'] != $this->article_class_info->article_class_id) {
+		?>
+        <a href="<?php echo $this->url('frontarticle/default/cms_class_id', array('action'=>'index', 'cms_class_id'=>$menu_val['article_class_id'])); ?>"><?php echo $this->escapeHtml($menu_val['article_class_name']); ?></a> <span class="divider">></span>
+        <?php } } } ?>
+            <?php echo $this->escapeHtml($this->article_class_info->article_class_name); ?>
+    </div>
+</div>
+
+<div class="row-fluid" id="goods_list">
+	<div class="row span2 offset1">
+		<div class="span12 list_left_menu menu">
+        	<h5><?php echo $this->translate('顶级分类'); ?></h5>
+        </div>
+		<ul class="nav nav-tabs nav-stacked">
+        	<?php if($this->t_class) foreach ($this->t_class as $t_class_val) { ?>
+        	<li <?php if($t_class_val['article_class_id'] == $this->article_class_info->article_class_id) echo 'class="active"'; ?>><a href="<?php echo $this->url('frontarticle/default/cms_class_id', array('action'=>'index', 'cms_class_id'=>$t_class_val['article_class_id'])); ?>"><?php echo $this->escapeHtml($t_class_val['article_class_name']); ?></a></li>
+            <?php } ?>
+      	</ul>
+        <?php  if ($this->sub_class) { ?>
+		<div class="span12 list_left_menu menu">
+        	<h5><?php echo $this->translate('下级分类'); ?></h5>
+        </div>
+		<ul class="nav nav-tabs nav-stacked">
+        	<?php foreach($this->sub_class as $sub_class_val) { ?>
+        	<li><a href="<?php echo $this->url('frontarticle/default/cms_class_id', array('action'=>'index', 'cms_class_id'=>$sub_class_val['article_class_id'])); ?>"><?php echo $this->escapeHtml($sub_class_val['article_class_name']); ?></a></li>
+            <?php } ?>
+      	</ul>
+        <?php } ?>
+    </div>
+    
+    <div class="row span8">
+        <table  class="table">
+        	<thead>
+                <tr>
+                  <th>
+                  <?php if ($this->c_class) {
+					  foreach ($this->c_class as $c_value) {
+					?>
+                  <a href="<?php echo $this->url('frontarticle/default/cms_class_id',array('action'=>'index','cms_class_id'=>$c_value['article_class_id'])); ?>"><span class="label <?php if ($c_value['article_class_id'] == $this->article_class_info->article_class_id) echo 'label-success'; ?>"><?php echo $this->escapeHtml($c_value['article_class_name']); ?></span></a>
+                  <?php } } ?>
+                  </th>
+                </tr>
+             </thead>
+             <?php if ($this->article_list->getTotalItemCount() > 0) {
+				 foreach($this->article_list as $article_value) {
+			?>
+        	<tr>
+               <td>
+               <div class="span12">
+               	<div class="span9">
+                	<a href="<?php echo $this->url('frontarticle/default/cms_id',array('action'=>'content','cms_id'=>$article_value['article_id'])); ?>"><?php echo $this->escapeHtml($article_value['article_title']); ?></a>
+                </div>
+                <div class="span3 text-right">
+                	<?php echo date("Y-m-d H:i", $article_value['article_add_time']); ?>
+                </div>
+               </div>
+               </td>
+            </tr> 
+            <?php } ?>
+        	<tr>
+               <td><?php echo ( count($this->article_list) > 0 ) ? $this->paginationControl($this->article_list, 'Sliding', 'site/dbpage',array('page_url'=>$this->url('frontarticle/default/cms_class_id',array('action'=>'index', 'cms_class_id'=>$this->article_class_info->article_class_id)))) : ""; ?></td>
+            </tr>            
+            <?php } else { ?>
+        	<tr>
+               <td><?php echo $this->translate('暂无文章！'); ?></td>
+            </tr>             
+            <?php } ?>
+        </table>
+    </div>
+    
+     
+</div>

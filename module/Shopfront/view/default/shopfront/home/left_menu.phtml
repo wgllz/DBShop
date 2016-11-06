@@ -1,0 +1,22 @@
+<div class="span2 offset1" id="home_left_menu">
+    <div class="span12">
+      <div class="well left_menu">
+        <ul class="nav nav-list  nav-stacked">
+          <li><h5><?php echo $this->translate('用户中心'); ?></h5></li>
+          <li class="divider"></li>
+          <li <?php if($this->myviewalias()->returnControllername() == 'Shopfront\Controller\Home' and $this->myviewalias()->returnActionname() == 'index') echo 'class="active"'; ?>><a href="<?php echo $this->url('fronthome/default'); ?>"><i class="icon-home"></i><?php echo $this->translate('中心首页'); ?></a></li>
+          <li <?php if($this->myviewalias()->returnControllername() == 'Shopfront\Controller\Order' and $this->myviewalias()->returnActionname() != 'virtualGoods') echo 'class="active"'; ?>><a href="<?php echo $this->url('frontorder/default'); ?>"><i class="icon-th-large"></i><?php echo $this->translate('我的订单'); ?></a></li>
+          <li <?php if($this->myviewalias()->returnControllername() == 'Shopfront\Controller\Order' and $this->myviewalias()->returnActionname() == 'virtualGoods') echo 'class="active"'; ?>"><a href="<?php echo $this->url('frontorder/default', array('action'=>'virtualGoods')); ?>"><i class="icon-align-justify"></i><?php echo $this->translate('虚拟商品'); ?></a></li>
+          <li <?php if($this->myviewalias()->returnControllername() == 'Shopfront\Controller\Homefavorites') echo 'class="active"'; ?>><a href="<?php echo $this->url('frontfavorites/default'); ?>"><i class="icon-star"></i><?php echo $this->translate('我的收藏'); ?></a></li>
+          <li <?php if($this->myviewalias()->returnControllername() == 'Shopfront\Controller\Home' and $this->myviewalias()->returnActionname() == 'goodsask') echo 'class="active"'; ?>><a href="<?php echo $this->url('fronthome/default', array('action'=>'goodsask')); ?>"><i class="icon-tint"></i><?php echo $this->translate('我的咨询'); ?></a></li>
+          <li <?php if($this->myviewalias()->returnControllername() == 'Shopfront\Controller\Homemoney') echo 'class="active"'; ?>><a href="<?php echo $this->url('frontmoney/default'); ?>"><i class="icon-check"></i><?php echo $this->translate('账户余额'); ?></a></li>
+          <li <?php if($this->myviewalias()->returnControllername() == 'Shopfront\Controller\Home' and in_array($this->myviewalias()->returnActionname(), array('useredit', 'userpasswd', 'qqset'))) echo 'class="active"'; ?>><a href="<?php echo $this->url('fronthome/default', array('action'=>'useredit')); ?>"><i class="icon-user"></i><?php echo $this->translate('账户信息'); ?></a></li>
+          <li <?php if($this->myviewalias()->returnControllername() == 'Shopfront\Controller\Homeaddress') echo 'class="active"'; ?>><a href="<?php echo $this->url('frontaddress/default'); ?>"><i class="icon-road"></i><?php echo $this->translate('收货地址'); ?></a></li>
+          <li class="divider"></li>
+          <li <?php if($this->myviewalias()->returnControllername() == 'Shopfront\Controller\Homerefund') echo 'class="active"'; ?>><a href="<?php echo $this->url('frontrefund/default'); ?>"><i class="icon-retweet"></i><?php echo $this->translate('退货申请'); ?></a></li>
+          <li class="divider"></li>
+          <li><a href="<?php echo $this->url('frontuser/default',array('action'=>'loginout')); ?>"><i class="icon-off"></i><?php echo $this->translate('用户退出'); ?></a></li>
+        </ul>
+      </div>
+    </div>
+    </div>

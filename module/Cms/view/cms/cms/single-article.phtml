@@ -1,0 +1,56 @@
+    		<div style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('管理单页文章'); ?></strong></p>
+        	<p class="pull-right">
+            <a href="<?php echo $this->url('cms/default',array('action'=>'addSingleArticle','controller'=>'cms')); ?>" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> <?php echo $this->translate('添加单页文章'); ?></a>&nbsp;
+            <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('cms_single_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+            </p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="5%">ID</th>
+                    <th width="20%"><?php echo $this->translate('文章标题'); ?></th>
+                    <th width="10%"><?php echo $this->translate('文章标签'); ?></th>
+                    <th width="10%"><?php echo $this->translate('添加时间'); ?></th>
+                    <th width="10%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php
+			if ($this->single_article_list) {
+				foreach ($this->single_article_list as $article_val) {
+			?>            
+            <tr>
+            	<td><?php echo $article_val['single_article_id']; ?></td>
+            	<td><?php echo $this->escapeHtml($article_val['single_article_title']); ?></td>
+                <td><?php echo ($article_val['article_tag']!='' ? $this->article_tag_type[$article_val['article_tag']] : $this->translate('无标签')); ?></td>
+                <td><?php echo date('Y-m-d H:i',$article_val['single_article_add_time']); ?></td>
+            	<td><a href="<?php echo $this->url('cms/default/article_id',array('action'=>'editSingleArticle','controller'=>'cms','article_id'=>$article_val['single_article_id'])); ?>"><?php echo $this->translate('编辑'); ?></a>
+                <span>|</span>
+                <a href="javascript:;" onclick="return single_article_del_js(<?php echo $article_val['single_article_id']; ?>);"><?php echo $this->translate('删除'); ?></a>
+                <span>|</span>
+                <a target="_blank" href="<?php echo $this->url('frontarticle/default/cms_id',array('action'=>'single','cms_id'=>$article_val['single_article_id'])); ?>"><?php echo $this->translate('文章预览'); ?></a>
+                </td>  
+            </tr>
+            <?php
+				}
+			}
+			?>
+            </table>
+
+<script>
+//文章删除js
+function single_article_del_js(single_article_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该单页文章吗？'); ?>')) {
+	$.post("<?php echo $this->url('cms/default',array('action'=>'singleDel','controller'=>'cms')); ?>",{single_article_id:single_article_id},
+	function(data){
+		if(data != 'false') {
+			window.location.href='<?php echo $this->url('cms/default',array('action'=>'singleArticle','controller'=>'cms')); ?>';
+			return true;
+		} else {
+			alert('<?php echo $this->translate('单页文章删除失败！'); ?>');
+		}
+	});
+	}
+	return false;
+}
+</script>

@@ -1,0 +1,40 @@
+    		<div style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><?php echo $this->translate('商品'); ?> <strong><?php echo $this->goods_info->goods_name; ?></strong> <?php echo $this->translate('的评价'); ?></p>
+            <p class="pull-right">
+            <a href="<?php echo $this->url('comment/default',array('controller'=>'comment')); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回商品评价'); ?></a>&nbsp;
+            <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('goods_comment_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+            </p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="10%"><?php echo $this->translate('评价人'); ?></th>
+                    <th width="40%"><?php echo $this->translate('评价内容'); ?></th>
+                    <th width="10%"><?php echo $this->translate('评价等级'); ?></th>
+                    <th width="10%"><?php echo $this->translate('评价时间'); ?></th>
+                    <th width="8%"><?php echo $this->translate('评价状态'); ?></th>
+                    <th width="8%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php 
+            if($this->goods_comment_list) {
+            foreach ($this->goods_comment_list as $comment_value) { ?>
+            <tr>
+            	<td><?php echo $this->escapeHtml($comment_value['comment_writer']); ?></td>
+            	<td><?php echo $this->escapeHtml($comment_value['comment_body']); ?></td>
+            	<td><?php echo $comment_value['goods_evaluation']; ?></td>
+            	<td><?php echo date('Y-m-d H:i:s',$comment_value['comment_time']); ?></td>
+                <td><?php echo $comment_value['comment_show_state']; ?></td>
+                <td>
+				<a href="<?php echo $this->url('comment/default/comment-id',array('action'=>'delonecomment','controller'=>'comment','comment_id'=>$comment_value['comment_id'],'goods_id'=>$this->goods_info->goods_id)); ?>" onclick="return window.confirm('<?php echo $this->translate('您确实要删除该条评价吗？'); ?>');"><?php echo $this->translate('删除'); ?></a>
+                </td>  
+            </tr>
+            <?php 
+                    }
+                } ?>
+            <tr>
+           		<td colspan="9" style="background:#FFF">
+                <?php echo ( count($this->goods_comment_list) > 0 ) ? $this->paginationControl($this->goods_comment_list,'Sliding','common/pager',array('page_url'=>$this->url('comment/default/goods-id',array('action'=>'edit','controller'=>'comment','goods_id'=>$this->goods_info->goods_id)))) : ''; ?>              
+                </td> 
+            </tr>
+            </table>

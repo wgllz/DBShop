@@ -1,0 +1,137 @@
+<div class="row-fluid"  id="goods_cart">
+<?php if ($this->cart_array) { ?>
+	<div class="span10 offset1">
+    
+    <div class="wizard">
+		<ul class="steps">
+			<li class="active"><span class="badge badge-info"><?php echo $this->translate('第一步'); ?></span><?php echo $this->translate('购物车信息'); ?><span class="chevron"></span></li>
+			<li><span class="badge"><?php echo $this->translate('第二步'); ?></span><?php echo $this->translate('选择收货地址'); ?><span class="chevron"></span></li>
+			<li><span class="badge"><?php echo $this->translate('第三步'); ?></span><?php echo $this->translate('确认购物信息'); ?><span class="chevron"></span></li>
+			<li><span class="badge"><?php echo $this->translate('第四步'); ?></span><?php echo $this->translate('购物订单完成'); ?></li>
+			</ul>
+	</div>
+    
+    	<table class="table table-bordered">
+        	<thead>
+            	<tr class="home-user-tr">
+            	<th width="38%"><?php echo $this->translate('商品'); ?></th>
+                <th width="8%"><?php echo $this->translate('货号'); ?></th>
+                <th width="10%"><?php echo $this->translate('属性'); ?></th>
+                <th width="10%"><?php echo $this->translate('数量'); ?></th>
+                <th width="10%"><?php echo $this->translate('价格'); ?></th>
+                <th width="10%"><?php echo $this->translate('总价'); ?></th>
+                <th width="5%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php foreach ($this->cart_array as $cart_key => $goods_value) { ?>
+            <tr>
+            	<td><a href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$goods_value['class_id'])); ?>"><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($goods_value['goods_image'])); ?>"  style=" height:65px;width:65px;border:1px solid #D7D7D7"></a>
+                    &nbsp;
+                    <a href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$goods_value['class_id'])); ?>">
+                    <?php echo $this->escapeHtml($goods_value['goods_name']); ?>
+                    </a>
+                </td>
+                <td><?php echo $this->escapeHtml($goods_value['goods_item']);?></td>
+                <td>
+				<?php 
+				if($goods_value['goods_color_name'] == '' and $goods_value['goods_size_name'] == '') { 
+					echo $this->translate('无');
+				} else {
+					if($goods_value['goods_color_name'] != '') echo '<p>' . $goods_value['goods_color_name'] . '</p>';
+					if($goods_value['goods_size_name'] != '') echo '<p>' . $goods_value['goods_size_name'] . '</p>';
+				}
+				?>
+				</td>
+                <td>
+                <select class="span8" id="<?php echo $cart_key; ?>buy_num" name="<?php echo $cart_key; ?>buy_num" onchange="edit_cart_goods_buy_num('<?php echo $cart_key; ?>','<?php echo $cart_key; ?>buy_num');">
+                	<?php
+					 $cart_buy_min_num = ($goods_value['buy_min_num'] > 0 ? $goods_value['buy_min_num'] : 1);
+                    if($goods_value['goods_stock_state'] == 1) {//当有货开启时，不对库存进行刻意判断
+                        $buy_max_num = ($goods_value['buy_num'] > 50 ? $goods_value['buy_num'] : 50);
+                    } else {
+                        $buy_max_num = ($goods_value['goods_stock']>50 ? ($goods_value['buy_num'] <= 50 ? 50 : $goods_value['buy_num']) : $goods_value['goods_stock']);
+                    }
+					 $cart_buy_max_num = ($goods_value['buy_max_num'] > 0 ? $goods_value['buy_max_num'] : $buy_max_num);
+					 
+					 for ($i = $cart_buy_min_num; $i <= $cart_buy_max_num; $i++) { ?>
+                    <option value="<?php echo $i; ?>" <?php if ($i == $goods_value['buy_num']) echo 'selected="selected"'; ?>><?php echo $i; ?></option>
+                    <?php } ?>
+                </select>
+                <?php if($goods_value['goods_weight'] > 0) echo '<p>('.$this->translate('单品重:').'<strong>'.$goods_value['goods_weight'].'</strong>'.$this->translate('千克').')</p>'; ?>
+                 </td>
+                <td valign="bottom">
+                    <?php echo $this->frontwebsite()->shopPriceExtend($goods_value['goods_shop_price']); ?>
+                    <?php if(isset($goods_value['integral_num']) and $goods_value['integral_num'] > 0) { ?>
+                    (<?php echo $this->translate('或').$goods_value['integral_num'].$this->translate('积分'); ?>)
+                    <?php } ?>
+                </td>
+                <td>
+                    <?php echo $this->frontwebsite()->shopPriceSymbol().$this->frontwebsite()->shopPrice($goods_value['goods_shop_price'])*$goods_value['buy_num'].$this->frontwebsite()->shopPriceUnit(); ?>
+                    <?php if(isset($goods_value['integral_num']) and $goods_value['integral_num'] > 0) { ?>
+                        (<?php echo $this->translate('或').$goods_value['integral_num']*$goods_value['buy_num'].$this->translate('积分'); ?>)
+                    <?php } ?>
+                </td>
+                <td><a href="javascript:;" onclick="del_cart_goods('<?php echo $cart_key; ?>');"><?php echo $this->translate('删除'); ?></a></td>
+            </tr>
+            <?php } ?>
+            <tr>
+            	<td colspan="7">
+                <span class="pull-left"><a href="<?php echo $this->url('frontcart/default',array('action'=>'clearCartGoods')); ?>" onclick="return window.confirm('<?php echo $this->translate('您确实要清空购物车吗？'); ?>');"><i class="icon-remove"></i><?php echo $this->translate('清空购物车'); ?></a></span>
+                <span class="pull-right" style="text-align:right;">
+                <?php $total_weight = $this->frontwebsite()->getCartTotalWeight(); if ($total_weight > 0) { ?>
+                <strong><?php echo $this->translate('商品总重:').$total_weight; ?></strong><?php echo $this->translate('千克'); ?>&nbsp;&nbsp;
+                <?php } ?>
+                <strong><?php echo $this->translate('应付总额'); ?>（<font color="#139EE6"><?php echo $this->translate('不含运费'); ?></font>）：<font size="5" color="#ED415B"><?php echo $this->frontwebsite()->shopPriceSymbol().$this->frontwebsite()->getCartTotal().$this->frontwebsite()->shopPriceUnit(); ?></font></strong><br />
+                <?php if($this->promotionsCost['discountCost'] and $this->promotionsCost['discountCost'] > 0) { ?>
+                <strong><?php echo $this->translate('优惠金额'); if(!empty($this->promotionsCost['discountName'])) echo '(<font color="#139EE6">' . $this->promotionsCost['discountName'] . '</font>)'; ?>：<font size="5" color="#ED415B">-<?php echo $this->frontwebsite()->shopPriceSymbol().$this->frontwebsite()->shopPrice($this->promotionsCost['discountCost']).$this->frontwebsite()->shopPriceUnit(); ?></font></strong><br />
+                <?php } ?>
+                <?php if($this->integralInfo['integralNum'] and $this->integralInfo['integralNum'] > 0) { ?>
+                <strong><?php echo $this->translate('获得消费积分'); if(!empty($this->integralInfo['integalRuleInfo'])) echo '(<font color="#139EE6">' . $this->integralInfo['integalRuleInfo'] . '</font>)'; ?>：<font size="5" color="#ED415B"><?php echo $this->integralInfo['integralNum']; echo $this->translate('积分'); ?></font></strong><br>
+                <?php } ?>
+                <?php if($this->integralInfo1['integralNum'] and $this->integralInfo1['integralNum'] > 0) { ?>
+                <strong><?php echo $this->translate('获得等级积分'); if(!empty($this->integralInfo1['integalRuleInfo'])) echo '(<font color="#139EE6">' . $this->integralInfo1['integalRuleInfo'] . '</font>)'; ?>：<font size="5" color="#ED415B"><?php echo $this->integralInfo1['integralNum']; echo $this->translate('积分'); ?></font></strong>
+                <?php } ?>
+                </span>
+                </td>
+            </tr>
+            <tr>
+            	<td colspan="7">
+                <span class="pull-right"><input type="button" class="btn" onClick="location.href='<?php echo $this->url('shopfront/default'); ?>'" value="<?php echo $this->translate('继续去购物'); ?>">&nbsp;&nbsp;<input type="button" class="btn btn-large btn-danger" onClick="location.href='<?php echo $this->url('frontcart/default', array('action'=>'setaddress')); ?>'" value="<?php echo $this->translate('去结算'); ?>"></span>
+                </td>
+            </tr> 
+        </table>
+    </div>
+<script>
+//删除购物车中的商品
+function del_cart_goods(cart_key) {
+ if(window.confirm('<?php echo $this->translate('您确实要将购物车中的该商品删除吗？'); ?>')) {
+	$.post("<?php echo $this->url('frontcart/default',array('action'=>'delCartGoods')); ?>",{cart_key:cart_key},
+	function(data){	
+		if(data == 'true') {
+			window.location.href="<?php echo $this->url('frontcart/default'); ?>";
+		}
+	});
+ }
+}
+//编辑购物车
+function edit_cart_goods_buy_num (cart_key, buy_num_id) {
+	var edit_buy_num = $('#'+buy_num_id).val();
+	$.post("<?php echo $this->url('frontcart/default',array('action'=>'editCartGoods')); ?>",{cart_key:cart_key,type:'buy_num',buy_num:edit_buy_num},
+	function(data){	
+		if(data != 'true') {
+			alert(data);	
+		}
+		window.location.href="<?php echo $this->url('frontcart/default'); ?>";
+	});
+}
+</script>
+
+<?php } else { ?>
+	<div class="span10 offset1">
+        <div class="well">
+        	<p><i class="icon-shopping-cart"></i><?php echo $this->translate('您的购物车中没有商品，赶快去挑选您中意的商品吧！'); ?></p>
+            <input type="button" class="btn btn-primary" onclick="window.location.href='<?php echo $this->url('shopfront/default'); ?>'" value="<?php echo $this->translate('点击去商城首页购物'); ?>">
+        </div>
+    </div>
+<?php } ?> 
+</div>

@@ -1,0 +1,50 @@
+    		<div style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('发货单'); ?></strong> <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('此处显示的是已付款或者货到付款订单的发货信息'); ?>"></i></p>
+			<p class="pull-right">
+            <a href="<?php echo $this->url('orders/default',array('action'=>'exportShip','controller'=>'Orders')); ?>" class="btn btn-primary btn-small"><i class="icon-share-alt icon-white"></i> <?php echo $this->translate('导出发货单'); ?></a>&nbsp;&nbsp;
+			<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('order_ship_list'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+			</p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="10%"><?php echo $this->translate('发货单号'); ?></th>
+                    <th width="10%"><?php echo $this->translate('物流公司'); ?></th>
+                    <th width="10%"><?php echo $this->translate('订单号'); ?></th>
+                    <th width="10%"><?php echo $this->translate('下单时间'); ?></th>
+                    <th width="10%"><?php echo $this->translate('收货人'); ?></th>
+                    <th width="10%"><?php echo $this->translate('发货时间'); ?></th>
+                    <th width="10%"><?php echo $this->translate('发货状态'); ?></th>
+                    <th width="10%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php
+			if ($this->ship_list) {
+				foreach ($this->ship_list as $ship_val) {
+			?>            
+            <tr>
+            	<td><?php echo $ship_val['order_state']<40 ? $this->translate('无') : $ship_val['express_number']; ?></td>
+            	<td><?php echo $this->escapeHtml($ship_val['express_name']); ?></td>
+                <td><?php echo $ship_val['order_sn']; ?></td>
+                <td><?php echo date('Y-m-d H:i:s',$ship_val['order_time']); ?></td>
+                <td><?php echo $this->escapeHtml($ship_val['delivery_name']); ?></td>
+                <td><?php echo $ship_val['order_state']<40 ? $this->translate('无') : date('Y-m-d H:i',$ship_val['express_time']); ?></td>
+                <td><?php 
+				if($ship_val['order_state']<40) echo $this->translate('未发货');
+				elseif($ship_val['order_state']==40) echo $this->translate('已发货');
+				elseif($ship_val['order_state']==60) echo $this->translate('已收货');
+				?></td>
+            	<td>
+                <a href="<?php echo $this->url('orders/default/order_id',array('action'=>'showShip','controller'=>'Orders','order_id'=>$ship_val['order_id'],'page'=>$this->page)); ?>"><?php echo $this->translate('查看'); ?></a>
+                </td>  
+            </tr>
+            <?php
+				}
+			}
+			?>
+            <tr>
+			<td colspan="9" style="background: #FFF">
+				<?php echo ( count($this->ship_list) > 0 ) ? $this->paginationControl($this->ship_list, 'Sliding', 'common/pager',array('page_url'=>$this->url('orders/default/page',array('controller'=>'Orders', 'action'=>'shiplist')))) : ""; ?>
+                </td>
+		</tr>
+            </table>

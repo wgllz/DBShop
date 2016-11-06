@@ -1,0 +1,319 @@
+<div class="tabbable tabs-left">
+              <ul class="nav nav-tabs">
+              	<li><h5><?php echo $this->translate('消息提醒设置'); ?></h5></li>
+                <li class="active"><a data-toggle="tab" href="#system_a"><?php echo $this->translate('基本信息'); ?></a></li>
+                <li><a data-toggle="tab" href="#system_b"><?php echo $this->translate('提交订单'); ?></a></li>
+                <li><a data-toggle="tab" href="#system_c"><?php echo $this->translate('付款完成'); ?></a></li>
+                <li><a data-toggle="tab" href="#system_d"><?php echo $this->translate('发货完成'); ?></a></li>
+                <li><a data-toggle="tab" href="#system_e"><?php echo $this->translate('交易完成'); ?></a></li>
+                <li><a data-toggle="tab" href="#system_f"><?php echo $this->translate('取消订单'); ?></a></li>
+                <li><a data-toggle="tab" href="#system_g"><?php echo $this->translate('商品咨询'); ?></a></li>
+                <li><a data-toggle="tab" href="#system_h"><?php echo $this->translate('咨询回复'); ?></a></li>
+              </ul>
+              <form class="form-horizontal" name="send_message_form" id="send_message_form" method="post">
+              <div class="tab-content">
+    			<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        			<div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php echo $this->translate('消息提醒设置'); ?></strong></div>
+        			<div class="pull-right">
+        			<a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>
+                    &nbsp;<button type="submit" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存提醒设置'); ?></button>
+					&nbsp;<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('send_message_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+                	</div>
+        		</div>
+                <div id="system_a" class="tab-pane active">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('基本信息'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                        <?php if ($this->email_config['shop_email']['email_service_state'] != 'true') { ?>
+                        <div class="alert alert-block" style="margin-bottom: 20px;"><span class="badge badge-important">!</span> <?php echo $this->translate('使用邮件提醒信息，需要先开启邮件服务，开启的位置是 系统管理->系统设置->邮件服务器'); ?></div>
+                    	<?php } ?>
+                        <div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('管理员接收邮箱1'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<input type="text" name="admin_receive_email" id="admin_receive_email" value="<?php if(isset($this->admin_receive_email_array[0])) echo $this->admin_receive_email_array[0]; ?>" class="span6">
+            				</div>                        
+                        </div>
+                        <div class="control-group">
+                            <label for="input01" class="control-label"><?php echo $this->translate('管理员接收邮箱2'); ?>：</label>
+                            <div class="controls">
+                                <input type="text" name="admin_receive_email2" id="admin_receive_email2" value="<?php if(isset($this->admin_receive_email_array[1])) echo $this->admin_receive_email_array[1]; ?>" class="span6">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="input01" class="control-label"><?php echo $this->translate('管理员接收邮箱3'); ?>：</label>
+                            <div class="controls">
+                                <input type="text" name="admin_receive_email3" id="admin_receive_email3" value="<?php if(isset($this->admin_receive_email_array[2])) echo $this->admin_receive_email_array[2]; ?>" class="span6">
+                            </div>
+                        </div>
+                    </div>
+                </div>              
+                <div id="system_b" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('提交订单'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('发给管理员'); ?>：</label>
+           					<div class="controls">
+              					<label class="checkbox inline"><input type="checkbox" value="1" name="submit_order_state" <?php if ($this->message_set['submit_order_state'] == '1') echo 'checked="checked"'; ?>></label>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('发给买家'); ?>：</label>
+           					<div class="controls">
+              					<label class="checkbox inline"><input type="checkbox" value="1" name="buyer_submit_order_state" <?php if ($this->message_set['buyer_submit_order_state'] == '1') echo 'checked="checked"'; ?>></label>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('消息内容'); ?>：</label>
+           					<div class="controls">
+                            <p>
+                            <button type="button" onclick="insert_textarea_content('submit_order', '{shopname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站名称'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('submit_order', '{buyname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('买家名称'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('submit_order', '{ordersn}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单编号'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('submit_order', '{submittime}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单提交时间'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('submit_order', '{shopurl}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站网址'); ?></button>&nbsp;&nbsp;
+                            </p>
+              					<textarea class="span12" name="submit_order" id="submit_order" rows="8"><?php echo $this->escapeHtml($this->submit_order); ?></textarea>
+            				</div>                        
+                        </div>                                                                                                                                            
+                  	</div>
+                </div>
+                <div id="system_c" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('付款完成'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('发给管理员'); ?>：</label>
+           					<div class="controls">
+              					<label class="checkbox inline"><input type="checkbox" value="1" name="payment_finish_state" <?php if ($this->message_set['payment_finish_state'] == '1') echo 'checked="checked"'; ?>></label>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('发给买家'); ?>：</label>
+           					<div class="controls">
+              					<label class="checkbox inline"><input type="checkbox" value="1" name="buyer_payment_finish_state" <?php if ($this->message_set['buyer_payment_finish_state'] == '1') echo 'checked="checked"'; ?>></label>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('消息内容'); ?>：</label>
+           					<div class="controls">
+                            <p>
+                            <button type="button" onclick="insert_textarea_content('payment_finish', '{shopname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站名称'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('payment_finish', '{buyname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('买家名称'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('payment_finish', '{ordersn}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单编号'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('payment_finish', '{paymenttime}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单付款时间'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('payment_finish', '{shopurl}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站网址'); ?></button>&nbsp;&nbsp;
+                            </p> 
+              					<textarea class="span12" name="payment_finish" id="payment_finish" rows="8"><?php echo $this->escapeHtml($this->payment_finish); ?></textarea>
+            				</div>                        
+                        </div>                                                                                                                                              
+                  	</div>
+                </div>
+                <div id="system_d" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('发货完成'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('发给管理员'); ?>：</label>
+           					<div class="controls">
+              					<label class="checkbox inline"><input type="checkbox" value="1" name="ship_finish_state" <?php if ($this->message_set['ship_finish_state'] == '1') echo 'checked="checked"'; ?>></label>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('发给买家'); ?>：</label>
+           					<div class="controls">
+              					<label class="checkbox inline"><input type="checkbox" value="1" name="buyer_ship_finish_state" <?php if ($this->message_set['buyer_ship_finish_state'] == '1') echo 'checked="checked"'; ?>></label>
+            				</div>                        
+                        </div> 
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('消息内容'); ?>：</label>
+           					<div class="controls">
+                            <p>
+                            <button type="button" onclick="insert_textarea_content('ship_finish', '{shopname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站名称'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('ship_finish', '{buyname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('买家名称'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('ship_finish', '{ordersn}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单编号'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('ship_finish', '{shiptime}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单发货时间'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('ship_finish', '{shopurl}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站网址'); ?></button>&nbsp;&nbsp;
+                            </p> 
+              					<textarea class="span12" name="ship_finish" id="ship_finish" rows="8"><?php echo $this->escapeHtml($this->ship_finish); ?></textarea>
+            				</div>                        
+                        </div>                                                                                                                                               
+                  	</div>
+                </div>
+                <div id="system_e" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('交易完成'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('发给管理员'); ?>：</label>
+           					<div class="controls">
+              					<label class="checkbox inline"><input type="checkbox" value="1" name="transaction_finish_state" <?php if ($this->message_set['transaction_finish_state'] == '1') echo 'checked="checked"'; ?>></label>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('发给买家'); ?>：</label>
+           					<div class="controls">
+              					<label class="checkbox inline"><input type="checkbox" value="1" name="buyer_transaction_finish_state" <?php if ($this->message_set['buyer_transaction_finish_state'] == '1') echo 'checked="checked"'; ?>></label>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('消息内容'); ?>：</label>
+           					<div class="controls">
+                            <p>
+                            <button type="button" onclick="insert_textarea_content('transaction_finish', '{shopname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站名称'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('transaction_finish', '{buyname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('买家名称'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('transaction_finish', '{ordersn}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单编号'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('transaction_finish', '{finishtime}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('交易完成时间'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('transaction_finish', '{shopurl}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站网址'); ?></button>&nbsp;&nbsp;
+                            </p>
+              					<textarea class="span12" name="transaction_finish" id="transaction_finish" rows="8"><?php echo $this->escapeHtml($this->transaction_finish); ?></textarea>
+            				</div>                        
+                        </div>                                                                                                                                              
+                  	</div>
+                </div>                
+                <div id="system_f" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('取消订单'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('发给管理员'); ?>：</label>
+           					<div class="controls">
+              					<label class="checkbox inline"><input type="checkbox" value="1" name="cancel_order_state" <?php if ($this->message_set['cancel_order_state'] == '1') echo 'checked="checked"'; ?>></label>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('发给买家'); ?>：</label>
+           					<div class="controls">
+              					<label class="checkbox inline"><input type="checkbox" value="1" name="buyer_cancel_order_state" <?php if ($this->message_set['buyer_cancel_order_state'] == '1') echo 'checked="checked"'; ?>></label>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('消息内容'); ?>：</label>
+           					<div class="controls">
+                            <p>
+                            <button type="button" onclick="insert_textarea_content('cancel_order', '{shopname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站名称'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('cancel_order', '{buyname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('买家名称'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('cancel_order', '{ordersn}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单编号'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('cancel_order', '{canceltime}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单取消时间'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('cancel_order', '{shopurl}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站网址'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('cancel_order', '{cancelinfo}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('取消原因'); ?></button>&nbsp;&nbsp;
+                            </p>
+              					<textarea class="span12" name="cancel_order" id="cancel_order" rows="8"><?php echo $this->escapeHtml($this->cancel_order); ?></textarea>
+            				</div>                        
+                        </div>                                                                                                                                               
+                  	</div>
+                </div>
+                <div id="system_g" class="tab-pane">
+                    <div class="well admin_add_header_well"><?php echo $this->translate('商品咨询'); ?></div>
+                    <div class="well admin_add_well">
+                        <div class="message_one">
+                        </div>
+                        <div class="control-group">
+                            <label for="input01" class="control-label"><?php echo $this->translate('发给管理员'); ?>：</label>
+                            <div class="controls">
+                                <label class="checkbox inline"><input type="checkbox" value="1" name="goods_ask_state" <?php if (isset($this->message_set['goods_ask_state']) and $this->message_set['goods_ask_state'] == '1') echo 'checked="checked"'; ?>></label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="input01" class="control-label"><?php echo $this->translate('发给咨询者'); ?>：</label>
+                            <div class="controls">
+                                <label class="checkbox inline"><input type="checkbox" value="1" name="buyer_goods_ask_state" <?php if (isset($this->message_set['buyer_goods_ask_state']) and $this->message_set['buyer_goods_ask_state'] == '1') echo 'checked="checked"'; ?>></label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="input01" class="control-label"><?php echo $this->translate('消息内容'); ?>：</label>
+                            <div class="controls">
+                                <p>
+                                    <button type="button" onclick="insert_textarea_content('goods_ask', '{shopname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站名称'); ?></button>&nbsp;&nbsp;
+                                    <button type="button" onclick="insert_textarea_content('goods_ask', '{goodsname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('商品名称'); ?></button>&nbsp;&nbsp;
+                                    <button type="button" onclick="insert_textarea_content('goods_ask', '{askusername}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('咨询者名称'); ?></button>&nbsp;&nbsp;
+                                    <button type="button" onclick="insert_textarea_content('goods_ask', '{asktime}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('咨询时间'); ?></button>&nbsp;&nbsp;
+                                    <button type="button" onclick="insert_textarea_content('goods_ask', '{shopurl}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站网址'); ?></button>&nbsp;&nbsp;
+                                </p>
+                                <textarea class="span12" name="goods_ask" id="goods_ask" rows="8"><?php echo $this->escapeHtml($this->goods_ask); ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="system_h" class="tab-pane">
+                    <div class="well admin_add_header_well"><?php echo $this->translate('咨询回复'); ?></div>
+                    <div class="well admin_add_well">
+                        <div class="message_one">
+                        </div>
+                        <div class="control-group">
+                            <label for="input01" class="control-label"><?php echo $this->translate('发给管理员'); ?>：</label>
+                            <div class="controls">
+                                <label class="checkbox inline"><input type="checkbox" value="1" name="goods_ask_reply_state" <?php if (isset($this->message_set['goods_ask_reply_state']) and $this->message_set['goods_ask_reply_state'] == '1') echo 'checked="checked"'; ?>></label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="input01" class="control-label"><?php echo $this->translate('发给咨询者'); ?>：</label>
+                            <div class="controls">
+                                <label class="checkbox inline"><input type="checkbox" value="1" name="buyer_goods_ask_reply_state" <?php if (isset($this->message_set['buyer_goods_ask_reply_state']) and $this->message_set['buyer_goods_ask_reply_state'] == '1') echo 'checked="checked"'; ?>></label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="input01" class="control-label"><?php echo $this->translate('消息内容'); ?>：</label>
+                            <div class="controls">
+                                <p>
+                                    <button type="button" onclick="insert_textarea_content('goods_ask_reply', '{shopname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站名称'); ?></button>&nbsp;&nbsp;
+                                    <button type="button" onclick="insert_textarea_content('goods_ask_reply', '{goodsname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('商品名称'); ?></button>&nbsp;&nbsp;
+                                    <button type="button" onclick="insert_textarea_content('goods_ask_reply', '{askusername}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('咨询者名称'); ?></button>&nbsp;&nbsp;
+                                    <button type="button" onclick="insert_textarea_content('goods_ask_reply', '{replyusername}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('回复者名称'); ?></button>&nbsp;&nbsp;
+                                    <button type="button" onclick="insert_textarea_content('goods_ask_reply', '{replytime}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('回复时间'); ?></button>&nbsp;&nbsp;
+                                    <button type="button" onclick="insert_textarea_content('goods_ask_reply', '{shopurl}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站网址'); ?></button>&nbsp;&nbsp;
+                                </p>
+                                <textarea class="span12" name="goods_ask_reply" id="goods_ask_reply" rows="8"><?php echo $this->escapeHtml($this->goods_ask_reply); ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+              </form>
+</div>
+<script src="<?php echo $this->basePath('public/js/jquerytextbox/jquery.textbox.js'); ?>"></script>
+<script>
+<?php if ($this->success_msg != '') { ?>
+show_message('.message_one','<?php echo date("Y-m-d H:i:s"); ?>','<?php echo $this->success_msg; ?>','alert-success');
+<?php } ?>
+
+//系统提醒消息设置
+$(document).ready(function() {
+	$("#send_message_form").validate({
+		rules: {
+			admin_receive_email: {
+				required: true,
+				email:true
+			},
+            admin_receive_email2: {
+                email:true
+            },
+            admin_receive_email3: {
+                email:true
+            }
+		},
+		messages: {
+			admin_receive_email: {
+				required: "<?php echo $this->translate('管理员接收邮件不能为空！'); ?>",
+				email:"<?php echo $this->translate('请正确填写邮件地址！'); ?>"
+			},
+            admin_receive_email2: {
+                email:"<?php echo $this->translate('请正确填写邮件地址！'); ?>"
+            },
+            admin_receive_email3: {
+                email:"<?php echo $this->translate('请正确填写邮件地址！'); ?>"
+            }
+		}
+	});
+});
+//插入标记
+function insert_textarea_content(input_id_name, insert_body) {
+$("#"+input_id_name).textbox().insertText(insert_body);	
+}
+</script>

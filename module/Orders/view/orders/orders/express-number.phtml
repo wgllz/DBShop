@@ -1,0 +1,83 @@
+    		<div style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('快递单号管理'); ?></strong></p>
+			<p class="pull-right">
+			    <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('order_express_number'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+			</p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="10%"><?php echo $this->translate('配送方式'); ?></th>
+                    <th width="10%"><?php echo $this->translate('可用快递单号'); ?></th>
+                    <th width="10%"><?php echo $this->translate('已用快递单号'); ?></th>
+                    <th width="15%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php
+			if ($this->express_array) {
+				foreach ($this->express_array as $express_val) {
+			?>            
+            <tr>
+            	<td><?php echo $this->escapeHtml($express_val['express_name']); ?></td>
+            	<td><?php echo $express_val['express_number_total']; ?></td>
+                <td><?php echo $express_val['used_express_number_total']; ?></td>
+                <td>
+                    <a href="javascript:;" onclick="express_number_add_js(<?php echo $express_val['express_id']; ?>, '<?php echo $this->escapeHtml($express_val['express_name']); ?>');"><?php echo $this->translate('单独添加快递单号'); ?></a>
+                    <span>|</span>
+                    <a href="<?php echo $this->url('orders/default',array('controller'=>'Orders','action'=>'importExpressNumber'), array('query'=>array('express_id'=>$express_val['express_id']))); ?>"><?php echo $this->translate('批量导入快递单号'); ?></a>
+                    <span>|</span>
+                    <a href="<?php echo $this->url('orders/default/order-express-id',array('controller'=>'Orders','action'=>'expressNumberList', 'express_id'=>$express_val['express_id'], 'page'=>1)); ?>"><?php echo $this->translate('查看快递单号'); ?></a>
+                </td>
+            </tr>
+            <?php
+				}
+			}
+			?>
+            </table>
+
+            <form class="form-horizontal" name="express_number_add_form" id="express_number_add_form" action="<?php echo $this->url('orders/default',array('action'=>'addExpressNumber','controller'=>'Orders')); ?>" method="post">
+                <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="myModalLabel"></h3>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="express_id" id="express_id" value="" />
+                        <div class="control-group">
+                            <label class="control-label"><?php echo $this->translate('快递单号'); ?><span class="must_add_value">*</span></label>
+                            <div class="controls">
+                                <textarea rows="8" class="span10" name="express_number" id="express_number" placeholder="<?php echo $this->translate('可同时添加多个，一行一个快递单号'); ?>"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"><?php echo $this->translate('保存'); ?></button>
+                    </div>
+                </div>
+            </form>
+<script>
+    $(document).ready(function() {
+        $("#express_number_add_form").validate({
+            rules: {
+                express_number: {
+                    required: true
+                }
+            },
+            messages: {
+                express_number: {
+                    required: "<?php echo $this->translate('请输入快递单号！'); ?>"
+                }
+            }
+        });
+    });
+
+function express_number_add_js(express_id, express_name) {
+    var express_name_str = '<?php echo $this->translate('快递单号添加'); ?>-'+express_name;
+    $('#myModalLabel').html(express_name_str);
+
+    $('#express_number').val('');
+    $('#express_id').val(express_id);
+
+    $('#myModal').modal('show');
+}
+</script>

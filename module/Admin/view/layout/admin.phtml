@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="x-ua-compatible" content="IE=7,8,9" >
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php
+$this->headtitle($this->translate('DBShop管理后台'));
+$this->headtitle('Powered by DBShop');
+echo $this->headTitle()->setSeparator(' - ');
+
+$this->headMeta()->appendName('author', 'DBShop');
+$this->headMeta()->appendName('copyright', 'DBShop Inc. All Rights Reserved');
+echo $this->headMeta();
+?>
+<link href="<?php echo $this->basePath('public/admin/img/favicon.ico'); ?>" rel="shortcut icon">
+<link href="<?php echo $this->basePath('public/admin/css/admin_custom_style.css'); ?>" rel="stylesheet">
+
+<script type="text/javascript">
+if (/MSIE 6/.test(navigator.userAgent)) {
+	window.location = '<?php echo $this->basePath('public/support-browser.html'); ?>';
+}
+</script>
+<!--[if lte IE 8]>
+<script src="<?php echo $this->basePath('public/js/html5.js'); ?>"></script>
+<![endif]-->
+<script src="<?php echo $this->basePath('public/js/adminJs.js'); ?>"></script>
+</head>
+<BODY>
+<?php
+if ($this->myviewalias()->returnAuth('admin_name')) {
+	echo $this->partial('layout/header');
+	echo $this->content;
+	echo $this->partial('layout/footer');
+} else {
+    echo $this->content;
+}
+?>
+<script>
+/*悬浮停留提示封装*/
+$('.shop_admin_help_note').popover({trigger:'hover',html:true});
+//菜单置顶
+$(function() {
+	// grab the initial top offset of the navigation
+	if($('#sticky_navigation').html() != null) {
+		var sticky_navigation_offset_top = $('#sticky_navigation').offset().top;
+		// our function that decides weather the navigation bar should have "fixed" css position or not.
+		var sticky_navigation = function(){
+			var scroll_top = $(window).scrollTop(); // our current vertical position from the top
+			// if we've scrolled more than the navigation, change its position to fixed to stick to top, otherwise change it back to relative
+			if (scroll_top > sticky_navigation_offset_top) {
+				$('#sticky_navigation').css({ 'position': 'fixed', 'top':0, 'left':0 ,'background' :'#E8E8E8','width':'100%','padding-top':'5px'});
+				$('#sticky_navigation_right').css({ 'margin-right': '5px'});
+			} else {
+				$('#sticky_navigation').css({ 'position': 'relative' });
+				$('#sticky_navigation').css({ 'background' :'','width':'','padding-top':''});
+				$('#sticky_navigation_right').css({ 'margin-right': ''});
+			}
+		};
+		// run our function on load
+		sticky_navigation();
+		// and run it again every time you scroll
+		$(window).scroll(function() {
+			sticky_navigation();
+		});
+	}
+});
+</script>
+<script src="<?php echo $this->basePath('public/js/go-top.js'); ?>"></script>
+
+<?php if($this->myviewalias()->returnControllername() == 'Admin\Controller\Home') { ?>
+<script>
+    $.post("<?php echo $this->url('adminHome/default',array('action'=>'ajaxServiceMessage','controller'=>'home')); ?>",'',
+        function(data){
+            $('#update_template_message').html(data.template_update_message);
+            $('#news_table').html(data.news_html);
+            $('#auth_html').html(data.auth_html);
+        }, 'json');
+</script>
+<?php } ?>
+</BODY>
+</html>

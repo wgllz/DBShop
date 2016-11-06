@@ -1,0 +1,119 @@
+<div class="tabbable">
+              <form class="form-horizontal" name="email_form" id="email_form" method="post">
+              <div class="tab-content">
+    			<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        			<div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php echo $this->translate('邮件发送'); ?></strong></div>
+        			<div class="pull-right">
+        			<a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>&nbsp;
+                	<button type="submit" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('点击发送邮件'); ?></button>&nbsp;
+                	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('email_send'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+                	</div>
+        		</div>
+                <div id="system_a" class="tab-pane active">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('邮件信息设置'); ?></div>
+                	<div class="well admin_add_well">
+                	    <div class="message_one">
+                    	</div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('收件人类别'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<select name="send_user_type" id="send_user_type" class="span3" onchange="select_user_type();">
+              					 <option value=""><?php echo $this->translate('选择类别'); ?></option>
+              					<?php if($this->group_array) {
+                                	foreach ($this->group_array as $group_val) {
+                                ?>
+                                <option value="<?php echo $group_val['group_id']; ?>"><?php echo $group_val['group_name']; ?></option>
+                                <?php }
+                                }
+                                ?>
+                                 <option value="other"><?php echo $this->translate('自定义'); ?></option>
+              					</select>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('收件人'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<textarea id="send_user"  name="send_user" class="span8" rows="3"></textarea>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('邮件标题'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<input type="text" name="mail_subject" id="mail_subject" value="<?php echo $this->escapeHtml($this->system_config['shop_system']['shop_name']); ?>" class="span8">
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('邮件内容'); ?>：</label>
+           					<div class="controls">
+              					<script type="text/plain" id="email_body" name="email_body"></script>
+            				</div>                        
+                        </div>                                                                                                                     
+                  	</div>
+                </div>
+                           
+             </div>
+              </form>
+</div>
+<?php echo $this->partial('common/editor',array('edit_array'=>array('email_body'))); ?>
+<script>
+//邮件发送验证
+$(document).ready(function() {
+	$("#email_form").validate({
+		rules: {
+			send_user_type: {
+				required: true
+			},
+			send_user: {
+				required: true
+			},
+			mail_subject: {
+				required: true
+			},
+			email_body: {
+				required: true
+			}
+		},
+		messages: {
+			send_user_type: {
+				required: "<?php echo $this->translate('选择收件人类别！'); ?>"
+			},
+			send_user: {
+				required: "<?php echo $this->translate('请填写收件人！'); ?>"
+			},
+			mail_subject: {
+				required: "<?php echo $this->translate('请填写邮件标题！'); ?>"
+			},
+			email_body: {
+				required: "<?php echo $this->translate('请填写邮件内容！'); ?>"
+			}
+		},
+		submitHandler:function(form){
+			email_send();
+		}
+	});
+});
+
+function email_send() {
+	$.post("<?php echo $this->url('email/default',array('action'=>'emailsend')); ?>",$('#email_form').formSerialize(),
+			function(data){
+				if(data == 'true') {
+					$('#email_form').resetForm();
+					show_message('.message_one','','<?php echo $this->translate('邮件发送成功！'); ?>','alert-success');
+					return true; 
+				} else {
+					show_message('.message_one','','<?php echo $this->translate('邮件发送失败！'); ?>','alert-error');
+					return false;
+				}
+		  });	
+}
+
+function select_user_type() {
+	var type_val = $('#send_user_type').val();
+	if(type_val != '') {
+		$.post("<?php echo $this->url('email/default',array('action'=>'ajaxuser')); ?>",{send_user_type:type_val},
+				function(data){
+					$('#send_user').val(data);
+		});
+	}
+}
+</script>

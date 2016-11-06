@@ -1,0 +1,27 @@
+<div class="row-fluid" style="margin-top:10px;">
+<div class="span10 offset1">
+    <div class="wizard">
+		<ul class="steps">
+			<li class="complete"><span class="badge badge-success"><?php echo $this->translate('第一步'); ?></span><?php echo $this->translate('购物车信息'); ?><span class="chevron"></span></li>
+			<li class="complete"><span class="badge badge-success"><?php echo $this->translate('第二步'); ?></span><?php echo $this->translate('选择收货地址'); ?><span class="chevron"></span></li>
+			<li class="complete"><span class="badge badge-success"><?php echo $this->translate('第三步'); ?></span><?php echo $this->translate('确认购物信息'); ?><span class="chevron"></span></li>
+			<li class="complete"><span class="badge badge-success"><?php echo $this->translate('第四步'); ?></span><?php echo $this->translate('购物订单完成'); ?></li>
+			</ul>
+	</div>
+</div>
+</div>
+<div class="row-fluid">
+	<div class="span10 offset1">
+        <div class="well">
+        	<p><i class="icon-ok"></i><?php echo $this->translate('恭喜您！订单提交成功，祝您购物愉快！'); ?></p>
+            <p style="font-size:16px;"><strong><?php echo $this->translate('您当前的订单金额'); ?>：<font color="color:#ED145B"><?php echo $this->order_total; ?></font></strong></p>
+            <p style="font-size:16px;"><strong><?php echo $this->translate('请牢记您的订单号'); ?>：<font color="color:#ED145B"><?php echo $this->order_sn; ?></font></strong></p>
+            <hr>
+            <input type="button" class="btn btn-primary" onClick="location.href='<?php echo $this->url('shopfront/default'); ?>'" value="<?php echo $this->translate('继续去购物'); ?>">&nbsp;&nbsp;
+            <?php if($this->order_state == 10) {?>
+            <input type="button" class="btn btn-success"  onclick="location.href='<?php echo $this->url('frontorder/default/order_id', array('action'=>'orderpay', 'order_id'=>$this->order_id)); ?>'" value="<?php echo $this->translate('马上去支付'); ?>">&nbsp;&nbsp;
+            <?php } ?>
+            <input type="button" class="btn" onClick="location.href='<?php echo $this->url('frontorder/default/order_state', array('action'=>'index', 'order_state'=>$this->order_state)); ?>'" value="<?php echo $this->translate('查看订单详情'); ?>">
+        </div>
+    </div>   
+</div>

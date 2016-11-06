@@ -1,0 +1,32 @@
+<div class="row-fluid">
+	<div class="row span8 offset2">
+    	<table class="table table-bordered" style=" margin-bottom:13px; margin-top:8px;">
+        	<thead>
+        	<tr>
+            	<th colspan="2" style="padding-left:5px;"><h4><?php echo $this->translate('DBShop系统安装完成！'); ?></h4></th>
+            </tr>
+            </thead>
+            <tbody>
+            	<tr>
+                	<td width="25%" style="text-align:right; font-weight:bold;"><?php echo $this->translate('DBShop系统前台地址'); ?>：</td><td><?php echo $this->webname_front_url; ?></td>
+                </tr>
+            	<tr>
+                	<td width="25%" style="text-align:right; font-weight:bold;"><?php echo $this->translate('DBShop系统后台地址'); ?>：</td><td><?php echo $this->webname_admin_url; ?></td>
+                </tr>
+            	<tr>
+                	<td width="25%" style="text-align:right; font-weight:bold;"><?php echo $this->translate('DBShop系统管理员帐号'); ?>：</td><td><?php echo $this->admin_name; ?></td>
+                </tr>
+            	<tr>
+                	<td width="25%" style="text-align:right; font-weight:bold;"><?php echo $this->translate('DBShop系统管理员密码'); ?>：</td><td><?php echo $this->admin_passwd; ?></td>
+                </tr>
+            	<tr>
+                	<td width="25%" style="text-align:right; font-weight:bold;"></td><td><span class="text-success" style="font-weight:bold;"><?php echo $this->translate('请牢记上面系统信息。另外如果您没有开启重写功能，访问前台和后台需要这样访问 http://系统地址/index.php/  当开启了重写功能时，是不需要添加index.php/的。'); ?></span></td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="text-center">
+        	<a href="<?php echo $this->url('shopfront/default'); ?>" class="btn btn-large btn-primary" target="_blank"><i class="icon-globe icon-white"></i> <?php echo $this->translate('点击查看系统前台'); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="<?php echo $this->url('admin/default'); ?>" class="btn btn-large btn-primary" target="_blank"><i class="icon-cog icon-white"></i> <?php echo $this->translate('点击查看系统后台'); ?></a>
+        </p>
+    </div>
+</div>

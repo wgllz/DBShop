@@ -1,0 +1,230 @@
+<div class="tabbable tabs-left">
+              <ul class="nav nav-tabs">
+              	<li><h5><?php echo $this->translate('规则信息'); ?></h5></li>
+                <li class="active"><a data-toggle="tab" href="#promotions_a"><?php echo $this->translate('基本信息'); ?></a></li>
+                <li class=""><a data-toggle="tab" href="#promotions_c"><?php echo $this->translate('促销规则'); ?></a></li>
+                <li class=""><a data-toggle="tab" href="#promotions_b"><?php echo $this->translate('优惠客户组'); ?></a></li>
+                <li class=""><a data-toggle="tab" href="#promotions_d"><?php echo $this->translate('优惠商品'); ?></a></li>
+              </ul>
+              <form class="form-horizontal" method="post" name="promotions_add_form" id="promotions_add_form" action="<?php echo $this->url('promotions/default/promotions_id',array('action'=>($this->promotions_info ? 'edit' : 'add'), 'promotions_id'=>($this->promotions_info ? $this->promotions_info->promotions_id : '0'))); ?>">
+              <input type="hidden" name="promotions_id" id="promotions_id" value="<?php echo ($this->promotions_info ? $this->promotions_info->promotions_id : ''); ?>" />
+              <input type="hidden" name="promotions_save_type" id="promotions_save_type" value="" />
+              <div class="tab-content">
+    			<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        			<div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php if($this->promotions_info) echo $this->translate('编辑'); else echo $this->translate('新加'); ?><?php echo $this->translate('优惠促销规则'); ?></strong></div>
+        			<div id="sticky_navigation_right" class="pull-right">
+                	<a href="<?php echo $this->url('promotions/default'); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回规则列表'); ?></a>&nbsp;
+                	<a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>&nbsp;
+                    <?php if($this->promotions_info) { ?>
+                    <a href="<?php echo $this->url('promotions/default/promotions_id',array('action'=>'del', 'promotions_id'=>$this->promotions_info->promotions_id)); ?>" onclick="return window.confirm('<?php echo $this->translate('您确实要删除该优惠规则吗？'); ?>');" class="btn btn-small btn-danger"><i class="icon-remove icon-white"></i> <?php echo $this->translate('删除促销规则'); ?></a>&nbsp;
+                    <button type="submit" onclick="$('#promotions_save_type').val('save_return_edit');" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存促销规则并继续编辑'); ?></button>&nbsp;
+                    <?php } ?>
+                	<button type="submit" onclick="$('#promotions_save_type').val('');" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存促销规则'); ?></button>&nbsp;
+                	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('goods_promotions_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+                	</div>
+        		</div>
+                <div id="promotions_a" class="tab-pane active">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('基本信息'); ?></div>
+                	<div class="well admin_add_well">
+                        <div class="message_one">
+                    	</div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('规则名称'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<input type="text" id="promotions_name"  name="promotions_name" value="<?php echo ($this->promotions_info ? $this->escapeHtml($this->promotions_info->promotions_name) : ''); ?>" class="span3">
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('规则描述'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="promotions_info"  name="promotions_info" value="<?php echo ($this->promotions_info ? $this->escapeHtml($this->promotions_info->promotions_info) : ''); ?>" class="span6"> <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('前台购物车处显示此信息。'); ?>"></i>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('开始时间'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="promotions_start_time"  name="promotions_start_time" value="<?php if ($this->promotions_info and $this->promotions_info->promotions_start_time != '') echo date("Y-m-d H:i",$this->promotions_info->promotions_start_time); ?>" onclick="WdatePicker({el:'promotions_start_time', dateFmt:'yyyy-MM-dd HH:mm'})" class="span2 Wdate"> <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('请在此填写有效的开始时间，为空，则不限时间。'); ?>"></i>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('结束时间'); ?>：</label>
+           					<div class="controls">
+              					<input type="text" id="promotions_end_time"  name="promotions_end_time" value="<?php if ($this->promotions_info and $this->promotions_info->promotions_end_time != '') echo date("Y-m-d H:i",$this->promotions_info->promotions_end_time); ?>" onclick="WdatePicker({el:'promotions_end_time', dateFmt:'yyyy-MM-dd HH:mm'})" class="span2 Wdate"> <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('请在此填写有效的结束时间，为空，则不限时间。'); ?>"></i>
+            				</div>                        
+                        </div>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('规则状态'); ?>：</label>
+           					<div class="controls">
+              					<select name="rule_state" id="rule_state" class="span2">
+                                	<option value="1" <?php if ($this->promotions_info and $this->promotions_info->rule_state == 1) echo 'selected="selected"'; ?>><?php echo $this->translate('开启'); ?></option>
+                                    <option value="2" <?php if ($this->promotions_info and $this->promotions_info->rule_state == 2) echo 'selected="selected"'; ?>><?php echo $this->translate('关闭'); ?></option>
+                                </select>
+            				</div>                        
+                        </div>                                                                 
+                  	</div>
+                </div>                
+                 <div id="promotions_b" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('优惠客户组'); ?></div>
+                	<div class="well admin_add_well">
+                        <div class="message_one">
+                    	</div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('选择客户组类型'); ?>：</label>
+           					<div class="controls">
+              					<select name="promotions_user_type" id="promotions_user_type" class="span2" onchange="select_promotions_user();">
+                                	<option value="all_user" <?php if ($this->promotions_info and $this->promotions_info->promotions_user_type == 'all_user') echo 'selected="selected"'; ?>><?php echo $this->translate('所有客户'); ?></option>
+                                    <option value="user_group" <?php if ($this->promotions_info and $this->promotions_info->promotions_user_type == 'user_group') echo 'selected="selected"'; ?>><?php echo $this->translate('个性化客户组'); ?></option>
+                                </select>
+            				</div>                        
+                        </div>
+                     	<div class="control-group promotions_user_display" id="promotions_user_group" <?php if (($this->promotions_info and $this->promotions_info->promotions_user_type == 'all_user') or !isset($this->promotions_info)) echo 'style="display:none;"'; ?>>
+                  			<label for="input01" class="control-label"><?php echo $this->translate('个性化客户组'); ?>：</label>
+           					<div class="controls">
+            				<?php
+								$selectUserGroup = ($this->promotions_info and $this->promotions_info->promotions_user_group != '') ? unserialize($this->promotions_info->promotions_user_group) : array();
+								if ($this->group_array) {
+									foreach ($this->group_array as $group_val) {
+							?>
+                            	<label class="checkbox"><input type="checkbox" name="promotions_user_group[]" <?php if(!empty($selectUserGroup) and in_array($group_val['group_id'], $selectUserGroup)) echo 'checked="checked"'; ?> value="<?php echo $group_val['group_id']; ?>" /><?php echo $this->escapeHtml($group_val['group_name']); ?></label>
+                            <?php } } ?>
+            				</div>                        
+                        </div>                                         
+                  	</div>                                         
+              </div>
+                 <div id="promotions_c" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('促销规则'); ?></div>
+                	<div class="well admin_add_well">
+                        <div class="message_one">
+                    	</div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('购物金额满'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<input type="text" id="shopping_amount"  name="shopping_amount" value="<?php echo ($this->promotions_info ? $this->promotions_info->shopping_amount : ''); ?>" class="span2"><?php echo $this->translate('元'); ?>
+            				</div>                        
+                        </div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('优惠(立减)'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<input type="text" id="shopping_discount"  name="shopping_discount" value="<?php echo ($this->promotions_info ? $this->promotions_info->shopping_discount : ''); ?>" class="span1">
+                                <select name="discount_type" class="span1">
+                                	<option value="1" <?php if ($this->promotions_info and $this->promotions_info->discount_type == 1) echo 'selected="selected"'; ?>><?php echo $this->translate('元'); ?></option>
+                                    <option value="2" <?php if ($this->promotions_info and $this->promotions_info->discount_type == 2) echo 'selected="selected"'; ?>>%</option>
+                                </select>
+            				</div>                        
+                        </div>                                   
+                  	</div>                                         
+              </div>
+               <div id="promotions_d" class="tab-pane">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('优惠商品'); ?></div>
+                	<div class="well admin_add_well">
+                        <div class="message_one">
+                    	</div>
+                     	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('选择商品类型'); ?>：</label>
+           					<div class="controls">
+              					<select name="promotions_goods_type" id="promotions_goods_type" class="span2" onchange="select_promotions_goods();">
+                                	<option value="all_goods" <?php if ($this->promotions_info and $this->promotions_info->promotions_goods_type == 'all_goods') echo 'selected="selected"'; ?>><?php echo $this->translate('所有商品'); ?></option>
+                                    <option value="class_goods" <?php if ($this->promotions_info and $this->promotions_info->promotions_goods_type == 'class_goods') echo 'selected="selected"'; ?>><?php echo $this->translate('商品分类'); ?></option>
+                                    <option value="brand_goods" <?php if ($this->promotions_info and $this->promotions_info->promotions_goods_type == 'brand_goods') echo 'selected="selected"'; ?>><?php echo $this->translate('商品品牌'); ?></option>
+                                </select>
+            				</div>                        
+                        </div>
+                        <?php
+                        $selectGoodsType = ($this->promotions_info and $this->promotions_info->promotions_goods_content != '') ? unserialize($this->promotions_info->promotions_goods_content) : array();
+						?>
+                     	<div class="control-group promotions_type" id="promotions_goods_class" <?php if (($this->promotions_info and ($this->promotions_info->promotions_goods_type == 'all_goods' or $this->promotions_info->promotions_goods_type == 'brand_goods')) or !isset($this->promotions_info)) echo 'style="display:none;"'; ?>>
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品分类'); ?>：</label>
+           					<div class="controls">
+                                <?php
+                                if ($this->goods_class) {
+                                	foreach ($this->goods_class as $class_val) {
+								?>
+                  				<label class="checkbox"  style="margin-left:<?php echo $class_val['class_level'] * 20; ?>px;"><input type="checkbox" name="class_id[]" value="<?php echo $class_val['class_id']; ?>" <?php if(!empty($selectGoodsType) and in_array($class_val['class_id'], $selectGoodsType)) echo 'checked="checked"'; ?>><?php echo $this->escapeHtml($class_val['class_name']); ?></label>
+                                <?php
+                                	}
+                                }
+								?>
+            				</div>                        
+                        </div>
+                     	<div class="control-group promotions_type" id="promotions_goods_brand" <?php if (($this->promotions_info and ($this->promotions_info->promotions_goods_type == 'all_goods' or $this->promotions_info->promotions_goods_type == 'class_goods')) or !isset($this->promotions_info)) echo 'style="display:none;"'; ?>>
+                  			<label for="input01" class="control-label"><?php echo $this->translate('商品品牌'); ?>：</label>
+           					<div class="controls">
+                                <?php
+                                if ($this->goods_brand) {
+                                	foreach ($this->goods_brand as $brand_val) {
+								?>
+                  				<label class="checkbox"><input type="checkbox" name="brand_id[]" value="<?php echo $brand_val['brand_id']; ?>" <?php if(!empty($selectGoodsType) and in_array($brand_val['brand_id'], $selectGoodsType)) echo 'checked="checked"'; ?>><?php echo $this->escapeHtml($brand_val['brand_name']); ?></label>
+                                <?php
+                                	}
+                                }
+								?>
+            				</div>                        
+                        </div>                                  
+                  	</div>                                         
+              </div>
+              
+             </div>
+              </form>
+</div>
+<script src="<?php echo $this->basePath('/public/js/DatePicker/WdatePicker.js'); ?>"></script>
+<script>
+$(document).ready(function() {
+	$("#promotions_add_form").validate({
+		rules: {
+			promotions_name: {
+				required: true
+			},
+			shopping_amount: {
+				required: true,
+				number: true,
+				min:1
+			},
+			shopping_discount: {
+				required: true,
+				number: true,
+				min:1
+			}
+		},
+		messages: {
+			promotions_name: {
+				required: "<?php echo $this->translate('优惠规则名称不能为空！'); ?>"
+			},
+			shopping_amount: {
+				required: "<?php echo $this->translate('购物金额满不能为空！'); ?>",
+				number: "<?php echo $this->translate('购物金额满必须为数字！'); ?>",
+				min:"<?php echo $this->translate('数字最小为1'); ?>"
+			},
+			shopping_discount: {
+				required: "<?php echo $this->translate('优惠立减不能为空！'); ?>",
+				number: "<?php echo $this->translate('优惠立减必须为数字！'); ?>",
+				min:"<?php echo $this->translate('数字最小为1'); ?>"
+			}
+		}
+	});
+});
+
+<?php if ($this->success_msg != '') { ?>
+show_message('.message_one','<?php echo date("Y-m-d H:i:s"); ?>','<?php echo $this->success_msg; ?>','alert-success');
+<?php } ?>
+
+//商品js处理
+function select_promotions_goods() {
+	var promotions_goods_type_value = $('#promotions_goods_type').val();
+	$('.promotions_type').css('display', 'none');
+	
+	if(promotions_goods_type_value == 'class_goods') {
+		$('#promotions_goods_class').css('display', '');
+	}else if (promotions_goods_type_value == 'brand_goods') {
+		$('#promotions_goods_brand').css('display', '');
+	}
+}
+//会员js处理
+function select_promotions_user() {
+	var promotions_user_type_value = $('#promotions_user_type').val();
+	$('.promotions_user_display').css('display', 'none');
+	
+	if(promotions_user_type_value == 'user_group') {
+		$('#promotions_user_group').css('display', '');
+	}
+}
+</script>

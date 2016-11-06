@@ -1,0 +1,24 @@
+    		<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('电脑端广告(PC)'); ?></strong></p>
+        	<p class="pull-right">
+        	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('ad_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+        	</p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="60%"><?php echo $this->translate('广告类别'); ?></th>
+                    <th width="25%"><?php echo $this->translate('广告数量'); ?></th>
+                    <th width="15%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php if(is_array($this->ad_class['class']) and !empty($this->ad_class['class'])) foreach ($this->ad_class['class'] as $class_value) { ?>            
+            <tr>
+            	<td><?php echo $this->ad_class['classname'][$class_value]; ?></td>
+                <td><?php echo $this->ad_class['adcount'][$class_value]; ?></td>
+            	<td><a href="<?php echo $this->url('ad/default/ad-type',array('action'=>'setad','ad_type'=>$class_value)); ?>"><?php echo $this->translate('设置广告'); ?></a></td>  
+            </tr>
+            <?php
+				}
+			?>
+            </table>

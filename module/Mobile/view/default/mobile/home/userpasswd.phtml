@@ -1,0 +1,18 @@
+<form class="validforms" method="post" name="formPassword">
+    <section class="flow-consignee ect-bg-colorf">
+        <ul>
+            <li>
+                <div class="input-text"><b class="pull-left"><?php echo $this->translate('原密码'); ?><font class="must_add_value">*</font>：</b><span>
+   	        <input type="password" name="old_user_password" id="old_user_password" datatype="*" placeholder="<?php echo $this->translate('原密码'); ?>" nullmsg="<?php echo $this->translate('请输入原密码'); ?>"></span></div></li>
+            <li>
+                <div class="input-text"><b><?php echo $this->translate('新密码'); ?><font class="must_add_value">*</font>：</b><span>
+            <input type="password" name="user_password" id="user_password" datatype="*6-16" placeholder="<?php echo $this->translate('新密码'); ?>" nullmsg="<?php echo $this->translate('请输入新密码'); ?>"></span></div></li>
+            <li><div class="input-text"><b><?php echo $this->translate('确认密码'); ?><font class="must_add_value">*</font>：</b><span>
+                        <input type="password" name="user_password_con" id="user_password_con" recheck="user_password" datatype="*6-16" placeholder="<?php echo $this->translate('确认密码'); ?>" errormsg="<?php echo $this->translate('您两次输入的密码不一致！'); ?>" nullmsg="<?php echo $this->translate('请输入确认密码'); ?>"></span></div></li>
+        </ul>
+    </section>
+    <input type="hidden" value="edit_password" name="act">
+    <div class="two-btn ect-padding-tb ect-padding-lr ect-margin-tb text-center">
+        <input type="submit" value="<?php echo $this->translate('确认修改'); ?>" class="btn btn-info" name="submit">
+    </div>
+</form>

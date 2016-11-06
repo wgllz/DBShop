@@ -1,0 +1,86 @@
+    		<div style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('退货管理'); ?></strong></p>
+			<p class="pull-right">
+			<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('order_refund'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+			</p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="15%"><?php echo $this->translate('订单编号'); ?></th>
+                    <th width="10%"><?php echo $this->translate('退款方式'); ?></th>
+                    <th width="10%"><?php echo $this->translate('处理状态'); ?></th>
+                    <th width="10%"><?php echo $this->translate('申请时间'); ?></th>
+                    <th width="10%"><?php echo $this->translate('处理时间'); ?></th>
+                    <th width="8%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <form method="GET" action="<?php echo $this->url('orders/default', array('action'=>'refund', 'controller'=>'Orders')); ?>">
+                <tr class="goods_search" style="background:#F5F5F5;">
+                <td>
+                    <input type="text" name="order_sn" value="<?php if ($this->searchArray and isset($this->searchArray['order_sn'])) echo $this->searchArray['order_sn']; ?>" class="span11">
+                </td>
+                <td>
+                    <select name="refund_type" class="span8">
+                        <option value=""><?php echo $this->translate('选择退款方式'); ?></option>
+                        <option value="1" <?php if ($this->searchArray and isset($this->searchArray['refund_type']) and $this->searchArray['refund_type'] == 1) echo 'selected'; ?>><?php echo $this->translate('退款到账户余额'); ?></option>
+                        <option value="2" <?php if ($this->searchArray and isset($this->searchArray['refund_type']) and $this->searchArray['refund_type'] == 2) echo 'selected'; ?>><?php echo $this->translate('退款到银行'); ?></option>
+                        <option value="3" <?php if ($this->searchArray and isset($this->searchArray['refund_type']) and $this->searchArray['refund_type'] == 3) echo 'selected'; ?>><?php echo $this->translate('退款到第三方支付'); ?></option>
+                    </select>
+                </td>
+                <td>
+                    <select name="refund_state" class="span8">
+                        <option value=""><?php echo $this->translate('选择处理状态'); ?></option>
+                        <option value="0" <?php if ($this->searchArray and isset($this->searchArray['refund_state']) and $this->searchArray['refund_state'] == '0') echo 'selected'; ?>><?php echo $this->translate('等待处理'); ?></option>
+                        <option value="1" <?php if ($this->searchArray and isset($this->searchArray['refund_state']) and $this->searchArray['refund_state'] == 1) echo 'selected'; ?>><?php echo $this->translate('退款成功'); ?></option>
+                        <option value="2" <?php if ($this->searchArray and isset($this->searchArray['refund_state']) and $this->searchArray['refund_state'] == 2) echo 'selected'; ?>><?php echo $this->translate('退款拒绝'); ?></option>
+                    </select>
+                </td>
+                <td>
+                    <p>&nbsp;<?php echo $this->translate('始'); ?><input type="text" name="start_refund_time" id="start_refund_time" value="<?php if ($this->searchArray and isset($this->searchArray['start_refund_time'])) echo $this->searchArray['start_refund_time']; ?>" onclick="WdatePicker({el:'start_refund_time'})"  class="span8"></p>
+                    <p>&nbsp;<?php echo $this->translate('终'); ?><input type="text" name="end_refund_time" id="end_refund_time" value="<?php if ($this->searchArray and isset($this->searchArray['end_refund_time'])) echo $this->searchArray['end_refund_time']; ?>" onclick="WdatePicker({el:'end_refund_time'})" class="span8"></p>
+                </td>
+                <td>
+                    <p>&nbsp;<?php echo $this->translate('始'); ?><input type="text" name="start_finish_refund_time" id="start_finish_refund_time" value="<?php if ($this->searchArray and isset($this->searchArray['start_finish_refund_time'])) echo $this->searchArray['start_finish_refund_time']; ?>" onclick="WdatePicker({el:'start_finish_refund_time'})"  class="span8"></p>
+                    <p>&nbsp;<?php echo $this->translate('终'); ?><input type="text" name="end_finish_refund_time" id="end_finish_refund_time" value="<?php if ($this->searchArray and isset($this->searchArray['end_finish_refund_time'])) echo $this->searchArray['end_finish_refund_time']; ?>" onclick="WdatePicker({el:'end_finish_refund_time'})" class="span8"></p>
+                </td>
+                <td>
+                    <button class="btn btn-small btn-primary" type="submit"><i class="icon-search icon-white"></i> <?php echo $this->translate('搜索'); ?></button>
+                    <?php if ($this->searchArray and !empty($this->searchArray)) { ?>
+                        &nbsp;&nbsp;<a href="<?php echo $this->url('orders/default', array('action'=>'refund', 'controller'=>'Orders')); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回'); ?></a>
+                    <?php } ?>
+                </td>
+                </tr>
+            </form>
+            <?php
+			if ($this->order_refund_list) {
+                $type_array  = array(1=>$this->translate('退款到账户余额'), 2=>$this->translate('退款到银行'), 3=>$this->translate('退款到第三方支付'));
+                $state_array = array(0=>$this->translate('等待处理'), 1=>$this->translate('退款成功'), 2=>$this->translate('退款拒绝'));
+				foreach ($this->order_refund_list as $refund_val) {
+			?>            
+            <tr>
+            	<td><?php echo $refund_val['order_sn']; ?></td>
+            	<td><?php echo $type_array[$refund_val['refund_type']]; ?></td>
+                <td><?php echo $state_array[$refund_val['refund_state']]; ?></td>
+                <td><?php echo date('Y-m-d H:i:s',$refund_val['refund_time']); ?></td>
+                <td><?php if(!empty($refund_val['finish_refund_time'])) echo date('Y-m-d H:i:s',$refund_val['finish_refund_time']); ?></td>
+            	<td>
+                    <?php if($refund_val['refund_state']==0) { ?>
+                        <a href="<?php echo $this->url('orders/default/refund-id',array('action'=>'operRefund','controller'=>'Orders','refund_id'=>$refund_val['refund_id'], 'page'=>$this->page)); ?>"><?php echo $this->translate('处理退货'); ?></a>
+                        <span>|</span>
+                    <?php }?>
+                    <a href="<?php echo $this->url('orders/default/refund-id',array('action'=>'showRefund','controller'=>'Orders','refund_id'=>$refund_val['refund_id'], 'page'=>$this->page)); ?>"><?php echo $this->translate('查看详情'); ?></a>
+                </td>
+            </tr>
+            <?php
+				}
+			}
+			?>
+            <tr>
+			<td colspan="9" style="background: #FFF">
+				<?php echo ( count($this->order_refund_list) > 0 ) ? $this->paginationControl($this->order_refund_list, 'Sliding', 'common/pager',array('page_url'=>$this->url('orders/default/page',array('controller'=>'Orders', 'action'=>'refund')))) : ""; ?>
+                </td>
+		</tr>
+            </table>
+
+<script src="<?php echo $this->basePath('/public/js/DatePicker/WdatePicker.js'); ?>"></script>

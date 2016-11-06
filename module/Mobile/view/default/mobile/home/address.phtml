@@ -1,0 +1,23 @@
+<div class="flow-consignee-list ect-bg-colorf">
+    <?php if ($this->address_list) { foreach ($this->address_list as $address_value) { ?>
+    <section>
+        <ul>
+            <li class="ect-padding-tb checkout-add single_item ">
+                <a href="<?php echo $this->url('m_address/default', array('action'=>'addAddress', 'address_id'=>$address_value['address_id'])); ?>">
+                    <p class="title"><?php if($address_value['addr_default'] == 1) echo '(' . $this->translate('默认') . ')&nbsp;'; echo $this->escapeHtml($address_value['true_name']);?> <span class="ect-colory"><?php echo $this->escapeHtml($address_value['mod_phone']); ?></span></p>
+                    <p>
+                        <?php
+                        echo $this->escapeHtml($address_value['address']).', ';
+                        $region_array = @explode(' ', $address_value['region_value']);
+                        $region_array = array_reverse($region_array);
+                        echo $this->escapeHtml(implode(', ', $region_array));
+                        ?>
+                    </p>
+                    <i class="fa fa-angle-right"></i> </a>
+            </li>
+        </ul>
+    </section>
+    <?php } } ?>
+</div>
+
+<div class="ect-padding-lr ect-padding-tb ect-margin-tb"> <a class="btn btn-info ect-btn-info ect-colorf ect-bg" type="botton" href="<?php echo $this->url('m_address/default', array('action'=>'addAddress')); ?>"><?php echo $this->translate('新增收货地址'); ?></a> </div>

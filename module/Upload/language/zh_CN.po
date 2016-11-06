@@ -1,0 +1,410 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DBShop\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-31 18:34+0800\n"
+"PO-Revision-Date: 2016-08-31 18:34+0800\n"
+"Last-Translator: DBShop <team@dbshop.net>\n"
+"Language-Team: DBShop <team@dbshop.net>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../view/upload/upload/uploadset.phtml:3
+#: ../view/upload/upload/uploadset.phtml:12
+msgid "附件设置"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:4
+#: ../view/upload/upload/uploadset.phtml:20
+msgid "基本设置"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:5
+#: ../view/upload/upload/uploadset.phtml:45
+#: ../view/upload/upload/uploadset.phtml:50
+#: ../view/upload/upload/uploadset.phtml:286
+msgid "商品图片"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:6
+#: ../view/upload/upload/uploadset.phtml:190
+msgid "水印设置"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:7
+#: ../view/upload/upload/uploadset.phtml:278
+msgid "存储方式"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:14
+msgid "刷新"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:15
+msgid "保存附件设置"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:16
+msgid "查看帮助说明"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:25
+msgid "图片附件最大尺寸"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:27
+msgid "1 MB=1024 KB ，1 GB=1024 MB"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:31
+msgid "图片附件允许上传类型"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:52
+#, php-format
+msgid ""
+"%s商品图片%s：当设置宽度和高度任意一个值为0时，视为不限制宽高，而且不进行任何"
+"裁切操作。"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:56
+msgid "缩微图宽度"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:62
+msgid "缩微图高度"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:68
+msgid "缩微图裁切方式"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:71
+#: ../view/upload/upload/uploadset.phtml:123
+#: ../view/upload/upload/uploadset.phtml:145
+#: ../view/upload/upload/uploadset.phtml:173
+msgid "自适应裁切"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:72
+#: ../view/upload/upload/uploadset.phtml:124
+#: ../view/upload/upload/uploadset.phtml:146
+#: ../view/upload/upload/uploadset.phtml:174
+msgid "绝对裁切"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:74
+#: ../view/upload/upload/uploadset.phtml:126
+#: ../view/upload/upload/uploadset.phtml:148
+#: ../view/upload/upload/uploadset.phtml:176
+#, php-format
+msgid ""
+"%s自适应裁切%s：指以缩微图宽度为定值，按照比例裁切，最终图片等比例变化。%s绝"
+"对裁切%s：以图片中心裁切缩微图宽高，最终图片部分内容被裁掉。%s当宽高任意值设"
+"置为0时，%s裁切不做任何操作%s。%s"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:78
+msgid "图片添加水印"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:84
+msgid "图片命名方式"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:87
+msgid "图片原始名称"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:88
+msgid "图片随机命名"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:93
+msgid "商品默认图片"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:102
+msgid "分类图片"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:104
+#, php-format
+msgid ""
+"%s分类图片%s：当设置宽度和高度任意一个值为0时，视为不限制宽高，而且不进行任何"
+"裁切操作。"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:108
+msgid "分类ICO图片宽度"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:114
+msgid "分类ICO图片高度"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:120
+msgid "分类ICO裁切方式"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:130
+msgid "分类图片宽度"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:136
+msgid "分类图片高度"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:142
+msgid "分类图片裁切方式"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:152
+msgid "品牌图片"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:154
+#, php-format
+msgid ""
+"%s品牌图片%s：当设置宽度和高度任意一个值为0时，视为不限制宽高，而且不进行任何"
+"裁切操作。"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:158
+msgid "品牌logo宽度"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:164
+msgid "品牌logo高度"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:170
+msgid "品牌logo裁切方式"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:180
+msgid "品牌默认图片"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:195
+msgid "水印设置状态"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:198
+msgid "开启"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:199
+msgid "关闭"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:204
+msgid "水印设置类型"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:207
+msgid "图片"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:208
+msgid "文字"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:213
+msgid "水印图片宽度"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:219
+msgid "水印图片高度"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:225
+msgid "水印图片"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:233
+msgid "水印文字"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:236
+msgid "不支持中文。"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:240
+msgid "水印文字大小"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:243
+msgid "文字大小值为1-5，数值越大字越大。"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:247
+msgid "水印文字颜色"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:253
+msgid "水印透明度"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:256
+msgid "水印透明度值越高透明度越低。"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:260
+msgid "水印图片位置"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:262
+msgid "顶部居左"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:263
+msgid "顶部居中"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:264
+msgid "顶部居右"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:265
+msgid "中部居左"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:266
+msgid "中部居中"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:267
+msgid "中部居右"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:268
+msgid "底部居左"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:269
+msgid "底部居中"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:270
+msgid "底部居右"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:271
+msgid "随机位置"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:283
+msgid ""
+"如果您设置的是云存储，一定要确保对应的云存储空间访问权限为 “公有” 或者 “公共"
+"可读”，否则上传的图片将无法在系统中被调用显示。"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:289
+msgid "本地存储"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:290
+msgid "七牛云存储"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:291
+msgid "阿里云存储"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:294
+msgid "点击访问七牛云存储官网"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:295
+msgid "点击访问阿里云存储官网"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:299
+msgid "七牛空间名称"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:305
+msgid "七牛AccessKey"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:311
+msgid "七牛SecretKey"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:317
+msgid "七牛域名"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:324
+msgid "阿里云空间名称"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:330
+msgid "阿里云节点"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:333
+msgid "请选择节点"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:334
+msgid "青岛"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:335
+msgid "北京"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:336
+msgid "杭州"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:337
+msgid "香港"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:338
+msgid "深圳"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:343
+msgid "Access Key ID"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:349
+msgid "Access Key Secret"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:355
+msgid "访问域名"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:358
+msgid "获取阿里云默认域名"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:405
+#: ../view/upload/upload/uploadset.phtml:411
+#: ../view/upload/upload/uploadset.phtml:417
+#: ../view/upload/upload/uploadset.phtml:423
+msgid "宽度必须为数字"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:408
+#: ../view/upload/upload/uploadset.phtml:414
+#: ../view/upload/upload/uploadset.phtml:420
+#: ../view/upload/upload/uploadset.phtml:426
+msgid "高度必须为数字"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:489
+msgid "阿里云节点和空间名称不能为空!"
+msgstr ""

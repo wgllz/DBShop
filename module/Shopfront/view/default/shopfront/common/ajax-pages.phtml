@@ -1,0 +1,41 @@
+<?php
+$url = $this->page_url;
+$parameterGet = $this->DbshopCommonFun()->dbshopRequesthelper();
+if ($parameterGet != ""){
+  $array = explode('&', $parameterGet);
+  $array = array_unique($array);
+  $parameterGet = "?".implode('&', $array);
+}
+?>
+<?php if ($this->pageCount): ?>
+<div class="pagination pull-right" style=" margin:0;">
+<ul>
+      <?php if (isset($this->previous)): ?>
+     <li><a href="javascript:;" onclick="<?php echo $this->ajaxFunction; ?>('<?php echo $url.'/1'.$parameterGet; ?>');">&lt;&lt; <?php echo $this->translate('首页'); ?>&nbsp;&nbsp;</a></li>
+     <li><a href="javascript:;" onclick="<?php echo $this->ajaxFunction; ?>('<?php echo $url.'/'.$this->previous.$parameterGet; ?>');">←</a></li>      
+      <?php else: ?>
+      <li class="disabled"><a href="#">&lt;&lt; <?php echo $this->translate('首页'); ?>&nbsp;&nbsp;</a></li>
+      <li class="disabled"><a href="#">←</a></li>      
+      <?php endif; ?>
+      <?php foreach ($this->pagesInRange as $page): ?>
+      <?php if ($page != $this->current): ?>
+        <li><a class="nopage" href="javascript:;" onclick="<?php echo $this->ajaxFunction; ?>('<?php echo $url.'/'.$page.$parameterGet; ?>');">
+      <?php echo $page; ?>
+      </a></li>
+      <?php else: ?>
+       <li class="active"><a href="#">
+      <?php echo $page; ?>
+       </a>
+       </li>
+      <?php endif; ?>
+      <?php endforeach; ?>
+      <?php if (isset($this->next)): ?>
+      <li><a href="javascript:;" onclick="<?php echo $this->ajaxFunction; ?>('<?php echo $url.'/'.$this->next.$parameterGet; ?>');">→</a></li>
+      <li><a href="javascript:;" onclick="<?php echo $this->ajaxFunction; ?>('<?php echo $url.'/'.$this->pageCount.$parameterGet; ?>');">&nbsp;<?php echo $this->translate('末页'); ?> &gt;&gt;</a></li>
+      <?php else: ?>      	
+	   <li class="disabled"><a href="#">→</a></li>
+	   <li class="disabled"><a href="#">&nbsp;<?php echo $this->translate('末页'); ?> &gt;&gt;&nbsp;</a></li>
+      <?php endif; ?>
+</ul>
+</div>
+<?php endif; ?>

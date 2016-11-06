@@ -1,0 +1,9 @@
+<section class="ect-bg-colorf ect-padding-lr flow-done">
+    <i class="glyphicon glyphicon-ok"></i>
+    <p class="ect-margin-tb"><?php echo $this->translate('恭喜您！订单提交成功，祝您购物愉快！，请记住您的订单号'); ?>：<b class="ect-color"><?php echo $this->order_sn; ?></b></p>
+    <p class="ect-margin-tb"><?php echo $this->translate('您当前的订单金额'); ?>: <b><?php echo $this->order_total; ?></b></p>
+    <?php if($this->order_state == 10) {?>
+    <p class="ect-margin-tb text-center"></p><div><input type="button" value="<?php echo $this->translate('马上去支付'); ?>" onclick="window.open('<?php echo $this->url('m_order/default/order_id', array('action'=>'orderpay', 'order_id'=>$this->order_id)); ?>')" class="btn btn-info ect-btn-info ect-colorf ect-bg"></div><p></p>
+    <?php } ?>
+    <p class="ect-margin-tb text-center"><?php echo $this->translate('您可以'); ?> <a href="<?php echo $this->url('mobile/default'); ?>"><?php echo $this->translate('返回首页'); ?></a> <?php echo $this->translate('或去'); ?> <a href="<?php echo $this->url('m_home/default'); ?>"><?php echo $this->translate('用户中心'); ?></a></p>
+</section>

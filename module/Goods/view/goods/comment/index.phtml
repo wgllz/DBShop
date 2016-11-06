@@ -1,0 +1,37 @@
+    		<div style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('商品评价'); ?></strong></p>
+        	<p class="pull-right">
+        	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('goods_comment_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+        	</p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="37%"><?php echo $this->translate('商品名称'); ?></th>
+                    <th width="12%"><?php echo $this->translate('评价时间'); ?></th>
+                    <th width="10%"><?php echo $this->translate('评价人'); ?></th>
+                    <th width="10%"><?php echo $this->translate('评价总数'); ?></th>
+                    <th width="8%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php 
+            if($this->comment_list) {
+            foreach ($this->comment_list as $comment_value) { ?>
+            <tr>
+            	<td><?php echo $this->escapeHtml($comment_value['goods_name']); ?></td>
+            	<td><?php echo date('Y-m-d H:i:s',$comment_value['comment_last_time']); ?></td>
+            	<td><?php echo $this->escapeHtml($comment_value['comment_last_writer']); ?></td>
+            	<td><?php echo $comment_value['comment_count']; ?></td>
+                <td>
+                <a href="<?php echo $this->url('comment/default/goods-id',array('action'=>'edit','controller'=>'comment','goods_id'=>$comment_value['goods_id'])); ?>"><?php echo $this->translate('编辑查看'); ?></a>
+                </td>  
+            </tr>
+            <?php 
+                    }
+                } ?>
+            <tr>
+           		<td colspan="9" style="background:#FFF">
+                <?php echo ( count($this->comment_list) > 0 ) ? $this->paginationControl($this->comment_list,'Sliding','common/pager',array('page_url'=>$this->url('comment/default/comment-page',array('action'=>'index','controller'=>'comment')))) : ''; ?>              
+                </td> 
+            </tr>
+            </table>

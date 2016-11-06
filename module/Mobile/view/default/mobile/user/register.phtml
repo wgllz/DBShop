@@ -1,0 +1,69 @@
+<?php if ($this->frontwebsite()->getUserIni('user_register_state') == 'true') { ?>
+<form class="validforms" method="post" name="formLogin">
+    <div class="flow-consignee ect-bg-colorf">
+        <ul>
+            <li>
+                <div class="input-text"><b><?php echo $this->translate('用户名'); ?><font class="must_add_value">*</font>：</b><span>
+                <input type="text" errormsg="<?php echo $this->translate('用户名必须为3-30个字符'); ?>" datatype="*3-30" id="user_name" name="user_name" ajaxurl="<?php echo $this->url('m_user/default/user_id',array('action'=>'check','controller'=>'user','check_type'=>'user_name','user_id'=>($this->user_info ? $this->user_info->user_id : '0'))); ?>" placeholder="<?php echo $this->translate('请输入用户名'); ?>" nullmsg="<?php echo $this->translate('请输入用户名'); ?>">
+                </span></div>
+            </li>
+            <li>
+                <div class="input-text"><b><?php echo $this->translate('电子邮件'); ?><font class="must_add_value">*</font>：</b><span>
+                <input type="text" datatype="e" id="user_email" name="user_email" ajaxurl="<?php echo $this->url('m_user/default/user_id',array('action'=>'check','controller'=>'user','module'=>'user','check_type'=>'user_email','user_id'=>($this->user_info ? $this->user_info->user_id : '0'))); ?>" placeholder="<?php echo $this->translate('请输入电子邮箱'); ?>" nullmsg="<?php echo $this->translate('请输入电子邮箱'); ?>">
+                </span></div>
+            </li>
+            <li>
+                <div class="input-text"><b><?php echo $this->translate('密码'); ?><font class="must_add_value">*</font>：</b><span>
+                <input type="password" datatype="*6-16" name="user_password" class="inputBg" placeholder="<?php echo $this->translate('请输入登录密码'); ?>" nullmsg="<?php echo $this->translate('请输入登录密码'); ?>">
+                </span></div>
+            </li>
+            <li>
+                <div class="input-text"><b><?php echo $this->translate('确认密码'); ?><font class="must_add_value">*</font>：</b><span>
+                <input type="password" datatype="*6-16" name="user_com_passwd" recheck="user_password"  class="inputBg" placeholder="<?php echo $this->translate('请输入确认密码'); ?>" errormsg="<?php echo $this->translate('您两次输入的账号密码不一致！'); ?>">
+                </span></div>
+            </li>
+            <?php if ($this->frontwebsite()->websiteInfo('user_register_captcha') == 'true') { ?>
+            <li>
+                <div class="input-text code"><b><?php echo $this->translate('验证码'); ?><font class="must_add_value">*</font>：</b><span>
+                <input type="text" datatype="*" id="captcha_code" name="captcha_code" ajaxurl="<?php echo $this->url('mobile/default',array('action'=>'checkCaptcha')); ?>" placeholder="<?php echo $this->translate('请输入验证码'); ?>" nullmsg="<?php echo $this->translate('请输入验证码'); ?>">
+                </span>
+                    <img style="width: auto;" id="captcha_id" src="" onclick="captchaAdd();" class="pull-right">
+                </div>
+            </li>
+            <?php } ?>
+        </ul>
+    </div>
+
+    <p class="ect-checkbox ect-padding-tb ect-margin-tb ect-margin-bottom0 ect-padding-lr">
+        <input type="checkbox" datatype="*" checked="checked" value="1" name="agreement" id="agreement"  nullmsg="<?php echo $this->translate('接受用户协议后，方可注册'); ?>">
+        <label for="agreement"> <?php echo $this->translate('我已看过并接受'); ?>《<a target="_blank" style="color:blue" href="<?php echo $this->url('m_user/default',array('action'=>'registerInfo')); ?>"><?php echo $this->translate('用户协议'); ?></a>》<i></i></label>
+    </p>
+    <input type="hidden" name="<?php echo $this->register_csrf['name']; ?>" value="<?php echo $this->register_csrf['value']; ?>" />
+    <input type="hidden" name="http_referer" value="<?php echo $this->http_referer; ?>" />
+    <div class="ect-padding-lr ect-padding-tb"> <input type="submit" value="<?php echo $this->translate('注册会员'); ?>" class="btn btn-info ect-btn-info ect-colorf"></div>
+</form>
+    <?php if($this->frontwebsite()->getUserIni('qq_login_state') == 'true') { ?>
+        <div class="ect-padding-lr ect-margin-tb user-hezuo">
+            <?php echo $this->translate('使用合作账号登录'); ?>
+            <p>
+                <a href="<?php echo $this->url('m_user/default',array('action'=>'otherlogin')); ?>"><img src="<?php echo $this->basePath('public/mobile/default/images/qq.png'); ?>"></a>
+            </p>
+        </div>
+    <?php } ?>
+<script>
+    <?php if ($this->frontwebsite()->websiteInfo('user_register_captcha') == 'true') { ?>
+    //验证码添加
+    function captchaAdd() {
+        $.post("<?php echo $this->url('shopfront/default',array('action'=>'captcha')); ?>",'',
+            function(data){
+                $("#captcha_id").attr('src', '<?php echo $this->basePath('/'); ?>'+data.captcha_file);
+            },'json');
+    }
+    captchaAdd();
+    <?php } ?>
+</script>
+<?php } else { ?>
+    <p class="ect-checkbox ect-padding-tb ect-margin-tb ect-margin-bottom0 ect-padding-lr">
+        <?php echo $this->frontwebsite()->getUserIni('register_close_message'); ?>
+    </p>
+<?php } ?>

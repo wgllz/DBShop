@@ -1,0 +1,206 @@
+<div class="row-fluid">
+    <div class="span10 offset1" id="shop_hot_keywords">
+        &nbsp;<?php echo $this->translate('热门关键词'); ?>：
+        <?php $hot_keywords = @explode('|', $this->frontwebsite()->websiteInfo('shop_hot_keywords'));
+		if(is_array($hot_keywords) and !empty($hot_keywords)) {
+			foreach ($hot_keywords as $key_value) {
+		?>
+    	<a href="<?php echo $this->url('frontgoodslist/default', array('action'=>'goodsSearch')); ?>?keywords=<?php echo $this->escapeHtml($key_value); ?>"><?php echo $this->escapeHtml($key_value); ?></a>&nbsp;&nbsp;
+    	<?php } } ?>
+    </div>
+</div>
+<div id="index_body">
+<div class="row-fluid">
+	<div class="row span2 offset1">
+        <div class="index-left-class">
+            <ul class="nav nav-list">
+                <li class="all-class"><?php echo $this->translate('商品分类'); ?></li>
+                <?php
+                if ($this->goods_class) {
+                    foreach ($this->goods_class as $class_val) {
+                        if($class_val['class_state'] == 0) continue;
+                        ?>
+                        <?php if ($class_val['class_top_id'] == 0) { ?><li><h5><a href="<?php echo $this->url('frontgoodslist/default', array('class_id'=>$class_val['class_id'])); ?>" style="color:#000"><?php echo $this->escapeHtml($class_val['class_name']); ?></a></h5>
+                            <p>
+                                <?php if (isset($class_val['sub_class']) and !empty($class_val['sub_class'])) {
+                                    foreach($class_val['sub_class'] as $sub_value) {
+                                        ?><a href="<?php echo $this->url('frontgoodslist/default', array('class_id'=>$sub_value['class_id'])); ?>"><?php echo $this->escapeHtml($sub_value['class_name']); ?></a>
+                                    <?php } } ?>
+                            </p>
+                            </li>
+                        <?php } } } ?>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="row span8">
+		<?php
+			$ad_class_right = $this->frontwebsite()->getShopAd('index', 'class_right');
+			if($ad_class_right != '') {
+ 				echo $ad_class_right; //广告图片
+			}
+		?>
+     <!-- 右侧热门商品 -->
+     <?php
+     $index_hot_goods = $this->frontwebsite()->getTagGoodsArray('index_hot');
+	 if ($index_hot_goods) { 
+	 ?>
+     <div class="span12" style="margin:0;">
+    	<div class="span12 menu" id="index_hot_goods">
+        	<h5><?php echo $this->translate('热门商品'); ?></h5>
+        </div>
+        <div class="well well-small" id="index_hot_goods_image">
+        	<ul class="thumbnails">
+          <?php
+				foreach ($index_hot_goods as $hot_goods_value) {
+					if(!isset($hot_goods_value['one_class_id'])) continue;
+				?>
+        	<li class="span2">
+            	<a class="thumbnail" title="<?php echo $this->escapeHtml($hot_goods_value['goods_name']); ?>" href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$hot_goods_value['goods_id'], 'class_id'=>$hot_goods_value['one_class_id'])); ?>"><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($hot_goods_value['goods_thumbnail_image'])); ?>" border="0"></a>
+            </li>
+            <?php } ?>            
+            </ul>
+        </div>
+     </div>
+     <?php } ?>
+        
+    </div>
+    
+</div>
+<?php if($this->goods_brand) { ?>
+ <!-- 商品品牌 -->
+  <div class="row-fluid">
+    <div class="span10 offset1">
+    	<div class="well" style="padding-bottom:0px;">
+        	<ul class="thumbnails">
+            	<?php
+					foreach ($this->goods_brand as $brand_value) {
+				?>
+                <li class="span1" style="margin-bottom:1px;">
+            	<a href="<?php echo $this->url('frontbrand/default/front-brand-id', array('action'=>'brandGoods', 'brand_id'=>$brand_value['brand_id'])); ?>" title="<?php echo $this->escapeHtml($brand_value['brand_name']); ?>"><img src="<?php echo ($brand_value['brand_logo'] != '' ? $this->basePath($brand_value['brand_logo']) : $this->basePath($this->frontwebsite()->getGoodsUploadIni('brand', 'brand_image_default'))); ?>" border="0"></a>
+            	</li>
+                <?php } ?> 
+            </ul>
+         </div>
+    </div>  
+  </div>
+<?php } ?>
+
+ <!-- 推荐商品 -->
+ <?php
+ 	$index_recom_goods = $this->frontwebsite()->getTagGoodsArray('index_recom');
+	if ($index_recom_goods) {
+ ?>
+  <div class="row-fluid" id="index_recommend_goods">
+  	<div class="span10 offset1">
+    	<div class="span12 menu">
+        	<h5><?php echo $this->translate('推荐商品'); ?></h5>
+        </div>
+    	<div class="well well-small">
+        	<ul class="thumbnails">
+            <?php 
+				foreach ($index_recom_goods as $recom_goods_value) {
+					if(!isset($recom_goods_value['one_class_id'])) continue;
+				?>
+            	<li class="span2">
+                <a class="thumbnail" title="<?php echo $this->escapeHtml($recom_goods_value['goods_name']); ?>" href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$recom_goods_value['goods_id'], 'class_id'=>$recom_goods_value['one_class_id'])); ?>"><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($recom_goods_value['goods_thumbnail_image'])); ?>" border="0"></a>
+                <p class="goods_title link_googds_name"><a href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$recom_goods_value['goods_id'], 'class_id'=>$recom_goods_value['one_class_id'])); ?>"><?php echo $this->escapeHtml($recom_goods_value['goods_name']); ?></a></p>
+                <p><strong><?php echo $this->frontwebsite()->shopPriceExtend($recom_goods_value['goods_shop_price']); ?></strong></p> 
+                </li>
+            <?php } ?>
+            </ul>
+        </div>
+    </div>
+  </div>
+  <?php } ?>
+  
+<?php
+$ad_class_right = $this->frontwebsite()->getShopAd('index', 'common_down');
+if($ad_class_right != '') {
+ echo $ad_class_right; //广告图片
+}
+?>
+
+ <!-- 最新商品 -->
+ <?php
+ 	$index_new_goods = $this->frontwebsite()->getTagGoodsArray('index_new');
+	if ($index_new_goods) {
+ ?>
+  <div class="row-fluid" id="index_new_goods">
+  	<div class="span10 offset1">
+    	<div class="span12 menu">
+        	<h5><?php echo $this->translate('最新商品'); ?></h5>
+        </div>
+    	<div class="well well-small">
+        	<ul class="thumbnails">
+            <?php
+				foreach ($index_new_goods as $new_goods_value) {
+					if(!isset($new_goods_value['one_class_id'])) continue;
+				?>
+            	<li class="span2">
+                <a class="thumbnail" title="<?php echo $this->escapeHtml($new_goods_value['goods_name']); ?>" href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$new_goods_value['goods_id'], 'class_id'=>$new_goods_value['one_class_id'])); ?>"><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($new_goods_value['goods_thumbnail_image'])); ?>" border="0"></a>
+                <p class="goods_title link_googds_name"><a href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$new_goods_value['goods_id'], 'class_id'=>$new_goods_value['one_class_id'])); ?>"><?php echo $this->escapeHtml($new_goods_value['goods_name']); ?></a></p>
+                <p><strong><?php echo $this->frontwebsite()->shopPriceExtend($new_goods_value['goods_shop_price']); ?></strong></p> 
+                </li>
+            <?php } ?>
+            </ul>
+        </div>
+    </div>
+  </div>
+  <?php } ?>
+  
+<?php
+$ad_new_down = $this->frontwebsite()->getShopAd('index', 'new_down');
+if($ad_new_down != '') {
+ echo $ad_new_down; //广告图片
+}
+?>
+
+ <!-- 特价商品 -->
+ <?php
+ 	$index_spec_goods = $this->frontwebsite()->getTagGoodsArray('index_spec');
+	if ($index_spec_goods) {
+ ?>
+  <div class="row-fluid" id="index_special_goods">
+  	<div class="span10 offset1">
+    	<div class="span12 menu">
+        	<h5><?php echo $this->translate('特价商品'); ?></h5>
+        </div>
+    	<div class="well well-small">
+        	<ul class="thumbnails">
+            <?php
+				foreach ($index_spec_goods as $spec_goods_value) {
+					if(!isset($spec_goods_value['one_class_id'])) continue;
+				?>
+            	<li class="span2">
+                <a class="thumbnail" title="<?php echo $this->escapeHtml($spec_goods_value['goods_name']); ?>" href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$spec_goods_value['goods_id'], 'class_id'=>$spec_goods_value['one_class_id'])); ?>"><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($spec_goods_value['goods_thumbnail_image'])); ?>" border="0"></a>
+                <p class="goods_title link_googds_name"><a href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$spec_goods_value['goods_id'], 'class_id'=>$spec_goods_value['one_class_id'])); ?>"><?php echo $this->escapeHtml($spec_goods_value['goods_name']); ?></a></p>
+                <p><strong><?php echo $this->frontwebsite()->shopPriceExtend($spec_goods_value['goods_shop_price']); ?></strong></p> 
+                </li>
+            <?php } ?>
+            </ul>
+        </div>
+    </div>
+  </div>
+  <?php } ?>
+  
+<?php  if ($this->flink_list) { ?>
+  <div class="row-fluid">
+    <div class="span10 offset1">
+    	<div class="well well-small">
+        	<ul class="thumbnails" style="margin:0px; padding-top:6px; padding-bottom:6px;">
+ 			<!-- 友情链接 -->
+ 			<?php
+	 				foreach ($this->flink_list as $flink_value) { 
+			?>
+            <li class="span1" style="margin-bottom:1px;">
+            <a href="<?php echo $flink_value['links_url']; ?>" target="_blank" title="<?php echo $flink_value['links_webname']; ?>"><img src="<?php echo $this->basePath($flink_value['links_logo']); ?>" border="1"></a>
+            </li>
+              <?php } ?>   	    
+            </ul>
+        </div>
+    </div>  
+  </div>
+<?php } ?>
+</div>
+</div>

@@ -1,0 +1,88 @@
+<div class="ect-wrapper text-center">
+        <div> <a class="<?php if(!isset($this->sort_selected)) echo 'ect-colory'; ?>" href="<?php echo $this->url('m_class/default', array('action'=>'list', 'controller'=>'Class', 'class_id'=>$this->class_info->class_id)); ?>"><?php echo $this->translate('默认'); ?></a>
+            <a class="<?php if(isset($this->sort_selected) and in_array($this->sort_selected, array('goods_shop_priceASC', 'goods_shop_priceDESC'))) echo 'ect-colory'; ?>" href="?price_sort=<?php
+            if(isset($this->sort_selected) and in_array($this->sort_selected, array('goods_shop_priceASC', 'goods_shop_priceDESC'))) {
+                if($this->sort_selected == 'goods_shop_priceASC') {
+                    echo 'DESC';
+                    $priceOrder = 'glyphicon-arrow-up';
+                } else {
+                    echo 'ASC';
+                    $priceOrder = 'glyphicon-arrow-down';
+                }
+            } else {
+                echo 'ASC';
+                $priceOrder = 'glyphicon-arrow-up';
+            }
+            ?>"><?php echo $this->translate('价格'); ?> <i class="glyphicon <?php echo $priceOrder; ?>"></i></a>
+            <a class="<?php if(isset($this->sort_selected) and in_array($this->sort_selected, array('goods_clickASC', 'goods_clickDESC'))) echo 'ect-colory'; ?>" href="?click_sort=<?php
+            if(isset($this->sort_selected) and in_array($this->sort_selected, array('goods_clickASC', 'goods_clickDESC'))) {
+                if($this->sort_selected == 'goods_clickASC') {
+                    echo 'DESC';
+                    $clickOrder = 'glyphicon-arrow-up';
+                } else {
+                    echo 'ASC';
+                    $clickOrder = 'glyphicon-arrow-down';
+                }
+            } else {
+                echo 'ASC';
+                $clickOrder = 'glyphicon-arrow-up';
+            }
+            ?>"><?php echo $this->translate('人气'); ?> <i class="glyphicon <?php echo $clickOrder; ?>"></i></a>
+            <a class="<?php if(isset($this->sort_selected) and in_array($this->sort_selected, array('goods_add_timeASC', 'goods_add_timeDESC'))) echo 'ect-colory'; ?>" href="?time_sort=<?php
+            if(isset($this->sort_selected) and in_array($this->sort_selected, array('goods_add_timeASC', 'goods_add_timeDESC'))) {
+                if($this->sort_selected == 'goods_add_timeASC') {
+                    echo 'DESC';
+                    $addTimeOrder = 'glyphicon-arrow-up';
+                } else {
+                    echo 'ASC';
+                    $addTimeOrder = 'glyphicon-arrow-down';
+                }
+            } else {
+                echo 'ASC';
+                $addTimeOrder = 'glyphicon-arrow-up';
+            }
+            ?>"><?php echo $this->translate('时间'); ?> <i class="glyphicon <?php echo $addTimeOrder; ?>"></i></a>
+            <?php if($this->sub_class) { ?>
+            <a class="category-list"><i class="ect-icon ect-icon2 ect-icon-cate3"></i><?php echo $this->translate('子类'); ?></a>
+            <?php } ?>
+        </div>
+    <?php if($this->sub_class) { ?>
+        <div class="category-list-show">
+            <?php foreach($this->sub_class as $sub_class_val) { if($sub_class_val['class_state'] == 0) continue; ?>
+            <a href="<?php echo $this->url('m_class/default', array('action'=>'list', 'controller'=>'Class', 'class_id'=>$sub_class_val['class_id'])); ?>" class="col-md-3 col-xs-3"><span><?php echo $this->escapeHtml($sub_class_val['class_name']); ?></span></a>
+            <?php } ?>
+        </div>
+        <?php } ?>
+</div>
+
+<div class="ect-margin-tb ect-pro-list ect-margin-bottom0 ect-border-bottom0">
+    <ul id="more_goods">
+        <?php  if ($this->goods_list->getTotalItemCount() > 0) { ?>
+        <?php foreach ($this->goods_list as $goods_value) { ?>
+        <li class="single_item">
+            <a href="<?php echo $this->url('m_goods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$this->class_info->class_id)); ?>"><img alt="<?php echo $this->escapeHtml($goods_value['goods_name']); ?>" src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($goods_value['goods_thumbnail_image'])); ?>"></a>
+            <dl>
+                <dt>
+                <h4 class="title"><a href="<?php echo $this->url('m_goods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$this->class_info->class_id)); ?>"><?php echo $this->escapeHtml($goods_value['goods_name']); ?></a></h4>
+                </dt>
+                <dd>
+                    <span class="pull-left"><strong><?php echo $this->translate('价格'); ?>：<b class="ect-colory"><?php echo $this->frontwebsite()->shopPriceExtend($goods_value['goods_shop_price']); ?></b></strong>
+                    <?php if(isset($goods_value['goods_price']) and $goods_value['goods_price'] > 0) { ?><small class="ect-margin-lr"><del><?php echo $this->frontwebsite()->shopPriceExtend($goods_value['goods_price']); ?></del></small><?php } ?>
+                    </span>
+                </dd>
+                <dd><span class="pull-left "><i class="fa fa-heart-o"></i> <?php echo $goods_value['favorites_num']; ?><?php echo $this->translate('人喜欢'); ?></span><span class="pull-right"><?php echo $this->translate('销量'); ?>：<?php echo intval($goods_value['buy_num']+$goods_value['virtual_sales']); ?><?php echo $this->translate('件'); ?></span> </dd>
+            </dl>
+        </li>
+        <?php } ?>
+        <li class="more_goods_page"><?php echo ( count($this->goods_list) > 0 ) ? $this->paginationControl($this->goods_list, 'Sliding', 'mobile/moreajax',array('page_url'=>$this->url('m_class/default',array('action'=>'list', 'controller'=>'Class', 'class_id'=>$this->class_info->class_id)), 'ajaxFunction'=>'goods_ajax_list')) : ""; ?></li>
+        <?php } else { echo '<li>' . $this->translate('本分类暂无商品！') . '</li>'; } ?>
+        </ul>
+</div>
+<script>
+    function goods_ajax_list(list_url) {
+        $.get(list_url,'', function(html){
+            $(".more_goods_page").remove();
+            $("#more_goods").append(html);
+        });
+    }
+</script>

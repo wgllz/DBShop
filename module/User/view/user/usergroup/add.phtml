@@ -1,0 +1,78 @@
+<div class="tabbable tabs-left">
+              <ul class="nav nav-tabs">
+              	<li><h5><?php echo $this->translate('客户组信息'); ?></h5></li>
+                <li class="active"><a data-toggle="tab" href="#user_a"><?php echo $this->translate('基本信息'); ?></a></li>
+              </ul>
+              <form class="form-horizontal" name="user_group_form" id="user_group_form" method="post" action="<?php if($this->group_info) echo $this->url('usergroup/default/user_group_id',array('action'=>'edit','controller'=>'usergroup','user_group_id'=>$this->group_info->group_id)); else echo ''; ?>">
+              <input type="hidden" name="group_id" id="group_id" value="<?php if($this->group_info) echo $this->group_info->group_id; else echo ''; ?>" />
+              <div class="tab-content">
+    			<div style="height:30px;border-bottom:4px solid #DFDFDF;">
+        			<div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php if($this->group_info) echo $this->translate('编辑'); else echo $this->translate('新加'); ?><?php echo $this->translate('客户组'); ?></strong></div>
+        			<div class="pull-right">
+                	<a href="<?php echo $this->url('usergroup/default',array('action'=>'index','controller'=>'usergroup')); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回客户组列表'); ?></a>&nbsp;
+                	<a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>&nbsp;
+                    <?php if($this->group_info and $this->group_info->group_id != 1) { ?>
+                    <a href="javascript:;" onclick="return group_del_js(<?php echo $this->group_info->group_id ?>);" class="btn btn-small btn-danger"><i class="icon-remove icon-white"></i> <?php echo $this->translate('删除客户组'); ?></a>&nbsp;
+                    <?php } ?>
+                	<button type="submit" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存客户组信息'); ?></button>&nbsp;
+                	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('user_group_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+                	</div>
+        		</div>
+                <div id="user_a" class="tab-pane active">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('基本信息'); ?></div>
+                	<div class="well admin_add_well"> 
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->translate('客户组名称'); ?><span class="must_add_value">*</span>：</label>
+           					<div class="controls">
+              					<input type="text" id="user_group_name"  name="user_group_name" class="span6" value="<?php echo ($this->group_info ? $this->escapeHtml($this->group_info->group_name) : ''); ?>">
+            				</div>                        
+                        </div>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('等级积分范围'); ?><span class="must_add_value">*</span>：</label>
+							<div class="controls">
+								<input type="text" id="integral_num_start"  name="integral_num_start" class="span2" value="<?php if(isset($this->group_info_one) and $this->group_info_one->integral_num_start>=0) echo intval($this->group_info_one->integral_num_start); ?>">
+								~
+								<input type="text" id="integral_num_end"  name="integral_num_end" class="span2" value="<?php if(isset($this->group_info_one) and $this->group_info_one->integral_num_end>=0) echo intval($this->group_info_one->integral_num_end); ?>">
+								&nbsp;&nbsp;
+								<input type="checkbox" name="integral_num_state" value="1" <?php if(isset($this->group_info_one) and $this->group_info_one->integral_num_state == 1) echo 'checked'; ?>>&nbsp;<font style="font-size: 14px;"><?php echo $this->translate('启用'); ?></font>
+							</div>
+						</div>
+                  	</div>
+                </div>
+             </div>
+              </form>
+</div>
+<script>
+//客户分组保存验证
+$(document).ready(function() {
+	$("#user_group_form").validate({
+		rules: {
+			user_group_name: {
+				required: true,
+				maxlength:60
+			}
+		},
+		messages: {
+			user_group_name: {
+				required: "<?php echo $this->translate('请输入客户组名称！'); ?>",
+				maxlength:"<?php echo $this->translate('客户组名称最长为60个汉字！'); ?>"
+			}
+		}
+	});
+});
+//客户组删除js
+function group_del_js(group_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该客户组吗？'); ?>')) {
+	$.post("<?php echo $this->url('usergroup/default',array('action'=>'del','controller'=>'usergroup')); ?>",{group_id:group_id},
+	function(data){
+		if(data != 'false') {
+			window.location.href='<?php echo $this->url('usergroup/default',array('action'=>'index','controller'=>'usergroup')); ?>';
+			return true;
+		} else {
+			alert('<?php echo $this->translate('客户组删除失败，该客户组下已经有客户存在，需要先删除组下客户信息！'); ?>');
+		}
+	});
+	}
+	return false;
+}
+</script>

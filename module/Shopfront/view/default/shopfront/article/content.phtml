@@ -1,0 +1,70 @@
+<div class="row-fluid" id="list_location">
+	<div class="span10 offset1">
+    	<a href="<?php echo $this->url('shopfront/default'); ?>"><?php echo $this->translate('首页'); ?></a> <span class="divider">></span>
+        <?php if($this->class_menu) { foreach($this->class_menu as $menu_val) { 
+		?>
+        <a href="<?php echo $this->url('frontarticle/default/cms_class_id', array('action'=>'index', 'cms_class_id'=>$menu_val['article_class_id'])); ?>"><?php echo $this->escapeHtml($menu_val['article_class_name']); ?></a> <span class="divider">></span>
+        <?php } } ?>
+            <?php echo $this->escapeHtml($this->article_body->article_title); ?>
+    </div>
+</div>
+
+<div class="row-fluid" id="goods_list">
+	<div class="row span2 offset1">
+		<div class="span12 list_left_menu menu">
+        	<h5><?php echo $this->translate('顶级分类'); ?></h5>
+        </div>
+		<ul class="nav nav-tabs nav-stacked">
+        	<?php if($this->t_class) foreach ($this->t_class as $t_class_val) { ?>
+        	<li <?php if($t_class_val['article_class_id'] == $this->article_class_info->article_class_id) echo 'class="active"'; ?>><a href="<?php echo $this->url('frontarticle/default/cms_class_id', array('action'=>'index', 'cms_class_id'=>$t_class_val['article_class_id'])); ?>"><?php echo $this->escapeHtml($t_class_val['article_class_name']); ?></a></li>
+            <?php } ?>
+      	</ul>
+        <?php  if ($this->c_class) { ?>
+		<div class="span12 list_left_menu menu">
+        	<h5><?php echo $this->translate('同级分类'); ?></h5>
+        </div>
+		<ul class="nav nav-tabs nav-stacked">
+        	<?php foreach($this->c_class as $c_class_val) { ?>
+        	<li><a href="<?php echo $this->url('frontarticle/default/cms_class_id', array('action'=>'index', 'cms_class_id'=>$c_class_val['article_class_id'])); ?>"><?php echo $this->escapeHtml($c_class_val['article_class_name']); ?></a></li>
+            <?php } ?>
+      	</ul>
+        <?php } ?>
+    </div>
+    
+    <div class="row span8" style="margin-bottom:15px;">
+    <h3 class="title text-center"><?php echo $this->escapeHtml($this->article_body->article_title . $this->article_body->article_title_extend); ?></h3>
+    <div class="text-center">
+        <?php echo $this->translate('作者'); ?>：<?php echo $this->article_body->article_writer != '' ? $this->article_body->article_writer : $this->translate('匿名'); ?>&nbsp;&nbsp;&nbsp;<?php echo date("Y-m-d H:i:s", $this->article_body->article_add_time); ?>
+    </div>
+	<hr style="margin-top:10px;" />
+    	<div style="font-size:16px;" class="edit_table_css">
+        <?php echo $this->article_body->article_body; ?>
+        </div>
+        <table style="margin-top: 20px; width: 100%">
+            <tr>
+                <td width="50%">
+                    <?php echo $this->translate('上一篇'); ?>&nbsp;&nbsp;
+                    <?php if(!empty($this->pre_article)) { ?>
+                    <a href="<?php echo $this->url('frontarticle/default/cms_id',array('action'=>'content','cms_id'=>$this->pre_article->article_id)); ?>"><?php echo $this->escapeHtml($this->pre_article->article_title); ?></a></td>
+                    <?php }else{
+                        echo $this->translate('没有了');
+                    } ?>
+                </td>
+                <td width="50%">
+                    <?php echo $this->translate('下一篇'); ?>&nbsp;&nbsp;
+                    <?php if(!empty($this->next_article)) { ?>
+                    <a href="<?php echo $this->url('frontarticle/default/cms_id',array('action'=>'content','cms_id'=>$this->next_article->article_id)); ?>"><?php echo $this->escapeHtml($this->next_article->article_title); ?></a></td>
+                    <?php }else{
+                        echo $this->translate('没有了');
+                    } ?>
+                </td>
+            </tr>
+        </table>
+        <hr style="margin-top:3px;margin-bottom: 3px;">
+        <div class="pull-right">
+            <?php echo $this->share_code; ?>
+        </div>
+    </div>
+    
+     
+</div>

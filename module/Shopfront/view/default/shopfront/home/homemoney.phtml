@@ -1,0 +1,295 @@
+<div class="row-fluid" style="margin-top:20px;">
+  <?php echo $this->partial('shopfront/home/left_menu.phtml'); ?>
+  <div class="span8 home-user-money">
+  	<div class="well">
+        <h5><?php echo $this->translate('账户余额'); ?></h5>
+        <div class="user-money-num">
+            <p class="pull-left">
+                <?php echo $this->translate('账户余额'); ?>：<font color="#dd4b39"><?php echo $this->frontwebsite()->shopPriceExtend($this->user_info->user_money); ?></font>
+            </p>
+            <p class="pull-right">
+                <a href="javascript:;" onclick="my_pay_to();" class="btn btn-primary"><?php echo $this->translate('充值'); ?></a>
+                &nbsp;&nbsp;
+                <a href="javascript:;" class="btn btn-danger" onclick="money_oper();"><?php echo $this->translate('提现'); ?></a>
+            </p>
+        </div>
+    	<ul class="nav nav-tabs">
+            <?php echo $this->partial('shopfront/home/home-money-menu.phtml'); ?>
+            <li class="pull-right">
+            <form class="form-search" style="margin: 0;" method="get">
+                <div class="input-append">
+                    <input type="text" class="search-query" name="search_content" value="<?php echo isset($_GET['search_content']) ? $this->escapehtml($_GET['search_content']) : ''; ?>" placeholder="<?php echo $this->translate('输入金额或备注信息'); ?>">
+                    <input type="submit" class="btn" value="<?php echo $this->translate('搜索'); ?>">
+                </div>
+            </form>
+			</li>
+    	</ul>
+        <?php
+        if ($this->user_money_log->getTotalItemCount() > 0) {
+            $type_array = array(1=>$this->translate('充值'), 2=>$this->translate('消费'), 3=>$this->translate('提现'), 4=>$this->translate('退款'));
+            ?>
+            <table class="table table-bordered">
+            	<thead>
+                	<tr class="home-user-tr">
+                    	<th width="15%"><?php echo $this->translate('时间'); ?></th>
+                        <th width="12%"><?php echo $this->translate('操作金额'); ?></th>
+                        <th width="12%"><?php echo $this->translate('余额'); ?></th>
+                        <th width="8%"><?php echo $this->translate('类型'); ?></th>
+                        <th width="8%"><?php echo $this->translate('状态'); ?></th>
+                        <th width="12%"><?php echo $this->translate('操作者'); ?></th>
+                        <th width="43%"><?php echo $this->translate('备注'); ?></th>
+                    </tr>
+                </thead>
+                <?php foreach ($this->user_money_log as $log_value) { ?>
+                	<tr>
+                        <td><?php echo date("Y-m-d H:i:s", $log_value['money_change_time']); ?></td>
+                        <td><?php echo $this->frontwebsite()->shopPrice($log_value['money_change_num']); ?></td>
+                        <td><?php echo $this->frontwebsite()->shopPrice($log_value['money_changed_amount']); ?></td>
+                        <td><?php echo $type_array[$log_value['money_pay_type']]; ?></td>
+                        <td>
+                            <?php
+                            if($log_value['money_pay_state'] == 20) echo $this->translate('完成');
+                            if($log_value['money_pay_state'] == 10) echo $this->translate('进行中');
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            if(!empty($log_value['admin_id']) and $log_value['admin_id'] != 0) echo '<strong>'.$this->translate('管理员').'</strong>';
+                            else echo $log_value['user_name'];
+                            ?>
+                        </td>
+                        <td><?php echo $this->escapeHtml($log_value['money_pay_info']); ?></td>
+                    </tr>
+                    <?php } ?>
+                    <tr>
+                    <td colspan="8">
+        		<?php echo ( count($this->user_money_log) > 0 ) ? $this->paginationControl($this->user_money_log, 'Sliding', 'site/dbpage',array('page_url'=>$this->url('frontmoney/default', $this->page_action))) : ""; ?>
+                    </td>
+                    </tr>
+    		</table>
+            <?php } else { echo '<p>' . $this->translate('暂无记录！') . '</p>'; } ?>
+    </div>
+  </div>
+</div>
+
+<div id="myPayState" class="modal hide fade" style="width: 620px;height: 150px;" tabindex="-1" role="dialog" aria-labelledby="myPayStateLabel" aria-hidden="true">
+    <div class="modal-header" style="border-bottom: 0;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myPayStateLabel"><?php echo $this->translate('充值处理情况'); ?></h3>
+        <div class="modal-body" style="text-align: center;vertical-align: middle;">
+            <a href="<?php echo $this->url('frontmoney/default', array('action'=>'paychecklog')); ?>" class="btn btn-large btn-success" style="margin-right: 10px;"><?php echo $this->translate('已经完成充值'); ?></a>
+            <a href="<?php echo $this->url('frontmoney/default', array('action'=>'paychecklog')); ?>" class="btn btn-large btn-danger" style="margin-left: 10px;"><?php echo $this->translate('未完成充值'); ?></a>
+        </div>
+    </div>
+</div>
+
+<form class="form-horizontal" name="user_pay_form" id="user_pay_form" method="post">
+    <input type="hidden" name="pay_name" id="pay_name" value="">
+    <div id="myPayModal" class="modal hide fade" style="width: 620px;" tabindex="-1" role="dialog" aria-labelledby="myPayModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myPayModalLabel"><?php echo $this->translate('账户充值操作'); ?></h3>
+        </div>
+        <div class="modal-body">
+            <div class="control-group">
+                <label class="control-label"><strong><?php echo $this->translate('重点提示'); ?></strong></label>
+                <div class="controls">
+                    <strong style="color:red"><?php echo $this->translate('如果您使用支付宝充值，请使用 即时到账 方式; 我们不支持 担保交易 的方式充值。'); ?></strong>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('选择支付方式'); ?><span class="must_add_value">*</span></label>
+                <div class="controls">
+                    <select name="payment_code" id="payment_code" class="span2">
+                        <?php
+                        if($this->payment) {
+                            foreach($this->payment as $pay_value) {
+                        ?>
+                        <option value="<?php echo $pay_value['editaction']; ?>"><?php echo $this->escapeHtml($pay_value['payment_name']['content']); ?></option>
+                        <?php } } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('填写充值金额'); ?><span class="must_add_value">*</span></label>
+                <div class="controls">
+                    <input type="text" name="pay_change_num" id="pay_change_num" value="" class="span2">
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"><?php echo $this->translate('立刻充值'); ?></button>
+            &nbsp;&nbsp;
+            <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('关闭'); ?></button>
+        </div>
+    </div>
+</form>
+
+<form class="form-horizontal" name="user_money_form" id="user_money_form" method="post">
+    <div id="myModal" class="modal hide fade" style="width: 620px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel"><?php echo $this->translate('余额提现操作'); ?></h3>
+        </div>
+        <div class="modal-body">
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('可提现金额'); ?></label>
+                <div class="controls">
+                    <label style="color: red;height: 30px;line-height: 30px;">
+                        <?php echo $this->frontwebsite()->shopPriceExtend($this->user_info->user_money); ?>
+                    </label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('提现金额'); ?><span class="must_add_value">*</span></label>
+                <div class="controls">
+                    <input type="text" name="money_change_num" id="money_change_num" value="" class="span2">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('支付名称/开户银行'); ?><span class="must_add_value">*</span></label>
+                <div class="controls">
+                    <input type="text" name="bank_name" id="bank_name" value="" class="span2" placeholder="<?php echo $this->translate('支付名称如 支付宝'); ?>">
+                    <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('名称指 如果是第三方支付方式，需要写入第三方支付名称。'); ?>"></i>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('账户名称/开户名称'); ?><span class="must_add_value">*</span></label>
+                <div class="controls">
+                    <input type="text" name="bank_account" id="bank_account" value="" class="span2">
+                    <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('账户名称/开户名称 是您的真实姓名，用于在提现过程中，与支付名称/开户行核实。'); ?>"></i>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('账号/卡号'); ?><span class="must_add_value">*</span></label>
+                <div class="controls">
+                    <input type="text" name="bank_card_number" id="bank_card_number" value="" class="span2">
+                    <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('账号/卡号 就是您用来收款的账号或者卡号。'); ?>"></i>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"><?php echo $this->translate('申请提现'); ?></button>
+            &nbsp;&nbsp;
+            <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('关闭'); ?></button>
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function() {
+        $("#user_pay_form").validate({
+            rules: {
+                pay_change_num: {
+                    required: true,
+                    number: true,
+                    min: 1
+                },
+                payment_code: {
+                    required: true
+                }
+            },
+            messages: {
+                pay_change_num: {
+                    required: "<?php echo $this->translate('充值金额不能为空！'); ?>",
+                    number: "<?php echo $this->translate('充值金额必须为数字！'); ?>",
+                    min: "<?php echo $this->translate('充值金额最小为 1'); ?>"
+                },
+                payment_code: {
+                    required: "<?php echo $this->translate('请选择支付方式'); ?>"
+                }
+            },
+            submitHandler:function(form){
+                to_pay_oper();
+            }
+        });
+
+        $("#user_money_form").validate({
+            rules: {
+                money_change_num: {
+                    required: true,
+                    number: true,
+                    min: 0.01,
+                    max: <?php echo $this->frontwebsite()->shopPrice($this->user_info->user_money); ?>
+                },
+                bank_name: {
+                    required: true
+                },
+                bank_account: {
+                    required: true
+                },
+                bank_card_number: {
+                    required: true
+                }
+            },
+            messages: {
+                money_change_num: {
+                    required: "<?php echo $this->translate('提现金额不能为空！'); ?>",
+                    number: "<?php echo $this->translate('提现金额必须为数字！'); ?>",
+                    min: "<?php echo $this->translate('提现金额最小为 0.01'); ?>",
+                    max: "<?php echo $this->translate('提现金额最大为 ').$this->frontwebsite()->shopPrice($this->user_info->user_money); ?>"
+                },
+                bank_name: {
+                    required: "<?php echo $this->translate('支付名称/开户银行 不能为空！'); ?>"
+                },
+                bank_account: {
+                    required: "<?php echo $this->translate('账户名称/开户名称 不能为空！'); ?>"
+                },
+                bank_card_number: {
+                    required: "<?php echo $this->translate('账号/卡号 不能为空！'); ?>"
+                }
+            },
+            submitHandler:function(form){
+                save_money_oper();
+            }
+        });
+    });
+
+    //充值操作
+    function my_pay_to() {
+        $('#myPayModal').modal('show');
+    }
+    //充值处理
+    function to_pay_oper() {
+        var pay_name = $("#payment_code").find("option:selected").text();
+        $("#pay_name").val(pay_name);
+
+        $.post("<?php echo $this->url('frontmoney/default', array('action'=>'mypayto')); ?>",$('#user_pay_form').formSerialize(),
+            function(data){
+                if(data.state == 'true') {
+                    window.open(data.pay_url);
+                    //window.location.href= data.pay_url;
+                    $('#myPayModal').modal('hide');
+                    $('#myPayState').modal('show');
+                } else {
+                    alert(data.message);
+                    return false;
+                }
+            }, 'json');
+    }
+    //提现操作
+    function money_oper() {
+        $.post("<?php echo $this->url('frontmoney/default', array('action'=>'infowithdraw')); ?>",{},
+            function(data){
+                if(data == 'true') {
+                    $('#myModal').modal('show');
+                } else {
+                    alert(data);
+                    return false;
+                }
+            });
+    }
+    //提现处理
+    function save_money_oper() {
+        $.post("<?php echo $this->url('frontmoney/default', array('action'=>'addwithdraw')); ?>",$('#user_money_form').formSerialize(),
+            function(data){
+                if(data == 'true') {
+                    window.location.href="<?php echo $this->url('frontmoney/default', array('action'=>'withdrawlog')); ?>";
+                } else {
+                    alert(data);
+                    return false;
+                }
+            });
+    }
+</script>

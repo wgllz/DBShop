@@ -1,0 +1,188 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DBShop\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-05 22:52+0800\n"
+"PO-Revision-Date: 2013-11-05 22:52+0800\n"
+"Last-Translator: DBShop <team@dbshop.net>\n"
+"Language-Team: DBShop <team@dbshop.net>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../src/Currency/Controller/CurrencyController.php:61
+#: ../src/Currency/Controller/CurrencyController.php:101
+#: ../src/Currency/Controller/CurrencyController.php:136
+#: ../view/currency/currency/index.phtml:2
+msgid "货币设置"
+msgstr ""
+
+#: ../src/Currency/Controller/CurrencyController.php:61
+#: ../view/currency/currency/index.phtml:4
+msgid "添加货币"
+msgstr ""
+
+#: ../src/Currency/Controller/CurrencyController.php:101
+msgid "编辑货币"
+msgstr ""
+
+#: ../src/Currency/Controller/CurrencyController.php:136
+#: ../view/currency/currency/add.phtml:15
+msgid "删除货币"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:3
+msgid "货币信息"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:4
+#: ../view/currency/currency/add.phtml:22
+msgid "基本信息"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:10
+#: ../view/currency/currency/index.phtml:34
+msgid "编辑"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:10
+msgid "新加"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:10
+msgid "货币"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:12
+msgid "返回货币列表"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:13
+msgid "刷新"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:17
+msgid "保存货币信息"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:18
+#: ../view/currency/currency/index.phtml:5
+msgid "查看帮助说明"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:25
+#: ../view/currency/currency/index.phtml:12
+msgid "货币名称"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:35
+#: ../view/currency/currency/index.phtml:13
+msgid "货币符号"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:41
+#: ../view/currency/currency/index.phtml:14
+msgid "货币单位"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:47
+msgid "小数位数"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:53
+#: ../view/currency/currency/index.phtml:15
+msgid "货币汇率"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:55
+msgid ""
+"相对于基础货币, 假如基础货币是人民币，添加货币 美元，假定 人民币:美元 为 "
+"0.142857，那么货币美元的汇率即为 0.142857"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:59
+#: ../view/currency/currency/index.phtml:16
+msgid "货币类型"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:61
+#: ../view/currency/currency/index.phtml:31
+msgid "基础货币"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:61
+#: ../view/currency/currency/index.phtml:31
+msgid "非基础货币"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:65
+#: ../view/currency/currency/index.phtml:17
+msgid "货币状态"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:68
+#: ../view/currency/currency/add.phtml:73
+#: ../view/currency/currency/index.phtml:32
+msgid "启用"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:74
+#: ../view/currency/currency/index.phtml:32
+msgid "禁用"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:106
+msgid "小数位数不能为空！"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:107
+msgid "小数位数必须为数字！"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:108
+msgid "位数最小为0！"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:109
+msgid "位数最大为6！"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:112
+msgid "货币汇率不能为空！"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:113
+msgid "货币汇率必须为数字！"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:114
+msgid "货币汇率最小为0！"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:115
+msgid "货币汇率最长为10位！"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:123
+#: ../view/currency/currency/index.phtml:55
+msgid "您确实要删除该货币吗？"
+msgstr ""
+
+#: ../view/currency/currency/add.phtml:130
+#: ../view/currency/currency/index.phtml:62
+msgid "货币删除失败！"
+msgstr ""
+
+#: ../view/currency/currency/index.phtml:18
+msgid "操作"
+msgstr ""
+
+#: ../view/currency/currency/index.phtml:37
+msgid "删除"
+msgstr ""

@@ -1,0 +1,1748 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DBShop V1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-13 00:02+0800\n"
+"PO-Revision-Date: 2016-09-13 00:02+0800\n"
+"Last-Translator: DBShop <team@dbshop.net>\n"
+"Language-Team: DBShop <team@dbshop.net>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../src/Express/Controller/ExpressController.php:46
+#: ../src/Express/Controller/ExpressController.php:76
+#: ../src/Express/Controller/ExpressController.php:119
+msgid "配送设置"
+msgstr "配送設置"
+
+#: ../src/Express/Controller/ExpressController.php:46
+#: ../view/express/express/index.phtml:4
+msgid "添加配送方式"
+msgstr "添加配送方式"
+
+#: ../src/Express/Controller/ExpressController.php:76
+msgid "更新配送方式"
+msgstr "更新配送方式"
+
+#: ../src/Express/Controller/ExpressController.php:119
+#: ../view/express/express/add.phtml:16
+msgid "删除配送方式"
+msgstr "刪除配送方式"
+
+#: ../src/Express/Controller/ExpressController.php:281
+#: ../view/express/express/expressapi.phtml:2
+msgid "配送动态API"
+msgstr "配送動態API"
+
+#: ../src/Express/Controller/ExpressController.php:281
+msgid "编辑配送动态API"
+msgstr "編輯配送動態API"
+
+#: ../view/express/express/add.phtml:3 ../view/express/express/add.phtml:11
+msgid "配送方式"
+msgstr "配送方式"
+
+#: ../view/express/express/add.phtml:4 ../view/express/express/add.phtml:23
+#: ../view/express/express/apiedit.phtml:4
+#: ../view/express/express/apiedit.phtml:18
+msgid "基本信息"
+msgstr "基本信息"
+
+#: ../view/express/express/add.phtml:5 ../view/express/express/add.phtml:85
+msgid "费用设置"
+msgstr "費用設置"
+
+#: ../view/express/express/add.phtml:11 ../view/express/express/add.phtml:107
+#: ../view/express/express/add.phtml:253
+#: ../view/express/express/expressapi.phtml:19
+#: ../view/express/express/index.phtml:28
+msgid "编辑"
+msgstr "編輯"
+
+#: ../view/express/express/add.phtml:11
+msgid "新加"
+msgstr "添加"
+
+#: ../view/express/express/add.phtml:13
+msgid "返回配送方式列表"
+msgstr "返回配送方式列表"
+
+#: ../view/express/express/add.phtml:14
+#: ../view/express/express/apiedit.phtml:12
+msgid "刷新"
+msgstr "刷新"
+
+#: ../view/express/express/add.phtml:18
+msgid "保存配送方式信息"
+msgstr "保存配送方式信息"
+
+#: ../view/express/express/add.phtml:19
+#: ../view/express/express/apiedit.phtml:14
+#: ../view/express/express/expressapi.phtml:4
+#: ../view/express/express/index.phtml:5
+msgid "查看帮助说明"
+msgstr "查看幫助說明"
+
+#: ../view/express/express/add.phtml:26
+msgid "配送(公司)名称"
+msgstr "配送(公司)名稱"
+
+#: ../view/express/express/add.phtml:32
+msgid "配送(公司)简介"
+msgstr "配送(公司)簡介"
+
+#: ../view/express/express/add.phtml:38
+msgid "配送公司网址"
+msgstr "配送公司網址"
+
+#: ../view/express/express/add.phtml:44
+msgid "动态绑定"
+msgstr "動態綁定"
+
+#: ../view/express/express/add.phtml:47
+msgid "请选择"
+msgstr "請選擇"
+
+#: ../view/express/express/add.phtml:55
+msgid ""
+"当设置了动态绑定后，买家可以在前台查看订单商品的配送物流状况。前提是设置了正"
+"确的动态API并且启用，否则不起作用。"
+msgstr ""
+"當設置了動態綁定後，買家可以在前台查看訂單商品的配送物流狀況。前提是設置了正"
+"確的動態API並且啟用，否則不起作用。"
+
+#: ../view/express/express/add.phtml:59 ../view/express/express/index.phtml:15
+msgid "货到付款"
+msgstr "貨到付款"
+
+#: ../view/express/express/add.phtml:62 ../view/express/express/index.phtml:26
+msgid "不支持"
+msgstr "不支持"
+
+#: ../view/express/express/add.phtml:63 ../view/express/express/index.phtml:26
+msgid "支持"
+msgstr "支持"
+
+#: ../view/express/express/add.phtml:68
+msgid "配送状态"
+msgstr "配送狀態"
+
+#: ../view/express/express/add.phtml:70
+#: ../view/express/express/apiedit.phtml:36
+#: ../view/express/express/expressapi.phtml:18
+#: ../view/express/express/index.phtml:27
+msgid "开启"
+msgstr "開啟"
+
+#: ../view/express/express/add.phtml:71
+#: ../view/express/express/apiedit.phtml:37
+#: ../view/express/express/expressapi.phtml:18
+#: ../view/express/express/index.phtml:27
+msgid "关闭"
+msgstr "關閉"
+
+#: ../view/express/express/add.phtml:75 ../view/express/express/index.phtml:14
+msgid "配送排序"
+msgstr "配送排序"
+
+#: ../view/express/express/add.phtml:88
+msgid "费用设置方式"
+msgstr "費用設置方式"
+
+#: ../view/express/express/add.phtml:90
+msgid "统一设置"
+msgstr "統一設置"
+
+#: ../view/express/express/add.phtml:91
+msgid "个性化地区设置"
+msgstr "個性化地區設置"
+
+#: ../view/express/express/add.phtml:97 ../view/express/express/add.phtml:249
+msgid "个性化设置"
+msgstr "個性化設置"
+
+#: ../view/express/express/add.phtml:99 ../view/express/express/add.phtml:114
+#: ../view/express/express/add.phtml:251
+msgid "配送费用（公式）"
+msgstr "配送費用（公式）"
+
+#: ../view/express/express/add.phtml:100 ../view/express/express/add.phtml:252
+msgid "配送地区"
+msgstr "配送地區"
+
+#: ../view/express/express/add.phtml:108 ../view/express/express/add.phtml:254
+#: ../view/express/express/index.phtml:28
+msgid "删除"
+msgstr "刪除"
+
+#: ../view/express/express/add.phtml:117
+msgid ""
+"输入框中可以输入单纯的数字费用，如：15 表示配送费用15元；也可以输入配送公式，"
+"然后通过下面的验证来测试自己的公式是否正确，理论上公式可以解决所有费用计算的"
+"难题。"
+msgstr ""
+"輸入框中可以輸入單純的數字費用，如：15 表示配送費用15元；也可以輸入配送公式，"
+"然後通過下面的驗證來測試自己的公式是否正確，理論上公式可以解決所有費用計算的"
+"難題。"
+
+#: ../view/express/express/add.phtml:118
+msgid "去官方智能生成公式"
+msgstr "去官方智能生成公式"
+
+#: ../view/express/express/add.phtml:119
+msgid "查看配送公式说明"
+msgstr "查看配送公式說明"
+
+#: ../view/express/express/add.phtml:123
+msgid "选择适用地区"
+msgstr "選擇適用地區"
+
+#: ../view/express/express/add.phtml:136
+msgid "保存个性地区"
+msgstr "保存個性地區"
+
+#: ../view/express/express/add.phtml:140
+#, php-format
+msgid "%s配送公式验证%s"
+msgstr "%s配送公式驗證%s"
+
+#: ../view/express/express/add.phtml:142
+msgid "当配送费用(公式)中为单纯的数字费用而非公式时，无需进行公式验证处理。"
+msgstr "當配送費用(公式)中為單純的數字費用而非公式時，無需進行公式驗證處理。"
+
+#: ../view/express/express/add.phtml:146
+msgid "商品重量"
+msgstr "商品重量"
+
+#: ../view/express/express/add.phtml:148
+msgid "克(g)"
+msgstr "克(g)"
+
+#: ../view/express/express/add.phtml:152
+msgid "订单总价"
+msgstr "訂單總價"
+
+#: ../view/express/express/add.phtml:158
+msgid "最终配送费用"
+msgstr "最終配送費用"
+
+#: ../view/express/express/add.phtml:160
+msgid "点击验证公式"
+msgstr "點擊驗證公式"
+
+#: ../view/express/express/add.phtml:196
+msgid "配送名称不能为空！"
+msgstr "配送名稱不能為空！"
+
+#: ../view/express/express/add.phtml:197
+msgid "配送名称最多输入60个汉字！"
+msgstr "配送名稱最多輸入60個漢字！"
+
+#: ../view/express/express/add.phtml:200
+msgid "配送公司简介最多输入300个汉字！"
+msgstr "配送公司簡介最多輸入300個漢字！"
+
+#: ../view/express/express/add.phtml:203
+msgid "配送公司url最多输入100个字符！"
+msgstr "配送公司url最多輸入100個字符！"
+
+#: ../view/express/express/add.phtml:206
+msgid "配送排序不能为空！"
+msgstr "配送排序不能為空！"
+
+#: ../view/express/express/add.phtml:207
+msgid "配送排序必须为数字！"
+msgstr "配送排序必須為數字！"
+
+#: ../view/express/express/add.phtml:208
+msgid "配送排序最小为1！"
+msgstr "配送排序最小為1！"
+
+#: ../view/express/express/add.phtml:209
+msgid "配送排序最大为255！"
+msgstr "配送排序最大為255！"
+
+#: ../view/express/express/add.phtml:237
+msgid "待选择地区"
+msgstr "待選擇地區"
+
+#: ../view/express/express/add.phtml:238
+msgid "已选择地区"
+msgstr "已選擇地區"
+
+#: ../view/express/express/add.phtml:245
+msgid "请选择地区信息"
+msgstr "請選擇地區信息"
+
+#: ../view/express/express/add.phtml:291
+msgid "您确实要删除该个性化设置吗？"
+msgstr "您確實要刪除該個性化設置嗎？"
+
+#: ../view/express/express/add.phtml:305
+#: ../view/express/express/index.phtml:38
+msgid "您确实要删除该配送方式吗？"
+msgstr "您確實要刪除該配送方式嗎？"
+
+#: ../view/express/express/add.phtml:312
+#: ../view/express/express/index.phtml:45
+msgid "配送方式删除失败！"
+msgstr "配送方式刪除失敗！"
+
+#: ../view/express/express/apiedit.phtml:3
+#: ../view/express/express/apiedit.phtml:9
+msgid "编辑动态API"
+msgstr "編輯動態API"
+
+#: ../view/express/express/apiedit.phtml:11
+msgid "返回动态API列表"
+msgstr "返回動態API列表"
+
+#: ../view/express/express/apiedit.phtml:13
+msgid "保存动态 API 信息"
+msgstr "保存動態 API 信息"
+
+#: ../view/express/express/apiedit.phtml:20
+msgid ""
+"如果您已经成功申请到API，那么开启后一定要去 配送设置 里面把配送公司进行动态绑"
+"定，绑定后前台才显示物流动态。"
+msgstr ""
+
+#: ../view/express/express/apiedit.phtml:22
+#: ../view/express/express/expressapi.phtml:10
+msgid "API名称"
+msgstr "API名稱"
+
+#: ../view/express/express/apiedit.phtml:34
+#: ../view/express/express/expressapi.phtml:11
+msgid "API状态"
+msgstr "API狀態"
+
+#: ../view/express/express/expressapi.phtml:12
+#: ../view/express/express/index.phtml:17
+msgid "操作"
+msgstr "操作"
+
+#: ../view/express/express/index.phtml:2
+msgid "配送管理"
+msgstr "配送管理"
+
+#: ../view/express/express/index.phtml:12
+msgid "配送名称"
+msgstr "配送名稱"
+
+#: ../view/express/express/index.phtml:13
+msgid "配送简介"
+msgstr "配送簡介"
+
+#: ../view/express/express/index.phtml:16
+msgid "状态"
+msgstr "狀態"
+
+#~ msgid "邮件服务器设置"
+#~ msgstr "郵件服務器設置"
+
+#~ msgid "邮件服务"
+#~ msgstr "郵件服務"
+
+#~ msgid "发信人邮件地址"
+#~ msgstr "發信人郵件地址"
+
+#~ msgid "发信人名称"
+#~ msgstr "發信人名稱"
+
+#~ msgid "邮件发送方式"
+#~ msgstr "郵件發送方式"
+
+#~ msgid "PHP内置Sendmail发送（需服务器支持）"
+#~ msgstr "PHP內置Sendmail發送（需服務器支持）"
+
+#~ msgid "SMTP服务器发送"
+#~ msgstr "SMTP服務器發送"
+
+#~ msgid "SMTP服务器"
+#~ msgstr "SMTP服務器"
+
+#~ msgid "SMTP端口"
+#~ msgstr "SMTP端口"
+
+#~ msgid "SMTP账户"
+#~ msgstr "SMTP賬戶"
+
+#~ msgid "SMTP账户密码"
+#~ msgstr "SMTP賬戶密碼"
+
+#~ msgid "SMTP验证"
+#~ msgstr "SMTP驗證"
+
+#~ msgid "否"
+#~ msgstr "否"
+
+#~ msgid "是"
+#~ msgstr "是"
+
+#~ msgid "SMTP安全连接"
+#~ msgstr "SMTP安全連接"
+
+#~ msgid "无"
+#~ msgstr "無"
+
+#~ msgid "邮件发送"
+#~ msgstr "郵件發送"
+
+#~ msgid "点击发送邮件"
+#~ msgstr "點擊發送郵件"
+
+#~ msgid "邮件信息设置"
+#~ msgstr "郵件信息設置"
+
+#~ msgid "收件人类别"
+#~ msgstr "收件人類別"
+
+#~ msgid "选择类别"
+#~ msgstr "選擇類別"
+
+#~ msgid "自定义"
+#~ msgstr "自定義"
+
+#~ msgid "收件人"
+#~ msgstr "收件人"
+
+#~ msgid "邮件标题"
+#~ msgstr "郵件標題"
+
+#~ msgid "邮件内容"
+#~ msgstr "郵件內容"
+
+#~ msgid "选择收件人类别！"
+#~ msgstr "選擇收件人類別！"
+
+#~ msgid "请填写收件人！"
+#~ msgstr "請填寫收件人！"
+
+#~ msgid "请填写邮件标题！"
+#~ msgstr "請填寫郵件標題！"
+
+#~ msgid "请填写邮件内容！"
+#~ msgstr "請填寫郵件內容！"
+
+#~ msgid "邮件发送成功！"
+#~ msgstr "郵件發送成功！"
+
+#~ msgid "邮件发送失败！"
+#~ msgstr "郵件發送失敗！"
+
+#~ msgid "数据库备份"
+#~ msgstr "數據庫備份"
+
+#~ msgid "成功删除备份文件"
+#~ msgstr "成功刪除備份文件"
+
+#~ msgid "目录没有写权限！"
+#~ msgstr "目錄沒有寫權限！"
+
+#~ msgid " 备份失败！"
+#~ msgstr "備份失敗！"
+
+#~ msgid "成功备份数据库"
+#~ msgstr "成功備份數據庫"
+
+#~ msgid "导入文件不存在！"
+#~ msgstr "導入文件不存在！"
+
+#~ msgid "返回"
+#~ msgstr "返回"
+
+#~ msgid "成功导入备份文件"
+#~ msgstr "成功導入備份文件"
+
+#~ msgid "备份当前系统数据"
+#~ msgstr "備份當前系統數據"
+
+#~ msgid "备份文件名"
+#~ msgstr "備份文件名"
+
+#~ msgid "备份时间"
+#~ msgstr "備份時間"
+
+#~ msgid "备份大小"
+#~ msgstr "備份大小"
+
+#~ msgid "备份卷标"
+#~ msgstr "備份卷標"
+
+#~ msgid "导入"
+#~ msgstr "導入"
+
+#~ msgid "您确实要删除该备份吗？"
+#~ msgstr "您確實要刪除該備份嗎？"
+
+#~ msgid "备份删除失败！"
+#~ msgstr "備份刪除失敗！"
+
+#~ msgid "货币设置"
+#~ msgstr "貨幣設置"
+
+#~ msgid "添加货币"
+#~ msgstr "添加貨幣"
+
+#~ msgid "编辑货币"
+#~ msgstr "編輯貨幣"
+
+#~ msgid "删除货币"
+#~ msgstr "刪除貨幣"
+
+#~ msgid "货币信息"
+#~ msgstr "貨幣信息"
+
+#~ msgid "货币"
+#~ msgstr "貨幣"
+
+#~ msgid "返回货币列表"
+#~ msgstr "返回貨幣列表"
+
+#~ msgid "保存货币信息"
+#~ msgstr "保存貨幣信息"
+
+#~ msgid "货币名称"
+#~ msgstr "貨幣名稱"
+
+#~ msgid "货币符号"
+#~ msgstr "貨幣符號"
+
+#~ msgid "货币单位"
+#~ msgstr "貨幣單位"
+
+#~ msgid "小数位数"
+#~ msgstr "小數位數"
+
+#~ msgid "货币汇率"
+#~ msgstr "貨幣匯率"
+
+#~ msgid ""
+#~ "相对于基础货币, 假如基础货币是人民币，添加货币 美元，假定 人民币:美元 为 "
+#~ "0.142857，那么货币美元的汇率即为 0.142857"
+#~ msgstr ""
+#~ "相對於基礎貨幣, 假如基礎貨幣是人民幣，添加貨幣美元，假定人民幣:美元為"
+#~ "0.142857，那麼貨幣美元的匯率即為0.142857"
+
+#~ msgid "货币类型"
+#~ msgstr "貨幣類型"
+
+#~ msgid "基础货币"
+#~ msgstr "基礎貨幣"
+
+#~ msgid "非基础货币"
+#~ msgstr "非基礎貨幣"
+
+#~ msgid "货币状态"
+#~ msgstr "貨幣狀態"
+
+#~ msgid "启用"
+#~ msgstr "啟用"
+
+#~ msgid "禁用"
+#~ msgstr "禁用"
+
+#~ msgid "小数位数必须为数字！"
+#~ msgstr "小數位數必須為數字！"
+
+#~ msgid "位数最小为0！"
+#~ msgstr "位數最小為0！"
+
+#~ msgid "位数最大为6！"
+#~ msgstr "位數最大為6！"
+
+#~ msgid "货币汇率必须为数字！"
+#~ msgstr "貨幣匯率必須為數字！"
+
+#~ msgid "货币汇率最小为0！"
+#~ msgstr "貨幣匯率最小為0！"
+
+#~ msgid "货币汇率最长为10位！"
+#~ msgstr "貨幣匯率最長為10位！"
+
+#~ msgid "管理文章分类"
+#~ msgstr "管理文章分類"
+
+#~ msgid "添加分类"
+#~ msgstr "添加分類"
+
+#~ msgid "更新分类"
+#~ msgstr "更新分類"
+
+#~ msgid "文章分类编辑成功！"
+#~ msgstr "文章分類編輯成功！"
+
+#~ msgid "删除分类"
+#~ msgstr "刪除分類"
+
+#~ msgid "管理文章"
+#~ msgstr "管理文章"
+
+#~ msgid "添加文章"
+#~ msgstr "添加文章"
+
+#~ msgid "更新文章"
+#~ msgstr "更新文章"
+
+#~ msgid "删除文章"
+#~ msgstr "刪除文章"
+
+#~ msgid "分类信息"
+#~ msgstr "分類信息"
+
+#~ msgid "搜索引擎优化"
+#~ msgstr "搜索引擎優化"
+
+#~ msgid "文章分类"
+#~ msgstr "文章分類"
+
+#~ msgid "返回分类列表"
+#~ msgstr "返回分類列表"
+
+#~ msgid "保存分类并继续编辑"
+#~ msgstr "保存分類並繼續編輯"
+
+#~ msgid "保存分类"
+#~ msgstr "保存分類"
+
+#~ msgid "分类名称"
+#~ msgstr "分類名稱"
+
+#~ msgid "分类状态"
+#~ msgstr "分類狀態"
+
+#~ msgid "上级分类"
+#~ msgstr "上級分類"
+
+#~ msgid "分类描述"
+#~ msgstr "分類描述"
+
+#~ msgid "分类排序"
+#~ msgstr "分類排序"
+
+#~ msgid "扩展标题"
+#~ msgstr "擴展標題"
+
+#~ msgid "文章分类关键词"
+#~ msgstr "文章分類關鍵詞"
+
+#~ msgid "文章分类描述"
+#~ msgstr "文章分類描述"
+
+#~ msgid "请输入分类名称！"
+#~ msgstr "請輸入分類名稱！"
+
+#~ msgid "分类名称最短2个字符！"
+#~ msgstr "分類名稱最短2個字符！"
+
+#~ msgid "分类名称最长为50位字符！"
+#~ msgstr "分類名稱最長為50位字符！"
+
+#~ msgid "请选择分类状态"
+#~ msgstr "請選擇分類狀態"
+
+#~ msgid "上级分类不能为自己下级分类或本身分类！"
+#~ msgstr "上級分類不能為自己下級分類或本身分類！"
+
+#~ msgid "扩展标题最长为30个字符！"
+#~ msgstr "擴展標題最長為30個字符！"
+
+#~ msgid "文章分类关键字最长为80个字符！"
+#~ msgstr "文章分類關鍵字最長為80個字符！"
+
+#~ msgid "文章分类描述最长为300个字符！"
+#~ msgstr "文章分類描述最長為300個字符！"
+
+#~ msgid "该分类下还有文章，无法删除该分类！"
+#~ msgstr "該分類下還有文章，無法刪除該分類！"
+
+#~ msgid "该分类下还有子分类，无法删除该分类！"
+#~ msgstr "該分類下還有子分類，無法刪除該分類！"
+
+#~ msgid "管理分类"
+#~ msgstr "管理分類"
+
+#~ msgid "文章分类名称 (分类ID)"
+#~ msgstr "文章分類名稱 (分類ID)"
+
+#~ msgid "文章数量"
+#~ msgstr "文章數量"
+
+#~ msgid "已启用"
+#~ msgstr "已啟用"
+
+#~ msgid "已禁用"
+#~ msgstr "已禁用"
+
+#~ msgid "添加子类"
+#~ msgstr "添加子類"
+
+#~ msgid "分类编辑"
+#~ msgstr "分類編輯"
+
+#~ msgid "文章添加"
+#~ msgstr "文章添加"
+
+#~ msgid "分类预览"
+#~ msgstr "分類預覽"
+
+#~ msgid "暂无文章分类"
+#~ msgstr "暫無文章分類"
+
+#~ msgid "文章信息"
+#~ msgstr "文章信息"
+
+#~ msgid "文章"
+#~ msgstr "文章"
+
+#~ msgid "返回文章列表"
+#~ msgstr "返回文章列表"
+
+#~ msgid "保存文章信息"
+#~ msgstr "保存文章信息"
+
+#~ msgid "文章标题"
+#~ msgstr "文章標題"
+
+#~ msgid "文章作者"
+#~ msgstr "文章作者"
+
+#~ msgid "文章内容"
+#~ msgstr "文章內容"
+
+#~ msgid "URL跳转地址"
+#~ msgstr "URL跳轉地址"
+
+#~ msgid "文章创建时间"
+#~ msgstr "文章創建時間"
+
+#~ msgid "文章状态"
+#~ msgstr "文章狀態"
+
+#~ msgid "文章排序"
+#~ msgstr "文章排序"
+
+#~ msgid "文章关键字"
+#~ msgstr "文章關鍵字"
+
+#~ msgid "文章描述"
+#~ msgstr "文章描述"
+
+#~ msgid "请输入文章名称！"
+#~ msgstr "請輸入文章名稱！"
+
+#~ msgid "请选择文章分类！"
+#~ msgstr "請選擇文章分類！"
+
+#~ msgid "文章排序最小为1"
+#~ msgstr "文章排序最小為1"
+
+#~ msgid "文章排序最大为255"
+#~ msgstr "文章排序最大為255"
+
+#~ msgid "添加时间"
+#~ msgstr "添加時間"
+
+#~ msgid "始"
+#~ msgstr "始"
+
+#~ msgid "终"
+#~ msgstr "終"
+
+#~ msgid "搜索"
+#~ msgstr "搜索"
+
+#~ msgid "管理员登录"
+#~ msgstr "管理員登錄"
+
+#~ msgid "管理员登录成功"
+#~ msgstr "管理員登錄成功"
+
+#~ msgid "管理员退出"
+#~ msgstr "管理員退出"
+
+#~ msgid "管理员退出成功"
+#~ msgstr "管理員退出成功"
+
+#~ msgid "管理员设置"
+#~ msgstr "管理員設置"
+
+#~ msgid "添加管理员"
+#~ msgstr "添加管理員"
+
+#~ msgid "修改密码通知"
+#~ msgstr "修改密碼通知"
+
+#~ msgid "管理员%s您好，您在%s修改了新密码为"
+#~ msgstr "管理員%s您好，您在%s修改了新密碼為"
+
+#~ msgid "编辑管理员"
+#~ msgstr "編輯管理員"
+
+#~ msgid "删除管理员"
+#~ msgstr "刪除管理員"
+
+#~ msgid "添加管理员组"
+#~ msgstr "添加管理員"
+
+#~ msgid "编辑管理员组"
+#~ msgstr "編輯管理員"
+
+#~ msgid "删除管理员组"
+#~ msgstr "刪除管理員"
+
+#~ msgid "系统管理"
+#~ msgstr "系統管理"
+
+#~ msgid "系统设置"
+#~ msgstr "系統設置"
+
+#~ msgid "附件设置"
+#~ msgstr "附件設置"
+
+#~ msgid "客户设置"
+#~ msgstr "客戶設置"
+
+#~ msgid "消息提醒设置"
+#~ msgstr "消息提醒設置"
+
+#~ msgid "客服管理"
+#~ msgstr "客服管理"
+
+#~ msgid "在线客服查看"
+#~ msgstr "在線客服查看"
+
+#~ msgid "在线客服添加"
+#~ msgstr "在線客服添加"
+
+#~ msgid "在线客服编辑"
+#~ msgstr "在線客服編輯"
+
+#~ msgid "在线客服删除"
+#~ msgstr "在線客服刪除"
+
+#~ msgid "在线客服组查看"
+#~ msgstr "在線客服組查看"
+
+#~ msgid "在线客服组添加"
+#~ msgstr "在線客服組添加"
+
+#~ msgid "在线客服组编辑"
+#~ msgstr "咋先客服組編輯"
+
+#~ msgid "在线客服组删除"
+#~ msgstr "在線客服組刪除"
+
+#~ msgid "管理员管理"
+#~ msgstr "管理員管理"
+
+#~ msgid "管理员查看"
+#~ msgstr "管理員查看"
+
+#~ msgid "管理员添加"
+#~ msgstr "管理員添加"
+
+#~ msgid "管理员编辑"
+#~ msgstr "管理員編輯"
+
+#~ msgid "管理员删除"
+#~ msgstr "管理員刪除"
+
+#~ msgid "管理员组查看"
+#~ msgstr "管理員組查看"
+
+#~ msgid "管理员组添加"
+#~ msgstr "管理員組添加"
+
+#~ msgid "管理员组编辑"
+#~ msgstr "管理員組編輯"
+
+#~ msgid "管理员组删除"
+#~ msgstr "管理員組刪除"
+
+#~ msgid "货币查看"
+#~ msgstr "貨幣查看"
+
+#~ msgid "货币添加"
+#~ msgstr "貨幣添加"
+
+#~ msgid "货币编辑"
+#~ msgstr "貨幣編輯"
+
+#~ msgid "支付设置"
+#~ msgstr "支付設置"
+
+#~ msgid "支付查看"
+#~ msgstr "支付查看"
+
+#~ msgid "支付编辑"
+#~ msgstr "支付編輯"
+
+#~ msgid "配送查看"
+#~ msgstr "配送查看"
+
+#~ msgid "配送添加"
+#~ msgstr "配送添加"
+
+#~ msgid "配送编辑"
+#~ msgstr "配送編輯"
+
+#~ msgid "配送删除"
+#~ msgstr "配送刪除"
+
+#~ msgid "地区管理"
+#~ msgstr "地區管理"
+
+#~ msgid "地区查看"
+#~ msgstr "地區查看"
+
+#~ msgid "地区添加"
+#~ msgstr "地區添加"
+
+#~ msgid "地区编辑"
+#~ msgstr "地區編輯"
+
+#~ msgid "地区删除"
+#~ msgstr "地區刪除"
+
+#~ msgid "状态设置"
+#~ msgstr "狀態設置"
+
+#~ msgid "库存状态"
+#~ msgstr "庫存狀態"
+
+#~ msgid "库存状态查看"
+#~ msgstr "庫存狀態查看"
+
+#~ msgid "库存状态添加"
+#~ msgstr "庫存狀態添加"
+
+#~ msgid "库存状态编辑"
+#~ msgstr "庫存狀態編輯"
+
+#~ msgid "库存状态删除"
+#~ msgstr "庫存狀態刪除"
+
+#~ msgid "导航设置"
+#~ msgstr "導航設置"
+
+#~ msgid "导航查看"
+#~ msgstr "導航查看"
+
+#~ msgid "导航添加"
+#~ msgstr "導航添加"
+
+#~ msgid "导航编辑"
+#~ msgstr "導航編輯"
+
+#~ msgid "导航删除"
+#~ msgstr "導航刪除"
+
+#~ msgid "友情链接"
+#~ msgstr "友情鏈接"
+
+#~ msgid "友情链接查看"
+#~ msgstr "友情鏈接查看"
+
+#~ msgid "友情链接添加"
+#~ msgstr "友情鏈接添加"
+
+#~ msgid "友情链接编辑"
+#~ msgstr "友情鏈接編輯"
+
+#~ msgid "友情链接删除"
+#~ msgstr "友情鏈接刪除"
+
+#~ msgid "邮件管理"
+#~ msgstr "郵件管理"
+
+#~ msgid "邮件发送页面"
+#~ msgstr "郵件發送頁面"
+
+#~ msgid "邮件发送操作"
+#~ msgstr "郵件發送操作"
+
+#~ msgid "广告管理"
+#~ msgstr "廣告管理"
+
+#~ msgid "广告设置"
+#~ msgstr "廣告設置"
+
+#~ msgid "广告类型查看"
+#~ msgstr "廣告類型"
+
+#~ msgid "广告查看"
+#~ msgstr "廣告查看"
+
+#~ msgid "广告添加"
+#~ msgstr "廣告添加"
+
+#~ msgid "广告编辑"
+#~ msgstr "廣告編輯"
+
+#~ msgid "广告删除"
+#~ msgstr "廣告刪除"
+
+#~ msgid "数据库备份还原"
+#~ msgstr "數據庫備份還原"
+
+#~ msgid "数据库备份查看"
+#~ msgstr "數據庫備份查看"
+
+#~ msgid "数据库备份删除"
+#~ msgstr "數據庫備份刪除"
+
+#~ msgid "数据库备份操作"
+#~ msgstr "數據庫備份操作"
+
+#~ msgid "数据库导入操作"
+#~ msgstr "數據庫導入操作"
+
+#~ msgid "文件管理器"
+#~ msgstr "文件管理器"
+
+#~ msgid "文件管理"
+#~ msgstr "文件管理"
+
+#~ msgid "文件管理器操作"
+#~ msgstr "文件管理器操作"
+
+#~ msgid "操作日志"
+#~ msgstr "操作日誌"
+
+#~ msgid "操作日志查看"
+#~ msgstr "操作日誌查看"
+
+#~ msgid "操作日志删除"
+#~ msgstr "操作日誌刪除"
+
+#~ msgid "CMS管理"
+#~ msgstr "CMS管理"
+
+#~ msgid "文章查看"
+#~ msgstr "文章查看"
+
+#~ msgid "文章编辑"
+#~ msgstr "文章編輯"
+
+#~ msgid "分类管理"
+#~ msgstr "分類管理"
+
+#~ msgid "分类查看"
+#~ msgstr "分類查看"
+
+#~ msgid "分类添加"
+#~ msgstr "分類添加"
+
+#~ msgid "分类删除"
+#~ msgstr "分類刪除"
+
+#~ msgid "客户管理"
+#~ msgstr "客戶管理"
+
+#~ msgid "客户查看"
+#~ msgstr "客戶查看"
+
+#~ msgid "客户添加"
+#~ msgstr "客戶添加"
+
+#~ msgid "客户编辑"
+#~ msgstr "客戶編輯"
+
+#~ msgid "客户删除"
+#~ msgstr "客戶刪除"
+
+#~ msgid "客户批量操作"
+#~ msgstr "客戶批量操作"
+
+#~ msgid "客户组管理"
+#~ msgstr "客戶組管理"
+
+#~ msgid "客户组查看"
+#~ msgstr "客戶組查看"
+
+#~ msgid "客户组添加"
+#~ msgstr "客戶組添加"
+
+#~ msgid "客户组编辑"
+#~ msgstr "客戶組編輯"
+
+#~ msgid "客户组删除"
+#~ msgstr "客戶組刪除"
+
+#~ msgid "商品管理"
+#~ msgstr "商品管理"
+
+#~ msgid "商品查看"
+#~ msgstr "商品查看"
+
+#~ msgid "商品添加"
+#~ msgstr "商品添加"
+
+#~ msgid "商品编辑"
+#~ msgstr "商品編輯"
+
+#~ msgid "商品删除"
+#~ msgstr "商品刪除"
+
+#~ msgid "商品批量处理"
+#~ msgstr "商品批量處理"
+
+#~ msgid "品牌管理"
+#~ msgstr "品牌管理"
+
+#~ msgid "品牌查看"
+#~ msgstr "品牌查看"
+
+#~ msgid "品牌添加"
+#~ msgstr "品牌添加"
+
+#~ msgid "品牌编辑"
+#~ msgstr "品牌編輯"
+
+#~ msgid "品牌删除"
+#~ msgstr "品牌刪除"
+
+#~ msgid "属性管理"
+#~ msgstr "屬性管理"
+
+#~ msgid "属性查看"
+#~ msgstr "屬性查看"
+
+#~ msgid "属性添加"
+#~ msgstr "屬性添加"
+
+#~ msgid "属性编辑"
+#~ msgstr "屬性編輯"
+
+#~ msgid "属性删除"
+#~ msgstr "屬性刪除"
+
+#~ msgid "属性值查看"
+#~ msgstr "屬性值查看"
+
+#~ msgid "属性值添加"
+#~ msgstr "屬性值添加"
+
+#~ msgid "属性值编辑"
+#~ msgstr "屬性值編輯"
+
+#~ msgid "属性值删除"
+#~ msgstr "屬性值刪除"
+
+#~ msgid "属性组查看"
+#~ msgstr "屬性組查看"
+
+#~ msgid "评价管理"
+#~ msgstr "評價管理"
+
+#~ msgid "评价查看"
+#~ msgstr "評價查看"
+
+#~ msgid "评价编辑"
+#~ msgstr "評價編輯"
+
+#~ msgid "评价删除"
+#~ msgstr "評價刪除"
+
+#~ msgid "标签管理"
+#~ msgstr "標籤管理"
+
+#~ msgid "标签查看"
+#~ msgstr "標籤查看"
+
+#~ msgid "标签添加"
+#~ msgstr "標籤添加"
+
+#~ msgid "标签编辑"
+#~ msgstr "標籤編輯"
+
+#~ msgid "标签删除"
+#~ msgstr "標籤刪除"
+
+#~ msgid "标签组查看"
+#~ msgstr "標籤組查看"
+
+#~ msgid "标签组添加"
+#~ msgstr "標籤組添加"
+
+#~ msgid "标签组编辑"
+#~ msgstr "標籤組編輯"
+
+#~ msgid "标签组删除"
+#~ msgstr "標籤組刪除"
+
+#~ msgid "销售管理"
+#~ msgstr "銷售管理"
+
+#~ msgid "订单管理"
+#~ msgstr "訂單管理"
+
+#~ msgid "订单查看"
+#~ msgstr "訂單查看"
+
+#~ msgid "订单编辑"
+#~ msgstr "訂單編輯"
+
+#~ msgid "订单打印"
+#~ msgstr "訂單打印"
+
+#~ msgid "订单支付"
+#~ msgstr "訂單支付"
+
+#~ msgid "订单配送"
+#~ msgstr "訂單配送"
+
+#~ msgid "订单完成"
+#~ msgstr "訂單完成"
+
+#~ msgid "管理员信息"
+#~ msgstr "管理員信息"
+
+#~ msgid "管理员"
+#~ msgstr "管理員"
+
+#~ msgid "返回管理员列表"
+#~ msgstr "返回管理員列表"
+
+#~ msgid "保存管理员信息"
+#~ msgstr "保存管理員信息"
+
+#~ msgid "管理员分组"
+#~ msgstr "管理員分組"
+
+#~ msgid "管理员名称"
+#~ msgstr "管理員名稱"
+
+#~ msgid "电子邮件"
+#~ msgstr "電子郵件"
+
+#~ msgid "登录密码"
+#~ msgstr "登錄密碼"
+
+#~ msgid "确认密码"
+#~ msgstr "確認密碼"
+
+#~ msgid "将密码发给该管理员"
+#~ msgstr "將密碼發給該管理員"
+
+#~ msgid "请选择管理员分组"
+#~ msgstr "請選擇管理員分組"
+
+#~ msgid "请输入管理员登录名称！"
+#~ msgstr "請輸入管理員登錄名稱！"
+
+#~ msgid "管理员登录名称最长为30个汉字！"
+#~ msgstr "管理員登錄名稱最長為30個漢字！"
+
+#~ msgid "该管理员已经存在！"
+#~ msgstr "該管理員已經存在！"
+
+#~ msgid "请输入电子邮箱！"
+#~ msgstr "請輸入電子郵箱！"
+
+#~ msgid "电子邮箱格式错误！"
+#~ msgstr "電子郵箱格式錯誤！"
+
+#~ msgid "该邮箱已经存在"
+#~ msgstr "該郵箱已經存在"
+
+#~ msgid "请输入密码！"
+#~ msgstr "請輸入密碼！"
+
+#~ msgid "至少输入6位密码！"
+#~ msgstr "至少輸入6位密碼！"
+
+#~ msgid "密码最长为20位！"
+#~ msgstr "密碼最長為20位！"
+
+#~ msgid "请输入确认密码！"
+#~ msgstr "請輸入確認密碼！"
+
+#~ msgid "至少输入6位确认密码！"
+#~ msgstr "至少輸入6位確認密碼！"
+
+#~ msgid "确认密码最长为20位！"
+#~ msgstr "確認密碼最長為20位！"
+
+#~ msgid "两次输入的密码不一致！"
+#~ msgstr "兩次輸入的密碼不一致！"
+
+#~ msgid "管理员删除失败！"
+#~ msgstr "管理員刪除失敗！"
+
+#~ msgid "管理管理员组"
+#~ msgstr "管理管理員組"
+
+#~ msgid "管理员组名称"
+#~ msgstr "管理員組名稱"
+
+#~ msgid ""
+#~ "管理员组删除失败，该客户组下已经有管理员存在，需要先删除组下管理员信息！"
+#~ msgstr ""
+#~ "管理員組刪除失敗，該客戶組下已經有管理員存在，需要先刪除組下管理員信息！"
+
+#~ msgid "管理管理员"
+#~ msgstr "管理管理員"
+
+#~ msgid "添加新管理员"
+#~ msgstr "添加新管理員"
+
+#~ msgid "管理员组"
+#~ msgstr "管理員組"
+
+#~ msgid "管理员加入时间"
+#~ msgstr "管理員加入時間"
+
+#~ msgid "管理员组信息"
+#~ msgstr "管理員組信息"
+
+#~ msgid "权限设置"
+#~ msgstr "權限設置"
+
+#~ msgid "返回管理员组列表"
+#~ msgstr "返回管理員組列表"
+
+#~ msgid "保存管理员组信息"
+#~ msgstr "保存管理員組信息"
+
+#~ msgid "全部权限"
+#~ msgstr "全部權限"
+
+#~ msgid "请输入管理员组名称！"
+#~ msgstr "請輸入管理員組名稱！"
+
+#~ msgid ""
+#~ "管理员组删除失败，该管理员组下已经有管理员存在，需要先删除组下管理员信息！"
+#~ msgstr ""
+#~ "管理員組刪除失敗，該管理員組下已經有管理員存在，需要先刪除組下管理員信息！"
+
+#~ msgid "用户名"
+#~ msgstr "用戶名"
+
+#~ msgid "管理员帐户"
+#~ msgstr "管理員帳戶"
+
+#~ msgid "密码"
+#~ msgstr "密碼"
+
+#~ msgid "管理员密码"
+#~ msgstr "管理員密碼"
+
+#~ msgid "验证码"
+#~ msgstr "驗證碼"
+
+#~ msgid "请输入用户名！"
+#~ msgstr "請輸入用戶名！"
+
+#~ msgid "请输入用户密码！"
+#~ msgstr "請輸入用戶密碼！"
+
+#~ msgid "验证码错误！"
+#~ msgstr "驗證碼錯誤！"
+
+#~ msgid "登录失败，用户名或密码错误，请重新登录！"
+#~ msgstr "登錄失敗，用戶名或密碼錯誤，請重新登錄！"
+
+#~ msgid "更换验证码"
+#~ msgstr "更換驗證碼"
+
+#~ msgid "对不起！您没有该操作权限，请选择其他操作！"
+#~ msgstr "對不起！您沒有該操作​​權限，請選擇其他操作！"
+
+#~ msgid "快速设置"
+#~ msgstr "快速設置"
+
+#~ msgid "添加商品分类"
+#~ msgstr "添加商品分類"
+
+#~ msgid "添加商品"
+#~ msgstr "添加商品"
+
+#~ msgid "完成"
+#~ msgstr "完成"
+
+#~ msgid "帮助说明"
+#~ msgstr "幫助說明"
+
+#~ msgid "捐款支持DBShop"
+#~ msgstr "捐款支持DBShop"
+
+#~ msgid "订单信息"
+#~ msgstr "訂單信息"
+
+#~ msgid "待付款订单"
+#~ msgstr "待付款訂單"
+
+#~ msgid "待发货订单"
+#~ msgstr "待發貨訂單"
+
+#~ msgid "待收货订单"
+#~ msgstr "待收貨訂單"
+
+#~ msgid "已完成订单"
+#~ msgstr "已完成訂單"
+
+#~ msgid "已取消订单"
+#~ msgstr "已取消訂單"
+
+#~ msgid "商品信息"
+#~ msgstr "商品信息"
+
+#~ msgid "上架商品"
+#~ msgstr "上架商品"
+
+#~ msgid "下架商品"
+#~ msgstr "下架商品"
+
+#~ msgid "缺货商品"
+#~ msgstr "缺貨商品"
+
+#~ msgid "销售商品"
+#~ msgstr "銷售商品"
+
+#~ msgid "商品分类"
+#~ msgstr "商品分類"
+
+#~ msgid "会员信息"
+#~ msgstr "會員信息"
+
+#~ msgid "会员总数"
+#~ msgstr "會員總數"
+
+#~ msgid "购买过商品会员"
+#~ msgstr "購買過商品會員"
+
+#~ msgid "待激活会员"
+#~ msgstr "待激活會員"
+
+#~ msgid "已关闭会员"
+#~ msgstr "已關閉會員"
+
+#~ msgid "DBShop系统信息"
+#~ msgstr "DBShop系統信息"
+
+#~ msgid "版本"
+#~ msgstr "版本"
+
+#~ msgid "编码"
+#~ msgstr "編碼"
+
+#~ msgid "安装日期"
+#~ msgstr "安裝日期"
+
+#~ msgid "更新日期"
+#~ msgstr "更新日期"
+
+#~ msgid "更新历史"
+#~ msgstr "更新歷史"
+
+#~ msgid "没有找到该页面"
+#~ msgstr "沒有找到該頁面"
+
+#~ msgid "抱歉, 您正在打开的页面不存在."
+#~ msgstr "抱歉, 您正在打開的頁面不存在."
+
+#~ msgid "点击下面的链接回到首页"
+#~ msgstr "點擊下面的鏈接回到首頁"
+
+#~ msgid "返回后台首页"
+#~ msgstr "返回後台首頁"
+
+#~ msgid "返回前台首页"
+#~ msgstr "返回前台首頁"
+
+#~ msgid "系统错误页面"
+#~ msgstr "系統錯誤頁面"
+
+#~ msgid "抱歉, 这是一个系统错误页面."
+#~ msgstr "抱歉, 這是一個系統錯誤頁面."
+
+#~ msgid "点击下面的链接返回有效页面"
+#~ msgstr "點擊下面的鏈接返回有效頁面"
+
+#~ msgid "将产生这个错误的原因告诉我们"
+#~ msgstr "將產生這個錯誤的原因告訴我們"
+
+#~ msgid "DBShop管理后台"
+#~ msgstr "DBShop管理後台"
+
+#~ msgid "Copyright &copy;%s 版权所有"
+#~ msgstr "Copyright &copy;%s 版權所有"
+
+#~ msgid "发货单"
+#~ msgstr "發貨單"
+
+#~ msgid "支付记录"
+#~ msgstr "支付記錄"
+
+#~ msgid "管理商品"
+#~ msgstr "管理商品"
+
+#~ msgid "商品属性"
+#~ msgstr "商品屬性"
+
+#~ msgid "属性"
+#~ msgstr "屬性"
+
+#~ msgid "属性分组"
+#~ msgstr "屬性分組"
+
+#~ msgid "商品品牌"
+#~ msgstr "商品品牌"
+
+#~ msgid "商品评价"
+#~ msgstr "商品評價"
+
+#~ msgid "标签"
+#~ msgstr "標籤"
+
+#~ msgid "商品标签"
+#~ msgstr "商品標籤"
+
+#~ msgid "标签分组"
+#~ msgstr "標籤分組"
+
+#~ msgid "管理客户"
+#~ msgstr "管理客戶"
+
+#~ msgid "管理客户组"
+#~ msgstr "管理客戶組"
+
+#~ msgid "工具管理"
+#~ msgstr "工具管理"
+
+#~ msgid "错误日志"
+#~ msgstr "錯誤日誌"
+
+#~ msgid "系统优化"
+#~ msgstr "系統優化"
+
+#~ msgid "语言设置"
+#~ msgstr "語言設置"
+
+#~ msgid "在线客服设置"
+#~ msgstr "在線客服設置"
+
+#~ msgid "在线客服成员"
+#~ msgstr "在線客服成員"
+
+#~ msgid "在线客服分组"
+#~ msgstr "在線客服分組"
+
+#~ msgid "包管理设置"
+#~ msgstr "包管理設置"
+
+#~ msgid "包服务器端"
+#~ msgstr "包服務器端"
+
+#~ msgid "后台首页"
+#~ msgstr "後台首頁"
+
+#~ msgid "前台首页"
+#~ msgstr "前台首頁"
+
+#~ msgid "暂无新消息"
+#~ msgstr "暫無新信息"
+
+#~ msgid "星期一"
+#~ msgstr "星期一"
+
+#~ msgid "星期二"
+#~ msgstr "星期二"
+
+#~ msgid "星期三"
+#~ msgstr "星期三"
+
+#~ msgid "星期四"
+#~ msgstr "星期四"
+
+#~ msgid "星期五"
+#~ msgstr "星期五"
+
+#~ msgid "星期六"
+#~ msgstr "星期六"
+
+#~ msgid "星期日"
+#~ msgstr "星期日"
+
+#~ msgid "年"
+#~ msgstr "年"
+
+#~ msgid "月"
+#~ msgstr "月"
+
+#~ msgid "日"
+#~ msgstr "日"
+
+#~ msgid "退出系统"
+#~ msgstr "退出系統"
+
+#~ msgid "收据看备份删除"
+#~ msgstr "數據庫備份刪除"
+
+#~ msgid "添加广告"
+#~ msgstr "添加廣告"
+
+#~ msgid "更新广告"
+#~ msgstr "更新廣告"
+
+#~ msgid "删除广告"
+#~ msgstr "刪除廣告"
+
+#~ msgid "推荐尺寸"
+#~ msgstr "推薦尺寸"
+
+#~ msgid "广告"
+#~ msgstr "廣告"
+
+#~ msgid "返回广告设置"
+#~ msgstr "返回廣告設置"
+
+#~ msgid "保存广告信息"
+#~ msgstr "保存廣告信息"
+
+#~ msgid "广告类别"
+#~ msgstr "廣告類別"
+
+#~ msgid "广告位置"
+#~ msgstr "廣告位置"
+
+#~ msgid "广告名称"
+#~ msgstr "廣告名稱"
+
+#~ msgid "开始时间"
+#~ msgstr "開始時間"
+
+#~ msgid ""
+#~ "%s开始时间%s：当开始时间为空时为不限制，如填写时间，开始时间必须小于结束时"
+#~ "间。"
+#~ msgstr ""
+#~ "%s开始时间%s：当开始时间为空时为不限制，如填写时间，开始时间必须小于结束时"
+#~ "间。"
+
+#~ msgid "结束时间"
+#~ msgstr "結束時間"
+
+#~ msgid ""
+#~ "%s结束时间%s：当结束时间为空时为不限制，如填写时间，结束时间必须大于开始时"
+#~ "间。"
+#~ msgstr ""
+#~ "%s结束时间%s：当结束时间为空时为不限制，如填写时间，结束时间必须大于开始时"
+#~ "间。"
+
+#~ msgid "请选择广告类型"
+#~ msgstr "請選擇廣告類型"
+
+#~ msgid "图片"
+#~ msgstr "圖片"
+
+#~ msgid "文字"
+#~ msgstr "文字"
+
+#~ msgid "代码"
+#~ msgstr "代碼"
+
+#~ msgid "幻灯片"
+#~ msgstr "幻燈片"
+
+#~ msgid "广告图片"
+#~ msgstr "廣告圖片"
+
+#~ msgid "广告文字"
+#~ msgstr "廣告文字"
+
+#~ msgid "广告代码"
+#~ msgstr "廣告代碼"
+
+#~ msgid "幻灯片图片1"
+#~ msgstr "幻燈片圖片1"
+
+#~ msgid "显示文字1"
+#~ msgstr "顯示文字1"
+
+#~ msgid "链接地址1"
+#~ msgstr "鏈接地址1"
+
+#~ msgid "排序1"
+#~ msgstr "排序1"
+
+#~ msgid "幻灯片图片2"
+#~ msgstr "幻燈片圖片2"
+
+#~ msgid "显示文字2"
+#~ msgstr "顯示文字2"
+
+#~ msgid "链接地址2"
+#~ msgstr "鏈接地址2"
+
+#~ msgid "排序2"
+#~ msgstr "排序2"
+
+#~ msgid "幻灯片图片3"
+#~ msgstr "幻燈片圖片3"
+
+#~ msgid "显示文字3"
+#~ msgstr "顯示文字3"
+
+#~ msgid "链接地址3"
+#~ msgstr "鏈接地址3"
+
+#~ msgid "排序3"
+#~ msgstr "排序3"
+
+#~ msgid "幻灯片图片4"
+#~ msgstr "幻燈片圖片4"
+
+#~ msgid "显示文字4"
+#~ msgstr "顯示文字4"
+
+#~ msgid "链接地址4"
+#~ msgstr "鏈接地址4"
+
+#~ msgid "排序4"
+#~ msgstr "排序4"
+
+#~ msgid "幻灯片图片5"
+#~ msgstr "幻燈片圖片5"
+
+#~ msgid "显示文字5"
+#~ msgstr "顯示文字5"
+
+#~ msgid "链接地址5"
+#~ msgstr "鏈接地址5"
+
+#~ msgid "排序5"
+#~ msgstr "排序5"
+
+#~ msgid "广告URL地址"
+#~ msgstr "廣告URL地址"
+
+#~ msgid "广告类型不能为空！"
+#~ msgstr "廣告類型不能為空！"
+
+#~ msgid "广告数量"
+#~ msgstr "廣告數量"
+
+#~ msgid "设置广告"
+#~ msgstr "設置廣告"
+
+#~ msgid "返回广告管理"
+#~ msgstr "返回廣告管理"
+
+#~ msgid "广告开始/结束时间"
+#~ msgstr "廣告開始/結束時間"
+
+#~ msgid "广告状态"
+#~ msgstr "廣告狀態"
+
+#~ msgid "无限制"
+#~ msgstr "無限制"

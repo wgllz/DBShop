@@ -1,0 +1,68 @@
+    		<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('货币设置'); ?></strong></p>
+        	<p class="pull-right">
+            <a href="<?php echo $this->url('currency/default',array('action'=>'add','controller'=>'currency')); ?>" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> <?php echo $this->translate('添加货币'); ?></a>&nbsp;
+            <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('currency_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+            </p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="5%">ID</th>
+                    <th width="12%"><?php echo $this->translate('货币名称'); ?></th>
+                    <th width="10%"><?php echo $this->translate('货币符号'); ?></th>
+                    <th width="10%"><?php echo $this->translate('货币单位'); ?></th>
+                    <th width="10%"><?php echo $this->translate('货币汇率'); ?></th>
+                    <th width="10%"><?php echo $this->translate('货币类型'); ?></th>
+                    <th width="8%"><?php echo $this->translate('货币状态'); ?></th>
+                    <th width="6%"><?php echo $this->translate('操作'); ?></th>
+                </tr>
+            </thead>
+            <?php
+			if ($this->currency_list) {
+				foreach ($this->currency_list as $currency_val) {
+			?>            
+            <tr>
+            	<td><?php echo $currency_val['currency_id']; ?></td>
+            	<td><?php echo $this->currency_xml[$currency_val['currency_name']]; ?></td>
+                <td><?php echo $currency_val['currency_symbol']; ?></td>
+                <td><?php echo $currency_val['currency_unit']; ?></td>
+                <td><?php echo $currency_val['currency_rate']; ?></td>
+                <td><?php echo ($currency_val['currency_type'] == 1 ? $this->translate('基础货币') : $this->translate('非基础货币')); ?></td>
+                <td><?php echo ($currency_val['currency_state'] == 1 ? $this->translate('启用') : $this->translate('禁用')); ?></td>
+            	<td>
+                <a href="<?php echo $this->url('currency/default/currency_id',array('action'=>'edit','controller'=>'currency','currency_id'=>$currency_val['currency_id'])); ?>"><?php echo $this->translate('编辑'); ?></a>
+                <?php if($currency_val['currency_id'] != 1) { ?>
+                <span>|</span>
+                <a href="javascript:;" onclick="return currency_del_js(<?php echo $currency_val['currency_id']; ?>);"><?php echo $this->translate('删除'); ?></a>
+                <?php } ?>
+                </td>  
+            </tr>
+            <?php
+				}
+			}
+			?>
+            <tr>
+			<td colspan="9" style="background: #FFF">
+				<?php echo ( count($this->article_list) > 0 ) ? $this->paginationControl($this->article_list, 'Sliding', 'common/pager',array('page_url'=>$this->url('currency/default/article_page',array('action'=>'index','controller'=>'currency')))) : ""; ?>
+                </td>
+		</tr>
+            </table>
+            
+<script>
+//货币删除js
+function currency_del_js(currency_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该货币吗？'); ?>')) {
+	$.post("<?php echo $this->url('currency/default',array('action'=>'del','controller'=>'currency')); ?>",{currency_id:currency_id},
+	function(data){
+		if(data != 'false') {
+			window.location.href='<?php echo $this->url('currency/default',array('action'=>'index','controller'=>'currency')); ?>';
+			return true;
+		} else {
+			alert('<?php echo $this->translate('货币删除失败！'); ?>');
+		}
+	});
+	}
+	return false;
+}
+</script>

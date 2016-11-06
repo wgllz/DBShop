@@ -1,0 +1,97 @@
+<div class="row-fluid admin_login" style="margin-top:120px;">
+	<div class="span6 offset3">
+		<div class="span12">
+        	<h5><?php echo $this->translate('管理员登录'); ?></h5>
+        </div>
+        <div class="well" style="margin-bottom:-8px;">
+        	<form class="form-horizontal" id="admin_login_form" name="admin_login_form" method="POST" action="<?php echo $this->url('admin/default'); ?>">
+                <div class="control-group">
+                	<div class="message_one">
+                    </div>
+                </div>	
+            	<div class="control-group">
+            	<label for="input01" class="control-label" style="width:180px;"><strong><?php echo $this->translate('管理员'); ?>：</strong></label>
+            		<div class="controls">
+              		<input type="text" id="user_name" name="user_name" placeholder="<?php echo $this->translate('管理员帐户'); ?>" value="<?php echo (isset($this->admin_user) ? $this->escapeHtml($this->admin_user) : ''); ?>" class="span6">
+            		</div>
+          		</div>
+            	<div class="control-group">
+            	<label for="input01" class="control-label"  style="width:180px;"><strong><?php echo $this->translate('密码'); ?>：</strong></label>
+            		<div class="controls">
+              		<input type="password" id="user_passwd" name="user_passwd" placeholder="<?php echo $this->translate('管理员密码'); ?>" class="span6">
+            		</div>
+          		</div>
+            	<div class="control-group">
+            	<label for="input01" class="control-label"  style="width:180px;"><strong><?php echo $this->translate('验证码'); ?>：</strong></label>
+            		<div class="controls">
+              		<input type="text" id="captcha_code" name="captcha_code" placeholder="<?php echo $this->translate('验证码'); ?>" class="span3">&nbsp;<span id="captcha_id"></span>
+            		</div>
+          		</div>
+                <div class="offset3">
+                <input type="hidden" name="<?php echo $this->admin_login_csrf['name']; ?>" value="<?php echo $this->admin_login_csrf['value']; ?>" />
+            	<button class="btn btn-small btn-primary" type="submit" style="margin-left:15px;"><i class="icon-user icon-white"></i> <?php echo $this->translate('管理员登录'); ?></button>&nbsp;&nbsp;
+                <a href="<?php echo $this->url('shopfront/default'); ?>" class="btn btn-small btn-primary" style="margin-left:15px;"><i class="icon-share-alt icon-white"></i> <?php echo $this->translate('返回前台'); ?></a>
+                </div>
+            </form>
+        </div>
+		<div class="span12" style="margin-left:0px; line-height:30px;">
+        <font class="pull-right" color="#FFFFFF" style="margin-right:10px;">Copyright © <?php echo '2012-'.date("Y") . ' <a href="http://www.dbshop.net/" target="_blank" style="color:#FFF">DBShop.net</a>'; ?> <?php echo $this->translate('版权所有'); ?></font>
+        </div>
+    </div>
+</div>
+<script>
+//管理员登录
+$(document).ready(function() {
+	$("#admin_login_form").validate({
+		success : function(label){
+			label.addClass('validate_right').text('OK!');
+		},
+		rules: {
+			user_name: {
+				required: true
+			},
+			user_passwd: {
+				required: true
+			},
+			captcha_code: {
+				required:true,
+				remote :{
+					url : '<?php echo $this->url('shopfront/default/captcha-check',array('action'=>'captcha','captcha_check'=>1)); ?>',
+					type : 'post',
+					date : {
+						captcha_code :function(){
+							return $("#captcha_code").val();
+						}
+					}
+				}
+			}
+		},
+		messages: {
+			user_name: {
+				required: "<?php echo $this->translate('请输入用户名！'); ?>"
+			},
+			user_passwd: {
+				required: "<?php echo $this->translate('请输入用户密码！'); ?>"
+			},
+			captcha_code: {
+				required:"<?php echo $this->translate('验证码不能为空！'); ?>",
+				remote : "<?php echo $this->translate('验证码错误！'); ?>"
+			}
+		}
+	});
+});
+
+<?php if(isset($this->admin_login_state) and $this->admin_login_state == 'false') { ?>
+//管理员登录错误提示
+show_message('.message_one','<?php echo date("Y-m-d H:i:s",time()); ?>','<?php echo $this->translate('登录失败，用户名或密码错误，请重新登录！'); ?>','alert-error');
+<?php } ?>
+
+//验证码添加
+function captchaAdd() {
+	$.post("<?php echo $this->url('shopfront/default',array('action'=>'captcha')); ?>",'',
+	function(data){
+		$("#captcha_id").html('<img src="<?php echo $this->basePath('/'); ?>'+data.captcha_file+'" border="0" >&nbsp;&nbsp;<a href="javascript:;" onclick="captchaAdd()"><?php echo $this->translate('更换验证码'); ?></a>');
+},'json');
+}
+captchaAdd();
+</script> 

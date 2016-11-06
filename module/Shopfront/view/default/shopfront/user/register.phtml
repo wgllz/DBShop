@@ -1,0 +1,195 @@
+<div class="row-fluid"  id="user_register">
+	<div class="span10 offset1">
+		<div class="span12">
+        	<?php echo $this->translate('会员注册'); ?>
+        </div>
+        <div class="well">
+        	<form class="form-horizontal" method="post" name="user_register_form" id="user_register_form">
+        	<?php if ($this->frontwebsite()->getUserIni('user_register_state') == 'true') { ?>
+            	<div class="control-group">
+            	<label for="input01" class="control-label"><?php echo $this->translate('会员名称'); ?>：</label>
+            		<div class="controls">
+              		<input type="text" id="user_name" placeholder="<?php echo $this->translate('输入会员名称'); ?>" name="user_name">
+            		</div>
+          		</div>
+            	<div class="control-group">
+            	<label for="input01" class="control-label"><?php echo $this->translate('会员密码'); ?>：</label>
+            		<div class="controls">
+              		<input type="password" id="user_password" name="user_password" placeholder="<?php echo $this->translate('输入会员密码'); ?>">
+            		</div>
+          		</div>
+            	<div class="control-group">
+            	<label for="input01" class="control-label"><?php echo $this->translate('确认密码'); ?>：</label>
+            		<div class="controls">
+              		<input type="password" id="user_com_passwd" name="user_com_passwd" placeholder="<?php echo $this->translate('输入确认密码'); ?>">
+            		</div>
+          		</div>
+            	<div class="control-group">
+            	<label for="input01" class="control-label"><?php echo $this->translate('电子邮箱'); ?>：</label>
+            		<div class="controls">
+              		<input type="text" id="user_email" name="user_email" placeholder="<?php echo $this->translate('输入电子邮件'); ?>">
+            		</div>
+          		</div>
+                <?php if ($this->frontwebsite()->websiteInfo('user_register_captcha') == 'true') { ?>
+            	<div class="control-group">
+            	<label for="input01" class="control-label"><?php echo $this->translate('验证码'); ?>：</label>
+            		<div class="controls">
+              		<input type="text" class="input-small" id="captcha_code" name="captcha_code" placeholder="<?php echo $this->translate('输入验证码'); ?>">&nbsp;<span id="captcha_id"></span>
+            		</div>
+          		</div>
+                <?php } ?>
+            	<div class="control-group">
+            	<label for="input01" class="control-label"><?php echo $this->translate('注册协议'); ?>：</label>
+            		<div class="controls">
+              			<label class="checkbox"><?php echo $this->translate('同意'); ?><input type="checkbox" name="agreement" id="agreement" value="1" />&nbsp;&nbsp;<a href="javascript:;" onclick="show_agreement();"><?php echo $this->translate('点击查看注册协议'); ?></a></label>
+                        
+            		</div>
+          		</div>
+            	<div class="control-group">
+            		<div class="controls">
+                <input type="hidden" name="<?php echo $this->register_csrf['name']; ?>" value="<?php echo $this->register_csrf['value']; ?>" />
+                <input type="hidden" name="http_referer" value="<?php echo $this->http_referer; ?>" />
+            	<button class="btn btn-primary" type="submit"><?php echo $this->translate('提交注册用户'); ?></button> 
+            		</div>
+          		</div>
+				<?php if($this->frontwebsite()->getUserIni('qq_login_state') == 'true') { ?>
+					<div class="control-group">
+						<label for="input01" class="control-label"><?php echo $this->translate('其他账号登录'); ?>：</label>
+						<div class="controls">
+							<a href="<?php echo $this->url('frontuser/default',array('action'=>'otherlogin')); ?>"><img src="<?php echo $this->basePath('public/img/login/qq_login_1.png'); ?>"></a>
+						</div>
+					</div>
+				<?php } ?>
+            <?php } else {  
+                echo '<div><h4>'. $this->frontwebsite()->getUserIni('register_close_message') . '</h4></div>';
+                } ?>
+            </form>
+        </div>
+    </div>   
+</div>
+
+<div class="modal hide fade" id="agreementModal" style="width:700px;">
+  <div class="modal-header">
+    <h3><?php echo $this->translate('注册协议'); ?></h3>
+  </div>
+  <div class="modal-body">
+    <p><?php echo nl2br($this->frontwebsite()->getUserIni('user_register_body')); ?></p>
+  </div>
+  <div class="modal-footer">
+  	<a class="btn" data-dismiss="modal"><?php echo $this->translate('关闭'); ?></a>
+  </div>
+</div>
+<script>
+//客户保存验证
+$(document).ready(function() {
+	$("#user_register_form").validate({
+		success : function(label){
+			label.addClass('validate_right').text('OK!');
+		},
+		rules: {
+			user_name: {
+				required: true,
+				maxlength:30,
+				remote :{
+					url : '<?php echo $this->url('frontuser/default/user_id',array('action'=>'check','controller'=>'user','check_type'=>'user_name','user_id'=>($this->user_info ? $this->user_info->user_id : '0'))); ?>',
+					type : 'post',
+					date : {
+						user_name :function(){
+							return $('#user_name').val();
+						}
+					}
+				}
+			},
+			user_email: {
+				required: true,
+				email: true,
+				remote :{
+					url : '<?php echo $this->url('frontuser/default/user_id',array('action'=>'check','controller'=>'user','module'=>'user','check_type'=>'user_email','user_id'=>($this->user_info ? $this->user_info->user_id : '0'))); ?>',
+					type : 'post',
+					date : {
+						user_email :function(){
+							return $('#user_email').val();
+						}
+					}
+				}
+			},
+            user_password: {
+				required: true,
+				minlength: 6,
+				maxlength: 20
+			},
+			user_com_passwd: {
+				required: true,
+				minlength: 6,
+				maxlength: 20,
+				equalTo: '#user_password'
+			},
+			agreement : {
+				required: true
+			}
+            <?php if ($this->frontwebsite()->websiteInfo('user_register_captcha') == 'true') { ?>
+            ,
+			captcha_code: {
+				required:true,
+				remote :{
+					url : '<?php echo $this->url('shopfront/default/captcha-check',array('action'=>'captcha','captcha_check'=>1)); ?>',
+					type : 'post',
+					date : {
+						captcha_code :function(){
+							return $("#captcha_code").val();
+						}
+					}
+				}
+			}
+            <?php } ?>
+		},
+		messages: {
+			user_name: {
+				required: "<?php echo $this->translate('请输入会员登录名称！'); ?>",
+				maxlength:"<?php echo $this->translate('会员登录名称最长为30个汉字！'); ?>",
+				remote: "<?php echo $this->translate('该会员名已经存在！'); ?>"
+			},
+			user_email: {
+				required: "<?php echo $this->translate('请输入电子邮箱！'); ?>",
+				email: "<?php echo $this->translate('电子邮箱格式错误！'); ?>",
+				remote: "<?php echo $this->translate('该邮箱已经存在'); ?>"
+			},
+            user_password: {
+				required: "<?php echo $this->translate('请输入密码！'); ?>",
+				minlength: "<?php echo $this->translate('至少输入6位密码！'); ?>",
+				maxlength: "<?php echo $this->translate('密码最长为20位！'); ?>"
+			},
+			user_com_passwd: {
+				required: "<?php echo $this->translate('请输入确认密码！'); ?>",
+				minlength: "<?php echo $this->translate('至少输入6位确认密码！'); ?>",
+				maxlength: "<?php echo $this->translate('确认密码最长为20位！'); ?>",
+				equalTo: "<?php echo $this->translate('两次输入的密码不一致！'); ?>"
+			},
+			agreement : {
+				required: "<?php echo $this->translate('必须勾选同意注册协议才能注册！'); ?>"
+			}
+            <?php if ($this->frontwebsite()->websiteInfo('user_register_captcha') == 'true') { ?>
+            ,
+			captcha_code: {
+				required:"<?php echo $this->translate('验证码不能为空！'); ?>",
+				remote : "<?php echo $this->translate('验证码错误！'); ?>"
+			}
+            <?php } ?>
+		}
+	});
+});
+//查看注册协议
+function show_agreement() {
+	$('#agreementModal').modal('show');	
+}
+<?php if ($this->frontwebsite()->websiteInfo('user_register_captcha') == 'true') { ?>
+//验证码添加
+function captchaAdd() {
+	$.post("<?php echo $this->url('shopfront/default',array('action'=>'captcha')); ?>",'',
+	function(data){
+		$("#captcha_id").html('<img src="<?php echo $this->basePath('/'); ?>'+data.captcha_file+'" border="0" >&nbsp;&nbsp;<a href="javascript:;" onclick="captchaAdd()"><?php echo $this->translate('更换验证码'); ?></a>');
+},'json');
+}
+captchaAdd();
+<?php } ?>
+</script>

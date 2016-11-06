@@ -1,0 +1,133 @@
+<div class="row-fluid" style="margin-top:20px;">
+  <?php echo $this->partial('shopfront/home/left_menu.phtml'); ?>
+  <div class="span8" id="home_goods_order">
+  	<div class="well">
+        <?php if($this->frontwebsite()->getIphoneSmsConfig('shop_phone_sms', 'phone_sms_type') and $user_info['user_phone'] == '') { ?>
+        <div class="alert alert-success"><?php echo $this->translate('设置手机号码，可以接收到订单处理的短信通知。'); ?><a href="<?php echo $this->url('fronthome/default', array('action'=>'useredit')); ?>"><?php echo $this->translate('点击去设置手机号码'); ?></a></div>
+    	<?php } ?>
+        <h5><?php echo $this->translate('我的订单'); ?></h5>
+    	<ul class="nav nav-tabs">
+    		<li <?php if ($this->order_state == 10) echo 'class="active"'; ?>><a href="<?php echo $this->url('frontorder/default'); ?>"><?php echo $this->translate('有效订单'); ?><?php if ($this->order_state_num[10]>0) { ?><span class="badge"><?php echo $this->order_state_num[10]; ?></span><?php } ?></a></li>
+    		<li <?php if ($this->order_state == 15) echo 'class="active"'; ?>><a href="<?php echo $this->url('frontorder/default/order_state', array('action'=>'index', 'order_state'=>15)); ?>"><?php echo $this->translate('付款中'); ?><?php if ($this->order_state_num[15]>0) { ?><span class="badge"><?php echo $this->order_state_num[15]; ?></span><?php } ?></a></li>
+    		<li <?php if ($this->order_state == 20) echo 'class="active"'; ?>><a href="<?php echo $this->url('frontorder/default/order_state', array('action'=>'index', 'order_state'=>20)); ?>"><?php echo $this->translate('已付款'); ?><?php if ($this->order_state_num[20]>0) { ?><span class="badge"><?php echo $this->order_state_num[20]; ?></span><?php } ?></a></li> 
+    		<li <?php if ($this->order_state == 30) echo 'class="active"'; ?>><a href="<?php echo $this->url('frontorder/default/order_state', array('action'=>'index', 'order_state'=>30)); ?>"><?php echo $this->translate('未发货'); ?><?php if ($this->order_state_num[30]>0) { ?><span class="badge"><?php echo $this->order_state_num[30]; ?></span><?php } ?></a></li>
+            <li <?php if ($this->order_state == 40) echo 'class="active"'; ?>><a href="<?php echo $this->url('frontorder/default/order_state', array('action'=>'index', 'order_state'=>40)); ?>"><?php echo $this->translate('已发货'); ?><?php if ($this->order_state_num[40]>0) { ?><span class="badge"><?php echo $this->order_state_num[40]; ?></span><?php } ?></a></li>
+            <li <?php if ($this->order_state == 60) echo 'class="active"'; ?>><a href="<?php echo $this->url('frontorder/default/order_state', array('action'=>'index', 'order_state'=>60)); ?>"><?php echo $this->translate('交易完成'); ?><?php if ($this->order_state_num[60]>0) { ?><span class="badge badge-success"><?php echo $this->order_state_num[60]; ?></span><?php } ?></a></li>
+            <li <?php if ($this->order_state == -40) echo 'class="active"'; ?>><a href="<?php echo $this->url('frontorder/default/order_state', array('action'=>'index', 'order_state'=>-40)); ?>"><?php echo $this->translate('退货订单'); ?><?php if ($this->order_state_num[-40]>0) { ?><span class="badge badge-important"><?php echo $this->order_state_num[-40]; ?></span><?php } ?></a></li>
+            <li <?php if ($this->order_state == 0) echo 'class="active"'; ?>><a href="<?php echo $this->url('frontorder/default/order_state', array('action'=>'index', 'order_state'=>0)); ?>"><?php echo $this->translate('无效订单'); ?><?php if ($this->order_state_num[0]>0) { ?><span class="badge badge-important"><?php echo $this->order_state_num[0]; ?></span><?php } ?></a></li>
+            <li class="pull-right">
+            <form class="form-search" style="margin: 0;" method="get">
+                <div class="input-append">
+                    <input type="text" class="search-query" name="search_order_sn" value="<?php echo isset($_GET['search_order_sn']) ? $this->escapehtml($_GET['search_order_sn']) : ''; ?>" placeholder="<?php echo $this->translate('输入订单号'); ?>">
+                    <input type="submit" class="btn" value="<?php echo $this->translate('搜索'); ?>">
+                </div>
+            </form>
+			</li>
+    	</ul>
+        <?php if ($this->order_list->getTotalItemCount() > 0) { ?>
+            <table class="table table-bordered">
+            	<thead>
+                	<tr class="home-user-tr">
+                    	<th width="23%"><?php echo $this->translate('订单信息'); ?></th>
+                        <th width="10%"><?php echo $this->translate('订购商品'); ?></th>
+                        <th width="6%"><?php echo $this->translate('件数'); ?></th>
+                        <th width="10%"><?php echo $this->translate('单价'); ?></th>
+                        <th width="12%"><?php echo $this->translate('商品操作'); ?></th>
+                        <th width="12%"><?php echo $this->translate('订单金额'); ?></th>
+                        <th width="15%"><?php echo $this->translate('订单状态'); ?></th>
+                        <th width="15%"><?php echo $this->translate('订单操作'); ?></th>
+                    </tr>
+                </thead>
+                <?php foreach ($this->order_list as $order_value) { 
+					$i = 1;
+					$goodsArray = unserialize($order_value['goods_serialize']);
+					$rowspan    = count($goodsArray);
+					
+					if(is_array($goodsArray) and !empty($goodsArray)) foreach($goodsArray as $goods_key => $goods_value) {
+				?>
+                	<tr>
+                    	<?php if ($i == 1) { ?>
+                    	<td rowspan="<?php echo $rowspan; ?>">
+                        <?php echo $this->translate('支付方式'); ?>：<?php echo $order_value['pay_name']; ?><br />
+                        <?php echo $this->translate('订单编号'); ?>：<?php echo $order_value['order_sn']; ?><br />
+                        <?php if($order_value['order_time'] != '') { ?><?php echo $this->translate('下单时间'); ?>：<?php echo date("Y-m-d H:i:s",$order_value['order_time']); ?><br /><?php } ?>
+                        <?php if($order_value['pay_time'] != '') { ?><?php echo $this->translate('付款时间'); ?>：<?php echo date("Y-m-d H:i:s",$order_value['pay_time']); ?><br /><?php } ?>
+                        <?php if($order_value['express_time'] != '') { ?><?php echo $this->translate('发货时间'); ?>：<?php echo date("Y-m-d H:i:s",$order_value['express_time']); ?><br /><?php } ?>
+                        <?php if($order_value['finish_time'] != '') { ?><?php echo $this->translate('完成时间'); ?>：<?php echo date("Y-m-d H:i:s",$order_value['finish_time']); ?><?php } ?>
+                        </td>
+                        <?php } ?>
+                        <td><a href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$goods_value['class_id'])); ?>"><img title="<?php echo strip_tags($goods_value['goods_extend_info']); ?>" src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($goods_value['goods_image'])); ?>"  style=" width:60px; height:60px;border:1px solid #D7D7D7"></a></td>
+                        <td><?php echo $goods_value['buy_num']; ?></td>
+                        <td><?php echo $order_value['currency_symbol'] . $goods_value['goods_shop_price'] . $order_value['currency_unit']; ?></td>
+                        <td>
+                        <p><button class="btn btn-small btn-success" onclick="again_buy('<?php echo $goods_value['goods_name']; ?>',<?php echo $goods_value['goods_id']; ?>,'<?php echo (isset($goods_value['goods_color']) ? $goods_value['goods_color'] : ''); ?>','<?php echo (isset($goods_value['goods_size']) ? $goods_value['goods_size'] :''); ?>', '<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($goods_value['goods_image'])); ?>',<?php echo $goods_value['class_id']; ?>);"><i class="icon-shopping-cart icon-white"></i> <?php echo $this->translate('再次购买'); ?></button></p>
+                        <?php if ($order_value['order_state'] == 60  and $this->order_state != -40) { ?>
+                        <p><a href="<?php echo $this->url('frontorder/default/order_goods_id', array('action'=>'goodscomment', 'order_goods_id'=>$goods_key, 'order_state'=>$this->order_state, 'page'=>$this->page)); ?>" class="btn btn-small btn-primary">
+                        <?php if(isset($goods_value['comment_state'])) { ?>
+                        <i class="icon-ok icon-white"></i> <?php echo $this->translate('已经评价'); ?>
+                        <?php } else { ?>
+                        <i class="icon-comment icon-white"></i> <?php echo $this->translate('尚未评价'); ?>
+                        <?php } ?>
+                        </a></p>
+                        <?php } ?>
+                        </td>
+                        <?php if ($i == 1) { ?>
+                        <td rowspan="<?php echo $rowspan; ?>"><strong><?php echo $order_value['currency_symbol'] . $order_value['order_amount'] . $order_value['currency_unit']; ?></strong></td>
+                        <td rowspan="<?php echo $rowspan; ?>"><p><?php echo $this->frontwebsite()->getOneOrderStateInfo($order_value['order_state']); ?></p></td>
+                        <td rowspan="<?php echo $rowspan; ?>">
+                        <p><a href="<?php echo $this->url('frontorder/default/order_id', array('action'=>'showorder', 'order_id'=>$order_value['order_id'], 'order_state'=>$this->order_state, 'page'=>$this->page)); ?>"><?php echo $this->translate('查看订单'); ?></a></p>
+                        <?php if ($order_value['order_state'] == 10 or ($order_value['order_state'] == 30 and $order_value['pay_code'] == 'hdfk')) { ?>
+                            <?php if ($order_value['order_state'] == 10) { ?>
+                            <p><button class="btn btn-small btn-primary" onclick="location.href='<?php echo $this->url('frontorder/default/order_id', array('action'=>'orderpay', 'order_id'=>$order_value['order_id'])); ?>'"><?php echo $this->translate('立即付款'); ?></button></p>
+                            <?php } ?>
+                        <p><button class="btn btn-small btn-danger" onclick="if(window.confirm('<?php echo $this->translate('您确实要取消该订单吗？'); ?>')) {location.href='<?php echo $this->url('frontorder/default/order_id', array('action'=>'changestate', 'order_id'=>$order_value['order_id'], 'order_state'=>0, 'page'=>$this->page)); ?>'};"><?php echo $this->translate('取消订单'); ?></button></p>
+                        <?php } else if ($order_value['order_state'] == 0) { ?>
+                        <p><button class="btn btn-small btn-danger" onclick="if(window.confirm('<?php echo $this->translate('您确实要删除该订单吗？'); ?>')) {location.href='<?php echo $this->url('frontorder/default/order_id', array('action'=>'delOrder', 'order_id'=>$order_value['order_id'], 'order_state'=>0, 'page'=>$this->page)); ?>'};"><?php echo $this->translate('删除订单'); ?></button></p>
+                        <?php } else if ($order_value['order_state'] == 40 and $this->order_state != -40) {
+                            ?>
+                            <?php if($order_value['pay_code'] == 'alipay' and $order_value['ot_order_state'] == 25) { ?>
+                                    <p><a href="https://www.alipay.com/" class="btn btn-small btn-primary" target="_blank"><?php echo $this->translate('确认收货'); ?></a></p>
+                            <?php } else { ?>
+                                    <p><button class="btn btn-small btn-primary" onclick="location.href='<?php echo $this->url('frontorder/default/order_id', array('action'=>'orderReceipt', 'order_id'=>$order_value['order_id'], 'order_state'=>$this->order_state, 'page'=>$this->page)); ?>'"><?php echo $this->translate('确认收货'); ?></button></p>
+                            <?php } ?>
+                        <?php } ?>
+                        </td>
+                        <?php } ?>
+                    </tr>
+                <?php $i++; } } ?>
+                    <tr>
+                    <td colspan="8">
+        		<?php echo ( count($this->order_list) > 0 ) ? $this->paginationControl($this->order_list, 'Sliding', 'site/dbpage',array('page_url'=>$this->url('frontorder/default/order_page', array('action'=>'index', 'order_state'=>$this->order_state)))) : ""; ?>
+                    </td>
+                    </tr>
+    		</table>
+            <?php } else { echo '<p>' . $this->translate('暂时无订单！') . '</p>'; } ?>
+    </div>
+  </div>
+</div>
+<form action="" method="post" id="to_cart" name="to_cart">
+	<input type="hidden" name="buy_goods_num" id="buy_goods_num" value="1" />
+    <input type="hidden" name="goods_id" id="goods_id" value="" />
+    <input type="hidden" name="class_id" id="class_id" value="" />
+    <input type="hidden" name="select_color_value" id="select_color_value" value="" />
+    <input type="hidden" name="select_size_value" id="select_size_value" value="" />
+</form>
+<script>
+function again_buy(goods_name,goods_id,goods_color,goods_size,goods_image,class_id) {
+	$('#goods_id').val(goods_id);
+	$('#select_color_value').val(goods_color);
+	$('#select_size_value').val(goods_size);
+	$('#class_id').val(class_id);
+	$.post("<?php echo $this->url('frontcart/default', array('action'=>'addCart')); ?>",$('#to_cart').formSerialize(),
+	function(data){
+		if(data == 'true') {
+			$("#message_show").html('<img border="0" src="'+goods_image+'" style=" width:65px;border:1px solid #D7D7D7">'+goods_name+'&nbsp;<strong><?php echo $this->translate('添加购物车成功'); ?></stong>');
+			$("#message_url").html('<a href="<?php echo $this->url('frontcart/default'); ?>" class="btn btn-primary"><?php echo $this->translate('去购物车结算'); ?></a>&nbsp;<a class="btn" data-dismiss="modal"><?php echo $this->translate('关闭'); ?></a>');
+		} else {
+			$("#message_show").html(data);
+			$("#message_url").html('<a class="btn" data-dismiss="modal"><?php echo $this->translate('关闭'); ?></a>');
+		}
+		$('#myModal').modal('show');
+  }); 
+}
+</script>

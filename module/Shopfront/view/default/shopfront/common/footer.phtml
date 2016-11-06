@@ -1,0 +1,16 @@
+<?php
+ 	$index_footer_article = $this->frontwebsite()->getTagArticleArray('index_footer');
+	if ($index_footer_article) {
+?>
+<div class="row-fluid">
+	<div class="span10 offset1 edit_table_css">
+<?php
+		foreach ($index_footer_article as $index_footer_article_value) {
+			echo $index_footer_article_value['single_article_body'];
+		}
+?>
+    </div>
+</div>
+<?php
+	}
+?>

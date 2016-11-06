@@ -1,0 +1,273 @@
+<div style="height: 30px; border-bottom: 4px solid #DFDFDF;">
+	<p class="pull-left" style="font-size: 16px; line-height: 30px;">
+		<strong><?php echo $this->translate('管理商品'); ?></strong>
+	</p>
+	<p class="pull-right">
+		<a
+			href="<?php echo $this->url('goods/default',array('action'=>'add','controller'=>'goods')); ?>"
+			class="btn btn-small btn-primary">
+			<i class="icon-plus icon-white"></i>
+			<?php echo $this->translate('添加商品'); ?>
+		</a>&nbsp;
+        <?php if ($this->clear_image_num > 0) {?>
+        <a href="<?php echo $this->url('goods/default',array('action'=>'clearGoodsImage','controller'=>'goods')); ?>" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> <?php echo $this->translate('删除无用的商品图片'); ?> (<?php echo $this->clear_image_num; ?>)</a>&nbsp;
+		<?php } ?>
+        <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('goods_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+	</p>
+</div>
+
+<input type="hidden" name="edit_type" id="edit_type" value="">
+<table class="table table-hover">
+	<thead style="background: #CCC;">
+		<tr>
+			<th width="3%">
+				<input type="checkbox" id="select_checkbox_state" onclick="selectCheckBox('goods_id', 'select_checkbox_state');">
+			</th>
+			<th width="5%">ID</th>
+			<th width="27%"><?php echo $this->translate('商品名称'); ?></th>
+			<th width="10%"><?php echo $this->translate('商品货号'); ?></th>
+			<th width="10%"><?php echo $this->translate('商品价格'); ?></th>
+			<th width="10%"><?php echo $this->translate('商品属性'); ?></th>
+			<th width="10%"><?php echo $this->translate('商品状态'); ?></th>
+			<th width="8%"><?php echo $this->translate('商品类型'); ?></th>
+			<th width="20%" style="text-align: center;"><?php echo $this->translate('操作'); ?></th>
+		</tr>
+	</thead>
+	<form method="GET" action="<?php echo $this->url('goods/default',array('action'=>'index','controller'=>'goods')); ?>">
+		<tr class="goods_search" style="background: #F5F5F5;">
+			<td></td>
+			<td>
+				<p>
+					<?php echo $this->translate('始'); ?>
+					<input type="text" name="start_goods_id"
+						value="<?php if ($this->searchArray and isset($this->searchArray['start_goods_id'])) echo $this->searchArray['start_goods_id']; ?>"
+						 class="span8">
+				</p>
+				<p>
+					<?php echo $this->translate('终'); ?>
+					<input type="text" name="end_goods_id"
+						value="<?php if ($this->searchArray and isset($this->searchArray['end_goods_id'])) echo $this->searchArray['end_goods_id']; ?>"
+						 class="span8">
+				</p>
+			</td>
+			<td>
+				<p>
+                    <input type="text" name="goods_name"
+                           value="<?php if ($this->searchArray and isset($this->searchArray['goods_name'])) echo $this->searchArray['goods_name']; ?>"
+                           class="span11">
+				</p>
+                <p>
+                    <label class="checkbox inline"><input type="checkbox" name="goods_preferential" <?php if ($this->searchArray and isset($this->searchArray['goods_preferential'])) echo 'checked'; ?> value="1"><?php echo $this->translate('优惠商品'); ?></label>
+                </p>
+			</td>
+			<td>
+				<p>
+					<input type="text" name="goods_item"
+						value="<?php if ($this->searchArray and isset($this->searchArray['goods_item'])) echo $this->searchArray['goods_item']; ?>"
+						 class="span11">
+				</p>
+			</td>
+			<td>
+				<p>
+					<?php echo $this->translate('始'); ?>
+					<input type="text" name="start_goods_price"
+						value="<?php if ($this->searchArray and isset($this->searchArray['start_goods_price'])) echo $this->searchArray['start_goods_price']; ?>"
+						 class="span8">
+				</p>
+				<p>
+					<?php echo $this->translate('终'); ?>
+					<input type="text" name="end_goods_price"
+						value="<?php if ($this->searchArray and isset($this->searchArray['end_goods_price'])) echo $this->searchArray['end_goods_price']; ?>"
+						 class="span8">
+				</p>
+			</td>
+			<td>
+				<select class="span8" name="attribute_group_id">
+                                <option value="0"><?php echo $this->translate('选择属性组'); ?></option>
+                                <?php
+								$attribute_group_value = array();
+                                if ($this->attribute_group) {
+									foreach($this->attribute_group as $g_val) {
+										$attribute_group_value[$g_val['attribute_group_id']] = $this->escapeHtml($g_val['attribute_group_name']);
+								?>
+								<option value="<?php echo $g_val['attribute_group_id']; ?>" <?php if($this->searchArray and isset($this->searchArray['attribute_group_id']) and $this->searchArray['attribute_group_id'] == $g_val['attribute_group_id']) echo 'selected="selected"'; ?>><?php echo $this->escapeHtml($g_val['attribute_group_name']); ?></option>
+                                <?php
+									}
+								}
+								?>
+				</select>
+			</td>
+			<td>
+				<select name="goods_state" class="span8">
+					<option value=""><?php echo $this->translate('选择'); ?></option>
+					<option value="1"
+						<?php if($this->searchArray and isset($this->searchArray['goods_state']) and $this->searchArray['goods_state'] == 1) echo 'selected="selected"'; ?>><?php echo $this->translate('上架'); ?></option>
+					<option value="2"
+						<?php if($this->searchArray and isset($this->searchArray['goods_state']) and $this->searchArray['goods_state'] == 2) echo 'selected="selected"'; ?>><?php echo $this->translate('下架'); ?></option>
+				    <option value="-1"
+                        <?php if($this->searchArray and isset($this->searchArray['goods_state']) and $this->searchArray['goods_state'] == -1) echo 'selected="selected"'; ?>><?php echo $this->translate('缺货'); ?></option>
+                </select>
+			</td>
+			<td>
+				<select name="goods_type" class="span8">
+					<option value=""><?php echo $this->translate('选择'); ?></option>
+					<option value="1"
+							<?php if($this->searchArray and isset($this->searchArray['goods_type']) and $this->searchArray['goods_type'] == 1) echo 'selected="selected"'; ?>><?php echo $this->translate('实物商品'); ?></option>
+					<option value="2"
+							<?php if($this->searchArray and isset($this->searchArray['goods_type']) and $this->searchArray['goods_type'] == 2) echo 'selected="selected"'; ?>><?php echo $this->translate('虚拟商品'); ?></option>
+				</select>
+				<p>
+					<label class="checkbox inline"><input type="checkbox" name="goods_integral" <?php if ($this->searchArray and isset($this->searchArray['goods_integral'])) echo 'checked'; ?> value="1"><?php echo $this->translate('可积分购买'); ?></label>
+				</p>
+			</td>
+			<td>
+				<p>
+					<select name="class_id" class="span5">
+						<option value="0"><?php echo $this->translate('选择分类'); ?></option>
+						<?php
+						if ($this->goods_class) {
+						foreach ($this->goods_class as $class_val) {
+						?>
+							<option value="<?php echo $class_val['class_id'] ?>" <?php if($this->searchArray['class_id'] == $class_val['class_id']) { ?>selected="selected"<?php } ?>><?php echo str_repeat('&nbsp;', $class_val['class_level'] * 5).$class_val['class_name']; ?></option>
+						<?php } } ?>
+					</select>
+					<button class="btn btn-small btn-primary" type="submit"
+						onclick="$('#edit_type').val('search');">
+						<i class="icon-search icon-white"></i>
+						<?php echo $this->translate('搜索'); ?>
+					</button>
+					<?php if ($this->searchArray and !empty($this->searchArray)) { ?>
+						<a
+								href="<?php echo $this->url('goods/default',array('action'=>'index','controller'=>'goods')); ?>"
+								class="btn btn-small">
+							<i class="icon-arrow-left"></i>
+							<?php echo $this->translate('返回'); ?>
+						</a>
+					<?php } ?>
+				</p>
+			</td>
+		</tr>
+	</form>
+	<form method="POST"
+		action="<?php echo $this->url('goods/default/page',array('action'=>'editall','controller'=>'goods', 'page'=>$this->page), array('query'=>$this->query)); ?>">
+             <?php foreach ($this->goods_list as $goods_value) { ?>
+             
+            <tr>
+			<td>
+				<input name="goods_id[]" type="checkbox"
+					value="<?php echo $goods_value['goods_id']; ?>">
+			</td>
+			<td><?php echo $goods_value['goods_id']; ?></td>
+			<td>
+                <?php echo $this->escapeHtml($goods_value['goods_name']); ?>
+                <?php
+                    if($goods_value['goods_preferential_price'] >0) {
+                        $goods_preferential_str = '';
+                        if($goods_value['goods_preferential_start_time'] == '' and $goods_value['goods_preferential_end_time'] == '') {
+                            $goods_preferential_str = '[<font color="green">'.$this->translate('优惠中').'</font>]';
+                        } elseif ($goods_value['goods_preferential_end_time'] != '' and time() > $goods_value['goods_preferential_end_time']) {
+                            $goods_preferential_str = '[<font color="red">'.$this->translate('优惠过期').'</font>]';
+                        } elseif ($goods_value['goods_preferential_start_time'] != '' and time() < $goods_value['goods_preferential_start_time']) {
+                            $goods_preferential_str = '[<font color="blue">'.$this->translate('优惠开始时间').'：'.date("Y-m-d H:i", $goods_value['goods_preferential_start_time']).'</font>]';
+                        } else {
+                            $goods_preferential_str = '[<font color="green">'.$this->translate('优惠中').'</font>]';
+                        }
+                        echo $goods_preferential_str;
+                    }
+
+                ?>
+            </td>
+			<td><?php echo $this->escapeHtml($goods_value['goods_item']); ?></td>
+			<td><?php echo $goods_value['goods_shop_price']; ?></td>
+			<td><?php if(isset($attribute_group_value[$goods_value['attribute_group_id']])) echo $attribute_group_value[$goods_value['attribute_group_id']]; else echo $this->translate('无'); ?></td>
+			<td>
+                <?php echo (intval($goods_value['goods_state']) == 2 ? $this->translate('下架') : ($goods_value['goods_state']== 1 ? $this->translate('上架') : '')); ?>
+                <?php if($goods_value['goods_stock'] == 0) echo ' [<font color="red">'. $this->translate('缺货') . '</font>]'; ?>
+            </td>
+			<td>
+				<?php
+				if($goods_value['goods_type'] == 1) echo $this->translate('实物商品');
+				if($goods_value['goods_type'] == 2) echo $this->translate('虚拟商品') . ($goods_value['virtual_goods_add_state'] == 0 ? '[<strong style="color:red;">'.$this->translate('需补货').'</strong>]' : '');
+
+				if($goods_value['goods_integral_num'] > 0) echo '[<strong>'.$this->translate('可积分购买').'</strong>]';
+				?>
+			</td>
+			<td>
+				<a href="<?php echo $this->url('goods/default/goods_id',array('action'=>'edit','controller'=>'goods','goods_id'=>$goods_value['goods_id'], 'page'=>$this->page), array('query'=>$this->query)); ?>">
+					<?php echo $this->translate('编辑'); ?></a>
+				<span>|</span>
+				<?php if ($goods_value['goods_type'] == 2) { ?>
+				<a href="<?php echo $this->url('goods/default/goods_id',array('action'=>'addVirtualGoods','controller'=>'goods','goods_id'=>$goods_value['goods_id'], 'page'=>$this->page), array('query'=>$this->query)); ?>"><?php echo $this->translate('查看并补货'); ?></a>
+				<span>|</span>
+				<?php } ?>
+				<a href="javascript:;" onclick="goods_del_js(<?php echo $goods_value['goods_id']; ?>);">
+					<?php echo $this->translate('删除'); ?></a>
+                <?php if (isset($goods_value['one_class_id']) and !empty($goods_value['one_class_id'])) { ?>
+                <span>|</span>
+                <a href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$goods_value['one_class_id']), array('query'=>array('Preview'=>'true'))); ?>" target="_blank"><?php echo $this->translate('商品预览'); ?></a>
+                <?php } ?>
+			</td>
+		</tr>
+            <?php } ?>
+            <tr>
+			<td colspan="10" style="background: #FFF">
+				<div class="pull-left span6" style="height: 30px; line-height: 30px;">
+					<input type="checkbox" id="select_checkbox_state_1" onclick="selectCheckBox('goods_id', 'select_checkbox_state_1');">
+					&nbsp;<?php echo $this->translate('全选'); ?>&nbsp;
+					<select class="span2" name="allEdit" id="allEdit" onchange="showstate();">
+						<option value=""><?php echo $this->translate('请选择'); ?></option>
+						<option value="del"><?php echo $this->translate('删除'); ?></option>
+						<option value="editState"><?php echo $this->translate('更改状态'); ?></option>
+					</select>
+                    &nbsp;
+                    <select class="span2" name="editstate" id="editstate" style="display:none">
+                    <option value="1"><?php echo $this->translate('上架'); ?></option>
+                    <option value="2"><?php echo $this->translate('下架'); ?></option>
+                    </select>
+                    <button type="submit" onclick="return editAllGoods();" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('提交操作'); ?></button>
+				</div>
+				<?php echo ( count($this->goods_list) > 0 ) ? $this->paginationControl($this->goods_list, 'Sliding', 'common/pager',array('page_url'=>$this->url('goods/default/page',array('action'=>'index','controller'=>'goods')))) : ""; ?>
+                </td>
+		</tr>
+	</form>
+</table>
+<script>
+function editAllGoods() {
+	var num = 0;
+	$("input[name='goods_id[]']").each(function() {
+		if (this.checked == true) {
+			num++;
+		}
+	});
+	if(num < 1) {
+		alert('<?php echo $this->translate('请至少选择一条商品信息！'); ?>');
+		return false;
+	}else {
+		if($("#allEdit").val()=='') {
+			alert('<?php echo $this->translate('请选择操作事件！'); ?>');
+			return false;
+		}
+		return window.confirm('<?php echo $this->translate('您确实要执行该操作吗？'); ?>');
+	}
+}
+//商品删除
+function goods_del_js(goods_id) {
+	if(window.confirm('<?php echo $this->translate('您确实要删除该商品吗？'); ?>')) {
+	$.post("<?php echo $this->url('goods/default',array('action'=>'del','controller'=>'goods')); ?>",{goods_id:goods_id},
+		function(data){
+			if(data != 'false') {
+				window.location.href='<?php echo $this->url('goods/default/page',array('action'=>'index','controller'=>'goods', 'page'=>$this->page), array('query'=>$this->query)); ?>';
+				return true;
+			} else {
+				alert('<?php echo $this->translate('商品删除失败！'); ?>');
+			}
+		});
+	}
+	return false;
+}
+function showstate() {
+	var allEdit = $('#allEdit').val();
+	if(allEdit == 'editState') $('#editstate').css('display','');
+	else $('#editstate').css('display','none');
+}
+</script>

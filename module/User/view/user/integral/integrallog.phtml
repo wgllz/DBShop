@@ -1,0 +1,35 @@
+    		<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        	<p class="span4 pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('积分历史记录'); ?></strong></p>
+        	<p class="span8 text-right">
+            <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('user_integral_log'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+            </p>
+        	</div>
+            <table class="table table-hover">
+            <thead style="background:#CCC;">
+            	<tr>
+                    <th width="15%"><?php echo $this->translate('会员名称'); ?></th>
+                    <th width="15%"><?php echo $this->translate('积分'); ?></th>
+                    <th width="10%"><?php echo $this->translate('操作类型'); ?></th>
+                    <th width="15%"><?php echo $this->translate('积分类型'); ?></th>
+                    <th width="30%"><?php echo $this->translate('操作描述'); ?></th>
+                    <th width="15%"><?php echo $this->translate('操作时间'); ?></th>
+                </tr>
+            </thead>
+            <?php if($this->integral_log_list) foreach ($this->integral_log_list as $integrallog_value) { ?>            
+            <tr>
+            	<td><?php echo $this->escapeHtml($integrallog_value['user_name']); ?></td>
+                <td><?php echo $integrallog_value['integral_num_log']; ?></td>
+                <td><?php echo (strpos($integrallog_value['integral_num_log'], '-') !== false ? $this->translate('消费') : $this->translate('获得')); ?></td>
+                <td><?php echo $this->integral_type_array[$integrallog_value['integral_type_id']]; ?></td>
+                <td><?php echo $integrallog_value['integral_log_info']; ?></td>
+                <td><?php echo date("Y-m-d H:i:s",$integrallog_value['integral_log_time']); ?></td>
+            </tr>
+            <?php
+				}
+			?>
+            <tr>
+			<td colspan="6" style="background: #FFF">
+				<?php echo ( count($this->integral_log_list) > 0 ) ? $this->paginationControl($this->integral_log_list, 'Sliding', 'common/pager',array('page_url'=>$this->url('integral/default/integrallog_page',array('action'=>'integrallog')))) : ""; ?>
+            </td>
+			</tr>
+        </table>

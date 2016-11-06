@@ -1,0 +1,29 @@
+<?php
+$url = $this->page_url;
+$parameterGet = $this->DbshopCommonFun()->dbshopRequesthelper();
+if ($parameterGet != ""){
+  $array = explode('&', $parameterGet);
+  $array = array_unique($array);
+  $parameterGet = "?".implode('&', $array);
+}
+?>
+<?php if ($this->pageCount): ?>
+<div class="text-right" > <?php echo $this->totalItemCount.$this->translate('条记录'); ?>，<?php echo $this->translate('共').$this->pageCount.$this->translate('页'); ?>，<?php echo $this->translate('第').$this->current.$this->translate('页'); ?>。
+    <span>
+        <?php if (isset($this->previous)): ?>
+            <a href="javascript:;" onclick="<?php echo $this->ajaxFunction; ?>('<?php echo $url.'/1'.$parameterGet; ?>');"><?php echo $this->translate('首页'); ?></a>&nbsp;&nbsp;
+            <a href="javascript:;" onclick="<?php echo $this->ajaxFunction; ?>('<?php echo $url.'/'.$this->previous.$parameterGet; ?>');"><?php echo $this->translate('上一页'); ?></a>&nbsp;&nbsp;
+        <?php else: ?>
+            <?php echo $this->translate('首页'); ?>&nbsp;&nbsp;
+            <?php echo $this->translate('上一页'); ?>&nbsp;&nbsp;
+        <?php endif; ?>
+        <?php if (isset($this->next)): ?>
+            <a href="javascript:;" onclick="<?php echo $this->ajaxFunction; ?>('<?php echo $url.'/'.$this->next.$parameterGet; ?>');"><?php echo $this->translate('下一页'); ?></a>&nbsp;&nbsp;
+            <a href="javascript:;" onclick="<?php echo $this->ajaxFunction; ?>('<?php echo $url.'/'.$this->pageCount.$parameterGet; ?>');"><?php echo $this->translate('末页'); ?></a>
+        <?php else: ?>
+            <?php echo $this->translate('下一页'); ?>&nbsp;&nbsp;
+            <?php echo $this->translate('末页'); ?>
+        <?php endif; ?>
+    </span>
+</div>
+<?php endif; ?>

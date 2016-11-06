@@ -1,0 +1,200 @@
+<?php if(isset($_GET['check_dbshop_template']) and trim($_GET['check_dbshop_template'])=='true') exit('1184e99acf54e4d4161fa82ab7aafac8'); ?>
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="x-ua-compatible" content="IE=7,8,9" >
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php
+    $dbshop_shop_name        = $this->frontwebsite()->websiteInfo('shop_name');
+    $dbshop_shop_extend_name = $this->frontwebsite()->websiteInfo('shop_extend_name');
+    $dbshop_shop_keywords    = trim($dbshop_shop_name . ',' . $this->frontwebsite()->websiteInfo('shop_keywords'), ',');
+    $dbshop_shop_description = trim($dbshop_shop_name . ',' . $this->frontwebsite()->websiteInfo('shop_description'), ',');
+    
+    $this->headtitle($this->title_name);
+	$this->headtitle($this->extend_title_name);
+    $this->headtitle($dbshop_shop_name);
+    $this->headtitle($dbshop_shop_extend_name);
+    
+    echo $this->headTitle()->setSeparator(' - ');
+?>
+
+<?php
+    $title_and_extend_title_name = (!empty($this->title_name) ?  $this->title_name. ',' : '') . (!empty($this->extend_title_name) ?  $this->extend_title_name . ',' : '');
+
+    $this->headMeta()->appendName('keywords',        $title_and_extend_title_name . $this->extend_keywords . $dbshop_shop_keywords);
+    $this->headMeta()->appendName('description',     $title_and_extend_title_name . $this->extend_description . $dbshop_shop_description);
+    $this->headMeta()->appendName('author',          DBSHOP_FRONT_COPYRIGHT);
+    $this->headMeta()->appendName('copyright',       DBSHOP_FRONT_COPYRIGHT . ' Inc. All Rights Reserved');
+    
+    $this->headMeta()->setProperty('og:type',        'website');
+    $this->headMeta()->setProperty('og:title',       $title_and_extend_title_name . $dbshop_shop_name);
+    $this->headMeta()->setProperty('og:description', $title_and_extend_title_name . $this->extend_description . $dbshop_shop_description);
+    $this->headMeta()->setProperty('og:site_name',   $dbshop_shop_name);
+    $this->headMeta()->setProperty('og:url',         $this->serverUrl(true));
+	
+    echo $this->headMeta();
+?>
+
+<link href="<?php echo ($this->frontwebsite()->websiteInfo('shop_ico') != '' ? $this->basePath($this->frontwebsite()->websiteInfo('shop_ico')) : ''); ?>" rel="shortcut icon">
+<link href="<?php
+$dbshop_front_template_dir = 'default';
+$dbshop_front_template_css = 'default';
+if((defined('DBSHOP_TEMPLATE') and DBSHOP_TEMPLATE != '' and DBSHOP_TEMPLATE != $dbshop_front_template_dir) or (defined('DBSHOP_TEMPLATE_CSS') and DBSHOP_TEMPLATE_CSS != '' and DBSHOP_TEMPLATE_CSS != $dbshop_front_template_css)) {
+    $dbshop_front_template_dir = DBSHOP_TEMPLATE;
+    $dbshop_front_template_css = DBSHOP_TEMPLATE_CSS;
+}
+echo $this->basePath('public/css/'.$dbshop_front_template_dir.'/css/'.$dbshop_front_template_css.'.css'); 
+?>" rel="stylesheet">
+<script type="text/javascript">
+if (/MSIE 6/.test(navigator.userAgent)) {
+	window.location = '<?php echo $this->basePath('public/support-browser.html'); ?>';
+}
+</script>
+<!--[if lte IE 8]>
+<script src="<?php echo $this->basePath('public/js/html5.js'); ?>"></script>
+<![endif]-->
+<?php 
+$dbshopApplication = 'Product';
+if($dbshopApplication != 'Product') {
+?>
+<script src="<?php echo $this->basePath('public/js/jquery.js'); ?>"></script>
+<script src="<?php echo $this->basePath('public/js/bootstrap.min.js'); ?>"></script>
+<script src="<?php echo $this->basePath('public/js/jquery.validate.js'); ?>"></script>
+<script src="<?php echo $this->basePath('public/js/jquery.form.js'); ?>"></script>
+<script src="<?php echo $this->basePath('public/js/common.js'); ?>"></script>
+<?php 
+} else {
+?>
+<script src="<?php echo $this->basePath('public/css/'.$dbshop_front_template_dir.'/js/frontJs.js'); ?>"></script>
+<?php }?>
+</head>
+<body>
+<?php echo $this->partial('site/header'); ?>
+<?php echo $this->content; ?>
+<?php echo $this->partial('site/footer'); ?>
+
+<div class="footer">
+<?php
+$footer_px_num = '8';
+$shop_footer_menu = $this->frontwebsite()->shopFrontMenu(3);
+if(is_array($shop_footer_menu) and !empty($shop_footer_menu)) {
+$footer_px_num = '3';
+echo '<p class="shop_footer" align="center" style="padding-top:8px;margin:0;">';
+	$footer_count = count($shop_footer_menu)-1;
+	foreach($shop_footer_menu as $footer_key => $footer_value) { ?><a style="color:#FFF" href="<?php echo $footer_value['navigation_url']; ?>" <?php if($footer_value['navigation_new_window'] == 1) echo 'target="_blank"'; ?>><?php echo $footer_value['navigation_title']; ?></a><?php if($footer_count != $footer_key) echo '<span>|</span>';  
+	}
+echo '</p>';
+} ?>
+<p align="center" style="padding-bottom:8px;padding-top:<?php echo $footer_px_num; ?>px;">Copyright &copy;<?php echo DBSHOP_YEAR_COPYRIGHT; ?> <a href="<?php echo DBSHOP_FRONT_COPYRIGHT_URL; ?>" target="_blank" style="color:#FFF"><?php echo DBSHOP_FRONT_COPYRIGHT; ?></a> <?php echo $this->translate('版权所有');
+if ($this->frontwebsite()->websiteInfo('shop_icp')) echo '<br />'.$this->frontwebsite()->websiteInfo('shop_icp');
+echo '<br />'.$this->frontwebsite()->getSystemContent('statistics');
+?></p>
+</div>
+<div class="modal hide fade" id="myModal">
+  <div class="modal-header">
+    <h3><?php echo $this->frontwebsite()->websiteInfo('shop_name'); ?> <?php echo $this->translate('提示'); ?></h3>
+  </div>
+  <div class="modal-body">
+    <p id="message_show"></p>
+  </div>
+  <div class="modal-footer" id="message_url">
+  </div>
+</div>
+<script>
+    /*悬浮停留提示封装*/
+    $('.shop_admin_help_note').popover({trigger:'hover',html:true});
+</script>
+<script src="<?php echo $this->basePath('public/js/go-top.js'); ?>"></script>
+<?php 
+/**
+ * 设置统计功能，此统计有别于浏览统计，包括订单及销售统计功能，目前使用第三方统计
+ */
+$dbTongji     = $this->frontwebsite()->getAnalyticsIni('db_Tongji');
+$dbTongJiId   = $this->frontwebsite()->getAnalyticsIni('db_TongJi_Id');
+$dbTongJiType = $this->frontwebsite()->getAnalyticsIni('db_TongJi_Type');
+
+if($dbTongji == 'TRUE') {
+    echo '<script type="text/javascript">';
+    if($dbTongJiType == 'fenxi.com') {//http://mba.fenxi.com聚合数据平台
+        echo 'var _mvq=_mvq||[];_mvq.push(["$setAccount","'.$dbTongJiId.'"]);';
+        $dbTongJiUserOrId   = '"'.$this->frontwebsite()->getUserSession('user_name').'","'.$this->frontwebsite()->getUserSession('user_id').'"';
+        //网站首页
+        if($this->dbTongJiPage == 'index') {
+            echo '_mvq.push(["$setGeneral","index","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);';
+        }
+        //品牌列表
+        if($this->dbTongJiPage == 'brandlist') {
+            echo '_mvq.push(["$setGeneral","brandlist","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);';
+        }
+        //品牌详情
+        if($this->dbTongJiPage == 'brandinfo') {
+            echo '_mvq.push(["$setGeneral","branddetail","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);_mvq.push(["$addBrand","'.$this->escapeHtml($this->tj_brand_name).'","'.$this->tj_brand_id.'"]);_mvq.push(["$logData"]);';
+        }
+        //商品分类
+        if($this->dbTongJiPage == 'goods_class') {
+            echo '_mvq.push(["$setGeneral","category","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);_mvq.push(["$addCategory","'.$this->escapeHtml($this->tj_class_name).'","'.$this->tj_class_id.'"]);_mvq.push(["$logData"]);';
+        }
+        //商品详情
+        if($this->dbTongJiPage == 'goods_body') {
+            echo '_mvq.push(["$setGeneral","goodsdetail","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);_mvq.push(["$addGoods","'.$this->tongji_goods_class_id.'","'.$this->tongji_goods_brand_id.'","'.$this->escapeHtml($this->tongji_goods_name).'","'.$this->tongji_goods_id.'","'.$this->tongji_goods_shop_price.'","'.$this->tongji_goods_image.'","'.$this->escapeHtml($this->tongji_goods_class_name).'","'.$this->escapeHtml($this->tongji_goods_brand_name).'","'.($this->tongji_goods_stock_state > 0 ? 1 : 0).'","'.$this->tongji_goods_price.'","",""]);_mvq.push(["$logData"]);';
+        }
+        //商品搜索
+        if($this->dbTongJiPage == 'goods_search') {
+            echo '_mvq.push(["$setGeneral","searchresult","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);_mvq.push(["$addSearchResult","'.$this->escapeHtml($this->tj_search_keywords).'","'.$this->tj_search_count.'"]);_mvq.push(["$logData"]);';
+        }
+        //会员注册页面
+        if($this->dbTongJiPage == 'user_register') {
+            echo '_mvq.push(["$setGeneral","register","","",""]);_mvq.push(["$logConversion"]);';
+        }
+        //会员登录页面
+        if($this->dbTongJiPage == 'user_login') {
+            echo '_mvq.push(["$setGeneral","login","","",""]);_mvq.push(["$logConversion"]);';
+        }
+        //会员中心首页
+        if($this->dbTongJiPage == 'user_home') {
+            echo '_mvq.push(["$setGeneral", "memberindex", "",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);';
+        }
+        //购物车页面
+        if($this->dbTongJiPage == 'cart') {
+            echo '_mvq.push(["$setGeneral","cartview","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);';
+            foreach ($this->tongji_cart_goods_array as $tj_cart_goods) {
+                echo '_mvq.push(["$addItem","","'.$tj_cart_goods['goods_id'].'","",""]);_mvq.push(["$logData"]);';
+            }
+        }
+        //购物车第三步核对信息
+        if($this->dbTongJiPage == 'cart_step_3') {
+            echo '_mvq.push(["$setGeneral","checkout","",'.$dbTongJiUserOrId.']);';
+            foreach ($this->tongji_cart_goods_array as $tj_cart_goods) {
+                echo '_mvq.push(["$logConversion"]);_mvq.push(["$addCartGoods","'.$tj_cart_goods['goods_id'].'","'.$this->escapeHtml($tj_cart_goods['goods_name']).'","'.$tj_cart_goods['goods_shop_price'].'","'.$tj_cart_goods['buy_num'].'"]);_mvq.push(["$logData"]);';
+            }
+        }
+        //提交订单成功
+        if($this->dbTongJiPage == 'submit_order') {
+            echo '_mvq.push(["$setGeneral","ordercreate","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);_mvq.push(["$addOrder","'.$this->tongji_order_sn.'","'.$this->tongji_order_price.'"]);';
+            foreach ($this->tongji_order_goods_array as $tj_goods) {
+                $imageP = $this->frontwebsite()->shopGoodsImage($tj_goods['goods_image']);
+                if(strpos($imageP, 'http://') === false && strpos($imageP, 'https://') === false) {
+                    $imageP = $this->serverUrl().$this->basePath('/').$this->basePath($imageP);
+                }
+                echo '_mvq.push(["$addItem","'.$this->tongji_order_sn.'","'.$tj_goods['goods_id'].'","'.$this->escapeHtml($tj_goods['goods_name']).'","'.$tj_goods['goods_shop_price'].'","'.$tj_goods['buy_num'].'","'.$this->serverUrl().$this->url('frontgoods/default', array('goods_id'=>$tj_goods['goods_id'], 'class_id'=>$tj_goods['class_id'])).'","'.$imageP.'"]);_mvq.push(["$logData"]);';
+            }
+        }
+        
+        //总的浏览统计代码
+        echo '_mvq.push(["$logConversion"]);(function(){var b=document.createElement("script");b.type="text/javascript";b.async=true;b.src=("https:"==document.location.protocol?"https://static-ssl.mediav.com/mvl.js":"http://static.mediav.com/mvl.js");var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})();';
+    }
+    echo '</script>';
+}
+?>
+<?php if(defined('FRONT_CACHE_STATE') and FRONT_CACHE_STATE == 'true') { ?>
+<script>
+    $.get('<?php echo $this->url('shopfront/default',array('action'=>'ajaxheader')); ?>','', function(html){
+        $("#shop_header").html(html);
+    });
+</script>
+<?php } ?>
+
+<?php if(isset($this->kefu_html) and $this->kefu_html != '') echo $this->partial('site/kefu', array('kefuHtml'=>$this->kefu_html)); ?>
+</body>
+</html>

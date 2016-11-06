@@ -1,0 +1,59 @@
+<div class="row-fluid" style="margin-top:20px; font-size:14px;">
+  <?php echo $this->partial('shopfront/home/left_menu.phtml'); ?>
+  <div class="span8">
+  	<div class="well well-small edit_table_css">
+		<table width="100%">
+        	<tr>
+            	<td style="width:70px"><img src="<?php echo $this->basePath($this->frontwebsite()->getUserSession('user_avatar')); ?>" style="height:64px; width:64px;"></td>
+                <td style="vertical-align:top">
+                <strong><?php echo $this->translate('用户名称'); ?>：</strong><a href="<?php echo $this->url('fronthome/default', array('action'=>'useredit')); ?>"><?php echo $this->frontwebsite()->getUserSession('user_name'); ?></a>, <?php echo $this->translate('欢迎您！'); ?><br />
+                <strong><?php echo $this->translate('用户等级'); ?>：</strong><?php echo $this->frontwebsite()->getUserSession('user_group_name'); ?><br />
+                <strong><?php echo $this->translate('账户余额'); ?>：</strong><?php echo $this->frontwebsite()->shopPriceExtend($this->user_info->user_money); ?>&nbsp;<a href="<?php echo $this->url('frontmoney/default'); ?>" class="btn btn-mini btn-primary"><?php echo $this->translate('余额充值'); ?></a><br />
+                <strong><?php echo $this->translate('用户积分'); ?>：</strong><?php echo $this->translate('消费积分'); ?> <?php echo $this->user_info->user_integral_num; ?>&nbsp;&nbsp;|&nbsp;&nbsp;<?php echo $this->translate('等级积分'); ?> <?php echo $this->user_info->integral_type_2_num; ?><br />
+                <strong><?php echo $this->translate('用户提醒'); ?>：</strong>
+                <a href="<?php echo $this->url('frontorder/default/order_state', array('action'=>'index', 'order_state'=>10)); ?>"><span class="badge <?php if($this->order_state_num[10]>0) echo 'badge-important'; ?>"><?php echo $this->translate('待支付订单'); ?>(<?php echo $this->order_state_num[10]; ?>)</span></a>&nbsp;&nbsp;
+                <a href="<?php echo $this->url('frontorder/default/order_state', array('action'=>'index', 'order_state'=>30)); ?>"><span class="badge <?php if($this->order_state_num[30]>0) echo 'badge-important'; ?>"><?php echo $this->translate('待发货订单'); ?>(<?php echo $this->order_state_num[30]; ?>)</span></a>&nbsp;&nbsp;
+                <a href="<?php echo $this->url('frontorder/default/order_state', array('action'=>'index', 'order_state'=>40)); ?>"><span class="badge <?php if($this->order_state_num[40]>0) echo 'badge-important'; ?>"><?php echo $this->translate('已发货订单'); ?>(<?php echo $this->order_state_num[40]; ?>)</span></a>
+                </td>
+            </tr>
+        </table>
+        
+        <table width="100%">
+        	<tr class="home-user-tr">
+            	<th><?php echo $this->translate('订单编号'); ?></th>
+                <th><?php echo $this->translate('订单商品'); ?></th>
+                <th><?php echo $this->translate('收货人'); ?></th>
+                <th><?php echo $this->translate('订单金额'); ?></th>
+                <th><?php echo $this->translate('下单时间'); ?></th>
+                <th><?php echo $this->translate('订单状态'); ?></th>
+                <th><?php echo $this->translate('操作'); ?></th>
+            </tr>
+            <?php if($this->order_list) { 
+				foreach ($this->order_list as $order_value) {
+					$i = 1;
+					$goodsArray = unserialize($order_value['goods_serialize']);
+					$rowspan    = count($goodsArray);
+					if(is_array($goodsArray) and !empty($goodsArray)) foreach($goodsArray as $goods_key => $goods_value) {
+			?>
+        	<tr>
+            	<?php if ($i == 1) { ?>
+            	<td rowspan="<?php echo $rowspan; ?>">
+				<a href="<?php echo $this->url('frontorder/default/order_id', array('action'=>'showorder', 'order_id'=>$order_value['order_id'], 'order_state'=>$order_value['order_state'])); ?>">
+				<?php echo $order_value['order_sn']; ?>
+                </a>
+                </td>
+                <?php } ?>
+                <td><a href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$goods_value['class_id'])); ?>"><img title="<?php echo strip_tags($goods_value['goods_extend_info']); ?>" src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($goods_value['goods_image'])); ?>"  style=" width:60px; height:60px;border:1px solid #D7D7D7"></a></td>
+                <?php if ($i == 1) { ?>
+                <td rowspan="<?php echo $rowspan; ?>"><?php echo $this->escapeHtml($order_value['delivery_name']); ?></td>
+                <td rowspan="<?php echo $rowspan; ?>"><?php echo $order_value['currency_symbol'] . $order_value['order_amount'] . $order_value['currency_unit']; ?></td>
+                <td rowspan="<?php echo $rowspan; ?>"><?php echo date("Y-m-d H:i:s",$order_value['order_time']); ?></td>
+                <td rowspan="<?php echo $rowspan; ?>"><?php echo $this->frontwebsite()->getOneOrderStateInfo($order_value['order_state']); ?></td>
+                <td rowspan="<?php echo $rowspan; ?>"><a href="<?php echo $this->url('frontorder/default/order_id', array('action'=>'showorder', 'order_id'=>$order_value['order_id'], 'order_state'=>$order_value['order_state'])); ?>"><?php echo $this->translate('查看'); ?></a></td>
+				<?php } ?>
+            </tr>
+            <?php $i++; } } } ?>
+        </table>
+    </div>
+  </div>
+</div>

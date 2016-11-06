@@ -1,0 +1,563 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0052)http://www.jsbug.com/lab/samples/textbox/#parameters -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title> jQuery textbox plugin </title>
+
+<link rel="stylesheet" href="./base.css" type="text/css">
+<script src="./../jquery.js" type="text/javascript"></script>
+<script src="./jquery.textbox.js" type="text/javascript"></script>
+</head>
+
+<body>
+<h1>jQuery textbox plugin</h1>
+
+<h2 id="introduction">介绍</h2>
+<p>jQuery textbox 插件主要是对 HTML 的 textare 元素的增强。HTML 的 textara 不支持通过 HTML 的 maxlength 属性，设置最大可输入字符数。而此插件正是用来设计解决此问题，同时，它可以还提供了事件回调参数与方法，完成简单的输入反馈与字符插入功能。</p>
+<p>示例列表如下：</p>
+
+<ul class="sample-contents">
+	<li><a href="./jQuery textbox plugin_files/jQuery textbox plugin.htm">textbox 参数说明</a></li>
+	<li><a href="http://www.jsbug.com/lab/samples/textbox/#methods">textbox 方法说明</a></li>
+	<li><a href="http://www.jsbug.com/lab/samples/textbox/#sample1">设置最大可输入长度</a></li>
+	<li><a href="http://www.jsbug.com/lab/samples/textbox/#sample2">设置最大可输入长度和事件回调，或重新设置</a></li>
+	<li><a href="http://www.jsbug.com/lab/samples/textbox/#sample3">通过 maxLength 方法，获取及设置最大长度</a></li>
+	<li><a href="http://www.jsbug.com/lab/samples/textbox/#sample4">通过 onInput 方法，设置输入的事件回调</a></li>
+	<li><a href="http://www.jsbug.com/lab/samples/textbox/#sample5">插入文本</a></li>
+	<li><a href="http://www.jsbug.com/lab/samples/textbox/#sample6">获取当前长度，或获取按最大长度截取后的内容</a></li>
+	<li><a href="http://www.jsbug.com/lab/samples/textbox/#sample7">获取当前插入点位置，或设置当前插入点位置</a></li>
+	<li><a href="http://www.jsbug.com/lab/samples/textbox/#sample8">对于英文字符当成半个对待</a></li>
+	<li><a href="http://www.jsbug.com/lab/samples/textbox/#sample9">允许输入多于 maxLength 定义的内容</a></li>
+</ul>
+
+<h2 id="parameters">textbox 参数说明</h2>
+<p>你可以通过 jQuery 选择 <code>textarea</code> 对象，然后调用 <code>textbox</code> 方法来实例化插件功能。对于已经 <code>textbox</code> 实例化过的对象，你依然可以再次调用 <code>textbox</code> 方法，它不会影响已有的设置。反而，这将方便在某些情况下设置或获取 <code>textbox</code> 的参数属性。</p>
+<ul class="list">
+<li>
+	<p><code><strong>maxLength</strong></code>：可选，整型值，设置可输入的最大长度。默认值是 <code>-1</code>，即不限制输入长度，当给出一个正整数时，将会设置输入的最大长度。</p>
+</li>
+<li>
+	<p><code><strong>cjk</strong></code>：可选，逻辑值，是否将中日韩字做为计数标准，英文与半角标点等价于半个字符，默认值是 <code>false</code>。</p>
+</li>
+<li>
+	<p><code><strong>wild</strong></code>：可选，逻辑值，是否允许输入过多的字符，默认值是 <code>false</code>。</p>
+</li>
+<li>
+	<p><code><strong>onInput</strong></code>：可选，函数类型，输入事件发生时的回调函数。当输入事件发生时（键盘输入、剪切和粘贴、<code>insertText</code> 方法都为虚拟化为 <code>onInput</code> 事件），你可以通过回调函数获得输入框的字符状态。第一个传入参数是事件参数，即触发 <code>onInput</code> 的源事件对象。第二个参数是状态参数，包括有 <code>maxLength</code> 与 <code>leftLength</code> 属性，用来描述当前的最大字符数与剩余字符数。</p>
+</li>
+</ul>
+
+<h2 id="methods">textbox 方法说明</h2>
+<p>通过保存 <code>textbox</code> 实例或重复调用 <code>textbox</code> 方法，紧接着调用以下的方法，你可以获取或改变已有 <code>textbox</code> 实例的某些参数属性。</p>
+<ul class="list">
+<li>
+	<p><code><strong>maxLength</strong></code>：用来设置或获取文本框的最大字符数，允许为 <code>-1</code> 或正整数值。</p>
+</li>
+<li>
+	<p><code><strong>insertPos</strong></code>：用来设置或获取文本框的光标插件点，支持传入“<code>start</code>”或“<code>end</code>”关键字，用来设置光标插入点到“起始”或“未尾”，一般使用整型值。</p>
+</li>
+<li>
+	<p><code><strong>input</strong></code>：用来设置输入事件的回调函数，等价于 <code>onInput</code> 传入参数的效果。</p>
+</li>
+<li>
+	<p><code><strong>fixLength</strong></code>：可以强制限制并截取文本框的文本为设置的最大长度。</p>
+</li>
+<li>
+	<p><code><strong>insertText</strong></code>：用来在文本框中插入文本，当插入动作成功完成时，还会触发 <code>onInput</code> 回调事件，传入值为插入的文本字符串。</p>
+</li>
+</ul>
+
+<h2 id="sample1">设置最大可输入长度</h2>
+<div class="sample">
+<textarea id="textarea1" rows="4" cols="40" spellcheck="false" autocomplete="off"></textarea>
+<script>
+(function($) {
+
+$("#textarea1").textbox({
+	maxLength: 10
+});
+
+})(jQuery);
+</script>
+</div>
+<p>代码：</p>
+<pre><code>&lt;textarea id="textarea1" rows="4" cols="40" spellcheck="false" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;script&gt;
+(function($) {
+
+$("#textarea1").textbox({
+	maxLength: 10
+});
+
+})(jQuery);
+&lt;/script&gt;</code></pre>
+
+<h2 id="sample2">设置最大可输入长度和事件回调，或重新设置</h2>
+<div class="sample">
+<textarea id="textarea2" rows="4" cols="40" spellcheck="false" autocomplete="off"></textarea>
+<div id="log2" class="log">the val is: </div>
+<div>
+<input type="button" id="re-textbox" value="or reset textbox info">
+</div>
+<script>
+(function($) {
+
+$("#textarea2").textbox({
+	maxLength: 10,
+	onInput: function(event) {
+		$("#log2").text("the val is: " + this.value);
+	}
+});
+
+$("#re-textbox").click(function(event) {
+	$("#textarea2").textbox({
+		maxLength: 100,
+		onInput: function(event, status) {
+			$("#log2").text("By resetting, current max length is: " + status.maxLength +
+							", and left char number is: " + status.leftLength);
+		}
+	});
+});
+
+})(jQuery);
+</script>
+</div>
+<p>代码：</p>
+<pre><code>&lt;textarea id="textarea2" rows="4" cols="40" spellcheck="false" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;div id="log2" class="log"&gt;the val is: &lt;/div&gt;
+&lt;div&gt;
+&lt;input type="button" id="re-textbox" value="or reset textbox info"&gt;
+&lt;/div&gt;
+&lt;script&gt;
+(function($) {
+
+$("#textarea2").textbox({
+	maxLength: 10,
+	onInput: function(event) {
+		$("#log2").text("the val is: " + this.value);
+	}
+});
+
+$("#re-textbox").click(function(event) {
+	$("#textarea2").textbox({
+		maxLength: 100,
+		onInput: function(event, status) {
+			$("#log2").text("By resetting, current max length is: " + status.maxLength +
+							", and left char number is: " + status.leftLength);
+		}
+	});
+});
+
+})(jQuery);
+&lt;/script&gt;</code></pre>
+
+<h2 id="sample3">通过 maxLength 方法，获取及设置最大长度</h2>
+<div class="sample">
+<textarea id="textarea3" rows="4" cols="40" spellcheck="false" autocomplete="off"></textarea>
+<div>
+<input type="button" id="get-max" value="get max length">
+<input type="button" id="set-max" value="set max to 20">
+<input type="button" id="unlimit" value="set max to unlimit (-1)">
+</div>
+<script>
+(function($) {
+
+$("#textarea3").textbox({
+	maxLength: 10
+});
+
+$("#get-max").click(function(event) {
+	alert($("#textarea3").textbox().maxLength());
+});
+
+$("#set-max").click(function(event) {
+	$("#textarea3").textbox().maxLength(20);
+});
+
+$("#unlimit").click(function(event) {
+	$("#textarea3").textbox().maxLength(-1);
+});
+
+})(jQuery);
+</script>
+</div>
+<p>代码：</p>
+<pre><code>&lt;textarea id="textarea3" rows="4" cols="40" spellcheck="false" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;div&gt;
+&lt;input type="button" id="get-max" value="get max length"&gt;
+&lt;input type="button" id="set-max" value="set max to 20"&gt;
+&lt;input type="button" id="unlimit" value="set max to unlimit (-1)"&gt;
+&lt;/div&gt;
+&lt;script&gt;
+(function($) {
+
+$("#textarea3").textbox({
+	maxLength: 10
+});
+
+$("#get-max").click(function(event) {
+	alert($("#textarea3").textbox().maxLength());
+});
+
+$("#set-max").click(function(event) {
+	$("#textarea3").textbox().maxLength(20);
+});
+
+$("#unlimit").click(function(event) {
+	$("#textarea3").textbox().maxLength(-1);
+});
+
+})(jQuery);
+&lt;/script&gt;</code></pre>
+
+<h2 id="sample4">通过 onInput 方法，设置输入的事件回调</h2>
+<p><code>onInput</code> 事件回调会在以下几种情况下被触发，其中包括：键盘事件，右键菜单或编辑菜单中的 copy, paste 操作。同时，通过 <code>onInput</code> 方法重新设置回调函数不会影响已经被绑定的键盘事件，如 <code>keypress</code>, <code>keyup</code> 等。另外，注意 <code>onInput</code> 的 <code>status</code> 回调参数，其包含了两个属性，<code>leftLength</code> 和 <code>maxLength</code>，它们用来表明当前输入框剩余的可输入字符数和设置的最大输入字符数。</p>
+<div class="sample">
+<textarea id="textarea4" rows="4" cols="40" spellcheck="false" autocomplete="off"></textarea>
+<div id="key-log" class="log">current key code is: </div>
+<div id="log4" class="log">You havn't set the onInput feedback yet.</div>
+<div>
+<input type="button" id="set-input" value="give the left-number and max-number input feedback">
+</div>
+<script>
+(function($) {
+
+$("#textarea4").textbox({
+	maxLength: 20
+})
+.keypress(function(event) {
+	if (event.which == "13" && !event.ctrlKey) {
+		event.preventDefault();
+		alert($(this).textbox().fixLength().val());
+	}
+	if ((event.which == "13" || event.which == "10") && event.ctrlKey) {
+		$(this).textbox().insertText("\n");
+	}
+	else {
+		$("#key-log").text("current key code is: " + event.which);
+	}
+});
+
+$("#set-input").click(function(event) {
+	$("#textarea4").textbox().input(function(event, status) {
+		$("#log4").text("the max length is: " + status.maxLength + 
+					", the left length is: " + status. leftLength);
+	});
+});
+
+})(jQuery);
+</script>
+</div>
+<p>代码：</p>
+<pre><code>&lt;textarea id="textarea4" rows="4" cols="40" spellcheck="false" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;div id="key-log" class="log"&gt;current key code is: &lt;/div&gt;
+&lt;div id="log4" class="log"&gt;You havn't set the onInput feedback yet.&lt;/div&gt;
+&lt;div&gt;
+&lt;input type="button" id="set-input" value="give the left-number and max-number input feedback"&gt;
+&lt;/div&gt;
+&lt;script&gt;
+(function($) {
+
+$("#textarea4").textbox({
+	maxLength: 20
+})
+.keypress(function(event) {
+	if (event.which == "13" &amp;&amp; !event.ctrlKey) {
+		event.preventDefault();
+		alert($(this).textbox().fixLength().val());
+	}
+	if ((event.which == "13" || event.which == "10") &amp;&amp; event.ctrlKey) {
+		$(this).textbox().insertText("\n");
+	}
+	else {
+		$("#key-log").text("current key code is: " + event.which);
+	}
+});
+
+$("#set-input").click(function(event) {
+	$("#textarea4").textbox().input(function(event, status) {
+		$("#log4").text("the max length is: " + status.maxLength + 
+				", the left length is: " + status. leftLength);
+	});
+});
+
+})(jQuery);
+&lt;/script&gt;</code></pre>
+
+<h2 id="sample5">插入文本</h2>
+<div class="sample">
+<textarea id="textarea5" rows="4" cols="40" spellcheck="false" autocomplete="off"></textarea>
+<div id="log5" class="log">the left length is: </div>
+<div>
+<input type="button" id="insert-text" value="insert text">
+</div>
+<script>
+(function($) {
+
+$("#textarea5").textbox({
+	maxLength: 200,
+	onInput: function(event, status) {
+		$("#log5").text("the left length is: " + status. leftLength);
+	}
+});
+
+$("#insert-text").click(function(event) {
+	$("#textarea5").textbox().insertText("[Inserted Text]");
+});
+
+})(jQuery);
+</script>
+</div>
+<p>代码：</p>
+<pre><code>&lt;textarea id="textarea5" rows="4" cols="40" spellcheck="false" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;div id="log5" class="log"&gt;the left length is: &lt;/div&gt;
+&lt;div&gt;
+&lt;input type="button" id="insert-text" value="insert text"&gt;
+&lt;/div&gt;
+&lt;script&gt;
+(function($) {
+
+$("#textarea5").textbox({
+	maxLength: 200,
+	onInput: function(event, status) {
+		$("#log5").text("the left length is: " + status. leftLength);
+	}
+});
+
+$("#insert-text").click(function(event) {
+	$("#textarea5").textbox().insertText("[Inserted Text]");
+});
+
+})(jQuery);
+&lt;/script&gt;</code></pre>
+
+<h2 id="sample6">获取当前长度，或获取按最大长度截取后的内容</h2>
+<p>用户非常有可能通过不正常方式，输入过长文本到已有长度限制的文本域中。当出现这种情况时，我们可以通过 fixLength 方法，进行文本限长。同时，我们还可以获取当前文本的长度，但需要参考下面的代码来获取当前长度。否则，当有换行时，在 IE 下会不准确。</p>
+<div class="sample">
+<textarea id="textarea6" rows="4" cols="40" spellcheck="false" autocomplete="off"></textarea>
+<div id="log6" class="log">#log6: </div>
+<div>
+<input type="button" id="get-length" value="get current length">
+<input type="button" id="get-fixed-value" value="get fixed value">
+</div>
+<script>
+(function($) {
+
+$("#textarea6").textbox({
+	maxLength: 20,
+	onInput: function(event, status) {
+		$("#log6").text("#log6: max length : " + status.maxLength + ", left length: " + status.leftLength);
+	}
+});
+
+$("#get-fixed-value").click(function(event) {
+	alert($("#textarea6").textbox().fixLength().val());
+});
+
+$("#get-length").click(function(event) {
+	// you should use the val() method of jQuery to retrive the length
+	alert($("#textarea6").textbox().val().length);
+});
+
+})(jQuery);
+</script>
+</div>
+<p>代码：</p>
+<pre><code>&lt;textarea id="textarea6" rows="4" cols="40" spellcheck="false" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;div id="log6" class="log"&gt;#log6: &lt;/div&gt;
+&lt;div&gt;
+&lt;input type="button" id="get-length" value="get current length"&gt;
+&lt;input type="button" id="get-fixed-value" value="get fixed value"&gt;
+&lt;/div&gt;
+&lt;script&gt;
+(function($) {
+
+$("#textarea6").textbox({
+	maxLength: 20,
+	onInput: function(event, status) {
+		$("#log6").text("#log6: max length : " + status.maxLength + ", left length: " + status.leftLength);
+	}
+});
+
+$("#get-fixed-value").click(function(event) {
+	alert($("#textarea6").textbox().fixLength().val());
+});
+
+$("#get-length").click(function(event) {
+	// you should use the val() method of jQuery to retrive the length
+	alert($("#textarea6").textbox().val().length);
+});
+
+})(jQuery);
+&lt;/script&gt;</code></pre>
+
+<h2 id="sample7">获取当前插入点位置，或设置当前插入点位置</h2>
+<p>通过 <code>insertPos</code> 方法，你可以获取或设置当前插入点的位置。当传入数值，“<code>start</code>”或“<code>end</code>”字符串时，为设置插入点的位置。当没有值传入时，将获取光标插入点的位置。</p>
+<div class="sample">
+<textarea id="textarea7" rows="4" cols="40" spellcheck="false" autocomplete="off"></textarea>
+<div id="log7" class="log">#log7: </div>
+<div>
+<input type="button" id="set-insert-position" value="set insert position">
+<input type="button" id="get-insert-position" value="get insert position">
+</div>
+<script>
+(function($) {
+
+$("#textarea7").textbox({
+	maxLength: 20
+});
+
+$("#set-insert-position").click(function(event) {
+	$("#textarea7").textbox().insertPos(window.prompt());
+});
+
+$("#get-insert-position").click(function(event) {
+	$("#log7").text("#log7: the current insert position is: " + $("#textarea7").textbox().insertPos());
+});
+
+})(jQuery);
+</script>
+</div>
+<p>代码：</p>
+<pre><code>&lt;textarea id="textarea7" rows="4" cols="40" spellcheck="false" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;div id="log7" class="log"&gt;#log7: &lt;/div&gt;
+&lt;div&gt;
+&lt;input type="button" id="set-insert-position" value="set insert position"&gt;
+&lt;input type="button" id="get-insert-position" value="get insert position"&gt;
+&lt;/div&gt;
+&lt;script&gt;
+(function($) {
+
+$("#textarea7").textbox({
+	maxLength: 20
+});
+
+$("#set-insert-position").click(function(event) {
+	$("#textarea7").textbox().insertPos(window.prompt());
+});
+
+$("#get-insert-position").click(function(event) {
+	$("#log7").text("#log7: the current insert position is: " + $("#textarea7").textbox().insertPos());
+});
+
+})(jQuery);
+&lt;/script&gt;</code></pre>
+
+<h2 id="sample8">对于英文字符当成半个对待</h2>
+<p>在某些应用场景下，需要把英文字符，半角数字与标点等统计成半个字符，这时需要提供额外的支持，通过将 cjk 参数设置为 true 获得支持。</p>
+<div class="sample">
+<textarea id="textarea8" rows="4" cols="40" spellcheck="false" autocomplete="off"></textarea>
+<div id="log8" class="log">#log8: </div>
+<div>
+<input type="button" id="chs-insert-text" value="insert text">
+<input type="button" id="chs-get-fixed-value" value="get fixed value">
+</div>
+<script>
+(function($) {
+
+$("#textarea8").textbox({
+	maxLength: 3,
+	cjk: true,
+	onInput: function(event, status) {
+		$("#log8").text("the left length is: " + status. leftLength);
+	}
+});
+
+$("#chs-insert-text").click(function(event) {
+	$("#textarea8").textbox().insertText(
+		window.prompt("give a text string, which isn't more than the left number\nor the selected text number", "text")
+	);
+});
+
+$("#chs-get-fixed-value").click(function(event) {
+	alert($("#textarea8").textbox().fixLength().val());
+});
+
+})(jQuery);
+</script>
+</div>
+<p>代码：</p>
+<pre><code>&lt;textarea id="textarea8" rows="4" cols="40" spellcheck="false" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;div id="log8" class="log"&gt;#log8: &lt;/div&gt;
+&lt;div&gt;
+&lt;input type="button" id="chs-insert-text" value="insert text"&gt;
+&lt;input type="button" id="chs-get-fixed-value" value="get fixed value"&gt;
+&lt;/div&gt;
+&lt;script&gt;
+(function($) {
+
+$("#textarea8").textbox({
+	maxLength: 3,
+	cjk: true,
+	onInput: function(event, status) {
+		$("#log8").text("the left length is: " + status. leftLength);
+	}
+});
+
+$("#chs-insert-text").click(function(event) {
+	$("#textarea8").textbox().insertText(
+		window.prompt("give a text string, which isn't more than the left number\nor the selected text number", "text")
+	);
+});
+
+$("#chs-get-fixed-value").click(function(event) {
+	alert($("#textarea8").textbox().fixLength().val());
+});
+
+})(jQuery);
+&lt;/script&gt;</code></pre>
+
+
+<h2 id="sample9">允许输入多于 maxLength 定义的内容</h2>
+<p>允许开放的输入任何内容，你需要使用 wild 参数，设置为 true 即可，你将在 onInput 的回调函数中拿到负值。</p>
+<div class="sample">
+<textarea id="textarea9" rows="4" cols="40" spellcheck="false" autocomplete="off"></textarea>
+<div id="log9" class="log">#log9: </div>
+<div>
+<input type="button" id="insert-wild" value="insert text">
+</div>
+<script>
+(function($) {
+
+$("#textarea9").textbox({
+	maxLength: 3,
+	cjk: true,
+	wild: true,
+	onInput: function(event, status) {
+		$("#log9").text("#log9: max length is: " + status. maxLength + ", left length is: " + status. leftLength);
+	}
+});
+
+$("#insert-wild").click(function(event) {
+	$("#textarea9").textbox().insertText(window.prompt("plese input any thing"));
+});
+
+})(jQuery);
+</script>
+</div>
+<p>代码：</p>
+<pre><code>&lt;textarea id="textarea9" rows="4" cols="40" spellcheck="false" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;div id="log9" class="log"&gt;#log9: &lt;/div&gt;
+&lt;div&gt;
+&lt;input type="button" id="insert-wild" value="insert text"&gt;
+&lt;/div&gt;
+&lt;script&gt;
+(function($) {
+
+$("#textarea9").textbox({
+	maxLength: 3,
+	cjk: true,
+	wild: true,
+	onInput: function(event, status) {
+		$("#log9").text("#log9: max length is: " + status. maxLength + ", left length is: " + status. leftLength);
+	}
+});
+
+$("#insert-wild").click(function(event) {
+	$("#textarea9").textbox().insertText(window.prompt("plese input any thing"));
+});
+
+})(jQuery);
+&lt;/script&gt;</code></pre>
+
+
+</body></html>

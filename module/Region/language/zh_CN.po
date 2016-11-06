@@ -1,0 +1,157 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DBShop\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-28 15:10+0800\n"
+"PO-Revision-Date: 2014-11-28 15:10+0800\n"
+"Last-Translator: DBShop <team@dbshop.net>\n"
+"Language-Team: DBShop <team@dbshop.net>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../src/Region/Controller/RegionController.php:52
+#: ../src/Region/Controller/RegionController.php:68
+#: ../src/Region/Controller/RegionController.php:111
+msgid "地区设置"
+msgstr ""
+
+#: ../src/Region/Controller/RegionController.php:52
+#: ../view/region/region/index.phtml:9
+msgid "添加地区"
+msgstr ""
+
+#: ../src/Region/Controller/RegionController.php:68
+msgid "更新地区"
+msgstr ""
+
+#: ../src/Region/Controller/RegionController.php:111
+msgid "删除地区"
+msgstr ""
+
+#: ../view/region/region/index.phtml:2
+msgid "地区管理"
+msgstr ""
+
+#: ../view/region/region/index.phtml:2
+msgid "地区下级还有其他地区时，该地区不能删除"
+msgstr ""
+
+#: ../view/region/region/index.phtml:5
+msgid "返回顶级"
+msgstr ""
+
+#: ../view/region/region/index.phtml:6
+msgid "返回上一级"
+msgstr ""
+
+#: ../view/region/region/index.phtml:12
+msgid "地区导入"
+msgstr ""
+
+#: ../view/region/region/index.phtml:14
+msgid "查看帮助说明"
+msgstr ""
+
+#: ../view/region/region/index.phtml:22 ../view/region/region/index.phtml:74
+msgid "地区名称"
+msgstr ""
+
+#: ../view/region/region/index.phtml:23 ../view/region/region/index.phtml:80
+#: ../view/region/region/index.phtml:82
+msgid "地区排序"
+msgstr ""
+
+#: ../view/region/region/index.phtml:24
+msgid "操作"
+msgstr ""
+
+#: ../view/region/region/index.phtml:39 ../view/region/region/index.phtml:133
+msgid "编辑"
+msgstr ""
+
+#: ../view/region/region/index.phtml:41
+msgid "查看下级"
+msgstr ""
+
+#: ../view/region/region/index.phtml:43 ../view/region/region/index.phtml:55
+msgid "删除"
+msgstr ""
+
+#: ../view/region/region/index.phtml:52
+msgid "全选"
+msgstr ""
+
+#: ../view/region/region/index.phtml:54
+msgid "请选择"
+msgstr ""
+
+#: ../view/region/region/index.phtml:57
+msgid "提交操作"
+msgstr ""
+
+#: ../view/region/region/index.phtml:69
+msgid "地區信息添加"
+msgstr ""
+
+#: ../view/region/region/index.phtml:76
+msgid "可同时添加多个，一行一个地区"
+msgstr ""
+
+#: ../view/region/region/index.phtml:87 ../view/region/region/index.phtml:137
+msgid "保存"
+msgstr ""
+
+#: ../view/region/region/index.phtml:108
+msgid "请输入地区名称！"
+msgstr ""
+
+#: ../view/region/region/index.phtml:111
+msgid "地区排序必须为数字"
+msgstr ""
+
+#: ../view/region/region/index.phtml:112
+msgid "地区排序最小为1"
+msgstr ""
+
+#: ../view/region/region/index.phtml:113
+msgid "地区排序最大为255"
+msgstr ""
+
+#: ../view/region/region/index.phtml:137
+msgid "取消编辑"
+msgstr ""
+
+#: ../view/region/region/index.phtml:158
+msgid "地区名称不能为空！"
+msgstr ""
+
+#: ../view/region/region/index.phtml:165
+msgid "地区排序必须为数字，且大于等于0，小于等于255！"
+msgstr ""
+
+#: ../view/region/region/index.phtml:175
+msgid "您确实要删除该地区吗？"
+msgstr ""
+
+#: ../view/region/region/index.phtml:182
+msgid "地区删除失败，该地区还有下级地区存在！"
+msgstr ""
+
+#: ../view/region/region/index.phtml:197
+msgid "请至少选择一条地区信息！"
+msgstr ""
+
+#: ../view/region/region/index.phtml:201
+msgid "请选择操作事件！"
+msgstr ""
+
+#: ../view/region/region/index.phtml:204
+msgid "您确实要执行该操作吗？"
+msgstr ""

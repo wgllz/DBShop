@@ -1,0 +1,85 @@
+<div class="row-fluid" style="margin-top:20px;">
+  <?php echo $this->partial('shopfront/home/left_menu.phtml'); ?>
+  <div class="span8" id="home_goods_order">
+  	<div class="well">
+    	<h5><?php echo $this->translate('虚拟商品'); ?></h5>
+            <table class="table table-bordered">
+            	<thead>
+                	<tr class="home-user-tr">
+                    	<th width="40%"><?php echo $this->translate('商品名称'); ?></th>
+                    	<th width="30%"><?php echo $this->translate('订单编号'); ?></th>
+                    	<th width="15%"><?php echo $this->translate('商品数量'); ?></th>
+                        <th width="15%"><?php echo $this->translate('操作'); ?></th>
+                    </tr>
+                </thead>
+                <?php if ($this->virtual_goods->getTotalItemCount() > 0) { foreach ($this->virtual_goods as $goods_value) { ?>
+               	<tr>
+                    <td><?php echo $this->escapeHtml($goods_value['goods_name']); ?></td>
+                    <td><?php echo $this->escapeHtml($goods_value['order_sn']); ?></td>
+                    <td><?php echo $this->escapeHtml($goods_value['buy_num']); ?></td>
+                    <td>
+                        <?php
+                        if($goods_value['order_state'] < 20) echo '<font color="red">'.$this->translate('未付款').'</font>';
+                        else {
+                        ?>
+                        <a href="JavaScript:;" onclick="get_virtual_goods(<?php echo $goods_value['order_id']; ?>, <?php echo $goods_value['goods_id']; ?>);"><?php echo $this->translate('获取商品信息'); ?></a>
+                        <?php } ?>
+                    </td>
+                </tr>
+                <?php } } else { ?>
+                <tr>
+                	<td colspan="4"><?php echo $this->translate('暂无虚拟商品！'); ?></td>
+                </tr>
+                <?php } ?>
+                    <tr>
+                    <td colspan="4">
+        		<?php echo ( count($this->virtual_goods) > 0 ) ? $this->paginationControl($this->virtual_goods, 'Sliding', 'site/dbpage',array('page_url'=>$this->url('frontorder/default/order_page', array('action'=>'virtualGoods')))) : ""; ?>
+                    </td>
+                    </tr>
+    		</table>
+    </div>
+  </div>
+</div>
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel"><?php echo $this->translate('虚拟商品信息'); ?></h3>
+    </div>
+    <div class="modal-body" id="virtual-modal-body" style="padding-left: 50px;">
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('关闭'); ?></button>
+    </div>
+</div>
+
+<script>
+    function get_virtual_goods(order_id, goods_id) {
+        $.post("<?php echo $this->url('frontorder/default', array('action'=>'VirtualGoodsInfo')); ?>",{order_id:order_id, goods_id:goods_id},
+            function(data){
+                if(data.state == 'true') {
+                    var i,html = '';
+                    var num;
+                    for(i=0; i<data.goods.length; i++) {
+                        num = i+1;
+
+                        if(i>0) html += '<hr>';
+                        html += '<p style="font-size: 14px;">';
+                        html += '<strong><?php echo $this->translate('账号'); ?>('+num+')：</strong>';
+                        html += data.goods[i].virtual_goods_account;
+                        html += '</p>';
+                        html += '<p style="font-size: 14px;">';
+                        html += '<strong><?php echo $this->translate('密码'); ?>('+num+')：</strong>';
+                        html += data.goods[i].virtual_goods_password;
+                        html += '</p>';
+                    }
+                    $('#virtual-modal-body').html(html);
+                    $('#myModal').modal('show');
+                } else {
+                    alert(data.message);
+                    return false;
+                }
+            }, 'json');
+    }
+</script>

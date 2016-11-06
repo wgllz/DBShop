@@ -1,0 +1,260 @@
+<div class="row-fluid" style="margin-top:10px;">
+<div class="span10 offset1">
+    <div class="wizard">
+		<ul class="steps">
+			<li class="complete"><span class="badge badge-success"><?php echo $this->translate('第一步'); ?></span><?php echo $this->translate('购物车信息'); ?><span class="chevron"></span></li>
+			<li class="active"><span class="badge badge-info"><?php echo $this->translate('第二步'); ?></span><?php echo $this->translate('选择收货地址'); ?><span class="chevron"></span></li>
+			<li><span class="badge"><?php echo $this->translate('第三步'); ?></span><?php echo $this->translate('确认购物信息'); ?><span class="chevron"></span></li>
+			<li><span class="badge"><?php echo $this->translate('第四步'); ?></span><?php echo $this->translate('购物订单完成'); ?></li>
+			</ul>
+	</div>
+</div>
+</div>
+<div class="row-fluid" id="cart_step">
+<form class="form-horizontal" method="post" onsubmit="return check_address_id();" action="<?php echo $this->url('frontcart/default', array('action'=>'step')); ?>">
+	<div class="span10 well offset1">
+		<div class="span12"><h5 class="pull-left"><?php echo $this->translate('收货地址选择'); ?></h5><p class="pull-right"><button class="btn btn-small btn-primary" type="button" onClick="ajax_add_address(0);"><i class="icon-plus icon-white"></i> <?php echo $this->translate('添加收货地址'); ?></button></p></div>
+        <div class="span12 buy_address">
+        <?php if ($this->address_list) { foreach ($this->address_list as $address_value) { ?>
+        <label class="radio <?php if ($address_value['addr_default'] == 1) echo 'selected'; ?>">
+        	<input type="radio" name="user_address_id" <?php if ($address_value['addr_default'] == 1) echo 'checked'; ?> value="<?php echo $address_value['address_id']; ?>">
+			<?php echo $this->escapeHtml($address_value['true_name']);?><br>
+			<?php
+			echo $this->escapeHtml($address_value['address']).'<br>';
+			$region_array = @explode(' ', $address_value['region_value']);
+			$region_array = array_reverse($region_array);
+			echo $this->escapeHtml(implode(', ', $region_array));
+			?>
+			&nbsp;&nbsp;<?php echo $this->translate('邮编'); ?> <?php echo $this->escapeHtml($address_value['zip_code']); ?> &nbsp;&nbsp;<?php echo $this->translate('手机'); ?> <?php echo $this->escapeHtml($address_value['mod_phone']); ?>  <?php echo $this->translate('固定电话'); ?> <?php echo $this->escapeHtml($address_value['tel_area_code'].$address_value['tel_phone'].$address_value['tel_ext']); ?>
+        	<span style=" float:right; padding-right:50px;"><a onClick="ajax_add_address(<?php echo $address_value['address_id']; ?>);"><?php echo $this->translate('修改地址'); ?></a></span>
+        </label>
+        <?php } } else { ?>
+        <INPUT type="hidden" name="address_empty" id="address_empty" value='empty'>
+        <?php } ?>
+        </div>
+    
+        <div class="span12">
+        <hr>
+        	<div class="span4 offset4">
+            <input type="hidden" name="step" value="setaddress" />
+        	<input type="submit" class="btn btn-large btn-primary" value="<?php echo $this->translate('下一步'); ?>">&nbsp;&nbsp;
+        	<input type="button" class="btn" style="vertical-align:bottom;" onClick="location.href='<?php echo $this->url('frontcart/default'); ?>'" value="<?php echo $this->translate('修改购物车'); ?>">
+            </div>
+        </div>                 
+    </div>
+</form> 
+</div>
+
+<form class="form-horizontal" name="address_add_form" id="address_add_form" method="post">
+<input type="hidden" name="address_id" id="address_id" value="">
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel"><?php echo $this->translate('地址信息添加'); ?></h3>
+</div>
+<div class="modal-body">
+         	<div class="control-group">
+				<label class="control-label"><?php echo $this->translate('收货人姓名'); ?><span class="must_add_value">*</span></label>
+				<div class="controls">
+				<input type="text" id="true_name" name="true_name" class="span2" placeholder="<?php echo $this->translate('填写收货人姓名'); ?>">
+				</div>
+			</div>
+         	<div class="control-group">
+				<label class="control-label"><?php echo $this->translate('省市区'); ?><span class="must_add_value">*</span></label>
+				<div class="controls" id="region">
+				<span id="show_region_value"></span>
+				<select id="show_address_area">
+                	<option value=""><?php echo $this->translate('请选择'); ?></option>
+                    <?php if ($this->region_array and !empty($this->region_array )) {
+                    	foreach($this->region_array as $value) {
+					?>
+                    <option value="<?php echo $value['region_id']; ?>"><?php echo $value['region_name']; ?></option>
+                    <?php
+                    	}
+                    }
+					?>
+                </select>
+				<input type="hidden" name="region_id" id="region_id" value="" class="region_ids">
+                <input type="hidden" name="region_value" id="region_value" value="" class="region_names" />
+				</div>
+			</div>
+         	<div class="control-group">
+				<label class="control-label"><?php echo $this->translate('街道地址'); ?><span class="must_add_value">*</span></label>
+				<div class="controls">
+				<input type="text" id="address" name="address" class="span3" placeholder="<?php echo $this->translate('填写街道详细地址'); ?>">
+				</div>
+			</div>
+         	<div class="control-group">
+				<label class="control-label"><?php echo $this->translate('邮政编码'); ?><span class="must_add_value">*</span></label>
+				<div class="controls">
+				<input type="text" id="zip_code" name="zip_code" class="span2" placeholder="<?php echo $this->translate('填写邮政编码'); ?>">
+				</div>
+			</div>
+         	<div class="control-group">
+				<label class="control-label"><?php echo $this->translate('手机号码'); ?><span class="must_add_value">*</span></label>
+				<div class="controls">
+				<input type="text" id="mod_phone" name="mod_phone" class="span3" placeholder="<?php echo $this->translate('添加手机号码'); ?>">
+				</div>
+			</div>
+         	<div class="control-group">
+				<label class="control-label"><?php echo $this->translate('电话号码'); ?></label>
+				<div class="controls">
+				<input type="text" id="tel_area_code" name="tel_area_code" class="span1" placeholder="<?php echo $this->translate('区号'); ?>"> - <input type="text" id="tel_phone" name="tel_phone" class="span2" placeholder="<?php echo $this->translate('电话号码'); ?>"> - <input type="text" id="tel_ext" name="tel_ext" class="span1" placeholder="<?php echo $this->translate('分机'); ?>">
+				</div>
+			</div>
+         	<div class="control-group">
+				<label class="control-label"><?php echo $this->translate('默认地址'); ?></label>
+				<div class="controls">
+				<input type="checkbox" value="1" name="addr_default" id="addr_default">
+				</div>
+			</div> 
+        
+</div>
+<div class="modal-footer">
+<!-- button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('关闭'); ?></button -->
+<button type="submit" class="btn btn-primary"><?php echo $this->translate('保存修改'); ?></button>
+</div>
+</div>
+</form>
+<script>
+$(document).ready(function() {
+	//收货地址添加
+	$("#address_add_form").validate({
+		rules: {
+			true_name: {
+				required: true,
+				maxlength:30
+			},
+			region_id: {
+				required: true
+			},
+			address: {
+				required: true,
+				maxlength:80
+			},
+			mod_phone: {
+				required: true
+			},
+			zip_code: {
+				required: true
+			}
+		},
+		messages: {
+			true_name: {
+				required: "<?php echo $this->translate('请输入收货人姓名！'); ?>",
+				maxlength:"<?php echo $this->translate('收货人姓名最长为30个汉字！'); ?>"
+			},
+			region_id: {
+				required: "<?php echo $this->translate('省市区不能为空'); ?>"
+			},
+			address: {
+				required: "<?php echo $this->translate('街道地址不能为空！'); ?>",
+				maxlength:"<?php echo $this->translate('街道地址最长90个汉字！'); ?>"
+			},
+			mod_phone: {
+				required: "<?php echo $this->translate('手机号码不能为空！'); ?>"
+			},
+			zip_code: {
+				required: "<?php echo $this->translate('邮政编码不能为空！'); ?>"
+			}
+		},
+		submitHandler:function(form){
+			address_save_js();
+		}
+	});
+});
+
+$("input[name='user_address_id']").click(function(){ 
+ 	select_radio('user_address_id');
+}); 
+function select_radio(radio_name) {
+$("input[name='"+radio_name+"']").each(function(){
+    if(this.checked == true){
+         $(this).parent().addClass("selected");
+       } else {
+		  $(this).parent().removeClass("selected");
+	   }
+	
+});
+}
+/**
+ * 检查是否为空
+ */
+function check_address_id() {
+    if($('#address_empty').val() == 'empty') {
+        alert('<?php echo $this->translate('请添加收货地址！'); ?>');
+        return false;
+    } else {
+        var select = 0;
+    	$("input[name='user_address_id']").each(function(){
+    	    if(this.checked == true){
+      	         select = 1;
+      	       }
+      	});
+    	if(select == 0) {
+            alert('<?php echo $this->translate('请选择收货地址！'); ?>');
+            return false;
+    	}
+    	
+        return true;
+    }	
+}
+//收货地址保存
+function address_save_js() {
+	$.post("<?php echo $this->url('frontaddress/default',array('action'=>'saveaddress')); ?>",$('#address_add_form').formSerialize(),
+	function(data){
+		if(data == 'true') {
+			window.location.href="<?php echo $this->url('frontcart/default', array('action'=>'setaddress')); ?>";
+		} else {
+
+		}
+	});
+}
+
+function ajax_add_address(address_id) {
+	$('#address_add_form').resetForm();
+
+	if(address_id != '') {
+		$.post('<?php echo $this->url('frontaddress/default', array('action'=>'editAddress')); ?>', {'address_id':address_id}, function(data){
+			if (data)
+			{
+				$('#show_address_area').hide();
+				$('#show_region_value').show();
+
+				$('#address_id').val(data.address_id);
+				$('#true_name').val(data.true_name);
+				$('#region_id').val(data.region_id);
+				$('#region_value').val(data.region_value);
+				$('#address').val(data.address);
+				$('#zip_code').val(data.zip_code);
+				$('#mod_phone').val(data.mod_phone);
+				$('#tel_area_code').val(data.tel_area_code);
+				$('#tel_phone').val(data.tel_phone);
+				$('#tel_ext').val(data.tel_ext);
+
+				if(data.default_value == 1) {
+					$('#addr_default').attr('checked',true);
+				} else {
+					$('#addr_default').attr('checked',false);
+				}
+
+				$('#show_region_value').html(data.region_value+'<input type="button" value="<?php echo $this->translate('编辑'); ?>" class="edit_region" onclick="regionEdit();" />');
+			}
+		},
+		'json');
+	} else {
+		$('#address_id').val('');
+		$('#show_address_area').show();
+		$('#show_region_value').hide();
+		$('#addr_default').attr('checked',true);
+	}
+	$('.db_show_area').hide();
+	
+	$('#myModal').modal('show');
+}
+
+
+var SITE_REGION_URL  = '<?php echo $this->url('frontaddress/default',array('action'=>'selectArea','region_type'=>'region_top_id')); ?>';
+var AREA_SELECT_LANG = '<?php echo $this->translate('请选择'); ?>';
+regionInit("region");
+</script>

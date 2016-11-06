@@ -1,0 +1,90 @@
+<div class="row-fluid"  id="user_register">
+	<div class="span10 offset1">
+		<div class="span12">
+        	<?php echo $this->translate('找回密码'); ?>
+        </div>
+        <div class="well">
+            <?php
+            if (isset($this->message) and $this->message != '') {
+                echo '<br><h4>' . $this->message . '</h4>';
+            } else {?>
+        	<form name="forgot_form" id="forgot_form" method="post" class="form-horizontal" action="">
+            	<div class="control-group">
+            	<label for="input01" class="control-label"><?php echo $this->translate('会员名称'); ?>：</label>
+            		<div class="controls">
+              		<input type="text" id="user_name" class="span3" placeholder="<?php echo $this->translate('输入会员名称'); ?>" name="user_name">
+            		</div>
+          		</div>
+            	<div class="control-group">
+            	<label for="input01" class="control-label"><?php echo $this->translate('会员邮箱'); ?>：</label>
+            		<div class="controls">
+              		<input type="text" id="user_email" class="span3" name="user_email" placeholder="<?php echo $this->translate('输入会员邮箱'); ?>">
+            		</div>
+          		</div>
+            	<div class="control-group">
+            	<label for="input01" class="control-label"><?php echo $this->translate('验证码'); ?>：</label>
+            		<div class="controls">
+              		<input type="text" class="input-small" id="captcha_code" name="captcha_code" placeholder="<?php echo $this->translate('输入验证码'); ?>">&nbsp;<span id="forgot_captcha_id"></span>
+            		</div>
+          		</div>
+            	<div class="control-group">
+            		<div class="controls">
+					<button class="btn btn-primary" type="submit"><?php echo $this->translate('提交找回密码'); ?></button>
+            		</div>
+          		</div>
+            </form>
+            <?php } ?>
+        </div>
+    </div>   
+</div>
+<script>
+$(document).ready(function() {
+	$("#forgot_form").validate({
+		success : function(label){
+			label.addClass('validate_right').text('OK!');
+		},
+		rules: {
+			user_name: {
+				required: true
+			},
+            user_email: {
+				required: true,
+				email: true
+			},
+			captcha_code: {
+				required:true,
+				remote :{
+					url : '<?php echo $this->url('shopfront/default/captcha-check',array('action'=>'captcha','captcha_check'=>1)); ?>',
+					type : 'post',
+					date : {
+						captcha_code :function(){
+							return $("#captcha_code").val();
+						}
+					}
+				}
+			}
+		},
+		messages: {
+			user_name: {
+				required: "<?php echo $this->translate('请输入会员名称！'); ?>"
+			},
+            user_email: {
+				required: "<?php echo $this->translate('请输入会员邮箱！'); ?>",
+				email: "<?php echo $this->translate('电子邮箱格式错误！'); ?>"
+			},
+			captcha_code: {
+				required:"<?php echo $this->translate('验证码不能为空！'); ?>",
+				remote : "<?php echo $this->translate('验证码错误！'); ?>"
+			}
+		}
+	});
+});
+//验证码添加
+function captchaAdd() {
+	$.post("<?php echo $this->url('shopfront/default',array('action'=>'captcha')); ?>",'',
+	function(data){
+		$("#forgot_captcha_id").html('<img src="<?php echo $this->basePath('/'); ?>'+data.captcha_file+'" border="0" >&nbsp;&nbsp;<a href="javascript:;" onclick="captchaAdd()"><?php echo $this->translate('更换验证码'); ?></a>');
+},'json');
+}
+captchaAdd();
+</script>

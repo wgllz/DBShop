@@ -1,0 +1,54 @@
+<div class="flow-checkout">
+    <div class="ect-padding-lr ect-padding-tb ect-margin-tb">
+        <a href="<?php echo $this->url('m_cart/default', array('action'=>'addAddress')); ?>" type="button" class="btn btn-info ect-btn-info ect-colorf ect-bg"><?php echo $this->translate('添加收货地址'); ?></a>
+    </div>
+    <form method="post"  onsubmit="return check_address_id();" action="<?php echo $this->url('m_cart/default', array('action'=>'step')); ?>">
+    <?php if ($this->address_list) { foreach ($this->address_list as $address_value) { ?>
+    <section class="ect-margin-tb ect-padding-lr ect-padding-tb checkout-add">
+        <label>
+            <p class="title"><input type="radio" name="user_address_id" <?php if ($address_value['addr_default'] == 1) echo 'checked'; ?> value="<?php echo $address_value['address_id']; ?>"> <?php echo $this->escapeHtml($address_value['true_name']);?>
+                <?php
+                echo '<br>'.$this->escapeHtml($address_value['address']).'<br>';
+                $region_array = @explode(' ', $address_value['region_value']);
+                $region_array = array_reverse($region_array);
+                echo $this->escapeHtml(implode(', ', $region_array));
+                ?>
+            </p>
+            <p><?php echo $this->translate('邮编'); ?> <?php echo $this->escapeHtml($address_value['zip_code']); ?>&nbsp;&nbsp;<?php echo $this->translate('手机'); ?> <?php echo $this->escapeHtml($address_value['mod_phone']); ?>&nbsp;&nbsp;<?php echo $this->translate('固定电话'); ?> <?php echo $this->escapeHtml($address_value['tel_area_code'].$address_value['tel_phone'].$address_value['tel_ext']); ?></p>
+        </label>
+    </section>
+    <?php } } else { ?>
+        <INPUT type="hidden" name="address_empty" id="address_empty" value='empty'>
+    <?php } ?>
+    <?php if ($this->address_list) { ?>
+    <div class="ect-padding-lr ect-padding-tb ect-margin-tb">
+        <input type="hidden" name="step" value="setaddress" />
+        <input type="submit" class="btn btn-info ect-btn-info ect-colorf ect-bg" value="<?php echo $this->translate('下一步'); ?>" name="submit">
+    </div>
+    <?php } ?>
+    </form>
+</div>
+<script>
+    /**
+     * 检查是否为空
+     */
+    function check_address_id() {
+        if($('#address_empty').val() == 'empty') {
+            alert('<?php echo $this->translate('请添加收货地址！'); ?>');
+            return false;
+        } else {
+            var select = 0;
+            $("input[name='user_address_id']").each(function(){
+                if(this.checked == true){
+                    select = 1;
+                }
+            });
+            if(select == 0) {
+                alert('<?php echo $this->translate('请选择收货地址！'); ?>');
+                return false;
+            }
+
+            return true;
+        }
+    }
+</script>

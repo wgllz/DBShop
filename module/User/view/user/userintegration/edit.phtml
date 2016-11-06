@@ -1,0 +1,35 @@
+<div class="tabbable tabs-left">
+              <ul class="nav nav-tabs">
+              	<li><h5><?php echo $this->translate('系统整合'); ?></h5></li>
+                <li class="active"><a data-toggle="tab" href="#express_a"><?php echo $this->translate('基本信息'); ?></a></li>
+              </ul>
+              <form class="form-horizontal" name="integration_form" id="integration_form" method="post" action="">
+              <div class="tab-content">
+    			<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        			<div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php echo $this->translate('编辑'); ?><?php echo $this->translate('系统整合'); ?></strong></div>
+        			<div class="pull-right">
+                	<a href="<?php echo $this->url('userintegration/default'); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回系统整合列表'); ?></a>&nbsp;
+                	<a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>&nbsp;
+                	<button type="submit" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存系统整合信息'); ?></button>&nbsp;
+                	<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('payment_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+                	</div>
+        		</div>
+                <div id="express_a" class="tab-pane active">
+                	<div class="well admin_add_header_well"><?php echo $this->translate('基本信息'); ?></div>
+                	<div class="well admin_add_well">
+                    	<?php if($this->form_input) foreach ($this->form_input as $value) { ?>
+                    	<div class="control-group">
+                  			<label for="input01" class="control-label"><?php echo $this->escapeHtml($value['name']); ?>：</label>
+           					<div class="controls">
+              					<?php echo $value['input']; ?>
+            				</div>                        
+                        </div>
+                        <?php } ?>
+                                                                                                                                              
+                  	</div>
+                </div>
+                                
+                
+             </div>
+              </form>
+</div>

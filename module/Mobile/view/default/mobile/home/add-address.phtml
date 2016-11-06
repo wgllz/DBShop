@@ -1,0 +1,125 @@
+<link rel="stylesheet" href="<?php echo $this->basePath('public/mobile/default/css/touch.css'); ?>">
+
+<form class="validforms" method="post" id="address_form" name="address_form">
+    <input type="hidden" name="address_id" value="<?php if(isset($this->addressInfo['address_id'])) echo $this->addressInfo['address_id']; ?>">
+    <div class="flow-consignee ect-bg-colorf">
+        <section>
+            <ul>
+                <li>
+                    <div class="input-text"><b><?php echo $this->translate('收货人姓名'); ?><font class="must_add_value">*</font>：</b><span><input type="text" id="true_name" datatype="*" class="inputBg" name="true_name" value="<?php if(isset($this->addressInfo['true_name'])) echo $this->addressInfo['true_name']; ?>" placeholder="<?php echo $this->translate('收货人姓名'); ?>" nullmsg="<?php echo $this->translate('输入收货人姓名'); ?>"></span></div>
+                </li>
+                <li>
+                    <div class="input-text"><b><?php echo $this->translate('省市区'); ?><font class="must_add_value">*</font>：</b><span id="show_region_value"></span>
+                        <div id="region">
+                            <span id="show_region_value"></span>
+                            <select id="show_address_area">
+                                <option value=""><?php echo $this->translate('请选择'); ?></option>
+                                <?php if ($this->region_array and !empty($this->region_array )) {
+                                    foreach($this->region_array as $value) {
+                                        ?>
+                                        <option value="<?php echo $value['region_id']; ?>"><?php echo $value['region_name']; ?></option>
+                                    <?php
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        </div>
+                </li>
+                <li>
+                    <div class="input-text"><b><?php echo $this->translate('街道地址'); ?><font class="must_add_value">*</font>：</b><span><input type="text" id="address" datatype="*" class="inputBg" name="address" value="<?php if(isset($this->addressInfo['address'])) echo $this->addressInfo['address']; ?>" placeholder="<?php echo $this->translate('街道地址'); ?>" nullmsg="<?php echo $this->translate('输入街道地址'); ?>"></span></div>
+                </li>
+                <li>
+                    <div class="input-text"><b><?php echo $this->translate('邮政编码'); ?><font class="must_add_value">*</font>：</b><span><input type="text" id="zip_code" datatype="*" class="inputBg" name="zip_code" value="<?php if(isset($this->addressInfo['zip_code'])) echo $this->addressInfo['zip_code']; ?>" placeholder="<?php echo $this->translate('邮政编码'); ?>" nullmsg="<?php echo $this->translate('输入邮政编码'); ?>"></span></div>
+                </li>
+                <li>
+                    <div class="input-text"><b><?php echo $this->translate('手机号码'); ?><font class="must_add_value">*</font>：</b><span><input type="text" id="mod_phone" datatype="*" class="inputBg" name="mod_phone" value="<?php if(isset($this->addressInfo['mod_phone'])) echo $this->addressInfo['mod_phone']; ?>" placeholder="<?php echo $this->translate('手机号码'); ?>" nullmsg="<?php echo $this->translate('输入手机号码'); ?>"></span></div>
+                </li>
+                <li>
+                    <div class="input-text"><b><?php echo $this->translate('电话号码'); ?>：</b><input size="5" id="tel_area_code" name="tel_area_code" value="<?php if(isset($this->addressInfo['tel_area_code'])) echo $this->addressInfo['tel_area_code']; ?>" placeholder="<?php echo $this->translate('区号'); ?>">-<input size="10" id="tel_phone" name="tel_phone" value="<?php if(isset($this->addressInfo['tel_phone'])) echo $this->addressInfo['tel_phone']; ?>" placeholder="<?php echo $this->translate('电话号码'); ?>">-<input size="5" id="tel_ext" name="tel_ext" value="<?php if(isset($this->addressInfo['tel_ext'])) echo $this->addressInfo['tel_ext']; ?>" placeholder="<?php echo $this->translate('分机'); ?>"></div>
+                </li>
+                <li>
+                    <div class="input-text"><b><?php echo $this->translate('默认地址'); ?>：</b><span><input type="checkbox" <?php if((isset($this->addressInfo['addr_default']) and $this->addressInfo['addr_default'] == 1) or !isset($this->addressInfo)) echo 'checked'; ?> value="1" name="addr_default" id="addr_default"></span></div>
+                </li>
+            </ul>
+        </section>
+    </div>
+    <input type="hidden" name="region_id" id="region_id" value="<?php if(isset($this->addressInfo['region_id'])) echo $this->addressInfo['region_id']; ?>" class="region_ids">
+    <input type="hidden" name="region_value" id="region_value" value="<?php if(isset($this->addressInfo['region_value'])) echo $this->addressInfo['region_value']; ?>" class="region_names" />
+    <div class="ect-padding-lr ect-padding-tb"> <input type="submit" value="<?php echo $this->translate('提交保存'); ?>" class="btn btn-info ect-btn-info ect-colorf ect-bg"></div>
+</form>
+<?php if(isset($this->addressInfo['address_id'])) { ?>
+    <div class="ect-padding-tb ect-padding-lr ect-margin-tb text-center">
+        <a onclick="if (!confirm('<?php echo $this->translate('您确认要删除该收货地址吗？'); ?>')) return false;" href="<?php echo $this->url('m_address/default',array('action'=>'deladdress', 'address_id'=>$this->addressInfo['address_id'])); ?>" class="btn btn-info ect-btn-info ect-colorf"><?php echo $this->translate('删除收货地址'); ?></a>
+    </div>
+<?php } ?>
+<script>
+    /* 地区选择函数 */
+    function regionInit(divId)
+    {
+        $("#" + divId + " > select").change(regionChange); // select的onchange事件
+    }
+
+    function regionChange()
+    {
+        // 删除后面的select
+        $(this).nextAll("select").remove();
+        // 计算当前选中到id和拼起来的name
+        var selects = $(this).siblings("select").andSelf();
+        var id = 0;
+        var i;
+        var names = new Array();
+        for (i = 0; i < selects.length; i++)
+        {
+            sel = selects[i];
+            if (sel.value > 0)
+            {
+                id = sel.value;
+                name = sel.options[sel.selectedIndex].text;
+                names.push(name);
+            }
+        }
+        $(".region_ids").val(id);
+        $(".region_names").val(names.join(" "));
+        // ajax请求下级地区
+        if (this.value > 0)
+        {
+            var _self = this;
+            var url = SITE_REGION_URL;
+            $.post(url, {'region_id':this.value}, function(data){
+                    if (data)
+                    {
+                        if (data.length > 0)
+                        {
+                            $("<select class='db_show_area'><option>"+AREA_SELECT_LANG+"</option></select>").change(regionChange).insertAfter(_self);
+                            var data  = data;
+                            for (i = 0; i < data.length; i++)
+                            {
+                                $(_self).next("select").append("<option value='" + data[i].region_id + "'>" + data[i].region_name + "</option>");
+                            }
+                        }
+                    }
+                },
+                'json');
+        }
+    }
+
+<?php if(isset($this->addressInfo['region_value'])) { ?>
+    $('#show_address_area').hide();
+    $('#show_region_value').show();
+    $('#show_region_value').html('<?php echo $this->addressInfo['region_value']; ?><input type="button" value="<?php echo $this->translate('编辑'); ?>" class="edit_region" onclick="regionEdit();" />');
+<?php } else { ?>
+    $('#show_address_area').show();
+    $('#show_region_value').hide();
+<?php } ?>
+
+    function regionEdit()
+    {
+        $("#show_address_area").show();
+        $("#show_region_value").hide();
+    }
+
+    var SITE_REGION_URL  = '<?php echo $this->url('frontaddress/default',array('action'=>'selectArea','region_type'=>'region_top_id')); ?>';
+    var AREA_SELECT_LANG = '<?php echo $this->translate('请选择'); ?>';
+    regionInit("region");
+</script>

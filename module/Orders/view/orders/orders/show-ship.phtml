@@ -1,0 +1,152 @@
+<style>
+.dl-horizontal dt {
+    width: 65px;
+}
+.dl-horizontal dd {
+    margin-left: 105px;
+}
+.admin_add_well {
+ padding: 1px;	
+}
+</style>
+<div class="tabbable tabs-left">
+  <ul class="nav nav-tabs">
+    <li><h5><?php echo $this->translate('发货单信息'); ?></h5></li>
+    <li class="active"><a data-toggle="tab" href="#ship_a"><?php echo $this->translate('基本信息'); ?></a></li>
+  </ul>
+    <div class="tab-content">
+      <div  id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+        <div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php echo $this->translate('发货单信息'); ?>&nbsp;(<?php echo $this->translate('订单号').$this->order_info->order_sn; ?>&nbsp;<span class="text-success">
+				<?php 
+				if($this->order_info->order_state<40) echo $this->translate('未发货');
+				elseif($this->order_info->order_state==40) echo $this->translate('已发货');
+				elseif($this->order_info->order_state==60) echo $this->translate('已收货');
+				?></span>)</strong></div>
+        <div class="pull-right">
+        	<a href="<?php echo $this->url('orders/default/page',array('controller'=>'Orders','action'=>'shiplist','page'=>$this->page)); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回发货单列表'); ?></a>&nbsp;
+            <?php if(in_array($this->order_info->order_state, array(20, 30))) { ?>
+            <a href="<?php echo $this->url('orders/default/order_id',array('action'=>'shipoper', 'controller'=>'Orders','order_id'=>$this->order_info->order_id, 'page'=>$this->page)).'?url_type=show_ship'; ?>" class="btn btn-small btn-primary"><?php echo $this->translate('发货操作'); ?></a>&nbsp;
+            <?php } ?>
+            <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('order_ship_list'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+        </div>
+      </div>
+      <div id="ship_a" class="tab-pane active">
+        
+		<div class="row-fluid">
+          <div class="span6">
+            <div class="well admin_add_header_well"><?php echo $this->translate('收货信息'); ?></div>
+            <div class="well admin_add_well">
+                <dl class="dl-horizontal">
+    				<dt><?php echo $this->translate('收货人'); ?></dt><dd><?php echo $this->delivery_address->delivery_name; ?></dd>
+    				<dt><?php echo $this->translate('收货地址'); ?></dt>
+                    <dd>
+                        <?php
+                        echo $this->escapeHtml($this->delivery_address->region_address).', ';
+                        $region_array = @explode(' ', $this->delivery_address->region_info);
+                        $region_array = array_reverse($region_array);
+                        echo $this->escapeHtml(implode(', ', $region_array));
+                        ?>
+                    </dd>
+                    <dt><?php echo $this->translate('邮政编码'); ?></dt><dd><?php echo $this->delivery_address->zip_code.'&nbsp;'; ?></dd>
+                    <dt><?php echo $this->translate('联系方式'); ?></dt><dd><?php if($this->delivery_address->mod_phone) {echo $this->translate('手机') . $this->delivery_address->mod_phone . '&nbsp;&nbsp;'; } if($this->delivery_address->tel_phone) {echo $this->translate('固定电话') . $this->delivery_address->tel_phone; }?></dd>
+    			</dl>
+            </div>
+          </div>
+          <div class="span6">
+            <div class="well admin_add_header_well"><?php echo $this->translate('配送信息'); ?></div>
+            <div class="well admin_add_well">
+                <dl class="dl-horizontal">
+    				<dt><?php echo $this->translate('快递信息'); ?></dt><dd><?php echo $this->delivery_address->express_name; ?></dd>
+                    <dt><?php echo $this->translate('配送费用'); ?></dt><dd><?php echo $this->order_info->currency_symbol . $this->delivery_address->express_fee . '&nbsp;' . $this->order_info->currency_unit; ?></dd>
+                    <dt><?php echo $this->translate('送货时间'); ?></dt><dd><?php echo $this->delivery_address->express_time_info; ?></dd>
+    				<dt><?php echo $this->translate('快递单号'); ?></dt><dd><?php echo $this->delivery_address->express_number.'&nbsp;'; ?></dd>
+    				<?php if($this->order_info->goods_weight_amount > 0) {?>
+    				<dt><?php echo $this->translate('货物重量'); ?></dt><dd><?php echo $this->order_info->goods_weight_amount.'&nbsp;'.$this->translate('千克'); ?></dd>
+    			    <?php } ?>
+    			</dl>
+            </div>
+          </div>
+        </div>
+
+		<div class="row-fluid">
+          <div class="span12">
+            <div class="well admin_add_header_well"><?php echo $this->translate('订单商品信息'); ?></div>
+            <div class="well admin_add_well">
+            <table class="table table-bordered" style="margin-top:1px;">
+            	<thead>
+                	<tr>
+                    	<th width="45%"><?php echo $this->translate('商品名称'); ?></th>
+                        <th width="8%"><?php echo $this->translate('商品货号'); ?></th>
+                        <th width="12%"><?php echo $this->translate('属性'); ?></th>
+                        <th width="10%"><?php echo $this->translate('数量'); ?></th>
+                        <th width="10%"><?php echo $this->translate('单价'); ?></th>
+                        <th width="15%"><?php echo $this->translate('小计'); ?></th>
+                    </tr>
+                </thead>
+                <?php foreach ($this->order_goods as $goods_value) { ?>
+                <tr>
+                	<td><a target="_blank" href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$goods_value['class_id'])); ?>"><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($goods_value['goods_image'])); ?>"  style=" height:55px;width:55px;border:1px solid #D7D7D7"> <?php echo $this->escapeHtml($goods_value['goods_name']); ?></a></td>
+                    <td><?php echo $goods_value['goods_item']; ?></td>
+                    <td>
+				<?php 
+				if($goods_value['goods_extend_info']) { 
+					echo $goods_value['goods_extend_info'];
+				} else {
+					echo $this->translate('无');
+				}
+				?>
+                    </td>
+                    <td><?php echo $goods_value['buy_num']; ?></td>
+                    <td><?php echo $this->order_info->currency_symbol . $goods_value['goods_shop_price'] . '&nbsp;' . $this->order_info->currency_unit; ?></td>
+                    <td><strong><?php echo $this->order_info->currency_symbol . $goods_value['goods_amount'] . '&nbsp;' . $this->order_info->currency_unit; ?></strong></td>
+                </tr>
+                <?php } ?>
+                <?php if(isset($this->order_info->order_message) and !empty($this->order_info->order_message)) { ?>
+                <tr>
+                <td colspan="6"><font size="4" color="#ED145B"><strong><?php echo $this->translate('买家留言'); ?>：</strong><?php echo $this->escapeHtml($this->order_info->order_message); ?></font></td>
+                </tr>
+                <?php } ?>
+            </table>
+            </div>
+          </div>
+        </div>
+        
+		<div class="row-fluid">
+        <?php  if ($this->order_log) { ?>
+          <div class="span6">
+            <div class="well admin_add_header_well"><?php echo $this->translate('操作历史'); ?></div>
+            <div class="well admin_add_well">
+                <table class="table table-hover">
+                	<thead>
+                    	<th width="20%"><?php echo $this->translate('操作者'); ?></th>
+                        <th width="20%"><?php echo $this->translate('操作时间'); ?></th>
+                        <th width="20%"><?php echo $this->translate('订单状态'); ?></th>
+                        <th width="40%"><?php echo $this->translate('备注说明'); ?></th>
+                    </thead>
+                    <?php foreach ($this->order_log as $log_value) { ?>
+                    <tr>
+                    	<td><?php echo $log_value['log_user']; ?></td>
+                        <td><?php echo date("Y-m-d H:i:s", $log_value['log_time']); ?></td>
+                        <td><?php echo $this->frontwebsite()->getOneOrderStateInfo($log_value['order_state']); ?></td>
+                        <td><?php echo $log_value['state_info']; ?></td>
+                    </tr>
+                    <?php } ?>
+                </table>
+            </div>
+          </div>
+          <?php } ?>
+          <?php if (isset($this->express_state_array)) { ?>
+          <div class="span6">
+            <div class="well admin_add_header_well"><?php echo $this->translate('物流信息'); ?></div>
+            <div class="well admin_add_well">
+			  <?php if($this->express_state_array['api_type'] == 'kuaidi100') { echo '<p>'.$this->express_state_array['content'].'</p>'; } ?>
+            </div>
+          </div>
+          <?php } ?>
+        </div>
+        
+                        
+      </div>
+    </div>
+    
+</div>

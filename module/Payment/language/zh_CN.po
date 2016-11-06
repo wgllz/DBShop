@@ -1,0 +1,108 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DBShop\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-05 22:50+0800\n"
+"PO-Revision-Date: 2013-11-05 22:50+0800\n"
+"Last-Translator: DBShop <team@dbshop.net>\n"
+"Language-Team: DBShop <team@dbshop.net>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../src/Payment/Controller/PaymentController.php:62
+msgid "支付设置"
+msgstr ""
+
+#: ../src/Payment/Controller/PaymentController.php:62
+msgid "更新支付"
+msgstr ""
+
+#: ../view/payment/payment/edit.phtml:3 ../view/payment/payment/edit.phtml:10
+msgid "支付方式"
+msgstr ""
+
+#: ../view/payment/payment/edit.phtml:4 ../view/payment/payment/edit.phtml:19
+msgid "基本信息"
+msgstr ""
+
+#: ../view/payment/payment/edit.phtml:10
+#: ../view/payment/payment/index.phtml:31
+msgid "编辑"
+msgstr ""
+
+#: ../view/payment/payment/edit.phtml:12
+msgid "返回支付方式列表"
+msgstr ""
+
+#: ../view/payment/payment/edit.phtml:13
+msgid "刷新"
+msgstr ""
+
+#: ../view/payment/payment/edit.phtml:14
+msgid "保存支付方式信息"
+msgstr ""
+
+#: ../view/payment/payment/edit.phtml:15 ../view/payment/payment/index.phtml:4
+msgid "查看帮助说明"
+msgstr ""
+
+#: ../view/payment/payment/edit.phtml:30
+msgid "订单状态"
+msgstr ""
+
+#: ../view/payment/payment/edit.phtml:38
+msgid ""
+"订单提交时的初始状态，如：购物支付方式为支付宝，那么提交订单状态时，就是待付"
+"款状态"
+msgstr ""
+
+#: ../view/payment/payment/index.phtml:2
+msgid "支付管理"
+msgstr ""
+
+#: ../view/payment/payment/index.phtml:10
+msgid "序号"
+msgstr ""
+
+#: ../view/payment/payment/index.phtml:11
+msgid "支付名称"
+msgstr ""
+
+#: ../view/payment/payment/index.phtml:12
+msgid "LOGO"
+msgstr ""
+
+#: ../view/payment/payment/index.phtml:13
+msgid "支付简介"
+msgstr ""
+
+#: ../view/payment/payment/index.phtml:14
+msgid "支付手续费"
+msgstr ""
+
+#: ../view/payment/payment/index.phtml:15
+msgid "支付状态"
+msgstr ""
+
+#: ../view/payment/payment/index.phtml:16
+msgid "支付排序"
+msgstr ""
+
+#: ../view/payment/payment/index.phtml:17
+msgid "操作"
+msgstr ""
+
+#: ../view/payment/payment/index.phtml:29
+msgid "开启"
+msgstr ""
+
+#: ../view/payment/payment/index.phtml:29
+msgid "关闭"
+msgstr ""

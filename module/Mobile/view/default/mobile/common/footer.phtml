@@ -1,0 +1,13 @@
+<?php if ($this->dbTongJiPage == 'index') { ?>
+<footer>
+    <nav class="ect-nav">
+        <ul class="ect-diaplay-box text-center">
+            <li class="ect-box-flex"><a href="<?php echo $this->url('mobile/default'); ?>"><i class="ect-icon ect-icon-home"></i><?php echo $this->translate('首页'); ?></a></li>
+            <li class="ect-box-flex"><a href="<?php echo $this->url('m_class/default'); ?>"><i class="ect-icon ect-icon-cate"></i><?php echo $this->translate('分类'); ?></a></li>
+            <li class="ect-box-flex"><a href="javascript:openSearch();"><i class="ect-icon ect-icon-search"></i><?php echo $this->translate('搜索'); ?></a></li>
+            <li class="ect-box-flex"><a href="<?php echo $this->url('m_cart/default'); ?>"><i class="ect-icon ect-icon-flow"></i><?php echo $this->translate('购物车'); ?></a></li>
+            <li class="ect-box-flex"><a href="<?php echo $this->url('m_home/default'); ?>"><i class="ect-icon ect-icon-user"></i><?php echo $this->translate('用户中心'); ?></a></li>
+        </ul>
+    </nav>
+</footer>
+<?php } ?>

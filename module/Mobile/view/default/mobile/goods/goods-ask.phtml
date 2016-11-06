@@ -1,0 +1,24 @@
+<?php $totalItemCont = $this->goods_ask_list->getTotalItemCount(); if ($totalItemCont > 0) { ?>
+    <?php foreach ($this->goods_ask_list as $ask_value) { ?>
+<li>
+    <p><?php echo $this->escapeHtml($ask_value['ask_content']); ?></p>
+    <p><span class="pull-left"><?php echo $this->translate('用户名'); ?>：<?php echo $ask_value['ask_writer']; ?></span><span class="pull-right"><?php echo date("Y-m-d H:i:s", $ask_value['ask_time']); ?></span></p>
+    <?php if($ask_value['reply_ask_content'] != '') { ?>
+        <p><?php echo $this->escapeHtml($ask_value['reply_ask_content']); ?></p>
+        <p><span class="pull-left"><?php echo $this->translate('回答者'); ?>：<?php echo $ask_value['reply_ask_writer']; ?></span><span class="pull-right"><?php echo date("Y-m-d H:i:s", $ask_value['reply_ask_time']); ?></span></p>
+    <?php } ?>
+</li>
+    <?php } ?>
+
+<div class="f_r" id="pagebar">
+    <?php echo ( count($this->goods_ask_list) > 0 ) ? $this->paginationControl($this->goods_ask_list, 'Sliding', 'mobile/ajaxpage',array('page_url'=>$this->url('m_goods/default',array('action'=>'goodsAsk','goods_id'=>$this->goods_id,'class_id'=>$this->class_id)), 'ajaxFunction'=>'ask_ajax_list', 'totalItemCount'=>$totalItemCont)) : ""; ?>
+    </div>
+</div>
+<?php } else { ?>
+    <li>
+        <p><?php echo $this->translate('该商品暂无咨询信息！'); ?></p>
+    </li>
+<?php } ?>
+<script>
+    $('#ask_span').html(<?php echo $totalItemCont; ?>);
+</script>
