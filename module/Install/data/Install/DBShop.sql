@@ -879,7 +879,6 @@ CREATE TABLE dbshop_user_group (
   `integral_num_state` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`group_id`),
   KEY `integral_num_start` (`integral_num_start`,`integral_num_end`,`integral_num_state`)
-  PRIMARY KEY (group_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS dbshop_user_group_extend;

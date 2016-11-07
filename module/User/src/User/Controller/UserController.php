@@ -54,7 +54,7 @@ class UserController extends BaseController
             $userId = $this->getDbshopTable()->addUser($userArray);
 
             //初始积分处理
-            $userIntegralType = $this->getDbshopTable('UserIntegralTypeTable')->listUserIntegralType(array('dbshop_user_integral_type.integral_type_state=1', 'e.language'=>$this->getDbshopLang()->getLocale()));
+            $userIntegralType = $this->getDbshopTable('UserIntegralTypeTable')->listUserIntegralType(array('e.language'=>$this->getDbshopLang()->getLocale()));
             if(is_array($userIntegralType) and !empty($userIntegralType)) {
                 foreach($userIntegralType as $integralTypeValue) {
                     if($integralTypeValue['default_integral_num'] > 0) {

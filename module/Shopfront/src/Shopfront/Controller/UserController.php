@@ -166,7 +166,7 @@ class UserController extends AbstractActionController
             $addState = $this->getDbshopTable('UserTable')->addUser($userArray);
             if($addState) {
                 //初始积分处理
-                $userIntegralType = $this->getDbshopTable('UserIntegralTypeTable')->listUserIntegralType(array('dbshop_user_integral_type.integral_type_state=1', 'e.language'=>$this->getDbshopLang()->getLocale()));
+                $userIntegralType = $this->getDbshopTable('UserIntegralTypeTable')->listUserIntegralType(array('e.language'=>$this->getDbshopLang()->getLocale()));
                 if(is_array($userIntegralType) and !empty($userIntegralType)) {
                     foreach($userIntegralType as $integralTypeValue) {
                         if($integralTypeValue['default_integral_num'] > 0) {
@@ -502,7 +502,7 @@ class UserController extends AbstractActionController
                 $addState = $this->getDbshopTable('UserTable')->addUser($userArray);
 
                 //初始积分处理
-                $userIntegralType = $this->getDbshopTable('UserIntegralTypeTable')->listUserIntegralType(array('dbshop_user_integral_type.integral_type_state=1', 'e.language'=>$this->getDbshopLang()->getLocale()));
+                $userIntegralType = $this->getDbshopTable('UserIntegralTypeTable')->listUserIntegralType(array('e.language'=>$this->getDbshopLang()->getLocale()));
                 if(is_array($userIntegralType) and !empty($userIntegralType)) {
                     foreach($userIntegralType as $integralTypeValue) {
                         if($integralTypeValue['default_integral_num'] > 0) {
