@@ -587,6 +587,21 @@ class OrderController  extends MobileHomeController
         if(($orderState == 0 and ($orderInfo->order_state == 10 or ($orderInfo->order_state == 30 and $orderInfo->pay_code == 'hdfk'))) and !empty($orderInfo)) {//取消订单处理
             $this->getDbshopTable('OrderTable')->updateOrder(array('order_state'=>$orderState), array('order_id'=>$orderId));
             $this->returnGoodsStock($orderId);//取消订单时的库存处理
+            //加入状态记录
+            $this->getDbshopTable('OrderLogTable')->addOrderLog(array('order_id'=>$orderId, 'order_state'=>'0', 'state_info'=>$this->getDbshopLang()->translate('买家自行取消'), 'log_time'=>time(), 'log_user'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_name')));
+            //检查是否有消费积分付款
+            if($orderInfo->integral_buy_num > 0) {
+                $integralLogArray = array();
+                $integralLogArray['user_id']           = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');
+                $integralLogArray['user_name']         = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_name');
+                $integralLogArray['integral_log_info'] = $this->getDbshopLang()->translate('取消订单，订单号为：') . $orderInfo->order_sn;
+                $integralLogArray['integral_num_log']  = $orderInfo->integral_buy_num;
+                $integralLogArray['integral_log_time'] = time();
+                if($this->getDbshopTable('IntegralLogTable')->addIntegralLog($integralLogArray)) {
+                    //会员消费积分更新
+                    $this->getDbshopTable('UserTable')->updateUserIntegralNum($integralLogArray, array('user_id'=>$integralLogArray['user_id']));
+                }
+            }
             /*----------------------提醒信息发送----------------------*/
             $sendArray['buyer_name']  = $orderInfo->buyer_name;
             $sendArray['order_sn']    = $orderInfo->order_sn;

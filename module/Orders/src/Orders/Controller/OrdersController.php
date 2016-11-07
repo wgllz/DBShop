@@ -433,6 +433,19 @@ class OrdersController extends BaseController
                 $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('订单管理'), 'operlog_info'=>$this->getDbshopLang()->translate('更新订单状态') . '&nbsp;' . $orderInfo->order_sn . ' : ' . $this->getServiceLocator()->get('frontHelper')->getOneOrderStateInfo(0)));
                 //取消订单对库存进行返回
                 $this->operGoodsStock($orderId);
+                //检查是否有消费积分付款
+                if($orderInfo->integral_buy_num > 0) {
+                    $integralLogArray = array();
+                    $integralLogArray['user_id']           = $orderInfo->buyer_id;
+                    $integralLogArray['user_name']         = $orderInfo->buyer_name;
+                    $integralLogArray['integral_log_info'] = $this->getDbshopLang()->translate('取消订单，订单号为：') . $orderInfo->order_sn;
+                    $integralLogArray['integral_num_log']  = $orderInfo->integral_buy_num;
+                    $integralLogArray['integral_log_time'] = time();
+                    if($this->getDbshopTable('IntegralLogTable')->addIntegralLog($integralLogArray)) {
+                        //会员消费积分更新
+                        $this->getDbshopTable('UserTable')->updateUserIntegralNum($integralLogArray, array('user_id'=>$integralLogArray['user_id']));
+                    }
+                }
                 //加入状态记录
                 $stateArray['state_info'] = (!empty($stateArray['state_info']) ? trim($stateArray['state_info']) : $this->getDbshopLang()->translate('无说明'));
                 $this->getDbshopTable('OrderLogTable')->addOrderLog(array('order_id'=>$orderId, 'order_state'=>'0', 'state_info'=>$stateArray['state_info'], 'log_time'=>time(), 'log_user'=>$this->getServiceLocator()->get('adminHelper')->returnAuth('admin_name')));
