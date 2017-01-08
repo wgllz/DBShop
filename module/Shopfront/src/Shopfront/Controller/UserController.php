@@ -441,15 +441,33 @@ class UserController extends AbstractActionController
         $loginService     = $this->checkOtherLoginConfig($lType);
         $callBackState    = $loginService->callBack();
 
+        $openId        = $loginService->getOpenId();
+        $unionId       = $loginService->getUnionId();
+
         //检查是否已经登录的用户，进行的绑定处理
         $userId = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');
+
+        //对微信登录类型进行判断，然后对where进行处理
+        if($loginType == 'Weixin' or $loginType == 'Weixinphone') {
+            $where = '(dbshop_other_login.login_type="Weixin" or dbshop_other_login.login_type="Weixinphone")';
+        } else $where = 'dbshop_other_login.login_type="'.$loginType.'"';
+
         if($userId > 0) {
-            $openId        = $loginService->getOpenId();
             //回调正确，检查该用户是否已经存在
-            $userInfo      = $this->getDbshopTable('OtherLoginTable')->infoOtherLogin(array('dbshop_other_login.open_id'=>$openId, 'dbshop_other_login.login_type'=>$loginType));
+            $userInfo      = $this->getDbshopTable('OtherLoginTable')->infoOtherLogin(array('dbshop_other_login.open_id'=>$openId, $where));
+            //对之前用户使用openid来存储的处理，如果上面没有得到信息，下面openid和unionid不一样的情况下，再次检查
+            if(!empty($unionId) and $unionId != $openId and empty($userInfo)) $userInfo = $this->getDbshopTable('OtherLoginTable')->infoOtherLogin(array('dbshop_other_login.open_id'=>$unionId, $where));
+
             if($userInfo) {
+                //如果openid与unionid不一样，更新成unioid，这里主要是对微信的处理
+                if(!empty($unionId) and $unionId != $openId) {
+                    $this->getDbshopTable('OtherLoginTable')->updateOtherLogin(array('open_id'=>$unionId), array('dbshop_other_login.open_id'=>$openId));
+                }
+
                 exit($this->getDbshopLang()->translate('该账户已经在系统绑定，不能重复绑定！') . '&nbsp;<a href="' .$this->url()->fromRoute('fronthome/default', array('action'=>'qqset')). '">' . $this->getDbshopLang()->translate('返回') . '</a>');
             } else {
+                if(!empty($unionId) and $unionId != $openId) $openId = $unionId;
+
                 $otherLoginArray = array(
                     'user_id'       => $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id'),
                     'open_id'       => $openId,
@@ -468,8 +486,16 @@ class UserController extends AbstractActionController
         }
 
         //回调正确，检查该用户是否已经存在
-        $userInfo         = $this->getDbshopTable('OtherLoginTable')->infoOtherLogin(array('dbshop_other_login.open_id'=>$loginService->getOpenId(), 'dbshop_other_login.login_type'=>$loginType));
+        $userInfo         = $this->getDbshopTable('OtherLoginTable')->infoOtherLogin(array('dbshop_other_login.open_id'=>$openId, $where));
+        //对之前用户使用openid来存储的处理，如果上面没有得到信息，下面openid和unionid不一样的情况下，再次检查
+        if(!empty($unionId) and $unionId != $openId and empty($userInfo)) $userInfo = $this->getDbshopTable('OtherLoginTable')->infoOtherLogin(array('dbshop_other_login.open_id'=>$unionId, $where));
+
         if($userInfo) {
+            //如果openid与unionid不一样，更新成unioid，这里主要是对微信的处理
+            if(!empty($unionId) and $unionId != $openId) {
+                $this->getDbshopTable('OtherLoginTable')->updateOtherLogin(array('open_id'=>$unionId), array('dbshop_other_login.open_id'=>$openId));
+            }
+
             //当会员状态处于2（关闭）3（待审核）时，不进行登录操作
             $exitMessage = '';
             if($userInfo->user_state == 2) $exitMessage = $this->getDbshopLang()->translate('您的帐户处于关闭状态！')  . '&nbsp;<a href="' .$this->url()->fromRoute('shopfront/default'). '">' . $this->getDbshopLang()->translate('返回首页') . '</a>';
@@ -520,7 +546,8 @@ class UserController extends AbstractActionController
 
         //验证从第三方回调获取的信息是否完整
         $loginService     = $this->checkOtherLoginConfig($lType);
-        $openId           = $loginService->getOpenId();
+        $openId           = $loginService->getUnionId();
+        if(empty($openId)) $openId = $loginService->getOpenId();
         $otherUserInfo    = $loginService->getOtherInfo();
 
         if($this->request->isPost()) {

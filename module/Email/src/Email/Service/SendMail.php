@@ -42,7 +42,7 @@ class SendMail
         
         //定义第三方邮件发送组件，之所以不使用zend自带的，因为zend自带组件发送时会有一个文本附件
         if(empty($this->setEmail)) {
-            require_once __DIR__ . '/../Plugin/PHPMailer/class.phpmailer.php';
+            require __DIR__ . '/../Plugin/PHPMailer/PHPMailerAutoload.php';
             $this->setEmail = new \PHPMailer();
         }
         

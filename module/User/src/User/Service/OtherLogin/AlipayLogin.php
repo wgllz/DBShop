@@ -110,6 +110,14 @@ class AlipayLogin
         return $this->loginSession->openid;
     }
     /**
+     * 获取唯一ID,只是为了统一，方便前台调用
+     * @return mixed
+     */
+    public function getUnionId()
+    {
+        return $this->loginSession->openid;
+    }
+    /**
      * 获取会员信息
      * @return array
      */

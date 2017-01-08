@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-05 22:50+0800\n"
-"PO-Revision-Date: 2013-11-05 22:50+0800\n"
+"POT-Creation-Date: 2016-11-28 10:31+0800\n"
+"PO-Revision-Date: 2016-11-28 10:31+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_CN\n"
@@ -16,48 +16,59 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../src/Payment/Controller/PaymentController.php:62
+#: ../src/Payment/Controller/PaymentController.php:63
 msgid "支付设置"
 msgstr ""
 
-#: ../src/Payment/Controller/PaymentController.php:62
+#: ../src/Payment/Controller/PaymentController.php:63
 msgid "更新支付"
 msgstr ""
 
-#: ../view/payment/payment/edit.phtml:3 ../view/payment/payment/edit.phtml:10
+#: ../src/Payment/Controller/PaymentController.php:74
+msgid "支付方式设置保存成功！"
+msgstr ""
+
+#: ../view/payment/payment/edit.phtml:3 ../view/payment/payment/edit.phtml:9
 msgid "支付方式"
 msgstr ""
 
-#: ../view/payment/payment/edit.phtml:4 ../view/payment/payment/edit.phtml:19
+#: ../view/payment/payment/edit.phtml:4 ../view/payment/payment/edit.phtml:18
 msgid "基本信息"
 msgstr ""
 
-#: ../view/payment/payment/edit.phtml:10
-#: ../view/payment/payment/index.phtml:31
+#: ../view/payment/payment/edit.phtml:9 ../view/payment/payment/index.phtml:44
 msgid "编辑"
 msgstr ""
 
-#: ../view/payment/payment/edit.phtml:12
+#: ../view/payment/payment/edit.phtml:11
 msgid "返回支付方式列表"
 msgstr ""
 
-#: ../view/payment/payment/edit.phtml:13
+#: ../view/payment/payment/edit.phtml:12
 msgid "刷新"
 msgstr ""
 
-#: ../view/payment/payment/edit.phtml:14
+#: ../view/payment/payment/edit.phtml:13
 msgid "保存支付方式信息"
 msgstr ""
 
-#: ../view/payment/payment/edit.phtml:15 ../view/payment/payment/index.phtml:4
+#: ../view/payment/payment/edit.phtml:14 ../view/payment/payment/index.phtml:4
 msgid "查看帮助说明"
 msgstr ""
 
-#: ../view/payment/payment/edit.phtml:30
+#: ../view/payment/payment/edit.phtml:26
+msgid "支付手续费可以设置费用数 如 10 ，也可以设置为订单价格的百分比 如 10%"
+msgstr ""
+
+#: ../view/payment/payment/edit.phtml:32
+msgid "支付授权目录"
+msgstr ""
+
+#: ../view/payment/payment/edit.phtml:41
 msgid "订单状态"
 msgstr ""
 
-#: ../view/payment/payment/edit.phtml:38
+#: ../view/payment/payment/edit.phtml:49
 msgid ""
 "订单提交时的初始状态，如：购物支付方式为支付宝，那么提交订单状态时，就是待付"
 "款状态"
@@ -88,21 +99,37 @@ msgid "支付手续费"
 msgstr ""
 
 #: ../view/payment/payment/index.phtml:15
-msgid "支付状态"
+msgid "显示范围"
 msgstr ""
 
 #: ../view/payment/payment/index.phtml:16
-msgid "支付排序"
+msgid "支付状态"
 msgstr ""
 
 #: ../view/payment/payment/index.phtml:17
+msgid "支付排序"
+msgstr ""
+
+#: ../view/payment/payment/index.phtml:18
 msgid "操作"
 msgstr ""
 
-#: ../view/payment/payment/index.phtml:29
+#: ../view/payment/payment/index.phtml:31
+msgid "电脑端显示"
+msgstr ""
+
+#: ../view/payment/payment/index.phtml:31
+msgid "手机端显示"
+msgstr ""
+
+#: ../view/payment/payment/index.phtml:31
+msgid "全平台显示"
+msgstr ""
+
+#: ../view/payment/payment/index.phtml:42
 msgid "开启"
 msgstr ""
 
-#: ../view/payment/payment/index.phtml:29
+#: ../view/payment/payment/index.phtml:42
 msgid "关闭"
 msgstr ""

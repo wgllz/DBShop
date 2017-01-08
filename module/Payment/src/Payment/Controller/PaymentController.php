@@ -81,7 +81,11 @@ class PaymentController extends BaseController
             $view->setVariable('select_orders_state', $paymentInput['orders_state']);
             unset($paymentInput['orders_state']);
         }
-        $view->setVariable('form_input', $paymentInput);
+        $array = array(
+            'form_input' => $paymentInput,
+            'pay_type'   => $payType
+        );
+        $view->setVariables($array);
         
         
         return $view;        

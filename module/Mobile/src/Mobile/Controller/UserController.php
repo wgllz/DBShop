@@ -331,6 +331,10 @@ class UserController  extends AbstractActionController
         $openId           = $loginService->getOpenId();
         $otherUserInfo    = $loginService->getOtherInfo();
 
+        if($loginType == 'Weixinphone' and !empty($otherUserInfo['unionid'])) {
+            $openId = $otherUserInfo['unionid'];
+        }
+
         if($this->request->isPost()) {
             //判断是否关闭了注册功能
             if($this->getServiceLocator()->get('frontHelper')->getUserIni('user_register_state') == 'false') {

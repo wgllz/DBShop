@@ -110,6 +110,27 @@ class WeixinphoneLogin
         return $this->loginSession->openid;
     }
     /**
+     * 获取唯一ID，通用
+     * @return mixed
+     */
+    public function getUnionId()
+    {
+        $infoKey = array(
+            'access_token'       => $this->loginSession->access_token,
+            'openid'             => $this->loginSession->openid
+        );
+
+        $response       = json_decode($this->get(self::GET_USERINFO_URL, $infoKey));
+        $responseArray  = $this->objToArr($response);
+
+        //检查返回ret判断api是否成功调用
+        if(isset($responseArray['openid']) and !empty($responseArray['openid'])){
+            return $responseArray['unionid'];
+        }else{
+            exit('error:' . $response->errcode . 'error:' . $response->errmsg);
+        }
+    }
+    /**
      * 获取会员信息
      * @return array
      */

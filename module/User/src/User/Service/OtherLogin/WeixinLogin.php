@@ -98,16 +98,25 @@ class WeixinLogin
 
         $this->loginSession->access_token = $msg->access_token;
         $this->loginSession->openid = $msg->openid;
+        $this->loginSession->unionid = $msg->unionid;
 
         return true;
     }
     /**
-     * 获取Id值，唯一值，可用来识别用户
+     * 获取Id值，唯一值，可用来识别用户(只是相对于同一个应用，不同应用是不同的)
      * @return mixed
      */
     public function getOpenId()
     {
         return $this->loginSession->openid;
+    }
+    /**
+     * 获取唯一ID，通用
+     * @return mixed
+     */
+    public function getUnionId()
+    {
+        return $this->loginSession->unionid;
     }
     /**
      * 获取会员信息

@@ -58,6 +58,15 @@ class OtherLoginTable extends AbstractTableGateway implements \Zend\Db\Adapter\A
         return null;
     }
     /**
+     * 更新信息
+     * @param array $data
+     * @param array $where
+     */
+    public function updateOtherLogin(array $data, array $where)
+    {
+        $this->update($data, $where);
+    }
+    /**
      * 删除指定信息
      * @param array $where
      * @return int
