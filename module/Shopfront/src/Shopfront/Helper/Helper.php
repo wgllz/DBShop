@@ -836,7 +836,7 @@ class Helper extends AbstractHelper
             $this->goodsConfig = $this->iniReader->fromFile(DBSHOP_PATH . '/data/moduledata/System/goods/goods.ini');
         }
         if(!empty($type) and isset($this->goodsConfig[$type][$sign])) return $this->goodsConfig[$type][$sign];
-        else return $this->goodsConfig[$sign];
+        elseif(isset($this->goodsConfig[$sign])) return $this->goodsConfig[$sign];
 
         return '';
     }

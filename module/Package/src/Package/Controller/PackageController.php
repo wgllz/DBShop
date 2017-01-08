@@ -153,8 +153,8 @@ class PackageController extends BaseController
                 //文件更新处理
                 $allUpdateFile  = $this->getSunFile($sourcePath);
                 if(is_array($allUpdateFile) and !empty($allUpdateFile)) {
-                    $backPath = DBSHOP_PATH . '/data/moduledata/Package/back/'.$packageDirname.'_'.date("Y-m-d");
-                    if(!is_dir($backPath)) mkdir(rtrim($backPath),0777);
+                    //$backPath = DBSHOP_PATH . '/data/moduledata/Package/back/'.$packageDirname.'_'.date("Y-m-d");
+                    //if(!is_dir($backPath)) mkdir(rtrim($backPath),0777);
                     foreach ($allUpdateFile as $updateFile) {
                         $coverFile = str_replace('/data/moduledata/Package/updatepack/'.$packageDirname, '', $updateFile);
                         //备份原始文件到back目录
@@ -176,8 +176,7 @@ class PackageController extends BaseController
                     $this->delUpdateDir($packagePath.'/'.$packageDirname);
                     @unlink($packagePath."/".$array['packageInfo']->update_package);
                     //更新版本信息
-                    $updateVersionFile = $backPath . '/data/Version.php';
-                    if(file_exists($updateVersionFile)) {
+                    if(!empty($array['packageInfo']->version_name)) {
                         $versionContent = "<?php\n";
                         $versionContent .= "define('DBSHOP_VERSION','".$array['packageInfo']->version_name."');\n";
                         $versionContent .= "define('DBSHOP_VERSION_NUMBER',".$array['packageInfo']->version_number.");\n";
@@ -199,7 +198,9 @@ class PackageController extends BaseController
                     //删除原始ZF2配置缓存
                     //$this->getServiceLocator()->get('adminHelper')->clearZfConfigCache();//此为调用Helper的公用清除缓存方法
                     $this->zfdbshopClearConfigCache();//调用当前类中的私有方法
-                    
+                    //如果开启opcache或者有此函数，都进行一次处理
+                    if (function_exists('opcache_reset')) opcache_reset();
+
                     $updateState = 'true';
                 }
                 

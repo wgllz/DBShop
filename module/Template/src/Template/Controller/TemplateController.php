@@ -117,6 +117,8 @@ class TemplateController extends BaseController
         if(defined('FRONT_CACHE_STATE') and FRONT_CACHE_STATE == 'true') {
             $this->getServiceLocator()->get('frontCache')->flush();
         }
+        //清空ZF2缓存设置（如果开启opcache或者有此函数，都进行一次处理）
+        $this->getServiceLocator()->get('adminHelper')->clearZfConfigCache();
 
         //记录操作日志
         $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('模板设置操作'), 'operlog_info'=>$this->getDbshopLang()->translate('启用模板') . '&nbsp;' . $templateName));
@@ -165,6 +167,8 @@ class TemplateController extends BaseController
         $templateId = (int) $this->request->getPost('template_id');
         if($templateId == 0) exit($this->getDbshopLang()->translate('该模板不存在！'));
 
+        //系统信息
+        include DBSHOP_PATH . '/data/Version.php';
         $templateInfo = $this->dbshopSoapClient('dbshopTemplateInfo', array('v.template_id'=>$templateId, 'dbshop_version'=>DBSHOP_VERSION_NUMBER, 'dbshop_url'=>$this->getServiceLocator()->get('frontHelper')->dbshopHttpHost()));
         if(empty($templateInfo)) exit($this->getDbshopLang()->translate('该模板不存在！'));
         if(is_array($templateInfo) and isset($templateInfo['state']) and $templateInfo['state'] == 'false') exit($this->getDbshopLang()->translate('系统版本低，无法支持该模板，请您将系统版本升级到').' V'.$templateInfo['suuport_version']);

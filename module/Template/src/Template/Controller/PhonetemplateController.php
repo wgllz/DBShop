@@ -106,12 +106,16 @@ class PhonetemplateController extends BaseController
         //如果模板目录或者对应css不存在则不进行处理
         if(!is_dir($templatePath) or !is_dir($templateCssPath)) return $this->redirect()->toRoute('phonetemplate/default');
 
+        //系统信息
+        include DBSHOP_PATH . '/data/Version.php';
         $this->getServiceLocator()->get('adminHelper')->setDbshopSetshopFile(array('DBSHOP_PHONE_TEMPLATE'=>$templateName, 'DBSHOP_PHONE_TEMPLATE_CSS'=>$templateName));
 
         //查看缓存是否开启，如果开启则进行缓存清除
         if(defined('FRONT_CACHE_STATE') and FRONT_CACHE_STATE == 'true') {
             $this->getServiceLocator()->get('frontCache')->flush();
         }
+        //清空ZF2缓存设置（如果开启opcache或者有此函数，都进行一次处理）
+        $this->getServiceLocator()->get('adminHelper')->clearZfConfigCache();
 
         //记录操作日志
         $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('手机模板设置操作'), 'operlog_info'=>$this->getDbshopLang()->translate('启用模板') . '&nbsp;' . $templateName));

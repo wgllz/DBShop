@@ -127,14 +127,14 @@ class Helper extends AbstractHelper
         file_put_contents(DBSHOP_PATH . '/data/moduledata/Shopfront/setShop.php', $setShopContent);
     }
     /** 
-     * 清空zf2框架的缓存配置
+     * 清空zf2框架的缓存配置/opcache清理
      */
     public function clearZfConfigCache()
     {
+        //清理zf2框架缓存
         $zfConfigCachePathArray = array(
                 DBSHOP_PATH . '/data/cache/modulecache/'
                 );
-        
         foreach ($zfConfigCachePathArray as $valuePath) {
             $folder = @opendir($valuePath);
             while (false !== ($file = @readdir($folder))) {
@@ -143,6 +143,9 @@ class Helper extends AbstractHelper
                 }
             }
         }
+        //重置opcache
+        if (function_exists('opcache_reset')) opcache_reset();
+
         return true;
     }
     /**
@@ -264,6 +267,7 @@ class Helper extends AbstractHelper
             'online_group_set'              => '在线客服组设置',     //在线客服组设置
             'admin_template'                => '模板管理',          //模板管理设置
             'online_package'                => '在线更新管理',       //在线更新管理
+            'plugin_set'                    => '扩展插件',          //在线更新管理
             /*===============工具管理===============*/
             'navigation_set'                => '导航设置',         //导航设置
             'link_set'                      => '友情链接设置',      //友情链接设置

@@ -30,7 +30,7 @@
 			<th width="10%"><?php echo $this->translate('商品属性'); ?></th>
 			<th width="10%"><?php echo $this->translate('商品状态'); ?></th>
 			<th width="8%"><?php echo $this->translate('商品类型'); ?></th>
-			<th width="20%" style="text-align: center;"><?php echo $this->translate('操作'); ?></th>
+			<th width="20%"><?php echo $this->translate('商品分类'); ?></th>
 		</tr>
 	</thead>
 	<form method="GET" action="<?php echo $this->url('goods/default',array('action'=>'index','controller'=>'goods')); ?>">
@@ -125,10 +125,10 @@
 					<select name="class_id" class="span5">
 						<option value="0"><?php echo $this->translate('选择分类'); ?></option>
 						<?php
-						if ($this->goods_class) {
+						if (isset($this->goods_class) and !empty($this->goods_class)) {
 						foreach ($this->goods_class as $class_val) {
 						?>
-							<option value="<?php echo $class_val['class_id'] ?>" <?php if($this->searchArray['class_id'] == $class_val['class_id']) { ?>selected="selected"<?php } ?>><?php echo str_repeat('&nbsp;', $class_val['class_level'] * 5).$class_val['class_name']; ?></option>
+							<option value="<?php echo $class_val['class_id'] ?>" <?php if( isset($this->searchArray['class_id']) and $this->searchArray['class_id'] == $class_val['class_id']) { ?>selected="selected"<?php } ?>><?php echo str_repeat('&nbsp;', $class_val['class_level'] * 5).$class_val['class_name']; ?></option>
 						<?php } } ?>
 					</select>
 					<button class="btn btn-small btn-primary" type="submit"
