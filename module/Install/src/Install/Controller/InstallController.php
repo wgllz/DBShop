@@ -40,10 +40,10 @@ class InstallController extends AbstractActionController
             return $this->redirect()->toRoute('shopfront/default');
         }
         if(file_exists(DBSHOP_PATH . '/data/DatabaseCache.ini.php')) @unlink(DBSHOP_PATH . '/data/DatabaseCache.ini.php');
-        
+
         //清空ZF2缓存设置
         $this->getServiceLocator()->get('adminHelper')->clearZfConfigCache();
-        
+
         $array = array();
         //默认语言包
         $defaultLanguage = $this->getServiceLocator()->get('translator')->getLocale();
@@ -116,13 +116,18 @@ class InstallController extends AbstractActionController
         //rewrite判断
         if($array['curl_open'] == '<i class="cus-tick"></i>') {
             $array['curl_open_state'] = 1;//curl状态，用于在rewrite得判断上
-            $checkRewriteUlr = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('install/default', array('controller'=>'Install', 'action'=>'installCheckRewrite'));
+            $httpType        = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps();
+            $checkRewriteUlr = $httpType . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('install/default', array('controller'=>'Install', 'action'=>'installCheckRewrite'));
             $checkRewriteUlr = str_replace('index.php/', '', $checkRewriteUlr);
 
             //模拟get方式获取信息
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $checkRewriteUlr);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            if($httpType == 'https://') {
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+            }
             curl_setopt($ch, CURLOPT_HEADER, 0);
             $output = curl_exec($ch);
             curl_close($ch);

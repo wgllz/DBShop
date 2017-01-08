@@ -683,7 +683,7 @@ CREATE TABLE dbshop_order (
   `express_time` char(10) DEFAULT NULL,
   `buyer_id` int(11) NOT NULL,
   `buyer_name` char(100) NOT NULL,
-  `buyer_email` char(50) NOT NULL,
+  `buyer_email` char(50) DEFAULT NULL,
   `currency` char(10) NOT NULL,
   `currency_symbol` char(15) DEFAULT NULL,
   `currency_unit` char(15) DEFAULT NULL,
