@@ -42,19 +42,37 @@
     <input type="hidden" name="http_referer" value="<?php echo $this->http_referer; ?>" />
     <div class="ect-padding-lr ect-padding-tb"> <input type="submit" value="<?php echo $this->translate('注册会员'); ?>" class="btn btn-info ect-btn-info ect-colorf"></div>
 </form>
-    <?php if($this->frontwebsite()->getUserIni('qq_login_state') == 'true') { ?>
+    <?php if($this->frontwebsite()->getUserOtherLoginState() == 'true') { ?>
         <div class="ect-padding-lr ect-margin-tb user-hezuo">
             <?php echo $this->translate('使用合作账号登录'); ?>
-            <p>
-                <a href="<?php echo $this->url('m_user/default',array('action'=>'otherlogin')); ?>"><img src="<?php echo $this->basePath('public/mobile/default/images/qq.png'); ?>"></a>
-            </p>
+            <?php
+            $otherLoginArray = $this->frontwebsite()->getUserOtherLoginIni();
+            if(!empty($otherLoginArray)) {
+                foreach($otherLoginArray as $othKey => $othValue) {
+                    if($othValue['login_state'] == 'true') {
+                        $othKey = strtolower($othKey);
+                        if($othKey == 'weixin') {
+                            if(strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
+                                ?>
+                                <p><a href="<?php echo $this->url('m_user/default',array('action'=>'otherlogin'), array('query'=>array('login_type'=>$othKey))); ?>"><img src="<?php echo $this->basePath('public/mobile/default/images/'.$othKey.'.png'); ?>"></a></p>
+                                <?php
+                            }
+                        } else {
+                            ?>
+                            <p><a href="<?php echo $this->url('m_user/default',array('action'=>'otherlogin'), array('query'=>array('login_type'=>$othKey))); ?>"><img src="<?php echo $this->basePath('public/mobile/default/images/'.$othKey.'.png'); ?>"></a></p>
+                            <?php
+                        }
+                    }
+                }
+            }
+            ?>
         </div>
     <?php } ?>
 <script>
     <?php if ($this->frontwebsite()->websiteInfo('user_register_captcha') == 'true') { ?>
     //验证码添加
     function captchaAdd() {
-        $.post("<?php echo $this->url('shopfront/default',array('action'=>'captcha')); ?>",'',
+        $.get("<?php echo $this->url('shopfront/default',array('action'=>'captcha')); ?>",{},
             function(data){
                 $("#captcha_id").attr('src', '<?php echo $this->basePath('/'); ?>'+data.captcha_file);
             },'json');

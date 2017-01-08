@@ -40,7 +40,7 @@ class GoodsController extends AbstractActionController
         $this->layout()->mobile_title_name = $this->getDbshopLang()->translate('商品详情');
 
         //商品基本信息
-        $array['goods_info']   = $this->getDbshopTable('GoodsTable')->infoGoods(array('dbshop_goods.goods_id'=>$goodsId, 'goods_state'=>1, 'e.language'=>$this->getDbshopLang()->getLocale()));
+        $array['goods_info']   = $this->getDbshopTable('GoodsTable')->infoGoods(array('dbshop_goods.goods_id'=>$goodsId, 'e.language'=>$this->getDbshopLang()->getLocale()));
         if(!$array['goods_info']) return $this->redirect()->toRoute('shopfront/default');
 
         //判断优惠价格是否存在，是否过期
@@ -83,7 +83,7 @@ class GoodsController extends AbstractActionController
 
         //商品销量
         $array['order_count']  = $this->getDbshopTable('OrderGoodsTable')->countOrderGoodsNum(array('o.order_state!=0', 'dbshop_order_goods.goods_id='. $goodsId));
-
+        $array['order_count']  = $array['order_count'] + intval($array['goods_info']->virtual_sales);
         //商品属性
         if($array['goods_info']->attribute_group_id != '') {
             $array['goods_attribute'] = $this->getAttributeArray($array['goods_info']->attribute_group_id, $goodsId);

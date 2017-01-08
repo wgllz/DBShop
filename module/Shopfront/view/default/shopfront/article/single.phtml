@@ -5,10 +5,15 @@
     	<div style="font-size:16px;" class="edit_table_css">
         <?php echo $this->single_article_info->single_article_body; ?>
         </div>
+        <?php
+        $goods_share_info = $this->frontwebsite()->getDbshopGoodsShare();
+        if(!empty($goods_share_info['share_type'])) {
+        ?>
         <hr style="margin-bottom: 3px;">
         <div class="pull-right">
             <?php echo $this->share_code; ?>
         </div>
+        <?php } ?>
     </div>
     
      

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop V1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-31 18:34+0800\n"
-"PO-Revision-Date: 2016-08-31 18:35+0800\n"
+"POT-Creation-Date: 2016-11-19 15:42+0800\n"
+"PO-Revision-Date: 2016-11-19 15:46+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_TW\n"
@@ -61,7 +61,7 @@ msgstr "圖片附件最大尺寸"
 
 #: ../view/upload/upload/uploadset.phtml:27
 msgid "1 MB=1024 KB ，1 GB=1024 MB"
-msgstr ""
+msgstr "1 MB=1024 KB ，1 GB=1024 MB"
 
 #: ../view/upload/upload/uploadset.phtml:31
 msgid "图片附件允许上传类型"
@@ -355,70 +355,134 @@ msgid "七牛域名"
 msgstr "七牛域名"
 
 #: ../view/upload/upload/uploadset.phtml:324
+msgid "七牛云存储，默认是不支持 https:// 的，所以请选择 http://"
+msgstr "七牛云存儲，默認不支持 https:// 的，所以請選擇 http://"
+
+#: ../view/upload/upload/uploadset.phtml:329
 msgid "阿里云空间名称"
 msgstr "阿里雲空間名稱"
 
-#: ../view/upload/upload/uploadset.phtml:330
+#: ../view/upload/upload/uploadset.phtml:335
 msgid "阿里云节点"
 msgstr "阿里雲節點"
 
-#: ../view/upload/upload/uploadset.phtml:333
+#: ../view/upload/upload/uploadset.phtml:338
 msgid "请选择节点"
 msgstr "請選擇節點"
 
-#: ../view/upload/upload/uploadset.phtml:334
-msgid "青岛"
-msgstr "青島"
+#: ../view/upload/upload/uploadset.phtml:339
+msgid "华北1(青岛)"
+msgstr "華北1(青岛)"
 
-#: ../view/upload/upload/uploadset.phtml:335
-msgid "北京"
-msgstr "北京"
+#: ../view/upload/upload/uploadset.phtml:340
+msgid "华北2(北京)"
+msgstr "華北2(北京)"
 
-#: ../view/upload/upload/uploadset.phtml:336
-msgid "杭州"
-msgstr "杭州"
+#: ../view/upload/upload/uploadset.phtml:341
+msgid "华东1(杭州)"
+msgstr "華東1(杭州)"
 
-#: ../view/upload/upload/uploadset.phtml:337
+#: ../view/upload/upload/uploadset.phtml:342
+msgid "华东2(上海)"
+msgstr "華東2(上海)"
+
+#: ../view/upload/upload/uploadset.phtml:343
 msgid "香港"
 msgstr "香港"
 
-#: ../view/upload/upload/uploadset.phtml:338
-msgid "深圳"
-msgstr "深圳"
+#: ../view/upload/upload/uploadset.phtml:344
+msgid "华南1(深圳)"
+msgstr "華南(深圳)"
 
-#: ../view/upload/upload/uploadset.phtml:343
-msgid "Access Key ID"
-msgstr ""
+#: ../view/upload/upload/uploadset.phtml:345
+msgid "美国西部1"
+msgstr "美國西部1"
+
+#: ../view/upload/upload/uploadset.phtml:346
+msgid "美国东部1"
+msgstr "美國東部1"
+
+#: ../view/upload/upload/uploadset.phtml:347
+msgid "亚太东南1"
+msgstr "亞太東南1"
+
+#: ../view/upload/upload/uploadset.phtml:348
+msgid "亚太东北1"
+msgstr "亞太東北1"
 
 #: ../view/upload/upload/uploadset.phtml:349
-msgid "Access Key Secret"
-msgstr ""
+msgid "欧洲中部1"
+msgstr "歐洲中部1"
+
+#: ../view/upload/upload/uploadset.phtml:350
+msgid "中东东部1"
+msgstr "中東東部1"
 
 #: ../view/upload/upload/uploadset.phtml:355
+msgid "Access Key ID"
+msgstr "Access Key ID"
+
+#: ../view/upload/upload/uploadset.phtml:361
+msgid "Access Key Secret"
+msgstr "Access Key Secret"
+
+#: ../view/upload/upload/uploadset.phtml:367
 msgid "访问域名"
 msgstr "訪問域名"
 
-#: ../view/upload/upload/uploadset.phtml:358
+#: ../view/upload/upload/uploadset.phtml:374
 msgid "获取阿里云默认域名"
 msgstr "獲取阿里雲默認域名"
 
-#: ../view/upload/upload/uploadset.phtml:405
-#: ../view/upload/upload/uploadset.phtml:411
-#: ../view/upload/upload/uploadset.phtml:417
-#: ../view/upload/upload/uploadset.phtml:423
+#: ../view/upload/upload/uploadset.phtml:378
+msgid "域名类型"
+msgstr "域名類型"
+
+#: ../view/upload/upload/uploadset.phtml:381
+msgid "阿里云存储官方域名"
+msgstr "阿里雲存儲官方域名"
+
+#: ../view/upload/upload/uploadset.phtml:382
+msgid "自定义域名"
+msgstr "自定義域名"
+
+#: ../view/upload/upload/uploadset.phtml:384
+msgid ""
+"这里的域名类型指的是上面的 访问域名 的类型，如果您在阿里云存储中设置了自己的"
+"域名，请选择自定义域名；否则请选择阿里云存储官方域名。"
+msgstr ""
+"這裡的域名類型指的是上面的 訪問域名 的類型，如果您在阿里雲存儲中設置了自己的"
+"域名，請選擇自定義域名；否則請選擇阿里雲存儲官方域名。"
+
+#: ../view/upload/upload/uploadset.phtml:431
+#: ../view/upload/upload/uploadset.phtml:437
+#: ../view/upload/upload/uploadset.phtml:443
+#: ../view/upload/upload/uploadset.phtml:449
 msgid "宽度必须为数字"
 msgstr "寬度必須為數字"
 
-#: ../view/upload/upload/uploadset.phtml:408
-#: ../view/upload/upload/uploadset.phtml:414
-#: ../view/upload/upload/uploadset.phtml:420
-#: ../view/upload/upload/uploadset.phtml:426
+#: ../view/upload/upload/uploadset.phtml:434
+#: ../view/upload/upload/uploadset.phtml:440
+#: ../view/upload/upload/uploadset.phtml:446
+#: ../view/upload/upload/uploadset.phtml:452
 msgid "高度必须为数字"
 msgstr "高度必須為數字！"
 
-#: ../view/upload/upload/uploadset.phtml:489
+#: ../view/upload/upload/uploadset.phtml:515
 msgid "阿里云节点和空间名称不能为空!"
 msgstr "阿里雲節點和空間名稱不能爲空!"
+
+#~ msgid "青岛"
+#~ msgstr "青島"
+
+#~ msgid "北京"
+#~ msgstr "北京"
+
+#~ msgid "杭州"
+#~ msgstr "杭州"
+
+#~ msgid "深圳"
+#~ msgstr "深圳"
 
 #~ msgid "阿里云域名"
 #~ msgstr "阿里雲域名"

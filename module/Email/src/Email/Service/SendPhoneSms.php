@@ -37,10 +37,19 @@ class SendPhoneSms
      */
     public function toSendSms($data, $user_phone, $phone_template='', $user_id = '') {
         //判断是否开启了手机短信服务功能，如果未开启则不进行操作
-        if($this->smsConfig['shop_phone_sms']['phone_sms_type'] == '' or empty($user_phone) or $this->smsConfig['shop_phone_sms'][$phone_template] == '') return false;
+        if($this->smsConfig['shop_phone_sms']['phone_sms_type'] == '' or $this->smsConfig['shop_phone_sms'][$phone_template] == '') return false;
+
+        $user_phone = !empty($user_phone) ? (is_array($user_phone) ? implode(',', $user_phone) : $user_phone) : '';
+        if(!empty($this->smsConfig['shop_phone_sms']['admin_phone'])) {
+            if($phone_template == 'alidayu_submit_order_template_id' && $this->smsConfig['shop_phone_sms']['admin_submit_order_phone_message'] == 1)    $user_phone = !empty($user_phone) ? $user_phone.','.$this->smsConfig['shop_phone_sms']['admin_phone'] : $this->smsConfig['shop_phone_sms']['admin_phone'];
+            if($phone_template == 'alidayu_payment_order_template_id' && $this->smsConfig['shop_phone_sms']['admin_payment_order_phone_message'] == 1)  $user_phone = !empty($user_phone) ? $user_phone.','.$this->smsConfig['shop_phone_sms']['admin_phone'] : $this->smsConfig['shop_phone_sms']['admin_phone'];
+            if($phone_template == 'alidayu_finish_order_template_id' && $this->smsConfig['shop_phone_sms']['admin_finish_order_phone_message'] == 1)    $user_phone = !empty($user_phone) ? $user_phone.','.$this->smsConfig['shop_phone_sms']['admin_phone'] : $this->smsConfig['shop_phone_sms']['admin_phone'];
+            if($phone_template == 'alidayu_cancel_order_template_id' && $this->smsConfig['shop_phone_sms']['admin_cancel_order_phone_message'] == 1)    $user_phone = !empty($user_phone) ? $user_phone.','.$this->smsConfig['shop_phone_sms']['admin_phone'] : $this->smsConfig['shop_phone_sms']['admin_phone'];
+        }
+        if(empty($user_phone)) return false;
 
         $smsJson    = $this->createSmsArray($data);
-        $user_phone = is_array($user_phone) ? implode(',', $user_phone) : $user_phone;
+        //$user_phone = is_array($user_phone) ? implode(',', $user_phone) : $user_phone;
 
         include(DBSHOP_PATH . '/vendor/alibaba/dayu/TopSdk.php');
         $c = new \TopClient();
@@ -55,6 +64,8 @@ class SendPhoneSms
         $req->setRecNum($user_phone);
         $req->setSmsTemplateCode($this->smsConfig['shop_phone_sms'][$phone_template]);
         $resp = $c->execute($req);
+
+
     }
 
     /**
@@ -67,20 +78,9 @@ class SendPhoneSms
             'shopname'   => (isset($data['shopname'])     ? $data['shopname']     : ''),
             'buyname'    => (isset($data['buyname'])      ? $data['buyname']      : ''),
             'ordersn'    => (isset($data['ordersn'])      ? $data['ordersn']      : ''),
-            'submittime' => (isset($data['submittime'])   ? date("Y-m-d H:i:s", $data['submittime'])   : ''),
-            'shopurl'    => (isset($data['shopurl'])      ? $data['shopurl']     : ''),
-            'paymenttime'=> (isset($data['paymenttime'])  ? date("Y-m-d H:i:s", $data['paymenttime'])  : ''),
-            'shiptime'   => (isset($data['shiptime'])     ? date("Y-m-d H:i:s", $data['shiptime'])     : ''),
-            'finishtime' => (isset($data['finishtime'])   ? date("Y-m-d H:i:s", $data['finishtime'])   : ''),
-            'canceltime' => (isset($data['canceltime'])   ? date("Y-m-d H:i:s", $data['canceltime'])   : ''),
-            'cancelinfo' => (isset($data['cancel_info'])  ? trim($data['cancel_info'])                 : ''),
-            'deltime'    => (isset($data['deltime'])      ? date("Y-m-d H:i:s", $data['deltime'])      : ''),
-
-            'askusername'    => (isset($data['askusername'])   ? $data['askusername']                  : ''),
-            'goodsname'      => (isset($data['goodsname'])     ? $data['goodsname']                    : ''),
-            'asktime'        => (isset($data['asktime'])       ? date("Y-m-d H:i:s", $data['asktime']) : ''),
-            'replyusername'  => (isset($data['replyusername']) ? $data['replyusername']                : ''),
-            'replytime'      => (isset($data['replytime'])     ? date("Y-m-d H:i:s", $data['replytime']): ''),
+            'ordertotal' => (isset($data['ordertotal'])      ? $data['ordertotal']      : ''),
+            'expressname'=> (isset($data['expressname'])      ? $data['expressname']      : ''),
+            'expressnumber' => (isset($data['expressnumber'])      ? $data['expressnumber']      : ''),
         );
         return json_encode($bodyArray);
     }

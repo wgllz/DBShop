@@ -20,7 +20,7 @@ use Admin\Controller\BaseController;
 class PaymentController extends BaseController
 {
     /** 
-     * 配送方式列表
+     * 支付方式列表
      * @see \Zend\Mvc\Controller\AbstractActionController::indexAction()
      */
     public function indexAction()
@@ -32,7 +32,7 @@ class PaymentController extends BaseController
             $dh = opendir($xmlPath);
             while (false !== ($fileName = readdir($dh))) {
                 if($fileName != '.' and $fileName != '..' and $fileName != '.DS_Store') {
-                    $paymentArray[] = $xmlReader->fromFile($xmlPath . '/' . $fileName);
+                    $paymentArray[] = $xmlReader->fromFile($xmlPath . $fileName);
                 }
             }
         }
@@ -54,7 +54,7 @@ class PaymentController extends BaseController
     {
         //识别系统已经有的支付方式
         $payType = $this->params('paytype');
-        if(!in_array($payType, array('alipay', 'paypal', 'hdfk', 'xxzf', 'malipay', 'wxpay', 'yezf'))) $payType = 'alipay';
+        if(!in_array($payType, array('alipay', 'paypal', 'hdfk', 'xxzf', 'malipay', 'wxpay', 'wxmpay', 'yezf'))) $payType = 'alipay';
 
         //进行配置信息设置
         if($this->request->isPost()) {

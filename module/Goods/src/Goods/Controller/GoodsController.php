@@ -794,7 +794,7 @@ class GoodsController extends BaseController
             $goodsArray = $this->getDbshopTable()->listGoods(array('e.goods_name like \'%'.$keyword.'%\''), array('dbshop_goods.goods_id DESC'), 20);
             if(is_array($goodsArray) and !empty($goodsArray)) {
                 foreach ($goodsArray as $goodsValue) {
-                    $goodsList .= $goodsValue['goods_name'].'|'.$goodsValue['goods_id']."\n";
+                    $goodsList .= $goodsValue['goods_name'].($goodsValue['goods_state'] == 2 ? '['.$this->getDbshopLang()->translate('已下架').']' : '').'|'.$goodsValue['goods_id']."\n";
                 }
             }
         }

@@ -46,9 +46,8 @@ class GoodsController extends AbstractActionController
         
         //商品基本信息
         $array['goods_info']   = $this->getDbshopTable('GoodsTable')->infoGoods(array('dbshop_goods.goods_id'=>$goodsId, 'e.language'=>$this->getDbshopLang()->getLocale()));
-        $preview = ($this->request->getQuery('Preview') == 'true' ? 'true' : 'false');//对预览的处理，当后台为下架商品时也可以预览
 
-        if(!$array['goods_info'] or ($preview == 'false' and $array['goods_info']->goods_state != 1)) return $this->redirect()->toRoute('shopfront/default');
+        if(!$array['goods_info']) return $this->redirect()->toRoute('shopfront/default');
         
         //判断优惠价格是否存在，是否过期
         $preferentialStart = (intval($array['goods_info']->goods_preferential_start_time) == 0 or time() >= $array['goods_info']->goods_preferential_start_time) ? true : false;
@@ -127,7 +126,7 @@ class GoodsController extends AbstractActionController
         $this->layout()->tongji_goods_brand_id   = $array['goods_info']->brand_id;
         $this->layout()->tongji_goods_name       = $array['goods_info']->goods_name;
         $this->layout()->tongji_goods_id         = $array['goods_info']->goods_id;
-        $this->layout()->tongji_goods_image      = 'http://' . $this->getRequest()->getServer('SERVER_NAME').$this->getRequest()->getBasePath().$this->getServiceLocator()->get('frontHelper')->shopGoodsImage($array['goods_info']->goods_title_image);
+        $this->layout()->tongji_goods_image      = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost().$this->getRequest()->getBasePath().$this->getServiceLocator()->get('frontHelper')->shopGoodsImage($array['goods_info']->goods_title_image);
         $this->layout()->tongji_goods_class_name = $classInfo->class_name;
         $this->layout()->tongji_goods_brand_name = (isset($array['brand_info']) and isset($array['brand_info']->brand_name)) ? $array['brand_info']->brand_name : '';
         $this->layout()->tongji_goods_stock_state= $array['goods_stock'];
@@ -239,13 +238,13 @@ class GoodsController extends AbstractActionController
                 if($sendMessageBody != '') {
                     $sendArray = array();
                     $sendArray['shopname']     = $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name');
-                    $sendArray['shopurl']      = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('shopfront/default');
+                    $sendArray['shopurl']      = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default');
                     $sendArray['askusername']  = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_name');
                     $sendArray['asktime']      = $postArray['ask_time'];
 
                     $goodsInfo   = $this->getDbshopTable('GoodsTable')->infoGoods(array('dbshop_goods.goods_id'=>$postArray['goods_id'], 'e.language'=>$this->getDbshopLang()->getLocale()));
                     $inClass     = $this->getDbshopTable('GoodsInClassTable')->oneGoodsInClass(array('dbshop_goods_in_class.goods_id'=>$postArray['goods_id'], 'c.class_state'=>1));
-                    $sendArray['goodsname']  = '<a href="http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontgoods/default', array('goods_id'=>$postArray['goods_id'], 'class_id'=>$inClass[0]['class_id'])).'" target="_blank">' . $goodsInfo->goods_name . '</a>';
+                    $sendArray['goodsname']  = '<a href="'. $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontgoods/default', array('goods_id'=>$postArray['goods_id'], 'class_id'=>$inClass[0]['class_id'])).'" target="_blank">' . $goodsInfo->goods_name . '</a>';
 
                     $sendArray['subject']       = $sendArray['shopname'] . '|' . $this->getDbshopLang()->translate('新的商品咨询') . '|' . $goodsInfo->goods_name;
                     $sendArray['send_mail'][]   = $buyerEmail;

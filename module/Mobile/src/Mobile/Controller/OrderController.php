@@ -67,6 +67,9 @@ class OrderController  extends MobileHomeController
         //订单商品
         $array['order_goods'] = $this->getDbshopTable('OrderGoodsTable')->listOrderGoods(array('order_id'=>$orderId));
 
+        //订单总价修改历史
+        $array['order_amount_log'] = $this->getDbshopTable('OrderAmountLogTable')->listOrderAmountLog(array('order_id'=>$orderId));
+
         //退货信息
         if($array['order_info']->refund_state == 1) {
             $array['refund_order']=$this->getDbshopTable('OrderRefundTable')->infoOrderRefund(array('order_sn'=>$array['order_info']->order_sn));
@@ -158,19 +161,27 @@ class OrderController  extends MobileHomeController
         //订单商品
         $orderGoods = $this->getDbshopTable('OrderGoodsTable')->listOrderGoods(array('order_id'=>$orderId));
         //打包数据，传给下面的支付输出
+		$httpHost = $this->getRequest()->getServer('SERVER_NAME');
+		$httpType = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps();
         $paymentData = array(
             'shop_name' => $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name'),
             'order'     => $orderInfo,
             'address'   => $deliveryAddress,
             'goods'     => $orderGoods,
-            'return_url'=> 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('m_order/default/order_id', array('action'=>'orderReturnPay', 'order_id'=>$orderId)),
-            'notify_url'=> 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('m_order/default/order_id', array('action'=>'orderNotifyPay', 'order_id'=>$orderId)),
-            'cancel_url'=> 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('m_order/default'),
-            'order_url' => 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('m_order/default/order_id', array('action'=>'showorder', 'order_id'=>$orderId)),
+            'return_url'=> $httpType . $httpHost . $this->url()->fromRoute('m_order/default/order_id', array('action'=>'orderReturnPay', 'order_id'=>$orderId)),
+            'notify_url'=> $httpType . $httpHost . $this->url()->fromRoute('m_order/default/order_id', array('action'=>'orderNotifyPay', 'order_id'=>$orderId)),
+            'cancel_url'=> $httpType . $httpHost . $this->url()->fromRoute('m_order/default'),
+            'order_url' => $httpType . $httpHost . $this->url()->fromRoute('m_order/default/order_id', array('action'=>'showorder', 'order_id'=>$orderId)),
         );
-        $this->getServiceLocator()->get($orderInfo->pay_code)->paymentTo($paymentData);
+        $result = $this->getServiceLocator()->get($orderInfo->pay_code)->paymentTo($paymentData);
 
-        exit();
+        if($orderInfo->pay_code == 'wxmpay') {//微信支付页面(手机端)
+            $view = new ViewModel();
+            $view->setTemplate('/mobile/home/order_pay.phtml');
+            $view->setVariables(array('jsApiParameters' => $result));
+            return $view;
+
+        } else exit();
     }
     /**
      * 确认收货
@@ -239,8 +250,14 @@ class OrderController  extends MobileHomeController
                     }
                 }
                 /*----------------------提醒信息发送----------------------*/
+                //订单配送信息
+                $deliveryAddress = $this->getDbshopTable('OrderDeliveryAddressTable')->infoDeliveryAddress(array('order_id'=>$orderId));
+
                 $sendArray['buyer_name']  = $array['order_info']->buyer_name;
                 $sendArray['order_sn']    = $array['order_info']->order_sn;
+                $sendArray['order_total'] = $array['order_info']->order_total;
+                $sendArray['express_name']  = $deliveryAddress->express_name;
+                $sendArray['express_number']= $deliveryAddress->express_number;
                 $sendArray['time']        = $finishTime;
                 $sendArray['buyer_email'] = $array['order_info']->buyer_email;
                 $sendArray['order_state'] = 'transaction_finish';
@@ -253,6 +270,9 @@ class OrderController  extends MobileHomeController
                 $smsData = array(
                     'buyname'   => $sendArray['buyer_name'],
                     'ordersn'    => $sendArray['order_sn'],
+                    'ordertotal' => $sendArray['order_total'],
+                    'expressname'=> $sendArray['express_name'],
+                    'expressnumber' => $sendArray['express_number'],
                     'time'    => $sendArray['time'],
                 );
                 try {
@@ -376,8 +396,12 @@ class OrderController  extends MobileHomeController
                 }
 
                 /*----------------------提醒信息发送----------------------*/
+                //订单配送信息
+                $deliveryAddress = $this->getDbshopTable('OrderDeliveryAddressTable')->infoDeliveryAddress(array('order_id'=>$orderId));
+
                 $sendArray['buyer_name']  = $orderInfo->buyer_name;
                 $sendArray['order_sn']    = $orderInfo->order_sn;
+                $sendArray['order_total'] = $orderInfo->order_total;
                 $sendArray['time']        = $paymentFinishTime;
                 $sendArray['buyer_email'] = $orderInfo->buyer_email;
                 $sendArray['order_state'] = 'payment_finish';
@@ -390,6 +414,7 @@ class OrderController  extends MobileHomeController
                 $smsData = array(
                     'buyname'   => $sendArray['buyer_name'],
                     'ordersn'    => $sendArray['order_sn'],
+                    'ordertotal'=> $sendArray['order_total'],
                     'time'    => $sendArray['time'],
                 );
                 try {
@@ -480,6 +505,7 @@ class OrderController  extends MobileHomeController
                 /*----------------------提醒信息发送----------------------*/
                 $sendArray['buyer_name']  = $orderInfo->buyer_name;
                 $sendArray['order_sn']    = $orderInfo->order_sn;
+                $sendArray['order_total'] = $orderInfo->order_total;
                 $sendArray['time']        = time();
                 $sendArray['buyer_email'] = $orderInfo->buyer_email;
                 $sendArray['order_state'] = 'payment_finish';
@@ -492,6 +518,7 @@ class OrderController  extends MobileHomeController
                 $smsData = array(
                     'buyname'   => $sendArray['buyer_name'],
                     'ordersn'    => $sendArray['order_sn'],
+                    'ordertotal'=> $sendArray['order_total'],
                     'time'    => $sendArray['time'],
                 );
                 try {
@@ -537,8 +564,14 @@ class OrderController  extends MobileHomeController
             $typeTime  = 'finish_time';
             $stateInfo = $this->getDbshopLang()->translate('确认收货');
             /*----------------------提醒信息发送----------------------*/
+            //订单配送信息
+            $deliveryAddress = $this->getDbshopTable('OrderDeliveryAddressTable')->infoDeliveryAddress(array('order_id'=>$orderInfo->order_id));
+
             $sendArray['buyer_name']  = $orderInfo->buyer_name;
             $sendArray['order_sn']    = $orderInfo->order_sn;
+            $sendArray['order_total'] = $orderInfo->order_total;
+            $sendArray['express_name']  = $deliveryAddress->express_name;
+            $sendArray['express_number']= $deliveryAddress->express_number;
             $sendArray['time']        = $timeStr;
             $sendArray['buyer_email'] = $orderInfo->buyer_email;
             $sendArray['order_state'] = 'transaction_finish';
@@ -551,6 +584,9 @@ class OrderController  extends MobileHomeController
             $smsData = array(
                 'buyname'   => $sendArray['buyer_name'],
                 'ordersn'    => $sendArray['order_sn'],
+                'ordertotal'   => $sendArray['order_total'],
+                'expressname'  => $sendArray['express_name'],
+                'expressnumber'=> $sendArray['express_number'],
                 'time'    => $sendArray['time'],
             );
             try {
@@ -605,6 +641,7 @@ class OrderController  extends MobileHomeController
             /*----------------------提醒信息发送----------------------*/
             $sendArray['buyer_name']  = $orderInfo->buyer_name;
             $sendArray['order_sn']    = $orderInfo->order_sn;
+            $sendArray['order_total'] = $orderInfo->order_total;
             $sendArray['time']        = time();
             $sendArray['buyer_email'] = $orderInfo->buyer_email;
             $sendArray['order_state'] = 'cancel_order';
@@ -617,6 +654,7 @@ class OrderController  extends MobileHomeController
             $smsData = array(
                 'buyname'   => $sendArray['buyer_name'],
                 'ordersn'    => $sendArray['order_sn'],
+                'ordertotal'=> $sendArray['order_total'],
                 'time'    => $sendArray['time'],
             );
             try {
@@ -683,8 +721,11 @@ class OrderController  extends MobileHomeController
             $sendArray['shopname']      = $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name');
             $sendArray['buyname']       = $data['buyer_name'];
             $sendArray['ordersn']       = $data['order_sn'];
+            $sendArray['ordertotal']    = isset($data['order_total'])    ? $data['order_total'] : '';
+            $sendArray['expressname']   = isset($data['express_name'])   ? $data['express_name'] : '';
+            $sendArray['expressnumber'] = isset($data['express_number']) ? $data['express_number'] : '';
             $sendArray[$data['time_type']]= $data['time'];
-            $sendArray['shopurl']       = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('shopfront/default');
+            $sendArray['shopurl']       = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default');
 
             $sendArray['subject']       = $sendArray['shopname'] . $data['subject'];
             $sendArray['send_mail'][]   = $this->getServiceLocator()->get('frontHelper')->getSendMessageBuyerEmail($data['order_state'] . '_state', $data['buyer_email']);
@@ -775,7 +816,7 @@ class OrderController  extends MobileHomeController
             $state = $this->getDbshopTable('UserMoneyLogTable')->addUserMoneyLog($moneyLogArray);
             if($state) {
                 //对会员表中的余额总值进行更新
-                $this->getDbshopTable('UserTable')->updateUser(array('user_money'=>$moneyLogArray['money_changed_amount']), array('user_id'=>$userInfo->user_id));
+                if($moneyLogArray['money_changed_amount'] > 0) $this->getDbshopTable('UserTable')->updateUser(array('user_money'=>$moneyLogArray['money_changed_amount']), array('user_id'=>$userInfo->user_id));
                 $orderInfo->yezfPayState = 'true';
             } else {
                 $orderInfo->yezfPayState = 'false';

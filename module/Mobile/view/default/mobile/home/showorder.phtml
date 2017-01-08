@@ -90,6 +90,13 @@
                 <p class="ect-margin-tb"><?php echo $this->translate('支付手续'); ?>：<b class="ect-colory"><?php echo $this->order_info->currency_symbol . $this->order_info->pay_fee . $this->order_info->currency_unit; ?></b></p>
                 <p class="ect-margin-tb"><?php echo $this->translate('购买优惠'); ?>：<b style="color: #ED145B">-<?php echo $this->order_info->currency_symbol . $this->order_info->buy_pre_fee . $this->order_info->currency_unit; ?></b></p>
                 <p class="ect-margin-tb"><?php echo $this->translate('会员优惠'); ?>：<b style="color: #ED145B">-<?php echo $this->order_info->currency_symbol . $this->order_info->user_pre_fee . $this->order_info->currency_unit; ?></b></p>
+                <?php
+                if(isset($this->order_amount_log) and !empty($this->order_amount_log)) {
+                    foreach($this->order_amount_log as $amount_log) {
+                        ?>
+                        <p class="ect-margin-tb"><?php echo $amount_log['order_edit_amount_info']; ?>：<b style="color: #ED145B"><?php echo $amount_log['order_edit_amount_type']; ?><?php echo $this->order_info->currency_symbol.$amount_log['order_edit_number']; ?></b></p>
+                    <?php } } ?>
+
                 <?php if(isset($this->order_info->integral_buy_price) and $this->order_info->integral_buy_price > 0) { ?>
                     <p class="ect-margin-tb"><?php echo $this->translate('积分购买'); ?>：<b style="color: #ED145B">-<?php echo $this->order_info->currency_symbol . $this->order_info->integral_buy_price . $this->order_info->currency_unit; ?></b></p>
                 <?php } ?>

@@ -88,10 +88,10 @@ function getfiles($path, $allowFiles, $storageConfig)
 
             //判断是否是云存储
             if(stripos($value['goods_watermark_image'],'{qiniu}') !== false) {
-                $imageFile = 'http://'.$storageConfig['qiniu_domain'] . '/' .basename($value['goods_watermark_image']);
+                $imageFile = (isset($storageConfig['qiniu_http_type']) ? $storageConfig['qiniu_http_type'] : 'http://').$storageConfig['qiniu_domain'] . '/' .basename($value['goods_watermark_image']);
             }
             if(stripos($value['goods_watermark_image'],'{aliyun}') !== false) {
-                $imageFile = 'http://'.$storageConfig['aliyun_domain'] . '/' .basename($value['goods_watermark_image']);
+                $imageFile = (isset($storageConfig['aliyun_http_type']) ? $storageConfig['aliyun_http_type'] : 'http://').$storageConfig['aliyun_domain'] . '/' .basename($value['goods_watermark_image']);
             }
 
             $files[] = array(

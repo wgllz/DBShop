@@ -1,5 +1,4 @@
 <?php
-include
 /**
  * 上传附件和上传视频
  * User: Jinqn
@@ -93,7 +92,8 @@ function yunStorageUpload($image, $storageConfig) {
         $bucket = $storageConfig['qiniu_space_name'];
         $token  = $auth->uploadToken($bucket, null, 3600);
         $uploadMgr = new \Qiniu\Storage\UploadManager();
-        list($ret, $err) = $uploadMgr->putFile($token, null, $basePath . $image);
+        $key    = basename($image);
+        list($ret, $err) = $uploadMgr->putFile($token, $key, $basePath . $image);
         if($err !== null) {//当上传失败时，使用本地文件
             return $image;
         } else {//当上传成功时，使用云端文件并删除本地文件
@@ -102,14 +102,15 @@ function yunStorageUpload($image, $storageConfig) {
         }
     }
     if($storageConfig['storage_type'] == 'Aliyun') {
-        require_once $basePath . '/module/Upload/src/Upload/Plugin/Aliyun/sdk.class.php';
-        $aliyunOssDomain = isset($storageConfig['aliyun_oss_domain']) ? $storageConfig['aliyun_oss_domain'] : str_replace($storageConfig['aliyun_space_name'].'.', '', $storageConfig['aliyun_domain']);
-        $aliyunService = new \ALIOSS($storageConfig['aliyun_ak'], $storageConfig['aliyun_sk'], $aliyunOssDomain);
-        $aliyunService->set_debug_mode(false);
-        $response = $aliyunService->upload_file_by_file($storageConfig['aliyun_space_name'], basename($image),  $basePath . $image);
-        if($response->status == 200) {
+        $aliyunOssDomainType    =  $storageConfig['aliyun_domain_type'] == 'true' ? true : false;
+        $aliyunOssDomain        = $storageConfig['aliyun_http_type'] . isset($storageConfig['aliyun_oss_domain']) ? $storageConfig['aliyun_oss_domain'] : str_replace($storageConfig['aliyun_space_name'].'.', '', $storageConfig['aliyun_domain']);
+        try{
+            $ossClient = new \OSS\OssClient($storageConfig['aliyun_ak'], $storageConfig['aliyun_sk'], $aliyunOssDomain, $aliyunOssDomainType);
+            $ossClient->uploadFile($storageConfig['aliyun_space_name'], basename($image), $basePath . $image);
             @unlink($basePath . $image);
             return '{aliyun}/'.basename($image);
+        } catch(\OSS\Core\OssException $e) {
+            return $image;
         }
     }
     return $image;
@@ -180,12 +181,13 @@ if(isset($_GET['dbshop_goods_id']) and $_GET['action'] == 'uploadimage' and $ima
 }
 
 if($storageConfig['storage_type'] == 'Qiniu'  and isset($_GET['dbshop_goods_id'])) {//七牛云存储
-    $imageInfoArray['url']   = 'http://'.$storageConfig['qiniu_domain'].'/'.basename($dbimagefile);
+
+    $imageInfoArray['url']   = stripos($dbimagefile,'}/')!==false ? (isset($storageConfig['qiniu_http_type']) ? $storageConfig['qiniu_http_type'] : 'http://').$storageConfig['qiniu_domain'].'/'.basename($dbimagefile) : $imageInfoArray['url'];
     $imageInfoArray['title'] = basename($dbimagefile);
     $imageInfoArray['original'] = $imageInfoArray['title'];
 }
 if($storageConfig['storage_type'] == 'Aliyun'  and isset($_GET['dbshop_goods_id'])) {//阿里云云存储
-    $imageInfoArray['url']   = 'http://'.$storageConfig['aliyun_domain'].'/'.basename($dbimagefile);
+    $imageInfoArray['url']   = stripos($dbimagefile,'}/')!==false ? (isset($storageConfig['aliyun_http_type']) ? $storageConfig['aliyun_http_type'] : 'http://').$storageConfig['aliyun_domain'].'/'.basename($dbimagefile) : $imageInfoArray['url'];
     $imageInfoArray['title'] = basename($dbimagefile);
     $imageInfoArray['original'] = $imageInfoArray['title'];
 }

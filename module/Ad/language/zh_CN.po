@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop V1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-21 17:38+0800\n"
-"PO-Revision-Date: 2016-09-21 17:39+0800\n"
+"POT-Creation-Date: 2016-11-16 00:43+0800\n"
+"PO-Revision-Date: 2016-11-16 00:43+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_CN\n"
@@ -18,10 +18,10 @@ msgstr ""
 
 #: ../src/Ad/Controller/AdController.php:120
 #: ../src/Ad/Controller/AdController.php:185
-#: ../src/Ad/Controller/AdController.php:221
-#: ../src/Ad/Controller/AdController.php:329
-#: ../src/Ad/Controller/AdController.php:399
-#: ../src/Ad/Controller/AdController.php:435
+#: ../src/Ad/Controller/AdController.php:220
+#: ../src/Ad/Controller/AdController.php:328
+#: ../src/Ad/Controller/AdController.php:398
+#: ../src/Ad/Controller/AdController.php:433
 msgid "广告管理"
 msgstr ""
 
@@ -33,23 +33,23 @@ msgstr ""
 msgid "更新电脑端广告"
 msgstr ""
 
-#: ../src/Ad/Controller/AdController.php:221
+#: ../src/Ad/Controller/AdController.php:220
 msgid "删除电脑端广告"
 msgstr ""
 
-#: ../src/Ad/Controller/AdController.php:329
+#: ../src/Ad/Controller/AdController.php:328
 msgid "添加手机端广告"
 msgstr ""
 
-#: ../src/Ad/Controller/AdController.php:399
+#: ../src/Ad/Controller/AdController.php:398
 msgid "更新手机端广告"
 msgstr ""
 
-#: ../src/Ad/Controller/AdController.php:435
+#: ../src/Ad/Controller/AdController.php:433
 msgid "删除手机端广告"
 msgstr ""
 
-#: ../src/Ad/Controller/AdController.php:450
+#: ../src/Ad/Controller/AdController.php:475
 msgid "推荐尺寸"
 msgstr ""
 
@@ -183,124 +183,140 @@ msgstr ""
 msgid "幻灯片图片1"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:109 ../view/ad/ad/mobile-add.phtml:109
+#: ../view/ad/ad/add.phtml:102 ../view/ad/ad/add.phtml:132
+#: ../view/ad/ad/add.phtml:162 ../view/ad/ad/add.phtml:192
+#: ../view/ad/ad/add.phtml:222 ../view/ad/ad/mobile-add.phtml:102
+#: ../view/ad/ad/mobile-add.phtml:132 ../view/ad/ad/mobile-add.phtml:162
+#: ../view/ad/ad/mobile-add.phtml:192 ../view/ad/ad/mobile-add.phtml:222
+msgid "删除图片"
+msgstr ""
+
+#: ../view/ad/ad/add.phtml:110 ../view/ad/ad/mobile-add.phtml:110
 msgid "显示文字1"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:115 ../view/ad/ad/mobile-add.phtml:115
+#: ../view/ad/ad/add.phtml:116 ../view/ad/ad/mobile-add.phtml:116
 msgid "链接地址1"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:121 ../view/ad/ad/mobile-add.phtml:121
+#: ../view/ad/ad/add.phtml:122 ../view/ad/ad/mobile-add.phtml:122
 msgid "排序1"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:127 ../view/ad/ad/mobile-add.phtml:127
+#: ../view/ad/ad/add.phtml:128 ../view/ad/ad/mobile-add.phtml:128
 msgid "幻灯片图片2"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:138 ../view/ad/ad/mobile-add.phtml:138
+#: ../view/ad/ad/add.phtml:140 ../view/ad/ad/mobile-add.phtml:140
 msgid "显示文字2"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:144 ../view/ad/ad/mobile-add.phtml:144
+#: ../view/ad/ad/add.phtml:146 ../view/ad/ad/mobile-add.phtml:146
 msgid "链接地址2"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:150 ../view/ad/ad/mobile-add.phtml:150
+#: ../view/ad/ad/add.phtml:152 ../view/ad/ad/mobile-add.phtml:152
 msgid "排序2"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:156 ../view/ad/ad/mobile-add.phtml:156
+#: ../view/ad/ad/add.phtml:158 ../view/ad/ad/mobile-add.phtml:158
 msgid "幻灯片图片3"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:167 ../view/ad/ad/mobile-add.phtml:167
+#: ../view/ad/ad/add.phtml:170 ../view/ad/ad/mobile-add.phtml:170
 msgid "显示文字3"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:173 ../view/ad/ad/mobile-add.phtml:173
+#: ../view/ad/ad/add.phtml:176 ../view/ad/ad/mobile-add.phtml:176
 msgid "链接地址3"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:179 ../view/ad/ad/mobile-add.phtml:179
+#: ../view/ad/ad/add.phtml:182 ../view/ad/ad/mobile-add.phtml:182
 msgid "排序3"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:185 ../view/ad/ad/mobile-add.phtml:185
+#: ../view/ad/ad/add.phtml:188 ../view/ad/ad/mobile-add.phtml:188
 msgid "幻灯片图片4"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:196 ../view/ad/ad/mobile-add.phtml:196
+#: ../view/ad/ad/add.phtml:200 ../view/ad/ad/mobile-add.phtml:200
 msgid "显示文字4"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:202 ../view/ad/ad/mobile-add.phtml:202
+#: ../view/ad/ad/add.phtml:206 ../view/ad/ad/mobile-add.phtml:206
 msgid "链接地址4"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:208 ../view/ad/ad/mobile-add.phtml:208
+#: ../view/ad/ad/add.phtml:212 ../view/ad/ad/mobile-add.phtml:212
 msgid "排序4"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:214 ../view/ad/ad/mobile-add.phtml:214
+#: ../view/ad/ad/add.phtml:218 ../view/ad/ad/mobile-add.phtml:218
 msgid "幻灯片图片5"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:225 ../view/ad/ad/mobile-add.phtml:225
+#: ../view/ad/ad/add.phtml:230 ../view/ad/ad/mobile-add.phtml:230
 msgid "显示文字5"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:231 ../view/ad/ad/mobile-add.phtml:231
+#: ../view/ad/ad/add.phtml:236 ../view/ad/ad/mobile-add.phtml:236
 msgid "链接地址5"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:237 ../view/ad/ad/mobile-add.phtml:237
+#: ../view/ad/ad/add.phtml:242 ../view/ad/ad/mobile-add.phtml:242
 msgid "排序5"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:243 ../view/ad/ad/mobile-add.phtml:243
+#: ../view/ad/ad/add.phtml:248 ../view/ad/ad/mobile-add.phtml:248
 msgid "广告URL地址"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:249 ../view/ad/ad/mobile-add.phtml:249
+#: ../view/ad/ad/add.phtml:254 ../view/ad/ad/mobile-add.phtml:254
 msgid "状态"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:251 ../view/ad/ad/mobile-add.phtml:251
+#: ../view/ad/ad/add.phtml:256 ../view/ad/ad/mobile-add.phtml:256
 #: ../view/ad/ad/mobile-setad.phtml:42 ../view/ad/ad/setad.phtml:42
 msgid "启用"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:252 ../view/ad/ad/mobile-add.phtml:252
+#: ../view/ad/ad/add.phtml:257 ../view/ad/ad/mobile-add.phtml:257
 #: ../view/ad/ad/mobile-setad.phtml:42 ../view/ad/ad/setad.phtml:42
 msgid "禁用"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:290 ../view/ad/ad/mobile-add.phtml:290
+#: ../view/ad/ad/add.phtml:295 ../view/ad/ad/mobile-add.phtml:295
 msgid "广告位置不能为空！"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:293 ../view/ad/ad/mobile-add.phtml:293
+#: ../view/ad/ad/add.phtml:298 ../view/ad/ad/mobile-add.phtml:298
 msgid "广告名称不能为空！"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:294 ../view/ad/ad/mobile-add.phtml:294
+#: ../view/ad/ad/add.phtml:299 ../view/ad/ad/mobile-add.phtml:299
 msgid "广告名称最多输入80个汉字！"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:297 ../view/ad/ad/mobile-add.phtml:297
+#: ../view/ad/ad/add.phtml:302 ../view/ad/ad/mobile-add.phtml:302
 msgid "广告类型不能为空！"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:329 ../view/ad/ad/mobile-add.phtml:329
+#: ../view/ad/ad/add.phtml:334 ../view/ad/ad/mobile-add.phtml:334
 #: ../view/ad/ad/mobile-setad.phtml:57 ../view/ad/ad/setad.phtml:57
 msgid "您确实要删除该广告吗？"
 msgstr ""
 
-#: ../view/ad/ad/add.phtml:336 ../view/ad/ad/mobile-add.phtml:336
+#: ../view/ad/ad/add.phtml:341 ../view/ad/ad/mobile-add.phtml:341
 #: ../view/ad/ad/mobile-setad.phtml:64 ../view/ad/ad/setad.phtml:64
 msgid "广告删除失败！"
+msgstr ""
+
+#: ../view/ad/ad/add.phtml:349 ../view/ad/ad/mobile-add.phtml:349
+msgid "您确实要删除该图片吗？"
+msgstr ""
+
+#: ../view/ad/ad/add.phtml:356 ../view/ad/ad/mobile-add.phtml:356
+msgid "图片删除失败！"
 msgstr ""
 
 #: ../view/ad/ad/index.phtml:2 ../view/ad/ad/setad.phtml:2

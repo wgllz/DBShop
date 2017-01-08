@@ -53,7 +53,12 @@ class User
      */
     public static function addUserData(array $data)
     {
-        return self::checkData($data);
+        $data = self::checkData($data);
+
+        if($data['user_phone'] == 'no') unset($data['user_phone']);
+        if($data['user_birthday'] == 'no') unset($data['user_birthday']);
+
+        return $data;
     }
     /**
      * 会员更新过滤

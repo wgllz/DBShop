@@ -29,7 +29,8 @@ class GoodsTag
         self::$dataArray['tag_group_id'] = (isset($data['tag_group_id']) and !empty($data['tag_group_id']))  ? intval($data['tag_group_id']) : 0;
         self::$dataArray['tag_type']     = (isset($data['tag_type'])     and !empty($data['tag_type']))      ? trim($data['tag_type'])       : null;
         self::$dataArray['template_tag'] = (isset($data['template_tag']) and !empty($data['template_tag']))  ? trim($data['template_tag'])   : '';
-        
+        self::$dataArray['show_type']    = (isset($data['show_type'])    and !empty($data['show_type']))     ? trim($data['show_type'])      : 'pc';
+
         return self::$dataArray;
     }
     /**
@@ -49,7 +50,10 @@ class GoodsTag
     public static function updateGoodsTagData (array $data)
     {
         if(isset($data['tag_id'])) unset($data['tag_id']);
-        return self::checkData($data);
+        $data = self::checkData($data);
+        if(isset($data['show_type'])) unset($data['show_type']);
+
+        return $data;
     }
 }
 

@@ -534,16 +534,18 @@ CREATE TABLE dbshop_goods_price_extend_size (
 
 DROP TABLE IF EXISTS dbshop_goods_tag;
 CREATE TABLE dbshop_goods_tag (
-  tag_id int(11) NOT NULL AUTO_INCREMENT,
-  tag_type char(20) DEFAULT NULL,
-  tag_group_id int(11) NOT NULL DEFAULT '0',
-  tag_sort int(11) NOT NULL DEFAULT '255',
-  template_tag char(30) DEFAULT NULL ,
-  PRIMARY KEY (tag_id),
-  KEY tag_type (tag_type),
-  KEY tag_group_id (tag_group_id),
-  KEY template_tag (template_tag),
-  KEY tag_sort (tag_sort)
+  `tag_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tag_type` char(20) DEFAULT NULL,
+  `tag_group_id` int(11) NOT NULL DEFAULT '0',
+  `tag_sort` int(11) NOT NULL DEFAULT '255',
+  `template_tag` char(30) DEFAULT NULL,
+  `show_type` char(20) NOT NULL DEFAULT 'pc',
+  PRIMARY KEY (`tag_id`),
+  KEY `tag_type` (`tag_type`),
+  KEY `tag_group_id` (`tag_group_id`),
+  KEY `template_tag` (`template_tag`),
+  KEY `tag_sort` (`tag_sort`),
+  KEY `show_type` (`show_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS dbshop_goods_tag_extend;

@@ -64,6 +64,9 @@ class HomerefundController extends FronthomeController
         //订单商品
         $array['order_goods'] = $this->getDbshopTable('OrderGoodsTable')->listOrderGoods(array('order_id'=> $array['order_info']->order_id));
 
+        //订单总价修改历史
+        $array['order_amount_log'] = $this->getDbshopTable('OrderAmountLogTable')->listOrderAmountLog(array('order_id'=>$array['order_info']->order_id));
+
         $view->setVariables($array);
         return $view;
     }

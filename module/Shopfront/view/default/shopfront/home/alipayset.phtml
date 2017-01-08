@@ -1,0 +1,35 @@
+<div class="row-fluid" style="margin-top:20px;"> <?php echo $this->partial('shopfront/home/left_menu.phtml'); ?>
+  <div class="span8" id="home_user_info">
+    <div class="well">
+      <h5><?php echo $this->translate('账户信息'); ?></h5>
+      <div class="message_one"></div>
+        <?php echo $this->partial('shopfront/home/user-menu.phtml'); ?>
+      <form class="form-horizontal">
+          <div class="control-group">
+              <label class="control-label"><?php echo $this->translate('绑定状态'); ?>：</label>
+              <div class="controls" style="font-size: 14px;padding-top: 5px;">
+                  <?php if(isset($this->other_login->ol_id) and !empty($this->other_login->ol_id)) { ?>
+                  <strong style="color: red;"><?php echo $this->translate('已经与支付宝绑定完成'); ?></strong>
+                  <?php } else echo $this->translate('未绑定'); ?>
+              </div>
+          </div>
+        <?php if(!isset($this->other_login->ol_id)) { ?>
+        <div class="control-group">
+            <label class="control-label"><?php echo $this->translate('支付宝绑定'); ?>：</label>
+            <div class="controls">
+                <a class="btn btn-primary" href="<?php echo $this->url('frontuser/default', array('action'=>'otherlogin'), array('query'=>array('login_type'=>'alipay'))); ?>"><?php echo $this->translate('点击完成支付宝绑定'); ?></a>
+            </div>
+        </div>
+        <?php } else { ?>
+            <div class="control-group">
+                <label class="control-label"><?php echo $this->translate('支付宝解绑'); ?>：</label>
+                <div class="controls">
+                    <a onclick="return window.confirm('您确实要解绑支付宝登录吗？')" href="<?php echo $this->url('fronthome/default', array('action'=>'delotherlogin'), array('query'=>array('login_type'=>'alipay'))); ?>" class="btn btn-danger"><?php echo $this->translate('点击解绑支付宝登录'); ?></a>
+                    <P style="color: red;font-size: 14px;">(<?php echo $this->translate('如果您要解绑并且从来没有设置过登陆密码，请在解绑前设置登录密码，否则解绑后将无法登陆'); ?>)</P>
+                </div>
+            </div>
+        <?php } ?>
+      </form>
+    </div>
+  </div>
+</div>

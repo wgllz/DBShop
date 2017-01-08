@@ -37,7 +37,7 @@ class SystemController extends BaseController
                 $this->saveEmailConfig($systemArray, $configWriter);
                 $this->saveSystemContent($systemArray);
                 $this->saveGoodsConfig($systemArray, $configWriter);
-                $this->savePhoneSmsConfig($systemArray, $configWriter);
+
                 //时区设置
                 $this->getServiceLocator()->get('adminHelper')->setDbshopSetshopFile(array('DBSHOP_TIMEZONE'=>$systemArray['dbshop_timezone']));
                 
@@ -65,8 +65,7 @@ class SystemController extends BaseController
         $array['buy_body']              = @file_get_contents(DBSHOP_PATH . '/data/moduledata/System/buy.ini');
         $array['goods_quality']         = @file_get_contents(DBSHOP_PATH . '/data/moduledata/System/goods_quality.ini');
         $array['shop_statistics_code']  = @file_get_contents(DBSHOP_PATH . '/data/moduledata/System/statistics.ini');
-        //短信通知设置
-        $array['phonesms_config']  = $systemReader->fromFile(DBSHOP_PATH . '/data/moduledata/System/phonesms.ini');
+
         //时区
         $timeZoneFile = 'zh_CN';
         if(file_exists(DBSHOP_PATH . '/data/moduledata/System/timezone/' . $this->getDbshopLang()->getLocale() . '.php') and $timeZoneFile != $this->getDbshopLang()->getLocale()) {
@@ -74,6 +73,14 @@ class SystemController extends BaseController
         }
         $array['selected_timezone'] = isset($systemArray['dbshop_timezone']) ? $systemArray['dbshop_timezone'] : DBSHOP_TIMEZONE;
         $array['time_zone_array']   = include DBSHOP_PATH . '/data/moduledata/System/timezone/' . $timeZoneFile . '.php';
+
+        //系统统计中的站点信息
+        $siteListArray= array();
+        $siteListFile = DBSHOP_PATH . '/data/moduledata/Analytics/SiteArray.php';
+        if(file_exists($siteListFile)) {
+            $siteListArray = include $siteListFile;
+        }
+        $array['site_list'] = $siteListArray;
 
         return $array;
     }
@@ -143,7 +150,31 @@ class SystemController extends BaseController
         return $array;
     }
     /**
-     * 消息提醒设置
+     * 手机短信提醒设置
+     * @return array
+     */
+    public function phoneMessageSetAction()
+    {
+        $array = array();
+
+        if($this->request->isPost()) {
+            $configWriter   = new \Zend\Config\Writer\Ini();
+            $systemArray    = $this->request->getPost()->toArray();
+            $this->savePhoneSmsConfig($systemArray, $configWriter);
+
+            //记录操作日志
+            $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('手机短信提醒设置'), 'operlog_info'=>$this->getDbshopLang()->translate('更新设置')));
+
+            $array['success_msg'] = $this->getDbshopLang()->translate('手机短信提醒设置保存成功！');
+        }
+        $systemReader = new \Zend\Config\Reader\Ini();
+        //短信通知设置
+        $array['phonesms_config']  = $systemReader->fromFile(DBSHOP_PATH . '/data/moduledata/System/phonesms.ini');
+
+        return $array;
+    }
+    /**
+     * 邮件提醒设置
      * @return array
      */
     public function sendMessageSetAction ()
@@ -186,7 +217,7 @@ class SystemController extends BaseController
                 file_put_contents($toPath . $mValue . '.php', $messageSetArray[$mValue]);
             }
 
-            $array['success_msg'] = $this->getDbshopLang()->translate('消息提醒设置保存成功！');
+            $array['success_msg'] = $this->getDbshopLang()->translate('邮件提醒设置保存成功！');
         }
         
         $configReader = new \Zend\Config\Reader\Ini();
@@ -209,16 +240,21 @@ class SystemController extends BaseController
      */
     private function saveSystemConfig(array $data,$e) {
         $systemConfig = array();
-        $systemConfig['shop_name']        = isset($data['shop_name'])        ? $data['shop_name']        : '';
-        $systemConfig['shop_extend_name'] = isset($data['shop_extend_name']) ? $data['shop_extend_name'] : '';
-        $systemConfig['shop_keywords']    = isset($data['shop_keywords'])    ? $data['shop_keywords']    : '';
-        $systemConfig['shop_hot_keywords']= isset($data['shop_hot_keywords'])? $data['shop_hot_keywords']: '';
-        $systemConfig['shop_description'] = isset($data['shop_description']) ? $data['shop_description'] : '';
+        $systemConfig['shop_name']        = isset($data['shop_name'])        ? trim($data['shop_name'])        : '';
+        $systemConfig['shop_extend_name'] = isset($data['shop_extend_name']) ? trim($data['shop_extend_name']) : '';
+        $systemConfig['shop_keywords']    = isset($data['shop_keywords'])    ? trim($data['shop_keywords'])    : '';
+        $systemConfig['shop_hot_keywords']= isset($data['shop_hot_keywords'])? trim($data['shop_hot_keywords']): '';
+        $systemConfig['shop_description'] = isset($data['shop_description']) ? trim($data['shop_description']) : '';
         $systemConfig['shop_QRcode']      = isset($data['shop_QRcode'])      ? $data['shop_QRcode']      : '';
         $systemConfig['shop_close']       = isset($data['shop_close'])       ? $data['shop_close']       : '';
-        $systemConfig['shop_close_info']  = isset($data['shop_close_info'])  ? $data['shop_close_info']  : '';
+        $systemConfig['shop_close_info']  = isset($data['shop_close_info'])  ? trim($data['shop_close_info'])  : '';
         $systemConfig['shop_icp']         = isset($data['shop_icp'])         ? $data['shop_icp']         : '';
         $systemConfig['shop_invoice']     = isset($data['shop_invoice'])     ? $data['shop_invoice']     : '';
+        $systemConfig['shop_tongji_type'] = isset($data['shop_tongji_type']) ? $data['shop_tongji_type'] : '';
+        $systemConfig['shop_tongji_baidu_user'] = isset($data['shop_tongji_baidu_user']) ? trim($data['shop_tongji_baidu_user']) : '';
+        $systemConfig['shop_tongji_baidu_passwd']= isset($data['shop_tongji_baidu_passwd']) ? trim($data['shop_tongji_baidu_passwd']) : '';
+        $systemConfig['shop_site_id']    = isset($data['shop_site_id'])      ? intval($data['shop_site_id']) : '';
+        $systemConfig['shop_tongji_token']= isset($data['shop_tongji_token'])? trim($data['shop_tongji_token']): '';
         $systemConfig['shop_address']     = isset($data['shop_address'])     ? $data['shop_address']     : '';
         $systemConfig['shop_call']        = isset($data['shop_call'])        ? $data['shop_call']        : '';
         $systemConfig['shop_zip']         = isset($data['shop_zip'])         ? $data['shop_zip']         : '';
@@ -291,6 +327,12 @@ class SystemController extends BaseController
         $phonesmsConfig['alidayu_sign_name']    = isset($data['alidayu_sign_name'])  ? trim($data['alidayu_sign_name'])    : '';
         $phonesmsConfig['alidayu_app_key']      = isset($data['alidayu_app_key'])    ? trim($data['alidayu_app_key'])    : '';
         $phonesmsConfig['alidayu_app_secret']   = isset($data['alidayu_app_secret']) ? trim($data['alidayu_app_secret']) : '';
+
+        $phonesmsConfig['admin_phone']   = isset($data['admin_phone'])  ? trim($data['admin_phone']) : '';
+        $phonesmsConfig['admin_submit_order_phone_message']   = isset($data['admin_submit_order_phone_message'])  ? intval($data['admin_submit_order_phone_message']) : '';
+        $phonesmsConfig['admin_payment_order_phone_message']  = isset($data['admin_payment_order_phone_message']) ? intval($data['admin_payment_order_phone_message']) : '';
+        $phonesmsConfig['admin_finish_order_phone_message']   = isset($data['admin_finish_order_phone_message'])  ? intval($data['admin_finish_order_phone_message']) : '';
+        $phonesmsConfig['admin_cancel_order_phone_message']   = isset($data['admin_cancel_order_phone_message'])  ? intval($data['admin_cancel_order_phone_message']) : '';
 
         $phonesmsConfig['alidayu_submit_order_template_id']   = isset($data['alidayu_submit_order_template_id'])  ? trim($data['alidayu_submit_order_template_id']) : '';
         $phonesmsConfig['alidayu_payment_order_template_id']  = isset($data['alidayu_payment_order_template_id']) ? trim($data['alidayu_payment_order_template_id']) : '';
@@ -396,12 +438,15 @@ class SystemController extends BaseController
             'qiniu_ak'          => trim($storageArray['qiniu_ak']),          //七牛AK
             'qiniu_sk'          => trim($storageArray['qiniu_sk']),          //七牛SK
             'qiniu_domain'      => trim($storageArray['qiniu_domain']),      //七牛域名
+            'qiniu_http_type'   => trim($storageArray['qiniu_http_type']),  //http类型
 
             'aliyun_space_name' => trim($storageArray['aliyun_space_name']),  //阿里云空间名称
             'aliyun_ak'         => trim($storageArray['aliyun_ak']),          //阿里云AK
             'aliyun_sk'         => trim($storageArray['aliyun_sk']),          //阿里云SK
             'aliyun_oss_domain' => trim($storageArray['aliyun_oss_domain']),  //阿里云节点域名
             'aliyun_domain'     => trim($storageArray['aliyun_domain']),      //阿里云访问域名
+            'aliyun_http_type'  => trim($storageArray['aliyun_http_type']),   //http类型
+            'aliyun_domain_type'=> trim($storageArray['aliyun_domain_type']), //访问域名类型，true为自定义域名，false为官方域名
         );
         $e->toFile(DBSHOP_PATH . '/data/moduledata/Upload/Storage.ini', $storageIni);
     }
@@ -422,7 +467,10 @@ class SystemController extends BaseController
         $userIni['welcome_email_title']     = trim($usersetArray['welcome_email_title']);
         $userIni['welcome_email_body']      = trim(str_replace('"', "'", $usersetArray['welcome_email_body']));
         $userIni['user_register_body']      = trim(str_replace('"', "'", $usersetArray['user_register_body']));
+        $userIni['front_other_login_show']  = $usersetArray['front_other_login_show'];
         $userIni['qq_login_state']          = $usersetArray['qq_login_state'];
+        $userIni['weixin_login_state']      = $usersetArray['weixin_login_state'];
+        $userIni['alipay_login_state']      = $usersetArray['alipay_login_state'];
 
         $userDefaultAvatar = $this->getServiceLocator()->get('shop_other_upload')->userDefaultAvatar('default_avatar', (isset($usersetArray['old_default_avatar']) ? $usersetArray['old_default_avatar'] : ''), $this->getServiceLocator()->get('adminHelper')->defaultShopSet('shop_user_avatar_width'), $this->getServiceLocator()->get('adminHelper')->defaultShopSet('shop_user_avatar_height'));
         $userIni['default_avatar'] = $userDefaultAvatar['image'];
@@ -431,10 +479,19 @@ class SystemController extends BaseController
 
         //第三方登录设置保存
         $otherLoginIni = array();
+        //QQ互联
         $otherLoginIni['QQ']['login_state']  = $usersetArray['qq_login_state'];
         $otherLoginIni['QQ']['app_id']       = $usersetArray['qq_app_id'];
         $otherLoginIni['QQ']['app_key']      = $usersetArray['qq_app_key'];
-        $otherLoginIni['QQ']['redirect_uri'] = $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontuser/default',array('action'=>'othercallback'));
+        //微信
+        $otherLoginIni['Weixin']['login_state']     = $usersetArray['weixin_login_state'];
+        $otherLoginIni['Weixin']['app_id']          = $usersetArray['weixin_app_id'];
+        $otherLoginIni['Weixin']['app_secret']      = $usersetArray['weixin_app_secret'];
+        //支付宝
+        $otherLoginIni['Alipay']['login_state']     = $usersetArray['alipay_login_state'];
+        $otherLoginIni['Alipay']['alipay_pid']      = $usersetArray['alipay_pid'];
+        $otherLoginIni['Alipay']['alipay_key']      = $usersetArray['alipay_key'];
+
         $e->toFile(DBSHOP_PATH . '/data/moduledata/User/OtherLogin.ini', $otherLoginIni);
     }
     /**

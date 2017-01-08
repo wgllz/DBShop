@@ -186,7 +186,7 @@ class PackageController extends BaseController
 
                     $this->dbshopSoapClient('addDbshopUpdateLog',array(
                             'v_id'=>$packageId,
-                            'web_url'=>'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('shopfront/default'),
+                            'web_url'=>$this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default'),
                             'user_name'=>$loginUserInfo['username'])
                     );
 

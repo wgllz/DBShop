@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-03 01:51+0800\n"
-"PO-Revision-Date: 2016-11-03 01:51+0800\n"
+"POT-Creation-Date: 2016-11-10 14:33+0800\n"
+"PO-Revision-Date: 2016-11-10 14:33+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_CN\n"
@@ -122,51 +122,65 @@ msgstr ""
 msgid "DBShop系统使用唯一数据表前缀，在同一个数据库中只能安装一套DBShop系统"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:34
+#: ../view/install/install/install-step-start.phtml:31
+msgid "数据表类型"
+msgstr ""
+
+#: ../view/install/install/install-step-start.phtml:31
+msgid "点击检查InnoDB是否启用"
+msgstr ""
+
+#: ../view/install/install/install-step-start.phtml:33
+msgid ""
+"MySQL的InnoDB类型必须开启，DBShop系统才能正常安装，有些环境默认没有开启"
+"InnoDB，请手动进行开启。"
+msgstr ""
+
+#: ../view/install/install/install-step-start.phtml:41
 msgid "管理员帐号"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:37
+#: ../view/install/install/install-step-start.phtml:44
 msgid "管理员密码"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:40
+#: ../view/install/install/install-step-start.phtml:47
 msgid "再次输入管理员密码"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:43
+#: ../view/install/install/install-step-start.phtml:50
 msgid "管理员邮箱"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:47
+#: ../view/install/install/install-step-start.phtml:54
 msgid "添加测试数据"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:53
+#: ../view/install/install/install-step-start.phtml:60
 msgid "网站名称"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:56
+#: ../view/install/install/install-step-start.phtml:63
 msgid "系统时区选择"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:67
+#: ../view/install/install/install-step-start.phtml:74
 msgid "DBShop系统使用时区，中国大陆默认选择上海即可，其他地区可自行选择时区"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:71
+#: ../view/install/install/install-step-start.phtml:78
 msgid "添加地区数据"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:71
+#: ../view/install/install/install-step-start.phtml:78
 msgid "中国"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:75
+#: ../view/install/install/install-step-start.phtml:82
 msgid "是否进行下一步安装"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:76
+#: ../view/install/install/install-step-start.phtml:83
 #, php-format
 msgid ""
 "当数据库中已经存在DBShop系统数据表时，安装时会删除已有的DBShop数据表，重新写"
@@ -174,87 +188,96 @@ msgid ""
 "响%s。"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:82
+#: ../view/install/install/install-step-start.phtml:89
 #: ../view/install/install/install-step.phtml:114
 msgid "返回上一步"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:83
+#: ../view/install/install/install-step-start.phtml:90
 #: ../view/install/install/install-step.phtml:115
 msgid "继续下一步"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:133
+#: ../view/install/install/install-step-start.phtml:140
 msgid "请输入数据库服务器地址！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:136
+#: ../view/install/install/install-step-start.phtml:143
 msgid "请输入数据库名称！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:139
+#: ../view/install/install/install-step-start.phtml:146
 msgid "请输入数据库用户名！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:142
+#: ../view/install/install/install-step-start.phtml:149
 msgid "请输入数据库连接端口！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:145
+#: ../view/install/install/install-step-start.phtml:152
 msgid "请输入管理员登录名称！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:146
+#: ../view/install/install/install-step-start.phtml:153
 msgid "管理员登录名称最长为30个汉字！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:149
+#: ../view/install/install/install-step-start.phtml:156
 msgid "请输入管理员电子邮箱！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:150
+#: ../view/install/install/install-step-start.phtml:157
 msgid "电子邮箱格式错误！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:153
+#: ../view/install/install/install-step-start.phtml:160
 msgid "请输入管理员密码！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:154
+#: ../view/install/install/install-step-start.phtml:161
 msgid "至少输入6位密码！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:155
+#: ../view/install/install/install-step-start.phtml:162
 msgid "密码最长为20位！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:158
+#: ../view/install/install/install-step-start.phtml:165
 msgid "请输入管理员确认密码！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:159
+#: ../view/install/install/install-step-start.phtml:166
 msgid "至少输入6位确认密码！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:160
+#: ../view/install/install/install-step-start.phtml:167
 msgid "确认密码最长为20位！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:161
+#: ../view/install/install/install-step-start.phtml:168
 msgid "两次输入的密码不一致！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:164
+#: ../view/install/install/install-step-start.phtml:171
 msgid "请输入网站名称！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:173
-#: ../view/install/install/install-step-start.phtml:199
+#: ../view/install/install/install-step-start.phtml:180
+#: ../view/install/install/install-step-start.phtml:206
+#: ../view/install/install/install-step-start.phtml:221
 msgid "数据库连接失败，请确定您的数据库已经存在，且您的数据库连接信息正确！"
 msgstr ""
 
-#: ../view/install/install/install-step-start.phtml:197
+#: ../view/install/install/install-step-start.phtml:204
 msgid "数据库连接成功，可以进行下一步安装操作！"
+msgstr ""
+
+#: ../view/install/install/install-step-start.phtml:218
+msgid "数据库已经启用InnoDB类型，可以进行下一步安装操作！"
+msgstr ""
+
+#: ../view/install/install/install-step-start.phtml:220
+msgid "MySQL没有启用InnoDB类型，请启用后，再次进行检测！"
 msgstr ""
 
 #: ../view/install/install/install-step.phtml:6

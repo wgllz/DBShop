@@ -98,6 +98,13 @@ body,td {font-size:7px;}
         <?php if(isset($this->order_info->integral_buy_price) and $this->order_info->integral_buy_price > 0) { ?>
         - <?php echo $this->translate('积分购买'); ?>：<?php echo $this->order_info->currency_symbol . '&nbsp;' . $this->order_info->integral_buy_price; ?>
         <?php } ?>
+
+            <?php if(isset($this->order_amount_log) and !empty($this->order_amount_log)) {
+                foreach($this->order_amount_log as $amount_log) {
+                    ?>
+                    <?php echo $amount_log['order_edit_amount_type']; ?>
+                    <?php echo $this->escapeHtml($amount_log['order_edit_amount_info']); ?>:<?php echo $this->order_info->currency_symbol . '&nbsp;' . $amount_log['order_edit_number']; ?></font>
+                <?php } } ?>
         </td>
     </tr>
     <tr align="right">

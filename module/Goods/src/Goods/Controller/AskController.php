@@ -87,14 +87,14 @@ class AskController extends BaseController
                 if($sendMessageBody != '') {
                     $sendArray = array();
                     $sendArray['shopname']     = $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name');
-                    $sendArray['shopurl']      = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('shopfront/default');
+                    $sendArray['shopurl']      = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default');
                     $sendArray['askusername']  = $replyArray['ask_writer'];
                     $sendArray['replyusername']= $rArray['reply_ask_writer'];
                     $sendArray['replytime']    = $rArray['reply_ask_time'];
 
                     $goodsInfo   = $this->getDbshopTable('GoodsTable')->infoGoods(array('dbshop_goods.goods_id'=>$askInfo->goods_id, 'e.language'=>$this->getDbshopLang()->getLocale()));
                     $inClass     = $this->getDbshopTable('GoodsInClassTable')->oneGoodsInClass(array('dbshop_goods_in_class.goods_id'=>$askInfo->goods_id, 'c.class_state'=>1));
-                    $sendArray['goodsname']  = '<a href="http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontgoods/default', array('goods_id'=>$askInfo->goods_id, 'class_id'=>$inClass[0]['class_id'])).'" target="_blank">' . $goodsInfo->goods_name . '</a>';
+                    $sendArray['goodsname']  = '<a href="'. $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontgoods/default', array('goods_id'=>$askInfo->goods_id, 'class_id'=>$inClass[0]['class_id'])).'" target="_blank">' . $goodsInfo->goods_name . '</a>';
 
                     $sendArray['subject']       = $sendArray['shopname'] . '|' . $this->getDbshopLang()->translate('商品咨询回复') . '|' . $goodsInfo->goods_name;
                     $sendArray['send_mail'][]   = $buyerEmail;

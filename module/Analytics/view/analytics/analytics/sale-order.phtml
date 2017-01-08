@@ -1,0 +1,54 @@
+<div class="tabbable tabs-left">
+    <?php echo $this->partial('analytics/analytics/left_menu.phtml'); ?>
+    <div class="tab-content">
+        <table class="table table-hover table-striped table-bordered">
+            <thead>
+            <th><?php echo $this->translate('销售排行'); ?></th>
+            </thead>
+            <tbody>
+            <tr style="font-weight: bold;">
+                <form method="get" action="">
+                    <td colspan="6" style="text-align: right;line-height: 40px;background: #f9f9f9">
+                        <a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'saleOrder'), array('query'=>array('dateNum'=>7))); ?>" class="btn <?php if($this->date_num == 6) echo 'btn-primary'; ?>"><?php echo $this->translate('最近7天'); ?></a>&nbsp;
+                        <a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'saleOrder'), array('query'=>array('dateNum'=>30))); ?>" class="btn <?php if($this->date_num == 29) echo 'btn-primary'; ?>"><?php echo $this->translate('最近30天'); ?></a>&nbsp;&nbsp;
+                        <input type="text" class="span2 Wdate" name="start_time" id="start_time" value="<?php if(isset($this->start_time)) echo $this->start_time; ?>" onclick="WdatePicker({el:'start_time', dateFmt:'yyyy-MM-dd'})">
+                        ~
+                        <input type="text" class="span2 Wdate" name="end_time" id="end_time" value="<?php if(isset($this->end_time)) echo $this->end_time; ?>"  onclick="WdatePicker({el:'end_time', dateFmt:'yyyy-MM-dd'})">
+                        <button type="submit" class="btn btn-primary"><?php echo $this->translate('查看'); ?></button>
+                    </td>
+                </form>
+            </tr>
+            <tr>
+                <td width="10%" style="background:#CCC;"><b><?php echo $this->translate('排行'); ?></b></td>
+                <td width="30%" style="background:#CCC;"><b><?php echo $this->translate('商品名称'); ?></b></td>
+                <td width="15%" style="background:#CCC;"><b><?php echo $this->translate('商品货号'); ?></b></td>
+                <td width="15%" style="background:#CCC;"><b><?php echo $this->translate('商品销量'); ?></b></td>
+                <td width="15%" style="background:#CCC;"><b><?php echo $this->translate('商品销售额'); ?></b></td>
+                <td width="15%" style="background:#CCC;"><b><?php echo $this->translate('商品均价'); ?></b></td>
+            </tr>
+            <?php
+            if($this->order_goods_list) {
+                foreach ($this->order_goods_list as $g_key => $g_value) {
+                    ?>
+                    <tr>
+                        <td><?php echo $g_key+1; ?></td>
+                        <td><?php echo $this->escapeHtml($g_value['goods_name']); ?></td>
+                        <td><?php echo $g_value['goods_item']; ?></td>
+                        <td><?php echo $g_value['buy_g_num']; ?></td>
+                        <td><?php echo $g_value['goods_g_amount']; ?></td>
+                        <td><?php echo number_format($g_value['goods_g_amount']/$g_value['buy_g_num'], 2, '.', ''); ?></td>
+                    </tr>
+                <?php } } ?>
+            <tr>
+                <td colspan="6" style="background:#FFF">
+                    <?php echo ( count($this->order_goods_list) > 0 ) ? $this->paginationControl($this->order_goods_list,'Sliding','common/pager',array('page_url'=>$this->url('analytics/default/page',array('controller'=>'Analytics', 'action'=>'saleOrder')))) : ''; ?>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="<?php echo $this->basePath('/public/js/DatePicker/WdatePicker.js'); ?>"></script>
+<script>
+
+</script>

@@ -13,6 +13,8 @@
  */
 
 namespace Upload\Common\Service;
+use OSS\Core\OssException;
+use OSS\OssClient;
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
 
@@ -74,7 +76,8 @@ class GoodsUploadService
             $bucket = $this->storageConfig['qiniu_space_name'];
             $token  = $auth->uploadToken($bucket, null, 3600);
             $uploadMgr = new UploadManager();
-            list($ret, $err) = $uploadMgr->putFile($token, null, DBSHOP_PATH . $imageName);
+            $key    = basename($imageName);
+            list($ret, $err) = $uploadMgr->putFile($token, $key, DBSHOP_PATH . $imageName);
             if($err !== null) {//当上传失败时，使用本地文件
                 return $imageName;
             } else {//当上传成功时，使用云端文件并删除本地文件
@@ -82,17 +85,17 @@ class GoodsUploadService
                 return '{qiniu}/'.$ret['key'];
             }
         } elseif($this->storageConfig['storage_type'] == 'Aliyun') {
-            require_once __DIR__ . '/../Plugin/Aliyun/sdk.class.php';
-            $aliyunOssDomain = isset($this->storageConfig['aliyun_oss_domain']) ? $this->storageConfig['aliyun_oss_domain'] : str_replace($this->storageConfig['aliyun_space_name'].'.', '', $this->storageConfig['aliyun_domain']);
-            $aliyunService = new \ALIOSS($this->storageConfig['aliyun_ak'], $this->storageConfig['aliyun_sk'], $aliyunOssDomain);
-            $aliyunService->set_debug_mode(false);
-            //$aliyunService->set_enable_domain_style(true);
-            $response = $aliyunService->upload_file_by_file($this->storageConfig['aliyun_space_name'], basename($imageName),  DBSHOP_PATH . $imageName);
-            if($response->status == 200) {
+            $aliyunOssDomainType    =  $this->storageConfig['aliyun_domain_type'] == 'true' ? true : false;
+            $aliyunOssDomain        = $this->storageConfig['aliyun_http_type'] . isset($this->storageConfig['aliyun_oss_domain']) ? $this->storageConfig['aliyun_oss_domain'] : str_replace($this->storageConfig['aliyun_space_name'].'.', '', $this->storageConfig['aliyun_domain']);
+            try {
+                $ossClient = new OssClient($this->storageConfig['aliyun_ak'], $this->storageConfig['aliyun_sk'], $aliyunOssDomain, $aliyunOssDomainType);
+                $ossClient->uploadFile($this->storageConfig['aliyun_space_name'], basename($imageName), DBSHOP_PATH.$imageName);
                 @unlink(DBSHOP_PATH . $imageName);
                 return '{aliyun}/'.basename($imageName);
+            }catch (OssException $e) {
+                //print $e->getMessage();
+                return $imageName;
             }
-
         }
         return $imageName;
     }

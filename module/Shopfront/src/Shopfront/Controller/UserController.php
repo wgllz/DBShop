@@ -209,7 +209,7 @@ class UserController extends AbstractActionController
                         $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name'),
                         $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_email'),
                         date("Y-m-d H:i", time()),
-                        '<a href="http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('shopfront/default') . '" target="_blank">' . $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name') . '</a>',
+                        '<a href="'. $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default') . '" target="_blank">' . $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name') . '</a>',
                     );
                     $registerEmail = array(
                         'send_user_name'=> $userArray['user_name'],
@@ -227,7 +227,7 @@ class UserController extends AbstractActionController
                 $exitMessage = '';
                 if($audit == 'email') {
                     $userAuditCode = md5($userArray['user_name']) . md5(time());
-                    $auditUrl      = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontuser/default', array('action'=>'userAudit')) . '?userName=' . urlencode($userArray['user_name']) . '&auditCode=' . $userAuditCode;
+                    $auditUrl      = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontuser/default', array('action'=>'userAudit')) . '?userName=' . urlencode($userArray['user_name']) . '&auditCode=' . $userAuditCode;
                     //将生成的审核码更新到会员表中
                     $this->getDbshopTable('UserTable')->updateUser(array('user_audit_code'=>$userAuditCode),array('user_id'=>$addState));
                     $auditEmail = array(
@@ -294,7 +294,7 @@ class UserController extends AbstractActionController
             if(isset($userInfo->user_name) and $userInfo->user_name != '') {
                 //生成唯一码及url
                 $editCode    = md5($userInfo->user_name . $userInfo->user_email) . md5(time());
-                $editUrl     = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontuser/default', array('action'=>'forgotpasswdedit')) . '?editcode=' . $editCode;
+                $editUrl     = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontuser/default', array('action'=>'forgotpasswdedit')) . '?editcode=' . $editCode;
                 //发送的邮件内容
                 $forgotEmail = array(
                     'send_user_name'=> $userInfo->user_name,
@@ -418,7 +418,9 @@ class UserController extends AbstractActionController
      */
     public function otherloginAction()
     {
-        $loginService     = $this->checkOtherLoginConfig();
+        $loginType = $this->request->getQuery('login_type');
+
+        $loginService     = $this->checkOtherLoginConfig($loginType);
         $loginService->toLogin();
     }
     /**
@@ -426,12 +428,47 @@ class UserController extends AbstractActionController
      */
     public function othercallbackAction()
     {
+        $lType            = $this->params('login_type');
+        $loginType        = 'QQ';
+        $actionName       = 'qqset';
+        if($lType !='' and $lType != 'qq') {
+            $loginType = ucfirst($lType);
+            $actionName= strtolower($lType).'set';
+        }
+
+
         //进行第三方登录回调验证处理
-        $loginService     = $this->checkOtherLoginConfig();
+        $loginService     = $this->checkOtherLoginConfig($lType);
         $callBackState    = $loginService->callBack();
 
+        //检查是否已经登录的用户，进行的绑定处理
+        $userId = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');
+        if($userId > 0) {
+            $openId        = $loginService->getOpenId();
+            //回调正确，检查该用户是否已经存在
+            $userInfo      = $this->getDbshopTable('OtherLoginTable')->infoOtherLogin(array('dbshop_other_login.open_id'=>$openId, 'dbshop_other_login.login_type'=>$loginType));
+            if($userInfo) {
+                exit($this->getDbshopLang()->translate('该账户已经在系统绑定，不能重复绑定！') . '&nbsp;<a href="' .$this->url()->fromRoute('fronthome/default', array('action'=>'qqset')). '">' . $this->getDbshopLang()->translate('返回') . '</a>');
+            } else {
+                $otherLoginArray = array(
+                    'user_id'       => $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id'),
+                    'open_id'       => $openId,
+                    'ol_add_time'   => time(),
+                    'login_type'    => $loginType
+                );
+                $addOtherLogin = $this->getDbshopTable('OtherLoginTable')->addOtherLogin($otherLoginArray);
+                $loginService->clearLoginSession();
+
+                if($addOtherLogin) {
+                    return $this->redirect()->toRoute('fronthome/default', array('action'=>$actionName));
+                } else {
+                    exit($this->getDbshopLang()->translate('绑定失败，请稍后再试！') . '&nbsp;<a href="' .$this->url()->fromRoute('fronthome/default', array('action'=>$actionName)). '">' . $this->getDbshopLang()->translate('返回') . '</a>');
+                }
+            }
+        }
+
         //回调正确，检查该用户是否已经存在
-        $userInfo         = $this->getDbshopTable('OtherLoginTable')->infoOtherLogin(array('dbshop_other_login.open_id'=>$loginService->getOpenId()));
+        $userInfo         = $this->getDbshopTable('OtherLoginTable')->infoOtherLogin(array('dbshop_other_login.open_id'=>$loginService->getOpenId(), 'dbshop_other_login.login_type'=>$loginType));
         if($userInfo) {
             //当会员状态处于2（关闭）3（待审核）时，不进行登录操作
             $exitMessage = '';
@@ -461,16 +498,28 @@ class UserController extends AbstractActionController
 
         //如果该用户在数据库中不存在，则跳转到补充内容页面，完成最终注册
         //判断是否为手机端访问
-        if($this->getServiceLocator()->get('frontHelper')->isMobile()) return $this->redirect()->toRoute('m_user/default', array('action'=>'otherregister'));
-        else return $this->redirect()->toRoute('frontuser/default',array('action'=>'otherregister'));
+        if($this->getServiceLocator()->get('frontHelper')->isMobile()) {
+            if($loginType == 'QQ') return $this->redirect()->toRoute('m_user/default', array('action'=>'otherregister'));
+            else return $this->redirect()->toRoute('m_user/default/other_login_type', array('action'=>'otherregister', 'login_type'=>$lType));
+        }
+        else {
+            if($loginType == 'QQ') return $this->redirect()->toRoute('frontuser/default',array('action'=>'otherregister'));
+            else return $this->redirect()->toRoute('frontuser/default/other_login_type',array('action'=>'otherregister', 'login_type'=>$lType));
+        }
     }
     /**
      * 第三方注册操作
      */
     public function otherregisterAction()
     {
+        $lType            = $this->params('login_type');
+        $loginType        = 'QQ';
+        if($lType !='' and $lType != 'qq') {
+            $loginType = ucfirst($lType);
+        }
+
         //验证从第三方回调获取的信息是否完整
-        $loginService     = $this->checkOtherLoginConfig();
+        $loginService     = $this->checkOtherLoginConfig($lType);
         $openId           = $loginService->getOpenId();
         $otherUserInfo    = $loginService->getOtherInfo();
 
@@ -536,7 +585,7 @@ class UserController extends AbstractActionController
                     'user_id'       => $addState,
                     'open_id'       => $openId,
                     'ol_add_time'   => $userArray['user_time'],
-                    'login_type'    => 'QQ'
+                    'login_type'    => $loginType
                 );
                 $addOtherLogin = $this->getDbshopTable('OtherLoginTable')->addOtherLogin($otherLoginArray);
 
@@ -560,7 +609,7 @@ class UserController extends AbstractActionController
                         $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name'),
                         $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_email'),
                         date("Y-m-d H:i", time()),
-                        '<a href="http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('shopfront/default') . '" target="_blank">' . $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name') . '</a>',
+                        '<a href="'. $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default') . '" target="_blank">' . $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name') . '</a>',
                     );
                     $registerEmail = array(
                         'send_user_name'=> $userArray['user_name'],
@@ -578,7 +627,7 @@ class UserController extends AbstractActionController
                 $exitMessage = '';
                 if($audit == 'email') {
                     $userAuditCode = md5($userArray['user_name']) . md5(time());
-                    $auditUrl      = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontuser/default', array('action'=>'userAudit')) . '?userName=' . urlencode($userArray['user_name']) . '&auditCode=' . $userAuditCode;
+                    $auditUrl      = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontuser/default', array('action'=>'userAudit')) . '?userName=' . urlencode($userArray['user_name']) . '&auditCode=' . $userAuditCode;
                     //将生成的审核码更新到会员表中
                     $this->getDbshopTable('UserTable')->updateUser(array('user_audit_code'=>$userAuditCode),array('user_id'=>$addState));
                     $auditEmail = array(
@@ -625,13 +674,29 @@ class UserController extends AbstractActionController
      * 检查第三方登录配置
      * @return array|object
      */
-    private function checkOtherLoginConfig()
+    /**
+     * 检查第三方登录配置
+     * @param string $loginType
+     * @return array|object
+     */
+    private function checkOtherLoginConfig($loginType='qq')
     {
-        $loginService     = $this->getServiceLocator()->get('QqLogin');
+        $getClass = ucfirst($loginType).'Login';
+        $loginService     = $this->getServiceLocator()->get($getClass);
+        /*if($loginType == 'weixin') {//微信
+            $loginService     = $this->getServiceLocator()->get('WeixinLogin');
+        } else {//QQ
+            $loginService     = $this->getServiceLocator()->get('QqLogin');
+        }*/
+
         $loginConfigState = $loginService->getLoginConfigState();
         if(is_string($loginConfigState) and $loginConfigState == 'configError') exit($this->getDbshopLang()->translate('该登录方式的配置信息错误，必须在公网上进行测试！'));
 
-        $loginService->redirectUri = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontuser/default',array('action'=>'othercallback'));
+        if($loginType == '' or $loginType == 'qq') {
+            $loginService->redirectUri = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontuser/default',array('action'=>'othercallback'));
+        } else {
+            $loginService->redirectUri = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontuser/default/other_login_type',array('action'=>'othercallback', 'login_type'=>$loginType));
+        }
 
         return $loginService;
     }

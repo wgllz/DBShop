@@ -12,7 +12,7 @@ var shop_base_url = '<?php echo $this->basePath('/public/editor/ueditor/'); ?>';
 			} else {
 				echo "initialFrameWidth:'100%',initialFrameHeight:500,autoHeightEnabled:false";
 			}
-			echo "};";
+			echo ",catchRemoteImageEnable:false};";
 			
 	foreach ($this->edit_array as $key => $value) {
 		?>

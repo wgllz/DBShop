@@ -67,9 +67,36 @@ class OrderGoodsTable extends AbstractTableGateway implements \Zend\Db\Adapter\A
     public function pageListOrderGoods(array $pageArray, array $where=array())
     {
         $select = new Select(array('dbshop_order_goods'=>$this->table));
-        $select->join(array('dbshop_order'=>'dbshop_order'), 'dbshop_order.order_id=dbshop_order_goods.order_id', array('order_sn', 'order_state'));
+        $select->join(array('dbshop_order'=>'dbshop_order'), 'dbshop_order.order_id=dbshop_order_goods.order_id', array('order_sn', 'order_state', 'order_time'));
         $select->where($where);
         $select->order('dbshop_order_goods.order_goods_id DESC');
+        //实例化分页处理
+        $pageAdapter = new DbSelect($select, $this->adapter);
+        $paginator   = new Paginator($pageAdapter);
+        $paginator->setCurrentPageNumber($pageArray['page']);
+        $paginator->setItemCountPerPage($pageArray['page_num']);
+
+        return $paginator;
+    }
+    /**
+     * 销售排行
+     * @param array $pageArray
+     * @param array $where
+     * @param string $order
+     * @param string $group
+     * @return Paginator
+     */
+    public function statsOrderGoods(array $pageArray, array $where=array(), $order='buy_g_num DESC', $group='goods_item')
+    {
+        $select = new Select(array('dbshop_order_goods'=>$this->table));
+        $select->join(array('dbshop_order'=>'dbshop_order'), 'dbshop_order.order_id=dbshop_order_goods.order_id', array('order_state'));
+        $select->columns(array('*',
+            new Expression("SUM(dbshop_order_goods.goods_amount) AS goods_g_amount"),
+            new Expression("SUM(dbshop_order_goods.buy_num) AS buy_g_num")
+        ));
+        $select->where($where);
+        if(!empty($order)) $select->order($order);
+        if(!empty($group)) $select->group($group);
         //实例化分页处理
         $pageAdapter = new DbSelect($select, $this->adapter);
         $paginator   = new Paginator($pageAdapter);

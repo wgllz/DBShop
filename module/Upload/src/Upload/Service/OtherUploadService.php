@@ -56,6 +56,7 @@ class OtherUploadService
         $imageArray = array(
                 'save_path'    => '/public/upload/ad/' . ($adId != '' ? $adId . '/' : ''),
                 'image_name'   => $imageName,
+                'image_rename' => md5(time().rand(1, 100))
         );
         $thumbArray = array(
                 'width'  => $imageWidth,

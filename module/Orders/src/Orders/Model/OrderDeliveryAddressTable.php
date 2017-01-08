@@ -20,6 +20,7 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Select;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
+use Zend\Db\Sql\Expression;
 
 class OrderDeliveryAddressTable extends AbstractTableGateway implements \Zend\Db\Adapter\AdapterAwareInterface
 {
@@ -105,6 +106,29 @@ class OrderDeliveryAddressTable extends AbstractTableGateway implements \Zend\Db
         $update = $this->update($data, $where);
         if($update) {
             return true;
+        }
+        return null;
+    }
+    /**
+     * 统计分析配送地区
+     * @param $where
+     * @param string $order
+     * @param string $group
+     * @return array|null
+     */
+    public function statsDelivery($where, $order='', $group='region_name')
+    {
+        $result = $this->select(function (Select $select) use ($where,$order,$group) {
+            $select->join(array('dborder'=>'dbshop_order'), 'dborder.order_id=dbshop_order_delivery_address.order_id');
+            $select->columns(array(
+                new Expression("substring_index(region_info, ' ', 1) AS region_name"),
+                new Expression('count(dborder.order_id) AS d_count')
+            ))->where($where);
+            if(!empty($order)) $select->order($order);
+            if(!empty($group)) $select->group($group);
+        });
+        if($result) {
+            return $result->toArray();
         }
         return null;
     }

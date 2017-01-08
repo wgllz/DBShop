@@ -4,12 +4,7 @@
       <h5><?php echo $this->translate('账户信息'); ?></h5>
       <div class="message_one"></div>
       <ul class="nav nav-tabs">
-        <li><a href="<?php echo $this->url('fronthome/default', array('action'=>'useredit')); ?>"><?php echo $this->translate('基本信息'); ?></a></li>
-        <li class="active"><a href="<?php echo $this->url('fronthome/default', array('action'=>'userpasswd')); ?>"><?php echo $this->translate('密码修改'); ?></a></li>
-          <?php if ($this->frontwebsite()->getUserIni('qq_login_state') == 'true') { ?>
-              <li><a href="<?php echo $this->url('fronthome/default', array('action'=>'qqset')); ?>"><?php echo $this->translate('QQ绑定'); ?></a></li>
-          <?php } ?>
-      </ul>
+        <?php echo $this->partial('shopfront/home/user-menu.phtml'); ?>
       <form class="form-horizontal" method="post" id="user_edit_form" name="user_edit_form">
         <?php if (!$this->other_login_passwd) { ?>
         <div class="control-group">

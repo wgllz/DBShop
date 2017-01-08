@@ -41,6 +41,7 @@ class Module
                         'xxzf'   => function  () { return new \Payment\Service\XxzfService();   },
                         'wxpay'  => function  () { return new \Payment\Service\WxpayService();  },
                         'yezf'   => function  () { return new \Payment\Service\YezfService();   },
+                        'wxmpay' => function  () { return new \Payment\Service\WxmpayService(); },
                 )
         );
     }

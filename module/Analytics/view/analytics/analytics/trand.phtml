@@ -1,0 +1,120 @@
+<div class="tabbable tabs-left">
+    <?php echo $this->partial('analytics/analytics/left_menu.phtml'); ?>
+    <div class="tab-content">
+        <style>
+            .table td {
+                border-top: 0;
+            }
+        </style>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <th><?php echo $this->translate('今日'); ?></th>
+            </thead>
+            <tbody>
+            <tr>
+                <td width="18%"><?php echo $this->translate('浏览量'); ?>(PV)</td>
+                <td width="18%"><?php echo $this->translate('访客数'); ?>(UV)</td>
+                <td width="18%"><?php echo $this->translate('IP数'); ?></td>
+                <td width="18%"><?php echo $this->translate('跳出率'); ?></td>
+                <td width="18%"><?php echo $this->translate('平均访问时长'); ?></td>
+            </tr>
+            <tr style="font-weight: bold;">
+                <td><?php if(isset($this->trand->sum[0][0])) echo $this->trand->sum[0][0]; ?></td>
+                <td><?php if(isset($this->trand->sum[0][3])) echo $this->trand->sum[0][3]; ?></td>
+                <td><?php if(isset($this->trand->sum[0][6])) echo $this->trand->sum[0][6]; ?></td>
+                <td><?php if(isset($this->trand->sum[0][7])) echo $this->trand->sum[0][7].'%'; ?></td>
+                <td><?php if(isset($this->trand->sum[0][8])) echo gmstrftime("%H:%M:%S", $this->trand->sum[0][8]); ?></td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <div id="trand_chart" style="width: 100%;height: 400px;margin-top: 20px;"></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th width="15%"><?php echo $this->translate('时间'); ?></th>
+                <th width="17%"><?php echo $this->translate('浏览量'); ?>(PV)</th>
+                <th width="17%"><?php echo $this->translate('访客数'); ?>(UV)</th>
+                <th width="17%"><?php echo $this->translate('IP数'); ?></th>
+                <th width="17%"><?php echo $this->translate('跳出率'); ?></th>
+                <th width="17%"><?php echo $this->translate('平均访问时长'); ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            if(is_array($this->trand->items[0]) and !empty($this->trand->items[0])) {
+                foreach($this->trand->items[0] as $key => $value) {
+            ?>
+            <tr>
+                <td><?php echo $value[0]; ?></td>
+                <td><?php echo $this->trand->items[1][$key][0]; ?></td>
+                <td><?php echo $this->trand->items[1][$key][3]; ?></td>
+                <td><?php echo $this->trand->items[1][$key][6]; ?></td>
+                <td><?php echo $this->trand->items[1][$key][7].'%'; ?></td>
+                <td><?php echo gmstrftime("%H:%M:%S", $this->trand->items[1][$key][8]); ?></td>
+            </tr>
+            <?php } } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('trand_chart'), dbshop_echarts_stype);
+    option = {
+        title: {
+            text: '<?php echo $this->translate('趋势分析图表'); ?>'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['<?php echo $this->translate('浏览量'); ?>','<?php echo $this->translate('访客数'); ?>','<?php echo $this->translate('IP数'); ?>']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : [<?php echo $this->timestr; ?>]
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'<?php echo $this->translate('浏览量'); ?>',
+                type:'line',
+                stack: '<?php echo $this->translate('总量'); ?>',
+                areaStyle: {normal: {}},
+                data:[<?php echo $this->pvstr; ?>]
+            },
+            {
+                name:'<?php echo $this->translate('访客数'); ?>',
+                type:'line',
+                stack: '<?php echo $this->translate('总量'); ?>',
+                areaStyle: {normal: {}},
+                data:[<?php echo $this->ipstr; ?>]
+            },
+            {
+                name:'<?php echo $this->translate('IP数'); ?>',
+                type:'line',
+                stack: '<?php echo $this->translate('总量'); ?>',
+                areaStyle: {normal: {}},
+                data:[<?php echo $this->visitorstr; ?>]
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>

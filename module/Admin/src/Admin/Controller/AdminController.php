@@ -358,7 +358,8 @@ class AdminController extends BaseController
                 'Systemindex'           => $this->getDbshopLang()->translate('系统设置'),
                 'Systemuploadset'       => $this->getDbshopLang()->translate('附件设置'),
                 'Systemuserset'         => $this->getDbshopLang()->translate('客户设置'),
-                'SystemsendMessageSet'  => $this->getDbshopLang()->translate('消息提醒设置'),
+                'SystemsendMessageSet'  => $this->getDbshopLang()->translate('电子邮件提醒设置'),
+                'SystemphoneMessageSet' => $this->getDbshopLang()->translate('手机短信提醒设置'),
                 'Optimization'   => $this->getDbshopLang()->translate('性能优化'),
                 'Optimizationindex'     => $this->getDbshopLang()->translate('性能优化设置'),
                 'Online'         => $this->getDbshopLang()->translate('客服管理'),
@@ -583,6 +584,17 @@ class AdminController extends BaseController
                 'OrdersexpressNumberList'=> $this->getDbshopLang()->translate('查看快递单号列表'),
                 'OrdersexportShip'      => $this->getDbshopLang()->translate('导出发货单'),
                 'Ordersmoreshipoper'    => $this->getDbshopLang()->translate('批量订单发货'),
+
+            'Analytics\Controller'      => $this->getDbshopLang()->translate('统计分析'),
+            'Analytics'         => $this->getDbshopLang()->translate('统计分析'),
+            'AnalyticsuserStats'        => $this->getDbshopLang()->translate('客户统计'),
+            'AnalyticsusersOrder'       => $this->getDbshopLang()->translate('客户排行'),
+            'AnalyticsorderStats'       => $this->getDbshopLang()->translate('订单统计'),
+            'AnalyticssaleStats'        => $this->getDbshopLang()->translate('销售概况'),
+            'AnalyticssaleList'         => $this->getDbshopLang()->translate('销售明细'),
+            'AnalyticssaleOrder'        => $this->getDbshopLang()->translate('销售排行'),
+            'Analyticsindex'            => $this->getDbshopLang()->translate('流量概况'),
+            'Analyticstrand'            => $this->getDbshopLang()->translate('趋势分析')
         );
     
         return $purviewLanguage;

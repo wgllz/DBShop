@@ -9,6 +9,7 @@
                 <li><a data-toggle="tab" href="#system_f"><?php echo $this->translate('商品设置'); ?></a></li>
                 <li><a data-toggle="tab" href="#system_g"><?php echo $this->translate('手机短信'); ?></a></li>
                 <li><a data-toggle="tab" href="#system_h"><?php echo $this->translate('二维码设置'); ?></a></li>
+                <li><a data-toggle="tab" href="#system_i"><?php echo $this->translate('统计设置'); ?></a></li>
               </ul>
               <form class="form-horizontal" enctype="multipart/form-data" name="system_form" id="system_form" method="post">
               <div class="tab-content">
@@ -87,12 +88,6 @@
                             <div class="controls">
                                 <label class="checkbox inline"><input type="checkbox" name="shop_invoice" id="shop_invoice" value="true" <?php if(isset($this->system_config['shop_system']['shop_invoice']) and $this->system_config['shop_system']['shop_invoice'] == 'true') echo 'checked="checked"'; ?>><?php echo $this->translate('启用'); ?></label>
                             </div>
-                        </div>
-                    	<div class="control-group">
-                  			<label for="input01" class="control-label"><?php echo $this->translate('统计代码'); ?>：</label>
-           					<div class="controls">
-              					<textarea class="span12" name="shop_statistics_code" rows="4"><?php if(isset($this->shop_statistics_code)) echo $this->escapeHtml($this->shop_statistics_code); ?></textarea>
-            				</div>                        
                         </div>
                     	<div class="control-group">
                   			<label for="input01" class="control-label"><?php echo $this->translate('暂时关闭'); ?>：</label>
@@ -242,67 +237,8 @@
 					  <div class="well admin_add_well">
 						  <div class="message_one">
 						  </div>
-						  <div class="control-group">
-							  <label for="input01" class="control-label"><?php echo $this->translate('设置类型'); ?>：</label>
-							  <div class="controls">
-								  <select name="phone_sms_type" id="phone_sms_type" onchange="select_phone_sms_type();" class="span2">
-									  <option value="" <?php if(!isset($this->phonesms_config['shop_phone_sms']['phone_sms_type']) or empty($this->phonesms_config['shop_phone_sms']['phone_sms_type'])) echo 'selected="selected"'; ?>><?php echo $this->translate('无类型'); ?></option>
-									  <option value="alidayu" <?php if(isset($this->phonesms_config['shop_phone_sms']['phone_sms_type']) and $this->phonesms_config['shop_phone_sms']['phone_sms_type'] == 'alidayu') echo 'selected="selected"'; ?>><?php echo $this->translate('阿里大于'); ?></option>
-								  </select>
-								  <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('阿里大于为阿里巴巴旗下的通讯平台。'); ?>"></i>
-									&nbsp;&nbsp;<a href="http://www.alidayu.com/" target="_blank">查看阿里大于官方网站</a>
-							  </div>
-						  </div>
-						  <div class="control-group alidayu" style="display: none;">
-							  <label for="input01" class="control-label"><?php echo $this->translate('签名名称'); ?>：</label>
-							  <div class="controls">
-								  <input type="text" name="alidayu_sign_name" id="alidayu_sign_name" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_sign_name'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_sign_name']); ?>" class="span3">
-							  </div>
-						  </div>
-						  <div class="control-group alidayu" style="display: none;">
-							  <label for="input01" class="control-label">App Key(<?php echo $this->translate('应用'); ?>)：</label>
-							  <div class="controls">
-								  <input type="text" name="alidayu_app_key" id="alidayu_app_key" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_app_key'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_app_key']); ?>" class="span3">
-							  </div>
-						  </div>
-						  <div class="control-group alidayu" style="display: none;">
-							  <label for="input01" class="control-label">App Secret(<?php echo $this->translate('应用'); ?>)：</label>
-							  <div class="controls">
-								  <input type="text" name="alidayu_app_secret" id="alidayu_app_secret" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_app_secret'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_app_secret']); ?>" class="span3">
-							  </div>
-						  </div>
-						  <hr>
-						  <div class="alidayu"  style="display: none;"><font color="red"><?php echo $this->translate('模板ID是空，为关闭此信息提醒；如果模板ID非空，为开启此信息提醒。'); ?></font></div>
-						  <br>
-						  <div class="control-group alidayu" style="display: none;">
-							  <label for="input01" class="control-label"><?php echo $this->translate('订单提交模板ID'); ?>：</label>
-							  <div class="controls">
-								  <input type="text" name="alidayu_submit_order_template_id" id="alidayu_submit_order_template_id" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_submit_order_template_id'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_submit_order_template_id']); ?>" class="span3">
-							  </div>
-						  </div>
-						  <div class="control-group alidayu" style="display: none;">
-							  <label for="input01" class="control-label"><?php echo $this->translate('付款完成模板ID'); ?>：</label>
-							  <div class="controls">
-								  <input type="text" name="alidayu_payment_order_template_id" id="alidayu_payment_order_template_id" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_payment_order_template_id'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_payment_order_template_id']); ?>" class="span3">
-							  </div>
-						  </div>
-						  <div class="control-group alidayu" style="display: none;">
-							  <label for="input01" class="control-label"><?php echo $this->translate('发货完成模板ID'); ?>：</label>
-							  <div class="controls">
-								  <input type="text" name="alidayu_ship_order_template_id" id="alidayu_ship_order_template_id" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_ship_order_template_id'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_ship_order_template_id']); ?>" class="span3">
-							  </div>
-						  </div>
-						  <div class="control-group alidayu" style="display: none;">
-							  <label for="input01" class="control-label"><?php echo $this->translate('确认收货模板ID'); ?>：</label>
-							  <div class="controls">
-								  <input type="text" name="alidayu_finish_order_template_id" id="alidayu_finish_order_template_id" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_finish_order_template_id'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_finish_order_template_id']); ?>" class="span3">
-							  </div>
-						  </div>
-						  <div class="control-group alidayu" style="display: none;">
-							  <label for="input01" class="control-label"><?php echo $this->translate('订单取消模板ID'); ?>：</label>
-							  <div class="controls">
-								  <input type="text" name="alidayu_cancel_order_template_id" id="alidayu_cancel_order_template_id" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_cancel_order_template_id'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_cancel_order_template_id']); ?>" class="span3">
-							  </div>
+						  <div class="control-group alidayu">
+							  <label style="font-weight: bold;"><?php echo $this->translate('该功能已经迁移至 系统管理->消息提醒设置->手机短信设置'); ?></label>
 						  </div>
 					  </div>
 				  </div>
@@ -327,6 +263,70 @@
 									  <option value="1" <?php if(isset($this->goods_config['shop_goods']['dbshop_goods_QRcode']) and $this->goods_config['shop_goods']['dbshop_goods_QRcode'] == '1') echo 'selected="selected"'; ?>><?php echo $this->translate('开启'); ?></option>
 								  </select>
 								  <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('启用前台商品二维码后，用户通过手机扫描前台商品内容页面里的二维码，可以进行手机访问。'); ?>"></i>
+							  </div>
+						  </div>
+					  </div>
+				  </div>
+
+				  <div id="system_i" class="tab-pane">
+					  <div class="well admin_add_header_well"><?php echo $this->translate('统计设置'); ?></div>
+					  <div class="well admin_add_well">
+						  <div class="message_one">
+						  </div>
+						  <div class="control-group">
+							  <label for="input01" class="control-label"><?php echo $this->translate('整合站内统计'); ?>：</label>
+							  <div class="controls">
+								  <select name="shop_tongji_type" class="span2">
+									  <option value="baidu" <?php if(isset($this->system_config['shop_system']['shop_tongji_type']) and $this->system_config['shop_system']['shop_tongji_type']=='baidu') echo 'selected'; ?>><?php echo $this->translate('百度统计'); ?></option>
+								  </select>
+							  </div>
+						  </div>
+						  <div class="control-group">
+							  <label for="input01" class="control-label"><?php echo $this->translate('百度统计账户'); ?>：</label>
+							  <div class="controls">
+								  <input type="text" name="shop_tongji_baidu_user" id="shop_tongji_baidu_user" value="<?php if(isset($this->system_config['shop_system']['shop_tongji_baidu_user'])) echo $this->escapeHtml($this->system_config['shop_system']['shop_tongji_baidu_user']); ?>" class="span3">
+							  </div>
+						  </div>
+						  <div class="control-group">
+							  <label for="input01" class="control-label"><?php echo $this->translate('百度统计密码'); ?>：</label>
+							  <div class="controls">
+								  <input type="password" name="shop_tongji_baidu_passwd" id="shop_tongji_baidu_passwd" value="<?php if(isset($this->system_config['shop_system']['shop_tongji_baidu_passwd'])) echo $this->escapeHtml($this->system_config['shop_system']['shop_tongji_baidu_passwd']); ?>" class="span3">
+							  </div>
+						  </div>
+						  <div class="control-group">
+							  <label for="input01" class="control-label"><?php echo $this->translate('百度统计Token'); ?>：</label>
+							  <div class="controls">
+								  <input type="text" name="shop_tongji_token" id="shop_tongji_token" value="<?php if(isset($this->system_config['shop_system']['shop_tongji_token'])) echo $this->escapeHtml($this->system_config['shop_system']['shop_tongji_token']); ?>" class="span4">
+							  </div>
+						  </div>
+						  <div class="control-group">
+							  <label for="input01" class="control-label"><?php echo $this->translate('百度统计站点'); ?>：</label>
+							  <div class="controls">
+								  <select name="shop_site_id" id="shop_site_id" class="span2">
+									  <?php if(isset($this->site_list) and !empty($this->site_list)) {
+										  foreach($this->site_list as $site_value) {
+											  ?>
+									  		<option value="<?php echo $site_value['site_id']; ?>" <?php if(isset($this->system_config['shop_system']['shop_site_id']) and $this->system_config['shop_system']['shop_site_id']==$site_value['site_id']) echo 'selected'; ?>><?php echo $site_value['domain']; ?></option>
+									  <?php
+										  }
+									  } ?>
+								  </select>
+								  <button type="button" onclick="tongji_sitelist_update();" class="btn btn-small btn-primary"><?php echo $this->translate('点击获取(更新)统计站点'); ?></button>
+							  </div>
+						  </div>
+						  <hr>
+						  <div class="control-group">
+							  <label for="input01" class="control-label"><?php echo $this->translate('统计代码'); ?>：</label>
+							  <div class="controls">
+								  <textarea class="span10" name="shop_statistics_code" rows="4"><?php if(isset($this->shop_statistics_code)) echo $this->escapeHtml($this->shop_statistics_code); ?></textarea>
+							  </div>
+						  </div>
+						  <div class="control-group">
+							  <label for="input01" class="control-label"><?php echo $this->translate('统计说明'); ?>：</label>
+							  <div class="controls">
+								  <label style="line-height: 30px;color: red;">
+									  <?php echo $this->translate('当使用整合站点统计功能时，统计代码必须填写百度统计代码。如果不使用整合站内统计功能，可以填写任何统计系统的代码。'); ?>
+								  </label>
 							  </div>
 						  </div>
 					  </div>
@@ -379,16 +379,19 @@ $(document).ready(function() {
 
 $("#system_e").load('<?php echo $this->url('email/default',array('action'=>'emailconfig','controller'=>'email')); ?>');
 
-function select_phone_sms_type() {
-	var phone_sms_type = $("#phone_sms_type").val();
-	if(phone_sms_type == '') {
-		$(".alidayu").css('display', 'none');
-	}
-	if(phone_sms_type == 'alidayu') {
-		$(".alidayu").css('display', '');
-	}
+//获取站点列表
+function tongji_sitelist_update() {
+	var baidu_tongji_username	= $('#shop_tongji_baidu_user').val();
+	if(baidu_tongji_username == '') { alert('<?php echo $this->translate('百度统计账户不能为空！'); ?>'); return ; }
+	var baidu_tongji_userpasswd = $('#shop_tongji_baidu_passwd').val();
+	if(baidu_tongji_userpasswd == '') { alert('<?php echo $this->translate('百度统计密码不能为空！'); ?>'); return ; }
+	var baidu_tongji_token 		= $('#shop_tongji_token').val();
+	if(baidu_tongji_token == '') { alert('<?php echo $this->translate('百度统计Token不能为空！'); ?>'); return ; }
+
+	$.post('<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'siteList')); ?>',{baidu_tongji_username:baidu_tongji_username, baidu_tongji_userpasswd:baidu_tongji_userpasswd, baidu_tongji_token:baidu_tongji_token}, function(data){
+		if(data.state == 'true') {
+			$('#shop_site_id').html(data.select_html);
+		} else alert(data);
+	},'json');
 }
-<?php if(isset($this->phonesms_config['shop_phone_sms']['phone_sms_type']) and $this->phonesms_config['shop_phone_sms']['phone_sms_type'] != '') { ?>
-select_phone_sms_type();
-<?php } ?>
 </script>

@@ -12,6 +12,7 @@
                     <th width="10%"><?php echo $this->translate('LOGO'); ?></th>
                     <th width="30%"><?php echo $this->translate('支付简介'); ?></th>
                     <th width="8%"><?php echo $this->translate('支付手续费'); ?></th>
+                    <th width="10%"><?php echo $this->translate('显示范围'); ?></th>
                     <th width="8%"><?php echo $this->translate('支付状态'); ?></th>
                     <th width="6%"><?php echo $this->translate('支付排序'); ?></th>
                     <th width="8%"><?php echo $this->translate('操作'); ?></th>
@@ -26,6 +27,18 @@
                 <td><img src="<?php echo $this->basePath($value['payment_logo']['content']); ?>"  style="border:1px solid #DDDDDD" /></td>
                 <td><?php echo $value['payment_info']['content']; ?></td>
                 <td><?php echo ($value['payment_fee']['content']=='' ? 0 : $value['payment_fee']['content']); ?></td>
+                <td><?php if(isset($value['payment_show']['checked']) and !empty($value['payment_show']['checked'])) {
+                        $show_name_array = array('pc'=>$this->translate('电脑端显示'), 'phone'=>$this->translate('手机端显示'), 'all'=>$this->translate('全平台显示'));
+                        if(is_array($value['payment_show']['checked'])) {
+                            $name_array = array();
+                            foreach($value['payment_show']['checked'] as $show_value) {
+                                $name_array[] = $show_name_array[$show_value];
+                            }
+                            echo implode(',', $name_array);
+                        } else {
+                            echo $show_name_array[$value['payment_show']['checked']];
+                        }
+                    } ?></td>
                 <td><?php echo ($value['payment_state']['checked']==1 ? $this->translate('开启') : $this->translate('关闭')); ?></td>
                 <td><?php echo $value['payment_sort']['content']; ?></td>
                 <td><a href="<?php echo $this->url('payment/default',array('action'=>'payment', 'paytype'=>$value['editaction'])); ?>"><?php echo $this->translate('编辑'); ?></a></td>

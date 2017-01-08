@@ -32,4 +32,6 @@ return array(
 'IntegralRuleService'  => function () { return new \User\Service\IntegralRuleService();},
 
 'QqLogin'              => function () { return new \User\Service\OtherLogin\QqLogin(); },
+'WeixinLogin'          => function () { return new \User\Service\OtherLogin\WeixinLogin(); },
+'AlipayLogin'          => function () { return new \User\Service\OtherLogin\AlipayLogin(); },
 );

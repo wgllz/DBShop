@@ -2,7 +2,7 @@
 <zend-config>
     <payment_name>
         <title>支付方式名称</title>
-        <content>支付宝支付(手机网页)</content>
+        <content>支付宝手机支付</content>
         <name_id>payment_name</name_id>
         <input_type>text</input_type>
         <class>span6</class>
@@ -53,6 +53,23 @@
         <input_type>text</input_type>
         <class>span6</class>
     </alipay_key>
+    <payment_show>
+        <title>显示设置</title>
+        <content>
+            <content1>
+                <name>电脑端显示</name>
+                <value>pc</value>
+            </content1>
+            <content2>
+                <name>手机端显示</name>
+                <value>phone</value>
+            </content2>
+        </content>
+        <name_id>payment_show</name_id>
+        <input_type>checkbox</input_type>
+        <checked>pc</checked>
+        <checked>phone</checked>
+    </payment_show>
     <payment_currency>
         <title>可用货币</title>
         <content>

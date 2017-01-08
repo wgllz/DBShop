@@ -158,6 +158,12 @@ class CartController extends AbstractActionController
                 if($fileName != '.' and $fileName != '..' and $fileName != '.DS_Store' and $fileName != 'wxpay.xml') {
                     $paymentInfo = $xmlReader->fromFile($xmlPath . '/' . $fileName);
 
+                    //判断是否显示在当前平台
+                    if(isset($paymentInfo['payment_show']['checked']) and !empty($paymentInfo['payment_show']['checked'])) {
+                        $showArray = is_array($paymentInfo['payment_show']['checked']) ? $paymentInfo['payment_show']['checked'] : array($paymentInfo['payment_show']['checked']);
+                        if(!in_array('phone', $showArray) and !in_array('all', $showArray)) continue;
+                    } else continue;
+
                     //判断是否符合当前的货币要求
                     $currencyState = false;
                     if(isset($paymentInfo['payment_currency']['checked']) and !empty($paymentInfo['payment_currency']['checked'])) {
@@ -227,6 +233,12 @@ class CartController extends AbstractActionController
             while (false !== ($fileName = readdir($dh))) {
                 if($fileName != '.' and $fileName != '..' and $fileName != '.DS_Store' and $fileName != 'wxpay.xml') {
                     $paymentInfo = $xmlReader->fromFile($xmlPath . '/' . $fileName);
+
+                    //判断是否显示在当前平台
+                    if(isset($paymentInfo['payment_show']['checked']) and !empty($paymentInfo['payment_show']['checked'])) {
+                        $showArray = is_array($paymentInfo['payment_show']['checked']) ? $paymentInfo['payment_show']['checked'] : array($paymentInfo['payment_show']['checked']);
+                        if(!in_array('phone', $showArray) and !in_array('all', $showArray)) continue;
+                    } else continue;
 
                     //判断是否符合当前的货币要求
                     $currencyState = false;
@@ -414,8 +426,9 @@ class CartController extends AbstractActionController
             $sendArray['shopname']      = $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name');
             $sendArray['buyname']       = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_name');
             $sendArray['ordersn']       = $array['order_sn'];
+            $sendArray['ordertotal']    = $array['order_total'];
             $sendArray['submittime']    = $orderArray['order_time'];
-            $sendArray['shopurl']       = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('shopfront/default');
+            $sendArray['shopurl']       = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default');
 
             $sendArray['subject']       = $sendArray['shopname'] . $this->getDbshopLang()->translate('提交订单提醒');
             $sendArray['send_mail'][]   = $this->getServiceLocator()->get('frontHelper')->getSendMessageBuyerEmail('submit_order_state', $this->getServiceLocator()->get('frontHelper')->getUserSession('user_email'));
@@ -442,6 +455,25 @@ class CartController extends AbstractActionController
             }
         }
         /*----------------------提醒信息发送----------------------*/
+        /*----------------------手机短信信息发送----------------------*/
+        $smsData = array(
+            'shopname'   => $sendArray['shopname'],
+            'buyname'    => $sendArray['buyname'],
+            'ordersn'    => $sendArray['ordersn'],
+            'submittime' => $sendArray['submittime'],
+            'ordertotal' => $sendArray['ordertotal']
+        );
+        try {
+            $this->getServiceLocator()->get('shop_send_sms')->toSendSms(
+                $smsData,
+                $this->getServiceLocator()->get('frontHelper')->getUserSession('user_phone'),
+                'alidayu_submit_order_template_id',
+                $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')
+            );
+        } catch(\Exception $e) {
+
+        }
+        /*----------------------手机短信信息发送----------------------*/
 
         $view->setVariables($array);
         return $view;
@@ -615,8 +647,9 @@ class CartController extends AbstractActionController
             $sendArray['shopname']      = $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name');
             $sendArray['buyname']       = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_name');
             $sendArray['ordersn']       = $array['order_sn'];
+            $sendArray['ordertotal']    = $array['order_total'];
             $sendArray['submittime']    = $orderArray['order_time'];
-            $sendArray['shopurl']       = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('shopfront/default');
+            $sendArray['shopurl']       = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default');
 
             $sendArray['subject']       = $sendArray['shopname'] . $this->getDbshopLang()->translate('提交订单提醒');
             $sendArray['send_mail'][]   = $this->getServiceLocator()->get('frontHelper')->getSendMessageBuyerEmail('submit_order_state', $this->getServiceLocator()->get('frontHelper')->getUserSession('user_email'));
@@ -643,6 +676,25 @@ class CartController extends AbstractActionController
             }
         }
         /*----------------------提醒信息发送----------------------*/
+        /*----------------------手机短信信息发送----------------------*/
+        $smsData = array(
+            'shopname'   => $sendArray['shopname'],
+            'buyname'    => $sendArray['buyname'],
+            'ordersn'    => $sendArray['ordersn'],
+            'submittime' => $sendArray['submittime'],
+            'ordertotal' => $sendArray['ordertotal']
+        );
+        try {
+            $this->getServiceLocator()->get('shop_send_sms')->toSendSms(
+                $smsData,
+                $this->getServiceLocator()->get('frontHelper')->getUserSession('user_phone'),
+                'alidayu_submit_order_template_id',
+                $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')
+            );
+        } catch(\Exception $e) {
+
+        }
+        /*----------------------手机短信信息发送----------------------*/
 
         return $array;
     }

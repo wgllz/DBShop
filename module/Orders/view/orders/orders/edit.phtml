@@ -263,13 +263,13 @@
         <div class="modal-body">
             <input type="hidden" name="order_id" id="order_id" value="<?php echo $this->order_info->order_id; ?>" />
             <div class="control-group">
-                <label class="control-label"><?php echo $this->translate('当前订单总额'); ?></label>
+                <label class="control-label"><?php echo $this->translate('当前订单总额'); ?><span class="must_add_value">*</span></label>
                 <div class="controls">
-                    <p><?php echo $this->order_info->currency_symbol . '&nbsp;' . $this->order_info->order_amount . '&nbsp;' . $this->order_info->currency_unit; ?></p>
+                    <label style="line-height: 30px;"><?php echo $this->order_info->currency_symbol . '&nbsp;' . $this->order_info->order_amount . '&nbsp;' . $this->order_info->currency_unit; ?></label>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label"><?php echo $this->translate('订单总额修改'); ?></label>
+                <label class="control-label"><?php echo $this->translate('订单总额修改'); ?><span class="must_add_value">*</span></label>
                 <div class="controls">
                     <select name="order_edit_amount_type" id="order_edit_amount_type" class="span4">
                         <option value=""><?php echo $this->translate('请选择'); ?></option>
@@ -291,9 +291,9 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label"><?php echo $this->translate('备注说明'); ?></label>
+                <label class="control-label"><?php echo $this->translate('备注说明'); ?><span class="must_add_value">*</span></label>
                 <div class="controls">
-                    <textarea class="span10" name="order_edit_amount_info" rows="3"></textarea>
+                    <textarea class="span10" name="order_edit_amount_info" id="order_edit_amount_info" rows="3"></textarea>
                 </div>
             </div>
         </div>
@@ -313,6 +313,9 @@
                     required: true,
                     digits: true,
                     min:1
+                },
+                order_edit_amount_info: {
+                    required: true
                 }
             },
             messages: {
@@ -323,6 +326,9 @@
                     required: "<?php echo $this->translate('修改金额不能为空！'); ?>",
                     digits: "<?php echo $this->translate('金额必须为整数！'); ?>",
                     min:"<?php echo $this->translate('金额最小为1'); ?>"
+                },
+                order_edit_amount_info: {
+                    required: "<?php echo $this->translate('备注说明不能为空！'); ?>"
                 }
             },
             submitHandler:function(form){

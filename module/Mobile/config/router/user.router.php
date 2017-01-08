@@ -48,6 +48,12 @@ return array(
                                                 'route' => '[/:user_id][/:check_type]'
                                         )
                                 ),
+                            'other_login_type'  => array(
+                                'type'    => 'Segment',
+                                'options' => array(
+                                    'route' => '/loginType[/:login_type]'
+                                )
+                            ),
                         )
                 ),
         ),

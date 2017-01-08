@@ -50,7 +50,8 @@ class AlipayService
         if(!$this->paymentForm) {
             $this->paymentForm = new \Payment\Form\PaymentForm();
         }
-        
+
+        $httpType = ((isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https' : 'http';
         //设置支付宝接口信息
         $this->alipay_config['partner']       = $this->paymentConfig['alipay_pid']['content'];
         $this->alipay_config['key']           = $this->paymentConfig['alipay_key']['content'];
@@ -58,7 +59,7 @@ class AlipayService
         $this->alipay_config['input_charset'] = strtolower('utf-8');
         //访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
         $this->alipay_config['cacert']        = DBSHOP_PATH . '/module/Payment/src/Payment/Service/api/alipay/cacert.pem';
-        $this->alipay_config['transport']     = 'http';
+        $this->alipay_config['transport']     = $httpType;//'http';
         $this->alipay_account                 = $this->paymentConfig['payment_user']['content'];
     }
     /**

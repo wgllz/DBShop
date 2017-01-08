@@ -183,7 +183,7 @@ class UserController  extends AbstractActionController
                         $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name'),
                         $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_email'),
                         date("Y-m-d H:i", time()),
-                        '<a href="http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('mobile/default') . '" target="_blank">' . $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name') . '</a>',
+                        '<a href="'. $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('mobile/default') . '" target="_blank">' . $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name') . '</a>',
                     );
                     $registerEmail = array(
                         'send_user_name'=> $userArray['user_name'],
@@ -201,7 +201,7 @@ class UserController  extends AbstractActionController
                 $exitMessage = '';
                 if($audit == 'email') {
                     $userAuditCode = md5($userArray['user_name']) . md5(time());
-                    $auditUrl      = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontuser/default', array('action'=>'userAudit')) . '?userName=' . urlencode($userArray['user_name']) . '&auditCode=' . $userAuditCode;
+                    $auditUrl      = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontuser/default', array('action'=>'userAudit')) . '?userName=' . urlencode($userArray['user_name']) . '&auditCode=' . $userAuditCode;
                     //将生成的审核码更新到会员表中
                     $this->getDbshopTable('UserTable')->updateUser(array('user_audit_code'=>$userAuditCode),array('user_id'=>$addState));
                     $auditEmail = array(
@@ -278,7 +278,7 @@ class UserController  extends AbstractActionController
             if(isset($userInfo->user_name) and $userInfo->user_name != '') {
                 //生成唯一码及url
                 $editCode    = md5($userInfo->user_name . $userInfo->user_email) . md5(time());
-                $editUrl     = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontuser/default', array('action'=>'forgotpasswdedit')) . '?editcode=' . $editCode;
+                $editUrl     = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontuser/default', array('action'=>'forgotpasswdedit')) . '?editcode=' . $editCode;
                 //发送的邮件内容
                 $forgotEmail = array(
                     'send_user_name'=> $userInfo->user_name,
@@ -308,8 +308,11 @@ class UserController  extends AbstractActionController
      */
     public function otherloginAction()
     {
-        $loginService     = $this->checkOtherLoginConfig();
-        $loginService->toLogin();
+        $loginType = $this->request->getQuery('login_type');
+
+        $loginService     = $this->checkOtherLoginConfig($loginType);
+        if($loginType == 'weixin') $loginService->mobileToLogin();
+        else $loginService->toLogin();
     }
     /**
      * 第三方注册操作
@@ -318,8 +321,14 @@ class UserController  extends AbstractActionController
     {
         $this->layout()->title_name = $this->getDbshopLang()->translate('会员信息补充');
 
+        $lType            = $this->params('login_type');
+        $loginType        = 'QQ';
+        if($lType !='' and $lType != 'qq') {
+            $loginType = ucfirst($lType);
+        }
+
         //验证从第三方回调获取的信息是否完整
-        $loginService     = $this->checkOtherLoginConfig();
+        $loginService     = $this->checkOtherLoginConfig($lType);
         $openId           = $loginService->getOpenId();
         $otherUserInfo    = $loginService->getOtherInfo();
 
@@ -385,7 +394,7 @@ class UserController  extends AbstractActionController
                     'user_id'       => $addState,
                     'open_id'       => $openId,
                     'ol_add_time'   => $userArray['user_time'],
-                    'login_type'    => 'QQ'
+                    'login_type'    => $loginType
                 );
                 $addOtherLogin = $this->getDbshopTable('OtherLoginTable')->addOtherLogin($otherLoginArray);
 
@@ -409,7 +418,7 @@ class UserController  extends AbstractActionController
                         $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name'),
                         $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_email'),
                         date("Y-m-d H:i", time()),
-                        '<a href="http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('shopfront/default') . '" target="_blank">' . $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name') . '</a>',
+                        '<a href="'. $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default') . '" target="_blank">' . $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name') . '</a>',
                     );
                     $registerEmail = array(
                         'send_user_name'=> $userArray['user_name'],
@@ -427,7 +436,7 @@ class UserController  extends AbstractActionController
                 $exitMessage = '';
                 if($audit == 'email') {
                     $userAuditCode = md5($userArray['user_name']) . md5(time());
-                    $auditUrl      = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontuser/default', array('action'=>'userAudit')) . '?userName=' . urlencode($userArray['user_name']) . '&auditCode=' . $userAuditCode;
+                    $auditUrl      = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontuser/default', array('action'=>'userAudit')) . '?userName=' . urlencode($userArray['user_name']) . '&auditCode=' . $userAuditCode;
                     //将生成的审核码更新到会员表中
                     $this->getDbshopTable('UserTable')->updateUser(array('user_audit_code'=>$userAuditCode),array('user_id'=>$addState));
                     $auditEmail = array(
@@ -513,15 +522,22 @@ class UserController  extends AbstractActionController
     }
     /**
      * 检查第三方登录配置
+     * @param string $loginType
      * @return array|object
      */
-    private function checkOtherLoginConfig()
+    private function checkOtherLoginConfig($loginType='QQ')
     {
-        $loginService     = $this->getServiceLocator()->get('QqLogin');
+        $getClass = ucfirst($loginType).'Login';
+        $loginService     = $this->getServiceLocator()->get($getClass);
+
         $loginConfigState = $loginService->getLoginConfigState();
         if(is_string($loginConfigState) and $loginConfigState == 'configError') exit($this->getDbshopLang()->translate('该登录方式的配置信息错误，必须在公网上进行测试！'));
 
-        $loginService->redirectUri = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontuser/default',array('action'=>'othercallback'));
+        if($loginType == '' or $loginType == 'qq') {
+            $loginService->redirectUri = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontuser/default',array('action'=>'othercallback'));
+        } else {
+            $loginService->redirectUri = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontuser/default/other_login_type',array('action'=>'othercallback', 'login_type'=>$loginType));
+        }
 
         return $loginService;
     }

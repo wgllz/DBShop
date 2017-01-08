@@ -1,6 +1,6 @@
 <div class="tabbable tabs-left">
               <ul class="nav nav-tabs">
-              	<li><h5><?php echo $this->translate('消息提醒设置'); ?></h5></li>
+              	<li><h5><?php echo $this->translate('邮件提醒设置'); ?></h5></li>
                 <li class="active"><a data-toggle="tab" href="#system_a"><?php echo $this->translate('基本信息'); ?></a></li>
                 <li><a data-toggle="tab" href="#system_b"><?php echo $this->translate('提交订单'); ?></a></li>
                 <li><a data-toggle="tab" href="#system_c"><?php echo $this->translate('付款完成'); ?></a></li>
@@ -13,7 +13,7 @@
               <form class="form-horizontal" name="send_message_form" id="send_message_form" method="post">
               <div class="tab-content">
     			<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
-        			<div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php echo $this->translate('消息提醒设置'); ?></strong></div>
+        			<div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php echo $this->translate('邮件提醒设置'); ?></strong></div>
         			<div class="pull-right">
         			<a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>
                     &nbsp;<button type="submit" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存提醒设置'); ?></button>
@@ -72,6 +72,7 @@
                             <button type="button" onclick="insert_textarea_content('submit_order', '{shopname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站名称'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('submit_order', '{buyname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('买家名称'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('submit_order', '{ordersn}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单编号'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('submit_order', '{ordertotal}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单金额'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('submit_order', '{submittime}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单提交时间'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('submit_order', '{shopurl}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站网址'); ?></button>&nbsp;&nbsp;
                             </p>
@@ -104,6 +105,7 @@
                             <button type="button" onclick="insert_textarea_content('payment_finish', '{shopname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站名称'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('payment_finish', '{buyname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('买家名称'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('payment_finish', '{ordersn}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单编号'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('payment_finish', '{ordertotal}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单金额'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('payment_finish', '{paymenttime}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单付款时间'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('payment_finish', '{shopurl}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站网址'); ?></button>&nbsp;&nbsp;
                             </p> 
@@ -136,6 +138,9 @@
                             <button type="button" onclick="insert_textarea_content('ship_finish', '{shopname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站名称'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('ship_finish', '{buyname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('买家名称'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('ship_finish', '{ordersn}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单编号'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('ship_finish', '{ordertotal}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单金额'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('ship_finish', '{expressname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('快递公司'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('ship_finish', '{expressnumber}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('快递单号'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('ship_finish', '{shiptime}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单发货时间'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('ship_finish', '{shopurl}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站网址'); ?></button>&nbsp;&nbsp;
                             </p> 
@@ -168,6 +173,9 @@
                             <button type="button" onclick="insert_textarea_content('transaction_finish', '{shopname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站名称'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('transaction_finish', '{buyname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('买家名称'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('transaction_finish', '{ordersn}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单编号'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('transaction_finish', '{ordertotal}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单金额'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('transaction_finish', '{expressname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('快递公司'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('transaction_finish', '{expressnumber}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('快递单号'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('transaction_finish', '{finishtime}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('交易完成时间'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('transaction_finish', '{shopurl}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站网址'); ?></button>&nbsp;&nbsp;
                             </p>
@@ -200,6 +208,7 @@
                             <button type="button" onclick="insert_textarea_content('cancel_order', '{shopname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站名称'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('cancel_order', '{buyname}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('买家名称'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('cancel_order', '{ordersn}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单编号'); ?></button>&nbsp;&nbsp;
+                            <button type="button" onclick="insert_textarea_content('cancel_order', '{ordertotal}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单金额'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('cancel_order', '{canceltime}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('订单取消时间'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('cancel_order', '{shopurl}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('网站网址'); ?></button>&nbsp;&nbsp;
                             <button type="button" onclick="insert_textarea_content('cancel_order', '{cancelinfo}');" class="btn btn-small btn-primary"><i class="icon-screenshot icon-white"></i> <?php echo $this->translate('取消原因'); ?></button>&nbsp;&nbsp;

@@ -365,8 +365,14 @@ class CartController extends AbstractActionController
             $dh = opendir($xmlPath);
             while (false !== ($fileName = readdir($dh))) {
                 if($fileName != '.' and $fileName != '..' and $fileName != '.DS_Store') {
-                    $paymentInfo = $xmlReader->fromFile($xmlPath . '/' . $fileName);
-                    
+                    $paymentInfo = $xmlReader->fromFile($xmlPath . $fileName);
+
+                    //判断是否显示在当前平台
+                    if(isset($paymentInfo['payment_show']['checked']) and !empty($paymentInfo['payment_show']['checked'])) {
+                        $showArray = is_array($paymentInfo['payment_show']['checked']) ? $paymentInfo['payment_show']['checked'] : array($paymentInfo['payment_show']['checked']);
+                        if(!in_array('pc', $showArray) and !in_array('all', $showArray)) continue;
+                    } else continue;
+
                     //判断是否符合当前的货币要求
                     $currencyState = false;
                     if(isset($paymentInfo['payment_currency']['checked']) and !empty($paymentInfo['payment_currency']['checked'])) {
@@ -438,7 +444,13 @@ class CartController extends AbstractActionController
             $dh = opendir($xmlPath);
             while (false !== ($fileName = readdir($dh))) {
                 if($fileName != '.' and $fileName != '..' and $fileName != '.DS_Store' and $fileName != 'hdfk.xml') {
-                    $paymentInfo = $xmlReader->fromFile($xmlPath . '/' . $fileName);
+                    $paymentInfo = $xmlReader->fromFile($xmlPath . $fileName);
+
+                    //判断是否显示在当前平台
+                    if(isset($paymentInfo['payment_show']['checked']) and !empty($paymentInfo['payment_show']['checked'])) {
+                        $showArray = is_array($paymentInfo['payment_show']['checked']) ? $paymentInfo['payment_show']['checked'] : array($paymentInfo['payment_show']['checked']);
+                        if(!in_array('pc', $showArray) and !in_array('all', $showArray)) continue;
+                    } else continue;
 
                     //判断是否符合当前的货币要求
                     $currencyState = false;
@@ -625,8 +637,9 @@ class CartController extends AbstractActionController
         $sendArray['shopname']      = $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name');
         $sendArray['buyname']       = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_name');
         $sendArray['ordersn']       = $array['order_sn'];
+        $sendArray['ordertotal']    = $array['order_total'];
         $sendArray['submittime']    = $orderArray['order_time'];
-        $sendArray['shopurl']       = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('shopfront/default');
+        $sendArray['shopurl']       = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default');
         /*----------------------提醒信息发送----------------------*/
         $sendMessageBody = $this->getServiceLocator()->get('frontHelper')->getSendMessageBody('submit_order');
         if($sendMessageBody != '') {
@@ -662,6 +675,7 @@ class CartController extends AbstractActionController
             'buyname'    => $sendArray['buyname'],
             'ordersn'    => $sendArray['ordersn'],
             'submittime' => $sendArray['submittime'],
+            'ordertotal' => $sendArray['ordertotal']
         );
         try {
             $this->getServiceLocator()->get('shop_send_sms')->toSendSms(
@@ -852,8 +866,9 @@ class CartController extends AbstractActionController
         $sendArray['shopname']      = $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name');
         $sendArray['buyname']       = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_name');
         $sendArray['ordersn']       = $array['order_sn'];
+        $sendArray['ordertotal']    = $array['order_total'];
         $sendArray['submittime']    = $orderArray['order_time'];
-        $sendArray['shopurl']       = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('shopfront/default');
+        $sendArray['shopurl']       = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default');
         /*----------------------提醒信息发送----------------------*/
         $sendMessageBody = $this->getServiceLocator()->get('frontHelper')->getSendMessageBody('submit_order');
         if($sendMessageBody != '') {
@@ -889,6 +904,7 @@ class CartController extends AbstractActionController
             'buyname'    => $sendArray['buyname'],
             'ordersn'    => $sendArray['ordersn'],
             'submittime' => $sendArray['submittime'],
+            'ordertotal' => $sendArray['ordertotal']
         );
         try {
             $this->getServiceLocator()->get('shop_send_sms')->toSendSms(

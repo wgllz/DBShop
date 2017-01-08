@@ -1,0 +1,41 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title><?php echo $this->translate('微信支付'); ?></title>
+
+    <script type="text/javascript">
+        window.onload = callpay();
+        function jsApiCall(){
+            WeixinJSBridge.invoke(
+                'getBrandWCPayRequest',
+                <?php echo $this->jsApiParameters;?>,
+                function(res){
+                    if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                        alert("<?php echo $this->translate('支付成功!'); ?>");
+                    }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+                        alert("<?php echo $this->translate('支付过程中，您取消了支付!'); ?>");
+                    }else{
+                        alert("<?php echo $this->translate('支付失败！'); ?>");
+                    }
+                }
+            );
+        }
+
+        function callpay(){
+            if (typeof WeixinJSBridge == "undefined"){
+                if( document.addEventListener ){
+                    document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                }else if (document.attachEvent){
+                    document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                    document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                }
+            }else{
+                jsApiCall();
+            }
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

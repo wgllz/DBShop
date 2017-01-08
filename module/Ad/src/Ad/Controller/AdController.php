@@ -190,10 +190,9 @@ class AdController extends BaseController
         
         if(!isset($adInfo->ad_id)) return $this->redirect()->toRoute('ad/default/ad-type', array('action'=>'setad','ad_type'=>$adType));
         $array['ad_info'] = $adInfo;
+
         //当为幻灯片类型时，获取幻灯片数据
-        if($adInfo->ad_type == 'slide') {
-            $array['slide_array'] = $this->getDbshopTable('AdSlideTable')->listAdSlide(array('ad_id'=>$adId));
-        }
+        $array['slide_array'] = $this->getDbshopTable('AdSlideTable')->listAdSlide(array('ad_id'=>$adId));
         
         return $array;
     }
@@ -404,10 +403,9 @@ class AdController extends BaseController
 
         if(!isset($adInfo->ad_id)) return $this->redirect()->toRoute('ad/default/ad-type', array('action'=>'mobileSetad','ad_type'=>$adType));
         $array['ad_info'] = $adInfo;
+
         //当为幻灯片类型时，获取幻灯片数据
-        if($adInfo->ad_type == 'slide') {
-            $array['slide_array'] = $this->getDbshopTable('AdSlideTable')->listAdSlide(array('ad_id'=>$adId));
-        }
+        $array['slide_array'] = $this->getDbshopTable('AdSlideTable')->listAdSlide(array('ad_id'=>$adId));
 
         return $array;
     }
@@ -435,6 +433,32 @@ class AdController extends BaseController
             $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('广告管理'), 'operlog_info'=>$this->getDbshopLang()->translate('删除手机端广告') . '&nbsp;' . $adInfo->ad_name));
 
             $delState = 'true';
+        }
+        exit($delState);
+    }
+    /**
+     *
+     */
+    public function delSlideImageAction()
+    {
+        $delState   = 'false';
+        $adId       = (int) $this->request->getPost('ad_id');    //广告id
+        $slideImage = $this->request->getPost('image_path');
+
+        if($adId > 0 and !empty($slideImage)) {
+            $where = array('ad_id'=>$adId, 'ad_slide_image'=>$slideImage);
+            $slideInfo = $this->getDbshopTable('AdSlideTable')->infoAdSlide($where);
+            if(isset($slideInfo->ad_id) and $slideInfo->ad_id > 0) {
+                if($slideInfo->ad_slide_image != '') @unlink(DBSHOP_PATH . $slideInfo->ad_slide_image);
+                $this->getDbshopTable('AdSlideTable')->delSlideData($where);
+                $delState = md5($slideImage);
+
+                $adInfo  = $this->getDbshopTable()->infoAd(array('ad_id'=>$adId));
+                if($adInfo->ad_type == 'slide') {
+                    //更新广告文件调用信息，用于前台调用
+                    $this->createAndUpdateAdFile($adInfo->ad_class, $adId, $adInfo->show_type);
+                }
+            }
         }
         exit($delState);
     }

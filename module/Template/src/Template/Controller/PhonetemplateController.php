@@ -156,7 +156,7 @@ class PhonetemplateController extends BaseController
         $templateId = (int) $this->request->getPost('template_id');
         if($templateId == 0) exit($this->getDbshopLang()->translate('该模板不存在！'));
 
-        $templateInfo = $this->dbshopSoapClient('dbshopPhoneTemplateInfo', array('v.template_id'=>$templateId, 'dbshop_version'=>DBSHOP_VERSION_NUMBER, 'dbshop_url'=>$this->getRequest()->getServer('SERVER_NAME')));
+        $templateInfo = $this->dbshopSoapClient('dbshopPhoneTemplateInfo', array('v.template_id'=>$templateId, 'dbshop_version'=>DBSHOP_VERSION_NUMBER, 'dbshop_url'=>$this->getServiceLocator()->get('frontHelper')->dbshopHttpHost()));
         if(empty($templateInfo)) exit($this->getDbshopLang()->translate('该模板不存在！'));
         if(is_array($templateInfo) and isset($templateInfo['state']) and $templateInfo['state'] == 'false') exit($this->getDbshopLang()->translate('系统版本低，无法支持该模板，请您将系统版本升级到').' V'.$templateInfo['suuport_version']);
 

@@ -57,6 +57,23 @@
         <input_type>text</input_type>
         <class>span6</class>
     </payment_sign>
+    <payment_show>
+        <title>显示设置</title>
+        <content>
+            <content1>
+                <name>电脑端显示</name>
+                <value>pc</value>
+            </content1>
+            <content2>
+                <name>手机端显示</name>
+                <value>phone</value>
+            </content2>
+        </content>
+        <name_id>payment_show</name_id>
+        <input_type>checkbox</input_type>
+        <checked>pc</checked>
+        <checked>phone</checked>
+    </payment_show>
     <payment_currency>
         <title>可用货币</title>
         <content>

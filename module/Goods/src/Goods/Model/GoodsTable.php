@@ -321,7 +321,7 @@ class GoodsTable extends AbstractTableGateway implements \Zend\Db\Adapter\Adapte
                 $select->columns(array('*', new Expression('MAX(goods_id)+1 as max_goods_id')));
             });
             $s = $result->toArray();
-            $maxGoodsId = $s[0]['max_goods_id'];
+            $maxGoodsId = (empty($s[0]['max_goods_id']) or $s[0]['max_goods_id'] == 0) ? 1 : $s[0]['max_goods_id'] ;
         } else {
             $maxGoodsId = $goodsId;
         }

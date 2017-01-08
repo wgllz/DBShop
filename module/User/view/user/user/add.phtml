@@ -154,6 +154,9 @@
                                     <option value="2" <?php if($this->user_info and $this->user_info->user_state == 2) echo 'selected="selected"'; ?>><?php echo $this->translate('关闭'); ?></option>
                                     <option value="3" <?php if($this->user_info and $this->user_info->user_state == 3) echo 'selected="selected"'; ?>><?php echo $this->translate('待审核'); ?></option>
                                 </select>
+								<?php if($this->user_info) { ?>
+								<input type="hidden" name="hidden_user_state" value="<?php echo $this->user_info->user_state; ?>">
+								<?php } ?>
             				</div>                        
                         </div> 
                         <?php if($this->user_info) { ?>                  

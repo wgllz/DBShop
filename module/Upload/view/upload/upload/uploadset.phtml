@@ -316,8 +316,13 @@
                         <div class="control-group qiniustorage">
                             <label for="input01" class="control-label"><?php echo $this->translate('七牛域名'); ?>：</label>
                             <div class="controls">
-                                http://<input type="text" class="span4" name="qiniu_domain" id="qiniu_domain" value="<?php if(isset($this->storage['qiniu_domain'])) echo $this->storage['qiniu_domain']; ?>">
-                            </div>
+								<select name="qiniu_http_type" class="span1">
+									<option value="http://" <?php if(isset($this->storage['qiniu_http_type']) and $this->storage['qiniu_http_type']=='http://') echo 'selected'; ?>>http://</option>
+									<option value="https://" <?php if(isset($this->storage['qiniu_http_type']) and $this->storage['qiniu_http_type']=='https://') echo 'selected'; ?>>https://</option>
+								</select>
+                                <input type="text" class="span4" name="qiniu_domain" id="qiniu_domain" value="<?php if(isset($this->storage['qiniu_domain'])) echo $this->storage['qiniu_domain']; ?>">
+                            	<font color="red"><?php echo $this->translate('七牛云存储，默认是不支持 https:// 的，所以请选择 http://'); ?></font>
+							</div>
                         </div>
 
                         <div class="control-group aliyunstorage">
@@ -331,11 +336,18 @@
                             <div class="controls">
                                 <select name="aliyun_oss_domain" id="aliyun_oss_domain" class="span2">
                                     <option value=""><?php echo $this->translate('请选择节点'); ?></option>
-                                    <option value="oss-cn-qingdao.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-cn-qingdao.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('青岛'); ?></option>
-                                    <option value="oss-cn-beijing.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-cn-beijing.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('北京'); ?></option>
-                                    <option value="oss-cn-hangzhou.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-cn-hangzhou.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('杭州'); ?></option>
+                                    <option value="oss-cn-qingdao.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-cn-qingdao.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('华北1(青岛)'); ?></option>
+                                    <option value="oss-cn-beijing.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-cn-beijing.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('华北2(北京)'); ?></option>
+                                    <option value="oss-cn-hangzhou.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-cn-hangzhou.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('华东1(杭州)'); ?></option>
+                                    <option value="oss-cn-shanghai.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-cn-shanghai.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('华东2(上海)'); ?></option>
                                     <option value="oss-cn-hongkong.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-cn-hongkong.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('香港'); ?></option>
-                                    <option value="oss-cn-shenzhen.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-cn-shenzhen.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('深圳'); ?></option>
+                                    <option value="oss-cn-shenzhen.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-cn-shenzhen.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('华南1(深圳)'); ?></option>
+                                    <option value="oss-us-west-1.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-us-west-1.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('美国西部1'); ?></option>
+                                    <option value="oss-us-east-1.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-us-east-1.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('美国东部1'); ?></option>
+                                    <option value="oss-ap-southeast-1.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-ap-southeast-1.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('亚太东南1'); ?></option>
+                                    <option value="oss-ap-northeast-1.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-ap-northeast-1.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('亚太东北1'); ?></option>
+                                    <option value="oss-eu-central-1.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-eu-central-1.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('欧洲中部1'); ?></option>
+                                    <option value="oss-me-east-1.aliyuncs.com" <?php if(isset($this->storage['aliyun_oss_domain']) and $this->storage['aliyun_oss_domain']== 'oss-me-east-1.aliyuncs.com') echo 'selected'; ?>><?php echo $this->translate('中东东部1'); ?></option>
                                 </select>
                             </div>
                         </div>
@@ -354,10 +366,24 @@
                         <div class="control-group aliyunstorage">
                             <label for="input01" class="control-label"><?php echo $this->translate('访问域名'); ?>：</label>
                             <div class="controls">
-                                http://<input type="text" class="span4" name="aliyun_domain" id="aliyun_domain" value="<?php if(isset($this->storage['aliyun_domain'])) echo $this->storage['aliyun_domain']; ?>">
+								<select name="aliyun_http_type" class="span1">
+									<option value="http://" <?php if(isset($this->storage['aliyun_http_type']) and $this->storage['aliyun_http_type']=='http://') echo 'selected'; ?>>http://</option>
+									<option value="https://" <?php if(isset($this->storage['aliyun_http_type']) and $this->storage['aliyun_http_type']=='https://') echo 'selected'; ?>>https://</option>
+								</select>
+                                <input type="text" class="span4" name="aliyun_domain" id="aliyun_domain" value="<?php if(isset($this->storage['aliyun_domain'])) echo $this->storage['aliyun_domain']; ?>">
                                 <button class="btn btn-small btn-primary" type="button" onclick="add_aliyun_url_js();"><?php echo $this->translate('获取阿里云默认域名'); ?></button>
                             </div>
                         </div>
+						<div class="control-group aliyunstorage">
+							<label for="input01" class="control-label"><?php echo $this->translate('域名类型'); ?>：</label>
+							<div class="controls">
+								<select name="aliyun_domain_type" class="span2">
+									<option value="false" <?php if(isset($this->storage['aliyun_domain_type']) and $this->storage['aliyun_domain_type']=='false') echo 'selected'; ?>><?php echo $this->translate('阿里云存储官方域名'); ?></option>
+									<option value="true" <?php if(isset($this->storage['aliyun_domain_type']) and $this->storage['aliyun_domain_type']=='true') echo 'selected'; ?>><?php echo $this->translate('自定义域名'); ?></option>
+								</select>
+								<font color="red"><?php echo $this->translate('这里的域名类型指的是上面的 访问域名 的类型，如果您在阿里云存储中设置了自己的域名，请选择自定义域名；否则请选择阿里云存储官方域名。'); ?></font>
+							</div>
+						</div>
                     </div>
                 </div>
              </div>

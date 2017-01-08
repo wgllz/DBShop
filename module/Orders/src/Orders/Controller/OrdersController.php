@@ -105,7 +105,10 @@ class OrdersController extends BaseController
         
         //订单商品
         $array['order_goods'] = $this->getDbshopTable('OrderGoodsTable')->listOrderGoods(array('order_id'=>$orderId));
-                
+
+        //订单总价修改历史
+        $array['order_amount_log'] = $this->getDbshopTable('OrderAmountLogTable')->listOrderAmountLog(array('order_id'=>$orderId));
+
         $viewModel->setVariables($array);
         return $viewModel;
     }
@@ -172,8 +175,13 @@ class OrdersController extends BaseController
                     $payTime = time();
                     $this->getDbshopTable()->updateOrder(array('pay_time'=>$payTime), array('order_id'=>$orderId));
                     /*----------------------付款完成提醒信息发送----------------------*/
+                    $deliveryAddress = $this->getDbshopTable('OrderDeliveryAddressTable')->infoDeliveryAddress(array('order_id'=>$orderId));
+
                     $sendArray['buyer_name']  = $array['order_info']->buyer_name;
                     $sendArray['order_sn']    = $array['order_info']->order_sn;
+                    $sendArray['order_total'] = $array['order_info']->order_total;
+                    $sendArray['express_name']  = $deliveryAddress->express_name;
+                    $sendArray['express_number']= $deliveryAddress->express_number;
                     $sendArray['time']        = $payTime;
                     $sendArray['buyer_email'] = $array['order_info']->buyer_email;
                     $sendArray['order_state'] = 'payment_finish';
@@ -186,6 +194,7 @@ class OrdersController extends BaseController
                     $smsData = array(
                         'buyname'  => $sendArray['buyer_name'],
                         'ordersn'    => $sendArray['order_sn'],
+                        'ordertotal'   => $sendArray['order_total'],
                         'time'        => $sendArray['time'],
                     );
                     try {
@@ -262,8 +271,14 @@ class OrdersController extends BaseController
                 $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('订单管理'), 'operlog_info'=>$this->getDbshopLang()->translate('更新订单配送状态') . '&nbsp;' . $array['order_info']->order_sn . ' : ' . $this->getServiceLocator()->get('frontHelper')->getOneOrderStateInfo($stateArray['ship_state'])));
                 
                 /*----------------------提醒信息发送----------------------*/
+                //订单配送信息
+                $deliveryAddress = $this->getDbshopTable('OrderDeliveryAddressTable')->infoDeliveryAddress(array('order_id'=>$orderId));
+
                 $sendArray['buyer_name']  = $array['order_info']->buyer_name;
                 $sendArray['order_sn']    = $array['order_info']->order_sn;
+                $sendArray['order_total'] = $array['order_info']->order_total;
+                $sendArray['express_name']  = $deliveryAddress->express_name;
+                $sendArray['express_number']= $deliveryAddress->express_number;
                 $sendArray['time']        = $expressTime;
                 $sendArray['buyer_email'] = $array['order_info']->buyer_email;
                 $sendArray['order_state'] = 'ship_finish';
@@ -276,6 +291,9 @@ class OrdersController extends BaseController
                 $smsData = array(
                     'buyname'  => $sendArray['buyer_name'],
                     'ordersn'    => $sendArray['order_sn'],
+                    'ordertotal'   => $sendArray['order_total'],
+                    'expressname'  => $sendArray['express_name'],
+                    'expressnumber'=> $sendArray['express_number'],
                     'time'        => $sendArray['time'],
                 );
                 try {
@@ -352,8 +370,14 @@ class OrdersController extends BaseController
                     }
                 }
                 /*----------------------提醒信息发送----------------------*/
+                //订单配送信息
+                $deliveryAddress = $this->getDbshopTable('OrderDeliveryAddressTable')->infoDeliveryAddress(array('order_id'=>$orderId));
+
                 $sendArray['buyer_name']  = $array['order_info']->buyer_name;
                 $sendArray['order_sn']    = $array['order_info']->order_sn;
+                $sendArray['order_total'] = $array['order_info']->order_total;
+                $sendArray['express_name']  = $deliveryAddress->express_name;
+                $sendArray['express_number']= $deliveryAddress->express_number;
                 $sendArray['time']        = $finishTime;
                 $sendArray['buyer_email'] = $array['order_info']->buyer_email;
                 $sendArray['order_state'] = 'transaction_finish';
@@ -366,6 +390,9 @@ class OrdersController extends BaseController
                 $smsData = array(
                     'buyname'  => $sendArray['buyer_name'],
                     'ordersn'    => $sendArray['order_sn'],
+                    'ordertotal'   => $sendArray['order_total'],
+                    'expressname'  => $sendArray['express_name'],
+                    'expressnumber'=> $sendArray['express_number'],
                     'time'        => $sendArray['time'],
                 );
                 try {
@@ -453,6 +480,7 @@ class OrdersController extends BaseController
                 /*----------------------提醒信息发送----------------------*/
                 $sendArray['buyer_name']  = $orderInfo->buyer_name;
                 $sendArray['order_sn']    = $orderInfo->order_sn;
+                $sendArray['order_total'] = $orderInfo->order_total;
                 $sendArray['time']        = time();
                 $sendArray['buyer_email'] = $orderInfo->buyer_email;
                 $sendArray['order_state'] = 'cancel_order';
@@ -466,6 +494,7 @@ class OrdersController extends BaseController
                 $smsData = array(
                     'buyname'  => $sendArray['buyer_name'],
                     'ordersn'    => $sendArray['order_sn'],
+                    'ordertotal'   => $sendArray['order_total'],
                     'time'        => $sendArray['time'],
                 );
                 try {
@@ -560,7 +589,8 @@ class OrdersController extends BaseController
         $array['order_info']  = $this->getDbshopTable('OrderTable')->infoOrder(array('order_sn'=>$array['refund_info']->order_sn));
         //订单商品
         $array['order_goods'] = $this->getDbshopTable('OrderGoodsTable')->listOrderGoods(array('order_id'=> $array['order_info']->order_id));
-
+        //订单总价修改历史
+        $array['order_amount_log'] = $this->getDbshopTable('OrderAmountLogTable')->listOrderAmountLog(array('order_id'=>$array['order_info']->order_id));
         return $array;
     }
     /**
@@ -579,7 +609,8 @@ class OrdersController extends BaseController
         $array['order_info']  = $this->getDbshopTable('OrderTable')->infoOrder(array('order_sn'=>$array['refund_info']->order_sn));
         //订单商品
         $array['order_goods'] = $this->getDbshopTable('OrderGoodsTable')->listOrderGoods(array('order_id'=> $array['order_info']->order_id));
-
+        //订单总价修改历史
+        $array['order_amount_log'] = $this->getDbshopTable('OrderAmountLogTable')->listOrderAmountLog(array('order_id'=>$array['order_info']->order_id));
         return $array;
     }
     /** 
@@ -662,8 +693,11 @@ class OrdersController extends BaseController
             $sendArray['shopname']      = $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name');
             $sendArray['buyname']       = $data['buyer_name'];
             $sendArray['ordersn']       = $data['order_sn'];
+            $sendArray['ordertotal']    = isset($data['order_total'])    ? $data['order_total'] : '';
+            $sendArray['expressname']   = isset($data['express_name'])   ? $data['express_name'] : '';
+            $sendArray['expressnumber'] = isset($data['express_number']) ? $data['express_number'] : '';
             $sendArray[$data['time_type']]= $data['time'];
-            $sendArray['shopurl']       = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('shopfront/default');
+            $sendArray['shopurl']       = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default');
 
             $sendArray['cancel_info']   = (isset($data['cancel_info']) and !empty($data['cancel_info'])) ? $data['cancel_info'] : '';
 
@@ -738,9 +772,15 @@ class OrdersController extends BaseController
                             //保存订单历史
                             $this->getDbshopTable('OrderLogTable')->addOrderLog(array('order_id'=>$orderArray[$expressNumberKey]['order_id'], 'order_state'=>40, 'state_info'=>'', 'log_time'=>$expressTime, 'log_user'=>$logUser));
                             /*----------------------提醒信息发送----------------------*/
+                            //订单配送信息
+                            $deliveryAddress = $this->getDbshopTable('OrderDeliveryAddressTable')->infoDeliveryAddress(array('order_id'=>$orderArray[$expressNumberKey]['order_id']));
+
                             $sendArray = array();
                             $sendArray['buyer_name']  = $orderArray[$expressNumberKey]['buyer_name'];
                             $sendArray['order_sn']    = $orderArray[$expressNumberKey]['order_sn'];
+                            $sendArray['order_total'] = $orderArray[$expressNumberKey]['order_total'];
+                            $sendArray['express_name']  = $deliveryAddress->express_name;
+                            $sendArray['express_number']= $deliveryAddress->express_number;
                             $sendArray['time']        = $expressTime;
                             $sendArray['buyer_email'] = $orderArray[$expressNumberKey]['buyer_email'];
                             $sendArray['order_state'] = 'ship_finish';
@@ -753,6 +793,9 @@ class OrdersController extends BaseController
                             $smsData = array(
                                 'buyname'  => $sendArray['buyer_name'],
                                 'ordersn'    => $sendArray['order_sn'],
+                                'ordertotal'   => $sendArray['order_total'],
+                                'expressname'  => $sendArray['express_name'],
+                                'expressnumber'=> $sendArray['express_number'],
                                 'time'        => $sendArray['time'],
                             );
                             try {

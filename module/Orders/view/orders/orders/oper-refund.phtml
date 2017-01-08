@@ -134,6 +134,13 @@
                     -
                     <?php echo $this->translate('积分购买'); ?>:<font color="#ED145B"><?php echo $this->order_info->currency_symbol . '&nbsp;' . $this->order_info->integral_buy_price; ?></font>
                     <?php } ?>
+
+                    <?php if(isset($this->order_amount_log) and !empty($this->order_amount_log)) {
+                        foreach($this->order_amount_log as $amount_log) {
+                            ?>
+                            <?php echo $amount_log['order_edit_amount_type']; ?>
+                            <?php echo $this->escapeHtml($amount_log['order_edit_amount_info']); ?>:<font color="#ED145B"><?php echo $this->order_info->currency_symbol . '&nbsp;' . $amount_log['order_edit_number']; ?></font>
+                        <?php } } ?>
                     =
                     <font size="4" color="#ED145B">
                         <?php echo $this->translate('订单总额'); ?>:<?php echo $this->order_info->currency_symbol . '&nbsp;' . $this->order_info->order_amount; ?>

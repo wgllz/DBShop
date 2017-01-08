@@ -2,6 +2,32 @@
 	<div class="navbar-inner">
     	<a href="<?php echo $this->url('adminHome/default',array('action'=>'index','controller'=>'home')); ?>" class="brand">DBShop</a>
 		<ul class="nav">
+            <li class="dropdown <?php if($this->myviewalias()->returnNamespace() == 'Analytics\Controller') echo 'active'; ?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><?php echo $this->translate('统计分析'); ?> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li <?php if($this->page_type == 'userStats') echo 'class="active"'; ?>><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'userStats')); ?>"><?php echo $this->translate('客户统计'); ?></a></li>
+                    <li <?php if($this->page_type == 'usersOrder') echo 'class="active"'; ?>><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'usersOrder')); ?>"><?php echo $this->translate('客户排行'); ?></a></li>
+                    <li <?php if($this->page_type == 'orderStats') echo 'class="active"'; ?>><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'orderStats')); ?>"><?php echo $this->translate('订单统计'); ?></a></li>
+                    <li <?php if($this->page_type == 'saleStats') echo 'class="active"'; ?>><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'saleStats')); ?>"><?php echo $this->translate('销售概况'); ?></a></li>
+                    <li <?php if($this->page_type == 'saleList') echo 'class="active"'; ?>><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'saleList')); ?>"><?php echo $this->translate('销售明细'); ?></a></li>
+                    <li <?php if($this->page_type == 'saleOrder') echo 'class="active"'; ?>><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'saleOrder')); ?>"><?php echo $this->translate('销售排行'); ?></a></li>
+                    <?php
+                    $shop_tongji_type = $this->frontwebsite()->websiteInfo('shop_tongji_type');
+                    $shop_tongji_token= $this->frontwebsite()->websiteInfo('shop_tongji_token');
+                    if($shop_tongji_type == 'baidu' and !empty($shop_tongji_token)) { ?>
+                        <li><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics')); ?>"><?php echo $this->translate('流量概况'); ?></a></li>
+                        <li><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'trand')); ?>"><?php echo $this->translate('趋势分析'); ?></a></li>
+                        <!--li><a href="<?php echo $this->url('analytics/default'); ?>"><?php echo $this->translate('全部来源'); ?></a></li>
+                        <li><a href="<?php echo $this->url('analytics/default'); ?>"><?php echo $this->translate('搜索引擎'); ?></a></li>
+                        <li><a href="<?php echo $this->url('analytics/default'); ?>"><?php echo $this->translate('搜索词语'); ?></a></li>
+                        <li><a href="<?php echo $this->url('analytics/default'); ?>"><?php echo $this->translate('地域分布'); ?></a></li>
+                        <li><a href="<?php echo $this->url('analytics/default'); ?>"><?php echo $this->translate('系统环境'); ?></a></li>
+                        <li><a href="<?php echo $this->url('analytics/default'); ?>"><?php echo $this->translate('新老访客'); ?></a></li>-->
+                    <?php } else { ?>
+                    <li><a href="<?php echo $this->url('system/default',array('controller'=>'system')); ?>"><?php echo $this->translate('统计设置'); ?></a></li>
+                    <?php } ?>
+                </ul>
+            </li>
+
             <li class="dropdown <?php if($this->myviewalias()->returnNamespace() == 'Orders\Controller') echo 'active'; ?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><?php echo $this->translate('销售管理'); ?> <b class="caret"></b></a>
             	<ul class="dropdown-menu">
                 	<li><a href="<?php echo $this->url('orders/default'); ?>"><?php echo $this->translate('订单管理'); ?></a></li>
@@ -99,8 +125,14 @@
                             <li><a href="<?php echo $this->url('express/default',array('action'=>'expressapi')); ?>"><?php echo $this->translate('动态API'); ?></a></li>
                         </ul>
                     </li>
+                    <li class="dropdown-submenu">
+                        <a href="#"><?php echo $this->translate('消息提醒设置'); ?></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $this->url('system/default',array('controller'=>'system', 'action'=>'phoneMessageSet')); ?>"><?php echo $this->translate('手机短信提醒设置'); ?></a></li>
+                            <li><a href="<?php echo $this->url('system/default',array('controller'=>'system', 'action'=>'sendMessageSet')); ?>"><?php echo $this->translate('电子邮件提醒设置'); ?></a></li>
+                        </ul>
+                    </li>
                     <li><a href="<?php echo $this->url('region/default',array('controller'=>'region')); ?>"><?php echo $this->translate('地区管理'); ?></a></li>
-                	<li><a href="<?php echo $this->url('system/default',array('controller'=>'system', 'action'=>'sendMessageSet')); ?>"><?php echo $this->translate('消息提醒设置'); ?></a></li>
                 	<li class="dropdown-submenu">
                 	<a href="#"><?php echo $this->translate('状态设置'); ?></a>
                 	   <ul class="dropdown-menu">

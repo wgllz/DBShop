@@ -112,7 +112,7 @@ class InstallController extends AbstractActionController
         //rewrite判断
         if($array['curl_open'] == '<i class="cus-tick"></i>') {
             $array['curl_open_state'] = 1;//curl状态，用于在rewrite得判断上
-            $checkRewriteUlr = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('install/default', array('controller'=>'Install', 'action'=>'installCheckRewrite'));
+            $checkRewriteUlr = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('install/default', array('controller'=>'Install', 'action'=>'installCheckRewrite'));
             $checkRewriteUlr = str_replace('index.php/', '', $checkRewriteUlr);
 
             //模拟get方式获取信息
@@ -209,8 +209,8 @@ class InstallController extends AbstractActionController
         $this->installStepArray = array();
         
         //输出到页面的内容
-        $array['webname_front_url'] = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('shopfront/default');
-        $array['webname_admin_url'] = 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('admin/default');
+        $array['webname_front_url'] = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default');
+        $array['webname_admin_url'] = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('admin/default');
         $array['admin_name']        = $installArray['adminuser'];
         $array['admin_passwd']      = $installArray['adminpasswd'];
         
@@ -251,6 +251,47 @@ class InstallController extends AbstractActionController
             }
         }
         exit($ConnectState);
+    }
+    /**
+     * 检测InnoDB是否启用
+     */
+    public function checkMysqlInnoDBAction()
+    {
+        if($this->request->isPost()) {
+            $state = 'connectflase';
+            try {
+                $mysqlArray = $this->request->getPost()->toArray();
+                $mysqlArray['dbuser']   = str_replace("'", "\'", $mysqlArray['dbuser']);//将可能存在的单引号转移
+                $mysqlArray['dbpasswd'] = str_replace("'", "\'", $mysqlArray['dbpasswd']);
+
+                $dsn = "mysql:host={$mysqlArray['dbhost']};port={$mysqlArray['dbport']};dbname={$mysqlArray['dbname']}";
+                $db  = new \PDO($dsn, $mysqlArray['dbuser'], $mysqlArray['dbpasswd']);
+
+                $state = 'connecttrue';
+            } catch (\Exception $e) {
+                $state = 'connectflase';
+            }
+            if($state == 'connectflase') exit($state);
+
+            $sql = 'SHOW ENGINES';
+            $sth = $db->prepare($sql);
+            $sth->execute();
+            $enginesArray = $sth->fetchAll();
+            $innodbState = 'innodbfalse';
+            if(is_array($enginesArray) and !empty($enginesArray)) {
+                foreach($enginesArray as $value) {
+                    if(strtolower($value['Engine']) == 'innodb') {
+                        $supportState = strtolower($value['Support']);
+                        if($supportState == 'yes' or $supportState == 'default') {
+                            $innodbState = 'innodbtrue';
+                            break;
+                        }
+                    }
+                }
+            }
+            exit($innodbState);
+        }
+        exit();
     }
     /**
      * 检测rewrite

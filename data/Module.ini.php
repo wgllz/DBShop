@@ -22,7 +22,8 @@ return array('modules'=>array(
 		        'Errorlog',         //错误日志模块 
 		        'Navigation',       //后台导航设置
 				'Template',			//后台模板管理
-				
+				'Analytics',		//后台统计分析管理
+
 				'Shopfront',        //shop前台
                 'Mobile',           //前台手机模板
 		      

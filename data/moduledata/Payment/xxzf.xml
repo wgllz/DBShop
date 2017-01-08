@@ -20,6 +20,18 @@
         <input_type>textarea</input_type>
         <class>span8</class>
     </payment_info>
+    <payment_show>
+        <title>显示设置</title>
+        <content>
+            <content1>
+                <name>全平台显示</name>
+                <value>all</value>
+            </content1>
+        </content>
+        <name_id>payment_show</name_id>
+        <input_type>checkbox</input_type>
+        <checked>all</checked>
+    </payment_show>
     <payment_fee>
         <title>支付手续费</title>
         <content>0</content>

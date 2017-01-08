@@ -140,7 +140,47 @@ class HomeController extends FronthomeController
         $this->layout()->title_name = $this->getDbshopLang()->translate('账户信息-QQ绑定');
 
         $userId = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');
-        $array['other_login'] = $this->getDbshopTable('OtherLoginTable')->infoOtherLogin(array('u.user_id'=>$userId));
+        $array['other_login'] = $this->getDbshopTable('OtherLoginTable')->infoOtherLogin(array('dbshop_other_login.login_type'=>'QQ','u.user_id'=>$userId));
+
+        return $array;
+    }
+    /**
+     * 绑定微信页面
+     * @return array|\Zend\Http\Response
+     */
+    public function weixinsetAction()
+    {
+        //判断是否启用了第三方登陆
+        if($this->getServiceLocator()->get('frontHelper')->getUserIni('weixin_login_state') != 'true') {
+            return $this->redirect()->toRoute('fronthome/default');
+        }
+
+        $array  = array();
+        //顶部title使用
+        $this->layout()->title_name = $this->getDbshopLang()->translate('账户信息-微信绑定');
+
+        $userId = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');
+        $array['other_login'] = $this->getDbshopTable('OtherLoginTable')->infoOtherLogin(array('dbshop_other_login.login_type'=>'Weixin','u.user_id'=>$userId));
+
+        return $array;
+    }
+    /**
+     * 绑定支付宝页面
+     * @return array|\Zend\Http\Response
+     */
+    public function alipaysetAction()
+    {
+        //判断是否启用了第三方登陆
+        if($this->getServiceLocator()->get('frontHelper')->getUserIni('alipay_login_state') != 'true') {
+            return $this->redirect()->toRoute('fronthome/default');
+        }
+
+        $array  = array();
+        //顶部title使用
+        $this->layout()->title_name = $this->getDbshopLang()->translate('账户信息-支付宝绑定');
+
+        $userId = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');
+        $array['other_login'] = $this->getDbshopTable('OtherLoginTable')->infoOtherLogin(array('dbshop_other_login.login_type'=>'Alipay','u.user_id'=>$userId));
 
         return $array;
     }
@@ -148,62 +188,55 @@ class HomeController extends FronthomeController
      * 绑定处理操作
      */
     public function otherloginAction() {
-        $loginService = $this->checkOtherLoginConfig();
+        $loginType = $this->request->getQuery('login_type');
+
+        $loginService = $this->checkOtherLoginConfig($loginType);
         $loginService->toLogin();
-    }
-    /**
-     * 回调页面
-     * @return \Zend\Http\Response
-     */
-    public function othercallbackAction() {
-        $loginService  = $this->checkOtherLoginConfig();
-        $callBackState = $loginService->callBack();
-        $openId        = $loginService->getOpenId();
-        //回调正确，检查该用户是否已经存在
-        $userInfo      = $this->getDbshopTable('OtherLoginTable')->infoOtherLogin(array('dbshop_other_login.open_id'=>$openId));
-        if($userInfo) {
-            exit($this->getDbshopLang()->translate('该QQ已经在系统绑定，不能重复绑定！') . '&nbsp;<a href="' .$this->url()->fromRoute('fronthome/default', array('action'=>'qqset')). '">' . $this->getDbshopLang()->translate('返回') . '</a>');
-        } else {
-            $otherLoginArray = array(
-                'user_id'       => $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id'),
-                'open_id'       => $openId,
-                'ol_add_time'   => time(),
-                'login_type'    => 'QQ'
-            );
-            $addOtherLogin = $this->getDbshopTable('OtherLoginTable')->addOtherLogin($otherLoginArray);
-            if($addOtherLogin) {
-                return $this->redirect()->toRoute('fronthome/default', array('action'=>'qqset'));
-            } else {
-                exit($this->getDbshopLang()->translate('绑定失败，请稍后再试！') . '&nbsp;<a href="' .$this->url()->fromRoute('fronthome/default', array('action'=>'qqset')). '">' . $this->getDbshopLang()->translate('返回') . '</a>');
-            }
-        }
     }
     /**
      * 解绑QQ绑定
      * @return \Zend\Http\Response
      */
     public function delotherloginAction() {
+        $lType            = $this->request->getQuery('login_type');
+        $loginType        = 'QQ';
+        if($lType == 'weixin') {
+            $loginType = 'Weixin';
+            $actionName= 'weixinset';
+        } else {
+            $actionName= 'qqset';
+        }
+
         $userId = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');
         if($userId) {
-            $this->getDbshopTable('OtherLoginTable')->delOtherLogin(array('user_id'=>$userId, 'login_type'=>'QQ'));
+            $this->getDbshopTable('OtherLoginTable')->delOtherLogin(array('user_id'=>$userId, 'login_type'=>$loginType));
         }
-        return $this->redirect()->toRoute('fronthome/default', array('action'=>'qqset'));
+        return $this->redirect()->toRoute('fronthome/default', array('action'=>$actionName));
     }
     /**
      * 绑定QQ设置信息
      * @return array|object|\Zend\Http\Response
      */
-    private function checkOtherLoginConfig() {
+    private function checkOtherLoginConfig($loginType='QQ') {
         //判断是否启用了第三方登陆
-        if($this->getServiceLocator()->get('frontHelper')->getUserIni('qq_login_state') != 'true') {
+        if($this->getServiceLocator()->get('frontHelper')->getUserIni('qq_login_state') != 'true' and $this->getServiceLocator()->get('frontHelper')->getUserIni('weixin_login_state') != 'true') {
             return $this->redirect()->toRoute('fronthome/default');
         }
 
-        $loginService     = $this->getServiceLocator()->get('QqLogin');
+        if($loginType == 'weixin') {//微信
+            $loginService     = $this->getServiceLocator()->get('WeixinLogin');
+        } else {//QQ
+            $loginService     = $this->getServiceLocator()->get('QqLogin');
+        }
         $loginConfigState = $loginService->getLoginConfigState();
+
         if(is_string($loginConfigState) and $loginConfigState == 'configError') exit($this->getDbshopLang()->translate('该绑定方式的配置信息错误，必须在公网上进行测试！'));
 
-        $loginService->redirectUri = $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('fronthome/default',array('action'=>'othercallback'));
+        if($loginType == 'weixin') {
+            $loginService->redirectUri = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontuser/default/other_login_type',array('action'=>'othercallback', 'login_type'=>'weixin'));
+        } else {
+            $loginService->redirectUri = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontuser/default',array('action'=>'othercallback'));
+        }
 
         return $loginService;
     }

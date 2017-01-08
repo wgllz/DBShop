@@ -1,0 +1,121 @@
+<div class="tabbable tabs-left">
+    <?php echo $this->partial('analytics/analytics/left_menu.phtml'); ?>
+    <div class="tab-content">
+        <style>
+            .table td {
+                border-top: 0;
+            }
+        </style>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <th colspan="3"><?php echo $this->translate('销售概况'); ?></th>
+            </thead>
+            <tbody>
+            <tr>
+                <td width="33%"><b><?php echo $this->translate('销售总额'); ?>：</b><?php echo number_format($this->order_total[0]['order_total'], 2, '.', ''); ?></td>
+                <td width="33%"><b><?php echo $this->translate('未付款总额'); ?>：</b><?php echo number_format($this->order_pay_total[0]['order_total'], 2, '.', ''); ?></td>
+                <td width="33%"><b><?php echo $this->translate('已付款总额'); ?>：</b><?php echo number_format($this->order_d_pay_total[0]['order_total'], 2, '.', ''); ?></td>
+            </tr>
+            <tr style="font-weight: bold;">
+                <form method="get" action="">
+                    <td style="text-align: right;line-height: 40px;" colspan="3">
+                        <span class="pull-left">
+                            <div class="btn-group">
+                                <a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'saleStats'), array('query'=>$this->get_array)); ?>&sale_type=num" class="btn <?php if($this->sale_type == 'num') echo 'btn-primary'; ?>"><?php echo $this->translate('订单走势图'); ?></a>
+                                <a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'saleStats'), array('query'=>$this->get_array)); ?>&sale_type=total" class="btn <?php if($this->sale_type == 'total') echo 'btn-primary'; ?>"><?php echo $this->translate('销售额走势图'); ?></a>
+                            </div>
+                        </span>
+                        <a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'saleStats'), array('query'=>array('dateNum'=>7, 'sale_type'=>$this->sale_type))); ?>" class="btn <?php if($this->date_num == 6) echo 'btn-primary'; ?>"><?php echo $this->translate('最近7天'); ?></a>&nbsp;
+                        <a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'saleStats'), array('query'=>array('dateNum'=>30, 'sale_type'=>$this->sale_type))); ?>" class="btn <?php if($this->date_num == 29) echo 'btn-primary'; ?>"><?php echo $this->translate('最近30天'); ?></a>&nbsp;&nbsp;
+                        <input type="text" class="span2 Wdate" name="start_time" id="start_time" value="<?php if(isset($this->start_time)) echo $this->start_time; ?>" onclick="WdatePicker({el:'start_time', dateFmt:'yyyy-MM-dd'})">
+                        ~
+                        <input type="text" class="span2 Wdate" name="end_time" id="end_time" value="<?php if(isset($this->end_time)) echo $this->end_time; ?>"  onclick="WdatePicker({el:'end_time', dateFmt:'yyyy-MM-dd'})">
+                        <button type="submit" class="btn btn-primary"><?php echo $this->translate('查看'); ?></button>
+                    </td>
+                </form>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div id="sale_chart" style="width: 100%;height: 400px;padding-top: 20px;"></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="<?php echo $this->basePath('/public/js/DatePicker/WdatePicker.js'); ?>"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('sale_chart'), 'shine');
+    option = {
+        title: {
+            text: '<?php echo $this->translate('销售走势图表'); ?>'
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        legend: {
+            data:[<?php if($this->sale_type == 'num') echo "'订单数', '未付款订单', '已付款订单'"; else echo "'销售额','未付款额','已付款额'"; ?>]
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis : [
+            {
+                type : 'category',
+                data : [<?php echo $this->date_str; ?>]
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            <?php if($this->sale_type == 'num') { ?>
+            {
+                name:'订单数',
+                type:'bar',
+                data:[<?php echo $this->z_pay_order; ?>]
+            },
+            {
+                name:'未付款订单',
+                type:'bar',
+                stack: '订单走势',
+                data:[<?php echo $this->d_pay_order; ?>]
+            },
+            {
+                name:'已付款订单',
+                type:'bar',
+                stack: '订单走势',
+                data:[<?php echo $this->pay_order; ?>]
+            }
+            <?php } else { ?>
+            {
+                name:'销售额',
+                type:'bar',
+                data:[<?php echo $this->z_total_order; ?>]
+            },
+            {
+                name:'未付款额',
+                type:'bar',
+                stack: '销售额走势',
+                data:[<?php echo $this->d_total_order; ?>]
+            },
+            {
+                name:'已付款额',
+                type:'bar',
+                stack: '销售额走势',
+                data:[<?php echo $this->p_total_order; ?>]
+            }
+            <?php } ?>
+        ]
+    };
+    myChart.setOption(option);
+</script>

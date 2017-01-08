@@ -88,7 +88,7 @@ class GoodsTagTable extends AbstractTableGateway implements \Zend\Db\Adapter\Ada
            		')))
            ->where($where);
            if($order != '') $select->order($order);
-           else $select->order('tag_group_sort ASC');
+           else $select->order('dbshop_goods_tag.tag_sort ASC');
         });
         if($result) {
             return $result->toArray();

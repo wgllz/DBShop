@@ -1,0 +1,426 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DBShop\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-18 23:44+0800\n"
+"PO-Revision-Date: 2016-11-18 23:45+0800\n"
+"Last-Translator: DBShop <team@dbshop.net>\n"
+"Language-Team: DBShop <team@dbshop.net>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../view/analytics/analytics/index.phtml:11
+msgid "今日流量"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:15
+#: ../view/analytics/analytics/source.phtml:27
+#: ../view/analytics/analytics/trand.phtml:38
+msgid "时间"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:16
+#: ../view/analytics/analytics/index.phtml:86
+#: ../view/analytics/analytics/index.phtml:114
+#: ../view/analytics/analytics/index.phtml:139
+#: ../view/analytics/analytics/index.phtml:171
+#: ../view/analytics/analytics/index.phtml:226
+#: ../view/analytics/analytics/index.phtml:267
+#: ../view/analytics/analytics/index.phtml:288
+#: ../view/analytics/analytics/source.phtml:28
+#: ../view/analytics/analytics/source.phtml:64
+#: ../view/analytics/analytics/source.phtml:86
+#: ../view/analytics/analytics/trand.phtml:15
+#: ../view/analytics/analytics/trand.phtml:39
+#: ../view/analytics/analytics/trand.phtml:75
+#: ../view/analytics/analytics/trand.phtml:97
+msgid "浏览量"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:17
+#: ../view/analytics/analytics/index.phtml:176
+#: ../view/analytics/analytics/source.phtml:29
+#: ../view/analytics/analytics/source.phtml:64
+#: ../view/analytics/analytics/source.phtml:93
+#: ../view/analytics/analytics/trand.phtml:16
+#: ../view/analytics/analytics/trand.phtml:40
+#: ../view/analytics/analytics/trand.phtml:75
+#: ../view/analytics/analytics/trand.phtml:104
+msgid "访客数"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:18
+#: ../view/analytics/analytics/index.phtml:267
+#: ../view/analytics/analytics/index.phtml:295
+#: ../view/analytics/analytics/source.phtml:30
+#: ../view/analytics/analytics/source.phtml:64
+#: ../view/analytics/analytics/source.phtml:100
+#: ../view/analytics/analytics/trand.phtml:17
+#: ../view/analytics/analytics/trand.phtml:41
+#: ../view/analytics/analytics/trand.phtml:75
+#: ../view/analytics/analytics/trand.phtml:111
+msgid "IP数"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:19
+#: ../view/analytics/analytics/index.phtml:181
+#: ../view/analytics/analytics/source.phtml:31
+#: ../view/analytics/analytics/trand.phtml:18
+#: ../view/analytics/analytics/trand.phtml:42
+msgid "跳出率"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:20
+#: ../view/analytics/analytics/index.phtml:186
+#: ../view/analytics/analytics/source.phtml:32
+#: ../view/analytics/analytics/trand.phtml:19
+#: ../view/analytics/analytics/trand.phtml:43
+msgid "平均访问时长"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:23
+#: ../view/analytics/analytics/trand.phtml:11
+msgid "今日"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:41
+msgid "昨日"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:67
+msgid "趋势图"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:81
+#: ../view/analytics/analytics/index.phtml:85
+msgid "搜索词"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:87
+#: ../view/analytics/analytics/index.phtml:115
+#: ../view/analytics/analytics/index.phtml:140
+msgid "占比"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:109
+#: ../view/analytics/analytics/index.phtml:113
+msgid "来源网站"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:134
+#: ../view/analytics/analytics/index.phtml:138
+msgid "入口页面"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:162
+msgid "新老客户"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:167
+msgid "新访客"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:168
+msgid "老访客"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:191
+msgid "平均访问页数"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:201
+#: ../view/analytics/analytics/left_menu.phtml:24
+msgid "地域分布"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:257
+#: ../view/analytics/analytics/order-stats.phtml:237
+msgid "高"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:257
+#: ../view/analytics/analytics/order-stats.phtml:237
+msgid "低"
+msgstr ""
+
+#: ../view/analytics/analytics/index.phtml:290
+#: ../view/analytics/analytics/index.phtml:297
+#: ../view/analytics/analytics/order-stats.phtml:90
+#: ../view/analytics/analytics/order-stats.phtml:96
+#: ../view/analytics/analytics/source.phtml:88
+#: ../view/analytics/analytics/source.phtml:95
+#: ../view/analytics/analytics/source.phtml:102
+#: ../view/analytics/analytics/trand.phtml:99
+#: ../view/analytics/analytics/trand.phtml:106
+#: ../view/analytics/analytics/trand.phtml:113
+#: ../view/analytics/analytics/user-stats.phtml:77
+#: ../view/analytics/analytics/user-stats.phtml:83
+msgid "总量"
+msgstr ""
+
+#: ../view/analytics/analytics/left_menu.phtml:7
+msgid "统计分析"
+msgstr ""
+
+#: ../view/analytics/analytics/left_menu.phtml:8
+#: ../view/analytics/analytics/user-stats.phtml:11
+msgid "客户统计"
+msgstr ""
+
+#: ../view/analytics/analytics/left_menu.phtml:9
+#: ../view/analytics/analytics/users-order.phtml:6
+msgid "客户排行"
+msgstr ""
+
+#: ../view/analytics/analytics/left_menu.phtml:10
+#: ../view/analytics/analytics/order-stats.phtml:11
+msgid "订单统计"
+msgstr ""
+
+#: ../view/analytics/analytics/left_menu.phtml:11
+#: ../view/analytics/analytics/sale-stats.phtml:11
+msgid "销售概况"
+msgstr ""
+
+#: ../view/analytics/analytics/left_menu.phtml:12
+#: ../view/analytics/analytics/sale-list.phtml:6
+msgid "销售明细"
+msgstr ""
+
+#: ../view/analytics/analytics/left_menu.phtml:13
+#: ../view/analytics/analytics/sale-order.phtml:6
+msgid "销售排行"
+msgstr ""
+
+#: ../view/analytics/analytics/left_menu.phtml:19
+msgid "流量概况"
+msgstr ""
+
+#: ../view/analytics/analytics/left_menu.phtml:20
+msgid "趋势分析"
+msgstr ""
+
+#: ../view/analytics/analytics/left_menu.phtml:21
+msgid "全部来源"
+msgstr ""
+
+#: ../view/analytics/analytics/left_menu.phtml:22
+msgid "搜索引擎"
+msgstr ""
+
+#: ../view/analytics/analytics/left_menu.phtml:23
+msgid "搜索词语"
+msgstr ""
+
+#: ../view/analytics/analytics/left_menu.phtml:25
+msgid "系统环境"
+msgstr ""
+
+#: ../view/analytics/analytics/left_menu.phtml:26
+msgid "新老访客"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:15
+msgid "今日订单"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:16
+msgid "本月订单"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:17
+msgid "已付款订单"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:18
+msgid "订单总数"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:23
+#: ../view/analytics/analytics/sale-list.phtml:12
+#: ../view/analytics/analytics/sale-order.phtml:12
+#: ../view/analytics/analytics/sale-stats.phtml:28
+#: ../view/analytics/analytics/user-stats.phtml:23
+#: ../view/analytics/analytics/users-order.phtml:12
+msgid "最近7天"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:24
+#: ../view/analytics/analytics/sale-list.phtml:13
+#: ../view/analytics/analytics/sale-order.phtml:13
+#: ../view/analytics/analytics/sale-stats.phtml:29
+#: ../view/analytics/analytics/user-stats.phtml:24
+#: ../view/analytics/analytics/users-order.phtml:13
+msgid "最近30天"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:28
+#: ../view/analytics/analytics/sale-list.phtml:17
+#: ../view/analytics/analytics/sale-order.phtml:17
+#: ../view/analytics/analytics/sale-stats.phtml:33
+#: ../view/analytics/analytics/user-stats.phtml:28
+#: ../view/analytics/analytics/users-order.phtml:17
+msgid "查看"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:60
+msgid "订单统计图表"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:66
+#: ../view/analytics/analytics/order-stats.phtml:88
+msgid "订单数"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:66
+#: ../view/analytics/analytics/order-stats.phtml:94
+msgid "付款订单数"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:106
+msgid "支付方式统计"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:120
+msgid "支付方式"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:151
+msgid "配送方式统计"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:165
+msgid "配送方式"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:198
+msgid "不同地区订单统计"
+msgstr ""
+
+#: ../view/analytics/analytics/order-stats.phtml:206
+msgid "订单量"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-list.phtml:22
+#: ../view/analytics/analytics/sale-order.phtml:23
+msgid "商品名称"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-list.phtml:23
+msgid "订单号"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-list.phtml:24
+msgid "售出数量"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-list.phtml:25
+msgid "售出价格"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-list.phtml:26
+msgid "售出日期"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-order.phtml:22
+#: ../view/analytics/analytics/users-order.phtml:22
+msgid "排行"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-order.phtml:24
+msgid "商品货号"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-order.phtml:25
+msgid "商品销量"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-order.phtml:26
+msgid "商品销售额"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-order.phtml:27
+msgid "商品均价"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-stats.phtml:15
+msgid "销售总额"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-stats.phtml:16
+msgid "未付款总额"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-stats.phtml:17
+msgid "已付款总额"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-stats.phtml:24
+msgid "订单走势图"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-stats.phtml:25
+msgid "销售额走势图"
+msgstr ""
+
+#: ../view/analytics/analytics/sale-stats.phtml:52
+msgid "销售走势图表"
+msgstr ""
+
+#: ../view/analytics/analytics/source.phtml:11
+msgid "访问来源"
+msgstr ""
+
+#: ../view/analytics/analytics/source.phtml:58
+#: ../view/analytics/analytics/trand.phtml:69
+msgid "趋势分析图表"
+msgstr ""
+
+#: ../view/analytics/analytics/user-stats.phtml:15
+msgid "今日新增客户"
+msgstr ""
+
+#: ../view/analytics/analytics/user-stats.phtml:16
+msgid "本月新增客户"
+msgstr ""
+
+#: ../view/analytics/analytics/user-stats.phtml:17
+msgid "客户总数"
+msgstr ""
+
+#: ../view/analytics/analytics/user-stats.phtml:18
+msgid "购买过商品的客户数"
+msgstr ""
+
+#: ../view/analytics/analytics/user-stats.phtml:47
+msgid "客户统计图表"
+msgstr ""
+
+#: ../view/analytics/analytics/user-stats.phtml:53
+#: ../view/analytics/analytics/user-stats.phtml:75
+msgid "新增客户"
+msgstr ""
+
+#: ../view/analytics/analytics/user-stats.phtml:53
+#: ../view/analytics/analytics/user-stats.phtml:81
+msgid "下单量"
+msgstr ""
+
+#: ../view/analytics/analytics/users-order.phtml:23
+msgid "客户名称"
+msgstr ""
+
+#: ../view/analytics/analytics/users-order.phtml:24
+msgid "订单数量（已付款或货到付款）"
+msgstr ""
+
+#: ../view/analytics/analytics/users-order.phtml:25
+msgid "购物金额"
+msgstr ""

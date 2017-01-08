@@ -1,0 +1,127 @@
+<div class="tabbable tabs-left">
+    <ul class="nav nav-tabs">
+        <li><h5><?php echo $this->translate('短信提醒设置'); ?></h5></li>
+        <li class="active"><a data-toggle="tab" href="#system_a"><?php echo $this->translate('基本信息'); ?></a></li>
+    </ul>
+    <form class="form-horizontal" name="phone_message_form" id="phone_message_form" method="post">
+        <div class="tab-content">
+            <div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+                <div class="pull-left" style="font-size:16px;line-height:30px;"><strong><?php echo $this->translate('短信提醒设置'); ?></strong></div>
+                <div class="pull-right">
+                    <a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>
+                    &nbsp;<button type="submit" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存提醒设置'); ?></button>
+                    &nbsp;<a href="<?php echo $this->myviewalias()->dbshopHelpUrl('phone_message_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+                </div>
+            </div>
+            <div id="system_a" class="tab-pane active">
+                <div class="well admin_add_header_well"><?php echo $this->translate('手机短信'); ?></div>
+                <div class="well admin_add_well">
+                    <div class="message_one">
+                    </div>
+                    <div class="control-group">
+                        <label for="input01" class="control-label"><?php echo $this->translate('设置类型'); ?>：</label>
+                        <div class="controls">
+                            <select name="phone_sms_type" id="phone_sms_type" onchange="select_phone_sms_type();" class="span2">
+                                <option value="" <?php if(!isset($this->phonesms_config['shop_phone_sms']['phone_sms_type']) or empty($this->phonesms_config['shop_phone_sms']['phone_sms_type'])) echo 'selected="selected"'; ?>><?php echo $this->translate('无类型'); ?></option>
+                                <option value="alidayu" <?php if(isset($this->phonesms_config['shop_phone_sms']['phone_sms_type']) and $this->phonesms_config['shop_phone_sms']['phone_sms_type'] == 'alidayu') echo 'selected="selected"'; ?>><?php echo $this->translate('阿里大于'); ?></option>
+                            </select>
+                            <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('阿里大于为阿里巴巴旗下的通讯平台。'); ?>"></i>
+                            &nbsp;&nbsp;<a href="http://www.alidayu.com/" target="_blank">查看阿里大于官方网站</a>
+                        </div>
+                    </div>
+                    <div class="control-group alidayu" style="display: none;">
+                        <label for="input01" class="control-label"><?php echo $this->translate('签名名称'); ?>：</label>
+                        <div class="controls">
+                            <input type="text" name="alidayu_sign_name" id="alidayu_sign_name" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_sign_name'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_sign_name']); ?>" class="span3">
+                        </div>
+                    </div>
+                    <div class="control-group alidayu" style="display: none;">
+                        <label for="input01" class="control-label">App Key(<?php echo $this->translate('应用'); ?>)：</label>
+                        <div class="controls">
+                            <input type="text" name="alidayu_app_key" id="alidayu_app_key" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_app_key'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_app_key']); ?>" class="span3">
+                        </div>
+                    </div>
+                    <div class="control-group alidayu" style="display: none;">
+                        <label for="input01" class="control-label">App Secret(<?php echo $this->translate('应用'); ?>)：</label>
+                        <div class="controls">
+                            <input type="text" name="alidayu_app_secret" id="alidayu_app_secret" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_app_secret'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_app_secret']); ?>" class="span3">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="control-group alidayu" style="display: none;">
+                        <label for="input01" class="control-label"><?php echo $this->translate('管理员手机号'); ?>：</label>
+                        <div class="controls">
+                            <input type="text" name="admin_phone" id="admin_phone" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['admin_phone'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['admin_phone']); ?>" class="span3">
+                            <font color="red"><?php echo $this->translate('目前仅支持中国内地手机号码。'); ?></font>
+                        </div>
+                    </div>
+                    <div class="control-group alidayu" style="display: none;">
+                        <label for="input01" class="control-label"><?php echo $this->translate('接收短信'); ?>：</label>
+                        <div class="controls">
+                            <label class="checkbox inline"><input <?php if(isset($this->phonesms_config['shop_phone_sms']['admin_submit_order_phone_message']) and $this->phonesms_config['shop_phone_sms']['admin_submit_order_phone_message'] == 1) echo 'checked'; ?> type="checkbox" name="admin_submit_order_phone_message" value="1"><?php echo $this->translate('订单提交'); ?></label>
+                            <label class="checkbox inline"><input <?php if(isset($this->phonesms_config['shop_phone_sms']['admin_payment_order_phone_message']) and $this->phonesms_config['shop_phone_sms']['admin_payment_order_phone_message'] == 1) echo 'checked'; ?> type="checkbox" name="admin_payment_order_phone_message" value="1"><?php echo $this->translate('付款完成'); ?></label>
+                            <label class="checkbox inline"><input <?php if(isset($this->phonesms_config['shop_phone_sms']['admin_finish_order_phone_message']) and $this->phonesms_config['shop_phone_sms']['admin_finish_order_phone_message'] == 1) echo 'checked'; ?> type="checkbox" name="admin_finish_order_phone_message" value="1"><?php echo $this->translate('确认收货'); ?></label>
+                            <label class="checkbox inline"><input <?php if(isset($this->phonesms_config['shop_phone_sms']['admin_cancel_order_phone_message']) and $this->phonesms_config['shop_phone_sms']['admin_cancel_order_phone_message'] == 1) echo 'checked'; ?> type="checkbox" name="admin_cancel_order_phone_message" value="1"><?php echo $this->translate('取消订单'); ?></label>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="alidayu" style="display: none;">
+                        <font color="red"><?php echo $this->translate('模板ID是空，为关闭此信息提醒；如果模板ID非空，为开启此信息提醒。'); ?></font><br>
+                        <b>目前官方提供的可设置标签有 ${buyname} 购买人、${ordersn} 订单编号、${ordertotal} 订单金额、${expressname} 快递名称、${expressnumber} 快递单号</b>
+                    </div>
+                    <br>
+                    <div class="control-group alidayu" style="display: none;">
+                        <label for="input01" class="control-label"><?php echo $this->translate('订单提交模板ID'); ?>：</label>
+                        <div class="controls">
+                            <input type="text" name="alidayu_submit_order_template_id" id="alidayu_submit_order_template_id" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_submit_order_template_id'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_submit_order_template_id']); ?>" class="span3">
+                        </div>
+                    </div>
+                    <div class="control-group alidayu" style="display: none;">
+                        <label for="input01" class="control-label"><?php echo $this->translate('付款完成模板ID'); ?>：</label>
+                        <div class="controls">
+                            <input type="text" name="alidayu_payment_order_template_id" id="alidayu_payment_order_template_id" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_payment_order_template_id'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_payment_order_template_id']); ?>" class="span3">
+                        </div>
+                    </div>
+                    <div class="control-group alidayu" style="display: none;">
+                        <label for="input01" class="control-label"><?php echo $this->translate('发货完成模板ID'); ?>：</label>
+                        <div class="controls">
+                            <input type="text" name="alidayu_ship_order_template_id" id="alidayu_ship_order_template_id" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_ship_order_template_id'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_ship_order_template_id']); ?>" class="span3">
+                        </div>
+                    </div>
+                    <div class="control-group alidayu" style="display: none;">
+                        <label for="input01" class="control-label"><?php echo $this->translate('确认收货模板ID'); ?>：</label>
+                        <div class="controls">
+                            <input type="text" name="alidayu_finish_order_template_id" id="alidayu_finish_order_template_id" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_finish_order_template_id'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_finish_order_template_id']); ?>" class="span3">
+                        </div>
+                    </div>
+                    <div class="control-group alidayu" style="display: none;">
+                        <label for="input01" class="control-label"><?php echo $this->translate('订单取消模板ID'); ?>：</label>
+                        <div class="controls">
+                            <input type="text" name="alidayu_cancel_order_template_id" id="alidayu_cancel_order_template_id" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_cancel_order_template_id'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_cancel_order_template_id']); ?>" class="span3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+<script>
+    <?php if ($this->success_msg != '') { ?>
+    show_message('.message_one','<?php echo date("Y-m-d H:i:s"); ?>','<?php echo $this->success_msg; ?>','alert-success');
+    <?php } ?>
+
+
+    function select_phone_sms_type() {
+        var phone_sms_type = $("#phone_sms_type").val();
+        if(phone_sms_type == '') {
+            $(".alidayu").css('display', 'none');
+        }
+        if(phone_sms_type == 'alidayu') {
+            $(".alidayu").css('display', '');
+        }
+    }
+    <?php if(isset($this->phonesms_config['shop_phone_sms']['phone_sms_type']) and $this->phonesms_config['shop_phone_sms']['phone_sms_type'] != '') { ?>
+    select_phone_sms_type();
+    <?php } ?>
+</script>

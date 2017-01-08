@@ -43,13 +43,13 @@
                     	<div class="control-group">
                   			<label for="input01" class="control-label"><?php echo $this->translate('开始时间'); ?>：</label>
            					<div class="controls">
-              					<input type="text" id="promotions_start_time"  name="promotions_start_time" value="<?php if ($this->promotions_info and $this->promotions_info->promotions_start_time != '') echo date("Y-m-d H:i",$this->promotions_info->promotions_start_time); ?>" onclick="WdatePicker({el:'promotions_start_time', dateFmt:'yyyy-MM-dd HH:mm'})" class="span2 Wdate"> <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('请在此填写有效的开始时间，为空，则不限时间。'); ?>"></i>
+              					<input type="text" id="promotions_start_time"  name="promotions_start_time" value="<?php if ($this->promotions_info and $this->promotions_info->promotions_start_time != '') echo date("Y-m-d H:i:s",$this->promotions_info->promotions_start_time); ?>" onclick="WdatePicker({el:'promotions_start_time', dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="span2 Wdate"> <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('请在此填写有效的开始时间，为空，则不限时间。'); ?>"></i>
             				</div>                        
                         </div>
                     	<div class="control-group">
                   			<label for="input01" class="control-label"><?php echo $this->translate('结束时间'); ?>：</label>
            					<div class="controls">
-              					<input type="text" id="promotions_end_time"  name="promotions_end_time" value="<?php if ($this->promotions_info and $this->promotions_info->promotions_end_time != '') echo date("Y-m-d H:i",$this->promotions_info->promotions_end_time); ?>" onclick="WdatePicker({el:'promotions_end_time', dateFmt:'yyyy-MM-dd HH:mm'})" class="span2 Wdate"> <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('请在此填写有效的结束时间，为空，则不限时间。'); ?>"></i>
+              					<input type="text" id="promotions_end_time"  name="promotions_end_time" value="<?php if ($this->promotions_info and $this->promotions_info->promotions_end_time != '') echo date("Y-m-d H:i:s",$this->promotions_info->promotions_end_time); ?>" onclick="WdatePicker({el:'promotions_end_time', dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="span2 Wdate"> <i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('请在此填写有效的结束时间，为空，则不限时间。'); ?>"></i>
             				</div>                        
                         </div>
                     	<div class="control-group">

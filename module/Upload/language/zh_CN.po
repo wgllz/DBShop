@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-31 18:34+0800\n"
-"PO-Revision-Date: 2016-08-31 18:34+0800\n"
+"POT-Creation-Date: 2016-11-19 15:42+0800\n"
+"PO-Revision-Date: 2016-11-19 15:42+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_CN\n"
@@ -344,67 +344,117 @@ msgid "七牛域名"
 msgstr ""
 
 #: ../view/upload/upload/uploadset.phtml:324
+msgid "七牛云存储，默认是不支持 https:// 的，所以请选择 http://"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:329
 msgid "阿里云空间名称"
 msgstr ""
 
-#: ../view/upload/upload/uploadset.phtml:330
+#: ../view/upload/upload/uploadset.phtml:335
 msgid "阿里云节点"
 msgstr ""
 
-#: ../view/upload/upload/uploadset.phtml:333
+#: ../view/upload/upload/uploadset.phtml:338
 msgid "请选择节点"
 msgstr ""
 
-#: ../view/upload/upload/uploadset.phtml:334
-msgid "青岛"
+#: ../view/upload/upload/uploadset.phtml:339
+msgid "华北1(青岛)"
 msgstr ""
 
-#: ../view/upload/upload/uploadset.phtml:335
-msgid "北京"
+#: ../view/upload/upload/uploadset.phtml:340
+msgid "华北2(北京)"
 msgstr ""
 
-#: ../view/upload/upload/uploadset.phtml:336
-msgid "杭州"
+#: ../view/upload/upload/uploadset.phtml:341
+msgid "华东1(杭州)"
 msgstr ""
 
-#: ../view/upload/upload/uploadset.phtml:337
-msgid "香港"
-msgstr ""
-
-#: ../view/upload/upload/uploadset.phtml:338
-msgid "深圳"
+#: ../view/upload/upload/uploadset.phtml:342
+msgid "华东2(上海)"
 msgstr ""
 
 #: ../view/upload/upload/uploadset.phtml:343
-msgid "Access Key ID"
+msgid "香港"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:344
+msgid "华南1(深圳)"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:345
+msgid "美国西部1"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:346
+msgid "美国东部1"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:347
+msgid "亚太东南1"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:348
+msgid "亚太东北1"
 msgstr ""
 
 #: ../view/upload/upload/uploadset.phtml:349
-msgid "Access Key Secret"
+msgid "欧洲中部1"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:350
+msgid "中东东部1"
 msgstr ""
 
 #: ../view/upload/upload/uploadset.phtml:355
+msgid "Access Key ID"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:361
+msgid "Access Key Secret"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:367
 msgid "访问域名"
 msgstr ""
 
-#: ../view/upload/upload/uploadset.phtml:358
+#: ../view/upload/upload/uploadset.phtml:374
 msgid "获取阿里云默认域名"
 msgstr ""
 
-#: ../view/upload/upload/uploadset.phtml:405
-#: ../view/upload/upload/uploadset.phtml:411
-#: ../view/upload/upload/uploadset.phtml:417
-#: ../view/upload/upload/uploadset.phtml:423
+#: ../view/upload/upload/uploadset.phtml:378
+msgid "域名类型"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:381
+msgid "阿里云存储官方域名"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:382
+msgid "自定义域名"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:384
+msgid ""
+"这里的域名类型指的是上面的 访问域名 的类型，如果您在阿里云存储中设置了自己的"
+"域名，请选择自定义域名；否则请选择阿里云存储官方域名。"
+msgstr ""
+
+#: ../view/upload/upload/uploadset.phtml:431
+#: ../view/upload/upload/uploadset.phtml:437
+#: ../view/upload/upload/uploadset.phtml:443
+#: ../view/upload/upload/uploadset.phtml:449
 msgid "宽度必须为数字"
 msgstr ""
 
-#: ../view/upload/upload/uploadset.phtml:408
-#: ../view/upload/upload/uploadset.phtml:414
-#: ../view/upload/upload/uploadset.phtml:420
-#: ../view/upload/upload/uploadset.phtml:426
+#: ../view/upload/upload/uploadset.phtml:434
+#: ../view/upload/upload/uploadset.phtml:440
+#: ../view/upload/upload/uploadset.phtml:446
+#: ../view/upload/upload/uploadset.phtml:452
 msgid "高度必须为数字"
 msgstr ""
 
-#: ../view/upload/upload/uploadset.phtml:489
+#: ../view/upload/upload/uploadset.phtml:515
 msgid "阿里云节点和空间名称不能为空!"
 msgstr ""

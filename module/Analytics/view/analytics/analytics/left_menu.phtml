@@ -1,0 +1,28 @@
+<script src="<?php echo $this->basePath('public/js/echarts/echarts.min.js'); ?>"></script>
+<script src="<?php echo $this->basePath('public/js/echarts/theme/shine.js'); ?>"></script>
+<script>
+    var dbshop_echarts_stype = 'shine';
+</script>
+<ul class="nav nav-tabs">
+    <li><h5><?php echo $this->translate('统计分析'); ?></h5></li>
+    <li <?php if($this->page_type == 'userStats') echo 'class="active"'; ?>><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'userStats')); ?>"><?php echo $this->translate('客户统计'); ?></a></li>
+    <li <?php if($this->page_type == 'usersOrder') echo 'class="active"'; ?>><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'usersOrder')); ?>"><?php echo $this->translate('客户排行'); ?></a></li>
+    <li <?php if($this->page_type == 'orderStats') echo 'class="active"'; ?>><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'orderStats')); ?>"><?php echo $this->translate('订单统计'); ?></a></li>
+    <li <?php if($this->page_type == 'saleStats') echo 'class="active"'; ?>><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'saleStats')); ?>"><?php echo $this->translate('销售概况'); ?></a></li>
+    <li <?php if($this->page_type == 'saleList') echo 'class="active"'; ?>><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'saleList')); ?>"><?php echo $this->translate('销售明细'); ?></a></li>
+    <li <?php if($this->page_type == 'saleOrder') echo 'class="active"'; ?>><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'saleOrder')); ?>"><?php echo $this->translate('销售排行'); ?></a></li>
+
+    <?php
+    $shop_tongji_type = $this->frontwebsite()->websiteInfo('shop_tongji_type');
+    $shop_tongji_token= $this->frontwebsite()->websiteInfo('shop_tongji_token');
+    if($shop_tongji_type == 'baidu' and !empty($shop_tongji_token)) { ?>
+    <li <?php if($this->page_type == 'overview') echo 'class="active"'; ?>><a href="<?php echo $this->url('analytics/default'); ?>"><?php echo $this->translate('流量概况'); ?></a></li>
+    <li <?php if($this->page_type == 'trand') echo 'class="active"'; ?>><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'trand')); ?>"><?php echo $this->translate('趋势分析'); ?></a></li>
+    <!--li <?php if($this->page_type == 'source') echo 'class="active"'; ?>><a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'source')); ?>"><?php echo $this->translate('全部来源'); ?></a></li>
+    <li><a href="#system_e"><?php echo $this->translate('搜索引擎'); ?></a></li>
+    <li><a href="#system_f"><?php echo $this->translate('搜索词语'); ?></a></li>
+    <li><a href="#system_g"><?php echo $this->translate('地域分布'); ?></a></li>
+    <li><a href="#system_h"><?php echo $this->translate('系统环境'); ?></a></li>
+    <li><a href="#system_i"><?php echo $this->translate('新老访客'); ?></a></li>-->
+    <?php } ?>
+</ul>

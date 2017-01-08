@@ -1,0 +1,50 @@
+<div class="tabbable tabs-left">
+    <?php echo $this->partial('analytics/analytics/left_menu.phtml'); ?>
+    <div class="tab-content">
+        <table class="table table-hover table-striped table-bordered">
+            <thead>
+            <th><?php echo $this->translate('客户排行'); ?></th>
+            </thead>
+            <tbody>
+            <tr style="font-weight: bold;">
+                <form method="get" action="">
+                    <td colspan="4" style="text-align: right;line-height: 40px;background: #f9f9f9">
+                        <a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'usersOrder'), array('query'=>array('dateNum'=>7))); ?>" class="btn <?php if($this->date_num == 6) echo 'btn-primary'; ?>"><?php echo $this->translate('最近7天'); ?></a>&nbsp;
+                        <a href="<?php echo $this->url('analytics/default', array('controller'=>'Analytics', 'action'=>'usersOrder'), array('query'=>array('dateNum'=>30))); ?>" class="btn <?php if($this->date_num == 29) echo 'btn-primary'; ?>"><?php echo $this->translate('最近30天'); ?></a>&nbsp;&nbsp;
+                        <input type="text" class="span2 Wdate" name="start_time" id="start_time" value="<?php if(isset($this->start_time)) echo $this->start_time; ?>" onclick="WdatePicker({el:'start_time', dateFmt:'yyyy-MM-dd'})">
+                        ~
+                        <input type="text" class="span2 Wdate" name="end_time" id="end_time" value="<?php if(isset($this->end_time)) echo $this->end_time; ?>"  onclick="WdatePicker({el:'end_time', dateFmt:'yyyy-MM-dd'})">
+                        <button type="submit" class="btn btn-primary"><?php echo $this->translate('查看'); ?></button>
+                    </td>
+                </form>
+            </tr>
+            <tr>
+                <td width="10%" style="background:#CCC;"><b><?php echo $this->translate('排行'); ?></b></td>
+                <td width="30%" style="background:#CCC;"><b><?php echo $this->translate('客户名称'); ?></b></td>
+                <td width="30%" style="background:#CCC;"><b><?php echo $this->translate('订单数量（已付款或货到付款）'); ?></b></td>
+                <td width="30%" style="background:#CCC;"><b><?php echo $this->translate('购物金额'); ?></b></td>
+            </tr>
+            <?php
+            if($this->user_list) {
+                foreach ($this->user_list as $user_key => $user_value) {
+                    ?>
+            <tr>
+                <td><?php echo $user_key+1; ?></td>
+                <td><?php echo $this->escapeHtml($user_value['user_name']); ?></td>
+                <td><?php echo $user_value['order_count']; ?></td>
+                <td><?php echo !empty($user_value['order_total']) ? $user_value['order_total'] : '0'; ?></td>
+            </tr>
+            <?php } } ?>
+            <tr>
+                <td colspan="4" style="background:#FFF">
+                    <?php echo ( count($this->user_list) > 0 ) ? $this->paginationControl($this->user_list,'Sliding','common/pager',array('page_url'=>$this->url('analytics/default/page',array('controller'=>'Analytics', 'action'=>'usersOrder')))) : ''; ?>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="<?php echo $this->basePath('/public/js/DatePicker/WdatePicker.js'); ?>"></script>
+<script>
+
+</script>

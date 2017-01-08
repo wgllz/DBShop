@@ -32,7 +32,7 @@ return array(
      * index优化设置
      */
     'System\Controller'    => array(
-        'System'=>array('index', 'uploadset', 'userset', 'sendMessageSet'),
+        'System'=>array('index', 'uploadset', 'userset', 'sendMessageSet', 'phoneMessageSet'),
         'Online'=>array('index', 'add', 'edit', 'del', 'group', 'groupadd', 'groupedit', 'groupdel'),
         'Optimization'=>array('index')
     ),
@@ -292,8 +292,22 @@ return array(
      * finishoper   订单完成
      */
     'Orders\Controller'    => array(
-        'Orders'    =>array('index', 'edit', 'orderprint', 'payoper', 'shipoper', 'finishoper',
+        'Orders'    => array('index', 'edit', 'orderprint', 'payoper', 'shipoper', 'finishoper',
             'refund', 'operRefund', 'showRefund',
             'addExpressNumber', 'importExpressNumber', 'expressNumberList', 'exportShip', 'moreshipoper')
+    ),
+    /**
+     * Analytics统计分析
+     * userStats    客户统计
+     * usersOrder   客户排行
+     * orderStats   订单统计
+     * saleStats    销售概况
+     * saleList     销售明细
+     * saleOrder    销售排行
+     * index        流量概况
+     * trand        趋势分析
+     */
+    'Analytics\Controller' => array(
+        'Analytics' => array('userStats', 'usersOrder', 'orderStats', 'saleStats', 'saleList', 'saleOrder', 'index', 'trand')
     )
 );

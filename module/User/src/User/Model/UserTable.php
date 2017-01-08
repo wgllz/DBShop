@@ -157,6 +157,55 @@ class UserTable extends AbstractTableGateway implements \Zend\Db\Adapter\Adapter
     {
         return $this->select($where)->count();
     }
+    /**
+     * 统计分析用户
+     * @param $where
+     * @param string $order
+     * @param string $group
+     * @return array|null
+     */
+    public function StatsUser($where, $order='', $group='')
+    {
+        $result = $this->select(function (Select $select) use ($where,$order,$group) {
+            $select->columns(array(
+                new Expression("FROM_UNIXTIME(user_time,'%Y-%m-%d') AS utime"),
+                new Expression('count(user_id) AS user_count')
+            ))->where($where);
+            if(!empty($order)) $select->order($order);
+            if(!empty($group)) $select->group($group);
+        });
+        if($result) {
+            return $result->toArray();
+        }
+        return null;
+    }
+    /**
+     * 会员排行榜（用户统计分析）
+     * @param array $pageArray
+     * @param string $where
+     * @param string $timeWhere
+     * @param string $order
+     * @return Paginator
+     */
+    public function userRanking(array $pageArray, $where='',$timeWhere='', $order='order_total DESC')
+    {
+        $select = new Select(array('dbshop_user'=>$this->table));
+
+        $select->columns(array('*',
+            new Expression('(select SUM(o.order_amount) FROM dbshop_order AS o WHERE o.buyer_id=dbshop_user.user_id and o.order_state>=20 and o.refund_state<>1 '.$timeWhere.') AS order_total'),
+            new Expression('(select count(ot.order_id) FROM dbshop_order AS ot WHERE ot.buyer_id=dbshop_user.user_id and ot.order_state>=20 and ot.refund_state<>1 '.str_replace('o.', 'ot.',$timeWhere).') AS order_count')
+        ));
+        if(!empty($where)) $select->where($where);
+        if(!empty($order)) $select->order($order);
+
+        //实例化分页处理
+        $pageAdapter = new DbSelect($select, $this->adapter);
+        $paginator   = new Paginator($pageAdapter);
+        $paginator->setCurrentPageNumber($pageArray['page']);
+        $paginator->setItemCountPerPage($pageArray['page_num']);
+
+        return $paginator;
+    }
 }
 
 ?>

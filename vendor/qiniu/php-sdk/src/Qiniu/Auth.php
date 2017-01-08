@@ -2,6 +2,7 @@
 namespace Qiniu;
 
 use Qiniu;
+use Qiniu\Zone;
 
 final class Auth
 {
@@ -12,6 +13,11 @@ final class Auth
     {
         $this->accessKey = $accessKey;
         $this->secretKey = $secretKey;
+    }
+
+    public function getAccessKey()
+    {
+        return $this->accessKey;
     }
 
     public function sign($data)
@@ -30,16 +36,15 @@ final class Auth
     {
         $url = parse_url($urlString);
         $data = '';
-        if (isset($url['path'])) {
+        if (array_key_exists('path', $url)) {
             $data = $url['path'];
         }
-        if (isset($url['query'])) {
+        if (array_key_exists('query', $url)) {
             $data .= '?' . $url['query'];
         }
         $data .= "\n";
 
-        if ($body != null &&
-            ($contentType == 'application/x-www-form-urlencoded') ||  $contentType == 'application/json') {
+        if ($body !== null && $contentType === 'application/x-www-form-urlencoded') {
             $data .= $body;
         }
         return $this->sign($data);
@@ -72,21 +77,36 @@ final class Auth
         $key = null,
         $expires = 3600,
         $policy = null,
-        $strictPolicy = true
+        $strictPolicy = true,
+        Zone $zone = null
     ) {
         $deadline = time() + $expires;
         $scope = $bucket;
-        if ($key != null) {
+        if ($key !== null) {
             $scope .= ':' . $key;
         }
         $args = array();
         $args = self::copyPolicy($args, $policy, $strictPolicy);
         $args['scope'] = $scope;
         $args['deadline'] = $deadline;
+
+        if ($zone === null) {
+            $zone = new Zone();
+        }
+
+        list($upHosts, $err) = $zone->getUpHosts($this->accessKey, $bucket);
+        if ($err === null) {
+            $args['upHosts'] = $upHosts;
+        }
+        
         $b = json_encode($args);
         return $this->signWithData($b);
     }
 
+    /**
+     *上传策略，参数规格详见
+     *http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html
+     */
     private static $policyFields = array(
         'callbackUrl',
         'callbackBody',
@@ -103,27 +123,32 @@ final class Auth
 
         'detectMime',
         'mimeLimit',
+        'fsizeMin',
         'fsizeLimit',
 
         'persistentOps',
         'persistentNotifyUrl',
         'persistentPipeline',
+        
+        'deleteAfterDays',
+
+        'upHosts',
     );
 
     private static $deprecatedPolicyFields = array(
         'asyncOps',
     );
 
-    private static function copyPolicy($policy, $originPolicy, $strictPolicy)
+    private static function copyPolicy(&$policy, $originPolicy, $strictPolicy)
     {
-        if ($originPolicy == null) {
-            return;
+        if ($originPolicy === null) {
+            return array();
         }
         foreach ($originPolicy as $key => $value) {
-            if (in_array($key, self::$deprecatedPolicyFields)) {
+            if (in_array((string) $key, self::$deprecatedPolicyFields, true)) {
                 throw new \InvalidArgumentException("{$key} has deprecated");
             }
-            if (!$strictPolicy || in_array($key, self::$policyFields)) {
+            if (!$strictPolicy || in_array((string) $key, self::$policyFields, true)) {
                 $policy[$key] = $value;
             }
         }

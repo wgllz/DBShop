@@ -58,6 +58,19 @@ class AdSlideTable extends AbstractTableGateway implements \Zend\Db\Adapter\Adap
         return null;
     }
     /**
+     * 获取单个幻灯片图片的信息
+     * @param array $where
+     * @return array|\ArrayObject|null
+     */
+    public function infoAdSlide (array $where)
+    {
+        $row = $this->select($where);
+        if($row) {
+            return $row->current();
+        }
+        return null;
+    }
+    /**
      * 只删除幻灯片的数据，不对其中的图片进行删除，在编辑幻灯片时使用。先全部删除，在从新插入
      * @param array $where
      */

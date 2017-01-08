@@ -30,7 +30,7 @@ class Helper extends AbstractHelper
     
     protected $dbshopSql;
     protected $dbshopResultSet;
-    
+
     public function __construct ()
     {
         if(empty($this->iniReader)) {
@@ -60,6 +60,25 @@ class Helper extends AbstractHelper
             $this->orderStateArray[40]  = '已发货';
             $this->orderStateArray[60]  = '订单完成';
         }
+    }
+    /**
+     * 获取当前域名
+     * @return mixed
+     */
+    public function dbshopHttpHost()
+    {
+        $httpHost = $_SERVER['HTTP_HOST'];
+        return $httpHost;
+    }
+    /**
+     * 获取当前访问协议是http:// 还是 https://
+     * @return string
+     */
+    public function dbshopHttpOrHttps()
+    {
+        $httpType = ((isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
+
+        return $httpType;
     }
     /**
      * 获取系统设置信息
@@ -117,6 +136,39 @@ class Helper extends AbstractHelper
     {
         $array = $this->iniReader->fromFile(DBSHOP_PATH . '/data/moduledata/User/User.ini');
         return (isset($array[$name]) ? $array[$name] : null);
+    }
+    /**
+     * 获取第三方登录设置信息
+     * @return array
+     */
+    public function getUserOtherLoginIni()
+    {
+        $array = array();
+        if(file_exists(DBSHOP_PATH . '/data/moduledata/User/OtherLogin.ini')) {
+            $array = $this->iniReader->fromFile(DBSHOP_PATH . '/data/moduledata/User/OtherLogin.ini');
+        }
+        return $array;
+    }
+    /**
+     * 检查第三方登录是否有开启的登录
+     * @return string
+     */
+    public function getUserOtherLoginState()
+    {
+        $state = 'false';
+        $array = array();
+        if(file_exists(DBSHOP_PATH . '/data/moduledata/User/OtherLogin.ini')) {
+            $array = $this->iniReader->fromFile(DBSHOP_PATH . '/data/moduledata/User/OtherLogin.ini');
+        }
+        if(!empty($array)) {
+            foreach($array as $value) {
+                if($value['login_state'] == 'true') {
+                    $state = 'true';
+                    break;
+                }
+            }
+        }
+        return $state;
     }
     /*-----------------------------------会员登录----------------------------------------*/
     /**
@@ -295,7 +347,13 @@ class Helper extends AbstractHelper
     public function getFrontCurrency()
     {
         $array = $this->iniReader->fromFile(DBSHOP_PATH . '/data/moduledata/Currency/Currency.ini');
-        return $array;
+        $currencyArray = array();
+        if(is_array($array) and !empty($array)) {
+            foreach($array as $key => $value) {
+                if($value['currency_state'] == 1) $currencyArray[$key] = $value;
+            }
+        }
+        return $currencyArray;
     }
 
     /**
@@ -421,8 +479,11 @@ class Helper extends AbstractHelper
     public function shopGoodsImage($goodsImage)
     {
         $image = $goodsImage;
-        if(stripos($image, '{qiniu}') !== false) return str_replace('{qiniu}', 'http://'.$this->storageConfig['qiniu_domain'], $image);
-        if(stripos($image, '{aliyun}') !== false) return str_replace('{aliyun}', 'http://'.$this->storageConfig['aliyun_domain'], $image);
+        $qiniuHttp  = (isset($this->storageConfig['qiniu_http_type']) ? $this->storageConfig['qiniu_http_type'] : 'http://');
+        $aliyunHttp = (isset($this->storageConfig['aliyun_http_type']) ? $this->storageConfig['aliyun_http_type'] : 'http://');
+
+        if(stripos($image, '{qiniu}') !== false) return str_replace('{qiniu}', $qiniuHttp.$this->storageConfig['qiniu_domain'], $image);
+        if(stripos($image, '{aliyun}') !== false) return str_replace('{aliyun}', $aliyunHttp.$this->storageConfig['aliyun_domain'], $image);
 
         if($image == '' or !file_exists(DBSHOP_PATH . $image)) $image = $this->getGoodsUploadIni('goods', 'goods_image_default');
         return $image;
@@ -513,6 +574,9 @@ class Helper extends AbstractHelper
                 '{shopname}',       //网站名称
                 '{buyname}',        //买家名称
                 '{ordersn}',        //订单编号
+                '{ordertotal}',     //订单金额
+                '{expressname}',    //快递公司
+                '{expressnumber}',  //快递单号
                 '{submittime}',     //订单提交时间
                 '{shopurl}',        //网站url
                 '{paymenttime}',    //支付完成时间
@@ -532,6 +596,9 @@ class Helper extends AbstractHelper
                 '{shopname}'   => (isset($data['shopname'])     ? $data['shopname']     : ''),
                 '{buyname}'    => (isset($data['buyname'])      ? $data['buyname']      : ''),
                 '{ordersn}'    => (isset($data['ordersn'])      ? $data['ordersn']      : ''),
+                '{ordertotal}' => (isset($data['ordertotal'])      ? $data['ordertotal']      : ''),
+                '{expressname}'=> (isset($data['expressname'])      ? $data['expressname']    : ''),
+                '{expressnumber}' => (isset($data['expressnumber']) ? $data['expressnumber']  : ''),
                 '{submittime}' => (isset($data['submittime'])   ? date("Y-m-d H:i:s", $data['submittime'])   : ''),
                 '{shopurl}'    => (isset($data['shopurl'])      ? '<a href="'. $data['shopurl'] . '" target="_blank">' . $data['shopurl'] . '</a>'     : ''),
                 '{paymenttime}'=> (isset($data['paymenttime'])  ? date("Y-m-d H:i:s", $data['paymenttime'])  : ''),
@@ -579,19 +646,20 @@ class Helper extends AbstractHelper
      * 获取特殊标签对应商品信息
      * @param $tagCode
      * @param int $goodsNum
+     * @param string $tagType
      * @return array|null
      */
-    public function getTagGoodsArray($tagCode,$goodsNum=0)
+    public function getTagGoodsArray($tagCode, $goodsNum=0, $tagType='pc')
     {
         $goodsNum = intval($goodsNum);
         
         if(empty($this->dbshopSql)) {
-            $this->dbshopSql = new \Zend\Db\Adapter\Adapter( include DBSHOP_PATH . '/data/Database.ini.php');
+            $this->dbshopSql = new \Zend\Db\Adapter\Adapter(include DBSHOP_PATH . '/data/Database.ini.php');
         }
         if(empty($this->dbshopResultSet)) {
             $this->dbshopResultSet = new \Zend\Db\ResultSet\ResultSet();
         }
-        $query  = $this->dbshopSql->query('SELECT tag_id FROM dbshop_goods_tag WHERE tag_type=\''.$tagCode.'\' and template_tag=\''.DBSHOP_TEMPLATE.'\'');
+        $query  = $this->dbshopSql->query('SELECT tag_id FROM dbshop_goods_tag WHERE tag_type=\''.$tagCode.'\' and template_tag=\''.DBSHOP_TEMPLATE.'\' and show_type=\''.$tagType.'\'');
         $result = $query->execute()->current();
         if(isset($result['tag_id'])) {
             $selectSql = "SELECT g.*, e.goods_name, e.goods_extend_name,

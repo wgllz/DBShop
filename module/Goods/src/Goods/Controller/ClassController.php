@@ -142,7 +142,8 @@ class ClassController extends BaseController
             //分类标签组保存
             if(isset($classArray['tag_group_id']) and is_array($classArray['tag_group_id']) and !empty($classArray['tag_group_id'])) {
                 $this->getDbshopTable('GoodsClassShowTable')->eidtGoodsClassTagGroup(array('class_id'=>$classId, 'show_body'=>serialize($classArray['tag_group_id'])), array('class_id'=>$classId));
-            }
+            } else $this->getDbshopTable('GoodsClassShowTable')->delGoodsClassTagGroup(array('class_id'=>$classId));
+
             //商品插入扩展分类状态修改
             $this->getDbshopTable('GoodsInClassTable')->updateGoodsInClass(array('class_state'=>$classArray['class_state']), array('class_id'=>$classArray['class_id']));
             //对前台生成的商品分类数组文件进行删除
@@ -242,6 +243,9 @@ class ClassController extends BaseController
                 foreach($classArray['class_sort'] as $key => $value) {
                     $this->getDbshopTable()->updateGoodsCalss(array('class_sort'=>$value), array('class_id'=>$key));
                 }
+                //对前台生成的商品分类数组文件进行删除
+                $arrayGoodsClassFile = DBSHOP_PATH . '/data/moduledata/Shopfront/goodsClass.php';
+                if(file_exists($arrayGoodsClassFile)) unlink($arrayGoodsClassFile);
             }
         }
         //跳转处理

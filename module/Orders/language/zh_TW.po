@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop V1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-04 21:32+0800\n"
-"PO-Revision-Date: 2016-11-04 21:32+0800\n"
+"POT-Creation-Date: 2016-11-17 12:25+0800\n"
+"PO-Revision-Date: 2016-11-17 12:26+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_TW\n"
@@ -16,104 +16,108 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../src/Orders/Controller/OrdersController.php:181
+#: ../src/Orders/Controller/OrdersController.php:189
 msgid "订单付款完成"
 msgstr "訂單付款完成"
 
-#: ../src/Orders/Controller/OrdersController.php:208
-#: ../src/Orders/Controller/OrdersController.php:262
-#: ../src/Orders/Controller/OrdersController.php:326
-#: ../src/Orders/Controller/OrdersController.php:409
-#: ../src/Orders/Controller/OrdersController.php:433
-#: ../src/Orders/Controller/OrdersController.php:608
+#: ../src/Orders/Controller/OrdersController.php:217
+#: ../src/Orders/Controller/OrdersController.php:271
+#: ../src/Orders/Controller/OrdersController.php:344
+#: ../src/Orders/Controller/OrdersController.php:436
+#: ../src/Orders/Controller/OrdersController.php:460
+#: ../src/Orders/Controller/OrdersController.php:652
 #: ../view/orders/orders/index.phtml:3
 msgid "订单管理"
 msgstr "訂單管理"
 
-#: ../src/Orders/Controller/OrdersController.php:208
+#: ../src/Orders/Controller/OrdersController.php:217
 msgid "更新订单支付状态"
 msgstr "更新訂單支付狀態"
 
-#: ../src/Orders/Controller/OrdersController.php:262
+#: ../src/Orders/Controller/OrdersController.php:271
 msgid "更新订单配送状态"
 msgstr "更新訂單配送狀態"
 
-#: ../src/Orders/Controller/OrdersController.php:271
-#: ../src/Orders/Controller/OrdersController.php:735
+#: ../src/Orders/Controller/OrdersController.php:286
+#: ../src/Orders/Controller/OrdersController.php:788
 msgid "订单发货完成|管理员操作"
 msgstr "訂單發貨完成|管理員操作"
 
-#: ../src/Orders/Controller/OrdersController.php:326
-#: ../src/Orders/Controller/OrdersController.php:433
+#: ../src/Orders/Controller/OrdersController.php:344
+#: ../src/Orders/Controller/OrdersController.php:460
 msgid "更新订单状态"
 msgstr "更新訂單狀態"
 
-#: ../src/Orders/Controller/OrdersController.php:333
+#: ../src/Orders/Controller/OrdersController.php:351
 msgid "商品购物，订单号为："
 msgstr "商品購物，訂單號為："
 
-#: ../src/Orders/Controller/OrdersController.php:361
+#: ../src/Orders/Controller/OrdersController.php:385
 msgid "订单交易完成|管理员操作"
 msgstr "訂單交易完成|管理員操作"
 
-#: ../src/Orders/Controller/OrdersController.php:409
+#: ../src/Orders/Controller/OrdersController.php:436
 msgid "订单批量删除"
 msgstr "訂單批量刪除"
 
-#: ../src/Orders/Controller/OrdersController.php:437
+#: ../src/Orders/Controller/OrdersController.php:468
+msgid "取消订单，订单号为："
+msgstr "取消訂單，訂單號為："
+
+#: ../src/Orders/Controller/OrdersController.php:477
 msgid "无说明"
 msgstr "無說明"
 
-#: ../src/Orders/Controller/OrdersController.php:448
+#: ../src/Orders/Controller/OrdersController.php:489
 msgid "订单取消|管理员操作"
 msgstr "訂單取消|管理員操作"
 
-#: ../src/Orders/Controller/OrdersController.php:533
+#: ../src/Orders/Controller/OrdersController.php:575
 msgid "订单退货"
 msgstr "訂單退貨"
 
-#: ../src/Orders/Controller/OrdersController.php:533
+#: ../src/Orders/Controller/OrdersController.php:575
 msgid "退货订单编号为："
 msgstr "退貨訂單編號為："
 
-#: ../src/Orders/Controller/OrdersController.php:542
+#: ../src/Orders/Controller/OrdersController.php:584
 #: ../view/orders/orders/refund.phtml:2
 msgid "退货管理"
 msgstr "退貨管理"
 
-#: ../src/Orders/Controller/OrdersController.php:542
+#: ../src/Orders/Controller/OrdersController.php:584
 msgid "退货订单处理"
 msgstr "退貨訂單處理"
 
-#: ../src/Orders/Controller/OrdersController.php:542
+#: ../src/Orders/Controller/OrdersController.php:584
 msgid "退货状态:"
 msgstr "退貨狀態:"
 
-#: ../src/Orders/Controller/OrdersController.php:542
+#: ../src/Orders/Controller/OrdersController.php:584
 #: ../view/orders/orders/oper-refund.phtml:74
 msgid "同意退货"
 msgstr "同意退貨"
 
-#: ../src/Orders/Controller/OrdersController.php:542
+#: ../src/Orders/Controller/OrdersController.php:584
 #: ../view/orders/orders/oper-refund.phtml:75
 msgid "拒绝退货"
 msgstr "拒絕退貨"
 
-#: ../src/Orders/Controller/OrdersController.php:542
+#: ../src/Orders/Controller/OrdersController.php:584
 msgid "退货的订单编号为:"
 msgstr "退貨的訂單編號為:"
 
-#: ../src/Orders/Controller/OrdersController.php:608
+#: ../src/Orders/Controller/OrdersController.php:652
 msgid "订单删除"
 msgstr "訂單刪除"
 
-#: ../src/Orders/Controller/OrdersController.php:1055
-#: ../src/Orders/Controller/OrdersController.php:1187
+#: ../src/Orders/Controller/OrdersController.php:1111
+#: ../src/Orders/Controller/OrdersController.php:1243
 #: ../view/orders/orders/shiplist.phtml:2
 msgid "发货单"
 msgstr "發貨單"
 
-#: ../src/Orders/Controller/OrdersController.php:1078
+#: ../src/Orders/Controller/OrdersController.php:1134
 #: ../view/orders/orders/ajax-order-list.phtml:6
 #: ../view/orders/orders/edit.phtml:77
 #: ../view/orders/orders/export-ship.phtml:25
@@ -124,7 +128,7 @@ msgstr "發貨單"
 msgid "收货人"
 msgstr "收貨人"
 
-#: ../src/Orders/Controller/OrdersController.php:1079
+#: ../src/Orders/Controller/OrdersController.php:1135
 #: ../view/orders/orders/edit.phtml:78
 #: ../view/orders/orders/export-ship.phtml:26
 #: ../view/orders/orders/orderprint.phtml:41
@@ -132,21 +136,21 @@ msgstr "收貨人"
 msgid "收货地址"
 msgstr "收貨地址"
 
-#: ../src/Orders/Controller/OrdersController.php:1080
+#: ../src/Orders/Controller/OrdersController.php:1136
 #: ../view/orders/orders/edit.phtml:88
 #: ../view/orders/orders/export-ship.phtml:27
 #: ../view/orders/orders/show-ship.phtml:51
 msgid "联系方式"
 msgstr "聯繫方式"
 
-#: ../src/Orders/Controller/OrdersController.php:1081
+#: ../src/Orders/Controller/OrdersController.php:1137
 #: ../view/orders/orders/edit.phtml:87
 #: ../view/orders/orders/export-ship.phtml:28
 #: ../view/orders/orders/show-ship.phtml:50
 msgid "邮政编码"
 msgstr "郵政編碼"
 
-#: ../src/Orders/Controller/OrdersController.php:1082
+#: ../src/Orders/Controller/OrdersController.php:1138
 #: ../view/orders/orders/edit.phtml:98
 #: ../view/orders/orders/export-ship.phtml:29
 #: ../view/orders/orders/shipoper.phtml:37
@@ -154,16 +158,16 @@ msgstr "郵政編碼"
 msgid "送货时间"
 msgstr "送貨時間"
 
-#: ../src/Orders/Controller/OrdersController.php:1083
+#: ../src/Orders/Controller/OrdersController.php:1139
 #: ../view/orders/orders/export-ship.phtml:30
 msgid "付款方式"
 msgstr "付款方式"
 
-#: ../src/Orders/Controller/OrdersController.php:1084
+#: ../src/Orders/Controller/OrdersController.php:1140
 msgid "应收货款(包括运费)"
 msgstr "應收貨款(包括運費)"
 
-#: ../src/Orders/Controller/OrdersController.php:1088
+#: ../src/Orders/Controller/OrdersController.php:1144
 #: ../view/orders/orders/edit.phtml:96
 #: ../view/orders/orders/export-ship.phtml:37
 #: ../view/orders/orders/shipoper.phtml:25
@@ -171,7 +175,7 @@ msgstr "應收貨款(包括運費)"
 msgid "快递信息"
 msgstr "快遞信息"
 
-#: ../src/Orders/Controller/OrdersController.php:1089
+#: ../src/Orders/Controller/OrdersController.php:1145
 #: ../view/orders/orders/edit.phtml:97 ../view/orders/orders/edit.phtml:187
 #: ../view/orders/orders/export-ship.phtml:38
 #: ../view/orders/orders/oper-refund.phtml:126
@@ -181,7 +185,7 @@ msgstr "快遞信息"
 msgid "配送费用"
 msgstr "配送費用"
 
-#: ../src/Orders/Controller/OrdersController.php:1090
+#: ../src/Orders/Controller/OrdersController.php:1146
 #: ../view/orders/orders/edit.phtml:99
 #: ../view/orders/orders/export-ship.phtml:39
 #: ../view/orders/orders/express-number-list.phtml:3
@@ -192,7 +196,7 @@ msgstr "配送費用"
 msgid "快递单号"
 msgstr "快遞單號"
 
-#: ../src/Orders/Controller/OrdersController.php:1091
+#: ../src/Orders/Controller/OrdersController.php:1147
 #: ../view/orders/orders/edit.phtml:116
 #: ../view/orders/orders/oper-refund.phtml:93
 #: ../view/orders/orders/orderprint.phtml:57
@@ -201,7 +205,7 @@ msgstr "快遞單號"
 msgid "商品名称"
 msgstr "商品名稱"
 
-#: ../src/Orders/Controller/OrdersController.php:1092
+#: ../src/Orders/Controller/OrdersController.php:1148
 #: ../view/orders/orders/edit.phtml:117
 #: ../view/orders/orders/oper-refund.phtml:94
 #: ../view/orders/orders/show-refund.phtml:86
@@ -209,31 +213,31 @@ msgstr "商品名稱"
 msgid "商品货号"
 msgstr "商品貨號"
 
-#: ../src/Orders/Controller/OrdersController.php:1093
+#: ../src/Orders/Controller/OrdersController.php:1149
 msgid "商品属性"
 msgstr "商品屬性"
 
-#: ../src/Orders/Controller/OrdersController.php:1094
+#: ../src/Orders/Controller/OrdersController.php:1150
 msgid "购买数量"
 msgstr "購買數量"
 
-#: ../src/Orders/Controller/OrdersController.php:1123
+#: ../src/Orders/Controller/OrdersController.php:1179
 msgid "座机"
 msgstr "座機"
 
-#: ../src/Orders/Controller/OrdersController.php:1124
+#: ../src/Orders/Controller/OrdersController.php:1180
 #: ../view/orders/orders/edit.phtml:88
 #: ../view/orders/orders/orderprint.phtml:51
 #: ../view/orders/orders/show-ship.phtml:51
 msgid "手机"
 msgstr "手機"
 
-#: ../src/Orders/Controller/OrdersController.php:1137
+#: ../src/Orders/Controller/OrdersController.php:1193
 #: ../view/orders/orders/index.phtml:52 ../view/orders/orders/payoper.phtml:32
 msgid "已付款"
 msgstr "已付款"
 
-#: ../src/Orders/Controller/OrdersController.php:1137
+#: ../src/Orders/Controller/OrdersController.php:1193
 msgid "未付款"
 msgstr "未付款"
 
@@ -261,8 +265,8 @@ msgstr "訂單狀態"
 #: ../view/orders/orders/ajax-order-list.phtml:8
 #: ../view/orders/orders/edit.phtml:179 ../view/orders/orders/edit.phtml:210
 #: ../view/orders/orders/index.phtml:22
-#: ../view/orders/orders/oper-refund.phtml:139
-#: ../view/orders/orders/show-refund.phtml:131
+#: ../view/orders/orders/oper-refund.phtml:146
+#: ../view/orders/orders/show-refund.phtml:138
 msgid "订单总额"
 msgstr "訂單總額"
 
@@ -608,7 +612,7 @@ msgid "操作历史"
 msgstr "操作歷史"
 
 #: ../view/orders/orders/edit.phtml:223
-#: ../view/orders/orders/orderprint.phtml:114
+#: ../view/orders/orders/orderprint.phtml:121
 #: ../view/orders/orders/show-ship.phtml:121
 msgid "操作者"
 msgstr "操作者"
@@ -660,27 +664,31 @@ msgstr "點擊計算"
 msgid "保存修改"
 msgstr "保存修改"
 
-#: ../view/orders/orders/edit.phtml:320
+#: ../view/orders/orders/edit.phtml:323
 msgid "请选择修改类型！"
 msgstr "請選擇修改類型！"
 
-#: ../view/orders/orders/edit.phtml:323
+#: ../view/orders/orders/edit.phtml:326
 msgid "修改金额不能为空！"
 msgstr "修改金額不能為空！"
 
-#: ../view/orders/orders/edit.phtml:324
+#: ../view/orders/orders/edit.phtml:327
 msgid "金额必须为整数！"
 msgstr "金額必須為整數！"
 
-#: ../view/orders/orders/edit.phtml:325
+#: ../view/orders/orders/edit.phtml:328
 msgid "金额最小为1"
 msgstr "金額最小為1"
 
-#: ../view/orders/orders/edit.phtml:337
+#: ../view/orders/orders/edit.phtml:331
+msgid "备注说明不能为空！"
+msgstr "備註說明不能為空！"
+
+#: ../view/orders/orders/edit.phtml:343
 msgid "编辑订单总额成功！"
 msgstr "編輯訂單總額成功！"
 
-#: ../view/orders/orders/edit.phtml:340
+#: ../view/orders/orders/edit.phtml:346
 msgid "编辑订单总额失败！"
 msgstr "編輯訂單總額失敗！"
 
@@ -1170,15 +1178,15 @@ msgstr "狀態"
 msgid "已申请退货"
 msgstr "已申請退貨"
 
-#: ../view/orders/orders/oper-refund.phtml:163
+#: ../view/orders/orders/oper-refund.phtml:170
 msgid "退款金额不能为空！"
 msgstr "退款金額不能為空！"
 
-#: ../view/orders/orders/oper-refund.phtml:164
+#: ../view/orders/orders/oper-refund.phtml:171
 msgid "退款金额必须为数字！"
 msgstr "退款金額必須為數字！"
 
-#: ../view/orders/orders/oper-refund.phtml:165
+#: ../view/orders/orders/oper-refund.phtml:172
 msgid "退款金额最少为0！"
 msgstr "退款金額最少為0！"
 
@@ -1220,15 +1228,15 @@ msgstr "商品總金額"
 msgid "商品运费"
 msgstr "商品運費"
 
-#: ../view/orders/orders/orderprint.phtml:105
+#: ../view/orders/orders/orderprint.phtml:112
 msgid "应付款金额"
 msgstr "應付款金額"
 
-#: ../view/orders/orders/orderprint.phtml:114
+#: ../view/orders/orders/orderprint.phtml:121
 msgid "打印时间"
 msgstr "打印時間"
 
-#: ../view/orders/orders/orderprint.phtml:117
+#: ../view/orders/orders/orderprint.phtml:124
 msgid "订 单 打 印"
 msgstr "訂 單 打 印"
 
@@ -2443,9 +2451,6 @@ msgstr "發貨單信息"
 
 #~ msgid "商品名称最长80个字符！"
 #~ msgstr "商品名稱最長80個字符！"
-
-#~ msgid "商品货号不能为空！"
-#~ msgstr "商品貨號不能為空！"
 
 #~ msgid "商品货号最长50个字符！"
 #~ msgstr "商品貨號最長50個字符！"

@@ -250,6 +250,7 @@ class Helper extends AbstractHelper
             'express_set'                   => '配送设置',          //配送设置
             'express_api'                   => '配送动态API',       //配送动态API
             'region_set'                    => '地区设置',          //地区设置
+            'phone_message_set'             => '手机短信设置',       //手机短信设置
             'send_message_set'              => '消息提醒设置',       //消息提醒设置
             'state_set'                     => '状态设置',          //状态设置
             'admin_set'                     => '管理员设置',        //管理员设置

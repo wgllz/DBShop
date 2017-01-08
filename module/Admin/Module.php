@@ -55,7 +55,7 @@ class Module
                 'AdminGroupTable'       => function () {return new Model\AdminGroupTable(); },
                 'AdminGroupExtendTable' => function () {return new Model\AdminGroupExtendTable(); },
                 
-                'adminHelper'           => function () {return new \Admin\Helper\Helper(); },
+                'adminHelper'           => function () {return new MyViewHelper(); },
                 
                 'dbshopTransaction'     => function () {return new Model\DbshopSqlTransaction(); },
             )

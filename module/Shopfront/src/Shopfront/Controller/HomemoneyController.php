@@ -242,15 +242,17 @@ class HomemoneyController extends FronthomeController
         if($paycheckInfo->pay_code == '' or $paycheckInfo->pay_state > 10) { return $this->redirect()->toRoute('frontmoney/default', array('action'=>'paychecklog'));  }
 
         //打包数据，传给下面的支付输出
+		$httpHost = $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost();
+		$httpType = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps();
         $paymentData = array(
             'shop_name' => $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name'),
             'order_name'=> $this->getDbshopLang()->translate('会员充值'),
             'goods_name' => $this->getDbshopLang()->translate('会员充值，充值会员:').$paycheckInfo->user_name,
             'paycheck'=> $paycheckInfo,
-            'return_url'=> 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontmoney/default/paycheck_id', array('action'=>'paycheckReturnPay', 'paycheck_id'=>$paycheckId)),
-            'notify_url'=> 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontmoney/default/paycheck_id', array('action'=>'paycheckNotifyPay', 'paycheck_id'=>$paycheckId)),
-            'cancel_url'=> 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontmoney/default', array('action'=>'paychecklog')),
-            'order_url' => 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontmoney/default', array('action'=>'paychecklog')),
+            'return_url'=> $httpType . $httpHost . $this->url()->fromRoute('frontmoney/default/paycheck_id', array('action'=>'paycheckReturnPay', 'paycheck_id'=>$paycheckId)),
+            'notify_url'=> $httpType . $httpHost . $this->url()->fromRoute('frontmoney/default/paycheck_id', array('action'=>'paycheckNotifyPay', 'paycheck_id'=>$paycheckId)),
+            'cancel_url'=> $httpType . $httpHost . $this->url()->fromRoute('frontmoney/default', array('action'=>'paychecklog')),
+            'order_url' => $httpType . $httpHost . $this->url()->fromRoute('frontmoney/default', array('action'=>'paychecklog')),
         );
         $result = $this->getServiceLocator()->get($paycheckInfo->pay_code)->paycheckPaymentTo($paymentData);
 
@@ -260,7 +262,7 @@ class HomemoneyController extends FronthomeController
             //顶部title使用
             $this->layout()->title_name = $this->getDbshopLang()->translate('微信扫码支付');
 
-            $view->setVariables(array('result' => $result, 'paycheckinfo'=> $paycheckInfo, 'qrcode_url' => 'http://' . $this->getRequest()->getServer('SERVER_NAME') . $this->url()->fromRoute('frontorder/default', array('action'=>'orderQrcode')).'?data='.$result['code_url']));
+            $view->setVariables(array('result' => $result, 'paycheckinfo'=> $paycheckInfo, 'qrcode_url' => $httpType . $httpHost . $this->url()->fromRoute('frontorder/default', array('action'=>'orderQrcode')).'?data='.$result['code_url']));
             return $view;
 
         } else exit();
@@ -391,9 +393,16 @@ class HomemoneyController extends FronthomeController
             $dh = opendir($xmlPath);
             while (false !== ($fileName = readdir($dh))) {
                 if($fileName != '.' and $fileName != '..' and $fileName != '.DS_Store') {
-                    $paymentInfo = $xmlReader->fromFile($xmlPath . '/' . $fileName);
+                    $paymentInfo = $xmlReader->fromFile($xmlPath . $fileName);
 
                     if(!in_array($paymentInfo['editaction'], array('xxzf', 'hdfk', 'yezf', 'malipay'))) {
+
+                        //判断是否显示在当前平台
+                        if(isset($paymentInfo['payment_show']['checked']) and !empty($paymentInfo['payment_show']['checked'])) {
+                            $showArray = is_array($paymentInfo['payment_show']['checked']) ? $paymentInfo['payment_show']['checked'] : array($paymentInfo['payment_show']['checked']);
+                            if(!in_array('pc', $showArray) and !in_array('all', $showArray)) continue;
+                        } else continue;
+
                         //判断是否符合当前的货币要求
                         $currencyState = false;
                         if(isset($paymentInfo['payment_currency']['checked']) and !empty($paymentInfo['payment_currency']['checked'])) {

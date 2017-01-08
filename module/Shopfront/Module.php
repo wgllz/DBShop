@@ -15,6 +15,8 @@
 namespace Shopfront;
 
 use Shopfront\Helper\Helper as frontHelper;
+use Zend\Mvc\ModuleRouteListener;
+use Zend\Mvc\MvcEvent;
 use Zend\Session\Container;
 
 class Module
@@ -77,6 +79,13 @@ class Module
             $app->getEventManager()->attach('dispatch', array($this, 'dispatchCachePage'), 1001);
             $app->getEventManager()->attach('finish', array($this, 'cachePage'), 1001);
         }
+
+        //当开启https时，将强制进行https访问
+        /*
+        $moduleRouteListener = new ModuleRouteListener();
+        $moduleRouteListener->attach($app->getEventManager());
+        $app->getEventManager()->attach('route', array($this, 'doHttpsRedirect'));
+        */
     }
     /**
      * 设置前台layout
@@ -120,6 +129,24 @@ class Module
             $viewModel->setTerminal(true);
         } else {
             $viewModel->setTemplate('site/layout');
+        }
+    }
+    /**
+     * https强制转换
+     * @param MvcEvent $e
+     * @return \Zend\Stdlib\ResponseInterface
+     */
+    public function doHttpsRedirect(MvcEvent $e){
+        $sm = $e->getApplication()->getServiceManager();
+        $uri = $e->getRequest()->getUri();
+        $scheme = $uri->getScheme();
+        if ($scheme != 'https'){
+            $uri->setScheme('https');
+            $response=$e->getResponse();
+            $response->getHeaders()->addHeaderLine('Location', $uri);
+            $response->setStatusCode(302);
+            $response->sendHeaders();
+            return $response;
         }
     }
     /**

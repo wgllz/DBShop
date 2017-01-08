@@ -106,6 +106,13 @@
                     <div class="well admin_add_header_well"><?php echo $this->translate('第三方登录'); ?></div>
                     <div class="well admin_add_well">
                         <div class="message_one"></div>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('前台顶部'); ?>：</label>
+							<div class="controls">
+								<label class="checkbox"><input type="checkbox" name="front_other_login_show" value="1" <?php if(isset($this->user_config['front_other_login_show']) and $this->user_config['front_other_login_show'] == 1) echo 'checked'; ?>><?php echo $this->translate('显示'); ?></label>
+							</div>
+						</div>
+						<hr>
                         <div class="control-group">
                             <label for="input01" class="control-label"><?php echo $this->translate('QQ互联登录'); ?>：</label>
                             <div class="controls">
@@ -113,6 +120,12 @@
                                 <label class="radio inline"><input type="radio" name="qq_login_state" value="false" <?php if((isset($this->user_config['qq_login_state']) and $this->user_config['qq_login_state'] == 'false') or !isset($this->user_config['qq_login_state'])) echo 'checked="checked"'; ?>><?php echo $this->translate('关闭'); ?></label>
                             </div>
                         </div>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('回调地址'); ?>：</label>
+							<div class="controls">
+								<label style="line-height: 30px;"><?php echo str_replace(array('http://', 'https://'), '', $this->serverUrl()).$this->url('frontuser/default',array('action'=>'othercallback')); ?></label>
+							</div>
+						</div>
                         <div class="control-group">
                             <label for="input01" class="control-label">APP ID：</label>
                             <div class="controls">
@@ -125,6 +138,52 @@
                                 <input type="text" name="qq_app_key" id="qq_app_key" value="<?php if(isset($this->login_config['QQ']['app_key'])) echo $this->escapeHtml($this->login_config['QQ']['app_key']); ?>" class="span6">
                             </div>
                         </div>
+						<hr>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('微信登录(网站)'); ?>：</label>
+							<div class="controls">
+								<label class="radio inline"><input type="radio" name="weixin_login_state" value="true" <?php if(isset($this->user_config['weixin_login_state']) and $this->user_config['weixin_login_state'] == 'true') echo 'checked="checked"'; ?>><?php echo $this->translate('开启'); ?></label>
+								<label class="radio inline"><input type="radio" name="weixin_login_state" value="false" <?php if((isset($this->user_config['weixin_login_state']) and $this->user_config['weixin_login_state'] == 'false') or !isset($this->user_config['weixin_login_state'])) echo 'checked="checked"'; ?>><?php echo $this->translate('关闭'); ?></label>
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('授权回调域'); ?>：</label>
+							<div class="controls">
+								<label style="line-height: 30px;"><?php echo str_replace(array('http://', 'https://'), '', $this->serverUrl()); ?></label>
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="input01" class="control-label">AppID：</label>
+							<div class="controls">
+								<input type="text" name="weixin_app_id" id="weixin_app_id" value="<?php if(isset($this->login_config['Weixin']['app_id'])) echo $this->escapeHtml($this->login_config['Weixin']['app_id']); ?>" class="span6"> <a href="https://open.weixin.qq.com/" class="btn btn-small btn-info" target="_blank"><?php echo $this->translate('点击去获取微信登录的AppID 和 AppSecret'); ?></a>
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="input01" class="control-label">AppSecret：</label>
+							<div class="controls">
+								<input type="text" name="weixin_app_secret" id="weixin_app_secret" value="<?php if(isset($this->login_config['Weixin']['app_secret'])) echo $this->escapeHtml($this->login_config['Weixin']['app_secret']); ?>" class="span6">
+							</div>
+						</div>
+						<hr>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('支付宝登录'); ?>：</label>
+							<div class="controls">
+								<label class="radio inline"><input type="radio" name="alipay_login_state" value="true" <?php if(isset($this->user_config['alipay_login_state']) and $this->user_config['alipay_login_state'] == 'true') echo 'checked="checked"'; ?>><?php echo $this->translate('开启'); ?></label>
+								<label class="radio inline"><input type="radio" name="alipay_login_state" value="false" <?php if((isset($this->user_config['alipay_login_state']) and $this->user_config['alipay_login_state'] == 'false') or !isset($this->user_config['alipay_login_state'])) echo 'checked="checked"'; ?>><?php echo $this->translate('关闭'); ?></label>
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('合作者身份 Pid'); ?>：</label>
+							<div class="controls">
+								<input type="text" name="alipay_pid" id="alipay_pid" value="<?php if(isset($this->login_config['Alipay']['alipay_pid'])) echo $this->escapeHtml($this->login_config['Alipay']['alipay_pid']); ?>" class="span6"> <a href="https://www.alipay.com/" class="btn btn-small btn-info" target="_blank"><?php echo $this->translate('点击去获取支付宝登录的Pid 和 Key'); ?></a>
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('安全校验码 Key'); ?>：</label>
+							<div class="controls">
+								<input type="text" name="alipay_key" id="alipay_key" value="<?php if(isset($this->login_config['Alipay']['alipay_key'])) echo $this->escapeHtml($this->login_config['Alipay']['alipay_key']); ?>" class="span6">
+							</div>
+						</div>
                     </div>
                 </div>
                            

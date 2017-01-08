@@ -43,7 +43,15 @@
 
 <div class="ect-margin-tb ect-pro-list ect-margin-bottom0" style="border-bottom:none;">
 <ul id="J_ItemList">
-<?php if ($this->index_goods) { foreach($this->index_goods as $index_goods_key => $index_goods_value) { ?>
+<?php
+$index_goods_array = array();
+$index_tag_goods = $this->frontwebsite()->getTagGoodsArray('phone_index_goods', 0, 'phone');
+
+if(isset($index_tag_goods) and !empty($index_tag_goods)) $index_goods_array = $index_tag_goods;
+else $index_goods_array = $this->index_goods;
+?>
+
+<?php if ($index_goods_array and !empty($index_goods_array)) { foreach($index_goods_array as $index_goods_key => $index_goods_value) { ?>
 <li class="single_item" id="more_element_<?php echo $index_goods_key+1; ?>">
     <a href="<?php echo $this->url('m_goods/default', array('goods_id'=>$index_goods_value['goods_id'], 'class_id'=>$index_goods_value['one_class_id'])); ?>">
         <img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($index_goods_value['goods_thumbnail_image'])); ?>" alt="<?php echo $this->escapeHtml($index_goods_value['goods_name']); ?>">

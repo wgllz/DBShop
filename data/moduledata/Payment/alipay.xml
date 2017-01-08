@@ -31,21 +31,13 @@
         <title>支付宝签约接口</title>
         <content>
             <option_1>
-                <name>担保交易接口</name>
-                <value>create_partner_trade_by_buyer</value>
-            </option_1>
-            <option_2>
                 <name>即时到账交易接口</name>
                 <value>create_direct_pay_by_user</value>
-            </option_2>
-            <option_3>
-                <name>标准双接口</name>
-                <value>trade_create_by_buyer</value>
-            </option_3>
+            </option_1>
         </content>
         <name_id>payment_type</name_id>
         <input_type>select</input_type>
-        <selected>trade_create_by_buyer</selected>
+        <selected>create_direct_pay_by_user</selected>
     </payment_type>
     <alipay_pid>
         <title>合作者身份 Pid</title>
@@ -61,6 +53,23 @@
         <input_type>text</input_type>
         <class>span6</class>
     </alipay_key>
+    <payment_show>
+        <title>显示设置</title>
+        <content>
+            <content1>
+                <name>电脑端显示</name>
+                <value>pc</value>
+            </content1>
+            <content2>
+                <name>手机端显示</name>
+                <value>phone</value>
+            </content2>
+        </content>
+        <name_id>payment_show</name_id>
+        <input_type>checkbox</input_type>
+        <checked>pc</checked>
+        <checked>phone</checked>
+    </payment_show>
     <payment_currency>
         <title>可用货币</title>
         <content>

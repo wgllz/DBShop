@@ -107,7 +107,12 @@
         <input type="hidden" id="goods_id" name="goods_id" value="<?php echo $this->goods_info->goods_id; ?>" />
         <input type="hidden" id="class_id" name="class_id" value="<?php echo $this->class_id; ?>" />
         <div class="ect-padding-lr ect-padding-tb goods-submit">
-            <div><a onclick="add_cart_js();" class="btn btn-info ect-btn-info ect-colorf" type="botton"><?php echo $this->translate('立即购买'); ?></a></div>
+            <?php if ($this->goods_info->goods_state == 1) { ?>
+                <div><a onclick="add_cart_js();" class="btn btn-info ect-btn-info ect-colorf" type="botton"><?php echo $this->translate('立即购买'); ?></a></div>
+            <?php } elseif ($this->goods_info->goods_state == 2) { ?>
+                <div><b style="color: red;font-size: 18px;"><?php echo $this->translate('该商品已经下架！'); ?></b></div>
+            <?php } ?>
+
         </div>
     </form>
 
@@ -305,7 +310,7 @@
     <?php if ($this->frontwebsite()->websiteInfo('goods_ask_captcha') == 'true') { ?>
     //验证码添加
     function captchaAdd() {
-        $.post("<?php echo $this->url('shopfront/default',array('action'=>'captcha')); ?>",'',
+        $.get("<?php echo $this->url('shopfront/default',array('action'=>'captcha')); ?>",{},
             function(data){
                 $("#ask_captcha_id").attr('src', '<?php echo $this->basePath('/'); ?>'+data.captcha_file);
             },'json');

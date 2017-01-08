@@ -161,7 +161,8 @@ class TagController extends BaseController
     {
         $array = array();
         $array['tag_type']  = $this->readerTagIni();
-        $array['tag_array'] = $this->getDbshopTable()->listGoodsTag(array('dbshop_goods_tag.template_tag=\'' . DBSHOP_TEMPLATE . '\'', 'e.language'=>$this->getDbshopLang()->getLocale()), array('dbshop_goods_tag.tag_id ASC'));
+        $where = "(dbshop_goods_tag.template_tag='" . DBSHOP_TEMPLATE . "' and dbshop_goods_tag.show_type='pc') or (dbshop_goods_tag.template_tag='" . DBSHOP_PHONE_TEMPLATE . "' and dbshop_goods_tag.show_type='phone')";
+        $array['tag_array'] = $this->getDbshopTable()->listGoodsTag(array($where, 'e.language'=>$this->getDbshopLang()->getLocale()), array('dbshop_goods_tag.tag_id ASC'));
 
         return $array;
     }
@@ -174,7 +175,12 @@ class TagController extends BaseController
         if($this->request->isPost()) {
             //接收POST数据
             $tagArray = $this->request->getPost()->toArray();
-            $tagArray['template_tag'] = DBSHOP_TEMPLATE;
+            if(strpos($tagArray['tag_type'], 'phone_') === false) {
+                $tagArray['template_tag'] = DBSHOP_TEMPLATE;
+            } else {
+                $tagArray['template_tag'] = DBSHOP_PHONE_TEMPLATE;
+                $tagArray['show_type']    = 'phone';
+            }
 
             $tagId    = $this->getDbshopTable()->addGoodsTag($tagArray);
             if($tagId) {
@@ -193,7 +199,8 @@ class TagController extends BaseController
         $array = array();
         $array['tag_type']  = $this->readerTagIni();
         //去掉已经添加了特定标签
-        $goodsTagArray      = $this->getDbshopTable()->goodsTagArray(array('template_tag=\'' . DBSHOP_TEMPLATE . '\''));
+        $where = "(dbshop_goods_tag.template_tag='" . DBSHOP_TEMPLATE . "' and dbshop_goods_tag.show_type='pc') or (dbshop_goods_tag.template_tag='" . DBSHOP_PHONE_TEMPLATE . "' and dbshop_goods_tag.show_type='phone')";
+        $goodsTagArray      = $this->getDbshopTable()->goodsTagArray(array($where));
         if(!empty($goodsTagArray)) {
             foreach($goodsTagArray as $value) {
                 if(isset($array['tag_type'][$value['tag_type']])) unset($array['tag_type'][$value['tag_type']]);
@@ -216,7 +223,11 @@ class TagController extends BaseController
         if($this->request->isPost()) {
             //接收POST数据
             $tagArray    = $this->request->getPost()->toArray();
-            $tagArray['template_tag'] = DBSHOP_TEMPLATE;
+            if(strpos($tagArray['tag_type'], 'phone_') === false) {
+                $tagArray['template_tag'] = DBSHOP_TEMPLATE;
+            } else {
+                $tagArray['template_tag'] = DBSHOP_PHONE_TEMPLATE;
+            }
 
             $this->getDbshopTable()->updateGoodsTag($tagArray, array('tag_id'=>$tagId));
             $updateState = $this->getDbshopTable('GoodsTagExtendTable')->updateTagExtend($tagArray, array('tag_id'=>$tagId, 'language'=>$this->getDbshopLang()->getLocale()));
@@ -251,7 +262,8 @@ class TagController extends BaseController
         //标签信息
         $array['tag_info'] = $this->getDbshopTable('GoodsTagExtendTable')->infoTagExtend(array('dbshop_goods_tag_extend.tag_id'=>$tagId,'dbshop_goods_tag_extend.language'=>$this->getDbshopLang()->getLocale()));
         //去掉已经添加了特定标签,保留当前类型
-        $goodsTagArray      = $this->getDbshopTable()->goodsTagArray(array('template_tag=\'' . DBSHOP_TEMPLATE . '\''));
+        $where = "(dbshop_goods_tag.template_tag='" . DBSHOP_TEMPLATE . "' and dbshop_goods_tag.show_type='pc') or (dbshop_goods_tag.template_tag='" . DBSHOP_PHONE_TEMPLATE . "' and dbshop_goods_tag.show_type='phone')";
+        $goodsTagArray      = $this->getDbshopTable()->goodsTagArray(array($where));
         if(!empty($goodsTagArray)) {
             foreach($goodsTagArray as $value) {
                 if(isset($array['tag_type'][$value['tag_type']]) and $value['tag_type'] != $array['tag_info']->tag_type) unset($array['tag_type'][$value['tag_type']]);
@@ -466,7 +478,12 @@ class TagController extends BaseController
         $adIni       = array();
         $adIniReader = new \Zend\Config\Reader\Ini();
         $adIni       = $adIniReader->fromFile(DBSHOP_PATH . '/module/Shopfront/view/' . DBSHOP_TEMPLATE . '/shopfront/template.ini');
-    
+        //手机模板的tag
+        if(defined('DBSHOP_PHONE_TEMPLATE') and DBSHOP_PHONE_TEMPLATE != '') {
+            $phoneIni = $adIniReader->fromFile(DBSHOP_PATH . '/module/Mobile/view/' . DBSHOP_PHONE_TEMPLATE . '/mobile/template.ini');
+            if(isset($phoneIni['tag_type']) and !empty($phoneIni['tag_type'])) $adIni['tag_type'] = array_merge($adIni['tag_type'], $phoneIni['tag_type']);
+        }
+
         return (isset($adIni['tag_type']) ? $adIni['tag_type'] : null);
     }
     /**

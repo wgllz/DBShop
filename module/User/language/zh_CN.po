@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-05 15:30+0800\n"
-"PO-Revision-Date: 2016-11-05 15:30+0800\n"
+"POT-Creation-Date: 2016-11-11 23:14+0800\n"
+"PO-Revision-Date: 2016-11-11 23:14+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_CN\n"
@@ -100,8 +100,8 @@ msgid "会员注册默认起始积分数："
 msgstr ""
 
 #: ../src/User/Controller/UserController.php:93
-#: ../src/User/Controller/UserController.php:157
-#: ../src/User/Controller/UserController.php:190
+#: ../src/User/Controller/UserController.php:184
+#: ../src/User/Controller/UserController.php:217
 #: ../view/user/user/index.phtml:2
 msgid "管理客户"
 msgstr ""
@@ -121,15 +121,31 @@ msgstr ""
 msgid "您在%s修改了新密码为："
 msgstr ""
 
-#: ../src/User/Controller/UserController.php:157
+#: ../src/User/Controller/UserController.php:163
+#: ../src/User/Controller/UserController.php:173
+msgid "会员审核通知"
+msgstr ""
+
+#: ../src/User/Controller/UserController.php:164
+#: ../src/User/Controller/UserController.php:174
+#, php-format
+msgid "您在%s注册的会员 "
+msgstr ""
+
+#: ../src/User/Controller/UserController.php:164
+#: ../src/User/Controller/UserController.php:174
+msgid " 已经审核通过。"
+msgstr ""
+
+#: ../src/User/Controller/UserController.php:184
 msgid "更新客户"
 msgstr ""
 
-#: ../src/User/Controller/UserController.php:160
+#: ../src/User/Controller/UserController.php:187
 msgid "客户信息编辑成功！"
 msgstr ""
 
-#: ../src/User/Controller/UserController.php:190
+#: ../src/User/Controller/UserController.php:217
 #: ../view/user/user/add.phtml:25 ../view/user/user/index.phtml:97
 msgid "删除客户"
 msgstr ""
@@ -299,7 +315,7 @@ msgstr ""
 #: ../src/User/FormValidate/FormUserValidate.php:60
 #: ../src/User/FormValidate/FormUserValidate.php:99
 #: ../src/User/FormValidate/FormUserValidate.php:124
-#: ../view/user/user/add.phtml:349
+#: ../view/user/user/add.phtml:352
 msgid "请输入客户登录名称！"
 msgstr ""
 
@@ -307,35 +323,35 @@ msgstr ""
 #: ../src/User/FormValidate/FormUserValidate.php:105
 #: ../src/User/FormValidate/FormUserValidate.php:162
 #: ../src/User/FormValidate/FormUserValidate.php:182
-#: ../view/user/user/add.phtml:361
+#: ../view/user/user/add.phtml:364
 msgid "请输入密码！"
 msgstr ""
 
 #: ../src/User/FormValidate/FormUserValidate.php:72
 #: ../src/User/FormValidate/FormUserValidate.php:169
 #: ../src/User/FormValidate/FormUserValidate.php:189
-#: ../view/user/user/add.phtml:368
+#: ../view/user/user/add.phtml:371
 msgid "请输入确认密码！"
 msgstr ""
 
 #: ../src/User/FormValidate/FormUserValidate.php:73
 #: ../src/User/FormValidate/FormUserValidate.php:170
 #: ../src/User/FormValidate/FormUserValidate.php:190
-#: ../view/user/user/add.phtml:372
+#: ../view/user/user/add.phtml:375
 msgid "两次输入的密码不一致！"
 msgstr ""
 
 #: ../src/User/FormValidate/FormUserValidate.php:79
 #: ../src/User/FormValidate/FormUserValidate.php:130
 #: ../src/User/FormValidate/FormUserValidate.php:143
-#: ../view/user/user/add.phtml:355
+#: ../view/user/user/add.phtml:358
 msgid "请输入电子邮箱！"
 msgstr ""
 
 #: ../src/User/FormValidate/FormUserValidate.php:80
 #: ../src/User/FormValidate/FormUserValidate.php:131
 #: ../src/User/FormValidate/FormUserValidate.php:144
-#: ../view/user/user/add.phtml:356
+#: ../view/user/user/add.phtml:359
 msgid "电子邮箱格式错误！"
 msgstr ""
 
@@ -402,7 +418,7 @@ msgstr ""
 #: ../view/user/integral/add-integral-rule.phtml:14
 #: ../view/user/integral/integral-rule.phtml:39
 #: ../view/user/integral/integral-type.phtml:21 ../view/user/user/add.phtml:20
-#: ../view/user/user/add.phtml:530 ../view/user/user/address.phtml:33
+#: ../view/user/user/add.phtml:533 ../view/user/user/address.phtml:33
 #: ../view/user/user/index.phtml:79 ../view/user/usergroup/add.phtml:10
 #: ../view/user/usergroup/index.phtml:27
 #: ../view/user/userintegration/edit.phtml:9
@@ -743,23 +759,23 @@ msgstr ""
 msgid "客户信息"
 msgstr ""
 
-#: ../view/user/user/add.phtml:4 ../view/user/user/add.phtml:178
+#: ../view/user/user/add.phtml:4 ../view/user/user/add.phtml:181
 msgid "客户总览"
 msgstr ""
 
-#: ../view/user/user/add.phtml:7 ../view/user/user/add.phtml:171
+#: ../view/user/user/add.phtml:7 ../view/user/user/add.phtml:174
 msgid "地址信息"
 msgstr ""
 
-#: ../view/user/user/add.phtml:8 ../view/user/user/add.phtml:185
+#: ../view/user/user/add.phtml:8 ../view/user/user/add.phtml:188
 msgid "客户订单"
 msgstr ""
 
-#: ../view/user/user/add.phtml:9 ../view/user/user/add.phtml:192
+#: ../view/user/user/add.phtml:9 ../view/user/user/add.phtml:195
 msgid "产品评价"
 msgstr ""
 
-#: ../view/user/user/add.phtml:10 ../view/user/user/add.phtml:199
+#: ../view/user/user/add.phtml:10 ../view/user/user/add.phtml:202
 msgid "邮件信息"
 msgstr ""
 
@@ -767,7 +783,7 @@ msgstr ""
 msgid "购物车信息"
 msgstr ""
 
-#: ../view/user/user/add.phtml:12 ../view/user/user/add.phtml:206
+#: ../view/user/user/add.phtml:12 ../view/user/user/add.phtml:209
 msgid "收藏商品"
 msgstr ""
 
@@ -799,8 +815,8 @@ msgstr ""
 msgid "客户分组"
 msgstr ""
 
-#: ../view/user/user/add.phtml:91 ../view/user/user/add.phtml:237
-#: ../view/user/user/add.phtml:487 ../view/user/user/index.phtml:31
+#: ../view/user/user/add.phtml:91 ../view/user/user/add.phtml:240
+#: ../view/user/user/add.phtml:490 ../view/user/user/index.phtml:31
 #: ../view/user/user/index.phtml:43 ../view/user/user/index.phtml:96
 #: ../view/user/usermoney/index.phtml:27
 #: ../view/user/usermoney/paycheck.phtml:28
@@ -850,7 +866,7 @@ msgstr ""
 msgid "确认密码"
 msgstr ""
 
-#: ../view/user/user/add.phtml:144 ../view/user/user/add.phtml:264
+#: ../view/user/user/add.phtml:144 ../view/user/user/add.phtml:267
 msgid "手机号码"
 msgstr ""
 
@@ -863,147 +879,147 @@ msgstr ""
 msgid "待审核"
 msgstr ""
 
-#: ../view/user/user/add.phtml:161
+#: ../view/user/user/add.phtml:164
 msgid "将密码发给客户"
 msgstr ""
 
-#: ../view/user/user/add.phtml:223
+#: ../view/user/user/add.phtml:226
 msgid "地址信息添加"
 msgstr ""
 
-#: ../view/user/user/add.phtml:227
+#: ../view/user/user/add.phtml:230
 msgid "收货人姓名"
 msgstr ""
 
-#: ../view/user/user/add.phtml:229
+#: ../view/user/user/add.phtml:232
 msgid "填写收货人姓名"
 msgstr ""
 
-#: ../view/user/user/add.phtml:233
+#: ../view/user/user/add.phtml:236
 msgid "省市区"
 msgstr ""
 
-#: ../view/user/user/add.phtml:252
+#: ../view/user/user/add.phtml:255
 msgid "街道地址"
 msgstr ""
 
-#: ../view/user/user/add.phtml:254
+#: ../view/user/user/add.phtml:257
 msgid "填写街道详细地址"
 msgstr ""
 
-#: ../view/user/user/add.phtml:258
+#: ../view/user/user/add.phtml:261
 msgid "邮政编码"
 msgstr ""
 
-#: ../view/user/user/add.phtml:260
+#: ../view/user/user/add.phtml:263
 msgid "填写邮政编码"
 msgstr ""
 
-#: ../view/user/user/add.phtml:266
+#: ../view/user/user/add.phtml:269
 msgid "添加手机号码"
 msgstr ""
 
-#: ../view/user/user/add.phtml:270 ../view/user/user/add.phtml:272
+#: ../view/user/user/add.phtml:273 ../view/user/user/add.phtml:275
 msgid "电话号码"
 msgstr ""
 
-#: ../view/user/user/add.phtml:272
+#: ../view/user/user/add.phtml:275
 msgid "区号"
 msgstr ""
 
-#: ../view/user/user/add.phtml:272
+#: ../view/user/user/add.phtml:275
 msgid "分机"
 msgstr ""
 
-#: ../view/user/user/add.phtml:276 ../view/user/user/address.phtml:9
+#: ../view/user/user/add.phtml:279 ../view/user/user/address.phtml:9
 msgid "默认地址"
 msgstr ""
 
-#: ../view/user/user/add.phtml:285
+#: ../view/user/user/add.phtml:288
 msgid "保存修改"
 msgstr ""
 
-#: ../view/user/user/add.phtml:345
+#: ../view/user/user/add.phtml:348
 msgid "请选择客户分组"
 msgstr ""
 
-#: ../view/user/user/add.phtml:350
+#: ../view/user/user/add.phtml:353
 msgid "客户登录名称最长为30个汉字！"
 msgstr ""
 
-#: ../view/user/user/add.phtml:351
+#: ../view/user/user/add.phtml:354
 msgid "该用户名已经存在！"
 msgstr ""
 
-#: ../view/user/user/add.phtml:357
+#: ../view/user/user/add.phtml:360
 msgid "该邮箱已经存在"
 msgstr ""
 
-#: ../view/user/user/add.phtml:363
+#: ../view/user/user/add.phtml:366
 msgid "至少输入6位密码！"
 msgstr ""
 
-#: ../view/user/user/add.phtml:364
+#: ../view/user/user/add.phtml:367
 msgid "密码最长为20位！"
 msgstr ""
 
-#: ../view/user/user/add.phtml:370
+#: ../view/user/user/add.phtml:373
 msgid "至少输入6位确认密码！"
 msgstr ""
 
-#: ../view/user/user/add.phtml:371
+#: ../view/user/user/add.phtml:374
 msgid "确认密码最长为20位！"
 msgstr ""
 
-#: ../view/user/user/add.phtml:400
+#: ../view/user/user/add.phtml:403
 msgid "请输入收货人姓名！"
 msgstr ""
 
-#: ../view/user/user/add.phtml:401
+#: ../view/user/user/add.phtml:404
 msgid "收货人姓名最长为30个汉字！"
 msgstr ""
 
-#: ../view/user/user/add.phtml:404
+#: ../view/user/user/add.phtml:407
 msgid "省市区不能为空"
 msgstr ""
 
-#: ../view/user/user/add.phtml:407
+#: ../view/user/user/add.phtml:410
 msgid "街道地址不能为空！"
 msgstr ""
 
-#: ../view/user/user/add.phtml:408
+#: ../view/user/user/add.phtml:411
 msgid "街道地址最长90个汉字！"
 msgstr ""
 
-#: ../view/user/user/add.phtml:411
+#: ../view/user/user/add.phtml:414
 msgid "手机号码不能为空！"
 msgstr ""
 
-#: ../view/user/user/add.phtml:414
+#: ../view/user/user/add.phtml:417
 msgid "邮政编码不能为空！"
 msgstr ""
 
-#: ../view/user/user/add.phtml:430 ../view/user/user/index.phtml:280
+#: ../view/user/user/add.phtml:433 ../view/user/user/index.phtml:280
 msgid "您确实要删除该客户吗？"
 msgstr ""
 
-#: ../view/user/user/add.phtml:437 ../view/user/user/index.phtml:287
+#: ../view/user/user/add.phtml:440 ../view/user/user/index.phtml:287
 msgid "客户删除失败！"
 msgstr ""
 
-#: ../view/user/user/add.phtml:454
+#: ../view/user/user/add.phtml:457
 msgid "您确实要删除该邮件记录吗？"
 msgstr ""
 
-#: ../view/user/user/add.phtml:461
+#: ../view/user/user/add.phtml:464
 msgid "邮件记录删除失败！"
 msgstr ""
 
-#: ../view/user/user/add.phtml:472
+#: ../view/user/user/add.phtml:475
 msgid "您确实要删除该收货地址吗？"
 msgstr ""
 
-#: ../view/user/user/add.phtml:479
+#: ../view/user/user/add.phtml:482
 msgid "收货地址删除失败！"
 msgstr ""
 

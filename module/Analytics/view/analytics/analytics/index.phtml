@@ -1,0 +1,304 @@
+<div class="tabbable tabs-left">
+    <?php echo $this->partial('analytics/analytics/left_menu.phtml'); ?>
+    <div class="tab-content">
+        <style>
+            .table td {
+                border-top: 0;
+            }
+        </style>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <th><?php echo $this->translate('今日流量'); ?></th>
+            </thead>
+            <tbody>
+            <tr>
+                <td width="10%"><?php echo $this->translate('时间'); ?></td>
+                <td width="18%"><?php echo $this->translate('浏览量'); ?>(PV)</td>
+                <td width="18%"><?php echo $this->translate('访客数'); ?>(UV)</td>
+                <td width="18%"><?php echo $this->translate('IP数'); ?></td>
+                <td width="18%"><?php echo $this->translate('跳出率'); ?></td>
+                <td width="18%"><?php echo $this->translate('平均访问时长'); ?></td>
+            </tr>
+            <tr style="font-weight: bold;">
+                <td><?php echo $this->translate('今日'); ?></td>
+                <?php if(isset($this->overview->items[1][1]) and !empty($this->overview->items[1][1])) {
+                    foreach($this->overview->items[1][1] as $jKey => $jValue) {
+                ?>
+                <td><?php
+                    if($jKey == 4) {
+                        echo gmstrftime("%H:%M:%S", $jValue);
+                    } else {
+                        echo $jValue.($jKey==3 ? '%' : '');
+                    }
+                    ?>
+                </td>
+                <?php
+                    }
+                }
+                ?>
+            </tr>
+            <tr>
+                <td><?php echo $this->translate('昨日'); ?></td>
+                <?php if(is_array($this->overview->items[1][0]) and !empty($this->overview->items[1][0])) {
+                    foreach($this->overview->items[1][0] as $zKey => $zValue) {
+                        ?>
+                        <td>
+                            <?php
+                            if($zKey == 4) {
+                                echo gmstrftime("%H:%M:%S", $zValue);
+                            } else {
+                                echo $zValue.($zKey==3 ? '%' : '');
+                            }
+                            ?>
+                        </td>
+                        <?php
+                    }
+                }
+                ?>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <tr>
+                <td width="50%">
+                    <table width="100%" class="table-bordered">
+                        <thead>
+                        <th><?php echo $this->translate('趋势图'); ?></th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div id="qushi" style="width:100%;height:400px;"></div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td width="50%">
+                <table width="100%" class="table-striped table-bordered">
+                    <thead>
+                    <th>Top10<?php echo $this->translate('搜索词'); ?></th>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td width="70%"><?php echo $this->translate('搜索词'); ?></td>
+                        <td width="15%"><?php echo $this->translate('浏览量'); ?>(PV)</td>
+                        <td width="15%"><?php echo $this->translate('占比'); ?></td>
+                    </tr>
+                    <?php if(isset($this->track_rpt->word->items) and !empty($this->track_rpt->word->items)) {
+                        foreach ($this->track_rpt->word->items as $wValue) {
+                    ?>
+                            <tr>
+                                <td><?php echo $wValue[0]; ?></td>
+                                <td><?php echo $wValue[1]; ?></td>
+                                <td><?php echo $wValue[2].'%'; ?></td>
+                            </tr>
+                    <?php
+                        }
+                    } ?>
+                    </tbody>
+                </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <table width="100%" class="table-striped table-bordered" style="margin-top: 20px;">
+                        <thead>
+                        <th>Top10<?php echo $this->translate('来源网站'); ?></th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td width="70%"><?php echo $this->translate('来源网站'); ?></td>
+                            <td width="15%"><?php echo $this->translate('浏览量'); ?>(PV)</td>
+                            <td width="15%"><?php echo $this->translate('占比'); ?></td>
+                        </tr>
+                        <?php if(isset($this->track_rpt->sourceSite->items) and !empty($this->track_rpt->sourceSite->items)) {
+                            foreach ($this->track_rpt->sourceSite->items as $lValue) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $this->myviewalias()->dbshopCutStr($lValue[0], 80, false); ?></td>
+                                    <td><?php echo $lValue[1]; ?></td>
+                                    <td><?php echo $lValue[2].'%'; ?></td>
+                                </tr>
+                                <?php
+                            }
+                        } ?>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%" class="table-striped table-bordered"  style="margin-top: 20px;">
+                        <thead>
+                        <th>Top10<?php echo $this->translate('入口页面'); ?></th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td width="70%"><?php echo $this->translate('入口页面'); ?></td>
+                            <td width="15%"><?php echo $this->translate('浏览量'); ?>(PV)</td>
+                            <td width="15%"><?php echo $this->translate('占比'); ?></td>
+                        </tr>
+                        <?php if(isset($this->track_rpt->landingPage->items) and !empty($this->track_rpt->landingPage->items)) {
+                            foreach ($this->track_rpt->landingPage->items as $rValue) {
+                                ?>
+                                <tr>
+                                    <td><a href="<?php echo $rValue[0]; ?>" target="_blank"><?php echo $this->myviewalias()->dbshopCutStr($rValue[0], 80, false); ?></a></td>
+                                    <td><?php echo $rValue[1]; ?></td>
+                                    <td><?php echo $rValue[2].'%'; ?></td>
+                                </tr>
+                                <?php
+                            }
+                        } ?>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <table width="100%" class="table-striped table-bordered" style="margin-top: 20px;">
+                        <thead>
+                        <th><?php echo $this->translate('新老客户'); ?></th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td width="20%"></td>
+                            <td width="40%"><?php echo $this->translate('新访客'); ?> <?php if(isset($this->track_rpt->visitType->newVisitor->ratio)) echo $this->track_rpt->visitType->newVisitor->ratio.'%'; ?></td>
+                            <td width="40%"><?php echo $this->translate('老访客'); ?> <?php if(isset($this->track_rpt->visitType->oldVisitor->ratio)) echo $this->track_rpt->visitType->oldVisitor->ratio.'%'; ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->translate('浏览量'); ?></td>
+                            <td><?php if(isset($this->track_rpt->visitType->newVisitor->pv_count)) echo $this->track_rpt->visitType->newVisitor->pv_count; ?></td>
+                            <td><?php if(isset($this->track_rpt->visitType->oldVisitor->pv_count)) echo $this->track_rpt->visitType->oldVisitor->pv_count; ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->translate('访客数'); ?></td>
+                            <td><?php if(isset($this->track_rpt->visitType->newVisitor->visitor_count)) echo $this->track_rpt->visitType->newVisitor->visitor_count; ?></td>
+                            <td><?php if(isset($this->track_rpt->visitType->oldVisitor->visitor_count)) echo $this->track_rpt->visitType->oldVisitor->visitor_count; ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->translate('跳出率'); ?></td>
+                            <td><?php if(isset($this->track_rpt->visitType->newVisitor->bounce_ratio)) echo $this->track_rpt->visitType->newVisitor->bounce_ratio.'%'; ?></td>
+                            <td><?php if(isset($this->track_rpt->visitType->oldVisitor->bounce_ratio)) echo $this->track_rpt->visitType->oldVisitor->bounce_ratio.'%'; ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->translate('平均访问时长'); ?></td>
+                            <td><?php if(isset($this->track_rpt->visitType->newVisitor->avg_visit_time)) echo gmstrftime("%H:%M:%S", $this->track_rpt->visitType->newVisitor->avg_visit_time); ?></td>
+                            <td><?php if(isset($this->track_rpt->visitType->oldVisitor->avg_visit_time)) echo gmstrftime("%H:%M:%S", $this->track_rpt->visitType->oldVisitor->avg_visit_time); ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->translate('平均访问页数'); ?></td>
+                            <td><?php if(isset($this->track_rpt->visitType->newVisitor->avg_visit_pages)) echo $this->track_rpt->visitType->newVisitor->avg_visit_pages; ?></td>
+                            <td><?php if(isset($this->track_rpt->visitType->oldVisitor->avg_visit_pages)) echo $this->track_rpt->visitType->oldVisitor->avg_visit_pages; ?></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%" class="table-bordered" style="margin-top: 20px;">
+                        <thead>
+                        <th><?php echo $this->translate('地域分布'); ?></th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div id="chinaMap" style="width:100%;height:400px;"></div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    $.get('<?php echo $this->basePath('public/js/echarts/map/china.json'); ?>', function (chinaJson) {
+        echarts.registerMap('china', chinaJson);
+        var chart = echarts.init(document.getElementById('chinaMap'), dbshop_echarts_stype);
+        option = {
+            tooltip: {
+                trigger: 'item'
+            },
+            series: [
+                {
+                    name: '<?php echo $this->translate('浏览量'); ?>',
+                    type: 'map',
+                    mapType: 'china',
+                    roam: false,
+                    label: {
+                        normal: {
+                            show: false
+                        },
+                        emphasis: {
+                            show: false
+                        }
+                    },
+                    data:[
+                        <?php
+                        if(isset($this->district_rpt->items[1]) and !empty($this->district_rpt->items[1])) {
+                            $mCount     = count($this->district_rpt->items[0])-1;
+                            $maxValue   = 0;
+                            foreach($this->district_rpt->items[1] as $mKey => $mValue) {
+                                if($mValue[0] > $maxValue) $maxValue = $mValue[0];
+                                echo "{name: '".$this->district_rpt->items[0][$mKey][0]."',value: ".$mValue[0]." }".($mCount == $mKey ? '' : ',');
+                            }
+                        }
+                        ?>
+                    ]
+                }
+            ],
+            visualMap: {
+                min: 0,
+                max: <?php echo isset($maxValue) ? $maxValue : '0'; ?>,
+                left: 'left',
+                top: 'bottom',
+                text: ['<?php echo $this->translate('高'); ?>','<?php echo $this->translate('低'); ?>'],           // 文本，默认为数值文本
+                calculable: true
+            },
+        };
+        chart.setOption(option);
+    });
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('qushi'), dbshop_echarts_stype);
+    option = {
+        legend: {
+            data:['<?php echo $this->translate('浏览量'); ?>','<?php echo $this->translate('IP数'); ?>']
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: [<?php echo implode(',', range(0,23)); ?>]
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name:'<?php echo $this->translate('浏览量'); ?>',
+                type:'line',
+                stack: '<?php echo $this->translate('总量'); ?>',
+                areaStyle: {normal: {}},
+                data:[<?php echo $this->pv; ?>]
+            },
+            {
+                name:'<?php echo $this->translate('IP数'); ?>',
+                type:'line',
+                stack: '<?php echo $this->translate('总量'); ?>',
+                areaStyle: {normal: {}},
+                data:[<?php echo $this->ip; ?>]
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>

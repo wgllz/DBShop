@@ -27,6 +27,13 @@
             	<tr>
                 	<td width="25%" style="text-align:right; font-weight:bold;"><?php echo $this->translate('数据表前缀'); ?>：</td><td><input type="text" value="dbshop_" readonly="readonly" class="span2" /><div class="muted"><?php echo $this->translate('DBShop系统使用唯一数据表前缀，在同一个数据库中只能安装一套DBShop系统'); ?></div></td>
                 </tr>
+				<tr>
+					<td width="25%" style="text-align:right; font-weight:bold;"><?php echo $this->translate('数据表类型'); ?>：</td><td><div class="innodb_message_one"></div><input type="text" value="InnoDB" readonly="readonly" disabled class="span2" />&nbsp;<button type="button" class="btn btn-small btn-primary" onclick="check_mysql_innodb();" style="margin-bottom:9px;"><i class="icon-random icon-white"></i> <?php echo $this->translate('点击检查InnoDB是否启用'); ?></button>
+						<div class="muted">
+							<font color="#FF0000"><?php echo $this->translate('MySQL的InnoDB类型必须开启，DBShop系统才能正常安装，有些环境默认没有开启InnoDB，请手动进行开启。'); ?></font>
+						</div>
+					</td>
+				</tr>
             	<tr>
                 	<td colspan="2">&nbsp;</td>
                 </tr>
@@ -197,6 +204,21 @@ function check_mysql_connect() {
 					$('.message_one').html('<div class="alert alert-success"><button data-dismiss="alert" class="close" type="button">×</button><?php echo $this->translate('数据库连接成功，可以进行下一步安装操作！'); ?></div>');
 				} else {
 					$('.message_one').html('<div class="alert alert-error"><button data-dismiss="alert" class="close" type="button">×</button><?php echo $this->translate('数据库连接失败，请确定您的数据库已经存在，且您的数据库连接信息正确！'); ?></div>');
+				}
+			});
+}
+
+/**
+ * 检查mysql是否开启InnoDB类型
+ */
+function check_mysql_innodb() {
+	$.post("<?php echo $this->url('install/default',array('controller'=>'Install', 'action'=>'checkMysqlInnoDB')); ?>",$('#install_form').formSerialize(),
+			function(data){
+				if(data == 'innodbtrue') {
+					$('.innodb_message_one').html('<div class="alert alert-success"><button data-dismiss="alert" class="close" type="button">×</button><?php echo $this->translate('数据库已经启用InnoDB类型，可以进行下一步安装操作！'); ?></div>');
+				} else {
+					if(data == 'innodbfalse') $('.innodb_message_one').html('<div class="alert alert-error"><button data-dismiss="alert" class="close" type="button">×</button><?php echo $this->translate('MySQL没有启用InnoDB类型，请启用后，再次进行检测！'); ?></div>');
+					if(data == 'connectflase') $('.innodb_message_one').html('<div class="alert alert-error"><button data-dismiss="alert" class="close" type="button">×</button><?php echo $this->translate('数据库连接失败，请确定您的数据库已经存在，且您的数据库连接信息正确！'); ?></div>');
 				}
 			});
 }

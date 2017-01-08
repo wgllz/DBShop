@@ -14,6 +14,8 @@
 
 namespace Goods\Model;
 
+use OSS\Core\OssException;
+use OSS\OssClient;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Adapter\Adapter;
 use Goods\Model\GoodsImage as dbshopCheckInData;
@@ -152,23 +154,43 @@ class GoodsImageTable extends AbstractTableGateway implements \Zend\Db\Adapter\A
         }
         $storageConfig = $this->configReader->fromFile(DBSHOP_PATH . '/data/moduledata/Upload/Storage.ini');
 
-        if($storageConfig['storage_type'] == 'Qiniu') {
-            $auth       = new \Qiniu\Auth($storageConfig['qiniu_ak'], $storageConfig['qiniu_sk']);
-            $bucketMgr  = new \Qiniu\Storage\BucketManager($auth);
-            $bucket     = $storageConfig['qiniu_space_name'];
-            $bucketMgr->delete($bucket, basename($imageArray['goods_title_image']));
-            $bucketMgr->delete($bucket, basename($imageArray['goods_thumbnail_image']));
-        }elseif($storageConfig['storage_type'] == 'Aliyun') {
-            require_once DBSHOP_PATH . '/module/Upload/src/Upload/Plugin/Aliyun/sdk.class.php';
-            $aliyunOssDomain = isset($storageConfig['aliyun_oss_domain']) ? $storageConfig['aliyun_oss_domain'] : str_replace($storageConfig['aliyun_space_name'].'.', '', $storageConfig['aliyun_domain']);
-            $aliyunService = new \ALIOSS($storageConfig['aliyun_ak'], $storageConfig['aliyun_sk'], $aliyunOssDomain);
-            $aliyunService->set_debug_mode(false);
-            $aliyunService->delete_objects($storageConfig['aliyun_space_name'], array(basename($imageArray['goods_title_image']), basename($imageArray['goods_thumbnail_image'])), array('quite'=>false));
-        } else {
+        if(strpos($imageArray['goods_title_image'], '{qiniu}') !== false) $this->delQiniuGoodsImage($imageArray, $storageConfig);
+        if(strpos($imageArray['goods_title_image'], '{aliyun}') !== false) $this->delAliyunGoodsImage($imageArray, $storageConfig);
+
+        if(strpos($imageArray['goods_title_image'], '{qiniu}') === false and strpos($imageArray['goods_title_image'], '{aliyun}') === false) {
             @unlink(DBSHOP_PATH . $imageArray['goods_title_image']);
             @unlink(DBSHOP_PATH . $imageArray['goods_thumbnail_image']);
             @unlink(DBSHOP_PATH . $imageArray['goods_watermark_image']);
             @unlink(DBSHOP_PATH . $imageArray['goods_source_image']);
+        }
+    }
+    /**
+     * 七牛图片删除
+     * @param $imageArray
+     * @param $storageConfig
+     */
+    private function delQiniuGoodsImage($imageArray, $storageConfig)
+    {
+        $auth       = new \Qiniu\Auth($storageConfig['qiniu_ak'], $storageConfig['qiniu_sk']);
+        $bucketMgr  = new \Qiniu\Storage\BucketManager($auth);
+        $bucket     = $storageConfig['qiniu_space_name'];
+        $bucketMgr->delete($bucket, basename($imageArray['goods_title_image']));
+        $bucketMgr->delete($bucket, basename($imageArray['goods_thumbnail_image']));
+    }
+    /**
+     * 阿里云图片删除
+     * @param $imageArray
+     * @param $storageConfig
+     */
+    private function delAliyunGoodsImage($imageArray, $storageConfig)
+    {
+        $aliyunOssDomainType    =  $storageConfig['aliyun_domain_type'] == 'true' ? true : false;
+        $aliyunOssDomain        = $storageConfig['aliyun_http_type'] . isset($storageConfig['aliyun_oss_domain']) ? $storageConfig['aliyun_oss_domain'] : str_replace($storageConfig['aliyun_space_name'].'.', '', $storageConfig['aliyun_domain']);
+        try{
+            $OssClient = new OssClient($storageConfig['aliyun_ak'], $storageConfig['aliyun_sk'], $aliyunOssDomain, $aliyunOssDomainType);
+            $OssClient->deleteObjects($storageConfig['aliyun_space_name'], array(basename($imageArray['goods_title_image']), basename($imageArray['goods_thumbnail_image'])));
+        }catch (OssException $e) {
+
         }
     }
 }

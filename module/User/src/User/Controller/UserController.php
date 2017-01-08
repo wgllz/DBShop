@@ -152,6 +152,33 @@ class UserController extends BaseController
                     
                 }
             }
+            //手工审核通过后，给通过人发送电子邮件
+            if(isset($userArray['hidden_user_state']) and $userArray['hidden_user_state'] == 3 and $userArray['user_state'] == 1) {
+                try {
+                    $shopUrl = '<a href="'. $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default').'" target="_blank">'.$this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name').'</a>';
+                    $sendState = $this->getServiceLocator()->get('shop_send_mail')->toSendMail(
+                        array(
+                            'send_mail'      => $userArray['user_email'],
+                            'send_user_name' => (isset($userArray['user_name']) ? $userArray['user_name'] : ''),
+                            'subject'        => $this->getDbshopLang()->translate('会员审核通知'),
+                            'body'           => sprintf($this->getDbshopLang()->translate('您在%s注册的会员 '), $shopUrl) . $userArray['user_name'] . $this->getDbshopLang()->translate(' 已经审核通过。')
+                        )
+                    );
+                    $sendState = ($sendState ? 1 : 2);
+                } catch (\Exception $e) {
+                    $sendState = 2;
+                }
+                //邮件发送历史记录
+                $sendLog = array(
+                    'mail_subject' => $this->getDbshopLang()->translate('会员审核通知'),
+                    'mail_body'    => sprintf($this->getDbshopLang()->translate('您在%s注册的会员 '), $shopUrl) . $userArray['user_name'] . $this->getDbshopLang()->translate(' 已经审核通过。'),
+                    'send_time'    => time(),
+                    'user_id'      => $userId,
+                    'send_state'   => $sendState
+                );
+                $this->getDbshopTable('UserMailLogTable')->addUserMailLog($sendLog);
+            }
+
             $this->getDbshopTable()->updateUser($userArray,array('user_id'=>$userId));
             //记录操作日志
             $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('管理客户'), 'operlog_info'=>$this->getDbshopLang()->translate('更新客户') . '&nbsp;' . $userArray['user_name']));

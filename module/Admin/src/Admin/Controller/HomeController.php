@@ -32,7 +32,7 @@ class HomeController extends BaseController
         
         //商品信息
         $array['open_goods']       = $this->getDbshopTable('GoodsTable')->countGoods(array('goods_state=1'));
-        $array['close_goods']      = $this->getDbshopTable('GoodsTable')->countGoods(array('goods_state=0'));
+        $array['close_goods']      = $this->getDbshopTable('GoodsTable')->countGoods(array('goods_state=2'));
         $array['preferential_goods']= $this->getDbshopTable('GoodsTable')->countGoods(array('goods_preferential_price>0'));
         $array['sell_goods']       = $this->getDbshopTable('OrderGoodsTable')->countOrderGoods();
         $array['goods_class_num']  = $this->getDbshopTable('GoodsClassTable')->countGoodsClass(array('1=1'));
@@ -97,7 +97,7 @@ class HomeController extends BaseController
                         'dbshop_version_number' => DBSHOP_VERSION_NUMBER,
                         'dbshop_version'        => DBSHOP_VERSION,
                         'template_where'        => empty($where) ? array() : array($where),
-                        'authorization'         => $this->getRequest()->getServer('SERVER_NAME')
+                        'authorization'         => $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost()
                     )
                 );
                 //模板更新信息

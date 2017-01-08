@@ -14,6 +14,7 @@
 
 namespace Orders\Model;
 
+use Zend\Db\Sql\Expression;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Orders\Model\Order as dbshopCheckInData;
 use Zend\Db\Adapter\Adapter;
@@ -183,6 +184,67 @@ class OrderTable extends AbstractTableGateway implements \Zend\Db\Adapter\Adapte
     public function stateCountOrder (array $where)
     {
         return $this->select($where)->count();
+    }
+    /**
+     * 获取下过订单的会员数
+     * @param array $where
+     * @return int
+     */
+    public function buyerCountOrder(array $where=array())
+    {
+        $row = $this->select(function (Select $select) use ($where) {
+            $select->columns(array(new Expression('DISTINCT(buyer_id) as buyer_id')))->where($where);
+        });
+        if($row) {
+            return $row->count();
+        }
+        return 0;
+    }
+    /**
+     * 统计分析订单
+     * @param $where
+     * @param string $order
+     * @param string $group
+     * @param string $column
+     * @return array|null
+     */
+    public function StatsOrder($where, $order='', $group='', $column='count(order_id) AS order_count')
+    {
+        $result = $this->select(function (Select $select) use ($where,$order,$group,$column) {
+            $select->columns(array(
+                new Expression("FROM_UNIXTIME(order_time,'%Y-%m-%d') AS otime"),
+                new Expression($column)
+            ))->where($where)->where('order_state>0');
+            if(!empty($order)) $select->order($order);
+            if(!empty($group)) $select->group($group);
+        });
+        if($result) {
+            return $result->toArray();
+        }
+        return null;
+    }
+    /**
+     * 统计分析支付或者配送
+     * @param $where
+     * @param string $order
+     * @param string $group
+     * @param string $column_sql
+     * @return array|null
+     */
+    public function statsOrderPaymentOrExpress($where, $order='', $group='', $column_sql='pay_code AS pay_code')
+    {
+        $result = $this->select(function (Select $select) use ($where,$order,$group,$column_sql) {
+            $select->columns(array(
+                new Expression($column_sql),
+                new Expression('count(order_id) AS order_count')
+            ))->where($where);
+            if(!empty($order)) $select->order($order);
+            if(!empty($group)) $select->group($group);
+        });
+        if($result) {
+            return $result->toArray();
+        }
+        return null;
     }
     /**
      * 获取会员订单不同状态的数量(用于前台，因为去掉了退货订单)

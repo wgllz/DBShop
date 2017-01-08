@@ -70,7 +70,7 @@ $(function() {
 
 <?php if($this->myviewalias()->returnControllername() == 'Admin\Controller\Home') { ?>
 <script>
-    $.post("<?php echo $this->url('adminHome/default',array('action'=>'ajaxServiceMessage','controller'=>'home')); ?>",'',
+    $.get("<?php echo $this->url('adminHome/default',array('action'=>'ajaxServiceMessage','controller'=>'home')); ?>",{},
         function(data){
             $('#update_template_message').html(data.template_update_message);
             $('#news_table').html(data.news_html);

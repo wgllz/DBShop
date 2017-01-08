@@ -60,10 +60,15 @@
                 </td>
             </tr>
         </table>
+        <?php
+        $goods_share_info = $this->frontwebsite()->getDbshopGoodsShare();
+        if(!empty($goods_share_info['share_type'])) {
+        ?>
         <hr style="margin-top:3px;margin-bottom: 3px;">
         <div class="pull-right">
             <?php echo $this->share_code; ?>
         </div>
+        <?php } ?>
     </div>
     
      
