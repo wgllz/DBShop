@@ -530,6 +530,8 @@ class UserController  extends AbstractActionController
      */
     private function checkOtherLoginConfig($loginType='qq')
     {
+        if(empty($loginType)) $loginType = 'qq';
+
         $getClass = ucfirst($loginType).'Login';
         $loginService     = $this->getServiceLocator()->get($getClass);
 

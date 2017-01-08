@@ -167,7 +167,7 @@ class QqLogin {
      */
     public function getUnionId()
     {
-        return $this->loginSession->openid;
+        return '';
     }
     /**
      * 清除session
