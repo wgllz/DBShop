@@ -1156,6 +1156,7 @@ function get_editor_new_image(goods_id) {
         function(data){
             if(data != null) {
                 var image_path = '';
+				var image_html = '';
                 for(var i=0; i<data.length; i++) {
                     if(data[i].yun_type == 'yun') {
                         image_path = '';
@@ -1163,7 +1164,7 @@ function get_editor_new_image(goods_id) {
                         image_path = '<?php echo rtrim($this->basePath('/'), '/'); ?>';
                     }
 
-                    var image_html = '<tr id="image_'+data[i].goods_image_id+'">';
+                    image_html = image_html+'<tr id="image_'+data[i].goods_image_id+'">';
                     image_html = image_html+'<td><img src="'+image_path+data[i].goods_thumbnail_image+'" style="width: 100px;" broder=0></td>';
                     image_html = image_html+'<td style="vertical-align:middle">'+data[i].image_name+'<input type="hidden" name="image_more[]" value="'+data[i].goods_image_id+'"></td>';
                     image_html = image_html+'<td style="vertical-align:middle"><input type="radio" name="default_image" value="'+data[i].goods_image_id+'"></td>';
@@ -1171,8 +1172,8 @@ function get_editor_new_image(goods_id) {
                     image_html = image_html+'<td style="vertical-align:middle"><input type="text" class="span4" name="image_sort_'+data[i].goods_image_id+'" id="image_sort_'+data[i].goods_image_id+'" value="'+data[i].image_sort+'" /></td>';
                     image_html = image_html+'<td style="vertical-align:middle"><a href="javascript:;" onclick="edit_goods_image('+data[i].goods_image_id+',\'image_sort_'+data[i].goods_image_id+'\',\'image_slide_'+data[i].goods_image_id+'\',\''+data[i].image_name+'\');" class="btn btn-small btn-primary"><i class="icon-refresh icon-white"></i> <?php echo $this->translate('更新'); ?></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="del_goods_image('+data[i].goods_image_id+',\''+data[i].image_name+'\');" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> <?php echo $this->translate('删除'); ?></a></td>';
                     image_html = image_html+'</tr>';
-                    $('#goods_more_image').prepend(image_html);
                 }
+				$('#goods_more_image').prepend(image_html);
             } else {
                 alert('<?php echo $this->translate('无新的商品图片'); ?>');
             }

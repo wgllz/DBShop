@@ -161,6 +161,8 @@ class CartController extends AbstractActionController
                     if(isset($paymentInfo['payment_show']['checked']) and !empty($paymentInfo['payment_show']['checked'])) {
                         $showArray = is_array($paymentInfo['payment_show']['checked']) ? $paymentInfo['payment_show']['checked'] : array($paymentInfo['payment_show']['checked']);
                         if(!in_array('phone', $showArray) and !in_array('all', $showArray)) continue;
+                        //在微信内不显示支付宝支付，因为微信不支持
+                        if(strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false and in_array($paymentInfo['editaction'], array('alipay', 'malipay'))) continue;
                     } else continue;
 
                     //判断是否符合当前的货币要求
@@ -236,6 +238,8 @@ class CartController extends AbstractActionController
                     if(isset($paymentInfo['payment_show']['checked']) and !empty($paymentInfo['payment_show']['checked'])) {
                         $showArray = is_array($paymentInfo['payment_show']['checked']) ? $paymentInfo['payment_show']['checked'] : array($paymentInfo['payment_show']['checked']);
                         if(!in_array('phone', $showArray) and !in_array('all', $showArray)) continue;
+                        //在微信内不显示支付宝支付，因为微信不支持
+                        if(strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false and in_array($paymentInfo['editaction'], array('alipay', 'malipay'))) continue;
                     } else continue;
 
                     //判断是否符合当前的货币要求
@@ -270,7 +274,7 @@ class CartController extends AbstractActionController
         $array['promotionsCost'] = $this->getServiceLocator()->get('frontHelper')->shopPrice($array['promotionsCost']['discountCost']);
 
         //支付费用已经进行了汇率转换无需再次转换，配送费用未转换需要转换
-        $array['order_total'] = $this->getServiceLocator()->get('frontHelper')->shopPrice($array['express_array'][0]['express_price']) + $array['payment'][0]['payment_fee']['content'] + $cartTotalPrice - $array['promotionsCost'];
+        $array['order_total'] = $array['payment'][0]['payment_fee']['content'] + $cartTotalPrice - $array['promotionsCost'];
 
         //会员信息，会员消费积分
         $array['user_info'] = $this->getDbshopTable('UserTable')->infoUser(array('user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));

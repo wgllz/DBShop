@@ -489,7 +489,7 @@ class CartController extends AbstractActionController
         $array['promotionsCost'] = $this->getServiceLocator()->get('frontHelper')->shopPrice($array['promotionsCost']['discountCost']);
 
         //支付费用已经进行了汇率转换无需再次转换，配送费用未转换需要转换
-        $array['order_total'] = $this->getServiceLocator()->get('frontHelper')->shopPrice($array['express_array'][0]['express_price']) + $array['payment'][0]['payment_fee']['content'] + $cartTotalPrice - $array['promotionsCost'];
+        $array['order_total'] = $array['payment'][0]['payment_fee']['content'] + $cartTotalPrice - $array['promotionsCost'];
 
         //会员信息，会员消费积分
         $array['user_info'] = $this->getDbshopTable('UserTable')->infoUser(array('user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));

@@ -97,10 +97,10 @@ class GoodsController extends BaseController
                 //如果存在封面图片，则进行如下处理，既是封面也是幻灯片
                 if(isset($goodsArray['default_image']) and !empty($goodsArray['default_image'])) {
                     $this->getDbshopTable('GoodsImageTable')->updateImage(array('image_slide'=>1, 'image_sort'=>$goodsArray['image_sort_'.$goodsArray['default_image']]), array('goods_image_id='.$goodsArray['default_image']));
-                } else {
-                    if(isset($goodsArray['image_more']) and count($goodsArray['image_more']) > 0) {
-                        $this->getDbshopTable('GoodsImageTable')->updateImage(array('image_slide'=>1, 'image_sort'=>$goodsArray['image_sort_'.$goodsArray['image_more'][0]]), array('goods_image_id='.$goodsArray['image_more'][0]));
-                    }
+                }
+                //图片批量处理排序
+                if(isset($goodsArray['image_more']) and count($goodsArray['image_more']) > 0) {
+                    $this->getDbshopTable('GoodsImageTable')->updateImagesSort($goodsArray, $goodsArray['image_more']);
                 }
 
                 //商品分类
@@ -308,11 +308,12 @@ class GoodsController extends BaseController
                 //如果存在封面图片，则进行如下处理，既是封面也是幻灯片
                 if(isset($goodsArray['default_image']) and !empty($goodsArray['default_image'])) {
                     $this->getDbshopTable('GoodsImageTable')->updateImage(array('image_slide'=>1, 'image_sort'=>$goodsArray['image_sort_'.$goodsArray['default_image']]), array('goods_image_id='.$goodsArray['default_image']));
-                } else {
-                    if(isset($goodsArray['image_more']) and count($goodsArray['image_more']) > 0) {
-                        $this->getDbshopTable('GoodsImageTable')->updateImage(array('image_slide'=>1, 'image_sort'=>$goodsArray['image_sort_'.$goodsArray['image_more'][0]]), array('goods_image_id='.$goodsArray['image_more'][0]));
-                    }
                 }
+                //图片批量处理排序
+                if(isset($goodsArray['image_more']) and count($goodsArray['image_more']) > 0) {
+                    $this->getDbshopTable('GoodsImageTable')->updateImagesSort($goodsArray, $goodsArray['image_more']);
+                }
+
                 //商品分类
                 $goodsInClassArray = $this->getGoodsInClassState($goodsArray['class_id']);
                 $this->getDbshopTable('GoodsInClassTable')->addGoodsInClass($goodsId,$goodsInClassArray);
@@ -1029,7 +1030,7 @@ class GoodsController extends BaseController
         if(isset($goodsImageArray['image_slide_value']) and !empty($goodsImageArray['image_slide_value'])) $array['image_slide'] = $goodsImageArray['image_slide_value'];
 
         if($goodsImageArray['goods_image_id'] != 0 and !empty($array)) {
-            $this->getDbshopTable('GoodsImageTable')->updateImage($array, array(
+            $this->getDbshopTable('GoodsImageTable')->updateOneImage($array, array(
                 'goods_image_id=' . $goodsImageArray['goods_image_id']
             ));
             echo 'true';

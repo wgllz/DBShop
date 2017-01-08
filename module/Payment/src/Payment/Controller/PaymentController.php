@@ -81,9 +81,13 @@ class PaymentController extends BaseController
             $view->setVariable('select_orders_state', $paymentInput['orders_state']);
             unset($paymentInput['orders_state']);
         }
+        //手机微信支付的授权目录(之所以里面有个替换 _ 的处理，是因为这里直接用一个html的重写结尾，有个下划线，需要替换掉。)
+        $wxmPayDir = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . str_replace('_', '/', $this->url()->fromRoute('m_wx/default'));
+
         $array = array(
             'form_input' => $paymentInput,
-            'pay_type'   => $payType
+            'pay_type'   => $payType,
+            'wx_pay_dir' => $wxmPayDir
         );
         $view->setVariables($array);
         

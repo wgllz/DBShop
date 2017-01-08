@@ -60,6 +60,7 @@ class GoodsImageTable extends AbstractTableGateway implements \Zend\Db\Adapter\A
                 }
             }
             $select->order('image_sort ASC');
+            $select->order('goods_image_id ASC');
         });
         return $result;
     }
@@ -72,6 +73,26 @@ class GoodsImageTable extends AbstractTableGateway implements \Zend\Db\Adapter\A
     public function updateImage (array $data, array $where = array())
     {
         return $this->update(dbshopCheckInData::updateGoodsImageData($data), $where);
+    }
+    /**
+     * 批量修改商品图片排序
+     * @param array $imagesSort
+     * @param array $imagesId
+     */
+    public function updateImagesSort (array $imagesSort, array $imagesId)
+    {
+        foreach($imagesId as $imageId) {
+            $this->update(array('image_sort'=>$imagesSort['image_sort_'.$imageId]), array('goods_image_id'=>$imageId));
+        }
+    }
+    /**
+     * 修改单独商品图片
+     * @param array $imageArray
+     * @param array $where
+     */
+    public function updateOneImage(array $imageArray, array $where)
+    {
+        $this->update($imageArray, $where);
     }
     /**
      * 获取单个图片信息

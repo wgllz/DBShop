@@ -136,6 +136,7 @@ class Helper extends AbstractHelper
         $zfConfigCachePathArray = array(
                 DBSHOP_PATH . '/data/cache/modulecache/'
                 );
+        if(!is_dir(DBSHOP_PATH . '/data/cache/modulecache/')) @mkdir(DBSHOP_PATH . '/data/cache/modulecache/', 0777, true);
         foreach ($zfConfigCachePathArray as $valuePath) {
             $folder = @opendir($valuePath);
             while (false !== ($file = @readdir($folder))) {
@@ -303,8 +304,9 @@ class Helper extends AbstractHelper
             'goods_tag_set'                 => '管理商品标签',   //商品标签设置
             'goods_tag_group_set'           => '管理商品标签组',  //商品标签组设置
             'goods_promotions_set'          => '优惠促销规则',   //优惠促销规则
-            'clear_goods_image'             => '无用商品图片清理',
-            'goods_index_set'               => '商品索引',
+            'clear_goods_image'             => '无用商品图片清理',//无用商品图片清理
+            'goods_index_set'               => '商品索引',      //商品索引
+            'virtual_goods_set'             => '虚拟商品',      //虚拟商品
             /*===============销售管理===============*/
             'order_set'                     => '订单管理',      //订单设置
             'order_pay_set'                 => '订单付款',      //订单付款操作

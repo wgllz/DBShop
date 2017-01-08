@@ -269,6 +269,7 @@ UE.I18N['en'] = {
             'lang_input_title':"Title:",
             'lang_input_align':'Image Float Style:',
             'lang_imgLoading':"Loading...",
+			'lang_goodsimgLoading':"Loading...",
             'lang_start_upload':"Start Upload",
             'lock':{'title':"Lock rate"},
             'searchType':{'title':"ImageType", 'options':["News", "Wallpaper", "emotions", "photo"]},

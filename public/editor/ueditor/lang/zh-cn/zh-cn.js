@@ -269,6 +269,7 @@ UE.I18N['zh-cn'] = {
             'lang_input_title':"描 述：",
             'lang_input_align':'图片浮动方式：',
             'lang_imgLoading':"　图片加载中……",
+			'lang_goodsimgLoading':"　图片加载中……",
             'lang_start_upload':"开始上传",
             'lock':{'title':"锁定宽高比例"}, //属性
             'searchType':{'title':"图片类型", 'options':["新闻", "壁纸", "表情", "头像"]}, //select的option

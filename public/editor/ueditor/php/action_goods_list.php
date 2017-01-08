@@ -46,13 +46,15 @@ if (!count($files)) {
 
 /* 获取指定范围的列表 */
 $len = count($files);
-for ($i = min($end, $len) - 1, $list = array(); $i < $len && $i >= 0 && $i >= $start; $i--){
+//倒序
+/*for ($i = min($end, $len) - 1, $list = array(); $i < $len && $i >= 0 && $i >= $start; $i--){
+    $list[] = $files[$i];
+}*/
+
+//正序
+for ($i = 0, $list = array(); $i < $len && $i < $end; $i++){
     $list[] = $files[$i];
 }
-//倒序
-//for ($i = $end, $list = array(); $i < $len && $i < $end; $i++){
-//    $list[] = $files[$i];
-//}
 
 /* 返回数据 */
 $result = json_encode(array(
@@ -78,12 +80,12 @@ function getfiles($path, $allowFiles, $storageConfig)
     $db      = new PDO($databaseConfig['dsn'], $databaseConfig['username'], $databaseConfig['password'], $databaseConfig['driver_options']);
 
     $orSql   = ($goodsId == 0 ? '' : 'or goods_id='.$goodsId);
-    $sth     = $db->prepare("SELECT * FROM dbshop_goods_image WHERE (goods_id=0 and editor_session_str='".trim($_GET['dbshop_session_str'])."') ".$orSql." order by image_sort ASC");
+    $sth     = $db->prepare("SELECT * FROM dbshop_goods_image WHERE (goods_id=0 and editor_session_str='".trim($_GET['dbshop_session_str'])."') ".$orSql." order by image_sort ASC, goods_image_id ASC");
     $sth->execute();
     $result  = $sth->fetchAll();
     if(is_array($result) and !empty($result)) {
         $imagePath = str_replace(array('\\', '/public/editor/ueditor/php'), array('/', ''), $GLOBALS['substr_dbshop_str']);
-        foreach($result as $value) {
+        foreach($result as $key => $value) {
             $imageFile = $imagePath . $value['goods_watermark_image'];
 
             //判断是否是云存储
@@ -96,6 +98,7 @@ function getfiles($path, $allowFiles, $storageConfig)
 
             $files[] = array(
                 'url'=> $imageFile,
+                //'mtime'=> $key
                 'mtime'=> filemtime($imageFile)
             );
 

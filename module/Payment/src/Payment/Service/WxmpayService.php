@@ -688,7 +688,12 @@ class WxPayApi
     public static function notify($callback, &$msg)
     {
         //获取通知的数据
-        $xml = $GLOBALS['HTTP_RAW_POST_DATA'];
+        //获取通知的数据
+        if(version_compare(phpversion(), '7.0', '>=') === true) {
+            $xml = file_get_contents("php://input");
+        } else {
+            $xml = $GLOBALS['HTTP_RAW_POST_DATA'];
+        }
         //如果返回成功则验证签名
         try {
             $result = WxPayResults::Init($xml);
