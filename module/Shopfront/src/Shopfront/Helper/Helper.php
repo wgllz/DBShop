@@ -535,7 +535,11 @@ class Helper extends AbstractHelper
         if(stripos($image, '{aliyun}') !== false) return str_replace('{aliyun}', $aliyunHttp.$this->storageConfig['aliyun_domain'], $image);
         if(defined('FRONT_CDN_STATE') and FRONT_CDN_STATE == 'true') {//开启cdn图片加速
             //if(stripos($image, 'http') === false) return FRONT_CDN_HTTP_TYPE . FRONT_CDN_DOMAIN . '/goods/' . basename($image);
-            if(stripos($image, 'http') === false) return FRONT_CDN_HTTP_TYPE . FRONT_CDN_DOMAIN . $image;
+            if(stripos($image, 'http') === false) {
+                $dbshopPath = $_SERVER['PHP_SELF'] ? dirname($_SERVER['PHP_SELF']) : dirname($_SERVER['SCRIPT_NAME']);
+                $dbshopPath = ($dbshopPath == '/' ? '' : $dbshopPath);
+                return FRONT_CDN_HTTP_TYPE . FRONT_CDN_DOMAIN . $dbshopPath . $image;
+            }
         }
 
         if($image == '' or !file_exists(DBSHOP_PATH . $image)) $image = $this->getGoodsUploadIni('goods', 'goods_image_default');

@@ -80,7 +80,7 @@ class GoodsInAttributeTable extends AbstractTableGateway implements \Zend\Db\Ada
             $attributeValueIdStr = '';
             $attributeArray = $result->toArray();
             foreach($attributeArray as $aValue) {
-                if($aValue['attribute_type'] == 'input') $attributeStr .= $aValue['attribute_body'];
+                if($aValue['attribute_type'] == 'input' or $aValue['attribute_type'] == 'textarea') $attributeStr .= $aValue['attribute_body'];
                 else $attributeValueIdStr .= $aValue['attribute_body'].',';
             }
             return array('attributestr'=>$attributeStr, 'attributevalueid'=>rtrim($attributeValueIdStr, ','));
