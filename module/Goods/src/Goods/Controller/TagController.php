@@ -40,7 +40,7 @@ class TagController extends BaseController
 
         $array = array();
         $array['tag_type']  = $this->readerTagIni();
-        $array['tag_array'] = $this->getDbshopTable()->listGoodsTag(array('dbshop_goods_tag.template_tag=\'\' or (dbshop_goods_tag.template_tag="" and dbshop_goods_tag.tag_type is NULL)', 'e.language'=>$this->getDbshopLang()->getLocale()), array('dbshop_goods_tag.tag_group_id ASC', 'dbshop_goods_tag.tag_sort ASC', 'dbshop_goods_tag.tag_id ASC'));
+        $array['tag_array'] = $this->getDbshopTable()->listGoodsTag(array('dbshop_goods_tag.template_tag=\'\' or (dbshop_goods_tag.template_tag="" and dbshop_goods_tag.tag_type is NULL)', 'e.language'=>$this->getDbshopLang()->getLocale()), array('tag_group_sort ASC', 'dbshop_goods_tag.tag_sort ASC', 'dbshop_goods_tag.tag_id ASC'));
 
         return $array;
     }
@@ -389,13 +389,12 @@ class TagController extends BaseController
                 
             	$tagGroupArray['tag_group_id']   = $tagGroupId;
                 $tagGroupArray['language']       = $this->getDbshopLang()->getLocale();
-                $this->getDbshopTable('GoodsTagGroupExtendTable')->editTagGroupExtend($tagGroupArray, array('tag_group_id'=>$tagGroupId, 'language'=>$tagGroupArray['language']));                
+                $this->getDbshopTable('GoodsTagGroupExtendTable')->editTagGroupExtend($tagGroupArray, array('tag_group_id'=>$tagGroupId, 'language'=>$tagGroupArray['language']));
 
-                $this->getDbshopTable()->updateGoodsTagArray($tagGroupArray['tag_sort']);
+                if(is_array($tagGroupArray['tag_sort']) and !empty($tagGroupArray['tag_sort'])) $this->getDbshopTable()->updateGoodsTagArray($tagGroupArray['tag_sort']);
 
                 //记录操作日志
                 $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('商品标签组'), 'operlog_info'=>$this->getDbshopLang()->translate('更新商品标签组') . '&nbsp;' . $tagGroupArray['tag_group_name']));
-                
                 //跳转
                 if($tagGroupArray['tag_group_save_type'] != 'save_return_edit') {
                     return $this->redirect()->toRoute('tag/default',array('action'=>'tagGroup'));

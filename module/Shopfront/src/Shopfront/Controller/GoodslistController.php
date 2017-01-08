@@ -113,7 +113,7 @@ class GoodslistController extends AbstractActionController
         //个性属性
         $array['class_tag_group'] = $this->getDbshopTable('GoodsClassShowTable')->arrayGoodsClassTagGroup(array('class_id'=>$classId));
         if(is_array($array['class_tag_group']) and !empty($array['class_tag_group'])) {
-            $tagArray   = $this->getDbshopTable('GoodsTagTable')->listGoodsTag(array('dbshop_goods_tag.tag_group_id IN (' . implode(',', $array['class_tag_group']) . ')', 'e.language'=>$this->getDbshopLang()->getLocale()) , array('dbshop_goods_tag.tag_sort ASC'));
+            $tagArray   = $this->getDbshopTable('GoodsTagTable')->listGoodsTag(array('dbshop_goods_tag.tag_group_id IN (' . implode(',', $array['class_tag_group']) . ')', 'e.language'=>$this->getDbshopLang()->getLocale()) , array('tag_group_sort ASC', 'dbshop_goods_tag.tag_sort ASC'));
             $array['goods_tag'] = array();
             $array['goods_tag_group'] = array();
             if(is_array($tagArray) and !empty($tagArray)) {
