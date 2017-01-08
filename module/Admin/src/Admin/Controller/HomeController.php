@@ -90,7 +90,7 @@ class HomeController extends BaseController
                     }
                 }
                 if(!empty($where)) {
-                    $where = substr($where, 0, -4);
+                    $where = '('.substr($where, 0, -4).')';
                 }
 
                 //获取是否有新的更新包、模板信息，新闻信息、授权信息
@@ -98,7 +98,7 @@ class HomeController extends BaseController
                     array(
                         'dbshop_version_number' => DBSHOP_VERSION_NUMBER,
                         'dbshop_version'        => DBSHOP_VERSION,
-                        'template_where'        => empty($where) ? array() : array($where, 'v.support_version<='.DBSHOP_VERSION_NUMBER),
+                        'template_where'        => empty($where) ? array() : array($where .' and v.support_version<='.DBSHOP_VERSION_NUMBER),
                         'authorization'         => $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost()
                     )
                 );

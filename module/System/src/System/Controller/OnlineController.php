@@ -283,12 +283,13 @@ class OnlineController extends BaseController
     private function onlineKfDefault1Html()
     {
         $onlineArray = $this->getDbshopTable()->listOnline(array('dbshop_online.online_state=1'));
-        $imgPath        = $this->url()->fromRoute('shopfront/default').'/';
-        $webCode['qq']         = "<a target='_blank' href='http://wpa.qq.com/msgrd?v=3&uin={online_account}&site=qq&menu=yes'><img src='".$imgPath."/public/js/kefu/images/qq.png' align='absmiddle'>&nbsp;&nbsp;{name}</a>";
-        $webCode['wangwang']   = "<a target='_blank' href='http://www.taobao.com/webww/ww.php?ver=3&touid={online_account}&siteid=cntaobao&s=2&charset=utf-8' ><img border='0' src='".$imgPath."/public/js/kefu/images/wangwang.png' alt='点击这里给我发消息' />&nbsp;&nbsp;{name}</a>";
+        $imgPath        = $this->url()->fromRoute('shopfront/default').'/public';
+        $imgPath        = str_replace('//', '/', $imgPath);
+        $webCode['qq']         = "<a target='_blank' href='http://wpa.qq.com/msgrd?v=3&uin={online_account}&site=qq&menu=yes'><img src='".$imgPath."/js/kefu/images/qq.png' align='absmiddle'>&nbsp;&nbsp;{name}</a>";
+        $webCode['wangwang']   = "<a target='_blank' href='http://www.taobao.com/webww/ww.php?ver=3&touid={online_account}&siteid=cntaobao&s=2&charset=utf-8' ><img border='0' src='".$imgPath."/js/kefu/images/wangwang.png' alt='点击这里给我发消息' />&nbsp;&nbsp;{name}</a>";
         $webCode['skype']      = "<a href='skype:{online_account}?call'>&nbsp;&nbsp;{name}</a>";
-        $webCode['qqhttps']        = "<a target='_blank' href='https://wpa.qq.com/msgrd?v=3&uin={online_account}&site=qq&menu=yes'><img src='".$imgPath."/public/js/kefu/images/qq.png' align='absmiddle'>{name}</a>";
-        $webCode['wangwanghttps']  = "<a target='_blank' href='https://www.taobao.com/webww/ww.php?ver=3&touid={online_account}&siteid=cntaobao&s=2&charset=utf-8' ><img border='0' src='".$imgPath."/public/js/kefu/images/wangwang.png' alt='点击这里给我发消息' />&nbsp;&nbsp;{name}</a>";
+        $webCode['qqhttps']        = "<a target='_blank' href='https://wpa.qq.com/msgrd?v=3&uin={online_account}&site=qq&menu=yes'><img src='".$imgPath."/js/kefu/images/qq.png' align='absmiddle'>{name}</a>";
+        $webCode['wangwanghttps']  = "<a target='_blank' href='https://www.taobao.com/webww/ww.php?ver=3&touid={online_account}&siteid=cntaobao&s=2&charset=utf-8' ><img border='0' src='".$imgPath."/js/kefu/images/wangwang.png' alt='点击这里给我发消息' />&nbsp;&nbsp;{name}</a>";
 
         $indexHtml  = '';
         $classHtml  = '';

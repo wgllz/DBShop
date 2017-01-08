@@ -79,9 +79,9 @@ class TemplateController extends BaseController
         //webservice检查更新，必须开启soap
         $onlineTemplate = array();
         if(class_exists('SoapClient') and !empty($where)) {
-            $where = substr($where, 0, -4);
+            $where = '('.substr($where, 0, -4).')';
             try {
-                $onlineTemplate = $this->dbshopSoapClient('dbshopTemplateList', array($where, 'v.support_version<='.DBSHOP_VERSION_NUMBER));
+                $onlineTemplate = $this->dbshopSoapClient('dbshopTemplateList', array($where . ' and v.support_version<='.DBSHOP_VERSION_NUMBER));
             } catch (\Exception $e) {
 
             }
