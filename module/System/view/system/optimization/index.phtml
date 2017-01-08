@@ -65,7 +65,7 @@
                           <div class="control-group">
                               <label for="input01" class="control-label"><?php echo $this->translate('前台缓存时间'); ?>：</label>
                               <div class="controls">
-                                  <input type="text" class="span2" name="front_cache_time" id="front_cache_time" value="<?php if(isset($this->front_cache_time)) echo $this->front_cache_time; ?>">
+                                  <input type="text" class="span2" name="front_cache_time" id="front_cache_time" value="<?php if(isset($this->front_cache_time)) echo ($this->front_cache_time>0 ? $this->front_cache_time : 1); ?>">
                                   &nbsp;&nbsp;
                                   <select class="span1" name="front_cache_time_type" id="front_cache_time_type">
                                       <option value="60" <?php if(isset($this->front_cache_time_type) and $this->front_cache_time_type == 60) echo 'selected'; ?>><?php echo $this->translate('分钟'); ?></option>

@@ -112,9 +112,9 @@ class SystemUploadService
                 'image_rename' => 'shop_logo_' . time(),
         );
         $thumbArray = array(
-                'width'  => $imageWidth,
-                'height' => $imageHeight,
-                'crop'   => 'false',
+                //'width'  => $imageWidth,
+                //'height' => $imageHeight,
+                //'crop'   => 'false',
         );
         
         $imageInfo = $this->upload->uploadImage($imageArray, $thumbArray);

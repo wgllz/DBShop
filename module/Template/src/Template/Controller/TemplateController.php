@@ -20,8 +20,10 @@ use Zend\View\Model\ViewModel;
 class TemplateController extends BaseController
 {
     private $soapclient;
-    private $updateUrl= 'https://update.dbshop.net';
-    private $location = 'https://update.dbshop.net/packageservice';
+    //private $updateUrl= 'https://update.dbshop.net';//用https方式，必须用户本地开启open_ssl，增加了繁琐性，所以不启用了
+    //private $location = 'https://update.dbshop.net/packageservice';//用https方式，必须用户本地开启open_ssl，增加了繁琐性，所以不启用了
+    private $updateUrl= 'http://update.dbshop.net';
+    private $location = 'http://update.dbshop.net/packageservice';
     private $uri      = 'dbshop_package_update';
 
     /** 

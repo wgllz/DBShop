@@ -15,6 +15,7 @@
 namespace Ad\Controller;
 
 use Admin\Controller\BaseController;
+use Admin\Service\DbshopOpcache;
 
 class AdController extends BaseController
 {
@@ -563,6 +564,8 @@ class AdController extends BaseController
             $adDateFileWrite->toFile($adFile, $adData);
             //写入广告内容
             file_put_contents($contentFilePath . '/' . $adClass . '_' . $adInfo->ad_place . '_' . $adInfo->ad_id . '.php', $this->createAdContent($adInfo, $type));
+            //废除启用opcache时，在修改时，被缓存的配置
+            DbshopOpcache::invalidate($contentFilePath . '/' . $adClass . '_' . $adInfo->ad_place . '_' . $adInfo->ad_id . '.php');
         }
     }
     /**

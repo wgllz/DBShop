@@ -15,11 +15,13 @@
 namespace Package\Controller;
 
 use Admin\Controller\BaseController;
+use Admin\Service\DbshopOpcache;
 
 class PackageController extends BaseController
 {
     private $soapclient;
-    private $location = 'https://update.dbshop.net/packageservice';
+    //private $location = 'https://update.dbshop.net/packageservice';//用https方式，必须用户本地开启open_ssl，增加了繁琐性，所以不启用了
+    private $location = 'http://update.dbshop.net/packageservice';
     private $uri      = 'dbshop_package_update';
     
     public function indexAction()
@@ -199,7 +201,7 @@ class PackageController extends BaseController
                     //$this->getServiceLocator()->get('adminHelper')->clearZfConfigCache();//此为调用Helper的公用清除缓存方法
                     $this->zfdbshopClearConfigCache();//调用当前类中的私有方法
                     //如果开启opcache或者有此函数，都进行一次处理
-                    if (function_exists('opcache_reset')) opcache_reset();
+                    DbshopOpcache::reset();
 
                     $updateState = 'true';
                 }

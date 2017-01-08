@@ -14,6 +14,7 @@
 
 namespace Payment\Service;
 
+use Admin\Service\DbshopOpcache;
 use Zend\Config\Writer\PhpArray;
 
 class WxpayService {
@@ -81,6 +82,10 @@ class WxpayService {
         $fileWriter = new PhpArray();
         $configArray = $this->paymentForm->setFormValue($this->paymentConfig, $data);
         $fileWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/wxpay.php', $configArray);
+
+        //废除启用opcache时，在修改时，被缓存的配置
+        DbshopOpcache::invalidate(DBSHOP_PATH . '/data/moduledata/Payment/wxpay.php');
+
         return $configArray;
     }
     /**

@@ -15,6 +15,7 @@
 namespace Express\Controller;
 
 use Admin\Controller\BaseController;
+use Admin\Service\DbshopOpcache;
 use Zend\Config\Writer\Ini;
 use Zend\Config\Writer\PhpArray;
 
@@ -277,6 +278,10 @@ class ExpressController extends BaseController
                     $fileWrite->toFile($filePath . '../express.php', array());
                 }
             }
+            //废除启用opcache时，在修改时，被缓存的配置
+            DbshopOpcache::invalidate($filePath . $expressApiName . '/express.php');
+            DbshopOpcache::invalidate($filePath . '../express.php');
+
             //记录操作日志
             $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('配送动态API'), 'operlog_info'=>$this->getDbshopLang()->translate('编辑配送动态API') . '&nbsp;' . $array['api_info']['name']));
             

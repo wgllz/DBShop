@@ -1,5 +1,8 @@
 .float0831 {
-	POSITION: fixed; TOP: 180px; RIGHT: 1px; _position: absolute
+	POSITION: fixed;
+	TOP: 180px;
+	RIGHT: 1px;
+	z-index: 999;
 }
 .float0831 UL {
 	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px;
@@ -99,7 +102,7 @@
 	BACKGROUND-POSITION: 2px -213px
 }
 .float0831 .icoTl {
-	PADDING-LEFT: 20px; DISPLAY: block; FONT-FAMILY: "Î¢ÈíÑÅºÚ"; BACKGROUND-POSITION: 2px -266px; FLOAT: left
+	PADDING-LEFT: 20px; DISPLAY: block; FONT-FAMILY: "Î¢ï¿½ï¿½ï¿½Åºï¿½"; BACKGROUND-POSITION: 2px -266px; FLOAT: left
 }
 .float0831 .btnOpen {
 	BACKGROUND-POSITION: -30px -396px

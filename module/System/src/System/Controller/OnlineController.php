@@ -15,6 +15,7 @@
 namespace System\Controller;
 
 use Admin\Controller\BaseController;
+use Admin\Service\DbshopOpcache;
 use Zend\Config\Reader\Ini;
 
 class OnlineController extends BaseController
@@ -145,10 +146,13 @@ class OnlineController extends BaseController
 
         }
 
-
         file_put_contents(DBSHOP_PATH . '/data/moduledata/System/online/index.php', $html['index']);
         file_put_contents(DBSHOP_PATH . '/data/moduledata/System/online/class.php', $html['class']);
         file_put_contents(DBSHOP_PATH . '/data/moduledata/System/online/goods.php', $html['goods']);
+        //废除启用opcache时，在修改时，被缓存的配置
+        DbshopOpcache::invalidate(DBSHOP_PATH . '/data/moduledata/System/online/index.php');
+        DbshopOpcache::invalidate(DBSHOP_PATH . '/data/moduledata/System/online/class.php');
+        DbshopOpcache::invalidate(DBSHOP_PATH . '/data/moduledata/System/online/goods.php');
     }
     /** 
      * 客服组添加
@@ -262,16 +266,18 @@ class OnlineController extends BaseController
         $indexHtml  = '';
         $classHtml  = '';
         $goodsHtml  = '';
-        $groupArray = $this->getDbshopTable('OnlineGroupTable')->listOnlineGroup(array('online_group_state'=>1));
-        if(is_array($groupArray) and !empty($groupArray)) {
-            foreach($groupArray as $g_value) {
-                $html = '';
-                $html .= '<LI><SPAN class=icoZx>'.$g_value['online_group_name'].'</SPAN></LI>';
-                $html .= $array[$g_value['online_group_id']];
+        if(is_array($array) and !empty($array)) {
+            $groupArray = $this->getDbshopTable('OnlineGroupTable')->listOnlineGroup(array('online_group_state'=>1));
+            if(is_array($groupArray) and !empty($groupArray)) {//这一步需要处理，关于客服组显示控制的处理
+                foreach($groupArray as $g_value) {
+                    $html = '';
+                    $html .= '<LI><SPAN class=icoZx>'.$g_value['online_group_name'].'</SPAN></LI>';
+                    $html .= $array[$g_value['online_group_id']];
 
-                if($g_value['index_show'] == 'true') $indexHtml .= $html;
-                if($g_value['class_show'] == 'true') $classHtml .= $html;
-                if($g_value['goods_show'] == 'true') $goodsHtml .= $html;
+                    if($g_value['index_show'] == 'true') $indexHtml .= $html;
+                    if($g_value['class_show'] == 'true') $classHtml .= $html;
+                    if($g_value['goods_show'] == 'true') $goodsHtml .= $html;
+                }
             }
         }
         return array('index'=>$indexHtml, 'class'=>$classHtml, 'goods'=>$goodsHtml);
@@ -291,18 +297,33 @@ class OnlineController extends BaseController
         $webCode['qqhttps']        = "<a target='_blank' href='https://wpa.qq.com/msgrd?v=3&uin={online_account}&site=qq&menu=yes'><img src='".$imgPath."/js/kefu/images/qq.png' align='absmiddle'>{name}</a>";
         $webCode['wangwanghttps']  = "<a target='_blank' href='https://www.taobao.com/webww/ww.php?ver=3&touid={online_account}&siteid=cntaobao&s=2&charset=utf-8' ><img border='0' src='".$imgPath."/js/kefu/images/wangwang.png' alt='点击这里给我发消息' />&nbsp;&nbsp;{name}</a>";
 
-        $indexHtml  = '';
-        $classHtml  = '';
-        $goodsHtml  = '';
+        $array       = array();
         if(is_array($onlineArray) and !empty($onlineArray)) {
             foreach ($onlineArray as $value) {
                 $webCodeStr = str_replace(array('{online_account}', '{name}'), array($value['online_account'], $value['online_name']), $webCode[$value['online_type']]);
 
-                $indexHtml .= '<li style="padding-left:0px;">'.$webCodeStr.'</li>';
-                $classHtml .= '<li style="padding-left:0px;">'.$webCodeStr.'</li>';
-                $goodsHtml .= '<li style="padding-left:0px;">'.$webCodeStr.'</li>';
+                if(isset($array[$value['online_group_id']])) $array[$value['online_group_id']] .= '<li style="padding-left:0px;">'.$webCodeStr.'</li>';
+                else $array[$value['online_group_id']] = '<li style="padding-left:0px;">'.$webCodeStr.'</li>';
             }
         }
+
+        $indexHtml  = '';
+        $classHtml  = '';
+        $goodsHtml  = '';
+        if(is_array($array) and !empty($array)) {
+            $groupArray = $this->getDbshopTable('OnlineGroupTable')->listOnlineGroup(array('online_group_state'=>1));
+            if(is_array($groupArray) and !empty($groupArray)) {//这一步需要处理，关于客服组显示控制的处理
+                foreach($groupArray as $g_value) {
+                    $html = '';
+                    $html .= $array[$g_value['online_group_id']];
+
+                    if($g_value['index_show'] == 'true') $indexHtml .= $html;
+                    if($g_value['class_show'] == 'true') $classHtml .= $html;
+                    if($g_value['goods_show'] == 'true') $goodsHtml .= $html;
+                }
+            }
+        }
+
         return array('index'=>$indexHtml, 'class'=>$classHtml, 'goods'=>$goodsHtml);
     }
     /**

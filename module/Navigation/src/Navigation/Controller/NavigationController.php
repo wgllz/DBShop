@@ -15,6 +15,7 @@
 namespace Navigation\Controller;
 
 use Admin\Controller\BaseController;
+use Admin\Service\DbshopOpcache;
 
 class NavigationController extends BaseController
 {
@@ -156,6 +157,8 @@ class NavigationController extends BaseController
                 }
             }
             $phpWriter->toFile(DBSHOP_PATH . '/data/moduledata/Navigation/' . $navigationType . '.php', $array);
+            //废除启用opcache时，在修改时，被缓存的配置
+            DbshopOpcache::invalidate(DBSHOP_PATH . '/data/moduledata/Navigation/' . $navigationType . '.php');
         }
     }
     /**

@@ -69,7 +69,8 @@ class HomeController extends BaseController
         if(class_exists('SoapClient')) {
             try {
                 $soapClient = new \SoapClient(null, array(
-                    'location' => 'https://update.dbshop.net/packageservice',
+                    //'location' => 'https://update.dbshop.net/packageservice',//用https方式，必须用户本地开启open_ssl，增加了繁琐性，所以不启用了
+                    'location' => 'http://update.dbshop.net/packageservice',
                     'uri'      => 'dbshop_package_update'
                 ));
 

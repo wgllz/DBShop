@@ -13,6 +13,7 @@
  */
 
 namespace Payment\Service;
+use Admin\Service\DbshopOpcache;
 use Zend\Config\Writer\PhpArray;
 
 /**
@@ -36,6 +37,10 @@ class YezfService
         $fileWriter = new PhpArray();
         $configArray = $this->paymentForm->setFormValue($this->paymentConfig, $data);
         $fileWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/yezf.php', $configArray);
+
+        //废除启用opcache时，在修改时，被缓存的配置
+        DbshopOpcache::invalidate(DBSHOP_PATH . '/data/moduledata/Payment/yezf.php');
+
         return $configArray;
     }
     /**

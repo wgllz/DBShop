@@ -13,6 +13,7 @@
  */
 
 namespace Payment\Service;
+use Admin\Service\DbshopOpcache;
 use Zend\Config\Writer\PhpArray;
 
 /**
@@ -81,6 +82,10 @@ class PaypalService
         $phpWriter = new PhpArray();
         $configArray = $this->paymentForm->setFormValue($this->paymentConfig, $data);
         $phpWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/paypal.php', $configArray);
+
+        //废除启用opcache时，在修改时，被缓存的配置
+        DbshopOpcache::invalidate(DBSHOP_PATH . '/data/moduledata/Payment/paypal.php');
+
         return $configArray;
     }
     /**

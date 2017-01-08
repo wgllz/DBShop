@@ -13,17 +13,11 @@ var shop_base_url = '<?php echo $this->basePath('/public/editor/ueditor/'); ?>';
 				echo "initialFrameWidth:'100%',initialFrameHeight:500,autoHeightEnabled:false";
 			}
 			echo ",catchRemoteImageEnable:false};";
-			
+
 	foreach ($this->edit_array as $key => $value) {
 		?>
 		var ue<?php echo $key; ?> = new UE.ui.Editor(editorOption);
 		ue<?php echo $key; ?>.render('<?php echo $value; ?>');
-		//下面这行是开启百度编辑器的在线保存功能
-		//判断ueditor 编辑器是否创建成功
-		ue<?php echo $key; ?>.addListener("ready", function () {
-			// editor准备好之后才可以使用
-			ue<?php echo $key; ?>.setContent(UE.getEditor('<?php echo $value; ?>').execCommand("getlocaldata"));
-		});
 		<?php
 	}
 } ?>

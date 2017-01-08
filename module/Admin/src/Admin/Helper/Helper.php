@@ -14,6 +14,7 @@
 
 namespace Admin\Helper;
 
+use Admin\Service\DbshopOpcache;
 use Zend\View\Helper\AbstractHelper;
 use Zend\Authentication\AuthenticationService;
 
@@ -144,7 +145,7 @@ class Helper extends AbstractHelper
             }
         }
         //重置opcache
-        if (function_exists('opcache_reset')) opcache_reset();
+        DbshopOpcache::reset();
 
         return true;
     }

@@ -15,6 +15,7 @@
 namespace System\Controller;
 
 use Admin\Controller\BaseController;
+use Admin\Service\DbshopOpcache;
 use System\FormValidate\FormSystemValidate;
 use Zend\Config\Reader\Ini;
 
@@ -49,6 +50,9 @@ class SystemController extends BaseController
             } catch (\Exception $e) {
                 echo $e->getMessage();
             }
+			//清空ZF2缓存设置
+            $this->getServiceLocator()->get('adminHelper')->clearZfConfigCache();
+			
             //查看缓存是否开启，如果开启则进行缓存清除
             if(defined('FRONT_CACHE_STATE') and FRONT_CACHE_STATE == 'true') {
                 $this->getServiceLocator()->get('frontCache')->flush();
@@ -223,6 +227,9 @@ class SystemController extends BaseController
             $configWriter->toFile($toPath . 'sendmessage.ini', $stateArray);
             foreach ($messageArray as $mValue) {
                 file_put_contents($toPath . $mValue . '.php', $messageSetArray[$mValue]);
+                //废除启用opcache时，在修改时，被缓存的配置
+                DbshopOpcache::invalidate($toPath . $mValue . '.php');
+
             }
 
             $array['success_msg'] = $this->getDbshopLang()->translate('邮件提醒设置保存成功！');
