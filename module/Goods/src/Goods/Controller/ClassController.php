@@ -14,6 +14,8 @@
 
 namespace Goods\Controller;
 
+use Admin\Service\DbshopOpcache;
+use Zend\Config\Writer\PhpArray;
 use Zend\View\Model\ViewModel;
 use Admin\Controller\BaseController;
 
@@ -42,11 +44,13 @@ class ClassController extends BaseController
             $classArray               = $this->request->getPost()->toArray();
             $classArray['class_path'] = $classArray['class_top_id'];
             //分类图片上传
+            /*
             $imageIcon = $this->getServiceLocator()->get('shop_goods_upload')->classIcoUpload('class_icon');
             if(!empty($imageIcon['image'])) $classArray['class_icon'] = $imageIcon['image'];
             
             $imageClass = $this->getServiceLocator()->get('shop_goods_upload')->classImageUpload('class_image');
             if(!empty($imageClass['image'])) $classArray['class_image'] = $imageClass['image'];
+            */
 
             //可批量添加分类
             $classTitleArray = explode("\r\n", $classArray['class_name']);
@@ -64,9 +68,11 @@ class ClassController extends BaseController
                 }
             }
 
+            //生成的商品分类数组文件
+            //$this->createClassFile();
             //对前台生成的商品分类数组文件进行删除
-            $arrayGoodsClassFile = DBSHOP_PATH . '/data/moduledata/Shopfront/goodsClass.php';
-            if(file_exists($arrayGoodsClassFile)) unlink($arrayGoodsClassFile);
+            $this->delClassFile();
+
             //记录操作日志
             $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('管理分类'), 'operlog_info'=>$this->getDbshopLang()->translate('添加分类') . '&nbsp;' . implode(' ', $classTitleArray)));
              
@@ -146,9 +152,11 @@ class ClassController extends BaseController
 
             //商品插入扩展分类状态修改
             $this->getDbshopTable('GoodsInClassTable')->updateGoodsInClass(array('class_state'=>$classArray['class_state']), array('class_id'=>$classArray['class_id']));
+            //生成的商品分类数组文件
+            //$this->createClassFile();
             //对前台生成的商品分类数组文件进行删除
-            $arrayGoodsClassFile = DBSHOP_PATH . '/data/moduledata/Shopfront/goodsClass.php';
-            if(file_exists($arrayGoodsClassFile)) unlink($arrayGoodsClassFile);
+            $this->delClassFile();
+
             //记录操作日志
             $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('管理分类'), 'operlog_info'=>$this->getDbshopLang()->translate('更新分类') . '&nbsp;' . $classArray['class_name']));
             
@@ -218,9 +226,11 @@ class ClassController extends BaseController
                 $this->getDbshopTable('GoodsInClassTable')->delGoodsInClass(array('class_id'=>$classId));
                 //分类中包含的商品标签组
                 $this->getDbshopTable('GoodsClassShowTable')->delGoodsClassTagGroup(array('class_id'=>$classId));
+                //生成的商品分类数组文件
+                //$this->createClassFile();
                 //对前台生成的商品分类数组文件进行删除
-                $arrayGoodsClassFile = DBSHOP_PATH . '/data/moduledata/Shopfront/goodsClass.php';
-                if(file_exists($arrayGoodsClassFile)) unlink($arrayGoodsClassFile);
+                $this->delClassFile();
+
                 //记录操作日志
                 $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('管理分类'), 'operlog_info'=>$this->getDbshopLang()->translate('删除分类') . '&nbsp;' . $classInfo->class_name));
                 
@@ -243,9 +253,11 @@ class ClassController extends BaseController
                 foreach($classArray['class_sort'] as $key => $value) {
                     $this->getDbshopTable()->updateGoodsCalss(array('class_sort'=>$value), array('class_id'=>$key));
                 }
+                //生成的商品分类数组文件
+                //$this->createClassFile();
                 //对前台生成的商品分类数组文件进行删除
-                $arrayGoodsClassFile = DBSHOP_PATH . '/data/moduledata/Shopfront/goodsClass.php';
-                if(file_exists($arrayGoodsClassFile)) unlink($arrayGoodsClassFile);
+                $this->delClassFile();
+
             }
         }
         //跳转处理
@@ -295,7 +307,39 @@ class ClassController extends BaseController
         $classArray = $this->getDbshopTable()->listGoodsClass();
         $classArray = $this->getDbshopTable()->classOptions(0,$classArray);
         return $classArray;
-    }    
+    }
+    /**
+     * 删除商品分类文件
+     */
+    private function delClassFile()
+    {
+        $arrayGoodsClassFile = DBSHOP_PATH . '/data/moduledata/Shopfront/goodsClass.php';
+        if(file_exists($arrayGoodsClassFile)) unlink($arrayGoodsClassFile);
+        //缓存处理
+        DbshopOpcache::invalidate($arrayGoodsClassFile);
+    }
+    /**
+     * 创建商品分类文件(暂时不使用)
+     * @throws \Exception
+     */
+    private function createClassFile()
+    {
+        //商品分类
+        $array['goods_class']  = $this->getDbshopTable('GoodsClassTable')->classOptions(0,$this->getDbshopTable('GoodsClassTable')->listGoodsClass());
+        if(is_array($array['goods_class']) and !empty($array['goods_class'])) {
+            foreach ($array['goods_class'] as $key => $val) {
+                if($val['class_top_id'] != 0 and substr_count($val['class_path'], ',') == 1) {
+                    $array['goods_class'][$val['class_top_id']]['sub_class'][] = $val;
+                    unset($array['goods_class'][$key]);
+                } elseif ($val['class_top_id'] != 0) unset($array['goods_class'][$key]);
+            }
+        }
+        $classArray = empty($array['goods_class']) ? array() : $array['goods_class'];
+        $arrayWrite = new PhpArray();
+        $arrayWrite->toFile(DBSHOP_PATH . '/data/moduledata/Shopfront/goodsClass.php', $classArray);
+        //缓存处理
+        DbshopOpcache::invalidate(DBSHOP_PATH . '/data/moduledata/Shopfront/goodsClass.php');
+    }
     /**
      * 数据表调用
      * @param string $tableName

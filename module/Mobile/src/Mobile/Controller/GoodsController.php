@@ -41,7 +41,7 @@ class GoodsController extends AbstractActionController
 
         //商品基本信息
         $array['goods_info']   = $this->getDbshopTable('GoodsTable')->infoGoods(array('dbshop_goods.goods_id'=>$goodsId, 'e.language'=>$this->getDbshopLang()->getLocale()));
-        if(!$array['goods_info']) return $this->redirect()->toRoute('shopfront/default');
+        if(!$array['goods_info']) return $this->redirect()->toRoute('mobile/default');
 
         //判断优惠价格是否存在，是否过期
         $preferentialStart = (intval($array['goods_info']->goods_preferential_start_time) == 0 or time() >= $array['goods_info']->goods_preferential_start_time) ? true : false;
@@ -132,7 +132,7 @@ class GoodsController extends AbstractActionController
         $array['class_id'] = (int)$this->request->getQuery('class_id');
         //商品评价
         $page = $this->params('page',1);
-        $array['goods_comment'] = $this->getDbshopTable('GoodsCommentTable')->listGoodsComment(array('page'=>$page, 'page_num'=>16), array('goods_id'=>$array['goods_id']), true);
+        $array['goods_comment'] = $this->getDbshopTable('GoodsCommentTable')->listGoodsComment(array('page'=>$page, 'page_num'=>16), array('goods_id'=>$array['goods_id'], 'comment_show_state'=>1), true);
 
         return $view->setVariables($array);
     }

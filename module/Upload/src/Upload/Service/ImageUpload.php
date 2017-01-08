@@ -48,6 +48,7 @@ class ImageUpload
         $returnArray = array('image'=>'');
         $imageInfo   = $this->upAdapter->getFileInfo();
         $savePath    = $imageArray['save_path'];
+        if(!isset($imageInfo[$imageArray['image_name']]['name'])) return array('image'=>'');//没有上传时，进行返回
         $imageName   = $imageInfo[$imageArray['image_name']]['name'];
         $imageExt    = $this->_getExtension($imageInfo[$imageArray['image_name']]['name']);
         //所以注释掉是和下面52行是属于同一操作，因为与从写的重命名操作有冲突，所以新加了上面两行拆分

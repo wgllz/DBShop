@@ -55,8 +55,14 @@ class GoodsCommentTable extends AbstractTableGateway implements \Zend\Db\Adapter
     {
     	$select = new Select(array('dbshop_goods_comment'=>$this->table));
     	if($userAvatar) {
-    		$select->columns(array('*', new Expression('(SELECT u.user_avatar FROM dbshop_user as u WHERE u.user_name=dbshop_goods_comment.comment_writer) AS user_avatar')));
-    	}
+    		$select->columns(array('*', new Expression('
+    		(SELECT u.user_avatar FROM dbshop_user as u WHERE u.user_name=dbshop_goods_comment.comment_writer) AS user_avatar
+    		')));
+    	} else {
+            $select->columns(array('*', new Expression('
+    		(SELECT e.goods_name FROM dbshop_goods_extend as e WHERE e.goods_id=dbshop_goods_comment.goods_id) AS goods_name
+    		')));
+        }
     	$select->where($where)->order('dbshop_goods_comment.comment_time DESC');
     	
         //实例化分页处理
@@ -110,6 +116,20 @@ class GoodsCommentTable extends AbstractTableGateway implements \Zend\Db\Adapter
         $row = $this->select($where);
         if($row) {
             return $row->current();
+        }
+        return null;
+    }
+    /**
+     * 更新商品评价信息
+     * @param array $data
+     * @param array $where
+     * @return bool|null
+     */
+    public function updateGoodsComment(array $data, array $where)
+    {
+        $update = $this->update($data, $where);
+        if($update) {
+            return true;
         }
         return null;
     }

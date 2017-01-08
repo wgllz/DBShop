@@ -161,8 +161,13 @@ class CartController extends AbstractActionController
                     if(isset($paymentInfo['payment_show']['checked']) and !empty($paymentInfo['payment_show']['checked'])) {
                         $showArray = is_array($paymentInfo['payment_show']['checked']) ? $paymentInfo['payment_show']['checked'] : array($paymentInfo['payment_show']['checked']);
                         if(!in_array('phone', $showArray) and !in_array('all', $showArray)) continue;
-                        //在微信内不显示支付宝支付，因为微信不支持
-                        if(strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false and in_array($paymentInfo['editaction'], array('alipay', 'malipay'))) continue;
+                        //在微信内不显示支付宝支付，因为微信不支持；在手机浏览器上不能显示微信支付，因为手机浏览器不支持
+                        if(strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false){
+                            if(in_array($paymentInfo['editaction'], array('alipay', 'malipay'))) continue;
+                        } else {
+                            if($paymentInfo['editaction'] == 'wxmpay') continue;
+                        }
+
                     } else continue;
 
                     //判断是否符合当前的货币要求
@@ -238,8 +243,12 @@ class CartController extends AbstractActionController
                     if(isset($paymentInfo['payment_show']['checked']) and !empty($paymentInfo['payment_show']['checked'])) {
                         $showArray = is_array($paymentInfo['payment_show']['checked']) ? $paymentInfo['payment_show']['checked'] : array($paymentInfo['payment_show']['checked']);
                         if(!in_array('phone', $showArray) and !in_array('all', $showArray)) continue;
-                        //在微信内不显示支付宝支付，因为微信不支持
-                        if(strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false and in_array($paymentInfo['editaction'], array('alipay', 'malipay'))) continue;
+                        //在微信内不显示支付宝支付，因为微信不支持；在手机浏览器上不能显示微信支付，因为手机浏览器不支持
+                        if(strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false){
+                            if(in_array($paymentInfo['editaction'], array('alipay', 'malipay'))) continue;
+                        } else {
+                            if($paymentInfo['editaction'] == 'wxmpay') continue;
+                        }
                     } else continue;
 
                     //判断是否符合当前的货币要求
@@ -308,9 +317,11 @@ class CartController extends AbstractActionController
         $cartTotalPrice = $this->getServiceLocator()->get('frontHelper')->getCartTotal();
 
         $paymentArray = array();
+        //因为这里之前的获取名称错写为 pyament_code 在此予以改正，但是担心用户没有及时更新模板，获取不到该值，所以做了下面这句判断
+        $postArray['payment_code'] = isset($postArray['payment_code']) ? $postArray['payment_code'] : $postArray['pyament_code'];
         //获取支付方式信息
-        if(file_exists(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['pyament_code'] . '.php')) {
-            $paymentArray = include(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['pyament_code'] . '.php');
+        if(file_exists(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['payment_code'] . '.php')) {
+            $paymentArray = include(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['payment_code'] . '.php');
             $postArray['pay_name']    = $paymentArray['payment_name']['content'];
             $postArray['order_state'] = $paymentArray['orders_state'];
 
@@ -498,9 +509,11 @@ class CartController extends AbstractActionController
         $cartTotalPrice = $this->getServiceLocator()->get('frontHelper')->getCartTotal();
 
         $paymentArray = array();
+        //因为这里之前的获取名称错写为 pyament_code 在此予以改正，但是担心用户没有及时更新模板，获取不到该值，所以做了下面这句判断
+        $postArray['payment_code'] = isset($postArray['payment_code']) ? $postArray['payment_code'] : $postArray['pyament_code'];
         //获取支付方式信息
-        if(file_exists(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['pyament_code'] . '.php')) {
-            $paymentArray = include(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['pyament_code'] . '.php');
+        if(file_exists(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['payment_code'] . '.php')) {
+            $paymentArray = include(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['payment_code'] . '.php');
             $postArray['pay_name']    = $paymentArray['payment_name']['content'];
             $postArray['order_state'] = $paymentArray['orders_state'];
 
@@ -526,6 +539,7 @@ class CartController extends AbstractActionController
         if($expressConfig['express_set'] == 'T') {//当为统一设置时进行的处理
             $expressPrice = $this->getServiceLocator()->get('shop_express')->calculateCost(trim($expressConfig['express_price']), $totalWeight, $cartTotalPrice);
         } else {
+            $expressPrice = 0;
             foreach ($expressConfig['express_price'] as $priceValue) {
                 $priceValue['price'] = $this->getServiceLocator()->get('shop_express')->calculateCost(trim($priceValue['price']), $totalWeight, $cartTotalPrice);
                 foreach ($regionIdArray as $regionId) {
@@ -816,7 +830,7 @@ class CartController extends AbstractActionController
         $array['integral_buy_price'] = $orderArray['integral_buy_price'];
         $array['goods_weight_amount'] = $orderArray['goods_count_weight'];
         $array['order_state']         = $orderArray['order_state'];
-        $array['pay_code']            = $orderArray['pyament_code'];
+        $array['pay_code']            = $orderArray['payment_code'];
         $array['pay_name']            = $orderArray['pay_name'];
         $array['express_id']          = $orderArray['express_id'];
         $array['buyer_id']            = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');

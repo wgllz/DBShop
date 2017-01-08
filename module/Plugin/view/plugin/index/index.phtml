@@ -1,0 +1,105 @@
+<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+    <p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('扩展插件'); ?></strong></p>
+    <p class="pull-right">
+        <a href="<?php echo $this->url('plugin/default',array('action'=>'install')); ?>" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> <?php echo $this->translate('安装扩展插件'); ?></a>&nbsp;
+        <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('plugin_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+    </p>
+</div>
+<table class="table">
+    <thead style="background:#CCC;">
+    <tr>
+        <th width="20%"><?php echo $this->translate('插件'); ?></th>
+        <th width="80%"><?php echo $this->translate('插件描述'); ?></th>
+    </tr>
+    </thead>
+    <tbody style="font-size: 14px;">
+    <?php
+        if(isset($this->plugin_list) and !empty($this->plugin_list)) {
+            foreach($this->plugin_list as $pValue) {
+    ?>
+                <tr>
+                    <td>
+                        <strong><?php echo $this->escapeHtml($pValue['plugin_name']); ?> -<?php if($pValue['plugin_state'] == 1) {?><span class="text-success"><?php echo $this->translate('已启用'); ?></span><?php } else { ?><span class="text-warning"><?php echo $this->translate('未启用'); ?></span><?php } ?></strong>
+                        <p style="padding-top: 5px;">
+                            <?php if($pValue['plugin_state'] == 2) { ?>
+                            <a href="<?php echo $this->url('plugin/default', array('action'=>'startPlugin'), array('query'=>array('plugin_id'=>$pValue['plugin_id']))); ?>" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('点击启用'); ?></a>
+                            &nbsp;&nbsp;
+                            <a href="<?php echo $this->url('plugin/default', array('action'=>'delPlugin'), array('query'=>array('plugin_id'=>$pValue['plugin_id']))); ?>" onclick="return window.confirm('<?php echo $this->translate('您确定要卸载 ').$pValue['plugin_name']; ?> ?');" class="btn btn-small btn-danger"><i class="icon-remove icon-white"></i> <?php echo $this->translate('点击卸载'); ?></a>
+                            <?php } else { ?>
+                                <a href="<?php echo $this->url('plugin/default', array('action'=>'stopPlugin'), array('query'=>array('plugin_id'=>$pValue['plugin_id']))); ?>" class="btn btn-small btn-warning"><i class="icon-off icon-white"></i> <?php echo $this->translate('点击停用'); ?></a>
+                            <?php } ?>
+                        </p>
+                    </td>
+                    <td>
+                        <blockquote <?php if($pValue['plugin_state'] == 1) echo 'style="border-left: 5px solid #46b8da;"'; ?> >
+                            <p style="font-size: 13px;"><?php echo $this->escapeHtml($pValue['plugin_info']); ?></p>
+                            <small style="padding-top: 10px;">
+                                <?php echo $this->translate('版本'); ?><?php echo $this->escapeHtml($pValue['plugin_version']); ?>
+                                &nbsp;|&nbsp;
+                                <?php echo $this->translate('由'); ?> <a href="<?php echo !empty($pValue['plugin_author_url']) ? $pValue['plugin_author_url'] : '#'; ?>" target="_blank"><?php echo $this->escapeHtml($pValue['plugin_author']); ?></a> <?php echo $this->translate('开发'); ?>
+                                &nbsp;|&nbsp;
+                                <a href="<?php echo $pValue['plugin_support_url']; ?>" target="_blank"><?php echo $this->translate('查看详情'); ?></a>
+                                <?php if(!empty($pValue['plugin_admin_path'])) { ?>
+                                    &nbsp;|&nbsp;
+                                    <b><?php echo $this->translate('安装后位置'); ?>：<?php echo $this->escapeHtml($pValue['plugin_admin_path']); ?></b>
+                                <?php } ?>
+                            </small>
+                        </blockquote>
+                    </td>
+                </tr>
+                <?php if(isset($this->plugin_version[$pValue['plugin_code']]['plugin_version_num']) and $this->plugin_version[$pValue['plugin_code']]['plugin_version_num'] > $pValue['plugin_version_num']) { ?>
+                    <tr>
+                        <td colspan="2" style="border-top: 0;padding-bottom: 15px;">
+                            <div class="alert alert-error">
+                                <i class="cus-bell"></i> <strong><?php echo $this->escapeHtml($pValue['plugin_name']); ?></strong>
+                                <?php echo $this->translate('插件有更新包啦！您可以'); ?> <button class="btn btn-small btn-primary" id="button-update-<?php echo $pValue['plugin_code']; ?>" type="button" onclick="update_plugin('<?php echo $pValue['plugin_code']; ?>');"><i class="icon-refresh icon-white"></i> <?php echo $this->translate('点击立刻更新'); ?></button>
+                                <span style="display: none;" id="start-update-<?php echo $pValue['plugin_code']; ?>"><img src="<?php echo $this->basePath('public/admin/img/update_loading.gif'); ?>" border="0" />&nbsp;<?php echo $this->translate('更新中…'); ?></span>
+                            </div>
+                        </td>
+                    </tr>
+                <?php } ?>
+    <?php } } ?>
+    </tbody>
+</table>
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel"></h3>
+    </div>
+    <div class="modal-body">
+        <div class="control-group">
+            <label class="control-label"><?php echo $this->translate('更新内容'); ?></label>
+            <div class="controls" id="show_plugin_update_body">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" aria-hidden="true" class="btn"><?php echo $this->translate('关闭'); ?></button>
+    </div>
+</div>
+
+<script>
+    function update_plugin(plugin_code) {
+        $('#button-update-'+plugin_code).css('display', 'none');
+        $('#start-update-'+plugin_code).css('display', '');
+
+        $.post("<?php echo $this->url('plugin/default',array('action'=>'startUpdatePlugin')); ?>",{plugin_code:plugin_code},
+            function(data){
+                if(data == 'true') {
+                    alert('<?php echo $this->translate('插件更新成功！'); ?>');
+                } else {
+                    alert(data);
+                    return false;
+                }
+                window.location.href="<?php echo $this->url('plugin/default'); ?>";
+            });
+    }
+
+    function show_plugin_update_info(plugin_code, plugin_name) {
+        $('#myModalLabel').html(plugin_name);
+        $('#show_plugin_update_body').html($('#plugin_update_info_'+plugin_code).html());
+        $('#myModal').modal('show');
+    }
+</script>

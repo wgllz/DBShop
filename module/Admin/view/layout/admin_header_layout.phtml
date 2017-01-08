@@ -1,3 +1,8 @@
+<?php
+//用于扩展插件的url输出
+$extendAppUrlArray = $this->myviewalias()->adminExtendUrlArray();
+$extendAppUrlPath  = $this->url('shopfront/default') . DBSHOP_ADMIN_DIR;
+?>
 <div class="navbar navbar-static-top">
 	<div class="navbar-inner">
     	<a href="<?php echo $this->url('adminHome/default',array('action'=>'index','controller'=>'home')); ?>" class="brand">DBShop</a>
@@ -25,6 +30,13 @@
                     <?php } else { ?>
                     <li><a href="<?php echo $this->url('system/default',array('controller'=>'system')); ?>"><?php echo $this->translate('统计设置'); ?></a></li>
                     <?php } ?>
+                    <?php
+                    //位于统计分析的扩展插件
+                    if(isset($extendAppUrlArray['adminAnalytics']) and !empty($extendAppUrlArray['adminAnalytics'])) {
+                        foreach($extendAppUrlArray['adminAnalytics'] as $adminAnalyticsValue) {
+                            ?>
+                            <li><a href="<?php echo $extendAppUrlPath . $adminAnalyticsValue['url']; ?>"><?php echo $adminAnalyticsValue['name']; ?></a></li>
+                        <?php } } ?>
                 </ul>
             </li>
 
@@ -35,6 +47,13 @@
                 	<li><a href="<?php echo $this->url('orders/default', array('action'=>'paylog', 'controller'=>'Orders')); ?>"><?php echo $this->translate('支付记录'); ?></a></li>
                 	<li><a href="<?php echo $this->url('orders/default', array('action'=>'refund', 'controller'=>'Orders')); ?>"><?php echo $this->translate('退货管理'); ?></a></li>
                     <li><a href="<?php echo $this->url('orders/default', array('action'=>'expressNumber', 'controller'=>'Orders')); ?>"><?php echo $this->translate('快递单号管理'); ?></a></li>
+                    <?php
+                    //位于订单管理的扩展插件
+                    if(isset($extendAppUrlArray['adminOrder']) and !empty($extendAppUrlArray['adminOrder'])) {
+                        foreach($extendAppUrlArray['adminOrder'] as $adminOrderValue) {
+                            ?>
+                            <li><a href="<?php echo $extendAppUrlPath . $adminOrderValue['url']; ?>"><?php echo $adminOrderValue['name']; ?></a></li>
+                        <?php } } ?>
                 </ul>
             </li>
             <li class="dropdown <?php if($this->myviewalias()->returnNamespace() == 'Goods\Controller') echo 'active'; ?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><?php echo $this->translate('商品管理'); ?> <b class="caret"></b></a>
@@ -61,6 +80,13 @@
                     </li>
                     <li><a href="<?php echo $this->url('promotions/default'); ?>"><?php echo $this->translate('优惠促销规则'); ?></a></li>
                     <li><a href="<?php echo $this->url('goods/default', array('action'=>'goodsIndex')); ?>"><?php echo $this->translate('商品索引'); ?></a></li>
+                    <?php
+                    //位于商品管理的扩展插件
+                    if(isset($extendAppUrlArray['adminGoods']) and !empty($extendAppUrlArray['adminGoods'])) {
+                        foreach($extendAppUrlArray['adminGoods'] as $adminGoodsValue) {
+                            ?>
+                            <li><a href="<?php echo $extendAppUrlPath . $adminGoodsValue['url']; ?>"><?php echo $adminGoodsValue['name']; ?></a></li>
+                        <?php } } ?>
                 </ul>
             </li>
             <li class="dropdown <?php if($this->myviewalias()->returnNamespace() == 'User\Controller') echo 'active'; ?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><?php echo $this->translate('客户管理'); ?> <b class="caret"></b></a>
@@ -83,6 +109,13 @@
                             <li><a href="<?php echo $this->url('integral/default',array('action'=>'integralRule')); ?>"><?php echo $this->translate('积分规则'); ?></a></li>
                         </ul>                    
                     </li>
+                    <?php
+                    //位于客户管理的扩展插件
+                    if(isset($extendAppUrlArray['adminUser']) and !empty($extendAppUrlArray['adminUser'])) {
+                        foreach($extendAppUrlArray['adminUser'] as $adminUserValue) {
+                            ?>
+                            <li><a href="<?php echo $extendAppUrlPath . $adminUserValue['url']; ?>"><?php echo $adminUserValue['name']; ?></a></li>
+                        <?php } } ?>
                     <!-- <li><a href="<?php echo $this->url('userintegration/default'); ?>"><?php echo $this->translate('管理整合'); ?></a></li> -->
                 </ul>            
             </li>
@@ -91,7 +124,14 @@
                 	<li><a href="<?php echo $this->url('cms/default', array('controller'=>'Cms')); ?>"><?php echo $this->translate('管理文章'); ?></a></li>
                     <li><a href="<?php echo $this->url('cms/default', array('controller'=>'Class')); ?>"><?php echo $this->translate('管理文章分类'); ?></a></li>
                     <li><a href="<?php echo $this->url('cms/default', array('controller'=>'Cms', 'action'=>'singleArticle')); ?>"><?php echo $this->translate('管理单页文章'); ?></a></li>
-                </ul>           
+                    <?php
+                    //位于客户管理的扩展插件
+                    if(isset($extendAppUrlArray['adminCms']) and !empty($extendAppUrlArray['adminCms'])) {
+                        foreach($extendAppUrlArray['adminCms'] as $adminCmsValue) {
+                            ?>
+                            <li><a href="<?php echo $extendAppUrlPath . $adminCmsValue['url']; ?>"><?php echo $adminCmsValue['name']; ?></a></li>
+                        <?php } } ?>
+                </ul>
             </li>
             <li class="dropdown <?php if(in_array($this->myviewalias()->returnNamespace(), array('Navigation\Controller', 'Links\Controller', 'Upload\Controller', 'Email\Controller', 'Ad\Controller', 'Dbsql\Controller', 'Operlog\Controller', 'Errorlog\Controller'))) echo 'active'; ?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><?php echo $this->translate('工具管理'); ?> <b class="caret"></b></a>
              	<ul class="dropdown-menu">
@@ -107,6 +147,13 @@
                     </li>
                     <li><a href="<?php echo $this->url('dbsql/default'); ?>"><?php echo $this->translate('数据库备份'); ?></a></li>
                     <li><a href="<?php echo $this->url('operlog/default'); ?>"><?php echo $this->translate('操作日志'); ?></a></li>
+                    <?php
+                        //位于工具管理的扩展插件
+                        if(isset($extendAppUrlArray['adminTools']) and !empty($extendAppUrlArray['adminTools'])) {
+                            foreach($extendAppUrlArray['adminTools'] as $adminToolsValue) {
+                    ?>
+                    <li><a href="<?php echo $extendAppUrlPath . $adminToolsValue['url']; ?>"><?php echo $adminToolsValue['name']; ?></a></li>
+                    <?php } } ?>
                     <!-- <li><a href="<?php echo $this->url('errorlog/default'); ?>"><?php echo $this->translate('错误日志'); ?></a></li> -->
                 </ul>             
             </li>
@@ -157,7 +204,15 @@
                 	</li>
                 	<li><a href="<?php echo $this->url('template/default'); ?>"><?php echo $this->translate('模板管理'); ?></a></li>
                     <li><a href="<?php echo $this->url('package/default',array('action'=>'index')); ?>"><?php echo $this->translate('系统更新'); ?></a></li>
-                </ul>           
+                    <li><a href="<?php echo $this->url('plugin/default'); ?>"><?php echo $this->translate('扩展插件'); ?></a></li>
+                    <?php
+                    //位于系统管理的扩展插件
+                    if(isset($extendAppUrlArray['adminSystem']) and !empty($extendAppUrlArray['adminSystem'])) {
+                        foreach($extendAppUrlArray['adminSystem'] as $adminSystemValue) {
+                            ?>
+                            <li><a href="<?php echo $extendAppUrlPath . $adminSystemValue['url']; ?>"><?php echo $adminSystemValue['name']; ?></a></li>
+                        <?php } } ?>
+                </ul>
             </li>
         </ul>
         <ul class="nav pull-right">

@@ -12,9 +12,16 @@
     
     $this->headtitle($this->title_name);
 	$this->headtitle($this->extend_title_name);
-    $this->headtitle($dbshop_shop_name);
-    $this->headtitle($dbshop_shop_extend_name);
-    
+
+    if(isset($this->dbTongJiPage) and $this->dbTongJiPage == 'index') {
+        $this->headtitle($dbshop_shop_name);
+        $this->headtitle($dbshop_shop_extend_name);
+    } else {
+        $dbshop_shop_keywords    = $dbshop_shop_name;
+        $dbshop_shop_description = $dbshop_shop_name;
+        $this->headtitle($dbshop_shop_name);
+    }
+
     echo $this->headTitle()->setSeparator(' - ');
 ?>
 

@@ -5,7 +5,7 @@
     <p><span class="pull-left"><?php echo $this->translate('用户名'); ?>：<?php echo $ask_value['ask_writer']; ?></span><span class="pull-right"><?php echo date("Y-m-d H:i:s", $ask_value['ask_time']); ?></span></p>
     <?php if($ask_value['reply_ask_content'] != '') { ?>
         <p><?php echo $this->escapeHtml($ask_value['reply_ask_content']); ?></p>
-        <p><span class="pull-left"><?php echo $this->translate('回答者'); ?>：<?php echo $ask_value['reply_ask_writer']; ?></span><span class="pull-right"><?php echo date("Y-m-d H:i:s", $ask_value['reply_ask_time']); ?></span></p>
+        <p><span class="pull-left"><?php echo $this->translate('回答者'); ?>：<?php echo $this->translate('店主'); ?></span><span class="pull-right"><?php echo date("Y-m-d H:i:s", $ask_value['reply_ask_time']); ?></span></p>
     <?php } ?>
 </li>
     <?php } ?>

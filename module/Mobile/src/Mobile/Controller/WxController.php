@@ -129,7 +129,7 @@ class WxController extends MobileHomeController
                 /*----------------------提醒信息发送----------------------*/
                 $sendArray['buyer_name']  = $orderInfo->buyer_name;
                 $sendArray['order_sn']    = $orderInfo->order_sn;
-                $sendArray['order_total'] = $orderInfo->order_total;
+                $sendArray['order_total'] = $orderInfo->order_amount;
                 $sendArray['time']        = time();
                 $sendArray['buyer_email'] = $orderInfo->buyer_email;
                 $sendArray['order_state'] = 'payment_finish';

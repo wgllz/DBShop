@@ -46,6 +46,7 @@ class CommentController extends BaseController
         
         //商品评价分页
         $page = $this->params('page',1);
+        $array['page']     = $page;
         $array['goods_comment_list'] = $this->getDbshopTable()->listGoodsComment(array('page'=>$page, 'page_num'=>20), array('goods_id'=>$goodsId));
         
         return $array;
@@ -66,6 +67,31 @@ class CommentController extends BaseController
         $this->getDbshopTable('OrderGoodsTable')->updateOrderGoods(array('comment_state'=>'0'),array('goods_id'=>$goodsId));
         
         return $this->redirect()->toRoute('comment/default',array('controller'=>'comment'));
+    }
+    /**
+     * 回复商品咨询
+     * @return Ambigous <\Zend\Http\Response, \Zend\Stdlib\ResponseInterface>
+     */
+    public function replycontentAction()
+    {
+        $page = (int)$this->request->getPost('comment_page');
+        $page = ($page <=0 ? 1 : $page);
+
+        if($this->request->isPost()) {
+            $replyArray = $this->request->getPost()->toArray();
+            $rArray		= array();
+            $rArray['reply_body'] = $replyArray['reply_comment_content'];
+            $rArray['comment_show_state']= $replyArray['comment_show_state'];
+            $rArray['reply_writer']  = $this->getServiceLocator()->get('adminHelper')->returnAuth('admin_name');
+            $rArray['reply_time']    = ($rArray['reply_body'] == '' ? '' : time());
+
+            $this->getDbshopTable()->updateGoodsComment($rArray, array('comment_id'=>$replyArray['comment_id']));
+
+            //记录操作日志
+            $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('商品评价'), 'operlog_info'=>$this->getDbshopLang()->translate('商品评价回复') . '&nbsp;' . $replyArray['goods_name'] . ' : ' . $replyArray['reply_comment_content']));
+        }
+
+        return $this->redirect()->toRoute('comment/default/goods-id', array('action'=>'edit','controller'=>'comment','goods_id'=>$replyArray['goods_id'], 'page'=>$page));
     }
     /**
      * ajax调用评价列表，供编辑商品页面使用

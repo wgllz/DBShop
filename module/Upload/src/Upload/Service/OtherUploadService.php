@@ -58,12 +58,13 @@ class OtherUploadService
                 'image_name'   => $imageName,
                 'image_rename' => md5(time().rand(1, 100))
         );
-        $thumbArray = array(
+        /*$thumbArray = array(
                 'width'  => $imageWidth,
                 'height' => $imageHeight,
                 'crop'   => 'true',
         );
-        $imageInfo = $this->upload->uploadImage($imageArray, $thumbArray);
+        $imageInfo = $this->upload->uploadImage($imageArray, $thumbArray);*/
+        $imageInfo = $this->upload->uploadImage($imageArray);
         $imageInfo['image'] = $this->delOldUpload($imageInfo['image'], $oldImage);
         
         return $imageInfo;

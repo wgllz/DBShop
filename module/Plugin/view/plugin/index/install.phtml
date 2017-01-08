@@ -1,0 +1,132 @@
+<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
+    <p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('扩展插件安装'); ?></strong></p>
+    <p class="pull-right">
+        <a href="<?php echo $this->url('plugin/default'); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回列表'); ?></a>&nbsp;
+        <a href="<?php echo $this->myviewalias()->dbshopHelpUrl('plugin_set'); ?>" target="_blank" class="btn btn-small btn-info"><i class="icon-info-sign icon-white"></i> <?php echo $this->translate('查看帮助说明'); ?></a>
+    </p>
+</div>
+<table class="table" style="background-color: #dedede">
+    <tbody>
+    <?php
+    if(isset($this->plugin_list) and !empty($this->plugin_list)) {
+        $b_num = count($this->plugin_list)-1;
+        foreach($this->plugin_list as $b_key => $pluginListValue) {
+        $b_y_num = $b_key%3; if ($b_key == 0) echo '<tr>';
+        if ($b_y_num==0 and $b_key!=0) echo '</tr><tr>';
+        if ($b_num==$b_key) {
+        ?>
+            <td width="33%">
+                <table style="border: 1px solid #ddd;padding: 3px;">
+                    <tbody style="background-color: #fff;">
+                    <tr>
+                        <td width="25%" style="padding-top: 8px;">
+                            <img src="<?php echo $this->update_url . $pluginListValue['plugin_image']; ?>"  style="border: 1px solid #ddd;">
+                        </td>
+                        <td style="padding-top: 8px;">
+                            <p style="font-size: 15px;font-weight: bold;"><?php echo $this->escapeHtml($pluginListValue['plugin_name']); ?></p>
+                            <p><?php echo $this->escapeHtml($pluginListValue['plugin_info']); ?></p>
+                            <p>
+                                <?php if(intval($pluginListValue['plugin_price']) == 0) { ?>
+                                    <strong><?php echo $this->translate('价格'); ?>：</strong><?php echo $this->translate('免费'); ?><br>
+                                <?php } else { ?>
+                                    <strong><?php echo $this->translate('免费用户价格'); ?>：</strong>￥<?php echo $pluginListValue['plugin_price']; ?><br>
+                                    <strong><?php echo $this->translate('授权用户价格'); ?>：</strong>￥<?php echo $pluginListValue['authorized_plugin_price']; ?><br>
+                                <?php } ?>
+                                <small><?php echo $this->translate('由'); ?> <a href="<?php echo !empty($pluginListValue['plugin_author_url']) ? $pluginListValue['plugin_author_url'] : '#'; ?>" target="_blank"><?php echo $this->escapeHtml($pluginListValue['plugin_author']); ?></a> <?php echo $this->translate('开发'); ?> &nbsp;|&nbsp;<a href="<?php echo $pluginListValue['plugin_support_url']; ?>" target="_blank"><?php echo $this->translate('查看详情'); ?></a></small>
+                            </p>
+                        </td>
+                        <td width="18%" style="padding-top: 8px;">
+                            <?php if(!empty($this->install_plugin) and in_array($pluginListValue['plugin_code'], $this->install_plugin)) { ?>
+                            <button class="btn btn-small btn-success"><i class="icon-plus icon-white"></i> <?php echo $this->translate('已经安装'); ?></button>
+                            <?php } else {?>
+                            <button class="btn btn-small btn-primary" id="install-buttion-<?php echo $pluginListValue['plugin_id']; ?>" onclick="install_plugin(<?php echo $pluginListValue['plugin_id']; ?>);"><i class="icon-plus icon-white"></i> <?php echo $this->translate('现在安装'); ?></button>
+                            <P style="display: none;" id="start-install-<?php echo $pluginListValue['plugin_id']; ?>"><img src="<?php echo $this->basePath('public/admin/img/update_loading.gif'); ?>" border="0" />&nbsp;<?php echo $this->translate('安装中…'); ?></P>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="background-color: #fafafa;">
+                            <p>
+                                <strong><?php echo $this->translate('插件版本'); ?></strong>：<?php echo $pluginListValue['plugin_version']; ?>
+                                &nbsp;|&nbsp;
+                                <strong><?php echo $this->translate('支持DBShop版本'); ?></strong>：<?php echo $pluginListValue['plugin_support_version']; ?>
+                            </p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+            <?php $y_td_num = 3-$b_y_num-1;
+            for($i=1;$i<=$y_td_num; $i++) {
+                echo '<td width="33%"></td>';
+            }
+            ?>
+            </tr>
+        <?php
+            } else {
+        ?>
+            <td width="33%">
+                <table style="border: 1px solid #ddd;padding: 3px;">
+                    <tbody style="background-color: #fff;">
+                    <tr>
+                        <td width="25%" style="padding-top: 8px;">
+                            <img src="<?php echo $this->update_url . $pluginListValue['plugin_image']; ?>"  style="border: 1px solid #ddd;">
+                        </td>
+                        <td style="padding-top: 8px;">
+                            <p style="font-size: 15px;font-weight: bold;"><?php echo $this->escapeHtml($pluginListValue['plugin_name']); ?></p>
+                            <p><?php echo $this->escapeHtml($pluginListValue['plugin_info']); ?></p>
+                            <p>
+                                <?php if(intval($pluginListValue['plugin_price']) == 0) { ?>
+                                    <strong><?php echo $this->translate('价格'); ?>：</strong><?php echo $this->translate('免费'); ?><br>
+                                <?php } else { ?>
+                                    <strong><?php echo $this->translate('免费用户价格'); ?>：</strong>￥<?php echo $pluginListValue['plugin_price']; ?><br>
+                                    <strong><?php echo $this->translate('授权用户价格'); ?>：</strong>￥<?php echo $pluginListValue['authorized_plugin_price']; ?><br>
+                                <?php } ?>
+                                <small><?php echo $this->translate('由'); ?> <a href="<?php echo !empty($pluginListValue['plugin_author_url']) ? $pluginListValue['plugin_author_url'] : '#'; ?>" target="_blank"><?php echo $this->escapeHtml($pluginListValue['plugin_author']); ?></a> <?php echo $this->translate('开发'); ?> &nbsp;|&nbsp;<a href="<?php echo $pluginListValue['plugin_support_url']; ?>" target="_blank"><?php echo $this->translate('查看详情'); ?></a></small>
+                            </p>
+                        </td>
+                        <td width="18%" style="padding-top: 8px;">
+                            <?php if(!empty($this->install_plugin) and in_array($pluginListValue['plugin_code'], $this->install_plugin)) { ?>
+                            <button class="btn btn-small btn-success"><i class="icon-plus icon-white"></i> <?php echo $this->translate('已经安装'); ?></button>
+                            <?php } else {?>
+                            <button class="btn btn-small btn-primary" id="install-buttion-<?php echo $pluginListValue['plugin_id']; ?>" onclick="install_plugin(<?php echo $pluginListValue['plugin_id']; ?>);"><i class="icon-plus icon-white"></i> <?php echo $this->translate('现在安装'); ?></button>
+                            <P style="display: none;" id="start-install-<?php echo $pluginListValue['plugin_id']; ?>"><img src="<?php echo $this->basePath('public/admin/img/update_loading.gif'); ?>" border="0" />&nbsp;<?php echo $this->translate('安装中…'); ?></P>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="background-color: #fafafa;">
+                            <p>
+                                <strong><?php echo $this->translate('插件版本'); ?></strong>：<?php echo $pluginListValue['plugin_version']; ?>
+                                &nbsp;|&nbsp;
+                                <strong><?php echo $this->translate('支持DBShop版本'); ?></strong>：<?php echo $pluginListValue['plugin_support_version']; ?>
+                            </p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        <?php
+            }
+        }
+    }
+    ?>
+    </tbody>
+</table>
+<script>
+    function install_plugin(plugin_id) {
+        $('#install-buttion-'+plugin_id).css('display', 'none');
+        $('#start-install-'+plugin_id).css('display', '');
+
+        $.post("<?php echo $this->url('plugin/default',array('action'=>'startInstallPlugin')); ?>",{plugin_id:plugin_id},
+            function(data){
+                if(data == 'true') {
+                    alert('<?php echo $this->translate('插件安装成功！'); ?>');
+                } else {
+                    alert(data);
+                    return false;
+                }
+                window.location.href="<?php echo $this->url('plugin/default', array('action'=>'install')); ?>";
+            });
+    }
+</script>

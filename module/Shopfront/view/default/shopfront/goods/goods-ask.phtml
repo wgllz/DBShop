@@ -7,7 +7,7 @@
       <p><?php echo $this->escapeHtml($ask_value['ask_content']); ?></p>
       <?php if($ask_value['reply_ask_content'] != '') { ?>
       <hr />
-      <h4><?php echo $ask_value['reply_ask_writer']; ?> <small><?php echo date("Y-m-d H:i:s", $ask_value['reply_ask_time']); ?></small></h4>
+      <h4><?php echo $this->translate('店主'); ?> <small><?php echo date("Y-m-d H:i:s", $ask_value['reply_ask_time']); ?></small></h4>
       <p><?php echo $this->escapeHtml($ask_value['reply_ask_content']); ?></p>
       <?php } ?>
     </div>

@@ -12,7 +12,7 @@
                     <th width="40%"><?php echo $this->translate('评价内容'); ?></th>
                     <th width="10%"><?php echo $this->translate('评价等级'); ?></th>
                     <th width="10%"><?php echo $this->translate('评价时间'); ?></th>
-                    <th width="8%"><?php echo $this->translate('评价状态'); ?></th>
+                    <th width="8%"><?php echo $this->translate('显示'); ?></th>
                     <th width="8%"><?php echo $this->translate('操作'); ?></th>
                 </tr>
             </thead>
@@ -24,17 +24,81 @@
             	<td><?php echo $this->escapeHtml($comment_value['comment_body']); ?></td>
             	<td><?php echo $comment_value['goods_evaluation']; ?></td>
             	<td><?php echo date('Y-m-d H:i:s',$comment_value['comment_time']); ?></td>
-                <td><?php echo $comment_value['comment_show_state']; ?></td>
+                <td><i class="<?php echo $comment_value['comment_show_state']==1 ? 'cus-tick' : 'cus-cross'; ?>"></i></td>
                 <td>
+                <a onclick="reply_goods_comment('<?php echo $this->escapeHtml($comment_value['goods_name']); ?>', '<?php echo $this->escapeHtml($comment_value['comment_body']); ?>','<?php echo $this->escapeHtml($comment_value['reply_body']); ?>','<?php echo $comment_value['comment_id']; ?>','<?php echo $comment_value['comment_show_state']; ?>');" href="javascript:;"><?php echo $this->translate('评价回复'); ?></a>
+                <span>|</span>
 				<a href="<?php echo $this->url('comment/default/comment-id',array('action'=>'delonecomment','controller'=>'comment','comment_id'=>$comment_value['comment_id'],'goods_id'=>$this->goods_info->goods_id)); ?>" onclick="return window.confirm('<?php echo $this->translate('您确实要删除该条评价吗？'); ?>');"><?php echo $this->translate('删除'); ?></a>
                 </td>  
             </tr>
-            <?php 
-                    }
-                } ?>
+                <?php if($comment_value['reply_body'] != '') { ?>
+                    <tr>
+                        <td colspan="6" style="border-top:1px solid #fff;">
+                            <strong><?php echo $this->translate('回复时间'); ?>：</strong><?php echo date("Y-m-d H:i",$comment_value['reply_time']); ?>
+                            <strong><?php echo $this->translate('回复人'); ?>：</strong><?php echo $this->escapeHtml($comment_value['reply_writer']); ?><br />
+                            <strong><?php echo $this->translate('回复内容'); ?>：</strong><?php echo $this->escapeHtml($comment_value['reply_body']); ?>
+                        </td>
+                    </tr>
+                <?php } } } ?>
             <tr>
-           		<td colspan="9" style="background:#FFF">
+           		<td colspan="6" style="background:#FFF">
                 <?php echo ( count($this->goods_comment_list) > 0 ) ? $this->paginationControl($this->goods_comment_list,'Sliding','common/pager',array('page_url'=>$this->url('comment/default/goods-id',array('action'=>'edit','controller'=>'comment','goods_id'=>$this->goods_info->goods_id)))) : ''; ?>              
                 </td> 
             </tr>
             </table>
+            <form class="form-horizontal" name="comment_reply_form" id="comment_reply_form" action="<?php echo $this->url('comment/default', array('action'=>'replycontent')); ?>" method="post">
+                <input type="hidden" name="goods_id" id="goods_id" value="<?php echo $this->goods_info->goods_id; ?>">
+                <input type="hidden" name="comment_id" id="comment_id" value="">
+                <input type="hidden" name="comment_page" value="<?php echo $this->page; ?>" />
+                <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="myModalLabel"><?php echo $this->translate('商品评价回复'); ?></h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="control-group">
+                            <label class="control-label" style="width:80px;"><?php echo $this->translate('商品名称'); ?></label>
+                            <div class="controls" style="margin-left:100px;">
+                                <div id="reply_goods_name"></div><input type="hidden" name="goods_name" id="goods_name" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" style="width:80px;"><?php echo $this->translate('评价内容'); ?></label>
+                            <div class="controls" style="margin-left:100px;">
+                                <div id="comment_content"></div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" style="width:80px;"><?php echo $this->translate('评价回复'); ?><span class="must_add_value">*</span></label>
+                            <div class="controls" style="margin-left:100px;">
+                                <textarea name="reply_comment_content" id="reply_comment_content" class="span12"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" style="width:80px;"><?php echo $this->translate('显示状态'); ?></label>
+                            <div class="controls" style="margin-left:100px;">
+                                <select name="comment_show_state" id="comment_show_state" class="span3">
+                                    <option value="1"><?php echo $this->translate('显示'); ?></option>
+                                    <option value="0"><?php echo $this->translate('不显示'); ?></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->translate('关闭'); ?></button>
+                        <button type="submit" class="btn btn-primary"><?php echo $this->translate('回复商品评价'); ?></button>
+                    </div>
+                </div>
+            </form>
+            <script>
+                function reply_goods_comment(goods_name, comment_content, reply_content, comment_id, comment_show_state) {
+                    $('#reply_goods_name').html(goods_name);
+                    $('#comment_content').html(comment_content);
+                    $('#reply_comment_content').val(reply_content);
+                    $('#comment_id').val(comment_id);
+                    $('#goods_name').val(goods_name);
+                    $("#comment_show_state").attr("value",comment_show_state);
+
+                    $('#myModal').modal('show');
+                }
+            </script>

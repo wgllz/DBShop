@@ -1,0 +1,189 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DBShop\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-30 22:01+0800\n"
+"PO-Revision-Date: 2016-12-30 22:01+0800\n"
+"Last-Translator: DBShop <team@dbshop.net>\n"
+"Language-Team: DBShop <team@dbshop.net>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../src/Plugin/Controller/IndexController.php:266
+#: ../src/Plugin/Controller/IndexController.php:274
+#: ../src/Plugin/Controller/IndexController.php:359
+#: ../src/Plugin/Controller/IndexController.php:362
+#: ../src/Plugin/Controller/IndexController.php:366
+msgid "该插件不存在！"
+msgstr ""
+
+#: ../src/Plugin/Controller/IndexController.php:269
+msgid "该插件已经安装，无需重复安装！"
+msgstr ""
+
+#: ../src/Plugin/Controller/IndexController.php:275
+#: ../src/Plugin/Controller/IndexController.php:367
+msgid "系统版本低，无法支持该插件，请您将系统版本升级到"
+msgstr ""
+
+#: ../src/Plugin/Controller/IndexController.php:292
+msgid "下载的插件与原始插件包不匹配，无法安装"
+msgstr ""
+
+#: ../src/Plugin/Controller/IndexController.php:318
+#: ../src/Plugin/Controller/IndexController.php:409
+#, php-format
+msgid "无法正常安装文件，请检查%s对应的目录是否有相关权限"
+msgstr ""
+
+#: ../src/Plugin/Controller/IndexController.php:383
+msgid "下载的更新插件与原始更新插件包不匹配，无法更新"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:2
+msgid "扩展插件"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:4
+msgid "安装扩展插件"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:5 ../view/plugin/index/install.phtml:5
+msgid "查看帮助说明"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:11
+msgid "插件"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:12
+msgid "插件描述"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:22
+msgid "已启用"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:22
+msgid "未启用"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:25
+msgid "点击启用"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:27
+msgid "您确定要卸载 "
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:27
+msgid "点击卸载"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:29
+msgid "点击停用"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:37
+msgid "版本"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:39 ../view/plugin/index/install.phtml:35
+#: ../view/plugin/index/install.phtml:85
+msgid "由"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:39 ../view/plugin/index/install.phtml:35
+#: ../view/plugin/index/install.phtml:85
+msgid "开发"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:41 ../view/plugin/index/install.phtml:35
+#: ../view/plugin/index/install.phtml:85
+msgid "查看详情"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:44
+msgid "安装后位置"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:55
+msgid "插件有更新包啦！您可以"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:55
+msgid "点击立刻更新"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:56
+msgid "更新中…"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:72
+msgid "更新内容"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:79
+msgid "关闭"
+msgstr ""
+
+#: ../view/plugin/index/index.phtml:91
+msgid "插件更新成功！"
+msgstr ""
+
+#: ../view/plugin/index/install.phtml:2
+msgid "扩展插件安装"
+msgstr ""
+
+#: ../view/plugin/index/install.phtml:4
+msgid "返回列表"
+msgstr ""
+
+#: ../view/plugin/index/install.phtml:30 ../view/plugin/index/install.phtml:80
+msgid "价格"
+msgstr ""
+
+#: ../view/plugin/index/install.phtml:30 ../view/plugin/index/install.phtml:80
+msgid "免费"
+msgstr ""
+
+#: ../view/plugin/index/install.phtml:32 ../view/plugin/index/install.phtml:82
+msgid "免费用户价格"
+msgstr ""
+
+#: ../view/plugin/index/install.phtml:33 ../view/plugin/index/install.phtml:83
+msgid "授权用户价格"
+msgstr ""
+
+#: ../view/plugin/index/install.phtml:40 ../view/plugin/index/install.phtml:90
+msgid "已经安装"
+msgstr ""
+
+#: ../view/plugin/index/install.phtml:42 ../view/plugin/index/install.phtml:92
+msgid "现在安装"
+msgstr ""
+
+#: ../view/plugin/index/install.phtml:43 ../view/plugin/index/install.phtml:93
+msgid "安装中…"
+msgstr ""
+
+#: ../view/plugin/index/install.phtml:50
+#: ../view/plugin/index/install.phtml:100
+msgid "插件版本"
+msgstr ""
+
+#: ../view/plugin/index/install.phtml:52
+#: ../view/plugin/index/install.phtml:102
+msgid "支持DBShop版本"
+msgstr ""
+
+#: ../view/plugin/index/install.phtml:124
+msgid "插件安装成功！"
+msgstr ""

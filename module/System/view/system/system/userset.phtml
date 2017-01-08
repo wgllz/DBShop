@@ -124,7 +124,7 @@
 						<div class="control-group">
 							<label for="input01" class="control-label"><?php echo $this->translate('回调地址'); ?>：</label>
 							<div class="controls">
-								<label style="line-height: 30px;"><?php echo str_replace(array('http://', 'https://'), '', $this->serverUrl()).$this->url('frontuser/default',array('action'=>'othercallback')); ?></label>
+								<label style="line-height: 30px;"><?php echo $this->frontwebsite()->dbshopHttpHost() . $this->url('frontuser/default',array('action'=>'othercallback')); ?></label>
 							</div>
 						</div>
                         <div class="control-group">

@@ -75,6 +75,20 @@ class Helper extends AbstractHelper
         $array= $auth->getIdentity();
         return $array[$name];
     }
+
+    /**
+     * 获取扩展插件的后台url（adminTools 工具管理、adminSystem 系统管理、adminCms CMS管理、adminUser 客户管理、adminGoods 商品管理、adminOrder 销售管理、adminAnalytics 统计分析）
+     * @return array
+     */
+    public function adminExtendUrlArray()
+    {
+        $urlFile  = DBSHOP_PATH . '/data/moduledata/moduleini/url.ini';
+        $urlArray = array();
+        if(file_exists($urlFile)) {
+            $urlArray = $this->iniReader->fromFile($urlFile);
+        }
+        return $urlArray;
+    }
     /** 
      * 获取前台模板中的配置信息
      * @param unknown $name

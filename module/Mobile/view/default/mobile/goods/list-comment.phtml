@@ -1,8 +1,12 @@
 <?php $totalItemCont = $this->goods_comment->getTotalItemCount(); if ($totalItemCont > 0) { ?>
-    <?php foreach ($this->goods_comment as $ask_value) { ?>
+    <?php foreach ($this->goods_comment as $comment_value) { ?>
 <li>
-    <p><?php echo $this->escapeHtml($ask_value['comment_body']); ?></p>
-    <p><span class="pull-left"><?php echo $ask_value['comment_writer']; ?></span><span class="pull-right"><?php echo date("Y-m-d H:i:s", $ask_value['comment_time']); ?></span></p>
+    <p><?php echo $this->escapeHtml($comment_value['comment_body']); ?></p>
+    <p><span class="pull-left"><?php echo $comment_value['comment_writer']; ?></span><span class="pull-right"><?php echo date("Y-m-d H:i:s", $comment_value['comment_time']); ?></span></p>
+    <?php if($comment_value['reply_body'] != '') { ?>
+        <p><?php echo $this->escapeHtml($comment_value['reply_body']); ?></p>
+        <p><span class="pull-left"><?php echo $this->translate('店主'); ?></span><span class="pull-right"><?php echo date("Y-m-d H:i:s", $comment_value['reply_time']); ?></span></p>
+    <?php } ?>
 </li>
     <?php } ?>
 

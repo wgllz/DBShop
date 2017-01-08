@@ -97,10 +97,16 @@
                         <div class="message_one">
                     	</div>
                      	<div class="control-group">
-                  			<label for="input01" class="control-label"><?php echo $this->translate('购物金额满'); ?><span class="must_add_value">*</span>：</label>
+                  			<label for="input01" class="control-label"><?php echo $this->translate('购物金额'); ?><span class="must_add_value">*</span>：</label>
            					<div class="controls">
-              					<input type="text" id="shopping_amount"  name="shopping_amount" value="<?php echo ($this->integral_rule_info ? $this->integral_rule_info->shopping_amount : ''); ?>" class="span2"><?php echo $this->translate('元'); ?>
-            				</div>                        
+								<select class="span1" name="shopping_type" style="width: 60px;">
+									<option value="1" <?php echo (isset($this->integral_rule_info->shopping_type) and $this->integral_rule_info->shopping_type == 1) ? 'selected' : ''; ?>><?php echo $this->translate('满'); ?></option>
+									<option value="2" <?php echo (isset($this->integral_rule_info->shopping_type) and $this->integral_rule_info->shopping_type == 2) ? 'selected' : ''; ?>><?php echo $this->translate('每'); ?></option>
+								</select>
+              					<input type="text" id="shopping_amount"  name="shopping_amount" value="<?php echo ($this->integral_rule_info ? $this->integral_rule_info->shopping_amount : ''); ?>" class="span2">&nbsp;<?php echo $this->translate('元'); ?>
+								<i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('满：例如 填写的 100 元 获得 5 积分，那么前台买家购物1000元，依然得到 5积分。<br>每：例如填写的是 100 元 获得 5 积分 ，那么前台买家购物1000元，将会得到 50 积分。'); ?>"></i>
+            				</div>
+
                         </div>
                      	<div class="control-group">
                   			<label for="input01" class="control-label"><?php echo $this->translate('获得'); ?><span class="must_add_value">*</span>：</label>

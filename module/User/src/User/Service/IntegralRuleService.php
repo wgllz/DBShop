@@ -47,11 +47,17 @@ class IntegralRuleService
     
                 //符合条件的积分数额，存入数组中
                 $shoppingAmount = (int) $ruleValue['shopping_amount'];
-                if($costTotal >= $shoppingAmount) {//判断是否达到可积分的数额
-                    $integralCost[$ruleKey] = (int) $ruleValue['integral_num'];
-                    
-                    //使用积分金额最为键名，积分名称作为键值，可能会出现的问题，就是当有多个积分金额相同的时候，积分名称可能会对应不上
-                    $integralName[$integralCost[$ruleKey]] = $ruleValue['integral_rule_info'];
+                //每多少，送x积分
+                if($costTotal >= $shoppingAmount) {
+                    if(isset($ruleValue['shopping_type']) and $ruleValue['shopping_type'] == 2) {
+                        $n = floor($costTotal/$shoppingAmount);
+                        $integralCost[$ruleKey] = (int) ($ruleValue['integral_num'] * $n);
+                        $integralName[$integralCost[$ruleKey]] = $ruleValue['integral_rule_info'];
+                    } else {
+                        $integralCost[$ruleKey] = (int) $ruleValue['integral_num'];
+                        //使用积分金额作为键名，积分名称作为键值，可能会出现的问题，就是当有多个积分金额相同的时候，积分名称可能会对应不上
+                        $integralName[$integralCost[$ruleKey]] = $ruleValue['integral_rule_info'];
+                    }
                 }
             }
             if(empty($integralCost)) return 0;

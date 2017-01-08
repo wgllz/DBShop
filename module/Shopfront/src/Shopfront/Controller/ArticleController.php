@@ -72,7 +72,10 @@ class ArticleController extends AbstractActionController
             header("Location: " . $array['article_body']->article_url);
             exit();
         }
-        
+
+        //判断是否为手机端访问
+        if($this->getServiceLocator()->get('frontHelper')->isMobile()) return $this->redirect()->toRoute('m_article/default/cms_id', array('action'=>'content', 'cms_id'=>$article_id));
+
         //文章信息输出到layout
         $this->layout()->title_name         = $array['article_body']->article_title;
         $this->layout()->extend_title_name  = $array['article_body']->article_title_extend;
@@ -104,6 +107,10 @@ class ArticleController extends AbstractActionController
     {
         $array = array();
         $singleArticleId = (int) $this->params('cms_id', 0);
+
+        //判断是否为手机端访问
+        if($this->getServiceLocator()->get('frontHelper')->isMobile()) return $this->redirect()->toRoute('m_article/default/cms_id', array('action'=>'single', 'cms_id'=>$singleArticleId));
+
         $array['single_article_info'] = $this->getDbshopTable('SingleArticleTable')->infoSingleArticle(array('dbshop_single_article.single_article_id'=>$singleArticleId, 'e.language'=>$this->getDbshopLang()->getLocale()));
 
 

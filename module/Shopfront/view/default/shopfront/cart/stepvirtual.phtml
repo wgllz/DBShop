@@ -139,7 +139,7 @@
 			foreach($this->payment as $key => $value) {
 		?>
         <label>
-        	<input type="radio" name="pyament_code" <?php if(isset($value['selected']) and $value['selected'] == 1) echo 'checked'; ?> value="<?php echo $value['editaction']; ?>" onclick="calculate_fee('payment_price_<?php echo $value['editaction']; ?>', 'payment', '<?php echo $value['editaction']; ?>');"><img src="<?php echo $this->basePath($value['payment_logo']['content']); ?>" style="border:1px solid #D7D7D7; margin-left:8px;">
+        	<input type="radio" name="payment_code" <?php if(isset($value['selected']) and $value['selected'] == 1) echo 'checked'; ?> value="<?php echo $value['editaction']; ?>" onclick="calculate_fee('payment_price_<?php echo $value['editaction']; ?>', 'payment', '<?php echo $value['editaction']; ?>');"><img src="<?php echo $this->basePath($value['payment_logo']['content']); ?>" style="border:1px solid #D7D7D7; margin-left:8px;">
             &nbsp;[ <strong><?php echo $this->translate('费用'); ?>：<?php echo $this->frontwebsite()->shopPriceSymbol(); ?><span id="payment_price_<?php echo $value['editaction']; ?>"><?php echo $value['payment_fee']['content']; ?></span><?php echo $this->frontwebsite()->shopPriceUnit(); ?></strong> ]&nbsp;<small><?php echo $value['payment_info']['content']; ?></small>
         </label>
         <?php } } ?>

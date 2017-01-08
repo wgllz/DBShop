@@ -248,10 +248,10 @@
         $.post("<?php echo $this->url('frontmoney/default', array('action'=>'mypayto')); ?>",$('#user_pay_form').formSerialize(),
             function(data){
                 if(data.state == 'true') {
-                    window.open(data.pay_url);
-                    //window.location.href= data.pay_url;
-                    $('#myPayModal').modal('hide');
-                    $('#myPayState').modal('show');
+                    //window.open(data.pay_url);
+                    window.location.href= data.pay_url;
+                    //$('#myPayModal').modal('hide');
+                    //$('#myPayState').modal('show');
                 } else {
                     alert(data.message);
                     return false;

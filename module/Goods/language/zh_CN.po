@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-30 23:31+0800\n"
-"PO-Revision-Date: 2016-11-30 23:31+0800\n"
+"POT-Creation-Date: 2016-12-23 01:46+0800\n"
+"PO-Revision-Date: 2016-12-23 01:46+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_CN\n"
@@ -139,126 +139,132 @@ msgstr ""
 msgid "删除商品品牌"
 msgstr ""
 
-#: ../src/Goods/Controller/ClassController.php:71
-#: ../src/Goods/Controller/ClassController.php:153
-#: ../src/Goods/Controller/ClassController.php:225
+#: ../src/Goods/Controller/ClassController.php:77
+#: ../src/Goods/Controller/ClassController.php:161
+#: ../src/Goods/Controller/ClassController.php:235
 #: ../view/goods/class/index.phtml:2
 msgid "管理分类"
 msgstr ""
 
-#: ../src/Goods/Controller/ClassController.php:71
+#: ../src/Goods/Controller/ClassController.php:77
 #: ../view/goods/class/index.phtml:4
 msgid "添加分类"
 msgstr ""
 
-#: ../src/Goods/Controller/ClassController.php:153
+#: ../src/Goods/Controller/ClassController.php:161
 msgid "更新分类"
 msgstr ""
 
-#: ../src/Goods/Controller/ClassController.php:159
+#: ../src/Goods/Controller/ClassController.php:167
 msgid "商品分类编辑成功！"
 msgstr ""
 
-#: ../src/Goods/Controller/ClassController.php:225
+#: ../src/Goods/Controller/ClassController.php:235
 #: ../view/goods/class/add.phtml:21 ../view/goods/class/index.phtml:33
 msgid "删除分类"
 msgstr ""
 
-#: ../src/Goods/Controller/CommentController.php:130
-#: ../src/Goods/Controller/CommentController.php:180
+#: ../src/Goods/Controller/CommentController.php:91
+#: ../src/Goods/Controller/CommentController.php:156
+#: ../src/Goods/Controller/CommentController.php:206
 #: ../view/goods/comment/index.phtml:2 ../view/goods/goods/add.phtml:16
 #: ../view/goods/goods/add.phtml:638
 msgid "商品评价"
 msgstr ""
 
-#: ../src/Goods/Controller/CommentController.php:130
-#: ../src/Goods/Controller/CommentController.php:180
+#: ../src/Goods/Controller/CommentController.php:91
+#: ../view/goods/comment/edit.phtml:56
+msgid "商品评价回复"
+msgstr ""
+
+#: ../src/Goods/Controller/CommentController.php:156
+#: ../src/Goods/Controller/CommentController.php:206
 msgid "删除商品评价"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:224
-#: ../src/Goods/Controller/GoodsController.php:448
-#: ../src/Goods/Controller/GoodsController.php:736
+#: ../src/Goods/Controller/GoodsController.php:222
+#: ../src/Goods/Controller/GoodsController.php:445
+#: ../src/Goods/Controller/GoodsController.php:733
 #: ../view/goods/goods/index.phtml:3
 msgid "管理商品"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:224
+#: ../src/Goods/Controller/GoodsController.php:222
 #: ../view/goods/goods/index.phtml:10
 msgid "添加商品"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:448
+#: ../src/Goods/Controller/GoodsController.php:445
 msgid "更新商品"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:451
+#: ../src/Goods/Controller/GoodsController.php:448
 msgid "商品编辑成功！"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:558
+#: ../src/Goods/Controller/GoodsController.php:555
 msgid "虚拟商品添加失败！"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:580
+#: ../src/Goods/Controller/GoodsController.php:577
 #: ../view/goods/goods/add-virtual-goods.phtml:97
 msgid "未交易"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:580
+#: ../src/Goods/Controller/GoodsController.php:577
 #: ../view/goods/goods/add-virtual-goods.phtml:98
 msgid "已交易"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:580
+#: ../src/Goods/Controller/GoodsController.php:577
 #: ../view/goods/goods/add-virtual-goods.phtml:99
 msgid "已过期"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:581
+#: ../src/Goods/Controller/GoodsController.php:578
 #: ../view/goods/goods/add-virtual-goods.phtml:38
 #: ../view/goods/goods/add-virtual-goods.phtml:49
 #: ../view/goods/goods/add-virtual-goods.phtml:85
 msgid "手动添加"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:581
+#: ../src/Goods/Controller/GoodsController.php:578
 #: ../view/goods/goods/add-virtual-goods.phtml:39
 #: ../view/goods/goods/add-virtual-goods.phtml:50
 #: ../view/goods/goods/add-virtual-goods.phtml:85
 msgid "自动生成"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:581
+#: ../src/Goods/Controller/GoodsController.php:578
 #: ../view/goods/goods/add-virtual-goods.phtml:40
 #: ../view/goods/goods/add-virtual-goods.phtml:51
 #: ../view/goods/goods/add-virtual-goods.phtml:85
 msgid "自动重复"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:600
+#: ../src/Goods/Controller/GoodsController.php:597
 msgid "获取虚拟商品信息失败！"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:629
+#: ../src/Goods/Controller/GoodsController.php:626
 msgid "虚拟商品删除失败！"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:736
+#: ../src/Goods/Controller/GoodsController.php:733
 #: ../view/goods/goods/add.phtml:31
 msgid "删除商品"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:762
+#: ../src/Goods/Controller/GoodsController.php:759
 msgid "商品索引设置成功！"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:815
+#: ../src/Goods/Controller/GoodsController.php:820
 msgid "无需要更新的商品索引！"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:893
-#: ../src/Goods/Controller/GoodsController.php:935
+#: ../src/Goods/Controller/GoodsController.php:911
+#: ../src/Goods/Controller/GoodsController.php:953
 #: ../view/goods/brand/brandajaxgoods.phtml:79
 #: ../view/goods/brand/brandajaxgoods.phtml:117
 #: ../view/goods/class/ajaxgoods.phtml:80
@@ -269,8 +275,8 @@ msgstr ""
 msgid "上架"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:893
-#: ../src/Goods/Controller/GoodsController.php:935
+#: ../src/Goods/Controller/GoodsController.php:911
+#: ../src/Goods/Controller/GoodsController.php:953
 #: ../view/goods/brand/brandajaxgoods.phtml:81
 #: ../view/goods/brand/brandajaxgoods.phtml:117
 #: ../view/goods/class/ajaxgoods.phtml:82
@@ -281,7 +287,7 @@ msgstr ""
 msgid "下架"
 msgstr ""
 
-#: ../src/Goods/Controller/GoodsController.php:964
+#: ../src/Goods/Controller/GoodsController.php:982
 msgid "已下架"
 msgstr ""
 
@@ -385,7 +391,8 @@ msgstr ""
 
 #: ../view/goods/ask/index.phtml:10 ../view/goods/ask/index.phtml:62
 #: ../view/goods/brand/brandajaxgoods.phtml:8
-#: ../view/goods/class/ajaxgoods.phtml:9 ../view/goods/comment/index.phtml:10
+#: ../view/goods/class/ajaxgoods.phtml:9 ../view/goods/comment/edit.phtml:60
+#: ../view/goods/comment/index.phtml:10
 #: ../view/goods/goods/add-virtual-goods.phtml:71
 #: ../view/goods/goods/add.phtml:44 ../view/goods/goods/add.phtml:462
 #: ../view/goods/goods/add.phtml:565 ../view/goods/goods/index.phtml:27
@@ -402,6 +409,7 @@ msgid "咨询人"
 msgstr ""
 
 #: ../view/goods/ask/index.phtml:13 ../view/goods/ask/index.phtml:83
+#: ../view/goods/comment/edit.phtml:15 ../view/goods/comment/edit.phtml:81
 msgid "显示"
 msgstr ""
 
@@ -425,7 +433,7 @@ msgstr ""
 #: ../view/goods/goods/add.phtml:423 ../view/goods/goods/add.phtml:466
 #: ../view/goods/goods/add.phtml:569
 #: ../view/goods/goods/clear-goods-image.phtml:14
-#: ../view/goods/goods/goods-index.phtml:55 ../view/goods/goods/index.phtml:33
+#: ../view/goods/goods/goods-index.phtml:55
 #: ../view/goods/promotions/index.phtml:15
 #: ../view/goods/tag/ajaxgoods.phtml:14 ../view/goods/tag/index.phtml:19
 #: ../view/goods/tag/spec-tag.phtml:15 ../view/goods/tag/tag-group.phtml:16
@@ -454,14 +462,14 @@ msgstr ""
 #: ../view/goods/attribute/index.phtml:30 ../view/goods/brand/index.phtml:31
 #: ../view/goods/class/ajaxgoods.phtml:135
 #: ../view/goods/comment/ajaxcomment.phtml:17
-#: ../view/goods/comment/edit.phtml:29
+#: ../view/goods/comment/edit.phtml:31
 #: ../view/goods/comment/userajaxcomment.phtml:18
 #: ../view/goods/goods/add-virtual-goods.phtml:104
 #: ../view/goods/goods/add-virtual-goods.phtml:164
 #: ../view/goods/goods/add.phtml:437 ../view/goods/goods/add.phtml:478
 #: ../view/goods/goods/add.phtml:581 ../view/goods/goods/add.phtml:1136
-#: ../view/goods/goods/add.phtml:1172 ../view/goods/goods/add.phtml:1230
-#: ../view/goods/goods/add.phtml:1284
+#: ../view/goods/goods/add.phtml:1173 ../view/goods/goods/add.phtml:1231
+#: ../view/goods/goods/add.phtml:1285
 #: ../view/goods/goods/clear-goods-image.phtml:23
 #: ../view/goods/goods/index.phtml:208 ../view/goods/goods/index.phtml:223
 #: ../view/goods/promotions/index.phtml:41
@@ -471,27 +479,28 @@ msgstr ""
 msgid "删除"
 msgstr ""
 
-#: ../view/goods/ask/index.phtml:38
+#: ../view/goods/ask/index.phtml:38 ../view/goods/comment/edit.phtml:37
 msgid "回复时间"
 msgstr ""
 
-#: ../view/goods/ask/index.phtml:39
+#: ../view/goods/ask/index.phtml:39 ../view/goods/comment/edit.phtml:38
 msgid "回复人"
 msgstr ""
 
-#: ../view/goods/ask/index.phtml:40
+#: ../view/goods/ask/index.phtml:40 ../view/goods/comment/edit.phtml:39
 msgid "回复内容"
 msgstr ""
 
-#: ../view/goods/ask/index.phtml:80
+#: ../view/goods/ask/index.phtml:80 ../view/goods/comment/edit.phtml:78
 msgid "显示状态"
 msgstr ""
 
-#: ../view/goods/ask/index.phtml:84
+#: ../view/goods/ask/index.phtml:84 ../view/goods/comment/edit.phtml:82
 msgid "不显示"
 msgstr ""
 
-#: ../view/goods/ask/index.phtml:90 ../view/goods/promotions/add.phtml:60
+#: ../view/goods/ask/index.phtml:90 ../view/goods/comment/edit.phtml:88
+#: ../view/goods/promotions/add.phtml:60
 #: ../view/goods/promotions/index.phtml:37
 msgid "关闭"
 msgstr ""
@@ -984,7 +993,8 @@ msgid "分类显示"
 msgstr ""
 
 #: ../view/goods/class/add.phtml:16 ../view/goods/goods/add.phtml:5
-#: ../view/goods/goods/add.phtml:322 ../view/goods/promotions/add.phtml:127
+#: ../view/goods/goods/add.phtml:322 ../view/goods/goods/index.phtml:33
+#: ../view/goods/promotions/add.phtml:127
 #: ../view/goods/promotions/add.phtml:136
 msgid "商品分类"
 msgstr ""
@@ -1167,7 +1177,7 @@ msgid "暂无商品分类"
 msgstr ""
 
 #: ../view/goods/comment/ajaxcomment.phtml:3
-#: ../view/goods/comment/edit.phtml:12
+#: ../view/goods/comment/edit.phtml:12 ../view/goods/comment/edit.phtml:66
 #: ../view/goods/comment/userajaxcomment.phtml:4
 msgid "评价内容"
 msgstr ""
@@ -1200,12 +1210,16 @@ msgstr ""
 msgid "评价等级"
 msgstr ""
 
-#: ../view/goods/comment/edit.phtml:15
-msgid "评价状态"
+#: ../view/goods/comment/edit.phtml:29 ../view/goods/comment/edit.phtml:72
+msgid "评价回复"
 msgstr ""
 
-#: ../view/goods/comment/edit.phtml:29 ../view/goods/goods/add.phtml:1188
+#: ../view/goods/comment/edit.phtml:31 ../view/goods/goods/add.phtml:1189
 msgid "您确实要删除该条评价吗？"
+msgstr ""
+
+#: ../view/goods/comment/edit.phtml:89
+msgid "回复商品评价"
 msgstr ""
 
 #: ../view/goods/comment/index.phtml:13
@@ -1675,7 +1689,7 @@ msgid "图片排序"
 msgstr ""
 
 #: ../view/goods/goods/add.phtml:436 ../view/goods/goods/add.phtml:1136
-#: ../view/goods/goods/add.phtml:1172 ../view/goods/tag/ajaxgoods.phtml:46
+#: ../view/goods/goods/add.phtml:1173 ../view/goods/tag/ajaxgoods.phtml:46
 msgid "更新"
 msgstr ""
 
@@ -1893,56 +1907,56 @@ msgstr ""
 msgid "上传失败！"
 msgstr ""
 
-#: ../view/goods/goods/add.phtml:1177
+#: ../view/goods/goods/add.phtml:1178
 msgid "无新的商品图片"
 msgstr ""
 
-#: ../view/goods/goods/add.phtml:1195
+#: ../view/goods/goods/add.phtml:1196
 msgid "评价删除失败！"
 msgstr ""
 
-#: ../view/goods/goods/add.phtml:1218 ../view/goods/goods/add.phtml:1272
+#: ../view/goods/goods/add.phtml:1219 ../view/goods/goods/add.phtml:1273
 #: ../view/goods/tag/add-spec-tag.phtml:146 ../view/goods/tag/add.phtml:159
 msgid "该商品不存在，请从新选择！"
 msgstr ""
 
-#: ../view/goods/goods/add.phtml:1236
+#: ../view/goods/goods/add.phtml:1237
 msgid "该关联商品已经存在，无需再次添加！"
 msgstr ""
 
-#: ../view/goods/goods/add.phtml:1238
+#: ../view/goods/goods/add.phtml:1239
 msgid "关联商品添加失败！"
 msgstr ""
 
-#: ../view/goods/goods/add.phtml:1244
+#: ../view/goods/goods/add.phtml:1245
 msgid "您确实要删除该关联商品吗？"
 msgstr ""
 
-#: ../view/goods/goods/add.phtml:1250
+#: ../view/goods/goods/add.phtml:1251
 msgid "关联商品删除失败！"
 msgstr ""
 
-#: ../view/goods/goods/add.phtml:1290
+#: ../view/goods/goods/add.phtml:1291
 msgid "该组合商品已经存在，无需再次添加！"
 msgstr ""
 
-#: ../view/goods/goods/add.phtml:1292
+#: ../view/goods/goods/add.phtml:1293
 msgid "组合商品添加失败！"
 msgstr ""
 
-#: ../view/goods/goods/add.phtml:1298
+#: ../view/goods/goods/add.phtml:1299
 msgid "您确实要删除该组合商品吗？"
 msgstr ""
 
-#: ../view/goods/goods/add.phtml:1304
+#: ../view/goods/goods/add.phtml:1305
 msgid "组合商品删除失败！"
 msgstr ""
 
-#: ../view/goods/goods/add.phtml:1312
+#: ../view/goods/goods/add.phtml:1313
 msgid "请先输入商品价格！"
 msgstr ""
 
-#: ../view/goods/goods/add.phtml:1316
+#: ../view/goods/goods/add.phtml:1317
 msgid "积分转换失败！"
 msgstr ""
 

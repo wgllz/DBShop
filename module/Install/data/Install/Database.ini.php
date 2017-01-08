@@ -1,7 +1,7 @@
 <?php
 return array(
         'driver' => 'Pdo',
-        'dsn' => 'mysql:dbname={dbname};port={dbport};host={hostname}',
+        'dsn' => 'mysql:dbname={dbname};port={dbport};host={hostname};charset=utf8',
         'username' => '{username}',
         'password' => '{password}',
         'driver_options' => array(

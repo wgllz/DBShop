@@ -1,6 +1,6 @@
 <style>
 .dl-horizontal dt {
-    width: 65px;
+    width: 80px;
 }
 .dl-horizontal dd {
     margin-left: 105px;
@@ -24,7 +24,7 @@
             <a href="<?php echo $this->url('orders/default/order_id',array('action'=>'delOrder','controller'=>'Orders','order_id'=>$this->order_info->order_id)); ?>"  onclick="return window.confirm('<?php echo $this->translate('您确实要删除该订单吗？'); ?>');" class="btn btn-small btn-danger"><?php echo $this->translate('删除订单'); ?></a>&nbsp;
             <?php } if ($this->order_info->order_state == 10 or ($this->order_info->order_state == 30 and $this->order_info->pay_code == 'hdfk')) { ?>
             <a href="<?php echo $this->url('orders/default/order_id',array('action'=>'cancelOrder','controller'=>'Orders','order_id'=>$this->order_info->order_id, 'page'=>$this->page)); ?>" class="btn btn-small btn-danger"><i class="icon-remove icon-white"></i> <?php echo $this->translate('取消订单'); ?></a>&nbsp;
-            <?php } if (in_array($this->order_info->order_state, array(10, 15))) { ?>
+            <?php } if (in_array($this->order_info->order_state, array(10, 15)) or ($this->order_info->order_state >= 40 and $this->order_info->pay_code == 'hdfk' and empty($this->order_info->pay_time))) { ?>
             <a href="<?php echo $this->url('orders/default/order_id',array('action'=>'payoper', 'controller'=>'Orders','order_id'=>$this->order_info->order_id, 'page'=>$this->page)); ?>" class="btn btn-small btn-primary"><?php echo $this->translate('付款操作'); ?></a>&nbsp;
             <?php } if (in_array($this->order_info->order_state, array(20, 30))) { ?>
             <a href="<?php echo $this->url('orders/default/order_id',array('action'=>'shipoper', 'controller'=>'Orders','order_id'=>$this->order_info->order_id, 'page'=>$this->page)); ?>" class="btn btn-small btn-primary"><?php echo $this->translate('发货操作'); ?></a>&nbsp;
@@ -168,7 +168,12 @@
             <div class="well admin_add_well">
                 <dl class="dl-horizontal">
     				<dt><?php echo $this->translate('支付方式'); ?></dt><dd><?php echo $this->order_info->pay_name; ?></dd>
-                    <dt><?php echo $this->translate('支付费用'); ?></dt><dd><?php echo $this->order_info->currency_symbol . $this->order_info->pay_fee . '&nbsp;' . $this->order_info->currency_unit; ?></dd>
+                    <dt><?php echo $this->translate('支付手续费'); ?></dt><dd><?php echo $this->order_info->currency_symbol . $this->order_info->pay_fee . '&nbsp;' . $this->order_info->currency_unit; ?></dd>
+
+                    <?php if(!empty($this->order_info->pay_time)) { ?>
+                        <dt><?php echo $this->translate('支付费用'); ?></dt><dd><font size="4" color="#ED145B"><?php echo $this->order_info->currency_symbol . '&nbsp;' . $this->order_info->order_amount . '&nbsp;' . $this->order_info->currency_unit; ?></font></dd>
+                    <?php } ?>
+
     			    <?php if ($this->order_info->pay_code == 'xxzf' and $this->order_info->pay_certification != '') { ?>
     			    <dt><?php echo $this->translate('支付证明'); ?></dt><dd><?php echo nl2br($this->escapeHtml($this->order_info->pay_certification)); ?></dd>
     			    <?php } ?>

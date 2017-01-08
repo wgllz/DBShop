@@ -129,9 +129,14 @@ class OrdersController extends BaseController
         if($this->request->isPost()) {
             $stateArray = $this->request->getPost()->toArray();
             if($stateArray['pay_state'] != $array['order_info']->order_state) {
-                
-                $this->getDbshopTable()->updateOrder(array('order_state'=>$stateArray['pay_state']), array('order_id'=>$orderId));
-                if($stateArray['pay_state'] == 20) {//付款完成
+                $hdfkPayState = true;//货到付款的状态
+                if($array['order_info']->order_state >= 40 and $array['order_info']->pay_code == 'hdfk' and empty($array['order_info']->pay_time)) {
+                    $hdfkPayState = false;
+                } else {
+                    $this->getDbshopTable()->updateOrder(array('order_state'=>$stateArray['pay_state']), array('order_id'=>$orderId));
+                }
+
+                if($stateArray['pay_state'] == 20 or !$hdfkPayState) {//付款完成
 
                     //查看是否有虚拟商品，如果有进行虚拟商品处理
                     $virtualGoods = $this->getDbshopTable('OrderGoodsTable')->InfoOrderGoods(array('order_id'=>$orderId, 'buyer_id'=>$orderInfo->buyer_id, 'goods_type'=>2));
@@ -175,10 +180,9 @@ class OrdersController extends BaseController
                     $this->getDbshopTable()->updateOrder(array('pay_time'=>$payTime), array('order_id'=>$orderId));
                     /*----------------------付款完成提醒信息发送----------------------*/
                     $deliveryAddress = $this->getDbshopTable('OrderDeliveryAddressTable')->infoDeliveryAddress(array('order_id'=>$orderId));
-
                     $sendArray['buyer_name']  = $array['order_info']->buyer_name;
                     $sendArray['order_sn']    = $array['order_info']->order_sn;
-                    $sendArray['order_total'] = $array['order_info']->order_total;
+                    $sendArray['order_total'] = $array['order_info']->order_amount;
                     $sendArray['express_name']  = $deliveryAddress->express_name;
                     $sendArray['express_number']= $deliveryAddress->express_number;
                     $sendArray['time']        = $payTime;
@@ -275,7 +279,7 @@ class OrdersController extends BaseController
 
                 $sendArray['buyer_name']  = $array['order_info']->buyer_name;
                 $sendArray['order_sn']    = $array['order_info']->order_sn;
-                $sendArray['order_total'] = $array['order_info']->order_total;
+                $sendArray['order_total'] = $array['order_info']->order_amount;
                 $sendArray['express_name']  = $deliveryAddress->express_name;
                 $sendArray['express_number']= $deliveryAddress->express_number;
                 $sendArray['time']        = $expressTime;
@@ -374,7 +378,7 @@ class OrdersController extends BaseController
 
                 $sendArray['buyer_name']  = $array['order_info']->buyer_name;
                 $sendArray['order_sn']    = $array['order_info']->order_sn;
-                $sendArray['order_total'] = $array['order_info']->order_total;
+                $sendArray['order_total'] = $array['order_info']->order_amount;
                 $sendArray['express_name']  = $deliveryAddress->express_name;
                 $sendArray['express_number']= $deliveryAddress->express_number;
                 $sendArray['time']        = $finishTime;
@@ -479,7 +483,7 @@ class OrdersController extends BaseController
                 /*----------------------提醒信息发送----------------------*/
                 $sendArray['buyer_name']  = $orderInfo->buyer_name;
                 $sendArray['order_sn']    = $orderInfo->order_sn;
-                $sendArray['order_total'] = $orderInfo->order_total;
+                $sendArray['order_total'] = $orderInfo->order_amount;
                 $sendArray['time']        = time();
                 $sendArray['buyer_email'] = $orderInfo->buyer_email;
                 $sendArray['order_state'] = 'cancel_order';
@@ -777,7 +781,7 @@ class OrdersController extends BaseController
                             $sendArray = array();
                             $sendArray['buyer_name']  = $orderArray[$expressNumberKey]['buyer_name'];
                             $sendArray['order_sn']    = $orderArray[$expressNumberKey]['order_sn'];
-                            $sendArray['order_total'] = $orderArray[$expressNumberKey]['order_total'];
+                            $sendArray['order_total'] = $orderArray[$expressNumberKey]['order_amount'];
                             $sendArray['express_name']  = $deliveryAddress->express_name;
                             $sendArray['express_number']= $deliveryAddress->express_number;
                             $sendArray['time']        = $expressTime;

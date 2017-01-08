@@ -15,7 +15,7 @@
 return array(
 		'module_listener_options' => array(
 				'config_glob_paths'         => array('config/autoload/{*}.php'),
-				'module_paths'              => array('./module', './vendor'),
+				'module_paths'              => array('./module', './module/Extendapp', './vendor'),
 		        /*系统配置信息缓存设置*/
 		        'config_cache_enabled'      => true,
 		        'config_cache_key'          => md5('config'.__FILE__),

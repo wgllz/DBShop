@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop V1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 21:11+0800\n"
-"PO-Revision-Date: 2016-12-06 21:13+0800\n"
+"POT-Creation-Date: 2016-12-23 01:48+0800\n"
+"PO-Revision-Date: 2016-12-23 01:48+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_TW\n"
@@ -45,43 +45,43 @@ msgid "选择收货地址"
 msgstr "選擇收貨地址"
 
 #: ../../src/Mobile/Controller/CartController.php:89
-#: ../../src/Mobile/Controller/CartController.php:218
+#: ../../src/Mobile/Controller/CartController.php:225
 msgid "订单确认"
 msgstr "訂單確認"
 
-#: ../../src/Mobile/Controller/CartController.php:296
-#: ../../src/Mobile/Controller/CartController.php:486
+#: ../../src/Mobile/Controller/CartController.php:309
+#: ../../src/Mobile/Controller/CartController.php:499
 msgid "订单完成"
 msgstr "訂單完成"
 
-#: ../../src/Mobile/Controller/CartController.php:370
-#: ../../src/Mobile/Controller/CartController.php:587
+#: ../../src/Mobile/Controller/CartController.php:383
+#: ../../src/Mobile/Controller/CartController.php:601
 #: ../../src/Mobile/Controller/OrderController.php:230
 msgid "商品购物，订单号为："
 msgstr "商品購物，訂單號為："
 
-#: ../../src/Mobile/Controller/CartController.php:403
-#: ../../src/Mobile/Controller/CartController.php:623
+#: ../../src/Mobile/Controller/CartController.php:416
+#: ../../src/Mobile/Controller/CartController.php:637
 msgid "商品库存不足"
 msgstr "商品庫存不足"
 
-#: ../../src/Mobile/Controller/CartController.php:403
-#: ../../src/Mobile/Controller/CartController.php:623
+#: ../../src/Mobile/Controller/CartController.php:416
+#: ../../src/Mobile/Controller/CartController.php:637
 msgid "去购物车中删除库存不足的商品"
 msgstr "去購物車中刪除庫存不足的商品"
 
-#: ../../src/Mobile/Controller/CartController.php:430
-#: ../../src/Mobile/Controller/CartController.php:650
+#: ../../src/Mobile/Controller/CartController.php:443
+#: ../../src/Mobile/Controller/CartController.php:664
 msgid "提交订单提醒"
 msgstr "提交訂單提醒"
 
-#: ../../src/Mobile/Controller/CartController.php:836
+#: ../../src/Mobile/Controller/CartController.php:850
 #: ../../view/default/mobile/cart/step.phtml:87
 #: ../../view/default/mobile/cart/stepvirtual.phtml:53
 msgid "发票抬头"
 msgstr "發票抬頭"
 
-#: ../../src/Mobile/Controller/CartController.php:837
+#: ../../src/Mobile/Controller/CartController.php:851
 #: ../../view/default/mobile/cart/step.phtml:90
 #: ../../view/default/mobile/cart/stepvirtual.phtml:56
 msgid "发票内容"
@@ -935,8 +935,8 @@ msgstr "分類"
 #: ../../view/default/mobile/common/footer.phtml:7
 #: ../../view/default/mobile/common/header.phtml:14
 #: ../../view/default/mobile/common/header.phtml:27
-#: ../../view/default/mobile/common/index.phtml:58
-#: ../../view/default/mobile/common/index.phtml:65
+#: ../../view/default/mobile/common/index.phtml:60
+#: ../../view/default/mobile/common/index.phtml:67
 msgid "搜索"
 msgstr "搜索"
 
@@ -944,11 +944,11 @@ msgstr "搜索"
 msgid "简单搜索"
 msgstr "簡單搜索"
 
-#: ../../view/default/mobile/common/index.phtml:63
+#: ../../view/default/mobile/common/index.phtml:65
 msgid "请输入搜索关键词！"
 msgstr "請輸入搜索關鍵詞！"
 
-#: ../../view/default/mobile/common/index.phtml:70
+#: ../../view/default/mobile/common/index.phtml:72
 msgid "热门搜索"
 msgstr "熱門搜索"
 
@@ -974,6 +974,11 @@ msgstr "用戶名"
 #: ../../view/default/mobile/home/index.phtml:112
 msgid "回答者"
 msgstr "回答者"
+
+#: ../../view/default/mobile/goods/goods-ask.phtml:8
+#: ../../view/default/mobile/goods/list-comment.phtml:8
+msgid "店主"
+msgstr "店主"
 
 #: ../../view/default/mobile/goods/goods-ask.phtml:19
 #: ../../view/default/mobile/home/goodsask.phtml:18
@@ -1097,7 +1102,7 @@ msgstr "您已經到了購買上限！"
 msgid "您已经到了购买下限！"
 msgstr "您已經到了購買下限！"
 
-#: ../../view/default/mobile/goods/list-comment.phtml:15
+#: ../../view/default/mobile/goods/list-comment.phtml:19
 msgid "该商品暂无评价！"
 msgstr "該商品暫無評價！"
 

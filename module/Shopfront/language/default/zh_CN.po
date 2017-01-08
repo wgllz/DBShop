@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop V1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 20:46+0800\n"
-"PO-Revision-Date: 2016-12-06 20:46+0800\n"
+"POT-Creation-Date: 2016-12-23 01:48+0800\n"
+"PO-Revision-Date: 2016-12-23 01:48+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_CN\n"
@@ -62,51 +62,51 @@ msgstr ""
 msgid "购物车添加失败！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:277
+#: ../../src/Shopfront/Controller/CartController.php:285
 msgid "设置收货地址"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:302
+#: ../../src/Shopfront/Controller/CartController.php:310
 msgid "订单确认"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:432
+#: ../../src/Shopfront/Controller/CartController.php:440
 msgid "虚拟商品订单确认"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:511
-#: ../../src/Shopfront/Controller/CartController.php:706
+#: ../../src/Shopfront/Controller/CartController.php:519
+#: ../../src/Shopfront/Controller/CartController.php:714
 msgid "订单完成"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:583
-#: ../../src/Shopfront/Controller/CartController.php:808
+#: ../../src/Shopfront/Controller/CartController.php:591
+#: ../../src/Shopfront/Controller/CartController.php:816
 #: ../../src/Shopfront/Controller/OrderController.php:194
 msgid "商品购物，订单号为："
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:617
-#: ../../src/Shopfront/Controller/CartController.php:844
+#: ../../src/Shopfront/Controller/CartController.php:625
+#: ../../src/Shopfront/Controller/CartController.php:852
 msgid "商品库存不足"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:617
-#: ../../src/Shopfront/Controller/CartController.php:844
+#: ../../src/Shopfront/Controller/CartController.php:625
+#: ../../src/Shopfront/Controller/CartController.php:852
 msgid "去购物车中删除库存不足的商品"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:643
-#: ../../src/Shopfront/Controller/CartController.php:871
+#: ../../src/Shopfront/Controller/CartController.php:651
+#: ../../src/Shopfront/Controller/CartController.php:879
 msgid "提交订单提醒"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:1080
+#: ../../src/Shopfront/Controller/CartController.php:1088
 #: ../../view/default/shopfront/cart/step.phtml:219
 #: ../../view/default/shopfront/cart/stepvirtual.phtml:158
 msgid "发票抬头"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:1081
+#: ../../src/Shopfront/Controller/CartController.php:1089
 #: ../../view/default/shopfront/cart/step.phtml:221
 #: ../../view/default/shopfront/cart/stepvirtual.phtml:160
 msgid "发票内容"
@@ -1470,12 +1470,16 @@ msgstr ""
 msgid "简简单单搜索"
 msgstr ""
 
-#: ../../view/default/shopfront/common/index.phtml:87
+#: ../../view/default/shopfront/common/index.phtml:89
 msgid "版权所有"
 msgstr ""
 
-#: ../../view/default/shopfront/common/index.phtml:94
+#: ../../view/default/shopfront/common/index.phtml:96
 msgid "提示"
+msgstr ""
+
+#: ../../view/default/shopfront/common/index.phtml:120
+msgid "返回顶部"
 msgstr ""
 
 #: ../../view/default/shopfront/common/kefu.phtml:9
@@ -1507,6 +1511,11 @@ msgstr ""
 #: ../../view/default/shopfront/common/pager.phtml:34
 #: ../../view/default/shopfront/common/pager.phtml:37
 msgid "下一页"
+msgstr ""
+
+#: ../../view/default/shopfront/goods/goods-ask.phtml:10
+#: ../../view/default/shopfront/goods/list-comment.phtml:14
+msgid "店主"
 msgstr ""
 
 #: ../../view/default/shopfront/goods/goods-ask.phtml:19
@@ -1765,11 +1774,11 @@ msgstr ""
 msgid "更换验证码"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/list-comment.phtml:18
+#: ../../view/default/shopfront/goods/list-comment.phtml:23
 msgid "该商品暂无评价！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/list-comment.phtml:21
+#: ../../view/default/shopfront/goods/list-comment.phtml:26
 msgid "篇口碑报告"
 msgstr ""
 

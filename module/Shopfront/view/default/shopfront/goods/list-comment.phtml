@@ -9,6 +9,11 @@
         </div>
         </span></h4>
       <p><?php echo $this->escapeHtml($comment_value['comment_body']); ?></p>
+      <?php if($comment_value['reply_body'] != '') { ?>
+        <hr />
+        <h4><?php echo $this->translate('店主'); ?> <small><?php echo date("Y-m-d H:i:s", $comment_value['reply_time']); ?></small></h4>
+        <p><?php echo $this->escapeHtml($comment_value['reply_body']); ?></p>
+      <?php } ?>
     </div>
   </li>
   <?php } ?>

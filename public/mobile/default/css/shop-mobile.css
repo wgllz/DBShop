@@ -246,9 +246,9 @@ transform: rotate(45deg);}
 
 .flow-rel-pro h4{font-size:1.2em;}
 
-.flow-no-pro img{width:12em; display:block; height:auto; margin:0 auto; margin-top:5em; margin-bottom:2em;}
+.flow-no-pro img{width:98%; display:block; height:auto; margin:0 auto; margin-top:5px; margin-bottom:5px;}
 .flow-no-pro p{font-size:1.3em}
-.flow-no-pro a{padding:0.5em 0; width:15em; display:block; margin:1em auto; font-size:1.2em}
+.flow-no-pro a{font-size:1.2em}
 
 
 .goods-info{background:#fff; border-top:1px #e3e3e3 solid;  width:100%; padding-bottom:0; border-bottom:0;}

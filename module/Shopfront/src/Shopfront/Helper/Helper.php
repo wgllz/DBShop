@@ -363,7 +363,7 @@ class Helper extends AbstractHelper
     {
         $totalIntegral = 0;
         foreach ($this->cartSession->cart as $value) {
-            if(isset($value['integral_num']) and $value['integral_num']>0) $totalIntegral = $totalIntegral + $value['integral_num'];
+            if(isset($value['integral_num']) and $value['integral_num']>0) $totalIntegral = $totalIntegral + $value['integral_num'] * $value['buy_num'];
         }
         return $totalIntegral;
     }

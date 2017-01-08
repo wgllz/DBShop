@@ -675,7 +675,7 @@ CREATE TABLE dbshop_order (
   `order_state` int(4) NOT NULL,
   `ot_order_state` int(4) DEFAULT NULL,
   `pay_code` char(20) NOT NULL,
-  `pay_name` char(20) NOT NULL,
+  `pay_name` char(100) NOT NULL,
   `pay_time` char(10) DEFAULT NULL,
   `pay_certification` varchar(500) DEFAULT NULL,
   `express_id` int(11) NOT NULL DEFAULT '0',
@@ -835,10 +835,10 @@ CREATE TABLE dbshop_user (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_name_2` (`user_name`),
   UNIQUE KEY `user_email` (`user_email`),
+  UNIQUE KEY `user_phone` (`user_phone`),
   KEY `user_name` (`user_name`,`user_email`,`user_sex`),
   KEY `group_id` (`group_id`),
   KEY `user_birthday` (`user_birthday`),
-  KEY `user_phone` (`user_phone`),
   KEY `integral_type_2_num` (`integral_type_2_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -931,6 +931,7 @@ CREATE TABLE dbshop_integral_rule (
   `integral_rule_start_time` char(10) DEFAULT NULL,
   `integral_rule_end_time` char(10) DEFAULT NULL,
   `integral_rule_state` tinyint(1) NOT NULL DEFAULT '1',
+  `shopping_type` tinyint(1) NOT NULL DEFAULT '1',
   `shopping_amount` int(11) NOT NULL DEFAULT '0',
   `integral_num` int(11) NOT NULL DEFAULT '0',
   `integral_rule_user_type` char(20) NOT NULL,
@@ -940,7 +941,8 @@ CREATE TABLE dbshop_integral_rule (
   `integral_type_id` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`integral_rule_id`),
   KEY `integral_rule_state` (`integral_rule_state`),
-  KEY `integral_type_id` (`integral_type_id`)
+  KEY `integral_type_id` (`integral_type_id`),
+  KEY `shopping_type` (`shopping_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS dbshop_integral_log;
@@ -1128,4 +1130,53 @@ CREATE TABLE dbshop_goods_index (
   KEY `goods_add_time` (`goods_add_time`),
   KEY `goods_click` (`goods_click`),
   KEY `goods_shop_price` (`goods_shop_price`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS dbshop_plugin;
+CREATE TABLE `dbshop_plugin` (
+  `plugin_id` int(11) NOT NULL AUTO_INCREMENT,
+  `plugin_name` char(100) NOT NULL,
+  `plugin_author` char(100) NOT NULL,
+  `plugin_author_url` char(100) DEFAULT NULL,
+  `plugin_info` text,
+  `plugin_version` char(100) NOT NULL,
+  `plugin_version_num` char(100) NOT NULL,
+  `plugin_code` char(100) NOT NULL,
+  `plugin_state` tinyint(1) NOT NULL DEFAULT '2',
+  `plugin_support_url` char(150) NOT NULL,
+  `plugin_admin_path` char(100) DEFAULT NULL,
+  `plugin_update_time` char(10) NOT NULL,
+  `plugin_support_version` char(50) NOT NULL,
+  PRIMARY KEY (`plugin_id`),
+  KEY `plugin_name` (`plugin_name`,`plugin_author`,`plugin_code`,`plugin_state`,`plugin_update_time`,`plugin_support_version`),
+  KEY `plugin_version_num` (`plugin_version_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS dbshop_cart;
+CREATE TABLE `dbshop_cart` (
+  `goods_id` int(11) NOT NULL,
+  `goods_name` char(255) NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `goods_image` varchar(255) DEFAULT NULL,
+  `goods_stock_state` tinyint(1) NOT NULL,
+  `goods_stock` int(11) NOT NULL,
+  `buy_num` int(11) NOT NULL,
+  `goods_type` tinyint(1) NOT NULL DEFAULT '1',
+  `goods_shop_price` char(20) NOT NULL,
+  `goods_color` char(50) DEFAULT NULL,
+  `goods_size` char(50) DEFAULT NULL,
+  `goods_color_name` char(200) DEFAULT NULL,
+  `goods_size_name` char(200) DEFAULT NULL,
+  `goods_item` char(50) DEFAULT NULL,
+  `goods_weight` int(11) DEFAULT '0',
+  `buy_min_num` int(11) NOT NULL DEFAULT '0',
+  `buy_max_num` int(11) NOT NULL DEFAULT '0',
+  `integral_num` int(11) NOT NULL DEFAULT '0',
+  `brand_id` int(11) DEFAULT NULL,
+  `class_id_array` varchar(2000) DEFAULT NULL,
+  `user_unionid` char(50) NOT NULL,
+  `goods_key` char(50) NOT NULL,
+  KEY `goods_id` (`goods_id`,`class_id`,`goods_stock_state`,`goods_stock`,`buy_num`,`goods_type`,`buy_min_num`,`buy_max_num`),
+  KEY `user_unionid` (`user_unionid`),
+  KEY `goods_key` (`goods_key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

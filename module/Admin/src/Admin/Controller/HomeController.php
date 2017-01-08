@@ -66,6 +66,9 @@ class HomeController extends BaseController
         $array['dbshop_update_message'] = '';
         //获取远程模板更新信息
         $array['template_update_message'] = '';
+        //获取远程插件更新信息
+        $array['plugin_update_message'] = '';
+
         if(class_exists('SoapClient')) {
             try {
                 $soapClient = new \SoapClient(null, array(
@@ -73,6 +76,19 @@ class HomeController extends BaseController
                     'location' => 'http://update.dbshop.net/packageservice',
                     'uri'      => 'dbshop_package_update'
                 ));
+                //获取插件更新提示信息
+                $pluginList = $this->getDbshopTable('PluginTable')->listPlugin();
+                $pluginWhere= '';
+                $pluginArray= array();
+                if(is_array($pluginList) and !empty($pluginList)) {
+                    foreach($pluginList as $pValue) {
+                        $pluginArray[$pValue['plugin_code']] = $pValue['plugin_version_num'];
+                        $pluginWhere .= "plugin_code='".$pValue['plugin_code']."' or ";
+                    }
+                }
+                if(!empty($pluginWhere)) {
+                    $pluginWhere = substr($pluginWhere, 0, -4);
+                }
 
                 //获取模板更新提示信息
                 $templateIniReader = new \Zend\Config\Reader\Ini();
@@ -93,18 +109,18 @@ class HomeController extends BaseController
                 if(!empty($where)) {
                     $where = '('.substr($where, 0, -4).')';
                 }
-
                 //获取是否有新的更新包、模板信息，新闻信息、授权信息
                 $dbshopArray = $soapClient->dbshopPackageAndNewsAndAuthorization(
                     array(
                         'dbshop_version_number' => DBSHOP_VERSION_NUMBER,
                         'dbshop_version'        => DBSHOP_VERSION,
                         'template_where'        => empty($where) ? array() : array($where .' and v.support_version<='.DBSHOP_VERSION_NUMBER),
+                        'plugin_where'          => empty($pluginWhere) ? array() : array($pluginWhere),
                         'authorization'         => $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost()
                     )
                 );
                 //模板更新信息
-                $onlineTemplate = $dbshopArray['templateInfo'];
+                $onlineTemplate = isset($dbshopArray['templateInfo']) ? $dbshopArray['templateInfo'] : array();
                 if(!empty($onlineTemplate) and is_array($onlineTemplate)) {
                     foreach($onlineTemplate as $templateValue) {
                         if(isset($templateArray[$templateValue['template_str']]) and $templateValue['template_version_number'] > $templateArray[$templateValue['template_str']]) {
@@ -113,10 +129,20 @@ class HomeController extends BaseController
                         }
                     }
                 }
+                //插件更新信息
+                $onlinePlugin = isset($dbshopArray['pluginInfo']) ? $dbshopArray['pluginInfo'] : array();
+                if(!empty($onlinePlugin) and is_array($onlinePlugin)) {
+                    foreach($onlinePlugin as $pluginValue) {
+                        if(isset($pluginArray[$pluginValue['plugin_code']]) and $pluginValue['plugin_version_num'] > $pluginArray[$pluginValue['plugin_code']]) {
+                            $array['plugin_update_message'] = '<div class="alert alert-error" style="margin-bottom:8px;"><h4><i class="cus-bell"></i> '.$this->getDbshopLang()->translate('您的插件有新更新包啦！').'<a href="'.$this->url()->fromRoute('plugin/default').'" class="btn btn-small btn-primary"><i class="icon-circle-arrow-right icon-white"></i> '.$this->getDbshopLang()->translate('马上去查看一下').'</a></h4></div>';
+                            break;
+                        }
+                    }
+                }
                 //版本更新提醒信息
-                if(!empty($dbshopArray['updatePackage'])) $array['dbshop_update_message'] = '<div class="alert alert-error" style="margin-bottom:8px;"><h4><i class="cus-bell"></i> '.$this->getDbshopLang()->translate('DBShop电子商务系统有新更新包啦！').'<a href="'.$this->url()->fromRoute('package/default',array('action'=>'index')).'" class="btn btn-small btn-primary"><i class="icon-circle-arrow-right icon-white"></i> '.$this->getDbshopLang()->translate('马上去查看一下').'</a></h4></div>';
+                if(isset($dbshopArray['updatePackage']) and !empty($dbshopArray['updatePackage'])) $array['dbshop_update_message'] = '<div class="alert alert-error" style="margin-bottom:8px;"><h4><i class="cus-bell"></i> '.$this->getDbshopLang()->translate('DBShop电子商务系统有新更新包啦！').'<a href="'.$this->url()->fromRoute('package/default',array('action'=>'index')).'" class="btn btn-small btn-primary"><i class="icon-circle-arrow-right icon-white"></i> '.$this->getDbshopLang()->translate('马上去查看一下').'</a></h4></div>';
                 //新闻动态提醒信息
-                $array['dbshop_message'] = $dbshopArray['messageList'];
+                $array['dbshop_message'] = isset($dbshopArray['messageList']) ? $dbshopArray['messageList'] : array();
                 $messageHtml = '';
                 if(is_array($array['dbshop_message']) and !empty($array['dbshop_message'])) {
                     $messageHtml .= '<table class="table table-bordered table-condensed"><thead class="admin_add_header_well"><th>'.$this->getDbshopLang()->translate('DBShop新闻动态').'</th></thead>';
@@ -151,7 +177,7 @@ class HomeController extends BaseController
         }
 
         $jsonArray = array();
-        $jsonArray['template_update_message'] = $array['dbshop_update_message'].$array['template_update_message'];
+        $jsonArray['template_update_message'] = $array['dbshop_update_message'].$array['template_update_message'].$array['plugin_update_message'];
         $jsonArray['news_html']               = $messageHtml;
         $jsonArray['auth_html']               = $authorizationHtml;
         echo json_encode($jsonArray);

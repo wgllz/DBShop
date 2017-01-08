@@ -200,7 +200,7 @@ class GoodsController extends AbstractActionController
         $array['class_id'] = (int)$this->request->getQuery('class_id');
         //商品评价
         $page = $this->params('page',1);
-        $array['goods_comment'] = $this->getDbshopTable('GoodsCommentTable')->listGoodsComment(array('page'=>$page, 'page_num'=>16), array('goods_id'=>$array['goods_id']), true);
+        $array['goods_comment'] = $this->getDbshopTable('GoodsCommentTable')->listGoodsComment(array('page'=>$page, 'page_num'=>16), array('goods_id'=>$array['goods_id'], 'comment_show_state'=>1), true);
         
         return $view->setVariables($array);
     }

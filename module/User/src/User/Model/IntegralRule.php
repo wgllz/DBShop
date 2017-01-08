@@ -30,6 +30,7 @@ class IntegralRule
     
         self::$dataArray = array_filter(self::$dataArray);
     
+        self::$dataArray['shopping_type']               = (isset($data['shopping_type'])               and !empty($data['shopping_type']))               ? intval($data['shopping_type'])               : 1;
         self::$dataArray['shopping_amount']             = (isset($data['shopping_amount'])             and !empty($data['shopping_amount']))             ? intval($data['shopping_amount'])             : 0;
         self::$dataArray['integral_num']                = (isset($data['integral_num'])                and !empty($data['integral_num']))                ? intval($data['integral_num'])                : 0;
         self::$dataArray['integral_rule_start_time']    = (isset($data['integral_rule_start_time'])    and !empty($data['integral_rule_start_time']))    ? strtotime($data['integral_rule_start_time']) : '';

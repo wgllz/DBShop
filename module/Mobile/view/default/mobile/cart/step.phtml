@@ -44,8 +44,8 @@
                 foreach($this->payment as $key => $value) {
                 ?>
                 <li>
-                    <input type="radio" name="pyament_code" id="pyament_code_<?php echo $value['editaction']; ?>" <?php if(isset($value['selected']) and $value['selected'] == 1) echo 'checked'; ?> value="<?php echo $value['editaction']; ?>" onclick="calculate_fee('payment_price_<?php echo $value['editaction']; ?>', 'payment', '<?php echo $value['editaction']; ?>');">
-                    <label for="pyament_code_<?php echo $value['editaction']; ?>"><i></i> <?php echo $value['payment_name']['content']; ?>&nbsp;[ <strong><?php echo $this->translate('费用'); ?>：<?php echo $this->frontwebsite()->shopPriceSymbol(); ?><span id="payment_price_<?php echo $value['editaction']; ?>"><?php echo $value['payment_fee']['content']; ?></span><?php echo $this->frontwebsite()->shopPriceUnit(); ?></strong> ]</label>
+                    <input type="radio" name="payment_code" id="payment_code_<?php echo $value['editaction']; ?>" <?php if(isset($value['selected']) and $value['selected'] == 1) echo 'checked'; ?> value="<?php echo $value['editaction']; ?>" onclick="calculate_fee('payment_price_<?php echo $value['editaction']; ?>', 'payment', '<?php echo $value['editaction']; ?>');">
+                    <label for="payment_code_<?php echo $value['editaction']; ?>"><i></i> <?php echo $value['payment_name']['content']; ?>&nbsp;[ <strong><?php echo $this->translate('费用'); ?>：<?php echo $this->frontwebsite()->shopPriceSymbol(); ?><span id="payment_price_<?php echo $value['editaction']; ?>"><?php echo $value['payment_fee']['content']; ?></span><?php echo $this->frontwebsite()->shopPriceUnit(); ?></strong> ]</label>
                 </li>
                 <?php } } ?>
             </ul>
@@ -268,7 +268,7 @@
     function check_step() {
         <?php if($this->cash_on_delivery_str != '') { ?>
         var cash_on_delivery_array = [<?php echo $this->cash_on_delivery_str; ?>];
-        var payment_code = $("input[name='pyament_code']:checked").val();
+        var payment_code = $("input[name='payment_code']:checked").val();
         var express_id = $("input[name='express_id']:checked").val();
         if(payment_code == 'hdfk' && jQuery.inArray(express_id, cash_on_delivery_array) == -1) {
             alert('<?php echo $this->translate('请选择合适的配送方式！'); ?>');
