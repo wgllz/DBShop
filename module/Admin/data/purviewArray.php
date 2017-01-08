@@ -225,6 +225,7 @@ return array(
      * add          商品添加
      * edit         商品编辑
      * editall      商品批量处理
+     * goodsIndex   商品索引
      * Class商品分类管理
      * index        分类查看
      * add          分类添加
@@ -273,7 +274,7 @@ return array(
      * del          规则删除
      */
     'Goods\Controller'     => array(
-        'Goods'     => array('index', 'add', 'edit', 'del', 'editall'),
+        'Goods'     => array('index', 'add', 'edit', 'del', 'editall', 'goodsIndex'),
         'Class'     => array('index', 'add', 'edit', 'del'),
         'Brand'     => array('index', 'add', 'edit', 'del'),
         'Attribute' => array('index', 'add', 'edit', 'del', 'attributeValue', 'addAttributeValue', 'editAttributeValue', 'delAttributeValue', 'attributeGroup', 'addAttributeGroup', 'editAttributeGroup', 'delAttributeGroup'),

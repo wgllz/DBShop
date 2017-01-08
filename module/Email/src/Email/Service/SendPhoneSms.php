@@ -26,7 +26,6 @@ class SendPhoneSms
         }
 
     }
-
     /**
      * 阿里大于发送手机短信
      * @param $data
@@ -36,6 +35,7 @@ class SendPhoneSms
      * @return bool
      */
     public function toSendSms($data, $user_phone, $phone_template='', $user_id = '') {
+
         //判断是否开启了手机短信服务功能，如果未开启则不进行操作
         if($this->smsConfig['shop_phone_sms']['phone_sms_type'] == '' or $this->smsConfig['shop_phone_sms'][$phone_template] == '') return false;
 
@@ -81,6 +81,9 @@ class SendPhoneSms
             'ordertotal' => (isset($data['ordertotal'])      ? $data['ordertotal']      : ''),
             'expressname'=> (isset($data['expressname'])      ? $data['expressname']      : ''),
             'expressnumber' => (isset($data['expressnumber'])      ? $data['expressnumber']      : ''),
+
+            'code'      => (isset($data['captcha'])         ? $data['captcha']              : ''),
+            'product'   => (isset($data['patcheashopname']) ? $data['patcheashopname']      : ''),
         );
         return json_encode($bodyArray);
     }

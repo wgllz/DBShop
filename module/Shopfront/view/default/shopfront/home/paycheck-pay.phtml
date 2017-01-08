@@ -5,6 +5,7 @@
                 <td>
                 <p><b><?php echo $this->translate('账户充值'); ?>：</b><?php echo $this->paycheckinfo->money_change_num; ?></p>
                 <p><b><?php echo $this->translate('微信扫码支付'); ?>：</b>
+                    <input type="hidden" name="paycheck_id" id="paycheck_id" value="<?php echo $this->paycheckinfo->paycheck_id; ?>">
                     <img alt="<?php echo $this->translate('微信二维码扫码支付'); ?>" src="<?php echo $this->qrcode_url; ?>" style="width:260px;height:260px;"/>
                 </p>
                 </td>
@@ -12,3 +13,28 @@
         </table>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        setInterval("ajaxPaycheckStatus()", 3000);
+    });
+    function ajaxPaycheckStatus() {
+        if ($("#paycheck_id").val() != '') {
+            $.ajax({
+                url: "<?php echo $this->url('frontmoney/default', array('action'=>'ajaxPaycheckStatus')); ?>?paycheck_id=" + $("#paycheck_id").val(),
+                type: "GET",
+                dataType:"json",
+                data: "",
+                success: function (data) {
+                    if (data.state=='true') {
+                        alert('<?php echo $this->translate('充值支付成功！'); ?>');
+                        window.location.href = "<?php echo $this->url('frontmoney/default', array('action'=>'paychecklog')); ?>"; //页面跳转
+                    }
+                    if(data.state == 'false') {
+                        alert('<?php echo $this->translate('充值支付失败！'); ?>');
+                        window.location.href = "<?php echo $this->url('frontmoney/default', array('action'=>'paychecklog')); ?>"; //页面跳转
+                    }
+                }
+            });
+        }
+    }
+</script>

@@ -27,8 +27,16 @@
           <label class="control-label"><?php echo $this->translate('会员分组'); ?>：</label>
           <div class="controls"> <strong><?php echo $this->user_group->group_name; ?></strong> </div>
         </div>
+        <?php
+          $userEmailRegisterState = $this->frontwebsite()->getRegOrLoginIni('register_email_state');
+          $userPhoneRegisterState = $this->frontwebsite()->getRegOrLoginIni('register_phone_state');
+        ?>
         <div class="control-group">
-          <label class="control-label"><?php echo $this->translate('电子邮箱'); ?><span class="must_add_value">*</span>：</label>
+          <label class="control-label"><?php echo $this->translate('电子邮箱'); ?>
+            <?php if ($userEmailRegisterState == 'true') { ?>
+            <span class="must_add_value">*</span>
+            <?php } ?>
+            ：</label>
           <div class="controls">
             <input type="text" class="span5" id="user_email" value="<?php echo $this->user_info->user_email; ?>" name="user_email">
           </div>
@@ -44,7 +52,11 @@
           </div>
         </div>
         <div class="control-group">
-          <label for="input01" class="control-label"><?php echo $this->translate('手机号码'); ?>：</label>
+          <label for="input01" class="control-label"><?php echo $this->translate('手机号码'); ?>
+            <?php if ($userPhoneRegisterState == 'true') { ?>
+              <span class="must_add_value">*</span>
+            <?php } ?>
+            ：</label>
           <div class="controls">
             <input type="text" id="user_phone"  name="user_phone" value="<?php echo ($this->user_info ? $this->user_info->user_phone : ''); ?>" class="span3">
             <?php if($this->frontwebsite()->getIphoneSmsConfig('shop_phone_sms', 'phone_sms_type') and empty($this->user_info->user_phone)) { ?>
@@ -77,7 +89,9 @@ $(document).ready(function() {
 	$("#user_edit_form").validate({
 		rules: {
 			user_email: {
+              <?php if ($userEmailRegisterState == 'true') { ?>
 				required: true,
+              <?php } ?>
 				email: true,
 				remote :{
 					url : '<?php echo $this->url('frontuser/default/user_id',array('action'=>'check','controller'=>'user','module'=>'user','check_type'=>'user_email','user_id'=>($this->user_info ? $this->user_info->user_id : '0'))); ?>',
@@ -88,14 +102,38 @@ $(document).ready(function() {
 						}
 					}
 				}
-			}
+			},
+            user_phone: {
+              <?php if ($userPhoneRegisterState == 'true') { ?>
+              required: true,
+              <?php } ?>
+              isMobile: true,
+              remote :{
+                url : '<?php echo $this->url('frontuser/default/user_id',array('action'=>'check','controller'=>'user','module'=>'user','check_type'=>'user_phone','user_id'=>($this->user_info ? $this->user_info->user_id : '0'))); ?>',
+                type : 'post',
+                date : {
+                  user_phone :function(){
+                    return $('#user_phone').val();
+                  }
+                }
+              }
+            }
 		},
 		messages: {
 			user_email: {
+              <?php if ($userEmailRegisterState == 'true') { ?>
 				required: "<?php echo $this->translate('请输入电子邮箱！'); ?>",
+              <?php } ?>
 				email: "<?php echo $this->translate('电子邮箱格式错误！'); ?>",
 				remote: "<?php echo $this->translate('该邮箱已经存在'); ?>"
-			}
+			},
+            user_phone: {
+              <?php if ($userPhoneRegisterState == 'true') { ?>
+              required: "<?php echo $this->translate('手机号码不能为空！'); ?>",
+              <?php } ?>
+              isMobile: "<?php echo $this->translate('请输入正确的手机号码！'); ?>",
+              remote: "<?php echo $this->translate('该手机号码已经存在'); ?>"
+            }
 		}
 	});
 });

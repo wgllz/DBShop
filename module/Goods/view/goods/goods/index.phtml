@@ -174,8 +174,12 @@
                         }
                         echo $goods_preferential_str;
                     }
-
                 ?>
+				<?php
+				if (!isset($goods_value['one_class_id'])) {//如果没有设置商品分类，显示该信息
+					echo '[<font color="red">'.$this->translate('未设置商品分类，前台不能显示！').'</font>]';
+				}
+				?>
             </td>
 			<td><?php echo $this->escapeHtml($goods_value['goods_item']); ?></td>
 			<td><?php echo $goods_value['goods_shop_price']; ?></td>

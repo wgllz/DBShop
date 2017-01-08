@@ -100,6 +100,14 @@
                             <input type="text" name="alidayu_cancel_order_template_id" id="alidayu_cancel_order_template_id" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_cancel_order_template_id'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_cancel_order_template_id']); ?>" class="span3">
                         </div>
                     </div>
+                    <hr>
+                    <div class="control-group alidayu" style="display: none;">
+                        <label for="input01" class="control-label"><?php echo $this->translate('手机验证码模板ID'); ?>：</label>
+                        <div class="controls">
+                            <input type="text" name="alidayu_phone_captcha_template_id" id="alidayu_phone_captcha_template_id" value="<?php if(isset($this->phonesms_config['shop_phone_sms']['alidayu_phone_captcha_template_id'])) echo $this->escapeHtml($this->phonesms_config['shop_phone_sms']['alidayu_phone_captcha_template_id']); ?>" class="span3">
+                            <font color="red"><?php echo $this->translate('使用手机验证码，要在 系统管理-》系统设置-》验证码设置 里开启手机短信验证码。'); ?></font>
+                        </div>
+                    </div>
                 </div>
             </div>
 

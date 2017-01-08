@@ -173,10 +173,15 @@ class GoodslistController extends AbstractActionController
             }
             /*===========================排序检索=================================*/
         }
+        //获取商品索引的状态，是否开启
+        $goodsIndexState = $this->getServiceLocator()->get('frontHelper')->getDbshopGoodsIni('goods_index', '');
         //获取搜索商品列表 商品分页
         $searchArray['goods_state']  = 1;
         $page = $this->params('page',1);
-        $array['goods_list'] = $this->getDbshopTable('GoodsTable')->searchGoods(array('page'=>$page, 'page_num'=>16), $searchArray, $sortStr);
+        if($goodsIndexState == 'true' and trim($array['keywords']) !='')
+            $array['goods_list'] = $this->getDbshopTable('GoodsIndexTable')->searchGoods(array('page'=>$page, 'page_num'=>16), $searchArray, $sortStr);
+        else
+            $array['goods_list'] = $this->getDbshopTable('GoodsTable')->searchGoods(array('page'=>$page, 'page_num'=>16), $searchArray, $sortStr);
 
         //统计使用
         $this->layout()->dbTongJiPage      = 'goods_search';

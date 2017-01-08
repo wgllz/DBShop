@@ -3,12 +3,17 @@
         <section>
             <ul>
                 <li>
-                    <div class="input-text"><b><?php echo $this->translate('用户名'); ?><font class="must_add_value">*</font>：</b><span><input type="text" id="user_name" datatype="*" class="inputBg" name="user_name" placeholder="<?php echo $this->translate('用户名'); ?>" nullmsg="<?php echo $this->translate('输入会员名称'); ?>"></span></div>
+                    <?php
+                    $userPlaceholder = $this->translate('会员名称');
+                    if($this->email_login_state == 'true') $userPlaceholder .= '/'.$this->translate('电子邮箱');
+                    if($this->phone_login_state == 'true') $userPlaceholder .= '/'.$this->translate('手机号码');
+                    ?>
+                    <div class="input-text"><b><?php echo $this->translate('登录名'); ?><font class="must_add_value">*</font>：</b><span><input type="text" id="user_name" datatype="*" class="inputBg" name="user_name" placeholder="<?php echo $userPlaceholder; ?>" nullmsg="<?php echo $this->translate('输入登录名'); ?>"></span></div>
                 </li>
                 <li>
                     <div class="input-text"><b><?php echo $this->translate('密码'); ?><font class="must_add_value">*</font>：</b><span><input type="password" class="inputBg" datatype="*" id="user_password" name="user_password" placeholder="<?php echo $this->translate('密码'); ?>" nullmsg="<?php echo $this->translate('输入会员密码'); ?>"></span></div>
                 </li>
-                <?php if ($this->frontwebsite()->websiteInfo('user_login_captcha') == 'true') { ?>
+                <?php if ($this->frontwebsite()->websiteCaptchaState('user_login_captcha') == 'true') { ?>
                 <li>
                     <div class="input-text code"><b><?php echo $this->translate('验证码'); ?><font class="must_add_value">*</font>：</b>
                         <span>
@@ -61,7 +66,7 @@
 <script>
 <?php if (isset($this->message) and $this->message != '') echo "alert('".$this->message."');"; ?>
 
-    <?php if ($this->frontwebsite()->websiteInfo('user_login_captcha') == 'true') { ?>
+    <?php if ($this->frontwebsite()->websiteCaptchaState('user_login_captcha') == 'true') { ?>
     //验证码添加
     function captchaAdd() {
         $.get("<?php echo $this->url('shopfront/default',array('action'=>'captcha')); ?>",{},

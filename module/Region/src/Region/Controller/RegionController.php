@@ -23,9 +23,9 @@ class RegionController extends BaseController
      * @see \Zend\Mvc\Controller\AbstractActionController::indexAction()
      */
     public function indexAction ()
-    {   
+    {
         $array = array();
-        
+
         $regionTopId           = (int) $this->params('region_top_id',0);
         $array['region_array'] = $this->getDbshopTable()->listRegion(array('dbshop_region.region_top_id'=>$regionTopId,'e.language'=>$this->getDbshopLang()->getLocale()));
         $array['region_info']  = $this->getDbshopTable()->infoRegion(array('dbshop_region.region_id'=>$regionTopId,'e.language'=>$this->getDbshopLang()->getLocale()));

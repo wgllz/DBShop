@@ -79,6 +79,24 @@ class GoodsPriceExtendSizeTable extends AbstractTableGateway implements \Zend\Db
         }
         return null;        
     }
+    /**
+     * 获取商品尺寸字符串，用于商品索引
+     * @param array $where
+     * @return null|string
+     */
+    public function goodsExtendSizeStr(array $where)
+    {
+        $result = $this->select($where);
+        if($result) {
+            $sizeStr    = '';
+            $sizeArray  = $result->toArray();
+            foreach($sizeArray as $sizeValue) {
+                $sizeStr .= $sizeValue['size_info'];
+            }
+            return $sizeStr;
+        }
+        return '';
+    }
 }
 
 ?>

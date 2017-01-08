@@ -19,7 +19,7 @@ use Admin\Controller\BaseController;
 class PackageController extends BaseController
 {
     private $soapclient;
-    private $location = 'http://update.dbshop.net/packageservice';
+    private $location = 'https://update.dbshop.net/packageservice';
     private $uri      = 'dbshop_package_update';
     
     public function indexAction()

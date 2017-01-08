@@ -69,7 +69,7 @@ class HomeController extends BaseController
         if(class_exists('SoapClient')) {
             try {
                 $soapClient = new \SoapClient(null, array(
-                    'location' => 'http://update.dbshop.net/packageservice',
+                    'location' => 'https://update.dbshop.net/packageservice',
                     'uri'      => 'dbshop_package_update'
                 ));
 

@@ -91,6 +91,22 @@ class Helper extends AbstractHelper
         return (isset($array['shop_system'][$name]) ? $array['shop_system'][$name] : null);
     }
     /**
+     * 获取验证码设置信息
+     * @param $name
+     * @return null
+     */
+    public function websiteCaptchaState($name)
+    {
+        $patchaConfig = array();
+        $captchaConfigFile = DBSHOP_PATH . '/data/moduledata/User/CaptchaConfig.ini';
+        if(file_exists($captchaConfigFile)) $patchaConfig = $this->iniReader->fromFile($captchaConfigFile);
+        else {
+            $array = $this->iniReader->fromFile(DBSHOP_PATH . '/data/moduledata/System/config.ini');
+            $patchaConfig = $array['shop_system'];
+        };
+        return (isset($patchaConfig[$name]) ? $patchaConfig[$name] : null);
+    }
+    /**
      * 获取后台附件设置中，商品上传信息
      * @param $typeName
      * @param $valueName
@@ -102,7 +118,7 @@ class Helper extends AbstractHelper
         return (isset($array[$typeName][$valueName]) ? $array[$typeName][$valueName] : null);
     }
     /**
-     * 获取分析设置信息
+     * 获取分析设置信息（将被废除，慎用）
      * @param $valueName
      * @return string
      */
@@ -138,6 +154,16 @@ class Helper extends AbstractHelper
         return (isset($array[$name]) ? $array[$name] : null);
     }
     /**
+     * 获取 注册与登录项 设置
+     * @param $item
+     * @return mixed
+     */
+    public function getRegOrLoginIni($item)
+    {
+        $array = $this->iniReader->fromFile(DBSHOP_PATH . '/data/moduledata/User/RegOrLogin.ini');
+        return $array[$item];
+    }
+    /**
      * 获取第三方登录设置信息
      * @return array
      */
@@ -166,6 +192,13 @@ class Helper extends AbstractHelper
         if(file_exists(DBSHOP_PATH . '/data/moduledata/User/OtherLogin.ini')) {
             $array = $this->iniReader->fromFile(DBSHOP_PATH . '/data/moduledata/User/OtherLogin.ini');
         }
+        //如果是在电脑端则去除微信内登录
+        if(strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') === false) {
+            unset($array['Weixinphone']);
+        } else {
+            unset($array['Weixin']);
+        }
+
         if(!empty($array)) {
             foreach($array as $value) {
                 if($value['login_state'] == 'true') {
@@ -211,6 +244,16 @@ class Helper extends AbstractHelper
         if(file_exists(DBSHOP_PATH . '/data/moduledata/System/online/' . $fileName . '.php'))
         return @file_get_contents(DBSHOP_PATH . '/data/moduledata/System/online/' . $fileName . '.php');
         else
+        return '';
+    }
+    /**
+     * 获取客服样式
+     * @return string
+     */
+    public function getOnlinestyle()
+    {
+        $onlineStyle = $this->iniReader->fromFile(DBSHOP_PATH . '/data/moduledata/System/Online.ini');
+        if(isset($onlineStyle['online']) and $onlineStyle['online']['style'] != '') return $onlineStyle['online']['style'];
         return '';
     }
     /*-----------------------------------前台客服----------------------------------------*/
@@ -792,7 +835,8 @@ class Helper extends AbstractHelper
         if(empty($this->goodsConfig)) {
             $this->goodsConfig = $this->iniReader->fromFile(DBSHOP_PATH . '/data/moduledata/System/goods/goods.ini');
         }
-        if(isset($this->goodsConfig[$type][$sign])) return $this->goodsConfig[$type][$sign];
+        if(!empty($type) and isset($this->goodsConfig[$type][$sign])) return $this->goodsConfig[$type][$sign];
+        else return $this->goodsConfig[$sign];
 
         return '';
     }

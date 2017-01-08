@@ -139,25 +139,6 @@ class WeixinLogin
             exit('error:' . $response->errcode . 'error:' . $response->errmsg);
         }
     }
-
-    /*public function mobileToLogin()
-    {
-        $loginKey = array(
-            'response_type' => 'code',
-            'appid'         => $this->loginConfig['app_id'],
-            'redirect_uri'  => $this->redirectUri,
-            'scope'         => 'snsapi_userinfo',
-            'state'         => md5(uniqid(rand(), TRUE)).'#wechat_redirect'
-        );
-
-        $this->loginSession->login_state = $loginKey['state'];
-
-        $loginUrl   = $this->combineURL(self::GET_AUTH_CODE_URL, $loginKey);
-
-        header("Location: {$loginUrl}");
-        exit;
-    }*/
-
     /**
      * 清除session
      */

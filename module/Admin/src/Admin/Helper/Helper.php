@@ -259,6 +259,7 @@ class Helper extends AbstractHelper
             'state_set'                     => '状态设置',          //状态设置
             'admin_set'                     => '管理员设置',        //管理员设置
             'admin_group_set'               => '管理员组设置',       //管理员组设置
+            'online_style_set'              => '在线客服样式',       //在线客服样式
             'online_set'                    => '在线客服设置',       //在线客服设置
             'online_group_set'              => '在线客服组设置',     //在线客服组设置
             'admin_template'                => '模板管理',          //模板管理设置
@@ -298,6 +299,7 @@ class Helper extends AbstractHelper
             'goods_tag_group_set'           => '管理商品标签组',  //商品标签组设置
             'goods_promotions_set'          => '优惠促销规则',   //优惠促销规则
             'clear_goods_image'             => '无用商品图片清理',
+            'goods_index_set'               => '商品索引',
             /*===============销售管理===============*/
             'order_set'                     => '订单管理',      //订单设置
             'order_pay_set'                 => '订单付款',      //订单付款操作

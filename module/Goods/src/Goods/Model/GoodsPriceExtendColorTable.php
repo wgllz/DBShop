@@ -79,6 +79,24 @@ class GoodsPriceExtendColorTable extends AbstractTableGateway implements \Zend\D
         }
         return null;
     }
+    /**
+     * 获取扩展颜色的字符串，用于商品索引
+     * @param array $where
+     * @return null|string
+     */
+    public function goodsExtendColorStr(array $where)
+    {
+        $result = $this->select($where);
+        if($result) {
+            $colorStr   = '';
+            $colorArray = $result->toArray();
+            foreach($colorArray as $colorValue) {
+                $colorStr .= $colorValue['color_info'];
+            }
+            return $colorStr;
+        }
+        return '';
+    }
 }
 
 ?>

@@ -29,7 +29,6 @@ class User
         self::$dataArray['user_name']               = (isset($data['user_name'])                and !empty($data['user_name']))                 ? trim($data['user_name'])                  : null;
         self::$dataArray['user_avatar']             = (isset($data['user_avatar'])              and !empty($data['user_avatar']))               ? trim($data['user_avatar'])                : null;
         self::$dataArray['user_password']           = (isset($data['user_password'])            and !empty($data['user_password']))             ? trim($data['user_password'])              : null;
-        self::$dataArray['user_email']              = (isset($data['user_email'])               and !empty($data['user_email']))                ? trim($data['user_email'])                 : null;
         self::$dataArray['user_sex']                = (isset($data['user_sex'])                 and !empty($data['user_sex']))                  ? intval($data['user_sex'])                 : null;
         self::$dataArray['user_time']               = (isset($data['user_time'])                and !empty($data['user_time']))                 ? trim($data['user_time'])                  : null;
         self::$dataArray['user_state']              = (isset($data['user_state'])               and !empty($data['user_state']))                ? intval($data['user_state'])               : null;
@@ -41,8 +40,9 @@ class User
         
         self::$dataArray['integral_type_2_num']     = (isset($data['integral_type_2_num'])      and !empty($data['integral_type_2_num']))       ? intval($data['integral_type_2_num'])      : 0;
         self::$dataArray['user_integral_num']       = (isset($data['user_integral_num'])        and !empty($data['user_integral_num']))         ? intval($data['user_integral_num'])        : 0;
-        self::$dataArray['user_phone']              = isset($data['user_phone']) ? (!empty($data['user_phone']) ? trim($data['user_phone']) : '')          : 'no';
-        self::$dataArray['user_birthday']           = isset($data['user_birthday']) ? (!empty($data['user_birthday']) ? trim($data['user_birthday']) : '') : 'no';
+        self::$dataArray['user_phone']              = isset($data['user_phone'])    ? (!empty($data['user_phone']) ? trim($data['user_phone']) : '')            : 'no';
+        self::$dataArray['user_birthday']           = isset($data['user_birthday']) ? (!empty($data['user_birthday']) ? trim($data['user_birthday']) : '')      : 'no';
+        self::$dataArray['user_email']              = isset($data['user_email'])    ? (!empty($data['user_email']) ? trim($data['user_email']) : '')            : 'no';
 
         return self::$dataArray;
     }
@@ -57,6 +57,7 @@ class User
 
         if($data['user_phone'] == 'no') unset($data['user_phone']);
         if($data['user_birthday'] == 'no') unset($data['user_birthday']);
+        if($data['user_email'] == 'no') unset($data['user_email']);
 
         return $data;
     }
@@ -78,8 +79,9 @@ class User
         if(isset($data['user_integral_num'])) unset($data['user_integral_num']);
         if(isset($data['integral_type_2_num'])) unset($data['integral_type_2_num']);
         //在一些编辑会员特定信息的时候，下面两个内容，有可能会被清空，所以进行如下处理，防止被清空
-        if($data['user_phone'] == 'no') unset($data['user_phone']);
-        if($data['user_birthday'] == 'no') unset($data['user_birthday']);
+        if($data['user_phone'] == 'no')     unset($data['user_phone']);
+        if($data['user_birthday'] == 'no')  unset($data['user_birthday']);
+        if($data['user_email'] == 'no')     unset($data['user_email']);
 
         return $data;
     }

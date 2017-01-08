@@ -43,7 +43,9 @@
            					<div class="controls">
               					<select class="span2" name="online_type" id="online_type">
                                 <option value=""><?php echo $this->translate('选择通讯工具'); ?></option>
-                                <?php foreach ($this->online_type_array as $key => $val) { ?>
+                                <?php foreach ($this->online_type_array as $key => $val) {
+									if($key == 'online') continue;
+									?>
                                 <option value="<?php echo $key; ?>" <?php if ($this->online_info and $this->online_info->online_type == $key) echo 'selected="selected"'; ?>><?php echo $val['type_name']; ?></option>
                                 <?php } ?>
                                 </select>

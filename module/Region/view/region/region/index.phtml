@@ -1,5 +1,11 @@
     		<div id="sticky_navigation" style="height:30px;border-bottom:4px solid #DFDFDF;">
-        	<p class="pull-left" style="font-size:16px; line-height:30px;"><strong><?php echo $this->translate('地区管理'); ?><?php if($this->region_info) echo '&nbsp;&nbsp;'.$this->escapeHtml($this->region_info['region_name']); ?></strong>&nbsp;&nbsp;<SMALL style="color:#F00;"><?php echo $this->translate('地区下级还有其他地区时，该地区不能删除'); ?></SMALL></p>
+        	<p class="pull-left" style="font-size:16px; line-height:30px;">
+				<strong><?php echo $this->translate('地区管理'); ?>
+					<?php if($this->region_info) echo '&nbsp;&nbsp;'.$this->escapeHtml($this->region_info['region_name']); ?>
+				</strong>
+				&nbsp;&nbsp;
+				<SMALL style="color:#F00;"><?php echo $this->translate('地区下级还有其他地区时，该地区不能删除'); ?></SMALL>
+			</p>
         	<p class="pull-right">
         	<?php if ($this->region_info) { ?>
         	<a href="<?php echo $this->url('region/default',array('controller'=>'region')); ?>" class="btn btn-small btn-primary"><i class="icon-arrow-left icon-white"></i> <?php echo $this->translate('返回顶级'); ?></a>&nbsp;

@@ -20,8 +20,8 @@ use Zend\View\Model\ViewModel;
 class TemplateController extends BaseController
 {
     private $soapclient;
-    private $updateUrl= 'http://update.dbshop.net';
-    private $location = 'http://update.dbshop.net/packageservice';
+    private $updateUrl= 'https://update.dbshop.net';
+    private $location = 'https://update.dbshop.net/packageservice';
     private $uri      = 'dbshop_package_update';
 
     /** 
@@ -49,7 +49,7 @@ class TemplateController extends BaseController
         $where = '';
         //已启用模板信息
         $defaultIni = $templateIniReader->fromFile(DBSHOP_PATH . '/module/Shopfront/view/'.$dbshopTemplate.'/shopfront/template.ini');
-        $array['default'] = array(
+        $defaultTem = array(
             'template_name'=>$dbshopTemplate,
             'template_info'=>(isset($defaultIni['template_info']) ? $defaultIni['template_info'] : array())
         );
@@ -58,6 +58,8 @@ class TemplateController extends BaseController
 
         //未启用模板信息
         $array['other_template'] = array();
+        $array['other_template'][] = $defaultTem;//已启用模板放在数组第一位
+
         $templatePath = DBSHOP_PATH . '/module/Shopfront/view/';
         if(is_dir($templatePath)) {
             $dh = opendir($templatePath);

@@ -67,6 +67,23 @@ class GoodsAttributeValueExtendTable extends AbstractTableGateway implements \Ze
         }
         return null;
     }
+    /**
+     * 获取属性值信息的字符串
+     * @param array $where
+     * @return string
+     */
+    public function attributeValueStr(array $where)
+    {
+        $result = $this->select($where)->toArray();
+        if($result) {
+            $valueStr = '';
+            foreach($result as $value) {
+                $valueStr .= $value['value_name'];
+            }
+            return $valueStr;
+        }
+        return '';
+    }
 }
 
 ?>

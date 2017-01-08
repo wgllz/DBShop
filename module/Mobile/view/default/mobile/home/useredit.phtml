@@ -6,14 +6,26 @@
                 <?php echo $this->escapeHtml($this->user_info->user_name); ?>
           </span></div>
         </li>
+        <?php
+        $userEmailRegisterState = $this->frontwebsite()->getRegOrLoginIni('register_email_state');
+        $userPhoneRegisterState = $this->frontwebsite()->getRegOrLoginIni('register_phone_state');
+        ?>
         <li>
-            <div class="input-text"><b class="pull-left"><?php echo $this->translate('电子邮件'); ?>：</b><span>
-          <input type="text" datatype="e" value="<?php echo $this->user_info->user_email; ?>" placeholder="<?php echo $this->translate('请输入电子邮箱'); ?>" nullmsg="<?php echo $this->translate('请输入电子邮箱'); ?>" name="user_email">
+            <div class="input-text"><b class="pull-left"><?php echo $this->translate('电子邮件'); ?>
+                    <?php if ($userEmailRegisterState == 'true') { ?>
+                        <span class="must_add_value">*</span>
+                    <?php } ?>
+                    ：</b><span>
+          <input type="text" datatype="e" value="<?php echo $this->user_info->user_email; ?>" ajaxurl="<?php echo $this->url('m_user/default/user_id',array('action'=>'check','controller'=>'user','module'=>'user','check_type'=>'user_email','user_id'=>($this->user_info ? $this->user_info->user_id : '0'))); ?>" placeholder="<?php echo $this->translate('请输入电子邮箱'); ?>" <?php if($userEmailRegisterState == 'true') echo 'nullmsg="'.$this->translate('请输入电子邮箱').'"'; ?> name="user_email">
           </span></div>
         </li>
         <li>
-            <div class="input-text"><b class="pull-left"><?php echo $this->translate('手机号码'); ?>：</b><span>
-          <input type="text" value="<?php echo $this->user_info->user_phone; ?>" placeholder="<?php echo $this->translate('请输入手机号码'); ?>"  name="user_phone">
+            <div class="input-text"><b class="pull-left"><?php echo $this->translate('手机号码'); ?>
+                    <?php if ($userPhoneRegisterState == 'true') { ?>
+                        <span class="must_add_value">*</span>
+                    <?php } ?>
+                    ：</b><span>
+          <input type="text"  datatype="m" value="<?php echo $this->user_info->user_phone; ?>" ajaxurl="<?php echo $this->url('m_user/default/user_id',array('action'=>'check','controller'=>'user','module'=>'user','check_type'=>'user_phone','user_id'=>($this->user_info ? $this->user_info->user_id : '0'))); ?>" placeholder="<?php echo $this->translate('请输入手机号码'); ?>"  name="user_phone" <?php if($userPhoneRegisterState == 'true') echo 'nullmsg="'.$this->translate('请输入手机号码').'"'; ?> errormsg="<?php echo $this->translate('手机号码格式错误'); ?>">
           </span></div>
         </li>
     </ul>

@@ -123,10 +123,11 @@
                     <?php } ?>
                   <dt>&nbsp;</dt>
                   <dd><?php echo $this->translate('最近'); ?><span id="ajax_order_count"><?php echo $this->order_count; ?></span><?php echo $this->translate('人已经购买'); ?></dd>
-                  <?php
+                    <?php
 				  $goods_share_info = $this->frontwebsite()->getDbshopGoodsShare();
 				  if(!empty($goods_share_info['share_type'])) {
-					  if($goods_share_info['share_type'] == '/baidu/window.php') {
+                      echo "<script>var dbshop_baidushare_path='". $this->basePath('/public/js/baiduShare/')."';</script>";
+					  if($goods_share_info['share_type'] == '/baidu/window.php' or $goods_share_info['share_type'] == '/baidu/httpswindow.php') {
 						echo $goods_share_info['share_code'];  
 					  } else {
 						echo '<dt>&nbsp;</dt><dd>'.$goods_share_info['share_code'].'</dd>';
@@ -418,7 +419,7 @@
             	<div class="control-group">
                     <textarea rows="3" class="span11" id="goods_ask_content" name="goods_ask_content" placeholder="<?php echo $this->translate('您有任何问题，可以通过这里向卖家咨询'); ?>"></textarea>
                 </div>
-                <?php if ($this->frontwebsite()->websiteInfo('goods_ask_captcha') == 'true') { ?>
+                <?php if ($this->frontwebsite()->websiteCaptchaState('goods_ask_captcha') == 'true') { ?>
             	<div class="control-group">
                     <input type="text" class="input-small" id="captcha_code" name="captcha_code" placeholder="<?php echo $this->translate('输入验证码'); ?>">&nbsp;<span id="ask_captcha_id"></span>
                 </div>
@@ -483,7 +484,7 @@ $(document).ready(function() {
 			goods_ask_content: {
 				required: true
 			}
-			<?php if ($this->frontwebsite()->websiteInfo('goods_ask_captcha') == 'true') { ?>
+			<?php if ($this->frontwebsite()->websiteCaptchaState('goods_ask_captcha') == 'true') { ?>
 			,
 			captcha_code: {
 				required:true,
@@ -503,7 +504,7 @@ $(document).ready(function() {
 			goods_ask_content: {
 				required: "<?php echo $this->translate('请输入商品咨询内容！'); ?>"
 			}
-			<?php if ($this->frontwebsite()->websiteInfo('goods_ask_captcha') == 'true') { ?>
+			<?php if ($this->frontwebsite()->websiteCaptchaState('goods_ask_captcha') == 'true') { ?>
 			,
 			captcha_code: {
 				required:"<?php echo $this->translate('验证码不能为空！'); ?>",
@@ -590,7 +591,7 @@ function add_goods_ask_js() {
 	function(data){
 		if(data == 'true') {
 			$('#goods_ask_content').val('');
-			<?php if ($this->frontwebsite()->websiteInfo('goods_ask_captcha') == 'true') { ?>
+			<?php if ($this->frontwebsite()->websiteCaptchaState('goods_ask_captcha') == 'true') { ?>
 			$('#captcha_code').val('');
 			captchaAdd();
 			<?php } ?>
@@ -638,7 +639,7 @@ function combination_goods_add_cart() {
 }
 <?php } ?>
 
-<?php if ($this->frontwebsite()->websiteInfo('goods_ask_captcha') == 'true') { ?>
+<?php if ($this->frontwebsite()->websiteCaptchaState('goods_ask_captcha') == 'true') { ?>
 //验证码添加
 function captchaAdd() {
 	$.get("<?php echo $this->url('shopfront/default',array('action'=>'captcha')); ?>",{},

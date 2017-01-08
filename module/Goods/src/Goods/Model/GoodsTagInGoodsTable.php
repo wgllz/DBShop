@@ -18,6 +18,7 @@ use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Select;
 use Goods\Model\GoodsTagInGoods as dbshopCheckInData;
+use Zend\Db\Sql\Expression;
 
 class GoodsTagInGoodsTable extends AbstractTableGateway implements \Zend\Db\Adapter\AdapterAwareInterface
 {
@@ -116,6 +117,29 @@ class GoodsTagInGoodsTable extends AbstractTableGateway implements \Zend\Db\Adap
     public function updateTagInGoods (array $data, array $where)
     {
         return $this->update($data, $where);
+    }
+    /**
+     * 获取商品标签信息，用于商品索引
+     * @param array $where
+     * @return null|string
+     */
+    public function tagGoodsStr(array $where)
+    {
+        $result = $this->select(function (Select $select)use($where){
+            $select->columns(array(new Expression('
+            (SELECT t.tag_name FROM dbshop_goods_tag_extend as t WHERE t.tag_id=dbshop_goods_tag_in_goods.tag_id) as tag_name
+            ')));
+            $select->where($where);
+        });
+        if($result) {
+            $tagNameStr = '';
+            $tagArray   = $result->toArray();
+            foreach($tagArray as $tagValue) {
+                $tagNameStr .= $tagValue['tag_name'];
+            }
+            return $tagNameStr;
+        }
+        return null;
     }
 }
 

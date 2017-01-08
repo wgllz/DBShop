@@ -41,6 +41,14 @@ class UserController  extends AbstractActionController
         $this->layout()->title_name = $this->getDbshopLang()->translate('会员登录');
 
         $array = array();
+
+        //判断登录项中是否开启了邮箱登录
+        $userEmailLoginState = $this->getServiceLocator()->get('frontHelper')->getRegOrLoginIni('login_email_state');
+        $array['email_login_state'] = $userEmailLoginState;
+        //判断登录项中是否开启手机号码登录
+        $userPhonLoginState = $this->getServiceLocator()->get('frontHelper')->getRegOrLoginIni('login_phone_state');
+        $array['phone_login_state'] = $userPhonLoginState;
+
         if($this->request->isPost()) {
             $userArray = $this->request->getPost()->toArray();
             $httpReferer = $userArray['http_referer'];
@@ -51,8 +59,13 @@ class UserController  extends AbstractActionController
             $userValidate = new FormUserValidate($this->getDbshopLang());
             $userValidate->checkUserForm($this->request->getPost(), 'login');
 
+            $userNameWhere = '(user_name="'.$userArray['user_name'].'"';
+            if($userEmailLoginState == 'true') $userNameWhere .= ' or user_email="'.$userArray['user_name'].'"';    //开启邮箱登录
+            if($userPhonLoginState == 'true') $userNameWhere .= ' or user_phone="'.$userArray['user_name'].'"';     //开启手机号码登录
+            $userNameWhere .= ')';
+
             $userArray['user_password'] = $this->getServiceLocator()->get('frontHelper')->getPasswordStr($userArray['user_password']);
-            $userInfo = $this->getDbshopTable('UserTable')->infoUser(array('user_password'=>$userArray['user_password'], 'user_name'=>$userArray['user_name']));
+            $userInfo = $this->getDbshopTable('UserTable')->infoUser(array('user_password'=>$userArray['user_password'], $userNameWhere));
             if($userInfo) {
                 //当会员状态处于2（关闭）3（待审核）时，不进行登录操作
                 $exitMessage = '';
@@ -81,7 +94,7 @@ class UserController  extends AbstractActionController
                 $this->getServiceLocator()->get('frontHelper')->setUserSession($sessionUser);
                 //如果有返回网址，转向返回网址
                 if($httpReferer != '') {
-                    @header("Location: " . $httpReferer);
+                    @header("Location: " . urldecode($httpReferer));
                     exit();
                 }
 
@@ -91,7 +104,12 @@ class UserController  extends AbstractActionController
             }
         }
 
-        $array['http_referer'] = (isset($httpReferer) and $httpReferer != '') ? $httpReferer : $this->getRequest()->getServer('HTTP_REFERER');
+        $queryHttpReferer = '';
+        if($this->request->isGet()) {
+            $queryArray = $this->request->getQuery()->toArray();
+            if(isset($queryArray['http_referer']) and !empty($queryArray['http_referer'])) $queryHttpReferer = $queryArray['http_referer'];
+        }
+        $array['http_referer'] = (isset($httpReferer) and $httpReferer != '') ? $httpReferer : (!empty($queryHttpReferer) ? $queryHttpReferer : urlencode($this->getRequest()->getServer('HTTP_REFERER')));
 
         //登录的csrf
         $csrf = new Csrf('login_security');
@@ -120,9 +138,17 @@ class UserController  extends AbstractActionController
                 exit($this->getServiceLocator()->get('frontHelper')->getUserIni('register_close_message'));
             }
 
+            //判断注册项中是否开启了邮箱注册
+            $userEmailRegisterState = $this->getServiceLocator()->get('frontHelper')->getRegOrLoginIni('register_email_state');
+            //判断注册项中是否开启手机号码
+            $userPhoneRegisterState = $this->getServiceLocator()->get('frontHelper')->getRegOrLoginIni('register_phone_state');
+
             //服务器端数据验证
             $userValidate = new FormUserValidate($this->getDbshopLang());
-            $userValidate->checkUserForm($this->request->getPost(), 'register');
+            if($userEmailRegisterState != 'true' and $userPhoneRegisterState != 'true') $userValidate->checkUserForm($this->request->getPost(), 'register');
+            if($userEmailRegisterState == 'true' and $userPhoneRegisterState == 'true') $userValidate->checkUserForm($this->request->getPost(), 'registerall');
+            if($userEmailRegisterState == 'true' and $userPhoneRegisterState != 'true') $userValidate->checkUserForm($this->request->getPost(), 'registerandemail');
+            if($userEmailRegisterState != 'true' and $userPhoneRegisterState == 'true') $userValidate->checkUserForm($this->request->getPost(), 'registerandphone');
 
             //注册验证状态，null 无需验证，email电邮验证，audit人工验证
             $audit = $this->getServiceLocator()->get('frontHelper')->getUserIni('register_audit');
@@ -170,7 +196,7 @@ class UserController  extends AbstractActionController
 
                 $userGroup = $this->getDbshopTable('UserGroupExtendTable')->infoUserGroupExtend(array('group_id'=>$userArray['group_id'],'language'=>$this->getDbshopLang()->getLocale()));
                 //判断是否对注册成功的会员发送欢迎电邮
-                if($welcomeEmail == 'true') {
+                if($welcomeEmail == 'true' and $userEmailRegisterState == 'true') {
                     $sourceArray  = array(
                         '{username}',
                         '{shopname}',
@@ -199,7 +225,7 @@ class UserController  extends AbstractActionController
                 }
                 //当验证为电邮验证或者人工验证时进行处理
                 $exitMessage = '';
-                if($audit == 'email') {
+                if($audit == 'email' and $userEmailRegisterState == 'true') {
                     $userAuditCode = md5($userArray['user_name']) . md5(time());
                     $auditUrl      = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontuser/default', array('action'=>'userAudit')) . '?userName=' . urlencode($userArray['user_name']) . '&auditCode=' . $userAuditCode;
                     //将生成的审核码更新到会员表中
@@ -234,7 +260,7 @@ class UserController  extends AbstractActionController
 
                 //如果有返回网址，转向返回网址
                 if($httpReferer != '') {
-                    @header("Location: " . $httpReferer);
+                    @header("Location: " . urldecode($httpReferer));
                     exit();
                 }
                 return $this->redirect()->toRoute('mobile/default');
@@ -242,11 +268,19 @@ class UserController  extends AbstractActionController
         }
 
         $array = array();
-        $array['http_referer'] = (isset($httpReferer) and $httpReferer != '') ? $httpReferer : $this->getRequest()->getServer('HTTP_REFERER');
+        $array['http_referer'] = (isset($httpReferer) and $httpReferer != '') ? $httpReferer : urlencode($this->getRequest()->getServer('HTTP_REFERER'));
+
+        //验证码csrf
+        $PhoneCaptchaState = $this->getServiceLocator()->get('frontHelper')->websiteCaptchaState('phone_user_register_captcha');
+        if($PhoneCaptchaState == 'true') {
+            $captchaCsrf = new Csrf('captcha_security');
+            $captchaCsrf->setCsrfValidatorOptions(array('timeout'=>60));
+            $array['captcha_csrf'] = $captchaCsrf->getAttributes();
+        }
 
         //注册的csrf
         $csrf = new Csrf('register_security');
-        $csrf->setCsrfValidatorOptions(array('timeout'=>120, 'salt'=>'9de4a97425678c5b1288aa70c1669a64'));
+        $csrf->setCsrfValidatorOptions(array('timeout'=>240, 'salt'=>'9de4a97425678c5b1288aa70c1669a64'));
         $array['register_csrf'] = $csrf->getAttributes();
 
         //统计使用
@@ -320,6 +354,8 @@ class UserController  extends AbstractActionController
     {
         $this->layout()->title_name = $this->getDbshopLang()->translate('会员信息补充');
 
+        $array = array();
+
         $lType            = $this->params('login_type');
         $loginType        = 'QQ';
         if($lType !='' and $lType != 'qq') {
@@ -335,150 +371,214 @@ class UserController  extends AbstractActionController
             $openId = $otherUserInfo['unionid'];
         }
 
+        //获取注册项信息，注册时是否需要填写邮箱
+        $userEmailOtherLoginState           = $this->getServiceLocator()->get('frontHelper')->getRegOrLoginIni('other_login_email_state');
+        $array['other_login_email_state']   = $userEmailOtherLoginState;
+
         if($this->request->isPost()) {
             //判断是否关闭了注册功能
             if($this->getServiceLocator()->get('frontHelper')->getUserIni('user_register_state') == 'false') {
                 exit($this->getServiceLocator()->get('frontHelper')->getUserIni('register_close_message'));
             }
 
+            $otherLoginType = $this->request->getPost('other_logion_type');
+            if(empty($otherLoginType)) $otherLoginType = 'register';
+
             //服务器端数据验证
             $userValidate = new FormUserValidate($this->getDbshopLang());
-            $userValidate->checkUserForm($this->request->getPost(), 'otherregister');
+            if($otherLoginType == 'login') {//判断是否是绑定
+                $userValidate->checkUserForm($this->request->getPost(), 'otherlogin');
+            } else {//新增账户
+                if($userEmailOtherLoginState == 'true') $userValidate->checkUserForm($this->request->getPost(), 'otherregister');
+                else $userValidate->checkUserForm($this->request->getPost(), 'othernoemailregister');
+            }
 
-            //注册验证状态，null 无需验证，email电邮验证，audit人工验证
-            $audit = $this->getServiceLocator()->get('frontHelper')->getUserIni('register_audit');
-            //是否发送欢迎邮件
-            $welcomeEmail = $this->getServiceLocator()->get('frontHelper')->getUserIni('welcomeemail');
+            //会员数据插入处理
+            $userArray = $this->request->getPost()->toArray();
 
-            //开启数据库事务处理
-            $this->getDbshopTable('dbshopTransaction')->DbshopTransactionBegin();
-            //异常开启，如果产生异常，则执行事务回归操作
-            try {
-                //会员数据插入处理
-                $userArray = $this->request->getPost()->toArray();
-                $userArray['user_time']     = time();
-                $userArray['group_id']      = $this->getServiceLocator()->get('frontHelper')->getUserIni('default_group_id');
-                $userArray['user_state']    = (($audit == 'email' or $audit == 'audit') ? 3 : 1);//默认状态
-                $userArray['user_password'] = $this->getServiceLocator()->get('frontHelper')->getPasswordStr($openId);
-                $addState = $this->getDbshopTable('UserTable')->addUser($userArray);
+            if($otherLoginType == 'login') {//当是绑定账户操作时
+                $userPasswd = $this->getServiceLocator()->get('frontHelper')->getPasswordStr($userArray['login_user_passwd']);
+                $userInfo = $this->getDbshopTable('UserTable')->infoUser(array('user_password'=>$userPasswd, 'user_name'=>$userArray['login_user_name']));
+                if($userInfo) {
 
-                //初始积分处理
-                $userIntegralType = $this->getDbshopTable('UserIntegralTypeTable')->listUserIntegralType(array('e.language'=>$this->getDbshopLang()->getLocale()));
-                if(is_array($userIntegralType) and !empty($userIntegralType)) {
-                    foreach($userIntegralType as $integralTypeValue) {
-                        if($integralTypeValue['default_integral_num'] > 0) {
-                            $integralLogArray = array();
-                            $integralLogArray['user_id']           = $addState;
-                            $integralLogArray['user_name']         = $userArray['user_name'];
-                            $integralLogArray['integral_log_info'] = $this->getDbshopLang()->translate('会员注册默认起始积分数：') . $integralTypeValue['default_integral_num'];
-                            $integralLogArray['integral_num_log']  = $integralTypeValue['default_integral_num'];
-                            $integralLogArray['integral_log_time'] = time();
-                            //默认消费积分
-                            if($integralTypeValue['integral_type_mark'] == 'integral_type_1') {
-                                $this->getDbshopTable('UserTable')->updateUserIntegralNum(array('integral_num_log'=>$integralTypeValue['default_integral_num']), array('user_id'=>$addState));
+                    $otherLoginArray = array(
+                        'user_id'       => $userInfo->user_id,
+                        'open_id'       => $openId,
+                        'ol_add_time'   => time(),
+                        'login_type'    => $loginType
+                    );
+                    $this->getDbshopTable('OtherLoginTable')->addOtherLogin($otherLoginArray);
+                    $loginService->clearLoginSession();
 
-                                $integralLogArray['integral_type_id'] = 1;
-                                $this->getDbshopTable('IntegralLogTable')->addIntegralLog($integralLogArray);
-                            }
-                            //默认等级积分
-                            if($integralTypeValue['integral_type_mark'] == 'integral_type_2') {
-                                $this->getDbshopTable('UserTable')->updateUserIntegralNum(array('integral_num_log'=>$integralTypeValue['default_integral_num']), array('user_id'=>$addState), 2);
+                    //当会员状态处于2（关闭）3（待审核）时，不进行登录操作
+                    $exitMessage = '';
+                    if($userInfo->user_state == 2) $exitMessage = $this->getDbshopLang()->translate('您的帐户处于关闭状态！')  . '&nbsp;<a href="' .$this->url()->fromRoute('mobile/default'). '">' . $this->getDbshopLang()->translate('返回首页') . '</a>';
+                    if($userInfo->user_state == 3) $exitMessage = $this->getDbshopLang()->translate('您的帐户处于待审核状态！') . '&nbsp;<a href="' .$this->url()->fromRoute('mobile/default'). '">' . $this->getDbshopLang()->translate('返回首页') . '</a>';
+                    if($exitMessage != '') exit($exitMessage);
 
-                                $integralLogArray['integral_type_id'] = 2;
-                                $this->getDbshopTable('IntegralLogTable')->addIntegralLog($integralLogArray);
+                    //根据等级积分判读，当前登录用户是否需要调整等级
+                    $groupId = $this->getDbshopTable('UserGroupTable')->checkUserGroup(array('group_id'=>$userInfo->group_id, 'integral_num'=>$userInfo->integral_type_2_num));
+                    if($groupId) {
+                        $this->getDbshopTable('UserTable')->updateUser(array('group_id'=>$groupId), array('user_id'=>$userInfo->user_id));
+                        $userInfo->group_id = $groupId;
+                    }
+
+                    $userGroup = $this->getDbshopTable('UserGroupExtendTable')->infoUserGroupExtend(array('group_id'=>$userInfo->group_id,'language'=>$this->getDbshopLang()->getLocale()));
+                    //session处理
+                    $sessionUser = array(
+                        'user_name'      => $userInfo->user_name,
+                        'user_id'        => $userInfo->user_id,
+                        'user_email'     => $userInfo->user_email,
+                        'user_phone'     => $userInfo->user_phone,
+                        'group_id'       => $userInfo->group_id,
+                        'user_group_name'=> $userGroup->group_name,
+                        'user_avatar'    => (!empty($userInfo->user_avatar) ? $userInfo->user_avatar : $this->getServiceLocator()->get('frontHelper')->getUserIni('default_avatar'))
+                    );
+                    $this->getServiceLocator()->get('frontHelper')->setUserSession($sessionUser);
+
+                    return $this->redirect()->toRoute('mobile/default');
+                } else {
+                    $array['message'] = $this->getDbshopLang()->translate('登录失败，用户名或密码错误，请重新登录！');
+                }
+            }
+            else
+            {
+
+                //注册验证状态，null 无需验证，email电邮验证，audit人工验证
+                $audit = $this->getServiceLocator()->get('frontHelper')->getUserIni('register_audit');
+                //是否发送欢迎邮件
+                $welcomeEmail = $this->getServiceLocator()->get('frontHelper')->getUserIni('welcomeemail');
+
+                //开启数据库事务处理
+                $this->getDbshopTable('dbshopTransaction')->DbshopTransactionBegin();
+                //异常开启，如果产生异常，则执行事务回归操作
+                try {
+                    $userArray['user_time']     = time();
+                    $userArray['group_id']      = $this->getServiceLocator()->get('frontHelper')->getUserIni('default_group_id');
+                    $userArray['user_state']    = (($audit == 'email' or $audit == 'audit') ? 3 : 1);//默认状态
+                    $userArray['user_password'] = $this->getServiceLocator()->get('frontHelper')->getPasswordStr($openId);
+                    $addState = $this->getDbshopTable('UserTable')->addUser($userArray);
+
+                    //初始积分处理
+                    $userIntegralType = $this->getDbshopTable('UserIntegralTypeTable')->listUserIntegralType(array('e.language'=>$this->getDbshopLang()->getLocale()));
+                    if(is_array($userIntegralType) and !empty($userIntegralType)) {
+                        foreach($userIntegralType as $integralTypeValue) {
+                            if($integralTypeValue['default_integral_num'] > 0) {
+                                $integralLogArray = array();
+                                $integralLogArray['user_id']           = $addState;
+                                $integralLogArray['user_name']         = $userArray['user_name'];
+                                $integralLogArray['integral_log_info'] = $this->getDbshopLang()->translate('会员注册默认起始积分数：') . $integralTypeValue['default_integral_num'];
+                                $integralLogArray['integral_num_log']  = $integralTypeValue['default_integral_num'];
+                                $integralLogArray['integral_log_time'] = time();
+                                //默认消费积分
+                                if($integralTypeValue['integral_type_mark'] == 'integral_type_1') {
+                                    $this->getDbshopTable('UserTable')->updateUserIntegralNum(array('integral_num_log'=>$integralTypeValue['default_integral_num']), array('user_id'=>$addState));
+
+                                    $integralLogArray['integral_type_id'] = 1;
+                                    $this->getDbshopTable('IntegralLogTable')->addIntegralLog($integralLogArray);
+                                }
+                                //默认等级积分
+                                if($integralTypeValue['integral_type_mark'] == 'integral_type_2') {
+                                    $this->getDbshopTable('UserTable')->updateUserIntegralNum(array('integral_num_log'=>$integralTypeValue['default_integral_num']), array('user_id'=>$addState), 2);
+
+                                    $integralLogArray['integral_type_id'] = 2;
+                                    $this->getDbshopTable('IntegralLogTable')->addIntegralLog($integralLogArray);
+                                }
                             }
                         }
                     }
+
+                    $userGroup = $this->getDbshopTable('UserGroupExtendTable')->infoUserGroupExtend(array('group_id'=>$userArray['group_id'],'language'=>$this->getDbshopLang()->getLocale()));
+
+                    $otherLoginArray = array(
+                        'user_id'       => $addState,
+                        'open_id'       => $openId,
+                        'ol_add_time'   => $userArray['user_time'],
+                        'login_type'    => $loginType
+                    );
+                    $addOtherLogin = $this->getDbshopTable('OtherLoginTable')->addOtherLogin($otherLoginArray);
+
+                } catch (\Exception $e) {
+                    $this->getDbshopTable('dbshopTransaction')->DbshopTransactionRollback();//事务回滚
                 }
+                $this->getDbshopTable('dbshopTransaction')->DbshopTransactionCommit();//事务确认
 
-                $userGroup = $this->getDbshopTable('UserGroupExtendTable')->infoUserGroupExtend(array('group_id'=>$userArray['group_id'],'language'=>$this->getDbshopLang()->getLocale()));
+                if($addOtherLogin) {
+                    //判断是否对注册成功的会员发送欢迎电邮
+                    if($welcomeEmail == 'true' and $userEmailOtherLoginState == 'true') {
+                        $sourceArray  = array(
+                            '{username}',
+                            '{shopname}',
+                            '{adminemail}',
+                            '{time}',
+                            '{shopnameurl}'
+                        );
+                        $replaceArray = array(
+                            $userArray['user_name'],
+                            $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name'),
+                            $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_email'),
+                            date("Y-m-d H:i", time()),
+                            '<a href="'. $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default') . '" target="_blank">' . $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name') . '</a>',
+                        );
+                        $registerEmail = array(
+                            'send_user_name'=> $userArray['user_name'],
+                            'send_mail'     => $userArray['user_email'],
+                            'subject'       => str_replace($sourceArray, $replaceArray, $this->getServiceLocator()->get('frontHelper')->getUserIni('welcome_email_title')),
+                            'body'          => nl2br(str_replace($sourceArray, $replaceArray, $this->getServiceLocator()->get('frontHelper')->getUserIni('welcome_email_body'))),
+                        );
+                        try {
+                            $this->getServiceLocator()->get('shop_send_mail')->toSendMail($registerEmail);
+                        } catch (\Exception $e) {
 
-                $otherLoginArray = array(
-                    'user_id'       => $addState,
-                    'open_id'       => $openId,
-                    'ol_add_time'   => $userArray['user_time'],
-                    'login_type'    => $loginType
-                );
-                $addOtherLogin = $this->getDbshopTable('OtherLoginTable')->addOtherLogin($otherLoginArray);
-
-            } catch (\Exception $e) {
-                $this->getDbshopTable('dbshopTransaction')->DbshopTransactionRollback();//事务回滚
-            }
-            $this->getDbshopTable('dbshopTransaction')->DbshopTransactionCommit();//事务确认
-
-            if($addOtherLogin) {
-                //判断是否对注册成功的会员发送欢迎电邮
-                if($welcomeEmail == 'true') {
-                    $sourceArray  = array(
-                        '{username}',
-                        '{shopname}',
-                        '{adminemail}',
-                        '{time}',
-                        '{shopnameurl}'
-                    );
-                    $replaceArray = array(
-                        $userArray['user_name'],
-                        $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name'),
-                        $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_email'),
-                        date("Y-m-d H:i", time()),
-                        '<a href="'. $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('shopfront/default') . '" target="_blank">' . $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name') . '</a>',
-                    );
-                    $registerEmail = array(
-                        'send_user_name'=> $userArray['user_name'],
-                        'send_mail'     => $userArray['user_email'],
-                        'subject'       => str_replace($sourceArray, $replaceArray, $this->getServiceLocator()->get('frontHelper')->getUserIni('welcome_email_title')),
-                        'body'          => nl2br(str_replace($sourceArray, $replaceArray, $this->getServiceLocator()->get('frontHelper')->getUserIni('welcome_email_body'))),
-                    );
-                    try {
-                        $this->getServiceLocator()->get('shop_send_mail')->toSendMail($registerEmail);
-                    } catch (\Exception $e) {
-
+                        }
                     }
-                }
-                //当验证为电邮验证或者人工验证时进行处理
-                $exitMessage = '';
-                if($audit == 'email') {
-                    $userAuditCode = md5($userArray['user_name']) . md5(time());
-                    $auditUrl      = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontuser/default', array('action'=>'userAudit')) . '?userName=' . urlencode($userArray['user_name']) . '&auditCode=' . $userAuditCode;
-                    //将生成的审核码更新到会员表中
-                    $this->getDbshopTable('UserTable')->updateUser(array('user_audit_code'=>$userAuditCode),array('user_id'=>$addState));
-                    $auditEmail = array(
-                        'send_user_name'=> $userArray['user_name'],
-                        'send_mail'     => $userArray['user_email'],
-                        'subject'       => $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name') . $this->getDbshopLang()->translate('会员注册审核邮件'),
-                        'body'          => $this->getDbshopLang()->translate('亲爱的') . $userArray['user_name'] . $this->getDbshopLang()->translate('您好，感谢您注册我们的会员，请点击会员审核链接进行认证审核 ') . '<a href="'.$auditUrl.'" target="_blank">'
-                            . $this->getDbshopLang()->translate('点击审核会员 ') . '</a><br>' . $this->getDbshopLang()->translate('如果您无法点击审核链接，请复制下面的链接地址在浏览器中打开，完成审核 ') . '<br>' . $auditUrl
-                    );
-                    try {
-                        $this->getServiceLocator()->get('shop_send_mail')->toSendMail($auditEmail);
-                        $exitMessage = $this->getDbshopLang()->translate('您的帐户注册成功，需要验证邮件后方可使用，请登录您的邮箱进行验证！') . '&nbsp;<a href="' .$this->url()->fromRoute('shopfront/default'). '">' . $this->getDbshopLang()->translate('返回首页') . '</a>';
-                    } catch (\Exception $e) {
-                        exit($this->getDbshopLang()->translate('发送验证邮件失败，请联系网站管理员进行处理'));
+                    //当验证为电邮验证或者人工验证时进行处理
+                    $exitMessage = '';
+                    if($audit == 'email' and $userEmailOtherLoginState == 'true') {
+                        $userAuditCode = md5($userArray['user_name']) . md5(time());
+                        $auditUrl      = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('frontuser/default', array('action'=>'userAudit')) . '?userName=' . urlencode($userArray['user_name']) . '&auditCode=' . $userAuditCode;
+                        //将生成的审核码更新到会员表中
+                        $this->getDbshopTable('UserTable')->updateUser(array('user_audit_code'=>$userAuditCode),array('user_id'=>$addState));
+                        $auditEmail = array(
+                            'send_user_name'=> $userArray['user_name'],
+                            'send_mail'     => $userArray['user_email'],
+                            'subject'       => $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name') . $this->getDbshopLang()->translate('会员注册审核邮件'),
+                            'body'          => $this->getDbshopLang()->translate('亲爱的') . $userArray['user_name'] . $this->getDbshopLang()->translate('您好，感谢您注册我们的会员，请点击会员审核链接进行认证审核 ') . '<a href="'.$auditUrl.'" target="_blank">'
+                                . $this->getDbshopLang()->translate('点击审核会员 ') . '</a><br>' . $this->getDbshopLang()->translate('如果您无法点击审核链接，请复制下面的链接地址在浏览器中打开，完成审核 ') . '<br>' . $auditUrl
+                        );
+                        try {
+                            $this->getServiceLocator()->get('shop_send_mail')->toSendMail($auditEmail);
+                            $exitMessage = $this->getDbshopLang()->translate('您的帐户注册成功，需要验证邮件后方可使用，请登录您的邮箱进行验证！') . '&nbsp;<a href="' .$this->url()->fromRoute('shopfront/default'). '">' . $this->getDbshopLang()->translate('返回首页') . '</a>';
+                        } catch (\Exception $e) {
+                            exit($this->getDbshopLang()->translate('发送验证邮件失败，请联系网站管理员进行处理'));
+                        }
                     }
+                    if($audit == 'audit') $exitMessage = $this->getDbshopLang()->translate('您的帐户注册成功，需要人工审核后才可使用！')  . '&nbsp;<a href="' .$this->url()->fromRoute('shopfront/default'). '">' . $this->getDbshopLang()->translate('返回首页') . '</a>';
+                    if($exitMessage != '') exit($exitMessage);
+
+                    //注册成功session赋值，如果需要审核则不进行此操作
+                    $this->getServiceLocator()->get('frontHelper')->setUserSession(
+                        array(
+                            'user_name'         =>$userArray['user_name'],
+                            'user_id'           =>$addState,
+                            'user_email'        =>$userArray['user_email'],
+                            'group_id'          =>$userArray['group_id'],
+                            'user_group_name'   =>$userGroup->group_name,
+                            'user_avatar'       =>$this->getServiceLocator()->get('frontHelper')->getUserIni('default_avatar')
+                        )
+                    );
+                    //清空第三方登录中设置过的session值
+                    $loginService->clearLoginSession();
+
+                    return $this->redirect()->toRoute('mobile/default');
                 }
-                if($audit == 'audit') $exitMessage = $this->getDbshopLang()->translate('您的帐户注册成功，需要人工审核后才可使用！')  . '&nbsp;<a href="' .$this->url()->fromRoute('shopfront/default'). '">' . $this->getDbshopLang()->translate('返回首页') . '</a>';
-                if($exitMessage != '') exit($exitMessage);
 
-                //注册成功session赋值，如果需要审核则不进行此操作
-                $this->getServiceLocator()->get('frontHelper')->setUserSession(
-                    array(
-                        'user_name'         =>$userArray['user_name'],
-                        'user_id'           =>$addState,
-                        'user_email'        =>$userArray['user_email'],
-                        'group_id'          =>$userArray['group_id'],
-                        'user_group_name'   =>$userGroup->group_name,
-                        'user_avatar'       =>$this->getServiceLocator()->get('frontHelper')->getUserIni('default_avatar')
-                    )
-                );
-                //清空第三方登录中设置过的session值
-                $loginService->clearLoginSession();
-
-                return $this->redirect()->toRoute('mobile/default');
             }
 
         }
 
-        $array = array('open_id'=>$openId, 'other_user_info'=>$otherUserInfo);
+        $array['open_id']           = $openId;
+        $array['other_user_info']   = $otherUserInfo;
 
         return $array;
     }
@@ -521,6 +621,11 @@ class UserController  extends AbstractActionController
             $userInfo = $this->getDbshopTable()->infoUser(array('user_email'=>trim($this->request->getPost('param')),'user_id!='.$userId));
             exit((($userInfo and $userInfo->user_id != 0) ? json_encode(array('info'=>$this->getDbshopLang()->translate('该电子邮箱已经存在！'), 'status'=>'n')) : 'y'));
         }
+        if($checkType == 'user_phone') {
+            $userInfo = $this->getDbshopTable()->infoUser(array('user_phone'=>trim($this->request->getPost('param')),'user_id!='.$userId));
+            exit((($userInfo and $userInfo->user_id != 0) ? json_encode(array('info'=>$this->getDbshopLang()->translate('该手机号码已经存在！'), 'status'=>'n')) : 'y'));
+        }
+
         exit();
     }
     /**

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop V1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-25 16:48+0800\n"
-"PO-Revision-Date: 2016-11-25 16:48+0800\n"
+"POT-Creation-Date: 2016-11-30 17:04+0800\n"
+"PO-Revision-Date: 2016-11-30 17:04+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_CN\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../src/Admin/Controller/AdminController.php:67
-#: ../view/admin/admin/index.phtml:252
+#: ../view/admin/admin/index.phtml:257
 msgid "管理员登录"
 msgstr ""
 
@@ -41,7 +41,7 @@ msgstr ""
 #: ../src/Admin/Controller/AdminController.php:286
 #: ../src/Admin/Controller/AdminController.php:316
 #: ../src/Admin/Controller/AdminController.php:375
-#: ../view/layout/admin_header_layout.phtml:143
+#: ../view/layout/admin_header_layout.phtml:144
 msgid "管理员设置"
 msgstr ""
 
@@ -91,38 +91,38 @@ msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:355
 #: ../src/Admin/Controller/AdminController.php:356
-#: ../view/layout/admin_header_layout.phtml:112
+#: ../view/layout/admin_header_layout.phtml:113
 msgid "系统管理"
 msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:357
 #: ../view/admin/home/index.phtml:13
-#: ../view/layout/admin_header_layout.phtml:114
+#: ../view/layout/admin_header_layout.phtml:115
 msgid "系统设置"
 msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:358
-#: ../view/layout/admin_header_layout.phtml:116
+#: ../view/layout/admin_header_layout.phtml:117
 msgid "附件设置"
 msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:359
-#: ../view/layout/admin_header_layout.phtml:117
+#: ../view/layout/admin_header_layout.phtml:118
 msgid "客户设置"
 msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:360
-#: ../view/layout/admin_header_layout.phtml:132
+#: ../view/layout/admin_header_layout.phtml:133
 msgid "电子邮件提醒设置"
 msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:361
-#: ../view/layout/admin_header_layout.phtml:131
+#: ../view/layout/admin_header_layout.phtml:132
 msgid "手机短信提醒设置"
 msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:362
-#: ../view/layout/admin_header_layout.phtml:115
+#: ../view/layout/admin_header_layout.phtml:116
 msgid "性能优化"
 msgstr ""
 
@@ -204,7 +204,7 @@ msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:385
 #: ../src/Admin/Controller/AdminController.php:386
-#: ../view/layout/admin_header_layout.phtml:156
+#: ../view/layout/admin_header_layout.phtml:158
 msgid "模板管理"
 msgstr ""
 
@@ -214,7 +214,7 @@ msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:389
 #: ../src/Admin/Controller/AdminController.php:390
-#: ../view/layout/admin_header_layout.phtml:157
+#: ../view/layout/admin_header_layout.phtml:159
 msgid "系统更新"
 msgstr ""
 
@@ -228,7 +228,7 @@ msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:394
 #: ../src/Admin/Controller/AdminController.php:395
-#: ../view/layout/admin_header_layout.phtml:119
+#: ../view/layout/admin_header_layout.phtml:120
 msgid "货币设置"
 msgstr ""
 
@@ -251,7 +251,7 @@ msgstr ""
 #: ../src/Admin/Controller/AdminController.php:401
 #: ../src/Admin/Controller/AdminController.php:402
 #: ../view/admin/home/index.phtml:14
-#: ../view/layout/admin_header_layout.phtml:120
+#: ../view/layout/admin_header_layout.phtml:121
 msgid "支付设置"
 msgstr ""
 
@@ -266,8 +266,8 @@ msgstr ""
 #: ../src/Admin/Controller/AdminController.php:406
 #: ../src/Admin/Controller/AdminController.php:407
 #: ../view/admin/home/index.phtml:16
-#: ../view/layout/admin_header_layout.phtml:122
-#: ../view/layout/admin_header_layout.phtml:124
+#: ../view/layout/admin_header_layout.phtml:123
+#: ../view/layout/admin_header_layout.phtml:125
 msgid "配送设置"
 msgstr ""
 
@@ -296,7 +296,7 @@ msgid "动态API编辑"
 msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:415
-#: ../view/layout/admin_header_layout.phtml:135
+#: ../view/layout/admin_header_layout.phtml:136
 msgid "地区管理"
 msgstr ""
 
@@ -322,12 +322,12 @@ msgid "地区删除"
 msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:422
-#: ../view/layout/admin_header_layout.phtml:137
+#: ../view/layout/admin_header_layout.phtml:138
 msgid "状态设置"
 msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:423
-#: ../view/layout/admin_header_layout.phtml:139
+#: ../view/layout/admin_header_layout.phtml:140
 msgid "库存状态"
 msgstr ""
 
@@ -349,7 +349,7 @@ msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:429
 #: ../src/Admin/Controller/AdminController.php:430
-#: ../view/layout/admin_header_layout.phtml:97
+#: ../view/layout/admin_header_layout.phtml:98
 msgid "导航设置"
 msgstr ""
 
@@ -371,7 +371,7 @@ msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:436
 #: ../src/Admin/Controller/AdminController.php:437
-#: ../view/layout/admin_header_layout.phtml:98
+#: ../view/layout/admin_header_layout.phtml:99
 msgid "友情链接"
 msgstr ""
 
@@ -396,7 +396,7 @@ msgid "邮件管理"
 msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:444
-#: ../view/layout/admin_header_layout.phtml:99
+#: ../view/layout/admin_header_layout.phtml:100
 msgid "邮件发送"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgid "邮件发送操作"
 msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:448
-#: ../view/layout/admin_header_layout.phtml:101
+#: ../view/layout/admin_header_layout.phtml:102
 msgid "广告管理"
 msgstr ""
 
@@ -480,7 +480,7 @@ msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:468
 #: ../src/Admin/Controller/AdminController.php:469
-#: ../view/layout/admin_header_layout.phtml:108
+#: ../view/layout/admin_header_layout.phtml:109
 msgid "操作日志"
 msgstr ""
 
@@ -493,7 +493,7 @@ msgid "操作日志删除"
 msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:473
-#: ../view/layout/admin_header_layout.phtml:88
+#: ../view/layout/admin_header_layout.phtml:89
 msgid "CMS管理"
 msgstr ""
 
@@ -560,7 +560,7 @@ msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:489
 #: ../src/Admin/Controller/AdminController.php:490
-#: ../view/layout/admin_header_layout.phtml:65
+#: ../view/layout/admin_header_layout.phtml:66
 msgid "客户管理"
 msgstr ""
 
@@ -605,7 +605,7 @@ msgid "客户组删除"
 msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:501
-#: ../view/layout/admin_header_layout.phtml:70
+#: ../view/layout/admin_header_layout.phtml:71
 msgid "客户余额"
 msgstr ""
 
@@ -638,7 +638,7 @@ msgid "删除提现记录"
 msgstr ""
 
 #: ../src/Admin/Controller/AdminController.php:509
-#: ../view/layout/admin_header_layout.phtml:82
+#: ../view/layout/admin_header_layout.phtml:83
 msgid "积分规则"
 msgstr ""
 
@@ -1033,7 +1033,7 @@ msgid "新加"
 msgstr ""
 
 #: ../view/admin/admin/adminadd.phtml:11
-#: ../view/layout/admin_header_layout.phtml:145
+#: ../view/layout/admin_header_layout.phtml:146
 msgid "管理员"
 msgstr ""
 
@@ -1191,7 +1191,7 @@ msgstr ""
 
 #: ../view/admin/admin/administrator.phtml:14
 #: ../view/admin/admin/groupadd.phtml:11
-#: ../view/layout/admin_header_layout.phtml:146
+#: ../view/layout/admin_header_layout.phtml:147
 msgid "管理员组"
 msgstr ""
 
@@ -1241,48 +1241,48 @@ msgstr ""
 msgid "系统管理员后台登录"
 msgstr ""
 
-#: ../view/admin/admin/index.phtml:240
+#: ../view/admin/admin/index.phtml:245
 msgid "电子商务系统"
 msgstr ""
 
-#: ../view/admin/admin/index.phtml:243
+#: ../view/admin/admin/index.phtml:248
 msgid "期待与您一起，共同打造一款简单、易用、功能强大的在线购物系统！"
 msgstr ""
 
-#: ../view/admin/admin/index.phtml:253
+#: ../view/admin/admin/index.phtml:258
 msgid "在下面输入框中输入管理员账户和密码:"
 msgstr ""
 
-#: ../view/admin/admin/index.phtml:263
+#: ../view/admin/admin/index.phtml:268
 msgid "账户名或者密码错误！"
 msgstr ""
 
-#: ../view/admin/admin/index.phtml:268
+#: ../view/admin/admin/index.phtml:273
 msgid "管理员账户"
 msgstr ""
 
-#: ../view/admin/admin/index.phtml:269
+#: ../view/admin/admin/index.phtml:274
 msgid "请输入管理员账户…"
 msgstr ""
 
-#: ../view/admin/admin/index.phtml:272
+#: ../view/admin/admin/index.phtml:277
 msgid "管理员密码"
 msgstr ""
 
-#: ../view/admin/admin/index.phtml:273
+#: ../view/admin/admin/index.phtml:278
 msgid "请输入管理员密码…"
 msgstr ""
 
-#: ../view/admin/admin/index.phtml:276
+#: ../view/admin/admin/index.phtml:281
 msgid "后台登录"
 msgstr ""
 
-#: ../view/admin/admin/index.phtml:277 ../view/error/404.phtml:60
+#: ../view/admin/admin/index.phtml:282 ../view/error/404.phtml:60
 #: ../view/error/index.phtml:60
 msgid "返回前台"
 msgstr ""
 
-#: ../view/admin/admin/index.phtml:284
+#: ../view/admin/admin/index.phtml:289
 msgid "版权所有"
 msgstr ""
 
@@ -1573,150 +1573,158 @@ msgstr ""
 msgid "优惠促销规则"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:67
-msgid "管理客户"
+#: ../view/layout/admin_header_layout.phtml:63
+msgid "商品索引"
 msgstr ""
 
 #: ../view/layout/admin_header_layout.phtml:68
+msgid "管理客户"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:69
 msgid "管理客户组"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:72
+#: ../view/layout/admin_header_layout.phtml:73
 msgid "充值记录"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:73
+#: ../view/layout/admin_header_layout.phtml:74
 msgid "提现申请"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:74
+#: ../view/layout/admin_header_layout.phtml:75
 msgid "余额记录"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:78
+#: ../view/layout/admin_header_layout.phtml:79
 msgid "管理积分"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:80
+#: ../view/layout/admin_header_layout.phtml:81
 msgid "积分类型"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:81
+#: ../view/layout/admin_header_layout.phtml:82
 msgid "积分历史记录"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:85
+#: ../view/layout/admin_header_layout.phtml:86
 msgid "管理整合"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:90
+#: ../view/layout/admin_header_layout.phtml:91
 msgid "管理文章"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:91
+#: ../view/layout/admin_header_layout.phtml:92
 msgid "管理文章分类"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:92
+#: ../view/layout/admin_header_layout.phtml:93
 msgid "管理单页文章"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:95
+#: ../view/layout/admin_header_layout.phtml:96
 msgid "工具管理"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:103
+#: ../view/layout/admin_header_layout.phtml:104
 msgid "电脑端广告(PC)"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:104
+#: ../view/layout/admin_header_layout.phtml:105
 msgid "手机端广告(Phone)"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:107
+#: ../view/layout/admin_header_layout.phtml:108
 msgid "数据库备份"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:109
+#: ../view/layout/admin_header_layout.phtml:110
 msgid "错误日志"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:118
+#: ../view/layout/admin_header_layout.phtml:119
 msgid "语言设置"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:125
+#: ../view/layout/admin_header_layout.phtml:126
 msgid "动态API"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:129
+#: ../view/layout/admin_header_layout.phtml:130
 msgid "消息提醒设置"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:150
+#: ../view/layout/admin_header_layout.phtml:151
 msgid "在线客服设置"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:152
-msgid "在线客服成员"
+#: ../view/layout/admin_header_layout.phtml:153
+msgid "客服样式设置"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:153
+#: ../view/layout/admin_header_layout.phtml:154
 msgid "在线客服分组"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:162
-msgid "后台首页"
+#: ../view/layout/admin_header_layout.phtml:155
+msgid "在线客服成员"
 msgstr ""
 
 #: ../view/layout/admin_header_layout.phtml:164
+msgid "后台首页"
+msgstr ""
+
+#: ../view/layout/admin_header_layout.phtml:166
 msgid "前台首页"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:171
+#: ../view/layout/admin_header_layout.phtml:173
 msgid "暂无新消息"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:172
+#: ../view/layout/admin_header_layout.phtml:174
 msgid "星期一"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:172
+#: ../view/layout/admin_header_layout.phtml:174
 msgid "星期二"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:172
+#: ../view/layout/admin_header_layout.phtml:174
 msgid "星期三"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:172
+#: ../view/layout/admin_header_layout.phtml:174
 msgid "星期四"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:172
+#: ../view/layout/admin_header_layout.phtml:174
 msgid "星期五"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:172
+#: ../view/layout/admin_header_layout.phtml:174
 msgid "星期六"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:172
+#: ../view/layout/admin_header_layout.phtml:174
 msgid "星期日"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:174
+#: ../view/layout/admin_header_layout.phtml:176
 msgid "缓存清理"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:176
+#: ../view/layout/admin_header_layout.phtml:178
 msgid "退出系统"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:184
+#: ../view/layout/admin_header_layout.phtml:186
 msgid "缓存清理完毕！"
 msgstr ""
 
-#: ../view/layout/admin_header_layout.phtml:186
+#: ../view/layout/admin_header_layout.phtml:188
 msgid "缓存清理失败！"
 msgstr ""

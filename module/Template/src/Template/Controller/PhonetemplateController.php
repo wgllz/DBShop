@@ -21,8 +21,8 @@ use Zend\View\Model\ViewModel;
 class PhonetemplateController extends BaseController
 {
     private $soapclient;
-    private $updateUrl= 'http://update.dbshop.net';
-    private $location = 'http://update.dbshop.net/packageservice';
+    private $updateUrl= 'https://update.dbshop.net';
+    private $location = 'https://update.dbshop.net/packageservice';
     private $uri      = 'dbshop_package_update';
 
     public function indexAction()
@@ -45,7 +45,7 @@ class PhonetemplateController extends BaseController
         $where = '';
         //已启用模板信息
         $defaultIni = $templateIniReader->fromFile(DBSHOP_PATH . '/module/Mobile/view/'.$dbshopTemplate.'/mobile/template.ini');
-        $array['default'] = array(
+        $defaultTem = array(
             'template_name'=>$dbshopTemplate,
             'template_info'=>(isset($defaultIni['template_info']) ? $defaultIni['template_info'] : array())
         );
@@ -54,6 +54,7 @@ class PhonetemplateController extends BaseController
 
         //未启用但是已经安装的模板信息
         $array['other_template'] = array();
+        $array['other_template'][] = $defaultTem;
         $templatePath = DBSHOP_PATH . '/module/Mobile/view/';
         if(is_dir($templatePath)) {
             $dh = opendir($templatePath);

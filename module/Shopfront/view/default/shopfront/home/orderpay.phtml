@@ -5,6 +5,7 @@
                 <td>
                 <p><b><?php echo $this->translate('订单编号'); ?>：</b><?php echo $this->orderinfo->order_sn; ?></p>
                 <p><b><?php echo $this->translate('微信扫码支付'); ?>：</b>
+                    <input type="hidden" name="order_sn" id="order_sn" value="<?php echo $this->orderinfo->order_sn; ?>">
                     <img alt="<?php echo $this->translate('微信二维码扫码支付'); ?>" src="<?php echo $this->qrcode_url; ?>" style="width:260px;height:260px;"/>
                 </p>
                 </td>
@@ -12,3 +13,28 @@
         </table>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        setInterval("ajaxOrderStatus()", 3000);
+    });
+    function ajaxOrderStatus() {
+	    if ($("#order_sn").val() != '') {
+            $.ajax({
+                url: "<?php echo $this->url('frontorder/default', array('action'=>'ajaxOrderStatus')); ?>?order_sn=" + $("#order_sn").val(),
+                type: "GET",
+                dataType:"json",
+                data: "",
+                success: function (data) {
+                    if (data.state=='true') {
+                        alert('<?php echo $this->translate('订单支付成功！'); ?>');
+                        window.location.href = "<?php echo $this->url('frontorder/default/order_state', array('action'=>'index', 'order_state'=>20)); ?>"; //页面跳转
+                    }
+                    if(data.state == 'false') {
+                        alert('<?php echo $this->translate('订单支付失败！'); ?>');
+                        window.location.href = "<?php echo $this->url('frontorder/default'); ?>"; //页面跳转
+                    }
+                }
+            });
+        }
+    }
+</script>

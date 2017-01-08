@@ -16,6 +16,7 @@ namespace System\Controller;
 
 use Admin\Controller\BaseController;
 use System\FormValidate\FormSystemValidate;
+use Zend\Config\Reader\Ini;
 
 class SystemController extends BaseController
 {
@@ -37,6 +38,7 @@ class SystemController extends BaseController
                 $this->saveEmailConfig($systemArray, $configWriter);
                 $this->saveSystemContent($systemArray);
                 $this->saveGoodsConfig($systemArray, $configWriter);
+                $this->saveCaptchaConfig($systemArray, $configWriter);
 
                 //时区设置
                 $this->getServiceLocator()->get('adminHelper')->setDbshopSetshopFile(array('DBSHOP_TIMEZONE'=>$systemArray['dbshop_timezone']));
@@ -60,7 +62,11 @@ class SystemController extends BaseController
         $array['system_config'] = $systemReader->fromFile(DBSHOP_PATH . '/data/moduledata/System/config.ini');
         //商品配置信息
         $array['goods_config']  = $systemReader->fromFile(DBSHOP_PATH . '/data/moduledata/System/goods/goods.ini');
-
+        //系统验证码设置(下面之所以使用判断，是为了让老用户进行平滑过渡，之前的配置信息时写入system的config的)
+        $captchaConfigFile = DBSHOP_PATH . '/data/moduledata/User/CaptchaConfig.ini';
+        if(file_exists($captchaConfigFile)) $array['captcha_config'] = $systemReader->fromFile($captchaConfigFile);
+        else $array['captcha_config'] = $array['system_config']['shop_system'];
+        //内容信息
         $array['buy_service_body']      = @file_get_contents(DBSHOP_PATH . '/data/moduledata/System/buy_service.ini');
         $array['buy_body']              = @file_get_contents(DBSHOP_PATH . '/data/moduledata/System/buy.ini');
         $array['goods_quality']         = @file_get_contents(DBSHOP_PATH . '/data/moduledata/System/goods_quality.ini');
@@ -146,6 +152,8 @@ class SystemController extends BaseController
         $array['user_config'] = $configReader->fromFile(DBSHOP_PATH . '/data/moduledata/User/User.ini');
 
         $array['login_config']= $configReader->fromFile(DBSHOP_PATH . '/data/moduledata/User/OtherLogin.ini');
+
+        $array['reg_or_login']= $configReader->fromFile(DBSHOP_PATH . '/data/moduledata/User/RegOrLogin.ini');
 
         return $array;
     }
@@ -259,10 +267,6 @@ class SystemController extends BaseController
         $systemConfig['shop_call']        = isset($data['shop_call'])        ? $data['shop_call']        : '';
         $systemConfig['shop_zip']         = isset($data['shop_zip'])         ? $data['shop_zip']         : '';
         //$systemConfig['shop_email']       = isset($data['shop_email'])       ? $data['shop_email']       : '';
-        $systemConfig['shop_email']       = isset($data['send_from_mail'])   ? $data['send_from_mail']   : '';
-        $systemConfig['user_register_captcha'] = (isset($data['user_register_captcha']) ? $data['user_register_captcha'] : '');
-        $systemConfig['user_login_captcha']    = (isset($data['user_login_captcha'])    ? $data['user_login_captcha'] : '');
-        $systemConfig['goods_ask_captcha']     = (isset($data['goods_ask_captcha'])    ? $data['goods_ask_captcha'] : '');
         
         //系统logo上传处理
         
@@ -313,12 +317,14 @@ class SystemController extends BaseController
      */
     private function saveGoodsConfig(array $data, $e)
     {
-        $goodsConfig = array();
-        $goodsConfig['dbshop_goods_share']      = isset($data['dbshop_goods_share']) ? $data['dbshop_goods_share']  : '';
-        $goodsConfig['dbshop_goods_sn_prefix']  = isset($data['dbshop_goods_sn_prefix']) ? $data['dbshop_goods_sn_prefix']  : '';
-        $goodsConfig['dbshop_goods_QRcode']     = isset($data['dbshop_goods_QRcode']) ? $data['dbshop_goods_QRcode']  : '';
+        $configRead = new Ini();
+        $goodsConfig = $configRead->fromFile(DBSHOP_PATH . '/data/moduledata/System/goods/goods.ini');
 
-        $e->toFile(DBSHOP_PATH . '/data/moduledata/System/goods/goods.ini', array('shop_goods'=>$goodsConfig));
+        $goodsConfig['shop_goods']['dbshop_goods_share']      = isset($data['dbshop_goods_share']) ? $data['dbshop_goods_share']  : '';
+        $goodsConfig['shop_goods']['dbshop_goods_sn_prefix']  = isset($data['dbshop_goods_sn_prefix']) ? $data['dbshop_goods_sn_prefix']  : '';
+        $goodsConfig['shop_goods']['dbshop_goods_QRcode']     = isset($data['dbshop_goods_QRcode']) ? $data['dbshop_goods_QRcode']  : '';
+
+        $e->toFile(DBSHOP_PATH . '/data/moduledata/System/goods/goods.ini', $goodsConfig);
     }
 
     private function savePhoneSmsConfig(array $data, $e) {
@@ -339,6 +345,8 @@ class SystemController extends BaseController
         $phonesmsConfig['alidayu_ship_order_template_id']     = isset($data['alidayu_ship_order_template_id'])    ? trim($data['alidayu_ship_order_template_id']) : '';
         $phonesmsConfig['alidayu_finish_order_template_id']   = isset($data['alidayu_finish_order_template_id'])  ? trim($data['alidayu_finish_order_template_id']) : '';
         $phonesmsConfig['alidayu_cancel_order_template_id']   = isset($data['alidayu_cancel_order_template_id'])  ? trim($data['alidayu_cancel_order_template_id']) : '';
+
+        $phonesmsConfig['alidayu_phone_captcha_template_id']   = isset($data['alidayu_phone_captcha_template_id'])  ? trim($data['alidayu_phone_captcha_template_id']) : '';
 
         $e->toFile(DBSHOP_PATH . '/data/moduledata/System/phonesms.ini', array('shop_phone_sms'=>$phonesmsConfig));
     }
@@ -498,6 +506,34 @@ class SystemController extends BaseController
         $otherLoginIni['Alipay']['alipay_key']      = $usersetArray['alipay_key'];
 
         $e->toFile(DBSHOP_PATH . '/data/moduledata/User/OtherLogin.ini', $otherLoginIni);
+
+        //注册与登录
+        $registerOrLoginIni = array();
+        $registerOrLoginIni['register_email_state']     = $usersetArray['register_email_state'];
+        $registerOrLoginIni['register_phone_state']     = $usersetArray['register_phone_state'];
+
+        $registerOrLoginIni['login_email_state']        = $usersetArray['login_email_state'];
+        $registerOrLoginIni['login_phone_state']        = $usersetArray['login_phone_state'];
+
+        $registerOrLoginIni['other_login_email_state']  = $usersetArray['other_login_email_state'];
+
+        $e->toFile(DBSHOP_PATH . '/data/moduledata/User/RegOrLogin.ini', $registerOrLoginIni);
+    }
+    /**
+     * 将验证码的设置，单独提出来（之前是放在系统基础设置的config内）
+     * @param array $data
+     * @param $e
+     */
+    private function saveCaptchaConfig(array $data, $e)
+    {
+        $captchaConfig['user_register_captcha'] = (isset($data['user_register_captcha']) ? $data['user_register_captcha'] : '');
+        $captchaConfig['user_login_captcha']    = (isset($data['user_login_captcha'])    ? $data['user_login_captcha'] : '');
+        $captchaConfig['goods_ask_captcha']     = (isset($data['goods_ask_captcha'])    ? $data['goods_ask_captcha'] : '');
+
+        $captchaConfig['phone_user_register_captcha']                = (isset($data['phone_user_register_captcha'])                 ? $data['phone_user_register_captcha']              : '');;
+        $captchaConfig['phone_captcha_time']                         = (isset($data['phone_captcha_time'])                          ? $data['phone_captcha_time']                       : '60');;
+
+        $e->toFile(DBSHOP_PATH . '/data/moduledata/User/CaptchaConfig.ini', $captchaConfig);
     }
     /**
      * 数据表调用

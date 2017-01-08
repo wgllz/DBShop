@@ -794,6 +794,20 @@ class OrderController extends FronthomeController
         exit;
     }
     /**
+     * ajax获取订单付款状态，目前用于微信扫码
+     */
+    public function ajaxOrderStatusAction() {
+        $orderSn = $this->request->getQuery('order_sn');
+        $userId = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');
+        $jsonOrderStatus = array();
+        if(!empty($orderSn) and !empty($userId)) {
+            $orderInfo = $this->getDbshopTable('OrderTable')->infoOrder(array('order_sn'=>$orderSn, 'buyer_id'=>$userId));
+            if(isset($orderInfo->order_state) and $orderInfo->order_state >= 20) $jsonOrderStatus = array('state'=>'true');
+        } else $jsonOrderStatus = array('state'=>'false');
+
+        exit(json_encode($jsonOrderStatus));
+    }
+    /**
      * 在上面支付中需要用到的语言包
      * @param $orderInfo
      * @return array

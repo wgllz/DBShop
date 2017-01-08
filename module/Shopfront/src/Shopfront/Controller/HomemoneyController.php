@@ -357,6 +357,21 @@ class HomemoneyController extends FronthomeController
         exit($array['message']);
     }
     /**
+     * 充值状态ajax检查，目前用于微信扫码支付
+     */
+    public function ajaxPaycheckStatusAction()
+    {
+        $paycheckId = $this->request->getQuery('paycheck_id');
+        $userId = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');
+        $jsonPaycheckStatus = array();
+        if(!empty($paycheckId) and !empty($userId)) {
+            $paycheckInfo = $this->getDbshopTable('PayCheckTable')->infoPayCheck(array('paycheck_id'=>$paycheckId, 'user_id'=>$userId));
+            if(isset($paycheckInfo->pay_state) and $paycheckInfo->pay_state == 20) $jsonPaycheckStatus = array('state'=>'true');
+        } else $jsonPaycheckStatus = array('state'=>'false');
+
+        exit(json_encode($jsonPaycheckStatus));
+    }
+    /**
      * @return array
      */
     private function paymentLanguage()

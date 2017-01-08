@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop V1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-20 16:32+0800\n"
-"PO-Revision-Date: 2016-11-20 16:32+0800\n"
+"POT-Creation-Date: 2016-12-06 20:46+0800\n"
+"PO-Revision-Date: 2016-12-06 20:46+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_CN\n"
@@ -70,43 +70,43 @@ msgstr ""
 msgid "订单确认"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:427
+#: ../../src/Shopfront/Controller/CartController.php:432
 msgid "虚拟商品订单确认"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:501
-#: ../../src/Shopfront/Controller/CartController.php:697
+#: ../../src/Shopfront/Controller/CartController.php:511
+#: ../../src/Shopfront/Controller/CartController.php:706
 msgid "订单完成"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:574
-#: ../../src/Shopfront/Controller/CartController.php:800
-#: ../../src/Shopfront/Controller/OrderController.php:195
+#: ../../src/Shopfront/Controller/CartController.php:583
+#: ../../src/Shopfront/Controller/CartController.php:808
+#: ../../src/Shopfront/Controller/OrderController.php:194
 msgid "商品购物，订单号为："
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:608
-#: ../../src/Shopfront/Controller/CartController.php:836
+#: ../../src/Shopfront/Controller/CartController.php:617
+#: ../../src/Shopfront/Controller/CartController.php:844
 msgid "商品库存不足"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:608
-#: ../../src/Shopfront/Controller/CartController.php:836
+#: ../../src/Shopfront/Controller/CartController.php:617
+#: ../../src/Shopfront/Controller/CartController.php:844
 msgid "去购物车中删除库存不足的商品"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:634
-#: ../../src/Shopfront/Controller/CartController.php:863
+#: ../../src/Shopfront/Controller/CartController.php:643
+#: ../../src/Shopfront/Controller/CartController.php:871
 msgid "提交订单提醒"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:1072
+#: ../../src/Shopfront/Controller/CartController.php:1080
 #: ../../view/default/shopfront/cart/step.phtml:219
 #: ../../view/default/shopfront/cart/stepvirtual.phtml:158
 msgid "发票抬头"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/CartController.php:1073
+#: ../../src/Shopfront/Controller/CartController.php:1081
 #: ../../view/default/shopfront/cart/step.phtml:221
 #: ../../view/default/shopfront/cart/stepvirtual.phtml:160
 msgid "发票内容"
@@ -139,7 +139,7 @@ msgid "新的商品咨询"
 msgstr ""
 
 #: ../../src/Shopfront/Controller/GoodslistController.php:146
-#: ../../view/default/shopfront/common/header.phtml:55
+#: ../../view/default/shopfront/common/header.phtml:73
 msgid "商品搜索"
 msgstr ""
 
@@ -163,39 +163,39 @@ msgstr ""
 msgid "账户信息-基本信息"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/HomeController.php:79
+#: ../../src/Shopfront/Controller/HomeController.php:85
 msgid "会员基本信息修改成功！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/HomeController.php:94
+#: ../../src/Shopfront/Controller/HomeController.php:100
 msgid "账户信息-密码修改"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/HomeController.php:119
+#: ../../src/Shopfront/Controller/HomeController.php:125
 msgid "会员密码修改成功！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/HomeController.php:121
+#: ../../src/Shopfront/Controller/HomeController.php:127
 msgid "会员密码修改失败,原始密码错误！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/HomeController.php:140
+#: ../../src/Shopfront/Controller/HomeController.php:146
 msgid "账户信息-QQ绑定"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/HomeController.php:160
+#: ../../src/Shopfront/Controller/HomeController.php:166
 msgid "账户信息-微信绑定"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/HomeController.php:180
+#: ../../src/Shopfront/Controller/HomeController.php:186
 msgid "账户信息-支付宝绑定"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/HomeController.php:233
+#: ../../src/Shopfront/Controller/HomeController.php:238
 msgid "该绑定方式的配置信息错误，必须在公网上进行测试！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/HomeController.php:251
+#: ../../src/Shopfront/Controller/HomeController.php:256
 #: ../../view/default/shopfront/home/goodsask.phtml:5
 #: ../../view/default/shopfront/home/left_menu.phtml:11
 msgid "我的咨询"
@@ -248,7 +248,7 @@ msgid "会员充值，充值会员:"
 msgstr ""
 
 #: ../../src/Shopfront/Controller/HomemoneyController.php:263
-#: ../../src/Shopfront/Controller/OrderController.php:493
+#: ../../src/Shopfront/Controller/OrderController.php:491
 #: ../../view/default/shopfront/home/orderpay.phtml:7
 #: ../../view/default/shopfront/home/paycheck-pay.phtml:7
 msgid "微信扫码支付"
@@ -266,15 +266,15 @@ msgstr ""
 msgid "支付不成功，如有疑问，请联系管理员。"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/HomemoneyController.php:365
+#: ../../src/Shopfront/Controller/HomemoneyController.php:380
 msgid "充值完成"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/HomemoneyController.php:365
+#: ../../src/Shopfront/Controller/HomemoneyController.php:380
 msgid "充值记录页"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/HomemoneyController.php:381
+#: ../../src/Shopfront/Controller/HomemoneyController.php:396
 msgid "已经有一个正在处理中的提现申请，需要处理完毕后，才能进行再次申请。"
 msgstr ""
 
@@ -311,6 +311,19 @@ msgstr ""
 msgid "此订单编号已经存在于退货记录中，不能重复申请。"
 msgstr ""
 
+#: ../../src/Shopfront/Controller/IndexController.php:132
+#: ../../src/Shopfront/Controller/IndexController.php:134
+msgid "不是正确的手机号码!"
+msgstr ""
+
+#: ../../src/Shopfront/Controller/IndexController.php:161
+msgid "验证码获取失败！"
+msgstr ""
+
+#: ../../src/Shopfront/Controller/IndexController.php:164
+msgid "系统未开启手机验证功能!"
+msgstr ""
+
 #: ../../src/Shopfront/Controller/OrderController.php:29
 #: ../../view/default/shopfront/common/header.phtml:25
 #: ../../view/default/shopfront/home/left_menu.phtml:8
@@ -335,76 +348,76 @@ msgstr ""
 msgid "订单详情"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:166
-#: ../../src/Shopfront/Controller/OrderController.php:189
-#: ../../src/Shopfront/Controller/OrderController.php:742
+#: ../../src/Shopfront/Controller/OrderController.php:165
+#: ../../src/Shopfront/Controller/OrderController.php:188
+#: ../../src/Shopfront/Controller/OrderController.php:740
 #: ../../view/default/shopfront/home/orderlist.phtml:89
 #: ../../view/default/shopfront/home/orderlist.phtml:91
 #: ../../view/default/shopfront/home/receiptorder.phtml:105
 msgid "确认收货"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:238
-#: ../../src/Shopfront/Controller/OrderController.php:756
+#: ../../src/Shopfront/Controller/OrderController.php:237
+#: ../../src/Shopfront/Controller/OrderController.php:754
 msgid "确认收货交易完成"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:309
+#: ../../src/Shopfront/Controller/OrderController.php:307
 msgid "买家自行取消"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:315
+#: ../../src/Shopfront/Controller/OrderController.php:313
 msgid "取消订单，订单号为："
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:331
+#: ../../src/Shopfront/Controller/OrderController.php:329
 msgid "订单取消"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:534
+#: ../../src/Shopfront/Controller/OrderController.php:532
 msgid "付款进行中"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:534
-#: ../../src/Shopfront/Controller/OrderController.php:641
-#: ../../src/Shopfront/Controller/OrderController.php:805
-#: ../../src/Shopfront/Controller/OrderController.php:809
+#: ../../src/Shopfront/Controller/OrderController.php:532
+#: ../../src/Shopfront/Controller/OrderController.php:639
+#: ../../src/Shopfront/Controller/OrderController.php:817
+#: ../../src/Shopfront/Controller/OrderController.php:821
 msgid "支付完成"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:584
-#: ../../src/Shopfront/Controller/OrderController.php:689
+#: ../../src/Shopfront/Controller/OrderController.php:582
+#: ../../src/Shopfront/Controller/OrderController.php:687
 msgid "订单付款完成"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:738
+#: ../../src/Shopfront/Controller/OrderController.php:736
 msgid "发货完成"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:739
+#: ../../src/Shopfront/Controller/OrderController.php:737
 #: ../../view/default/shopfront/home/homemoney.phtml:57
 #: ../../view/default/shopfront/home/paycheck.phtml:55
 #: ../../view/default/shopfront/home/withdraw-log.phtml:52
 msgid "管理员"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:805
-#: ../../src/Shopfront/Controller/OrderController.php:809
-#: ../../src/Shopfront/Controller/OrderController.php:822
-#: ../../src/Shopfront/Controller/OrderController.php:824
-#: ../../src/Shopfront/Controller/OrderController.php:825
+#: ../../src/Shopfront/Controller/OrderController.php:817
+#: ../../src/Shopfront/Controller/OrderController.php:821
+#: ../../src/Shopfront/Controller/OrderController.php:834
+#: ../../src/Shopfront/Controller/OrderController.php:836
+#: ../../src/Shopfront/Controller/OrderController.php:837
 msgid "返回订单"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:813
+#: ../../src/Shopfront/Controller/OrderController.php:825
 msgid "订单总金额"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:814
+#: ../../src/Shopfront/Controller/OrderController.php:826
 msgid "商品编号"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:815
+#: ../../src/Shopfront/Controller/OrderController.php:827
 #: ../../view/default/shopfront/home/goodscomment.phtml:10
 #: ../../view/default/shopfront/home/receiptorder.phtml:15
 #: ../../view/default/shopfront/home/refundshow.phtml:91
@@ -413,229 +426,234 @@ msgstr ""
 msgid "商品名称"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:816
+#: ../../src/Shopfront/Controller/OrderController.php:828
 msgid "购买数量"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:817
+#: ../../src/Shopfront/Controller/OrderController.php:829
 msgid "商品单价"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:818
+#: ../../src/Shopfront/Controller/OrderController.php:830
 msgid "商品规格"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:819
+#: ../../src/Shopfront/Controller/OrderController.php:831
 #: ../../view/default/shopfront/cart/step.phtml:141
 msgid "配送费用"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:820
+#: ../../src/Shopfront/Controller/OrderController.php:832
 msgid "确认付款"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:821
+#: ../../src/Shopfront/Controller/OrderController.php:833
 msgid "提交支付凭证"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:822
+#: ../../src/Shopfront/Controller/OrderController.php:834
 msgid "支付凭证提交完成，等待管理员审核！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:824
+#: ../../src/Shopfront/Controller/OrderController.php:836
 msgid "余额支付失败，您的账户余额不足，请您充值后再次进行支付。"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:825
+#: ../../src/Shopfront/Controller/OrderController.php:837
 msgid "您订单中的付款货币，与系统当前默认货币不匹配，无法进行支付。"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:827
+#: ../../src/Shopfront/Controller/OrderController.php:839
 msgid "线下支付说明"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:828
+#: ../../src/Shopfront/Controller/OrderController.php:840
 msgid "支付凭证信息"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:829
+#: ../../src/Shopfront/Controller/OrderController.php:841
 msgid "请输入支付凭证信息证明您已经完成付款！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:830
+#: ../../src/Shopfront/Controller/OrderController.php:842
 #: ../../view/default/shopfront/home/goodscomment.phtml:5
 #: ../../view/default/shopfront/home/receiptorder.phtml:9
 #: ../../view/default/shopfront/home/showorder.phtml:23
 msgid "返回订单列表"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/OrderController.php:908
+#: ../../src/Shopfront/Controller/OrderController.php:920
 msgid "商品购买，订单编号为："
 msgstr ""
 
 #: ../../src/Shopfront/Controller/UserController.php:61
 #: ../../view/default/shopfront/user/login.phtml:4
-#: ../../view/default/shopfront/user/login.phtml:36
+#: ../../view/default/shopfront/user/login.phtml:41
 msgid "会员登录"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:79
-#: ../../src/Shopfront/Controller/UserController.php:475
+#: ../../src/Shopfront/Controller/UserController.php:92
+#: ../../src/Shopfront/Controller/UserController.php:533
+#: ../../src/Shopfront/Controller/UserController.php:628
 msgid "您的帐户处于关闭状态！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:79
-#: ../../src/Shopfront/Controller/UserController.php:80
-#: ../../src/Shopfront/Controller/UserController.php:242
-#: ../../src/Shopfront/Controller/UserController.php:247
-#: ../../src/Shopfront/Controller/UserController.php:475
-#: ../../src/Shopfront/Controller/UserController.php:476
-#: ../../src/Shopfront/Controller/UserController.php:642
-#: ../../src/Shopfront/Controller/UserController.php:647
+#: ../../src/Shopfront/Controller/UserController.php:92
+#: ../../src/Shopfront/Controller/UserController.php:93
+#: ../../src/Shopfront/Controller/UserController.php:263
+#: ../../src/Shopfront/Controller/UserController.php:268
+#: ../../src/Shopfront/Controller/UserController.php:533
+#: ../../src/Shopfront/Controller/UserController.php:534
+#: ../../src/Shopfront/Controller/UserController.php:628
+#: ../../src/Shopfront/Controller/UserController.php:629
+#: ../../src/Shopfront/Controller/UserController.php:763
+#: ../../src/Shopfront/Controller/UserController.php:768
 msgid "返回首页"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:80
-#: ../../src/Shopfront/Controller/UserController.php:476
+#: ../../src/Shopfront/Controller/UserController.php:93
+#: ../../src/Shopfront/Controller/UserController.php:534
+#: ../../src/Shopfront/Controller/UserController.php:629
 msgid "您的帐户处于待审核状态！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:110
+#: ../../src/Shopfront/Controller/UserController.php:123
+#: ../../src/Shopfront/Controller/UserController.php:654
 msgid "登录失败，用户名或密码错误，请重新登录！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:141
+#: ../../src/Shopfront/Controller/UserController.php:153
 #: ../../view/default/shopfront/user/register.phtml:4
 msgid "会员注册"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:176
-#: ../../src/Shopfront/Controller/UserController.php:561
+#: ../../src/Shopfront/Controller/UserController.php:197
+#: ../../src/Shopfront/Controller/UserController.php:682
 msgid "会员注册默认起始积分数："
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:236
-#: ../../src/Shopfront/Controller/UserController.php:636
+#: ../../src/Shopfront/Controller/UserController.php:257
+#: ../../src/Shopfront/Controller/UserController.php:757
 msgid "会员注册审核邮件"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:237
-#: ../../src/Shopfront/Controller/UserController.php:303
-#: ../../src/Shopfront/Controller/UserController.php:637
+#: ../../src/Shopfront/Controller/UserController.php:258
+#: ../../src/Shopfront/Controller/UserController.php:331
+#: ../../src/Shopfront/Controller/UserController.php:758
 msgid "亲爱的"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:237
-#: ../../src/Shopfront/Controller/UserController.php:637
+#: ../../src/Shopfront/Controller/UserController.php:258
+#: ../../src/Shopfront/Controller/UserController.php:758
 msgid "您好，感谢您注册我们的会员，请点击会员审核链接进行认证审核 "
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:238
-#: ../../src/Shopfront/Controller/UserController.php:638
+#: ../../src/Shopfront/Controller/UserController.php:259
+#: ../../src/Shopfront/Controller/UserController.php:759
 msgid "点击审核会员 "
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:238
-#: ../../src/Shopfront/Controller/UserController.php:638
+#: ../../src/Shopfront/Controller/UserController.php:259
+#: ../../src/Shopfront/Controller/UserController.php:759
 msgid "如果您无法点击审核链接，请复制下面的链接地址在浏览器中打开，完成审核 "
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:242
-#: ../../src/Shopfront/Controller/UserController.php:642
+#: ../../src/Shopfront/Controller/UserController.php:263
+#: ../../src/Shopfront/Controller/UserController.php:763
 msgid "您的帐户注册成功，需要验证邮件后方可使用，请登录您的邮箱进行验证！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:244
-#: ../../src/Shopfront/Controller/UserController.php:644
+#: ../../src/Shopfront/Controller/UserController.php:265
+#: ../../src/Shopfront/Controller/UserController.php:765
 msgid "发送验证邮件失败，请联系网站管理员进行处理"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:247
-#: ../../src/Shopfront/Controller/UserController.php:647
+#: ../../src/Shopfront/Controller/UserController.php:268
+#: ../../src/Shopfront/Controller/UserController.php:768
 msgid "您的帐户注册成功，需要人工审核后才可使用！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:302
+#: ../../src/Shopfront/Controller/UserController.php:330
 msgid "会员密码修改"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:303
+#: ../../src/Shopfront/Controller/UserController.php:331
 msgid "您好，请点击下面的链接进行密码修改"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:304
+#: ../../src/Shopfront/Controller/UserController.php:332
 msgid "点击修改密码 "
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:304
+#: ../../src/Shopfront/Controller/UserController.php:332
 msgid ""
 "如果您无法点击修改链接，请复制下面的链接地址在浏览器中打开，完成密码修改 "
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:310
+#: ../../src/Shopfront/Controller/UserController.php:338
 #, php-format
 msgid "已经向您的邮箱 %s 发送了一封邮件，请根据邮件内容完成新密码设定"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:312
+#: ../../src/Shopfront/Controller/UserController.php:340
 msgid "无法向您的邮箱发送邮件，请联系管理员处理！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:315
+#: ../../src/Shopfront/Controller/UserController.php:343
 msgid "您输入的信息错误，没有匹配的会员信息！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:315
+#: ../../src/Shopfront/Controller/UserController.php:343
 msgid "请重新输入"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:315
-#: ../../src/Shopfront/Controller/UserController.php:337
-#: ../../src/Shopfront/Controller/UserController.php:451
-#: ../../src/Shopfront/Controller/UserController.php:465
+#: ../../src/Shopfront/Controller/UserController.php:343
+#: ../../src/Shopfront/Controller/UserController.php:365
+#: ../../src/Shopfront/Controller/UserController.php:499
+#: ../../src/Shopfront/Controller/UserController.php:515
 #: ../../view/default/shopfront/home/addrefund.phtml:79
 msgid "返回"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:337
+#: ../../src/Shopfront/Controller/UserController.php:365
 msgid "两次输入的密码不相同！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:341
+#: ../../src/Shopfront/Controller/UserController.php:369
 msgid "您的新密码已经修改生效，请登录测试"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:341
+#: ../../src/Shopfront/Controller/UserController.php:369
 #: ../../view/default/shopfront/common/header.phtml:27
 #: ../../view/default/shopfront/index/ajaxheader.phtml:25
 msgid "登录"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:347
+#: ../../src/Shopfront/Controller/UserController.php:375
 msgid "该密码修改链接无效，请确认其正确性，如有疑问请联系管理员处理！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:408
+#: ../../src/Shopfront/Controller/UserController.php:440
 msgid "您的帐户已经验证成功！可正常使用！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:411
+#: ../../src/Shopfront/Controller/UserController.php:443
 msgid "您的帐户已经验证成功！可以正常使用！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:412
+#: ../../src/Shopfront/Controller/UserController.php:444
 msgid "您的帐户验证失败，请确认您的链接是否正确！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:451
+#: ../../src/Shopfront/Controller/UserController.php:499
 msgid "该账户已经在系统绑定，不能重复绑定！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:465
+#: ../../src/Shopfront/Controller/UserController.php:515
 msgid "绑定失败，请稍后再试！"
 msgstr ""
 
-#: ../../src/Shopfront/Controller/UserController.php:693
+#: ../../src/Shopfront/Controller/UserController.php:813
 msgid "该登录方式的配置信息错误，必须在公网上进行测试！"
 msgstr ""
 
@@ -643,7 +661,7 @@ msgstr ""
 #: ../../view/default/shopfront/article/index.phtml:3
 #: ../../view/default/shopfront/common/ajax-pages.phtml:14
 #: ../../view/default/shopfront/common/ajax-pages.phtml:17
-#: ../../view/default/shopfront/common/header.phtml:64
+#: ../../view/default/shopfront/common/header.phtml:82
 #: ../../view/default/shopfront/goods/goods-search.phtml:3
 #: ../../view/default/shopfront/goods/goodslist.phtml:3
 #: ../../view/default/shopfront/goods/index.phtml:2
@@ -1075,10 +1093,10 @@ msgstr ""
 
 #: ../../view/default/shopfront/cart/setaddress.phtml:67
 #: ../../view/default/shopfront/cart/setaddress.phtml:258
-#: ../../view/default/shopfront/goods/index.phtml:195
-#: ../../view/default/shopfront/goods/index.phtml:200
-#: ../../view/default/shopfront/goods/index.phtml:524
-#: ../../view/default/shopfront/goods/index.phtml:527
+#: ../../view/default/shopfront/goods/index.phtml:196
+#: ../../view/default/shopfront/goods/index.phtml:201
+#: ../../view/default/shopfront/goods/index.phtml:525
+#: ../../view/default/shopfront/goods/index.phtml:528
 #: ../../view/default/shopfront/home/address.phtml:65
 #: ../../view/default/shopfront/home/address.phtml:220
 msgid "请选择"
@@ -1108,7 +1126,9 @@ msgstr ""
 #: ../../view/default/shopfront/cart/setaddress.phtml:94
 #: ../../view/default/shopfront/cart/step.phtml:36
 #: ../../view/default/shopfront/home/address.phtml:92
-#: ../../view/default/shopfront/home/useredit.phtml:47
+#: ../../view/default/shopfront/home/useredit.phtml:55
+#: ../../view/default/shopfront/user/login.phtml:18
+#: ../../view/default/shopfront/user/register.phtml:43
 msgid "手机号码"
 msgstr ""
 
@@ -1140,9 +1160,9 @@ msgid "默认地址"
 msgstr ""
 
 #: ../../view/default/shopfront/cart/setaddress.phtml:114
-#: ../../view/default/shopfront/goods/index.phtml:223
-#: ../../view/default/shopfront/goods/index.phtml:541
-#: ../../view/default/shopfront/goods/index.phtml:552
+#: ../../view/default/shopfront/goods/index.phtml:224
+#: ../../view/default/shopfront/goods/index.phtml:542
+#: ../../view/default/shopfront/goods/index.phtml:553
 #: ../../view/default/shopfront/home/address.phtml:112
 #: ../../view/default/shopfront/home/homemoney.phtml:118
 #: ../../view/default/shopfront/home/homemoney.phtml:170
@@ -1153,13 +1173,13 @@ msgstr ""
 #: ../../view/default/shopfront/home/virtual-goods.phtml:53
 #: ../../view/default/shopfront/home/withdraw-log.phtml:115
 #: ../../view/default/shopfront/home/withdraw-log.phtml:167
-#: ../../view/default/shopfront/user/register.phtml:91
+#: ../../view/default/shopfront/user/register.phtml:117
 msgid "关闭"
 msgstr ""
 
 #: ../../view/default/shopfront/cart/setaddress.phtml:115
 #: ../../view/default/shopfront/home/address.phtml:113
-#: ../../view/default/shopfront/home/useredit.phtml:62
+#: ../../view/default/shopfront/home/useredit.phtml:74
 #: ../../view/default/shopfront/home/userpasswd.phtml:33
 msgid "保存修改"
 msgstr ""
@@ -1191,6 +1211,8 @@ msgstr ""
 
 #: ../../view/default/shopfront/cart/setaddress.phtml:155
 #: ../../view/default/shopfront/home/address.phtml:153
+#: ../../view/default/shopfront/home/useredit.phtml:132
+#: ../../view/default/shopfront/user/register.phtml:230
 msgid "手机号码不能为空！"
 msgstr ""
 
@@ -1440,36 +1462,41 @@ msgstr ""
 msgid "退出"
 msgstr ""
 
-#: ../../view/default/shopfront/common/header.phtml:49
+#: ../../view/default/shopfront/common/header.phtml:66
 msgid "手机扫描后，访问手机站点"
 msgstr ""
 
-#: ../../view/default/shopfront/common/header.phtml:55
+#: ../../view/default/shopfront/common/header.phtml:73
 msgid "简简单单搜索"
 msgstr ""
 
-#: ../../view/default/shopfront/common/index.phtml:89
+#: ../../view/default/shopfront/common/index.phtml:87
 msgid "版权所有"
 msgstr ""
 
-#: ../../view/default/shopfront/common/index.phtml:96
+#: ../../view/default/shopfront/common/index.phtml:94
 msgid "提示"
 msgstr ""
 
-#: ../../view/default/shopfront/common/kefu.phtml:7
+#: ../../view/default/shopfront/common/kefu.phtml:9
 msgid "查看在线客服"
 msgstr ""
 
-#: ../../view/default/shopfront/common/kefu.phtml:9
+#: ../../view/default/shopfront/common/kefu.phtml:11
 msgid "展开"
 msgstr ""
 
-#: ../../view/default/shopfront/common/kefu.phtml:10
+#: ../../view/default/shopfront/common/kefu.phtml:12
 msgid "关闭在线客服"
 msgstr ""
 
-#: ../../view/default/shopfront/common/kefu.phtml:12
+#: ../../view/default/shopfront/common/kefu.phtml:14
 msgid "收缩"
+msgstr ""
+
+#: ../../view/default/shopfront/common/kefu.phtml:41
+#: ../../view/default/shopfront/common/kefu.phtml:43
+msgid "在线客服"
 msgstr ""
 
 #: ../../view/default/shopfront/common/pager.phtml:16
@@ -1511,7 +1538,7 @@ msgid "市场价"
 msgstr ""
 
 #: ../../view/default/shopfront/goods/index.phtml:25
-#: ../../view/default/shopfront/goods/index.phtml:339
+#: ../../view/default/shopfront/goods/index.phtml:340
 msgid "店铺价"
 msgstr ""
 
@@ -1556,7 +1583,7 @@ msgid "我想买"
 msgstr ""
 
 #: ../../view/default/shopfront/goods/index.phtml:112
-#: ../../view/default/shopfront/goods/index.phtml:360
+#: ../../view/default/shopfront/goods/index.phtml:361
 msgid "加入购物车"
 msgstr ""
 
@@ -1580,161 +1607,161 @@ msgstr ""
 msgid "人已经购买"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:145
+#: ../../view/default/shopfront/goods/index.phtml:146
 msgid "品质保证"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:185
+#: ../../view/default/shopfront/goods/index.phtml:186
 msgid "购物数量不能为空！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:186
+#: ../../view/default/shopfront/goods/index.phtml:187
 msgid "购物数量必须为数字！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:187
+#: ../../view/default/shopfront/goods/index.phtml:188
 #, php-format
 msgid "购物数量最少为%s！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:190
+#: ../../view/default/shopfront/goods/index.phtml:191
 #, php-format
 msgid "购物数量最多为%s！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:214
+#: ../../view/default/shopfront/goods/index.phtml:215
 #: ../../view/default/shopfront/home/orderlist.phtml:124
 msgid "添加购物车成功"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:215
-#: ../../view/default/shopfront/goods/index.phtml:636
+#: ../../view/default/shopfront/goods/index.phtml:216
+#: ../../view/default/shopfront/goods/index.phtml:637
 msgid "继续购物"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:215
-#: ../../view/default/shopfront/goods/index.phtml:636
+#: ../../view/default/shopfront/goods/index.phtml:216
+#: ../../view/default/shopfront/goods/index.phtml:637
 #: ../../view/default/shopfront/home/orderlist.phtml:125
 msgid "去购物车结算"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:233
+#: ../../view/default/shopfront/goods/index.phtml:234
 msgid "您已经到了购买上限！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:242
+#: ../../view/default/shopfront/goods/index.phtml:243
 msgid "您已经到了购买下限！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:317
+#: ../../view/default/shopfront/goods/index.phtml:318
 msgid "组合商品"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:342
+#: ../../view/default/shopfront/goods/index.phtml:343
 msgid "组合购买"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:353
-#: ../../view/default/shopfront/goods/index.phtml:396
+#: ../../view/default/shopfront/goods/index.phtml:354
+#: ../../view/default/shopfront/goods/index.phtml:397
 msgid "商品详情"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:354
-#: ../../view/default/shopfront/goods/index.phtml:401
+#: ../../view/default/shopfront/goods/index.phtml:355
+#: ../../view/default/shopfront/goods/index.phtml:402
 #: ../../view/default/shopfront/home/goodscomment.phtml:5
 #: ../../view/default/shopfront/home/goodscomment.phtml:30
 #: ../../view/default/shopfront/home/goodscomment.phtml:47
 msgid "商品评价"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:355
-#: ../../view/default/shopfront/goods/index.phtml:408
+#: ../../view/default/shopfront/goods/index.phtml:356
+#: ../../view/default/shopfront/goods/index.phtml:409
 msgid "商品咨询"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:356
-#: ../../view/default/shopfront/goods/index.phtml:434
+#: ../../view/default/shopfront/goods/index.phtml:357
+#: ../../view/default/shopfront/goods/index.phtml:435
 msgid "售后服务"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:357
-#: ../../view/default/shopfront/goods/index.phtml:439
+#: ../../view/default/shopfront/goods/index.phtml:358
+#: ../../view/default/shopfront/goods/index.phtml:440
 msgid "如何购买"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:367
+#: ../../view/default/shopfront/goods/index.phtml:368
 msgid "商品参数"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:419
+#: ../../view/default/shopfront/goods/index.phtml:420
 msgid "您有任何问题，可以通过这里向卖家咨询"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:423
+#: ../../view/default/shopfront/goods/index.phtml:424
 #: ../../view/default/shopfront/user/forgotpasswd.phtml:27
 #: ../../view/default/shopfront/user/forgotpasswdedit.phtml:33
-#: ../../view/default/shopfront/user/login.phtml:28
-#: ../../view/default/shopfront/user/register.phtml:37
+#: ../../view/default/shopfront/user/login.phtml:33
+#: ../../view/default/shopfront/user/register.phtml:63
 msgid "输入验证码"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:428
+#: ../../view/default/shopfront/goods/index.phtml:429
 msgid "提交咨询"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:454
+#: ../../view/default/shopfront/goods/index.phtml:455
 msgid "相关商品"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:504
+#: ../../view/default/shopfront/goods/index.phtml:505
 msgid "请输入商品咨询内容！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:509
+#: ../../view/default/shopfront/goods/index.phtml:510
 #: ../../view/default/shopfront/user/forgotpasswd.phtml:76
 #: ../../view/default/shopfront/user/forgotpasswdedit.phtml:90
-#: ../../view/default/shopfront/user/login.phtml:109
-#: ../../view/default/shopfront/user/register.phtml:186
+#: ../../view/default/shopfront/user/login.phtml:114
+#: ../../view/default/shopfront/user/register.phtml:258
 msgid "验证码不能为空！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:510
+#: ../../view/default/shopfront/goods/index.phtml:511
 #: ../../view/default/shopfront/user/forgotpasswd.phtml:77
 #: ../../view/default/shopfront/user/forgotpasswdedit.phtml:91
-#: ../../view/default/shopfront/user/login.phtml:110
-#: ../../view/default/shopfront/user/register.phtml:187
+#: ../../view/default/shopfront/user/login.phtml:115
+#: ../../view/default/shopfront/user/register.phtml:259
 msgid "验证码错误！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:540
+#: ../../view/default/shopfront/goods/index.phtml:541
 msgid "该商品成功加入收藏！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:545
+#: ../../view/default/shopfront/goods/index.phtml:546
 msgid "您还没有登录，无法收藏商品！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:547
+#: ../../view/default/shopfront/goods/index.phtml:548
 msgid "您已经收藏过该商品！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:549
+#: ../../view/default/shopfront/goods/index.phtml:550
 msgid "商品收藏不成功！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:597
+#: ../../view/default/shopfront/goods/index.phtml:598
 msgid "您的咨询信息已经成功提交，卖家审核回复后，将正常显示！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:635
+#: ../../view/default/shopfront/goods/index.phtml:636
 msgid "组合商品添加购物车成功！"
 msgstr ""
 
-#: ../../view/default/shopfront/goods/index.phtml:646
+#: ../../view/default/shopfront/goods/index.phtml:647
 #: ../../view/default/shopfront/user/forgotpasswd.phtml:86
 #: ../../view/default/shopfront/user/forgotpasswdedit.phtml:100
-#: ../../view/default/shopfront/user/login.phtml:122
-#: ../../view/default/shopfront/user/register.phtml:202
+#: ../../view/default/shopfront/user/login.phtml:127
+#: ../../view/default/shopfront/user/register.phtml:274
 msgid "更换验证码"
 msgstr ""
 
@@ -2541,13 +2568,29 @@ msgstr ""
 msgid "暂时无订单！"
 msgstr ""
 
-#: ../../view/default/shopfront/home/orderpay.phtml:8
-#: ../../view/default/shopfront/home/paycheck-pay.phtml:8
+#: ../../view/default/shopfront/home/orderpay.phtml:9
+#: ../../view/default/shopfront/home/paycheck-pay.phtml:9
 msgid "微信二维码扫码支付"
+msgstr ""
+
+#: ../../view/default/shopfront/home/orderpay.phtml:29
+msgid "订单支付成功！"
+msgstr ""
+
+#: ../../view/default/shopfront/home/orderpay.phtml:33
+msgid "订单支付失败！"
 msgstr ""
 
 #: ../../view/default/shopfront/home/paycheck-pay.phtml:6
 msgid "账户充值"
+msgstr ""
+
+#: ../../view/default/shopfront/home/paycheck-pay.phtml:29
+msgid "充值支付成功！"
+msgstr ""
+
+#: ../../view/default/shopfront/home/paycheck-pay.phtml:33
+msgid "充值支付失败！"
 msgstr ""
 
 #: ../../view/default/shopfront/home/paycheck.phtml:34
@@ -2859,53 +2902,63 @@ msgstr ""
 msgid "会员分组"
 msgstr ""
 
-#: ../../view/default/shopfront/home/useredit.phtml:31
-#: ../../view/default/shopfront/user/otherregister.phtml:20
-#: ../../view/default/shopfront/user/register.phtml:28
+#: ../../view/default/shopfront/home/useredit.phtml:35
+#: ../../view/default/shopfront/user/login.phtml:17
+#: ../../view/default/shopfront/user/otherregister.phtml:22
+#: ../../view/default/shopfront/user/register.phtml:35
 msgid "电子邮箱"
 msgstr ""
 
-#: ../../view/default/shopfront/home/useredit.phtml:37
+#: ../../view/default/shopfront/home/useredit.phtml:45
 msgid "性别"
 msgstr ""
 
-#: ../../view/default/shopfront/home/useredit.phtml:40
+#: ../../view/default/shopfront/home/useredit.phtml:48
 msgid "保密"
 msgstr ""
 
-#: ../../view/default/shopfront/home/useredit.phtml:41
+#: ../../view/default/shopfront/home/useredit.phtml:49
 msgid "男"
 msgstr ""
 
-#: ../../view/default/shopfront/home/useredit.phtml:42
+#: ../../view/default/shopfront/home/useredit.phtml:50
 msgid "女"
 msgstr ""
 
-#: ../../view/default/shopfront/home/useredit.phtml:51
+#: ../../view/default/shopfront/home/useredit.phtml:63
 msgid "填写正确的手机号码，可以接收到商家的短信通知"
 msgstr ""
 
-#: ../../view/default/shopfront/home/useredit.phtml:56
+#: ../../view/default/shopfront/home/useredit.phtml:68
 msgid "生日"
 msgstr ""
 
-#: ../../view/default/shopfront/home/useredit.phtml:95
-#: ../../view/default/shopfront/user/otherregister.phtml:82
-#: ../../view/default/shopfront/user/register.phtml:165
+#: ../../view/default/shopfront/home/useredit.phtml:125
+#: ../../view/default/shopfront/user/otherregister.phtml:111
+#: ../../view/default/shopfront/user/register.phtml:223
 msgid "请输入电子邮箱！"
 msgstr ""
 
-#: ../../view/default/shopfront/home/useredit.phtml:96
+#: ../../view/default/shopfront/home/useredit.phtml:127
 #: ../../view/default/shopfront/user/forgotpasswd.phtml:73
-#: ../../view/default/shopfront/user/otherregister.phtml:83
-#: ../../view/default/shopfront/user/register.phtml:166
+#: ../../view/default/shopfront/user/otherregister.phtml:112
+#: ../../view/default/shopfront/user/register.phtml:224
 msgid "电子邮箱格式错误！"
 msgstr ""
 
-#: ../../view/default/shopfront/home/useredit.phtml:97
-#: ../../view/default/shopfront/user/otherregister.phtml:84
-#: ../../view/default/shopfront/user/register.phtml:167
+#: ../../view/default/shopfront/home/useredit.phtml:128
+#: ../../view/default/shopfront/user/otherregister.phtml:113
+#: ../../view/default/shopfront/user/register.phtml:225
 msgid "该邮箱已经存在"
+msgstr ""
+
+#: ../../view/default/shopfront/home/useredit.phtml:134
+#: ../../view/default/shopfront/user/register.phtml:231
+msgid "请输入正确的手机号码！"
+msgstr ""
+
+#: ../../view/default/shopfront/home/useredit.phtml:135
+msgid "该手机号码已经存在"
 msgstr ""
 
 #: ../../view/default/shopfront/home/userpasswd.phtml:11
@@ -2941,37 +2994,37 @@ msgstr ""
 
 #: ../../view/default/shopfront/home/userpasswd.phtml:80
 #: ../../view/default/shopfront/user/forgotpasswdedit.phtml:80
-#: ../../view/default/shopfront/user/register.phtml:171
+#: ../../view/default/shopfront/user/register.phtml:243
 msgid "至少输入6位密码！"
 msgstr ""
 
 #: ../../view/default/shopfront/home/userpasswd.phtml:81
 #: ../../view/default/shopfront/user/forgotpasswdedit.phtml:81
-#: ../../view/default/shopfront/user/register.phtml:172
+#: ../../view/default/shopfront/user/register.phtml:244
 msgid "密码最长为20位！"
 msgstr ""
 
 #: ../../view/default/shopfront/home/userpasswd.phtml:84
 #: ../../view/default/shopfront/user/forgotpasswdedit.phtml:84
-#: ../../view/default/shopfront/user/register.phtml:175
+#: ../../view/default/shopfront/user/register.phtml:247
 msgid "请输入确认密码！"
 msgstr ""
 
 #: ../../view/default/shopfront/home/userpasswd.phtml:85
 #: ../../view/default/shopfront/user/forgotpasswdedit.phtml:85
-#: ../../view/default/shopfront/user/register.phtml:176
+#: ../../view/default/shopfront/user/register.phtml:248
 msgid "至少输入6位确认密码！"
 msgstr ""
 
 #: ../../view/default/shopfront/home/userpasswd.phtml:86
 #: ../../view/default/shopfront/user/forgotpasswdedit.phtml:86
-#: ../../view/default/shopfront/user/register.phtml:177
+#: ../../view/default/shopfront/user/register.phtml:249
 msgid "确认密码最长为20位！"
 msgstr ""
 
 #: ../../view/default/shopfront/home/userpasswd.phtml:87
 #: ../../view/default/shopfront/user/forgotpasswdedit.phtml:87
-#: ../../view/default/shopfront/user/register.phtml:178
+#: ../../view/default/shopfront/user/register.phtml:250
 msgid "两次输入的密码不一致！"
 msgstr ""
 
@@ -3069,15 +3122,16 @@ msgstr ""
 
 #: ../../view/default/shopfront/user/forgotpasswd.phtml:13
 #: ../../view/default/shopfront/user/forgotpasswdedit.phtml:13
-#: ../../view/default/shopfront/user/login.phtml:13
-#: ../../view/default/shopfront/user/otherregister.phtml:14
+#: ../../view/default/shopfront/user/login.phtml:16
+#: ../../view/default/shopfront/user/otherregister.phtml:15
+#: ../../view/default/shopfront/user/otherregister.phtml:38
 #: ../../view/default/shopfront/user/register.phtml:10
 msgid "会员名称"
 msgstr ""
 
 #: ../../view/default/shopfront/user/forgotpasswd.phtml:15
-#: ../../view/default/shopfront/user/login.phtml:15
-#: ../../view/default/shopfront/user/otherregister.phtml:16
+#: ../../view/default/shopfront/user/otherregister.phtml:17
+#: ../../view/default/shopfront/user/otherregister.phtml:40
 #: ../../view/default/shopfront/user/register.phtml:12
 msgid "输入会员名称"
 msgstr ""
@@ -3092,8 +3146,8 @@ msgstr ""
 
 #: ../../view/default/shopfront/user/forgotpasswd.phtml:25
 #: ../../view/default/shopfront/user/forgotpasswdedit.phtml:31
-#: ../../view/default/shopfront/user/login.phtml:26
-#: ../../view/default/shopfront/user/register.phtml:35
+#: ../../view/default/shopfront/user/login.phtml:31
+#: ../../view/default/shopfront/user/register.phtml:61
 msgid "验证码"
 msgstr ""
 
@@ -3130,89 +3184,143 @@ msgstr ""
 msgid "提交设定新密码"
 msgstr ""
 
-#: ../../view/default/shopfront/user/login.phtml:19
+#: ../../view/default/shopfront/user/login.phtml:13
+msgid "登录名称"
+msgstr ""
+
+#: ../../view/default/shopfront/user/login.phtml:24
+#: ../../view/default/shopfront/user/otherregister.phtml:44
 #: ../../view/default/shopfront/user/register.phtml:16
 msgid "会员密码"
 msgstr ""
 
-#: ../../view/default/shopfront/user/login.phtml:21
+#: ../../view/default/shopfront/user/login.phtml:26
 #: ../../view/default/shopfront/user/register.phtml:18
 msgid "输入会员密码"
 msgstr ""
 
-#: ../../view/default/shopfront/user/login.phtml:38
+#: ../../view/default/shopfront/user/login.phtml:43
 msgid "还不是会员，去注册会员"
 msgstr ""
 
-#: ../../view/default/shopfront/user/login.phtml:39
+#: ../../view/default/shopfront/user/login.phtml:44
 msgid "会员找回密码"
 msgstr ""
 
-#: ../../view/default/shopfront/user/login.phtml:44
-#: ../../view/default/shopfront/user/register.phtml:57
+#: ../../view/default/shopfront/user/login.phtml:49
+#: ../../view/default/shopfront/user/register.phtml:83
 msgid "其他账号登录"
 msgstr ""
 
-#: ../../view/default/shopfront/user/login.phtml:101
-#: ../../view/default/shopfront/user/register.phtml:160
+#: ../../view/default/shopfront/user/login.phtml:106
+#: ../../view/default/shopfront/user/register.phtml:217
 msgid "请输入会员登录名称！"
 msgstr ""
 
-#: ../../view/default/shopfront/user/login.phtml:104
-#: ../../view/default/shopfront/user/register.phtml:170
+#: ../../view/default/shopfront/user/login.phtml:109
+#: ../../view/default/shopfront/user/register.phtml:242
 msgid "请输入密码！"
 msgstr ""
 
 #: ../../view/default/shopfront/user/otherregister.phtml:4
-msgid "会员信息补充"
+msgid "会员信息补充或绑定已有账户"
 msgstr ""
 
-#: ../../view/default/shopfront/user/otherregister.phtml:22
-#: ../../view/default/shopfront/user/register.phtml:30
+#: ../../view/default/shopfront/user/otherregister.phtml:24
+#: ../../view/default/shopfront/user/register.phtml:37
 msgid "输入电子邮件"
 msgstr ""
 
-#: ../../view/default/shopfront/user/otherregister.phtml:27
-msgid "提交补充信息"
+#: ../../view/default/shopfront/user/otherregister.phtml:30
+msgid "提交补充信息(建立账户)"
 msgstr ""
 
-#: ../../view/default/shopfront/user/otherregister.phtml:77
+#: ../../view/default/shopfront/user/otherregister.phtml:46
+msgid "请输入会员密码"
+msgstr ""
+
+#: ../../view/default/shopfront/user/otherregister.phtml:51
+msgid "提交绑定现有账户"
+msgstr ""
+
+#: ../../view/default/shopfront/user/otherregister.phtml:104
 msgid "请输入客户登录名称！"
 msgstr ""
 
-#: ../../view/default/shopfront/user/otherregister.phtml:78
+#: ../../view/default/shopfront/user/otherregister.phtml:105
 msgid "客户登录名称最长为30个汉字！"
 msgstr ""
 
-#: ../../view/default/shopfront/user/otherregister.phtml:79
+#: ../../view/default/shopfront/user/otherregister.phtml:106
 msgid "该用户名已经存在！"
 msgstr ""
 
-#: ../../view/default/shopfront/user/register.phtml:42
-#: ../../view/default/shopfront/user/register.phtml:85
-msgid "注册协议"
+#: ../../view/default/shopfront/user/otherregister.phtml:133
+msgid "会员名称不能为空！"
 msgstr ""
 
-#: ../../view/default/shopfront/user/register.phtml:44
-msgid "同意"
+#: ../../view/default/shopfront/user/otherregister.phtml:136
+msgid "会员密码不能为空！"
 msgstr ""
 
-#: ../../view/default/shopfront/user/register.phtml:44
-msgid "点击查看注册协议"
+#: ../../view/default/shopfront/user/register.phtml:45
+msgid "输入手机号码"
+msgstr ""
+
+#: ../../view/default/shopfront/user/register.phtml:50
+msgid "手机验证码"
 msgstr ""
 
 #: ../../view/default/shopfront/user/register.phtml:52
+msgid "输入手机验证码"
+msgstr ""
+
+#: ../../view/default/shopfront/user/register.phtml:53
+#: ../../view/default/shopfront/user/register.phtml:287
+msgid "获取验证码"
+msgstr ""
+
+#: ../../view/default/shopfront/user/register.phtml:68
+#: ../../view/default/shopfront/user/register.phtml:111
+msgid "注册协议"
+msgstr ""
+
+#: ../../view/default/shopfront/user/register.phtml:70
+msgid "同意"
+msgstr ""
+
+#: ../../view/default/shopfront/user/register.phtml:70
+msgid "点击查看注册协议"
+msgstr ""
+
+#: ../../view/default/shopfront/user/register.phtml:78
 msgid "提交注册用户"
 msgstr ""
 
-#: ../../view/default/shopfront/user/register.phtml:161
+#: ../../view/default/shopfront/user/register.phtml:218
 msgid "会员登录名称最长为30个汉字！"
 msgstr ""
 
-#: ../../view/default/shopfront/user/register.phtml:162
+#: ../../view/default/shopfront/user/register.phtml:219
 msgid "该会员名已经存在！"
 msgstr ""
 
-#: ../../view/default/shopfront/user/register.phtml:181
+#: ../../view/default/shopfront/user/register.phtml:232
+msgid "该手机号码已经存在！"
+msgstr ""
+
+#: ../../view/default/shopfront/user/register.phtml:237
+msgid "手机验证码不能为空！"
+msgstr ""
+
+#: ../../view/default/shopfront/user/register.phtml:238
+msgid "手机验证码错误！"
+msgstr ""
+
+#: ../../view/default/shopfront/user/register.phtml:253
 msgid "必须勾选同意注册协议才能注册！"
+msgstr ""
+
+#: ../../view/default/shopfront/user/register.phtml:291
+msgid "重新获取"
 msgstr ""

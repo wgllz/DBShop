@@ -181,24 +181,66 @@
                 	<div class="well admin_add_well">
                 	    <div class="message_one">
                     	</div>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('类型说明'); ?>：</label>
+							<div class="controls">
+								<label style="height: 30px;line-height: 30px;font-weight: bold;"><?php echo $this->translate('系统内置验证码'); ?></label>
+							</div>
+						</div>
                     	<div class="control-group">
                   			<label for="input01" class="control-label"><?php echo $this->translate('注册需验证码'); ?>：</label>
            					<div class="controls">
-              					<input type="checkbox" name="user_register_captcha" id="user_register_captcha" <?php if(isset($this->system_config['shop_system']['user_register_captcha']) and $this->system_config['shop_system']['user_register_captcha'] == 'true') echo 'checked="checked"'; ?> value="true">
-            				</div>                        
+								<label class="checkbox">
+									<input type="checkbox" name="user_register_captcha" id="user_register_captcha" <?php if(isset($this->captcha_config['user_register_captcha']) and $this->captcha_config['user_register_captcha'] == 'true') echo 'checked="checked"'; ?> value="true">
+									<?php echo $this->translate('启用'); ?>
+								</label>
+            				</div>
                         </div>
                     	<div class="control-group">
                   			<label for="input01" class="control-label"><?php echo $this->translate('登录需验证码'); ?>：</label>
            					<div class="controls">
-              					<input type="checkbox" name="user_login_captcha" id="user_login_captcha" <?php if(isset($this->system_config['shop_system']['user_login_captcha']) and $this->system_config['shop_system']['user_login_captcha'] == 'true') echo 'checked="checked"'; ?> value="true">
-            				</div>                        
+								<label class="checkbox">
+									<input type="checkbox" name="user_login_captcha" id="user_login_captcha" <?php if(isset($this->captcha_config['user_login_captcha']) and $this->captcha_config['user_login_captcha'] == 'true') echo 'checked="checked"'; ?> value="true">
+									<?php echo $this->translate('启用'); ?>
+								</label>
+            				</div>
                         </div>
                     	<div class="control-group">
                   			<label for="input01" class="control-label"><?php echo $this->translate('商品咨询需验证码'); ?>：</label>
            					<div class="controls">
-              					<input type="checkbox" name="goods_ask_captcha" id="goods_ask_captcha" <?php if(isset($this->system_config['shop_system']['goods_ask_captcha']) and $this->system_config['shop_system']['goods_ask_captcha'] == 'true') echo 'checked="checked"'; ?> value="true">
-            				</div>                        
-                        </div>                                           
+								<label class="checkbox">
+									<input type="checkbox" name="goods_ask_captcha" id="goods_ask_captcha" <?php if(isset($this->captcha_config['goods_ask_captcha']) and $this->captcha_config['goods_ask_captcha'] == 'true') echo 'checked="checked"'; ?> value="true">
+									<?php echo $this->translate('启用'); ?>
+								</label>
+            				</div>
+                        </div>
+						<hr>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('类型说明'); ?>：</label>
+							<div class="controls">
+								<label style="height: 30px;line-height: 30px;"><b><?php echo $this->translate('手机短信验证码'); ?></b>&nbsp;&nbsp;[<font color="red"><?php echo $this->translate('启用前，请确保您已经开通并启用手机短信功能，启用方式 系统管理-》消息提醒设置-》手机短信提醒设置'); ?></font>]</label>
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('注册需验证码'); ?>：</label>
+							<div class="controls">
+								<label class="checkbox">
+									<input type="checkbox" name="phone_user_register_captcha" id="phone_user_register_captcha" <?php if(isset($this->captcha_config['phone_user_register_captcha']) and ($this->captcha_config['phone_user_register_captcha'] == 'true')) echo 'checked="checked"'; ?> value="true">
+									<?php echo $this->translate('启用'); ?>&nbsp;&nbsp;[<font color="red"><?php echo $this->translate('启用手机验证码，需要同时启用手机注册项 设置地址 系统设置 -》客户设置-》注册与登录'); ?></font>]<br>
+								</label>
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('验证码间隔时间'); ?>：</label>
+							<div class="controls">
+								<select name="phone_captcha_time" class="span2">
+									<option value="60" <?php if(isset($this->captcha_config['phone_captcha_time']) and $this->captcha_config['phone_captcha_time'] == '60') echo 'selected'; ?> >60</option>
+									<option value="120" <?php if(isset($this->captcha_config['phone_captcha_time']) and $this->captcha_config['phone_captcha_time'] == '120') echo 'selected'; ?>>120</option>
+									<option value="180" <?php if(isset($this->captcha_config['phone_captcha_time']) and $this->captcha_config['phone_captcha_time'] == '180') echo 'selected'; ?>>180</option>
+								</select>
+								<?php echo $this->translate('秒'); ?>
+							</div>
+						</div>
                   	</div>                                         	
               </div>
               

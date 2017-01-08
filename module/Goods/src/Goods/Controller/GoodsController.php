@@ -15,6 +15,7 @@
 namespace Goods\Controller;
 
 use Admin\Controller\BaseController;
+use Zend\Config\Reader\Ini;
 
 class GoodsController extends BaseController
 {
@@ -199,6 +200,24 @@ class GoodsController extends BaseController
                 //组合商品操作
                 $this->getDbshopTable('GoodsCombinationTable')->updateCombinationGoods(array('goods_id'=>$goodsId), array('goods_id'=>'0'));
             }
+
+            //把该商品纳入商品索引中
+            $classId = '';
+            if(is_array($goodsInClassArray) and !empty($goodsInClassArray)) {
+                foreach($goodsInClassArray as $gKey => $gValue) {
+                    if($gValue == 1) {
+                        $classId = $gKey;
+                        break;
+                    }
+                }
+            }
+            if(!empty($classId)) {
+                $this->goodsIndexCreateOrUpdate(array(
+                    'goods_id'          =>$goodsId,
+                    'one_class_id'      => $classId,
+                ));
+            }
+
             //记录操作日志
             $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('管理商品'), 'operlog_info'=>$this->getDbshopLang()->translate('添加商品') . '&nbsp;' . $goodsArray['goods_name']));
 
@@ -403,6 +422,24 @@ class GoodsController extends BaseController
                     }
                 }
             }
+
+            //把该商品纳入商品索引中
+            $classId = '';
+            if(is_array($goodsInClassArray) and !empty($goodsInClassArray)) {
+                foreach($goodsInClassArray as $gKey => $gValue) {
+                    if($gValue == 1) {
+                        $classId = $gKey;
+                        break;
+                    }
+                }
+            }
+            if(!empty($classId)) {
+                $this->goodsIndexCreateOrUpdate(array(
+                    'goods_id'          =>$goodsId,
+                    'one_class_id'      => $classId,
+                ));
+            }
+
             //记录操作日志
             $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('管理商品'), 'operlog_info'=>$this->getDbshopLang()->translate('更新商品') . '&nbsp;' . $goodsArray['goods_name']));
             
@@ -697,6 +734,153 @@ class GoodsController extends BaseController
             }
         }
         return $this->redirect()->toRoute('goods/default',array('controller'=>'goods'));
+    }
+    /**
+     * 商品索引，用于前台模糊搜索使用
+     * @return array
+     */
+    public function goodsIndexAction()
+    {
+        $array = array();
+
+        $configRead = new Ini();
+        $goodsConfig= $configRead->fromFile(DBSHOP_PATH . '/data/moduledata/System/goods/goods.ini');
+        $array['goods_index'] = isset($goodsConfig['goods_index']) ? $goodsConfig['goods_index'] : '';
+
+        if($this->request->isPost()) {
+            $indexArray = $this->request->getPost()->toArray();
+
+            $configWrite= new \Zend\Config\Writer\Ini();
+            $goodsConfig['goods_index'] = (!empty($indexArray['goods_index']) ? $indexArray['goods_index'] : '');
+            $configWrite->toFile(DBSHOP_PATH . '/data/moduledata/System/goods/goods.ini', $goodsConfig);
+
+            $array['goods_index'] = $goodsConfig['goods_index'];
+            $array['success_msg'] = $this->getDbshopLang()->translate('商品索引设置成功！');
+        }
+
+        $array['goods_count']       = $this->getDbshopTable()->countGoods(array());
+        $array['goods_index_count'] = $this->getDbshopTable('GoodsIndexTable')->countGoodsIndex(array());
+
+        return $array;
+    }
+    /**
+     * 更新索引
+     */
+    public function updateGoodsIndexAction()
+    {
+        $goodsArray = $this->getDbshopTable()->listGoods();
+        if(is_array($goodsArray) and !empty($goodsArray)) {
+            foreach($goodsArray as $goodsValue) {
+                $goodsExtendStr = '';
+                //商品扩展中的颜色和尺寸
+                $colorStr       = $this->getDbshopTable('GoodsPriceExtendColorTable')->goodsExtendColorStr(array('goods_id'=>$goodsValue['goods_id']));
+                $goodsExtendStr .= $colorStr;
+                $sizeStr        = $this->getDbshopTable('GoodsPriceExtendSizeTable')->goodsExtendSizeStr(array('goods_id'=>$goodsValue['goods_id']));
+                $goodsExtendStr .= $sizeStr;
+                //商品自定义
+                $customStr      = $this->getDbshopTable('GoodsCustomTable')->goodsCustomStr(array('goods_id'=>$goodsValue['goods_id']));
+                $goodsExtendStr .= $customStr;
+                //商品标签
+                $tagNameStr     = $this->getDbshopTable('GoodsTagInGoodsTable')->tagGoodsStr(array('dbshop_goods_tag_in_goods.goods_id'=>$goodsValue['goods_id']));
+                $goodsExtendStr .= $tagNameStr;
+                //商品属性
+                $attributeArray = $this->getDbshopTable('GoodsInAttributeTable')->goodsInAttributeStr(array('dbshop_goods_in_attribute.goods_id'=>$goodsValue['goods_id']));
+                if(!empty($attributeArray['attributestr'])) $goodsExtendStr .= $attributeArray['attributestr'];
+                //如果商品属性中有 下拉、单选、多选等内容，进行如下操作
+                if(!empty($attributeArray['attributevalueid'])) {
+                    $valueStr = $this->getDbshopTable('GoodsAttributeValueExtendTable')->attributeValueStr(array('value_id IN ('.$attributeArray['attributevalueid'].')'));
+                    $goodsExtendStr .= $valueStr;
+                }
+
+                $goodsValue['goods_body'] = $goodsValue['goods_name'] . $goodsExtendStr . $goodsValue['goods_extend_name'] . strip_tags($goodsValue['goods_body']);
+
+                $indexGoodsArray = array();
+                $indexGoodsArray['one_class_id']            = $goodsValue['one_class_id'];
+                $indexGoodsArray['goods_state']             = $goodsValue['goods_state'];
+                $indexGoodsArray['goods_shop_price']        = $goodsValue['goods_shop_price'];
+                $indexGoodsArray['goods_name']              = $goodsValue['goods_name'];
+                $indexGoodsArray['goods_extend_name']       = $goodsValue['goods_extend_name'];
+                $indexGoodsArray['goods_thumbnail_image']   = $goodsValue['goods_thumbnail_image'];
+                $indexGoodsArray['goods_click']             = $goodsValue['goods_click'];
+                $indexGoodsArray['goods_add_time']          = $goodsValue['goods_add_time'];
+                $indexGoodsArray['virtual_sales']           = $goodsValue['virtual_sales'];
+                $indexGoodsArray['index_body']              = $goodsValue['goods_body'];
+
+                $indexGoodsId = $this->getDbshopTable('GoodsIndexTable')->goodsIndexId(array('goods_id'=>$goodsValue['goods_id']));
+                if($indexGoodsId > 0) {
+                    if(!empty($goodsValue['one_class_id'])) $this->getDbshopTable('GoodsIndexTable')->updateGoodsIndex($indexGoodsArray, array('goods_id'=>$indexGoodsId));
+                    else $this->getDbshopTable('GoodsIndexTable')->delGoodsIndex(array('goods_id'=>$indexGoodsId));
+                } else {
+                    $indexGoodsArray['goods_id']    = $goodsValue['goods_id'];
+                    if(!empty($goodsValue['one_class_id'])) $this->getDbshopTable('GoodsIndexTable')->addGoodsIndex($indexGoodsArray);
+                }
+            }
+            exit('true');
+        } else exit($this->getDbshopLang()->translate('无需要更新的商品索引！'));
+    }
+    /**
+     * 建立或者更新单个商品索引
+     * @param array $data
+     */
+    private function goodsIndexCreateOrUpdate(array $data)
+    {
+        $goodsInfo = $this->getDbshopTable()->infoGoods(array('dbshop_goods.goods_id'=>$data['goods_id']));
+        $goodsValue = array(
+            'goods_id'              => $data['goods_id'],
+            'goods_name'            => $goodsInfo->goods_name,
+            'goods_extend_name'     => $goodsInfo->goods_extend_name,
+            'one_class_id'          => $data['one_class_id'],
+            'goods_state'           => $goodsInfo->goods_state,
+            'goods_body'            => $goodsInfo->goods_body,
+            'goods_shop_price'      => $goodsInfo->goods_shop_price,
+            'goods_thumbnail_image' => $goodsInfo->goods_thumbnail_image,
+            'goods_click'           => $goodsInfo->goods_click,
+            'virtual_sales'         => $goodsInfo->virtual_sales,
+            'goods_add_time'        => $goodsInfo->goods_add_time
+            );
+
+        $goodsExtendStr = '';
+        //商品扩展中的颜色和尺寸
+        $colorStr       = $this->getDbshopTable('GoodsPriceExtendColorTable')->goodsExtendColorStr(array('goods_id'=>$goodsValue['goods_id']));
+        $goodsExtendStr .= $colorStr;
+        $sizeStr        = $this->getDbshopTable('GoodsPriceExtendSizeTable')->goodsExtendSizeStr(array('goods_id'=>$goodsValue['goods_id']));
+        $goodsExtendStr .= $sizeStr;
+        //商品自定义
+        $customStr      = $this->getDbshopTable('GoodsCustomTable')->goodsCustomStr(array('goods_id'=>$goodsValue['goods_id']));
+        $goodsExtendStr .= $customStr;
+        //商品标签
+        $tagNameStr     = $this->getDbshopTable('GoodsTagInGoodsTable')->tagGoodsStr(array('dbshop_goods_tag_in_goods.goods_id'=>$goodsValue['goods_id']));
+        $goodsExtendStr .= $tagNameStr;
+        //商品属性
+        $attributeArray = $this->getDbshopTable('GoodsInAttributeTable')->goodsInAttributeStr(array('dbshop_goods_in_attribute.goods_id'=>$goodsValue['goods_id']));
+        if(!empty($attributeArray['attributestr'])) $goodsExtendStr .= $attributeArray['attributestr'];
+        //如果商品属性中有 下拉、单选、多选等内容，进行如下操作
+        if(!empty($attributeArray['attributevalueid'])) {
+            $valueStr = $this->getDbshopTable('GoodsAttributeValueExtendTable')->attributeValueStr(array('value_id IN ('.$attributeArray['attributevalueid'].')'));
+            $goodsExtendStr .= $valueStr;
+        }
+
+        $goodsValue['goods_body'] = $goodsValue['goods_name'] . $goodsExtendStr . $goodsValue['goods_extend_name'] . strip_tags($goodsValue['goods_body']);
+
+        $indexGoodsArray = array();
+        $indexGoodsArray['one_class_id']            = $goodsValue['one_class_id'];
+        $indexGoodsArray['goods_state']             = $goodsValue['goods_state'];
+        $indexGoodsArray['goods_shop_price']        = $goodsValue['goods_shop_price'];
+        $indexGoodsArray['goods_name']              = $goodsValue['goods_name'];
+        $indexGoodsArray['goods_extend_name']       = $goodsValue['goods_extend_name'];
+        $indexGoodsArray['goods_thumbnail_image']   = $goodsValue['goods_thumbnail_image'];
+        $indexGoodsArray['goods_click']             = $goodsValue['goods_click'];
+        $indexGoodsArray['goods_add_time']          = $goodsValue['goods_add_time'];
+        $indexGoodsArray['index_body']              = $goodsValue['goods_body'];
+
+        $indexGoodsId = $this->getDbshopTable('GoodsIndexTable')->goodsIndexId(array('goods_id'=>$goodsValue['goods_id']));
+        if($indexGoodsId > 0) {
+            if(!empty($goodsValue['one_class_id'])) $this->getDbshopTable('GoodsIndexTable')->updateGoodsIndex($indexGoodsArray, array('goods_id'=>$indexGoodsId));
+            else $this->getDbshopTable('GoodsIndexTable')->delGoodsIndex(array('goods_id'=>$indexGoodsId));
+        } else {
+            $indexGoodsArray['goods_id']    = $goodsValue['goods_id'];
+            if(!empty($goodsValue['one_class_id'])) $this->getDbshopTable('GoodsIndexTable')->addGoodsIndex($indexGoodsArray);
+        }
     }
     /** 
      * 添加关联商品操作

@@ -69,6 +69,24 @@ class GoodsCustomTable extends AbstractTableGateway implements \Zend\Db\Adapter\
         }
         return null;
     }
+    /**
+     * 获取商品扩展的字符串，用于商品索引
+     * @param array $where
+     * @return null|string
+     */
+    public function goodsCustomStr(array $where)
+    {
+        $result = $this->select($where);
+        if($result) {
+            $customStr   = '';
+            $customArray = $result->toArray();
+            foreach($customArray as $customValue) {
+                $customStr .= $customValue['custom_content'];
+            }
+            return $customStr;
+        }
+        return '';
+    }
 }
 
 ?>

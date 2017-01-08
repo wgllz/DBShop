@@ -88,6 +88,8 @@ return array(
   'Goods\Model\PromotionsRuleTable'            => __DIR__ . '/src/Goods/Model/PromotionsRuleTable.php',
   'Goods\Model\VirtualGoods'                   => __DIR__ . '/src/Goods/Model/VirtualGoods.php',
   'Goods\Model\VirtualGoodsTable'              => __DIR__ . '/src/Goods/Model/VirtualGoodsTable.php',
+  'Goods\Model\GoodsIndex'                     => __DIR__ . '/src/Goods/Model/GoodsIndex.php',
+  'Goods\Model\GoodsIndexTable'                => __DIR__ . '/src/Goods/Model/GoodsIndexTable.php',
 
   'Goods\Service\PromotionsRuleService'        => __DIR__ . '/src/Goods/Service/PromotionsRuleService.php',
 );

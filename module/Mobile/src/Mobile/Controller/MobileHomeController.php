@@ -16,6 +16,7 @@ namespace Mobile\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
+use Zend\View\Helper\ServerUrl;
 
 class MobileHomeController  extends AbstractActionController
 {
@@ -28,10 +29,12 @@ class MobileHomeController  extends AbstractActionController
     }
     public function checkMobileUserAuth ()
     {
+        $url    = new ServerUrl();
         $userId = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');
+
         $action = $this->params('action');
         if($userId == '' and $action != 'orderReturnPay' and $action != 'orderNotifyPay' and $action != 'notify') {
-            return $this->redirect()->toRoute('m_user/default', array('action'=>'login'));
+            return $this->redirect()->toRoute('m_user/default', array('action'=>'login'), array('query'=>array('http_referer'=>urlencode($url->__invoke(true)))));
         }
         //判断该用户是否在登录后，后台被管理员删除
         if($userId != '') {
@@ -45,7 +48,7 @@ class MobileHomeController  extends AbstractActionController
                     'user_avatar'    => ''
                 );
                 $this->getServiceLocator()->get('frontHelper')->setUserSession($array);
-                return $this->redirect()->toRoute('m_user/default', array('action'=>'login'));
+                return $this->redirect()->toRoute('m_user/default', array('action'=>'login'), array('query'=>array('http_referer'=>urlencode($url->__invoke(true)))));
             }
         }
 

@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $this->translate('系统管理员后台登录'); ?></title>
-    <script type="text/javascript">
-        if (/MSIE 6/.test(navigator.userAgent)) {
-            window.location = '<?php echo $this->basePath('public/support-browser.html'); ?>';
-        }
+    <!--[if lte IE 8]>
+    <script>
+        window.location = "<?php echo $this->basePath('public/support-browser.html'); ?>";
     </script>
+    <![endif]-->
     <link href="<?php echo $this->basePath('public/admin/img/favicon.ico'); ?>" rel="shortcut icon">
     <link href="<?php echo $this->basePath('public/admin/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo $this->basePath('public/admin/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet">

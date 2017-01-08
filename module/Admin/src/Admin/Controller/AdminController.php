@@ -519,6 +519,7 @@ class AdminController extends BaseController
                 'Goodsedit'             => $this->getDbshopLang()->translate('商品编辑'),
                 'Goodsdel'              => $this->getDbshopLang()->translate('商品删除'),
                 'Goodseditall'          => $this->getDbshopLang()->translate('商品批量处理'),
+                'GoodsgoodsIndex'       => $this->getDbshopLang()->translate('商品索引'),
                 'Class'          => $this->getDbshopLang()->translate('分类管理'),
                 'Classindex'            => $this->getDbshopLang()->translate('分类查看'),
                 'Classadd'              => $this->getDbshopLang()->translate('分类添加'),

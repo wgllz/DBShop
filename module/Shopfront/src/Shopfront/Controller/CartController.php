@@ -205,10 +205,18 @@ class CartController extends AbstractActionController
                 $cartArray[$key]['goods_image']      = $this->getServiceLocator()->get('frontHelper')->shopGoodsImage($cartArray[$key]['goods_image']);
                 $cartArray[$key]['goods_shop_price'] = $this->getServiceLocator()->get('frontHelper')->shopPrice($cartArray[$key]['goods_shop_price']);
                 $cartArray[$key]['amount']           = $cartArray[$key]['goods_shop_price'] * $cartArray[$key]['buy_num'];
-                $cartArray[$key]['yun_type']         = (stripos($cartArray[$key]['goods_image'],'}/')!==false ? 'yun' : 'local');;
+                $cartArray[$key]['yun_type']         = (stripos($cartArray[$key]['goods_image'],'}/')!==false ? 'yun' : 'local');
             }
         }
         exit(json_encode($cartArray));
+    }
+    /**
+     * 购物车获得商品数量（具体的说是种类的数量）
+     */
+    public function ajaxShopInfoAction()
+    {
+        $goodsNum = $this->getServiceLocator()->get('frontHelper')->cartGoodsNum();
+        exit(json_encode(array('goods_num'=>$goodsNum)));
     }
     /**
      * 获取添加购物车的商品信息，目前主要用于组合商品

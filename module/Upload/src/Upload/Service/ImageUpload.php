@@ -185,9 +185,13 @@ class ImageUpload
     private function _getExtension ($imageName=null)
     {
         if(empty($imageName)) return ;
-        $exts = @split("[/.]", $imageName);
-        $exts = $exts[count($exts)-1];
-        return $exts;
+        if(function_exists('pathinfo')) {
+            return pathinfo($imageName, PATHINFO_EXTENSION);
+        }
+        return end(explode('.', $imageName));
+        /*$exts = split("[/.]", $imageName);
+        $exts = $exts[count($exts)-1];*/
+
     }
     /**
      * 在系统中判断上传的图片中是否包含中文名称，如果包含，则进行重命名处理（上传中文名称图片系统会报错）

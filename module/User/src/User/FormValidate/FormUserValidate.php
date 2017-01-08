@@ -42,12 +42,61 @@ class FormUserValidate
     	$this->inputFilter->setData($data);
     	
     	if(!$this->inputFilter->isValid()) {
-    		$formMessage = new FormMessage($this->dbshopLang);
+            if($functionName == 'phoneCaptchaUserValidate') $formMessage = new FormMessageStr($this->dbshopLang);
+            else $formMessage = new FormMessage($this->dbshopLang);
     		$formMessage->fromMessageTemplate($this->inputFilter->getMessages());
     	}
     }
+    /**
+     * 前台注册会员校验（包括电邮和手机号码）
+     */
+    private function registerallUserValidate()
+    {
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_name',
+            /*'filters'  => array(
+                    array('name' => 'StringTrim')
+            ),*/
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入客户登录名称！')))
+            )
+        )));
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_password',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入密码！')))
+            )
+        )));
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_com_passwd',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入确认密码！'))),
+                array('name' => 'identical', 		'options' => array('token' => 'user_password', 'message' => $this->dbshopLang->translate('两次输入的密码不一致！')))
+            )
+        )));
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_email',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入电子邮箱！'))),
+                array('name' => 'emailaddress',	    'options' => array('message' => $this->dbshopLang->translate('电子邮箱格式错误！'))),
+            )
+        )));
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_phone',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('手机号码不能为空！')))
+            )
+        )));
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'register_security',
+            'validators' => array(
+                array('name' => 'notempty', 	'options' => array('message' => $this->dbshopLang->translate('注册时间超时，请重新注册'))),
+                array('name' => 'csrf', 		'options' => array('name'=>'register_security', 'salt'=>'9de4a97425678c5b1288aa70c1669a64', 'message' => $this->dbshopLang->translate('注册时间超时，请重新注册')))
+            )
+        )));
+    }
     /** 
-     * 前台添加会员校验
+     * 前台注册会员校验（没有电邮和手机号码项）
      */
     private function registerUserValidate()
     {   
@@ -74,18 +123,94 @@ class FormUserValidate
         		)
         )));
         $this->inputFilter->add($this->inputFactory->createInput(array(
-            	'name'       => 'user_email',
-            	'validators' => array(
-            			array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入电子邮箱！'))),
-                		array('name' => 'emailaddress',	    'options' => array('message' => $this->dbshopLang->translate('电子邮箱格式错误！'))),
-            	)
-        )));
-        $this->inputFilter->add($this->inputFactory->createInput(array(
         		'name'       => 'register_security',
         		'validators' => array(
         				array('name' => 'notempty', 	'options' => array('message' => $this->dbshopLang->translate('注册时间超时，请重新注册'))),
         				array('name' => 'csrf', 		'options' => array('name'=>'register_security', 'salt'=>'9de4a97425678c5b1288aa70c1669a64', 'message' => $this->dbshopLang->translate('注册时间超时，请重新注册')))
         		)
+        )));
+    }
+    /**
+     * 前台注册会员校验（有手机号码项）
+     */
+    private function registerandphoneUserValidate()
+    {
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_name',
+            /*'filters'  => array(
+                    array('name' => 'StringTrim')
+            ),*/
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入客户登录名称！')))
+            )
+        )));
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_password',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入密码！')))
+            )
+        )));
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_com_passwd',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入确认密码！'))),
+                array('name' => 'identical', 		'options' => array('token' => 'user_password', 'message' => $this->dbshopLang->translate('两次输入的密码不一致！')))
+            )
+        )));
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_phone',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('手机号码不能为空！')))
+            )
+        )));
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'register_security',
+            'validators' => array(
+                array('name' => 'notempty', 	'options' => array('message' => $this->dbshopLang->translate('注册时间超时，请重新注册'))),
+                array('name' => 'csrf', 		'options' => array('name'=>'register_security', 'salt'=>'9de4a97425678c5b1288aa70c1669a64', 'message' => $this->dbshopLang->translate('注册时间超时，请重新注册')))
+            )
+        )));
+    }
+    /**
+     * 前台注册会员校验（有电邮）
+     */
+    private function registerandemailUserValidate()
+    {
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_name',
+            /*'filters'  => array(
+                    array('name' => 'StringTrim')
+            ),*/
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入客户登录名称！')))
+            )
+        )));
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_password',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入密码！')))
+            )
+        )));
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_com_passwd',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入确认密码！'))),
+                array('name' => 'identical', 		'options' => array('token' => 'user_password', 'message' => $this->dbshopLang->translate('两次输入的密码不一致！')))
+            )
+        )));
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_email',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入电子邮箱！'))),
+                array('name' => 'emailaddress',	    'options' => array('message' => $this->dbshopLang->translate('电子邮箱格式错误！'))),
+            )
+        )));
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'register_security',
+            'validators' => array(
+                array('name' => 'notempty', 	'options' => array('message' => $this->dbshopLang->translate('注册时间超时，请重新注册'))),
+                array('name' => 'csrf', 		'options' => array('name'=>'register_security', 'salt'=>'9de4a97425678c5b1288aa70c1669a64', 'message' => $this->dbshopLang->translate('注册时间超时，请重新注册')))
+            )
         )));
     }
     /** 
@@ -113,8 +238,23 @@ class FormUserValidate
     			)
     	)));
     }
+    private function otherloginUserValidate()
+    {
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'login_user_name',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入会员登录名称！')))
+            )
+        )));
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'login_user_passwd',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入密码！')))
+            )
+        )));
+    }
     /**
-     * 第三方会员补充信息操作
+     * 第三方会员补充信息操作（有email验证）
      */
     private function otherregisterUserValidate()
     {
@@ -133,7 +273,51 @@ class FormUserValidate
         )));
     }
     /**
-     * 前台会员中心会员编辑
+     * 第三方会员补充信息操作（无email验证）
+     */
+    private function othernoemailregisterUserValidate()
+    {
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_name',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入客户登录名称！')))
+            )
+        )));
+    }
+    /**
+     * 手机验证码csrf检测
+     */
+    private function phoneCaptchaUserValidate()
+    {
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'captcha_security',
+            'validators' => array(
+                array('name' => 'notempty', 	'options' => array('message' => $this->dbshopLang->translate('非正常路径的获取'))),
+                array('name' => 'csrf', 		'options' => array('name'=>'captcha_security','message' => $this->dbshopLang->translate('获取时间超时，请刷新当前页面重新获取')))
+            )
+        )));
+    }
+    /**
+     * 前台会员中心会员编辑（既有电邮又有电话）
+     */
+    private function homeUserAllEditUserValidate()
+    {
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_email',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入电子邮箱！'))),
+                array('name' => 'emailaddress',	    'options' => array('message' => $this->dbshopLang->translate('电子邮箱格式错误！'))),
+            )
+        )));
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_phone',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('手机号码不能为空！')))
+            )
+        )));
+    }
+    /**
+     * 前台会员中心会员编辑（只有电邮）
      */
     private function homeUserEditUserValidate()
     {
@@ -142,6 +326,18 @@ class FormUserValidate
             'validators' => array(
                 array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('请输入电子邮箱！'))),
                 array('name' => 'emailaddress',	    'options' => array('message' => $this->dbshopLang->translate('电子邮箱格式错误！'))),
+            )
+        )));
+    }
+    /**
+     * 前台会员中心会员编辑（只有电话）
+     */
+    private function homeUserPhoneEditUserValidate()
+    {
+        $this->inputFilter->add($this->inputFactory->createInput(array(
+            'name'       => 'user_phone',
+            'validators' => array(
+                array('name' => 'notempty', 		'options' => array('message' => $this->dbshopLang->translate('手机号码不能为空！')))
             )
         )));
     }

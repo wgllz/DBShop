@@ -1,21 +1,126 @@
 <?php if ($this->frontwebsite()->getUserIni('user_register_state') == 'true') { ?>
-<form class="validforms" method="post" name="formLogin">
-    <div class="flow-consignee ect-bg-colorf">
-        <ul>
-            <li>
-                <div class="input-text"><b><?php echo $this->translate('用户名'); ?><font class="must_add_value">*</font>：</b><span>
-                <input type="text" value="<?php echo $this->other_user_info['nickname']; ?>" errormsg="<?php echo $this->translate('用户名必须为3-30个字符'); ?>" datatype="*3-30" id="user_name" name="user_name" ajaxurl="<?php echo $this->url('m_user/default/user_id',array('action'=>'check','controller'=>'user','check_type'=>'user_name','user_id'=>($this->user_info ? $this->user_info->user_id : '0'))); ?>" placeholder="<?php echo $this->translate('请输入用户名'); ?>" nullmsg="<?php echo $this->translate('请输入用户名'); ?>">
+    <form method="post" name="formUserRegister" id="formUserRegister">
+        <input type="hidden" name="other_logion_type" value="register">
+        <div class="flow-consignee ect-bg-colorf">
+            <ul>
+                <li>
+                    <div class="input-text"><b><?php echo $this->translate('用户名'); ?><font class="must_add_value">*</font>：</b><span>
+                <input type="text" style="width: 50%;" value="<?php echo $this->other_user_info['nickname']; ?>"  id="user_name" name="user_name" placeholder="<?php echo $this->translate('请输入用户名'); ?>" >
                 </span></div>
-            </li>
-            <li>
-                <div class="input-text"><b><?php echo $this->translate('电子邮件'); ?><font class="must_add_value">*</font>：</b><span>
-                <input type="text" datatype="e" id="user_email" name="user_email" ajaxurl="<?php echo $this->url('m_user/default/user_id',array('action'=>'check','controller'=>'user','module'=>'user','check_type'=>'user_email','user_id'=>($this->user_info ? $this->user_info->user_id : '0'))); ?>" placeholder="<?php echo $this->translate('请输入电子邮箱'); ?>" nullmsg="<?php echo $this->translate('请输入电子邮箱'); ?>"  errormsg="<?php echo $this->translate('请输入电子邮箱'); ?>">
+                </li>
+                <?php if($this->other_login_email_state == 'true') { ?>
+                <li>
+                    <div class="input-text"><b><?php echo $this->translate('电子邮件'); ?><font class="must_add_value">*</font>：</b><span>
+                <input type="text" style="width: 50%;" id="user_email" name="user_email" placeholder="<?php echo $this->translate('请输入电子邮箱'); ?>">
                 </span></div>
-            </li>
-        </ul>
-    </div>
-    <div class="ect-padding-lr ect-padding-tb"> <input type="submit" value="<?php echo $this->translate('提交补充信息'); ?>" class="btn btn-info ect-btn-info ect-colorf"></div>
-</form>
+                </li>
+                <?php } ?>
+            </ul>
+        </div>
+        <div class="ect-padding-lr ect-padding-tb"> <input type="submit" value="<?php echo $this->translate('提交补充信息(建立账户)'); ?>" class="btn btn-info ect-btn-info ect-colorf"></div>
+    </form>
+    <hr>
+    <form method="post" name="formUserLogin" id="formUserLogin">
+        <input type="hidden" name="other_logion_type" value="login">
+        <div class="flow-consignee ect-bg-colorf">
+            <ul>
+                <li>
+                    <div class="input-text"><b><?php echo $this->translate('用户名'); ?><font class="must_add_value">*</font>：</b><span>
+                <input type="text" style="width: 50%;" value="<?php echo $this->other_user_info['nickname']; ?>"  id="login_user_name" name="login_user_name"  placeholder="<?php echo $this->translate('请输入用户名'); ?>">
+                </span></div>
+                </li>
+                <li>
+                    <div class="input-text"><b><?php echo $this->translate('用户密码'); ?><font class="must_add_value">*</font>：</b><span>
+                <input type="text" style="width: 50%;" id="login_user_passwd" name="login_user_passwd"  placeholder="<?php echo $this->translate('请输入密码'); ?>" >
+                </span></div>
+                </li>
+            </ul>
+        </div>
+        <div class="ect-padding-lr ect-padding-tb"> <input type="submit" value="<?php echo $this->translate('提交绑定现有账户'); ?>" class="btn btn-info ect-btn-info ect-colorf"></div>
+    </form>
+    <script>
+        <?php if (isset($this->message) and $this->message != '') { ?>
+        show_message('.message_one','<?php echo date("Y-m-d H:i:s",time()); ?>','<?php echo $this->message; ?>','alert-error');
+        <?php } ?>
+        //客户补充信息保存验证
+        $(document).ready(function() {
+            $("#formUserRegister").validate({
+                success : function(label){
+                    label.addClass('validate_right').text('OK!');
+                },
+                rules: {
+                    user_name: {
+                        required: true,
+                        maxlength:30,
+                        remote :{
+                            url : '<?php echo $this->url('frontuser/default/user_id',array('action'=>'check','controller'=>'user','check_type'=>'user_name','user_id'=>($this->user_info ? $this->user_info->user_id : '0'))); ?>',
+                            type : 'post',
+                            date : {
+                                user_name :function(){
+                                    return $('#user_name').val();
+                                }
+                            }
+                        }
+                    }
+                    <?php if($this->other_login_email_state == 'true') { ?>
+                    ,
+                    user_email: {
+                        required: true,
+                        email: true,
+                        remote :{
+                            url : '<?php echo $this->url('frontuser/default/user_id',array('action'=>'check','controller'=>'user','module'=>'user','check_type'=>'user_email','user_id'=>($this->user_info ? $this->user_info->user_id : '0'))); ?>',
+                            type : 'post',
+                            date : {
+                                user_email :function(){
+                                    return $('#user_email').val();
+                                }
+                            }
+                        }
+                    }
+                    <?php } ?>
+                },
+                messages: {
+                    user_name: {
+                        required: "<?php echo $this->translate('输入客户名称！'); ?>",
+                        maxlength:"<?php echo $this->translate('最长为30个汉字！'); ?>",
+                        remote: "<?php echo $this->translate('该用户名已经存在！'); ?>"
+                    }
+                    <?php if($this->other_login_email_state == 'true') { ?>
+                    ,
+                    user_email: {
+                        required: "<?php echo $this->translate('输入电子邮箱！'); ?>",
+                        email: "<?php echo $this->translate('电子邮箱格式错误！'); ?>",
+                        remote: "<?php echo $this->translate('该邮箱已经存在'); ?>"
+                    }
+                    <?php } ?>
+                }
+            });
+
+            $("#formUserLogin").validate({
+                success : function(label){
+                    label.addClass('validate_right').text('OK!');
+                },
+                rules: {
+                    login_user_name: {
+                        required: true
+                    },
+                    login_user_passwd: {
+                        required: true
+                    }
+                },
+                messages: {
+                    login_user_name: {
+                        required: "<?php echo $this->translate('名称不能为空！'); ?>"
+                    },
+                    login_user_passwd: {
+                        required: "<?php echo $this->translate('密码不能为空！'); ?>"
+                    }
+                }
+            });
+
+        });
+
+    </script>
 <?php } else { ?>
     <p class="ect-checkbox ect-padding-tb ect-margin-tb ect-margin-bottom0 ect-padding-lr">
         <?php echo $this->frontwebsite()->getUserIni('register_close_message'); ?>

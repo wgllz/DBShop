@@ -14,6 +14,7 @@
 
 namespace Shopfront\Controller;
 
+use User\FormValidate\FormUserValidate;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Captcha;
 use Zend\Json\Json;
@@ -111,6 +112,58 @@ class IndexController extends AbstractActionController
 
         $array = array();
         return $viewModel->setVariables($array);
+    }
+    /**
+     * 手机验证码
+     */
+    public function phoneCaptchaAction()
+    {
+        if($this->getServiceLocator()->get('frontHelper')->websiteCaptchaState('phone_user_register_captcha') == 'true') {
+            $phoneCaptchaSession = new Container('phone_captcha');
+            // 验证码验证，通过ajax验证
+            $postCaptcha = $this->request->getPost('phone_captcha');
+            $checkState  = $this->params('captcha_check');
+            if ($checkState == 1) {
+                echo $postCaptcha == $phoneCaptchaSession->captcha ? 'true' : 'false';
+                exit();
+            }
+
+            $userPhone = $this->request->getPost('user_phone');
+            if(empty($userPhone) or !is_numeric($userPhone)) exit($this->getDbshopLang()->translate('不是正确的手机号码!'));
+            $phoneState = preg_match('#^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,6,7,8]{1}\d{8}$|^18[\d]{9}$#', $userPhone) ? 'true' : 'false';
+            if($phoneState == 'false') exit($this->getDbshopLang()->translate('不是正确的手机号码!'));
+
+            //防止刷手机短信
+            $captchaValidate = new FormUserValidate($this->getDbshopLang());
+            $captchaValidate->checkUserForm($this->request->getPost(), 'phoneCaptcha');
+
+            $number = '1234567890';
+            for($i=0; $i<10; $i++) {
+                $num[$i] = $number[$i];
+            }
+            mt_srand((double) microtime() * 10000);
+            shuffle($num);
+
+            $phoneCaptcha = substr(implode('',$num), 2, 6);
+            $phoneCaptchaSession = new Container('phone_captcha');
+            $phoneCaptchaSession->captcha = $phoneCaptcha;
+
+            try {
+                $this->getServiceLocator()->get('shop_send_sms')->toSendSms(
+                    array(
+                        'captcha'           => $phoneCaptcha,
+                        'patcheashopname'   => $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name')
+                    ),
+                    $userPhone,
+                    'alidayu_phone_captcha_template_id'
+                );
+            } catch(\Exception $e) {
+                echo $this->getDbshopLang()->translate('验证码获取失败！');
+            }
+        } else {
+            echo $this->getDbshopLang()->translate('系统未开启手机验证功能!');
+        }
+        exit();
     }
     /**
      * 验证码

@@ -46,6 +46,7 @@ return array(
 'GoodsRelatedTable'          => function  () { return new \Goods\Model\GoodsRelatedTable();          },
 'GoodsCombinationTable'      => function  () { return new \Goods\Model\GoodsCombinationTable();      },
 'VirtualGoodsTable'          => function  () { return new \Goods\Model\VirtualGoodsTable();          },
+'GoodsIndexTable'            => function  () { return new \Goods\Model\GoodsIndexTable();          },
 
 'PromotionsRuleService'      => function () { return new \Goods\Service\PromotionsRuleService(); },//此并非数据表相关
 );

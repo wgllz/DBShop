@@ -165,8 +165,9 @@ class GoodsTable extends AbstractTableGateway implements \Zend\Db\Adapter\Adapte
     	$select->columns(array('*', new Expression('
     	(SELECT i.goods_thumbnail_image FROM dbshop_goods_image as i WHERE i.goods_image_id=e.goods_image_id) as goods_thumbnail_image,
     	(SELECT in_c.class_id FROM dbshop_goods_in_class as in_c WHERE in_c.goods_id=dbshop_goods.goods_id and in_c.class_state=1 LIMIT 1) as one_class_id,
-    	(SELECT SUM(buy_num) FROM dbshop_order_goods AS og INNER JOIN dbshop_order as do ON do.order_id=og.order_id WHERE og.goods_id=dbshop_goods.goods_id and do.order_state!=0) AS buy_num,
-    	(SELECT count(favorites_id) FROM dbshop_user_favorites AS uf WHERE uf.goods_id=dbshop_goods.goods_id) AS favorites_num')));
+    	(SELECT SUM(og.buy_num) FROM dbshop_order_goods AS og INNER JOIN dbshop_order as do ON do.order_id=og.order_id WHERE og.goods_id=dbshop_goods.goods_id and do.order_state!=0) AS buy_num,
+    	(SELECT count(uf.favorites_id) FROM dbshop_user_favorites AS uf WHERE uf.goods_id=dbshop_goods.goods_id) AS favorites_num
+    	')));
     	//连接表 dbshop_goods_extend 及显示的取出的字段内容，之所以这样处理，因为下面分页处理时，如有两个表有同一个字段信息会报错
     	$select->join(array('e'=>'dbshop_goods_extend'), 'dbshop_goods.goods_id=e.goods_id',
     			array(
@@ -226,8 +227,8 @@ class GoodsTable extends AbstractTableGateway implements \Zend\Db\Adapter\Adapte
         $select->columns(array('*', new Expression('
         (SELECT i.goods_thumbnail_image FROM dbshop_goods_image as i WHERE i.goods_image_id=e.goods_image_id) as goods_thumbnail_image,
         (SELECT in_c.class_id FROM dbshop_goods_in_class as in_c WHERE in_c.goods_id=dbshop_goods.goods_id and in_c.class_state=1 LIMIT 1) as one_class_id,
-        (SELECT SUM(buy_num) FROM dbshop_order_goods AS og INNER JOIN dbshop_order as do ON do.order_id=og.order_id WHERE og.goods_id=dbshop_goods.goods_id and do.order_state!=0) AS buy_num,
-    	(SELECT count(favorites_id) FROM dbshop_user_favorites AS uf WHERE uf.goods_id=dbshop_goods.goods_id) AS favorites_num')));
+        (SELECT SUM(og.buy_num) FROM dbshop_order_goods AS og INNER JOIN dbshop_order as do ON do.order_id=og.order_id WHERE og.goods_id=dbshop_goods.goods_id and do.order_state!=0) AS buy_num,
+    	(SELECT count(uf.favorites_id) FROM dbshop_user_favorites AS uf WHERE uf.goods_id=dbshop_goods.goods_id) AS favorites_num')));
         $select->join(array('e'=>'dbshop_goods_extend'), 'e.goods_id=dbshop_goods.goods_id',
             	array(
     				'goods_name',
@@ -264,6 +265,10 @@ class GoodsTable extends AbstractTableGateway implements \Zend\Db\Adapter\Adapte
                 $goodsSort = !empty($goodsSort) ? (strpos($goodsSort, 'dbshop_goods.goods_shop_price')===false ? $goodsSort : new Expression($goodsSort)) : 'dbshop_goods.goods_id DESC';
             }
 
+            $select->columns(array('*', new Expression(
+                '(SELECT in_c.class_id FROM dbshop_goods_in_class as in_c WHERE in_c.goods_id=dbshop_goods.goods_id and in_c.class_state=1 LIMIT 1) as one_class_id,
+                (SELECT i.goods_thumbnail_image FROM dbshop_goods_image as i WHERE i.goods_image_id=e.goods_image_id) as goods_thumbnail_image'
+            )));
     
             $select->join(array('e'=>'dbshop_goods_extend'), 'e.goods_id=dbshop_goods.goods_id');
             $select->where($where);
@@ -296,6 +301,8 @@ class GoodsTable extends AbstractTableGateway implements \Zend\Db\Adapter\Adapte
             $sql->prepareStatementForSqlObject($sql->delete('dbshop_goods_in_attribute')->where($where))->execute();
 
             $sql->prepareStatementForSqlObject($sql->delete('dbshop_virtual_goods')->where($where))->execute();
+
+            $sql->prepareStatementForSqlObject($sql->delete('dbshop_goods_index')->where($where))->execute();
 
             $sql->prepareStatementForSqlObject($sql->delete('dbshop_goods_related')->where($where))->execute();
             $sql->prepareStatementForSqlObject($sql->delete('dbshop_goods_related')->where('related_'.$where))->execute();
@@ -350,8 +357,9 @@ class GoodsTable extends AbstractTableGateway implements \Zend\Db\Adapter\Adapte
                     new Expression('
                     (SELECT i.goods_thumbnail_image FROM dbshop_goods_image as i WHERE i.goods_image_id=e.goods_image_id) as goods_thumbnail_image,
                     (SELECT in_c.class_id FROM dbshop_goods_in_class as in_c WHERE in_c.goods_id=dbshop_goods.goods_id and in_c.class_state=1 LIMIT 1) as one_class_id,
-                    (SELECT SUM(buy_num) FROM dbshop_order_goods AS og INNER JOIN dbshop_order as do ON do.order_id=og.order_id WHERE og.goods_id=dbshop_goods.goods_id and do.order_state!=0) AS buy_num,
-                    (SELECT count(favorites_id) FROM dbshop_user_favorites AS uf WHERE uf.goods_id=dbshop_goods.goods_id) AS favorites_num')));
+                    (SELECT SUM(og.buy_num) FROM dbshop_order_goods AS og INNER JOIN dbshop_order as do ON do.order_id=og.order_id WHERE og.goods_id=dbshop_goods.goods_id and do.order_state!=0) AS buy_num,
+                    (SELECT count(uf.favorites_id) FROM dbshop_user_favorites AS uf WHERE uf.goods_id=dbshop_goods.goods_id) AS favorites_num
+                    ')));
 
             if(!empty($where)) $select->where($where)->where('dbshop_goods.goods_state=1');
             if(!empty($goodsLimit)) $select->limit($goodsLimit);

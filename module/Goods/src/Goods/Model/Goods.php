@@ -127,9 +127,9 @@ class Goods
         $goodsNameStr = '';
         $array        = explode(' ', $goodsName);
         foreach($array as $value) {
-            $goodsNameStr .= 'e.goods_name like \'%' . $value . '%\' or ';
+            $goodsNameStr .= 'e.goods_name like \'%' . $value . '%\' and ';
         }
-        if(!empty($goodsNameStr)) return substr($goodsNameStr, 0, -4);
+        if(!empty($goodsNameStr)) return substr($goodsNameStr, 0, -5);
     }
 }
 

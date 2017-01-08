@@ -17,6 +17,7 @@ namespace Goods\Model;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Adapter\Adapter;
 use Goods\Model\GoodsInAttribute as dbshopCheckInData;
+use Zend\Db\Sql\Select;
 
 class GoodsInAttributeTable extends AbstractTableGateway implements \Zend\Db\Adapter\AdapterAwareInterface
 {
@@ -62,6 +63,29 @@ class GoodsInAttributeTable extends AbstractTableGateway implements \Zend\Db\Ada
             return true;
         }
         return null;
+    }
+    /**
+     * 获取属性信息，用于商品索引
+     * @param array $where
+     * @return array
+     */
+    public function goodsInAttributeStr(array $where)
+    {
+        $result = $this->select(function (Select $select)use($where){
+            $select->join(array('a'=>'dbshop_goods_attribute'), 'a.attribute_id=dbshop_goods_in_attribute.attribute_id');
+            $select->where($where);
+        });
+        if($result) {
+            $attributeStr = '';
+            $attributeValueIdStr = '';
+            $attributeArray = $result->toArray();
+            foreach($attributeArray as $aValue) {
+                if($aValue['attribute_type'] == 'input') $attributeStr .= $aValue['attribute_body'];
+                else $attributeValueIdStr .= $aValue['attribute_body'].',';
+            }
+            return array('attributestr'=>$attributeStr, 'attributevalueid'=>rtrim($attributeValueIdStr, ','));
+        }
+        return array('attributestr'=>'', 'attributevalueid'=>'');
     }
 }
 

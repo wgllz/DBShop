@@ -821,7 +821,7 @@ CREATE TABLE dbshop_user (
   `user_name` char(100) NOT NULL,
   `user_avatar` char(100) DEFAULT NULL,
   `user_password` char(32) NOT NULL,
-  `user_email` char(50) NOT NULL,
+  `user_email` char(50) DEFAULT NULL,
   `user_sex` tinyint(1) NOT NULL DEFAULT '3',
   `user_birthday` char(10) DEFAULT NULL,
   `user_phone` char(30) DEFAULT NULL,
@@ -1107,3 +1107,25 @@ CREATE TABLE dbshop_user_integral_type_extend (
   `language` char(10) NOT NULL,
   KEY `integral_type_id` (`integral_type_id`,`integral_type_name`,`language`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS dbshop_goods_index;
+CREATE TABLE dbshop_goods_index (
+  `index_id` int(11) NOT NULL AUTO_INCREMENT,
+  `goods_id` int(11) NOT NULL,
+  `one_class_id` int(11) NOT NULL,
+  `goods_shop_price` char(20) NOT NULL DEFAULT '0',
+  `goods_name` char(255) NOT NULL,
+  `goods_extend_name` char(255) DEFAULT NULL,
+  `goods_thumbnail_image` varchar(150) DEFAULT NULL,
+  `goods_state` tinyint(1) NOT NULL,
+  `goods_click` int(11) NOT NULL DEFAULT '0',
+  `virtual_sales` int(11) NOT NULL DEFAULT '0',
+  `goods_add_time` int(10) NOT NULL,
+  `index_body` text,
+  PRIMARY KEY (`index_id`),
+  KEY `goods_id` (`goods_id`,`goods_state`),
+  KEY `class_id` (`one_class_id`),
+  KEY `goods_add_time` (`goods_add_time`),
+  KEY `goods_click` (`goods_click`),
+  KEY `goods_shop_price` (`goods_shop_price`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

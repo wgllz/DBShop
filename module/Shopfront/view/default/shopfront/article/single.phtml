@@ -8,10 +8,11 @@
         <?php
         $goods_share_info = $this->frontwebsite()->getDbshopGoodsShare();
         if(!empty($goods_share_info['share_type'])) {
+            echo "<script>var dbshop_baidushare_path='". $this->basePath('/public/js/baiduShare/')."';</script>";
         ?>
         <hr style="margin-bottom: 3px;">
         <div class="pull-right">
-            <?php echo $this->share_code; ?>
+            <?php echo $goods_share_info['share_code']; ?>
         </div>
         <?php } ?>
     </div>

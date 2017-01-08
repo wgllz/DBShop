@@ -47,6 +47,17 @@ class IndexController extends AbstractActionController
 
         return $array;
     }
+    public function checkphoneCaptchaAction()
+    {
+        $phoneCaptchaSession = new Container('phone_captcha');
+
+        // 验证码验证，通过ajax验证
+        $postCaptcha = $this->request->getPost('param');
+        if (isset($phoneCaptchaSession->captcha) and $phoneCaptchaSession->captcha != '') {
+            exit($postCaptcha == $phoneCaptchaSession->captcha ? json_encode(array('info'=>'', 'status'=>'y')) : json_encode(array('info'=>$this->getDbshopLang()->translate('手机验证码输入错误'), 'status'=>'n')));
+        }
+        exit();
+    }
     /**
      * 验证码
      */

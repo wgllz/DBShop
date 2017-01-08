@@ -15,6 +15,7 @@
 namespace System\Controller;
 
 use Admin\Controller\BaseController;
+use Zend\Config\Reader\Ini;
 
 class OnlineController extends BaseController
 {
@@ -70,7 +71,7 @@ class OnlineController extends BaseController
         }
         
         $array = array();
-        $systemReader = new \Zend\Config\Reader\Ini();
+        $systemReader = new Ini();
         $array['online_type_array'] = $systemReader->fromFile(DBSHOP_PATH . '/data/moduledata/System/Online.ini');
         
         if($this->request->isPost()) {
@@ -131,33 +132,23 @@ class OnlineController extends BaseController
      */
     private function createOnlinePhpFile()
     {
-        $onlineArray = $this->getDbshopTable()->listOnline(array('dbshop_online.online_state=1'));
-        $array       = array();
-        if(is_array($onlineArray) and !empty($onlineArray)) {
-            foreach ($onlineArray as $value) {
-                if(isset($array[$value['online_group_id']])) $array[$value['online_group_id']] .= '<LI>'.$value['online_web_code'].'</LI>';
-                else $array[$value['online_group_id']] = '<LI>'.$value['online_web_code'].'</LI>';
-            }
+        $systemReader = new Ini();
+        $onlineStyle = $systemReader->fromFile(DBSHOP_PATH . '/data/moduledata/System/Online.ini');
+        if((isset($onlineStyle['online']) and $onlineStyle['online']['style'] == 'default') or !isset($onlineStyle['online']))
+        {
+            $html = $this->onlineKfDefaultHtml();
         }
-        $indexHtml  = '';
-        $classHtml  = '';
-        $goodsHtml  = '';
-        $groupArray = $this->getDbshopTable('OnlineGroupTable')->listOnlineGroup(array('online_group_state'=>1));
-        if(is_array($groupArray) and !empty($groupArray)) {
-            foreach($groupArray as $g_value) {
-                $html = '';
-                $html .= '<LI><SPAN class=icoZx>'.$g_value['online_group_name'].'</SPAN></LI>';
-                $html .= $array[$g_value['online_group_id']];
-                
-                if($g_value['index_show'] == 'true') $indexHtml .= $html; 
-                if($g_value['class_show'] == 'true') $classHtml .= $html; 
-                if($g_value['goods_show'] == 'true') $goodsHtml .= $html; 
-            }
+        if(isset($onlineStyle['online']) and $onlineStyle['online']['style'] == 'default_1') {
+            $html = $this->onlineKfDefault1Html();
+        }
+        if(isset($onlineStyle['online']) and $onlineStyle['online']['style'] == 'default_2') {
+
         }
 
-        file_put_contents(DBSHOP_PATH . '/data/moduledata/System/online/index.php', $indexHtml);
-        file_put_contents(DBSHOP_PATH . '/data/moduledata/System/online/class.php', $classHtml);
-        file_put_contents(DBSHOP_PATH . '/data/moduledata/System/online/goods.php', $goodsHtml);
+
+        file_put_contents(DBSHOP_PATH . '/data/moduledata/System/online/index.php', $html['index']);
+        file_put_contents(DBSHOP_PATH . '/data/moduledata/System/online/class.php', $html['class']);
+        file_put_contents(DBSHOP_PATH . '/data/moduledata/System/online/goods.php', $html['goods']);
     }
     /** 
      * 客服组添加
@@ -228,6 +219,90 @@ class OnlineController extends BaseController
             
             exit('true');
         }
+    }
+    /**
+     * 客服样式设置
+     * @return array
+     */
+    public function onlineStyleAction()
+    {
+        $array = array();
+        $systemReader = new Ini();
+
+        if($this->request->isPost()) {
+            $styleArray = $this->request->getPost()->toArray();
+            $onlineStyleIni = $systemReader->fromFile(DBSHOP_PATH . '/data/moduledata/System/Online.ini');
+            $onlineStyleIni['online']['style'] = $styleArray['online_style'];
+
+            $systemWriter = new \Zend\Config\Writer\Ini();
+            $systemWriter->toFile(DBSHOP_PATH . '/data/moduledata/System/Online.ini', $onlineStyleIni);
+
+            //生成前台可使用的文件
+            $this->createOnlinePhpFile();
+        }
+
+        $array['online_type_array'] = $systemReader->fromFile(DBSHOP_PATH . '/data/moduledata/System/Online.ini');
+
+        return $array;
+    }
+    /**
+     * 默认客服样式
+     * @return array
+     */
+    private function onlineKfDefaultHtml()
+    {
+        $onlineArray = $this->getDbshopTable()->listOnline(array('dbshop_online.online_state=1'));
+        $array       = array();
+        if(is_array($onlineArray) and !empty($onlineArray)) {
+            foreach ($onlineArray as $value) {
+                if(isset($array[$value['online_group_id']])) $array[$value['online_group_id']] .= '<LI>'.$value['online_web_code'].'</LI>';
+                else $array[$value['online_group_id']] = '<LI>'.$value['online_web_code'].'</LI>';
+            }
+        }
+        $indexHtml  = '';
+        $classHtml  = '';
+        $goodsHtml  = '';
+        $groupArray = $this->getDbshopTable('OnlineGroupTable')->listOnlineGroup(array('online_group_state'=>1));
+        if(is_array($groupArray) and !empty($groupArray)) {
+            foreach($groupArray as $g_value) {
+                $html = '';
+                $html .= '<LI><SPAN class=icoZx>'.$g_value['online_group_name'].'</SPAN></LI>';
+                $html .= $array[$g_value['online_group_id']];
+
+                if($g_value['index_show'] == 'true') $indexHtml .= $html;
+                if($g_value['class_show'] == 'true') $classHtml .= $html;
+                if($g_value['goods_show'] == 'true') $goodsHtml .= $html;
+            }
+        }
+        return array('index'=>$indexHtml, 'class'=>$classHtml, 'goods'=>$goodsHtml);
+    }
+    /**
+     * 个性化样式1
+     * @return array
+     */
+    private function onlineKfDefault1Html()
+    {
+        $onlineArray = $this->getDbshopTable()->listOnline(array('dbshop_online.online_state=1'));
+        $imgPath        = $this->url()->fromRoute('shopfront/default').'/';
+        $webCode['qq']         = "<a target='_blank' href='http://wpa.qq.com/msgrd?v=3&uin={online_account}&site=qq&menu=yes'><img src='".$imgPath."/public/js/kefu/images/qq.png' align='absmiddle'>&nbsp;&nbsp;{name}</a>";
+        $webCode['wangwang']   = "<a target='_blank' href='http://www.taobao.com/webww/ww.php?ver=3&touid={online_account}&siteid=cntaobao&s=2&charset=utf-8' ><img border='0' src='".$imgPath."/public/js/kefu/images/wangwang.png' alt='点击这里给我发消息' />&nbsp;&nbsp;{name}</a>";
+        $webCode['skype']      = "<a href='skype:{online_account}?call'>&nbsp;&nbsp;{name}</a>";
+        $webCode['qqhttps']        = "<a target='_blank' href='https://wpa.qq.com/msgrd?v=3&uin={online_account}&site=qq&menu=yes'><img src='".$imgPath."/public/js/kefu/images/qq.png' align='absmiddle'>{name}</a>";
+        $webCode['wangwanghttps']  = "<a target='_blank' href='https://www.taobao.com/webww/ww.php?ver=3&touid={online_account}&siteid=cntaobao&s=2&charset=utf-8' ><img border='0' src='".$imgPath."/public/js/kefu/images/wangwang.png' alt='点击这里给我发消息' />&nbsp;&nbsp;{name}</a>";
+
+        $indexHtml  = '';
+        $classHtml  = '';
+        $goodsHtml  = '';
+        if(is_array($onlineArray) and !empty($onlineArray)) {
+            foreach ($onlineArray as $value) {
+                $webCodeStr = str_replace(array('{online_account}', '{name}'), array($value['online_account'], $value['online_name']), $webCode[$value['online_type']]);
+
+                $indexHtml .= '<li style="padding-left:0px;">'.$webCodeStr.'</li>';
+                $classHtml .= '<li style="padding-left:0px;">'.$webCodeStr.'</li>';
+                $goodsHtml .= '<li style="padding-left:0px;">'.$webCodeStr.'</li>';
+            }
+        }
+        return array('index'=>$indexHtml, 'class'=>$classHtml, 'goods'=>$goodsHtml);
     }
     /**
      * 数据表调用

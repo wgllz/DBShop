@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop V1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-02 17:59+0800\n"
-"PO-Revision-Date: 2016-11-02 18:00+0800\n"
+"POT-Creation-Date: 2016-11-30 23:30+0800\n"
+"PO-Revision-Date: 2016-11-30 23:31+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_TW\n"
@@ -38,7 +38,7 @@ msgstr "商品諮詢回复"
 #: ../view/goods/attribute/index.phtml:2
 #: ../view/goods/brand/brandajaxgoods.phtml:11
 #: ../view/goods/class/ajaxgoods.phtml:13 ../view/goods/goods/add.phtml:10
-#: ../view/goods/goods/add.phtml:595 ../view/goods/goods/index.phtml:30
+#: ../view/goods/goods/add.phtml:610 ../view/goods/goods/index.phtml:30
 #: ../view/goods/tag/ajaxgoods.phtml:12
 msgid "商品属性"
 msgstr "商品屬性"
@@ -76,7 +76,7 @@ msgstr "刪除商品屬性值"
 #: ../src/Goods/Controller/AttributeController.php:288
 #: ../src/Goods/Controller/AttributeController.php:315
 #: ../src/Goods/Controller/AttributeController.php:343
-#: ../view/goods/goods/add.phtml:600
+#: ../view/goods/goods/add.phtml:615
 msgid "商品属性组"
 msgstr "商品屬性組"
 
@@ -140,8 +140,8 @@ msgid "删除商品品牌"
 msgstr "刪除商品品牌"
 
 #: ../src/Goods/Controller/ClassController.php:71
-#: ../src/Goods/Controller/ClassController.php:152
-#: ../src/Goods/Controller/ClassController.php:224
+#: ../src/Goods/Controller/ClassController.php:153
+#: ../src/Goods/Controller/ClassController.php:225
 #: ../view/goods/class/index.phtml:2
 msgid "管理分类"
 msgstr "管理分類"
@@ -151,15 +151,15 @@ msgstr "管理分類"
 msgid "添加分类"
 msgstr "添加分類"
 
-#: ../src/Goods/Controller/ClassController.php:152
+#: ../src/Goods/Controller/ClassController.php:153
 msgid "更新分类"
 msgstr "更新分類"
 
-#: ../src/Goods/Controller/ClassController.php:158
+#: ../src/Goods/Controller/ClassController.php:159
 msgid "商品分类编辑成功！"
 msgstr "商品分類編輯成功！"
 
-#: ../src/Goods/Controller/ClassController.php:224
+#: ../src/Goods/Controller/ClassController.php:225
 #: ../view/goods/class/add.phtml:21 ../view/goods/class/index.phtml:33
 msgid "删除分类"
 msgstr "刪除分類"
@@ -167,7 +167,7 @@ msgstr "刪除分類"
 #: ../src/Goods/Controller/CommentController.php:130
 #: ../src/Goods/Controller/CommentController.php:180
 #: ../view/goods/comment/index.phtml:2 ../view/goods/goods/add.phtml:16
-#: ../view/goods/goods/add.phtml:623
+#: ../view/goods/goods/add.phtml:638
 msgid "商品评价"
 msgstr "商品評價"
 
@@ -176,102 +176,115 @@ msgstr "商品評價"
 msgid "删除商品评价"
 msgstr "刪除商品評價"
 
-#: ../src/Goods/Controller/GoodsController.php:203
-#: ../src/Goods/Controller/GoodsController.php:407
-#: ../src/Goods/Controller/GoodsController.php:695
+#: ../src/Goods/Controller/GoodsController.php:224
+#: ../src/Goods/Controller/GoodsController.php:448
+#: ../src/Goods/Controller/GoodsController.php:736
 #: ../view/goods/goods/index.phtml:3
 msgid "管理商品"
 msgstr "管理商品"
 
-#: ../src/Goods/Controller/GoodsController.php:203
+#: ../src/Goods/Controller/GoodsController.php:224
 #: ../view/goods/goods/index.phtml:10
 msgid "添加商品"
 msgstr "添加商品"
 
-#: ../src/Goods/Controller/GoodsController.php:407
+#: ../src/Goods/Controller/GoodsController.php:448
 msgid "更新商品"
 msgstr "更新商品"
 
-#: ../src/Goods/Controller/GoodsController.php:410
+#: ../src/Goods/Controller/GoodsController.php:451
 msgid "商品编辑成功！"
 msgstr "商品編輯成功！"
 
-#: ../src/Goods/Controller/GoodsController.php:517
+#: ../src/Goods/Controller/GoodsController.php:558
 msgid "虚拟商品添加失败！"
 msgstr "虛擬商品添加失敗！"
 
-#: ../src/Goods/Controller/GoodsController.php:539
+#: ../src/Goods/Controller/GoodsController.php:580
 #: ../view/goods/goods/add-virtual-goods.phtml:97
 msgid "未交易"
 msgstr "未交易"
 
-#: ../src/Goods/Controller/GoodsController.php:539
+#: ../src/Goods/Controller/GoodsController.php:580
 #: ../view/goods/goods/add-virtual-goods.phtml:98
 msgid "已交易"
 msgstr "已交易"
 
-#: ../src/Goods/Controller/GoodsController.php:539
+#: ../src/Goods/Controller/GoodsController.php:580
 #: ../view/goods/goods/add-virtual-goods.phtml:99
 msgid "已过期"
 msgstr "已過期"
 
-#: ../src/Goods/Controller/GoodsController.php:540
+#: ../src/Goods/Controller/GoodsController.php:581
 #: ../view/goods/goods/add-virtual-goods.phtml:38
 #: ../view/goods/goods/add-virtual-goods.phtml:49
 #: ../view/goods/goods/add-virtual-goods.phtml:85
 msgid "手动添加"
 msgstr "手動添加"
 
-#: ../src/Goods/Controller/GoodsController.php:540
+#: ../src/Goods/Controller/GoodsController.php:581
 #: ../view/goods/goods/add-virtual-goods.phtml:39
 #: ../view/goods/goods/add-virtual-goods.phtml:50
 #: ../view/goods/goods/add-virtual-goods.phtml:85
 msgid "自动生成"
 msgstr "自動生成"
 
-#: ../src/Goods/Controller/GoodsController.php:540
+#: ../src/Goods/Controller/GoodsController.php:581
 #: ../view/goods/goods/add-virtual-goods.phtml:40
 #: ../view/goods/goods/add-virtual-goods.phtml:51
 #: ../view/goods/goods/add-virtual-goods.phtml:85
 msgid "自动重复"
 msgstr "自動重複"
 
-#: ../src/Goods/Controller/GoodsController.php:559
+#: ../src/Goods/Controller/GoodsController.php:600
 msgid "获取虚拟商品信息失败！"
 msgstr "獲取虛擬商品信息失敗！"
 
-#: ../src/Goods/Controller/GoodsController.php:588
+#: ../src/Goods/Controller/GoodsController.php:629
 msgid "虚拟商品删除失败！"
 msgstr "虛擬商品刪除失敗！"
 
-#: ../src/Goods/Controller/GoodsController.php:695
+#: ../src/Goods/Controller/GoodsController.php:736
 #: ../view/goods/goods/add.phtml:31
 msgid "删除商品"
 msgstr "刪除商品"
 
-#: ../src/Goods/Controller/GoodsController.php:726
-#: ../src/Goods/Controller/GoodsController.php:768
+#: ../src/Goods/Controller/GoodsController.php:762
+#, fuzzy
+msgid "商品索引设置成功！"
+msgstr "商品索引"
+
+#: ../src/Goods/Controller/GoodsController.php:815
+msgid "无需要更新的商品索引！"
+msgstr "唔需要更新的商品索引！"
+
+#: ../src/Goods/Controller/GoodsController.php:893
+#: ../src/Goods/Controller/GoodsController.php:935
 #: ../view/goods/brand/brandajaxgoods.phtml:79
 #: ../view/goods/brand/brandajaxgoods.phtml:117
 #: ../view/goods/class/ajaxgoods.phtml:80
 #: ../view/goods/class/ajaxgoods.phtml:120 ../view/goods/goods/add.phtml:128
-#: ../view/goods/goods/add.phtml:462 ../view/goods/goods/add.phtml:565
-#: ../view/goods/goods/index.phtml:104 ../view/goods/goods/index.phtml:184
-#: ../view/goods/goods/index.phtml:224 ../view/goods/tag/ajaxgoods.phtml:32
+#: ../view/goods/goods/add.phtml:477 ../view/goods/goods/add.phtml:580
+#: ../view/goods/goods/index.phtml:104 ../view/goods/goods/index.phtml:188
+#: ../view/goods/goods/index.phtml:228 ../view/goods/tag/ajaxgoods.phtml:32
 msgid "上架"
 msgstr "上架"
 
-#: ../src/Goods/Controller/GoodsController.php:726
-#: ../src/Goods/Controller/GoodsController.php:768
+#: ../src/Goods/Controller/GoodsController.php:893
+#: ../src/Goods/Controller/GoodsController.php:935
 #: ../view/goods/brand/brandajaxgoods.phtml:81
 #: ../view/goods/brand/brandajaxgoods.phtml:117
 #: ../view/goods/class/ajaxgoods.phtml:82
 #: ../view/goods/class/ajaxgoods.phtml:120 ../view/goods/goods/add.phtml:129
-#: ../view/goods/goods/add.phtml:462 ../view/goods/goods/add.phtml:565
-#: ../view/goods/goods/index.phtml:106 ../view/goods/goods/index.phtml:184
-#: ../view/goods/goods/index.phtml:225 ../view/goods/tag/ajaxgoods.phtml:32
+#: ../view/goods/goods/add.phtml:477 ../view/goods/goods/add.phtml:580
+#: ../view/goods/goods/index.phtml:106 ../view/goods/goods/index.phtml:188
+#: ../view/goods/goods/index.phtml:229 ../view/goods/tag/ajaxgoods.phtml:32
 msgid "下架"
 msgstr "下架"
+
+#: ../src/Goods/Controller/GoodsController.php:964
+msgid "已下架"
+msgstr "已下架"
 
 #: ../src/Goods/Controller/PromotionsController.php:59
 #: ../src/Goods/Controller/PromotionsController.php:102
@@ -303,49 +316,49 @@ msgid "普通商品标签"
 msgstr "普通商品標籤"
 
 #: ../src/Goods/Controller/TagController.php:73
-#: ../src/Goods/Controller/TagController.php:186
+#: ../src/Goods/Controller/TagController.php:192
 msgid "添加商品标签"
 msgstr "添加商品標籤"
 
 #: ../src/Goods/Controller/TagController.php:120
-#: ../src/Goods/Controller/TagController.php:244
+#: ../src/Goods/Controller/TagController.php:255
 msgid "更新商品标签"
 msgstr "更新商品標籤"
 
 #: ../src/Goods/Controller/TagController.php:149
-#: ../src/Goods/Controller/TagController.php:278
+#: ../src/Goods/Controller/TagController.php:290
 msgid "删除商品标签"
 msgstr "刪除商品標籤"
 
-#: ../src/Goods/Controller/TagController.php:186
+#: ../src/Goods/Controller/TagController.php:192
 msgid "特殊商品标签"
 msgstr "特殊商品標籤"
 
-#: ../src/Goods/Controller/TagController.php:244
-#: ../src/Goods/Controller/TagController.php:278
+#: ../src/Goods/Controller/TagController.php:255
+#: ../src/Goods/Controller/TagController.php:290
 #: ../view/goods/tag/add-spec-tag.phtml:13 ../view/goods/tag/spec-tag.phtml:2
 msgid "特定商品标签"
 msgstr "特定商品標籤"
 
-#: ../src/Goods/Controller/TagController.php:370
-#: ../src/Goods/Controller/TagController.php:397
-#: ../src/Goods/Controller/TagController.php:436
+#: ../src/Goods/Controller/TagController.php:382
+#: ../src/Goods/Controller/TagController.php:409
+#: ../src/Goods/Controller/TagController.php:447
 msgid "商品标签组"
 msgstr "商品標籤組"
 
-#: ../src/Goods/Controller/TagController.php:370
+#: ../src/Goods/Controller/TagController.php:382
 msgid "添加商品标签组"
 msgstr "添加商品標籤組"
 
-#: ../src/Goods/Controller/TagController.php:397
+#: ../src/Goods/Controller/TagController.php:409
 msgid "更新商品标签组"
 msgstr "更新商品標籤組"
 
-#: ../src/Goods/Controller/TagController.php:405
+#: ../src/Goods/Controller/TagController.php:416
 msgid "标签组编辑成功！"
 msgstr "標籤組編輯成功！"
 
-#: ../src/Goods/Controller/TagController.php:436
+#: ../src/Goods/Controller/TagController.php:447
 msgid "删除商品标签组"
 msgstr "刪除商品標籤組"
 
@@ -361,7 +374,8 @@ msgstr "刪除商品標籤組"
 #: ../view/goods/goods/add-virtual-goods.phtml:15
 #: ../view/goods/goods/add.phtml:35
 #: ../view/goods/goods/clear-goods-image.phtml:5
-#: ../view/goods/goods/index.phtml:15 ../view/goods/promotions/add.phtml:23
+#: ../view/goods/goods/goods-index.phtml:12 ../view/goods/goods/index.phtml:15
+#: ../view/goods/promotions/add.phtml:23
 #: ../view/goods/promotions/index.phtml:5
 #: ../view/goods/tag/add-spec-tag.phtml:21
 #: ../view/goods/tag/add-tag-group.phtml:23 ../view/goods/tag/add.phtml:21
@@ -374,8 +388,8 @@ msgstr "查看幫助說明"
 #: ../view/goods/brand/brandajaxgoods.phtml:8
 #: ../view/goods/class/ajaxgoods.phtml:9 ../view/goods/comment/index.phtml:10
 #: ../view/goods/goods/add-virtual-goods.phtml:71
-#: ../view/goods/goods/add.phtml:44 ../view/goods/goods/add.phtml:447
-#: ../view/goods/goods/add.phtml:550 ../view/goods/goods/index.phtml:27
+#: ../view/goods/goods/add.phtml:44 ../view/goods/goods/add.phtml:462
+#: ../view/goods/goods/add.phtml:565 ../view/goods/goods/index.phtml:27
 #: ../view/goods/tag/ajaxgoods.phtml:9
 msgid "商品名称"
 msgstr "商品名稱"
@@ -409,10 +423,11 @@ msgstr "諮詢時間"
 #: ../view/goods/comment/edit.phtml:16 ../view/goods/comment/index.phtml:14
 #: ../view/goods/comment/userajaxcomment.phtml:7
 #: ../view/goods/goods/add-virtual-goods.phtml:79
-#: ../view/goods/goods/add.phtml:409 ../view/goods/goods/add.phtml:451
-#: ../view/goods/goods/add.phtml:554
+#: ../view/goods/goods/add.phtml:423 ../view/goods/goods/add.phtml:466
+#: ../view/goods/goods/add.phtml:569
 #: ../view/goods/goods/clear-goods-image.phtml:14
-#: ../view/goods/goods/index.phtml:33 ../view/goods/promotions/index.phtml:15
+#: ../view/goods/goods/goods-index.phtml:55 ../view/goods/goods/index.phtml:33
+#: ../view/goods/promotions/index.phtml:15
 #: ../view/goods/tag/ajaxgoods.phtml:14 ../view/goods/tag/index.phtml:19
 #: ../view/goods/tag/spec-tag.phtml:15 ../view/goods/tag/tag-group.phtml:16
 msgid "操作"
@@ -444,12 +459,12 @@ msgstr "您確實要刪除該商品諮詢嗎？"
 #: ../view/goods/comment/userajaxcomment.phtml:18
 #: ../view/goods/goods/add-virtual-goods.phtml:104
 #: ../view/goods/goods/add-virtual-goods.phtml:164
-#: ../view/goods/goods/add.phtml:423 ../view/goods/goods/add.phtml:463
-#: ../view/goods/goods/add.phtml:566 ../view/goods/goods/add.phtml:1121
-#: ../view/goods/goods/add.phtml:1157 ../view/goods/goods/add.phtml:1215
-#: ../view/goods/goods/add.phtml:1269
+#: ../view/goods/goods/add.phtml:437 ../view/goods/goods/add.phtml:478
+#: ../view/goods/goods/add.phtml:581 ../view/goods/goods/add.phtml:1136
+#: ../view/goods/goods/add.phtml:1172 ../view/goods/goods/add.phtml:1230
+#: ../view/goods/goods/add.phtml:1284
 #: ../view/goods/goods/clear-goods-image.phtml:23
-#: ../view/goods/goods/index.phtml:204 ../view/goods/goods/index.phtml:219
+#: ../view/goods/goods/index.phtml:208 ../view/goods/goods/index.phtml:223
 #: ../view/goods/promotions/index.phtml:41
 #: ../view/goods/tag/ajaxgoods.phtml:33 ../view/goods/tag/ajaxgoods.phtml:45
 #: ../view/goods/tag/index.phtml:37 ../view/goods/tag/spec-tag.phtml:27
@@ -498,6 +513,8 @@ msgstr "屬性組信息"
 #: ../view/goods/goods/add-virtual-goods.phtml:4
 #: ../view/goods/goods/add-virtual-goods.phtml:19
 #: ../view/goods/goods/add.phtml:4 ../view/goods/goods/add.phtml:39
+#: ../view/goods/goods/goods-index.phtml:4
+#: ../view/goods/goods/goods-index.phtml:16
 #: ../view/goods/promotions/add.phtml:4 ../view/goods/promotions/add.phtml:27
 #: ../view/goods/tag/add-spec-tag.phtml:4
 #: ../view/goods/tag/add-spec-tag.phtml:25
@@ -515,7 +532,7 @@ msgstr "基本信息"
 #: ../view/goods/brand/index.phtml:29 ../view/goods/class/add.phtml:16
 #: ../view/goods/goods/add-virtual-goods.phtml:104
 #: ../view/goods/goods/add-virtual-goods.phtml:164
-#: ../view/goods/goods/add.phtml:26 ../view/goods/goods/index.phtml:197
+#: ../view/goods/goods/add.phtml:26 ../view/goods/goods/index.phtml:201
 #: ../view/goods/promotions/add.phtml:14
 #: ../view/goods/promotions/index.phtml:39
 #: ../view/goods/tag/add-spec-tag.phtml:13
@@ -751,7 +768,7 @@ msgstr "品牌商品"
 
 #: ../view/goods/brand/add.phtml:8 ../view/goods/brand/add.phtml:80
 #: ../view/goods/class/add.phtml:9 ../view/goods/class/add.phtml:151
-#: ../view/goods/goods/add.phtml:18 ../view/goods/goods/add.phtml:634
+#: ../view/goods/goods/add.phtml:18 ../view/goods/goods/add.phtml:649
 msgid "搜索引擎优化"
 msgstr "搜索引擎優化"
 
@@ -853,15 +870,15 @@ msgstr "刪"
 
 #: ../view/goods/brand/brandajaxgoods.phtml:9
 #: ../view/goods/class/ajaxgoods.phtml:10 ../view/goods/goods/add.phtml:56
-#: ../view/goods/goods/add.phtml:283 ../view/goods/goods/add.phtml:448
-#: ../view/goods/goods/add.phtml:551 ../view/goods/goods/index.phtml:28
+#: ../view/goods/goods/add.phtml:297 ../view/goods/goods/add.phtml:463
+#: ../view/goods/goods/add.phtml:566 ../view/goods/goods/index.phtml:28
 #: ../view/goods/tag/ajaxgoods.phtml:10
 msgid "商品货号"
 msgstr "商品貨號"
 
 #: ../view/goods/brand/brandajaxgoods.phtml:10
-#: ../view/goods/class/ajaxgoods.phtml:12 ../view/goods/goods/add.phtml:449
-#: ../view/goods/goods/add.phtml:552 ../view/goods/goods/index.phtml:29
+#: ../view/goods/class/ajaxgoods.phtml:12 ../view/goods/goods/add.phtml:464
+#: ../view/goods/goods/add.phtml:567 ../view/goods/goods/index.phtml:29
 #: ../view/goods/tag/ajaxgoods.phtml:11
 msgid "商品价格"
 msgstr "商品價格"
@@ -869,7 +886,7 @@ msgstr "商品價格"
 #: ../view/goods/brand/brandajaxgoods.phtml:12
 #: ../view/goods/class/ajaxgoods.phtml:14 ../view/goods/class/index.phtml:15
 #: ../view/goods/goods/add-virtual-goods.phtml:77
-#: ../view/goods/goods/add.phtml:450 ../view/goods/goods/add.phtml:553
+#: ../view/goods/goods/add.phtml:465 ../view/goods/goods/add.phtml:568
 #: ../view/goods/promotions/index.phtml:14
 #: ../view/goods/tag/ajaxgoods.phtml:13
 msgid "状态"
@@ -892,7 +909,7 @@ msgid "终"
 msgstr "終"
 
 #: ../view/goods/brand/brandajaxgoods.phtml:61
-#: ../view/goods/class/ajaxgoods.phtml:62 ../view/goods/goods/add.phtml:603
+#: ../view/goods/class/ajaxgoods.phtml:62 ../view/goods/goods/add.phtml:618
 #: ../view/goods/goods/index.phtml:86
 msgid "选择属性组"
 msgstr "選擇屬性組"
@@ -915,7 +932,7 @@ msgid "返回"
 msgstr "返回"
 
 #: ../view/goods/brand/brandajaxgoods.phtml:116
-#: ../view/goods/class/ajaxgoods.phtml:119 ../view/goods/goods/index.phtml:182
+#: ../view/goods/class/ajaxgoods.phtml:119 ../view/goods/goods/index.phtml:186
 #: ../view/goods/promotions/index.phtml:33
 #: ../view/goods/tag/ajaxgoods.phtml:31 ../view/goods/tag/index.phtml:32
 #: ../view/goods/tag/spec-tag.phtml:25 ../view/goods/tag/tag-group.phtml:26
@@ -968,7 +985,7 @@ msgid "分类显示"
 msgstr "分類顯示"
 
 #: ../view/goods/class/add.phtml:16 ../view/goods/goods/add.phtml:5
-#: ../view/goods/goods/add.phtml:308 ../view/goods/promotions/add.phtml:127
+#: ../view/goods/goods/add.phtml:322 ../view/goods/promotions/add.phtml:127
 #: ../view/goods/promotions/add.phtml:136
 msgid "商品分类"
 msgstr "商品分類"
@@ -997,7 +1014,8 @@ msgstr "可以一次性添加多個分類，一行一個分類，用回車換行
 msgid "分类状态"
 msgstr "分類狀態"
 
-#: ../view/goods/class/add.phtml:47 ../view/goods/goods/add.phtml:348
+#: ../view/goods/class/add.phtml:47 ../view/goods/goods/add.phtml:362
+#: ../view/goods/goods/goods-index.phtml:30
 msgid "启用"
 msgstr "啟用"
 
@@ -1009,7 +1027,7 @@ msgstr "禁用"
 msgid "上级分类"
 msgstr "上級分類"
 
-#: ../view/goods/class/add.phtml:56 ../view/goods/goods/index.phtml:218
+#: ../view/goods/class/add.phtml:56 ../view/goods/goods/index.phtml:222
 msgid "请选择"
 msgstr "請選擇"
 
@@ -1125,7 +1143,7 @@ msgstr "商品分類名稱 (分類ID)"
 msgid "已启用"
 msgstr "已啟用"
 
-#: ../view/goods/class/index.phtml:27 ../view/goods/goods/add.phtml:316
+#: ../view/goods/class/index.phtml:27 ../view/goods/goods/add.phtml:330
 msgid "已禁用"
 msgstr "已禁用"
 
@@ -1187,7 +1205,7 @@ msgstr "評價等級"
 msgid "评价状态"
 msgstr "評價狀態"
 
-#: ../view/goods/comment/edit.phtml:29 ../view/goods/goods/add.phtml:1173
+#: ../view/goods/comment/edit.phtml:29 ../view/goods/goods/add.phtml:1188
 msgid "您确实要删除该条评价吗？"
 msgstr "您確實要刪除該條評價嗎？"
 
@@ -1205,7 +1223,7 @@ msgstr "暫無商品評價！"
 
 #: ../view/goods/goods/add-virtual-goods.phtml:3
 #: ../view/goods/goods/add.phtml:80 ../view/goods/goods/index.phtml:117
-#: ../view/goods/goods/index.phtml:190
+#: ../view/goods/goods/index.phtml:194
 msgid "虚拟商品"
 msgstr "虛擬商品"
 
@@ -1279,11 +1297,11 @@ msgstr "您確實要刪除該虛擬商品嗎？"
 msgid "商品信息"
 msgstr "商品信息"
 
-#: ../view/goods/goods/add.phtml:6 ../view/goods/goods/add.phtml:389
+#: ../view/goods/goods/add.phtml:6 ../view/goods/goods/add.phtml:403
 msgid "商品图片"
 msgstr "商品圖片"
 
-#: ../view/goods/goods/add.phtml:7 ../view/goods/goods/add.phtml:326
+#: ../view/goods/goods/add.phtml:7 ../view/goods/goods/add.phtml:340
 msgid "商品库存"
 msgstr "商品庫存"
 
@@ -1296,19 +1314,19 @@ msgstr "優惠價格"
 msgid "销售规格"
 msgstr "銷售規格"
 
-#: ../view/goods/goods/add.phtml:11 ../view/goods/goods/add.phtml:573
+#: ../view/goods/goods/add.phtml:11 ../view/goods/goods/add.phtml:588
 msgid "商品标签"
 msgstr "商品標籤"
 
-#: ../view/goods/goods/add.phtml:12 ../view/goods/goods/add.phtml:470
+#: ../view/goods/goods/add.phtml:12 ../view/goods/goods/add.phtml:485
 msgid "商品自定义"
 msgstr "商品自定義"
 
-#: ../view/goods/goods/add.phtml:13 ../view/goods/goods/add.phtml:435
+#: ../view/goods/goods/add.phtml:13 ../view/goods/goods/add.phtml:449
 msgid "相关商品"
 msgstr "相關商品"
 
-#: ../view/goods/goods/add.phtml:14 ../view/goods/goods/add.phtml:538
+#: ../view/goods/goods/add.phtml:14 ../view/goods/goods/add.phtml:553
 msgid "组合商品"
 msgstr "組合商品"
 
@@ -1366,7 +1384,7 @@ msgid "选择类型"
 msgstr "選擇類型"
 
 #: ../view/goods/goods/add.phtml:79 ../view/goods/goods/index.phtml:115
-#: ../view/goods/goods/index.phtml:189
+#: ../view/goods/goods/index.phtml:193
 msgid "实物商品"
 msgstr "實物商品"
 
@@ -1462,7 +1480,7 @@ msgid "购物数价格"
 msgstr "購物數價格"
 
 #: ../view/goods/goods/add.phtml:187 ../view/goods/goods/add.phtml:238
-#: ../view/goods/goods/add.phtml:279
+#: ../view/goods/goods/add.phtml:293
 msgid "颜色"
 msgstr "顏色"
 
@@ -1574,7 +1592,7 @@ msgstr "黑色"
 msgid "空值不显示"
 msgstr "空值不顯示"
 
-#: ../view/goods/goods/add.phtml:255 ../view/goods/goods/add.phtml:280
+#: ../view/goods/goods/add.phtml:255 ../view/goods/goods/add.phtml:294
 msgid "尺寸"
 msgstr "尺寸"
 
@@ -1582,31 +1600,31 @@ msgstr "尺寸"
 msgid "均码"
 msgstr "均碼"
 
-#: ../view/goods/goods/add.phtml:281
+#: ../view/goods/goods/add.phtml:295
 msgid "价格"
 msgstr "價格"
 
-#: ../view/goods/goods/add.phtml:282
+#: ../view/goods/goods/add.phtml:296
 msgid "库存"
 msgstr "庫存"
 
-#: ../view/goods/goods/add.phtml:321
+#: ../view/goods/goods/add.phtml:335
 msgid "还没有商品分类"
 msgstr "還沒有商品分類"
 
-#: ../view/goods/goods/add.phtml:321
+#: ../view/goods/goods/add.phtml:335
 msgid "马上去创建商品分类"
 msgstr "馬上去創建商品分類"
 
-#: ../view/goods/goods/add.phtml:331
+#: ../view/goods/goods/add.phtml:345
 msgid "库存数量"
 msgstr "庫存數量"
 
-#: ../view/goods/goods/add.phtml:337
+#: ../view/goods/goods/add.phtml:351
 msgid "库存状态"
 msgstr "庫存狀態"
 
-#: ../view/goods/goods/add.phtml:349
+#: ../view/goods/goods/add.phtml:363
 msgid ""
 "当启用了库存状态，前台库存显示下拉菜单选中的文字，不显示库存数量，同时正常购"
 "物库存不减少！"
@@ -1614,51 +1632,51 @@ msgstr ""
 "當啟用了庫存狀態，前台庫存顯示下拉菜單選中的文字，不顯示庫存數量，同時正常購"
 "物庫存不減少！"
 
-#: ../view/goods/goods/add.phtml:353
+#: ../view/goods/goods/add.phtml:367
 msgid "商品缺货时数量"
 msgstr "商品缺貨時數量"
 
-#: ../view/goods/goods/add.phtml:359
+#: ../view/goods/goods/add.phtml:373
 msgid "缺货状态"
 msgstr "缺貨狀態"
 
-#: ../view/goods/goods/add.phtml:370
+#: ../view/goods/goods/add.phtml:384
 msgid "前台商品缺货状态下显示的文字！"
 msgstr "前台商品缺貨狀態下顯示的文字！"
 
-#: ../view/goods/goods/add.phtml:374
+#: ../view/goods/goods/add.phtml:388
 msgid "购物车购买最少数量"
 msgstr "購物車購買最少數量"
 
-#: ../view/goods/goods/add.phtml:380
+#: ../view/goods/goods/add.phtml:394
 msgid "购物车购买最多数量"
 msgstr "購物車購買最多數量"
 
-#: ../view/goods/goods/add.phtml:396
+#: ../view/goods/goods/add.phtml:410
 msgid "点击获取在编辑器中新上传的商品图片"
 msgstr "點擊獲取在編輯器中新上傳的商品圖片"
 
-#: ../view/goods/goods/add.phtml:404 ../view/goods/goods/add.phtml:1065
-#: ../view/goods/goods/add.phtml:1068 ../view/goods/goods/add.phtml:1081
+#: ../view/goods/goods/add.phtml:418 ../view/goods/goods/add.phtml:1080
+#: ../view/goods/goods/add.phtml:1083 ../view/goods/goods/add.phtml:1096
 #: ../view/goods/goods/clear-goods-image.phtml:13
 #: ../view/goods/goods/clear-goods-image.phtml:39
 msgid "图片"
 msgstr "圖片"
 
-#: ../view/goods/goods/add.phtml:405
+#: ../view/goods/goods/add.phtml:419
 #: ../view/goods/goods/clear-goods-image.phtml:12
 msgid "图片名称"
 msgstr "圖片名稱"
 
-#: ../view/goods/goods/add.phtml:406
+#: ../view/goods/goods/add.phtml:420
 msgid "封面图片"
 msgstr "封面圖片"
 
-#: ../view/goods/goods/add.phtml:407
+#: ../view/goods/goods/add.phtml:421
 msgid "切换显示"
 msgstr "切換顯示"
 
-#: ../view/goods/goods/add.phtml:407
+#: ../view/goods/goods/add.phtml:421
 msgid ""
 "前台模板的商品详细页面，有切换效果时，显示；这里的设置并不影响图片的显示，这"
 "个选项只是针对切换效果。"
@@ -1666,275 +1684,279 @@ msgstr ""
 "前臺模板的商品詳細頁面，有切換效果時，顯示；這裏的設置并不影響圖片的現實，這"
 "個選項衹是針對切換效果。"
 
-#: ../view/goods/goods/add.phtml:408
+#: ../view/goods/goods/add.phtml:422
 msgid "图片排序"
 msgstr "圖片排序"
 
-#: ../view/goods/goods/add.phtml:422 ../view/goods/goods/add.phtml:1121
-#: ../view/goods/goods/add.phtml:1157 ../view/goods/tag/ajaxgoods.phtml:46
+#: ../view/goods/goods/add.phtml:436 ../view/goods/goods/add.phtml:1136
+#: ../view/goods/goods/add.phtml:1172 ../view/goods/tag/ajaxgoods.phtml:46
 msgid "更新"
 msgstr "更新"
 
-#: ../view/goods/goods/add.phtml:440 ../view/goods/goods/add.phtml:543
+#: ../view/goods/goods/add.phtml:454 ../view/goods/goods/add.phtml:558
 #: ../view/goods/tag/add-spec-tag.phtml:57 ../view/goods/tag/add.phtml:63
 msgid "请输入需要添加的商品部分或者全部名称"
 msgstr "請輸入需要添加的商品部分或者全部名稱"
 
-#: ../view/goods/goods/add.phtml:440
+#: ../view/goods/goods/add.phtml:454
 msgid "点击添加相关商品"
 msgstr "點擊添加相關商品"
 
-#: ../view/goods/goods/add.phtml:441
+#: ../view/goods/goods/add.phtml:455
 msgid "在输入框中输入商品部分或者全部名称，然后点击添加按钮，即可添加相关商品"
 msgstr "在輸入框中輸入商品部分或者全部名稱，然後點擊添加按鈕，即可添加相關商品"
 
-#: ../view/goods/goods/add.phtml:543
+#: ../view/goods/goods/add.phtml:456
+msgid "如果您不添加，系统将在前台自动随机显示该商品的相关其他商品。"
+msgstr "如果您不添加，系統將在前台自動隨機顯示該商品的相關其他商品。"
+
+#: ../view/goods/goods/add.phtml:558
 msgid "点击添加组合商品"
 msgstr "點擊添加組合商品"
 
-#: ../view/goods/goods/add.phtml:544
+#: ../view/goods/goods/add.phtml:559
 msgid "在输入框中输入商品部分或者全部名称，然后点击添加按钮，即可添加组合商品"
 msgstr "在輸入框中輸入商品部分或者全部名稱，然後點擊添加按鈕，即可添加组合商品"
 
-#: ../view/goods/goods/add.phtml:581
+#: ../view/goods/goods/add.phtml:596
 msgid "未分组"
 msgstr "未分組"
 
-#: ../view/goods/goods/add.phtml:639
+#: ../view/goods/goods/add.phtml:654
 msgid "商品关键词"
 msgstr "商品關鍵字"
 
-#: ../view/goods/goods/add.phtml:645
+#: ../view/goods/goods/add.phtml:660
 msgid "商品描述"
 msgstr "商品描述"
 
-#: ../view/goods/goods/add.phtml:749
+#: ../view/goods/goods/add.phtml:764
 msgid "商品名称不能为空！"
 msgstr "商品名稱不能為空！"
 
-#: ../view/goods/goods/add.phtml:750
+#: ../view/goods/goods/add.phtml:765
 msgid "商品名称最少两个字符！"
 msgstr "商品名稱最少兩個字符！"
 
-#: ../view/goods/goods/add.phtml:751
+#: ../view/goods/goods/add.phtml:766
 msgid "商品名称最长80个字符！"
 msgstr "商品名稱最長80個字符！"
 
-#: ../view/goods/goods/add.phtml:754
+#: ../view/goods/goods/add.phtml:769
 msgid "本店价格不能为空！"
 msgstr "本店價格不能為空！"
 
-#: ../view/goods/goods/add.phtml:755
+#: ../view/goods/goods/add.phtml:770
 msgid "价格必须为数字！"
 msgstr "價格必須為數字！"
 
-#: ../view/goods/goods/add.phtml:756
+#: ../view/goods/goods/add.phtml:771
 msgid "价格最长20个数字！"
 msgstr "價格最長20個數字！"
 
-#: ../view/goods/goods/add.phtml:757
+#: ../view/goods/goods/add.phtml:772
 msgid "本店价格最小为0！"
 msgstr "本店價格最小為0！"
 
-#: ../view/goods/goods/add.phtml:760
+#: ../view/goods/goods/add.phtml:775
 msgid "商品类型不能为空！"
 msgstr "商品類型不能為空！"
 
-#: ../view/goods/goods/add.phtml:763
+#: ../view/goods/goods/add.phtml:778
 msgid "库存不能为空！"
 msgstr "庫存不能為空！"
 
-#: ../view/goods/goods/add.phtml:764
+#: ../view/goods/goods/add.phtml:779
 msgid "库存必须为整数！"
 msgstr "庫存必須為整數！"
 
-#: ../view/goods/goods/add.phtml:765 ../view/goods/goods/add.phtml:788
-#: ../view/goods/goods/add.phtml:792 ../view/goods/goods/add.phtml:796
+#: ../view/goods/goods/add.phtml:780 ../view/goods/goods/add.phtml:803
+#: ../view/goods/goods/add.phtml:807 ../view/goods/goods/add.phtml:811
 msgid "数量最多11个字符！"
 msgstr "數量最多11個字符！"
 
-#: ../view/goods/goods/add.phtml:769
+#: ../view/goods/goods/add.phtml:784
 msgid "重量必须为数字！"
 msgstr "重量必須為數字！"
 
-#: ../view/goods/goods/add.phtml:770
+#: ../view/goods/goods/add.phtml:785
 msgid "重量最长20个数字！"
 msgstr "重量最長20個數字！"
 
-#: ../view/goods/goods/add.phtml:771
+#: ../view/goods/goods/add.phtml:786
 msgid "重量最小为0！"
 msgstr "重量最小為0！"
 
-#: ../view/goods/goods/add.phtml:774
+#: ../view/goods/goods/add.phtml:789
 msgid "商品简述最多600个字符！"
 msgstr "商品簡述最多600個字符！"
 
-#: ../view/goods/goods/add.phtml:777
+#: ../view/goods/goods/add.phtml:792
 msgid "市场价格必须为数字！"
 msgstr "市場價格必須為數字！"
 
-#: ../view/goods/goods/add.phtml:778
+#: ../view/goods/goods/add.phtml:793
 msgid "市场价格最长20个数字！"
 msgstr "市場價格最長20個數字！"
 
-#: ../view/goods/goods/add.phtml:779
+#: ../view/goods/goods/add.phtml:794
 msgid "市场价格最小为0！"
 msgstr "市場價格最小為0！"
 
-#: ../view/goods/goods/add.phtml:782
+#: ../view/goods/goods/add.phtml:797
 msgid "优惠价格必须为数字！"
 msgstr "優惠價格必須為數字！"
 
-#: ../view/goods/goods/add.phtml:783
+#: ../view/goods/goods/add.phtml:798
 msgid "优惠价格最长20个数字！"
 msgstr "優惠價格最長20個數字！"
 
-#: ../view/goods/goods/add.phtml:784
+#: ../view/goods/goods/add.phtml:799
 msgid "优惠价格最小为0！"
 msgstr "優惠價格最小為0！"
 
-#: ../view/goods/goods/add.phtml:787 ../view/goods/goods/add.phtml:791
-#: ../view/goods/goods/add.phtml:795
+#: ../view/goods/goods/add.phtml:802 ../view/goods/goods/add.phtml:806
+#: ../view/goods/goods/add.phtml:810
 msgid "必须输入整数！"
 msgstr "必須輸入整數！"
 
-#: ../view/goods/goods/add.phtml:799
+#: ../view/goods/goods/add.phtml:814
 msgid "扩展标题最多80个字符！"
 msgstr "擴展標題最多80個字符！"
 
-#: ../view/goods/goods/add.phtml:802
+#: ../view/goods/goods/add.phtml:817
 msgid "商品关键字最多200个字符！"
 msgstr "商品關鍵字最多200個字符！"
 
-#: ../view/goods/goods/add.phtml:805
+#: ../view/goods/goods/add.phtml:820
 msgid "商品描述最多500个字符！"
 msgstr "商品描述最多500個字符！"
 
-#: ../view/goods/goods/add.phtml:808
+#: ../view/goods/goods/add.phtml:823
 msgid "虚拟销量必须为数字！"
 msgstr "虛擬銷量必須為數字！"
 
-#: ../view/goods/goods/add.phtml:809
+#: ../view/goods/goods/add.phtml:824
 msgid "虚拟销量最小为0！"
 msgstr "虛擬銷量最小為0！"
 
-#: ../view/goods/goods/add.phtml:812
+#: ../view/goods/goods/add.phtml:827
 msgid "积分购买必须为数字！"
 msgstr "積分購買必須為數字！"
 
-#: ../view/goods/goods/add.phtml:813
+#: ../view/goods/goods/add.phtml:828
 msgid "积分购买最小为0！"
 msgstr "積分購買最小為0！"
 
-#: ../view/goods/goods/add.phtml:820 ../view/goods/goods/index.phtml:255
+#: ../view/goods/goods/add.phtml:835 ../view/goods/goods/index.phtml:259
 msgid "您确实要删除该商品吗？"
 msgstr "您確實要刪除該商品嗎？"
 
-#: ../view/goods/goods/add.phtml:827 ../view/goods/goods/index.phtml:262
+#: ../view/goods/goods/add.phtml:842 ../view/goods/goods/index.phtml:266
 msgid "商品删除失败！"
 msgstr "商品刪除失敗！"
 
-#: ../view/goods/goods/add.phtml:982
+#: ../view/goods/goods/add.phtml:997
 msgid "销售属性中的商品价格不能为空，且不能小于0！"
 msgstr "銷售屬性中的商品價格不能為空，且不能小於0！"
 
-#: ../view/goods/goods/add.phtml:991
+#: ../view/goods/goods/add.phtml:1006
 msgid "销售属性中的商品库存不能为空,且必须为数字不能小于0！"
 msgstr "銷售屬性中的商品庫存不能為空,且必須為數字不能小於0！"
 
-#: ../view/goods/goods/add.phtml:1000
+#: ../view/goods/goods/add.phtml:1015
 msgid "销售属性中的商品货号不能为空！"
 msgstr "銷售屬性中的商品貨號不能為空！"
 
-#: ../view/goods/goods/add.phtml:1035
+#: ../view/goods/goods/add.phtml:1050
 msgid "更新显示失败！"
 msgstr "更新顯示失敗！"
 
-#: ../view/goods/goods/add.phtml:1052
+#: ../view/goods/goods/add.phtml:1067
 msgid "图片排序必须为数字！"
 msgstr "圖片排序必須為數字！"
 
-#: ../view/goods/goods/add.phtml:1057
+#: ../view/goods/goods/add.phtml:1072
 msgid "图片排序不能大于255或小于0"
 msgstr "圖片排序不能大於255或小於0"
 
-#: ../view/goods/goods/add.phtml:1065
+#: ../view/goods/goods/add.phtml:1080
 msgid "更新成功！"
 msgstr "更新成功！"
 
-#: ../view/goods/goods/add.phtml:1068
+#: ../view/goods/goods/add.phtml:1083
 msgid "更新失败！"
 msgstr "更新失敗！"
 
-#: ../view/goods/goods/add.phtml:1074
+#: ../view/goods/goods/add.phtml:1089
 #: ../view/goods/goods/clear-goods-image.phtml:32
 msgid "您确实删除图片"
 msgstr "您確實刪除圖片"
 
-#: ../view/goods/goods/add.phtml:1081
+#: ../view/goods/goods/add.phtml:1096
 #: ../view/goods/goods/clear-goods-image.phtml:39
 #: ../view/goods/tag/add-spec-tag.phtml:125 ../view/goods/tag/add.phtml:139
 msgid "删除失败！"
 msgstr "刪除失敗！"
 
-#: ../view/goods/goods/add.phtml:1097
+#: ../view/goods/goods/add.phtml:1112
 msgid "上传商品图片"
 msgstr "上傳商品圖片"
 
-#: ../view/goods/goods/add.phtml:1126
+#: ../view/goods/goods/add.phtml:1141
 msgid "上传失败！"
 msgstr "上傳失敗！"
 
-#: ../view/goods/goods/add.phtml:1162
+#: ../view/goods/goods/add.phtml:1177
 msgid "无新的商品图片"
 msgstr "無新的商品圖片"
 
-#: ../view/goods/goods/add.phtml:1180
+#: ../view/goods/goods/add.phtml:1195
 msgid "评价删除失败！"
 msgstr "評價刪除失敗！"
 
-#: ../view/goods/goods/add.phtml:1203 ../view/goods/goods/add.phtml:1257
+#: ../view/goods/goods/add.phtml:1218 ../view/goods/goods/add.phtml:1272
 #: ../view/goods/tag/add-spec-tag.phtml:146 ../view/goods/tag/add.phtml:159
 msgid "该商品不存在，请从新选择！"
 msgstr "該商品不存在，請從新選擇！"
 
-#: ../view/goods/goods/add.phtml:1221
+#: ../view/goods/goods/add.phtml:1236
 msgid "该关联商品已经存在，无需再次添加！"
 msgstr "該關聯商品已經存在，無需再次添加！"
 
-#: ../view/goods/goods/add.phtml:1223
+#: ../view/goods/goods/add.phtml:1238
 msgid "关联商品添加失败！"
 msgstr "關聯商品添加失敗！"
 
-#: ../view/goods/goods/add.phtml:1229
+#: ../view/goods/goods/add.phtml:1244
 msgid "您确实要删除该关联商品吗？"
 msgstr "您確實要刪除該關聯商品嗎？"
 
-#: ../view/goods/goods/add.phtml:1235
+#: ../view/goods/goods/add.phtml:1250
 msgid "关联商品删除失败！"
 msgstr "關聯商品刪除失敗！"
 
-#: ../view/goods/goods/add.phtml:1275
+#: ../view/goods/goods/add.phtml:1290
 msgid "该组合商品已经存在，无需再次添加！"
 msgstr "該組合商品已經存在，無需再次添加！"
 
-#: ../view/goods/goods/add.phtml:1277
+#: ../view/goods/goods/add.phtml:1292
 msgid "组合商品添加失败！"
 msgstr "組合商品添加失敗！"
 
-#: ../view/goods/goods/add.phtml:1283
+#: ../view/goods/goods/add.phtml:1298
 msgid "您确实要删除该组合商品吗？"
 msgstr "您確實要刪除該組合商品嗎？"
 
-#: ../view/goods/goods/add.phtml:1289
+#: ../view/goods/goods/add.phtml:1304
 msgid "组合商品删除失败！"
 msgstr "組合商品刪除失敗！"
 
-#: ../view/goods/goods/add.phtml:1297
+#: ../view/goods/goods/add.phtml:1312
 msgid "请先输入商品价格！"
 msgstr "請先輸入商品價格！"
 
-#: ../view/goods/goods/add.phtml:1301
+#: ../view/goods/goods/add.phtml:1316
 msgid "积分转换失败！"
 msgstr "積分轉換失敗！"
 
@@ -1955,16 +1977,72 @@ msgstr "返回商品列表"
 msgid "图片ID"
 msgstr "圖片ID"
 
+#: ../view/goods/goods/goods-index.phtml:3
+#: ../view/goods/goods/goods-index.phtml:9
+#: ../view/goods/goods/goods-index.phtml:28
+msgid "商品索引"
+msgstr "商品索引"
+
+#: ../view/goods/goods/goods-index.phtml:11
+msgid "保存索引设置"
+msgstr "保存索引設置"
+
+#: ../view/goods/goods/goods-index.phtml:20
+msgid "正在更新索引……，请您耐心等待，更新过程中请不要关闭此页面！"
+msgstr "正在更新索引……，請您耐心等待，更新過程中請不要關閉此頁面！"
+
+#: ../view/goods/goods/goods-index.phtml:22
+msgid "索引说明"
+msgstr "索引說明"
+
+#: ../view/goods/goods/goods-index.phtml:24
+msgid ""
+"首次开启，如果系统内已经有商品，请点击下面的 <b>更新按钮</b> 进行更新。想了"
+"解 <b>商品索引</b> 请点击右上角 <b>查看帮助说明</b>。"
+msgstr ""
+"首次開啟，如果系統內已經有商品，請點擊下面的 b>更新按鈕</b> 進行更新。想了解 "
+"<b>商品索引</b> 請點擊右上角 <b>查看幫助說明</b>。"
+
+#: ../view/goods/goods/goods-index.phtml:34
+msgid "商品总数"
+msgstr "商品總數"
+
+#: ../view/goods/goods/goods-index.phtml:36
+#: ../view/goods/goods/goods-index.phtml:43
+#: ../view/goods/goods/goods-index.phtml:51
+msgid "个"
+msgstr "個"
+
+#: ../view/goods/goods/goods-index.phtml:40
+msgid "未索引商品数"
+msgstr "未索引商品數"
+
+#: ../view/goods/goods/goods-index.phtml:44
+msgid "未索引商品包括没有设置商品分类或者商品分类被禁用的商品"
+msgstr "未索引商品包括沒有設置商品分類或者商品分類被禁用的商品"
+
+#: ../view/goods/goods/goods-index.phtml:49
+msgid "已索引商品数"
+msgstr "已索引商品數"
+
+#: ../view/goods/goods/goods-index.phtml:57
+msgid "点击更新商品索引"
+msgstr "點擊更新商品索引"
+
+#: ../view/goods/goods/goods-index.phtml:76
+msgid "索引更新成功！"
+msgstr "索引更新成功！"
+
 #: ../view/goods/goods/index.phtml:60 ../view/goods/promotions/add.phtml:7
 #: ../view/goods/promotions/add.phtml:118
 msgid "优惠商品"
 msgstr "優惠商品"
 
-#: ../view/goods/goods/index.phtml:108 ../view/goods/goods/index.phtml:185
+#: ../view/goods/goods/index.phtml:108 ../view/goods/goods/index.phtml:189
 msgid "缺货"
 msgstr "缺貨"
 
-#: ../view/goods/goods/index.phtml:120 ../view/goods/goods/index.phtml:192
+#: ../view/goods/goods/index.phtml:120 ../view/goods/goods/index.phtml:196
 msgid "可积分购买"
 msgstr "可積分購買"
 
@@ -1980,39 +2058,43 @@ msgstr "優惠中"
 msgid "优惠过期"
 msgstr "優惠過期"
 
-#: ../view/goods/goods/index.phtml:190
+#: ../view/goods/goods/index.phtml:180
+msgid "未设置商品分类，前台不能显示！"
+msgstr "未設置商品分類，前台不能顯示！"
+
+#: ../view/goods/goods/index.phtml:194
 msgid "需补货"
 msgstr "需補貨"
 
-#: ../view/goods/goods/index.phtml:200
+#: ../view/goods/goods/index.phtml:204
 msgid "查看并补货"
 msgstr "查看并補貨"
 
-#: ../view/goods/goods/index.phtml:207
+#: ../view/goods/goods/index.phtml:211
 msgid "商品预览"
 msgstr "商品預覽"
 
-#: ../view/goods/goods/index.phtml:216
+#: ../view/goods/goods/index.phtml:220
 msgid "全选"
 msgstr "全選"
 
-#: ../view/goods/goods/index.phtml:220
+#: ../view/goods/goods/index.phtml:224
 msgid "更改状态"
 msgstr "更改狀態"
 
-#: ../view/goods/goods/index.phtml:227
+#: ../view/goods/goods/index.phtml:231
 msgid "提交操作"
 msgstr "提交操作"
 
-#: ../view/goods/goods/index.phtml:243
+#: ../view/goods/goods/index.phtml:247
 msgid "请至少选择一条商品信息！"
 msgstr "請至少選擇一條商品信息！"
 
-#: ../view/goods/goods/index.phtml:247
+#: ../view/goods/goods/index.phtml:251
 msgid "请选择操作事件！"
 msgstr "請選擇操作事件！"
 
-#: ../view/goods/goods/index.phtml:250
+#: ../view/goods/goods/index.phtml:254
 msgid "您确实要执行该操作吗？"
 msgstr "您確實要執行該操作嗎？"
 

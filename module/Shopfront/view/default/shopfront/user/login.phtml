@@ -10,20 +10,25 @@
                     </div>
                 </div>
             	<div class="control-group">
-            	<label for="input01" class="control-label"><?php echo $this->translate('会员名称'); ?>：</label>
+            	<label for="input01" class="control-label"><?php echo $this->translate('登录名称'); ?><span class="must_add_value">*</span>：</label>
             		<div class="controls">
-              		<input type="text" id="user_name" placeholder="<?php echo $this->translate('输入会员名称'); ?>" name="user_name">
+						<?php
+							$userPlaceholder = $this->translate('会员名称');
+							if($this->email_login_state == 'true') $userPlaceholder .= '/'.$this->translate('电子邮箱');
+							if($this->phone_login_state == 'true') $userPlaceholder .= '/'.$this->translate('手机号码');
+						?>
+              		<input type="text" id="user_name" placeholder="<?php echo $userPlaceholder; ?>" name="user_name">
             		</div>
           		</div>
             	<div class="control-group">
-            	<label for="input01" class="control-label"><?php echo $this->translate('会员密码'); ?>：</label>
+            	<label for="input01" class="control-label"><?php echo $this->translate('会员密码'); ?><span class="must_add_value">*</span>：</label>
             		<div class="controls">
               		<input type="password" id="user_password" name="user_password" placeholder="<?php echo $this->translate('输入会员密码'); ?>">
             		</div>
           		</div>
-                <?php if ($this->frontwebsite()->websiteInfo('user_login_captcha') == 'true') { ?>
+                <?php if ($this->frontwebsite()->websiteCaptchaState('user_login_captcha') == 'true') { ?>
             	<div class="control-group">
-            	<label for="input01" class="control-label"><?php echo $this->translate('验证码'); ?>：</label>
+            	<label for="input01" class="control-label"><?php echo $this->translate('验证码'); ?><span class="must_add_value">*</span>：</label>
             		<div class="controls">
               		<input type="text" class="input-small" id="captcha_code" name="captcha_code" placeholder="<?php echo $this->translate('输入验证码'); ?>">&nbsp;<span id="login_captcha_id"></span>
             		</div>
@@ -80,7 +85,7 @@ $(document).ready(function() {
             user_password: {
 				required: true
 			}
-            <?php if ($this->frontwebsite()->websiteInfo('user_register_captcha') == 'true') { ?>
+            <?php if ($this->frontwebsite()->websiteCaptchaState('user_register_captcha') == 'true') { ?>
             ,
 			captcha_code: {
 				required:true,
@@ -103,7 +108,7 @@ $(document).ready(function() {
             user_password: {
 				required: "<?php echo $this->translate('请输入密码！'); ?>"
 			}
-            <?php if ($this->frontwebsite()->websiteInfo('user_register_captcha') == 'true') { ?>
+            <?php if ($this->frontwebsite()->websiteCaptchaState('user_register_captcha') == 'true') { ?>
             ,
 			captcha_code: {
 				required:"<?php echo $this->translate('验证码不能为空！'); ?>",
@@ -114,7 +119,7 @@ $(document).ready(function() {
 	});
 });
 
-<?php if ($this->frontwebsite()->websiteInfo('user_login_captcha') == 'true') { ?>
+<?php if ($this->frontwebsite()->websiteCaptchaState('user_login_captcha') == 'true') { ?>
 //验证码添加
 function captchaAdd() {
 	$.get("<?php echo $this->url('shopfront/default',array('action'=>'captcha')); ?>",{},

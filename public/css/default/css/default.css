@@ -607,27 +607,6 @@ font-size:12px;
     width: 48px;
 }
 
-a#go-top {
-    background: url("../img/gotop.png") no-repeat scroll 8px -57px #666666;
-    border-radius: 4px 4px 4px 4px;
-    color: #999999;
-    display: block;
-    height: 50px;
-    line-height: 25px;
-    margin-bottom: 15px;
-    outline: 0 none;
-    position: relative;
-    right: 50px;
-    text-align: center;
-    text-decoration: none;
-    text-indent: -9999em;
-    width: 50px;
-}
-a#go-top:hover {
-    background-color: #333333;
-    background-position: 8px 13px;
-}
-
 .must_add_value {
 	color:#F00;
 	margin-left:2px;

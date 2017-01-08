@@ -6,13 +6,18 @@
   </p>
 </div>
 <div class="well well-small" style="margin-top:6px; background-color:#FFF;">
-	<ul class="thumbnails">
+    <table width="100%">
+        <tbody>
         <?php
-        	if(isset($this->online_template_list) and !empty($this->online_template_list)) {
-				foreach($this->online_template_list as $online_template_value) {
-		?>
-    	<li class="span3" style="margin:0 10px; padding:8px;">
-        	<div class="thumbnail">
+        if(isset($this->online_template_list) and !empty($this->online_template_list)) {
+        $b_num = count($this->online_template_list)-1;
+        foreach($this->online_template_list as $b_key => $online_template_value) {
+        $b_y_num = $b_key%4; if ($b_key == 0) echo '<tr>';
+        if ($b_y_num==0 and $b_key!=0) echo '</tr><tr>';
+        if ($b_num==$b_key) {
+        ?>
+            <td width="25%">
+        	<div style="border: 1px solid #aaa;margin: 5px 8px 5px 8px;padding: 5px;">
         		<img src="<?php echo $this->update_url . $online_template_value['template_image']; ?>"  />
             	<div class="caption">
                 	<table width="100%">
@@ -33,16 +38,50 @@
                     </table>
                 </div>
         	</div>
-        </li>
-        <?php } } else { ?>
-            <?php if (isset($this->soap_state) and $this->soap_state!='') { ?>
+            </td>
+            <?php $y_td_num = 4-$b_y_num-1;
+            for($i=1;$i<=$y_td_num; $i++) {
+                echo '<td width="25%"></td>';
+            }
+            ?>
+            </tr>
+        <?php } else { ?>
+            <td width="25%">
+        	<div style="border: 1px solid #aaa;margin: 5px 8px 5px 8px;padding: 5px;">
+        		<img src="<?php echo $this->update_url . $online_template_value['template_image']; ?>"  />
+            	<div class="caption">
+                	<table width="100%">
+                    	<tr bgcolor="#CCCCCC">
+                            <td><h3>&nbsp;<?php echo $online_template_value['template_name']; ?></h3></td>
+                            <td align="right">
+                                <?php
+                                $install_state = false;
+                                if(in_array($online_template_value['template_str'], $this->installed_template)) $install_state = true;
+                                ?>
+                                <span id="install_button_<?php echo $online_template_value['template_id']; ?>">
+                                <a href="javascript:;" onclick="online_template_info(<?php echo $online_template_value['template_id']; ?>);" style="cursor:pointer;" class="btn btn-info btn-large"><?php echo $this->translate('简介'); ?></a>&nbsp;
+
+                                    <a href="javascript:;" <?php if(!$install_state) echo 'onclick="start_install_template('.$online_template_value['template_id'].');"'; ?> class="btn btn-large <?php if($install_state) echo 'btn-success'; else echo 'btn-primary'; ?>" style="cursor:pointer;"><?php if($install_state) echo $this->translate('已安装'); else echo $this->translate('安装'); ?></a>&nbsp;
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+        	</div>
+            </td>
+        <?php } } } else { ?>
+
+                <?php if (isset($this->soap_state) and $this->soap_state!='') { ?>
                 <?php if($this->soap_state=='false') {?>
                     <span class="label label-important"><h5><?php echo $this->translate('您的环境没有开启soap，不能使用该功能！'); ?></h5></span>
                 <?php } elseif ($this->soap_state=='no_link') {?>
                     <span class="label label-important"><h5><?php echo $this->translate('无法连接更新服务器，不能使用该功能！'); ?></h5></span>
                 <?php } ?>
-        <?php } } ?>
-    </ul>
+        <?php } ?>
+        <span class="label label-info"><h5><?php echo $this->translate('暂时没有新模板！'); ?></h5></span>
+        <?php } ?>
+        </tbody>
+    </table>
 </div>
 
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

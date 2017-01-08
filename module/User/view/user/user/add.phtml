@@ -121,9 +121,17 @@
            					<div class="controls">
               					<input type="text" id="user_birthday"  name="user_birthday" value="<?php echo ($this->user_info ? $this->user_info->user_birthday : ''); ?>" onclick="WdatePicker({el:'user_birthday'})" class="span3 Wdate">
             				</div>                        
-                        </div> 
+                        </div>
+						<?php
+						$userEmailRegisterState = $this->frontwebsite()->getRegOrLoginIni('register_email_state');
+						$userPhoneRegisterState = $this->frontwebsite()->getRegOrLoginIni('register_phone_state');
+						?>
                     	<div class="control-group">
-                  			<label for="input01" class="control-label"><?php echo $this->translate('电子邮件'); ?><span class="must_add_value">*</span>：</label>
+                  			<label for="input01" class="control-label"><?php echo $this->translate('电子邮件'); ?>
+								<?php if ($userEmailRegisterState == 'true') { ?>
+									<span class="must_add_value">*</span>
+								<?php } ?>
+								：</label>
            					<div class="controls">
               					<input type="text" id="user_email"  name="user_email"  value="<?php echo ($this->user_info ? $this->user_info->user_email : ''); ?>" class="span6">
             				</div>                        
@@ -141,7 +149,11 @@
             				</div>                        
                         </div>
 						<div class="control-group">
-							<label for="input01" class="control-label"><?php echo $this->translate('手机号码'); ?>：</label>
+							<label for="input01" class="control-label"><?php echo $this->translate('手机号码'); ?>
+								<?php if ($userPhoneRegisterState == 'true') { ?>
+									<span class="must_add_value">*</span>
+								<?php } ?>
+								：</label>
 							<div class="controls">
 								<input type="text" id="user_phone"  name="user_phone"  value="<?php echo ($this->user_info ? $this->user_info->user_phone : ''); ?>" class="span4">
 							</div>
@@ -315,7 +327,9 @@ $(document).ready(function() {
 			},
 			<?php } ?>
 			user_email: {
+				<?php if ($userEmailRegisterState == 'true') { ?>
 				required: true,
+				<?php } ?>
 				email: true,
 				remote :{
 					url : '<?php echo $this->url('frontuser/default/user_id',array('action'=>'check','controller'=>'user','module'=>'user','check_type'=>'user_email','user_id'=>($this->user_info ? $this->user_info->user_id : '0'))); ?>',
@@ -341,6 +355,12 @@ $(document).ready(function() {
 				minlength: 6,
 				maxlength: 20,
 				equalTo: '#user_password'
+			},
+			user_phone: {
+				<?php if ($userPhoneRegisterState == 'true') { ?>
+				required: true,
+				<?php } ?>
+				isMobile: true
 			}
 		},
 		messages: {
@@ -355,7 +375,9 @@ $(document).ready(function() {
 			},
 			<?php } ?>
 			user_email: {
+				<?php if ($userEmailRegisterState == 'true') { ?>
 				required: "<?php echo $this->translate('请输入电子邮箱！'); ?>",
+				<?php } ?>
 				email: "<?php echo $this->translate('电子邮箱格式错误！'); ?>",
 				remote: "<?php echo $this->translate('该邮箱已经存在'); ?>"
 			},
@@ -373,6 +395,12 @@ $(document).ready(function() {
 				minlength: "<?php echo $this->translate('至少输入6位确认密码！'); ?>",
 				maxlength: "<?php echo $this->translate('确认密码最长为20位！'); ?>",
 				equalTo: "<?php echo $this->translate('两次输入的密码不一致！'); ?>"
+			},
+			user_phone: {
+				<?php if ($userPhoneRegisterState == 'true') { ?>
+				required: "<?php echo $this->translate('手机号码不能为空！'); ?>",
+				<?php } ?>
+				isMobile: "<?php echo $this->translate('请输入正确的手机号码！'); ?>"
 			}
 		}
 	});

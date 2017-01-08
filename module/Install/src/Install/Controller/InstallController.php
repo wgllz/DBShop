@@ -32,8 +32,8 @@ class InstallController extends AbstractActionController
     public function indexAction()
     {
         //检测php版本，如果版本过低提示
-        if (version_compare(phpversion(), '5.3.23', '<') === true or version_compare(phpversion(), '7.0', '>=') === true) {
-            die('ERROR: Your PHP version is ' . phpversion() . '. DBShop requires PHP 5.3.23 or newer(Version is less than 7.0).<br><br>错误：您的 PHP 版本是 ' . phpversion() . '。DBShop系统支持 PHP5.3.23或者更高版本（目前系统不支持 PHP 7.0 版本）。');
+        if (version_compare(phpversion(), '5.3.23', '<') === true) {
+            die('ERROR: Your PHP version is ' . phpversion() . '. DBShop requires PHP 5.3.23 or newer.<br><br>错误：您的 PHP 版本是 ' . phpversion() . '。DBShop系统支持 PHP5.3.23或者更高版本。');
         }
         //检查程序是否安装
         if(file_exists(DBSHOP_PATH . '/data/install.lock')) {

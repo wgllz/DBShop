@@ -56,9 +56,15 @@ class HomeController extends FronthomeController
         $userId = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');
 
         if($this->request->isPost()) {
+            //判断注册项中是否开启了邮箱注册
+            $userEmailRegisterState = $this->getServiceLocator()->get('frontHelper')->getRegOrLoginIni('register_email_state');
+            //判断注册项中是否开启手机号码
+            $userPhoneRegisterState = $this->getServiceLocator()->get('frontHelper')->getRegOrLoginIni('register_phone_state');
             //服务器端数据验证
             $userValidate = new FormUserValidate($this->getDbshopLang());
-            $userValidate->checkUserForm($this->request->getPost(), 'homeUserEdit');
+            if($userEmailRegisterState == 'true' and $userPhoneRegisterState == 'true') $userValidate->checkUserForm($this->request->getPost(), 'homeUserAllEdit');
+            if($userEmailRegisterState != 'true' and $userPhoneRegisterState == 'true') $userValidate->checkUserForm($this->request->getPost(), 'homeUserPhoneEdit');
+            if($userEmailRegisterState == 'true' and $userPhoneRegisterState != 'true') $userValidate->checkUserForm($this->request->getPost(), 'homeUserEdit');
 
             $userArray = $this->request->getPost()->toArray();
 
@@ -200,11 +206,10 @@ class HomeController extends FronthomeController
     public function delotherloginAction() {
         $lType            = $this->request->getQuery('login_type');
         $loginType        = 'QQ';
-        if($lType == 'weixin') {
-            $loginType = 'Weixin';
-            $actionName= 'weixinset';
-        } else {
-            $actionName= 'qqset';
+        $actionName       = 'qqset';
+        if($lType !='' and $lType != 'qq') {
+            $loginType = ucfirst($lType);
+            $actionName= strtolower($lType).'set';
         }
 
         $userId = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');

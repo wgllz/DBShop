@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-24 17:35+0800\n"
-"PO-Revision-Date: 2016-11-24 17:35+0800\n"
+"POT-Creation-Date: 2016-12-06 20:43+0800\n"
+"PO-Revision-Date: 2016-12-06 20:43+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_CN\n"
@@ -16,39 +16,39 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../src/System/Controller/OnlineController.php:52
-#: ../src/System/Controller/OnlineController.php:85
-#: ../src/System/Controller/OnlineController.php:113
+#: ../src/System/Controller/OnlineController.php:53
+#: ../src/System/Controller/OnlineController.php:86
+#: ../src/System/Controller/OnlineController.php:114
 msgid "客服管理"
 msgstr ""
 
-#: ../src/System/Controller/OnlineController.php:52
+#: ../src/System/Controller/OnlineController.php:53
 msgid "添加客服"
 msgstr ""
 
-#: ../src/System/Controller/OnlineController.php:85
+#: ../src/System/Controller/OnlineController.php:86
 msgid "更新客服"
 msgstr ""
 
-#: ../src/System/Controller/OnlineController.php:113
+#: ../src/System/Controller/OnlineController.php:114
 msgid "删除客服"
 msgstr ""
 
-#: ../src/System/Controller/OnlineController.php:174
-#: ../src/System/Controller/OnlineController.php:196
-#: ../src/System/Controller/OnlineController.php:227
+#: ../src/System/Controller/OnlineController.php:165
+#: ../src/System/Controller/OnlineController.php:187
+#: ../src/System/Controller/OnlineController.php:218
 msgid "客服组管理"
 msgstr ""
 
-#: ../src/System/Controller/OnlineController.php:174
+#: ../src/System/Controller/OnlineController.php:165
 msgid "添加客服组"
 msgstr ""
 
-#: ../src/System/Controller/OnlineController.php:196
+#: ../src/System/Controller/OnlineController.php:187
 msgid "更新客服组"
 msgstr ""
 
-#: ../src/System/Controller/OnlineController.php:227
+#: ../src/System/Controller/OnlineController.php:218
 msgid "删除客服组"
 msgstr ""
 
@@ -66,85 +66,85 @@ msgstr ""
 msgid "性能优化设置保存成功！"
 msgstr ""
 
-#: ../src/System/Controller/SystemController.php:45
+#: ../src/System/Controller/SystemController.php:47
 #: ../view/system/system/index.phtml:3 ../view/system/system/index.phtml:17
 msgid "系统设置"
 msgstr ""
 
-#: ../src/System/Controller/SystemController.php:45
+#: ../src/System/Controller/SystemController.php:47
 msgid "更新系统设置"
 msgstr ""
 
-#: ../src/System/Controller/SystemController.php:55
+#: ../src/System/Controller/SystemController.php:57
 msgid "系统设置保存成功！"
 msgstr ""
 
-#: ../src/System/Controller/SystemController.php:102
+#: ../src/System/Controller/SystemController.php:108
 msgid "附件设置"
 msgstr ""
 
-#: ../src/System/Controller/SystemController.php:102
+#: ../src/System/Controller/SystemController.php:108
 msgid "更新附件设置"
 msgstr ""
 
-#: ../src/System/Controller/SystemController.php:107
+#: ../src/System/Controller/SystemController.php:113
 msgid "附件设置保存成功！"
 msgstr ""
 
-#: ../src/System/Controller/SystemController.php:137
+#: ../src/System/Controller/SystemController.php:143
 #: ../view/system/system/userset.phtml:3
-#: ../view/system/system/userset.phtml:10
+#: ../view/system/system/userset.phtml:11
 msgid "客户设置"
 msgstr ""
 
-#: ../src/System/Controller/SystemController.php:137
+#: ../src/System/Controller/SystemController.php:143
 msgid "更新客户设置"
 msgstr ""
 
-#: ../src/System/Controller/SystemController.php:142
+#: ../src/System/Controller/SystemController.php:148
 msgid "客户设置保存成功！"
 msgstr ""
 
-#: ../src/System/Controller/SystemController.php:166
+#: ../src/System/Controller/SystemController.php:174
 msgid "手机短信提醒设置"
 msgstr ""
 
-#: ../src/System/Controller/SystemController.php:166
+#: ../src/System/Controller/SystemController.php:174
 msgid "更新设置"
 msgstr ""
 
-#: ../src/System/Controller/SystemController.php:168
+#: ../src/System/Controller/SystemController.php:176
 msgid "手机短信提醒设置保存成功！"
 msgstr ""
 
-#: ../src/System/Controller/SystemController.php:220
+#: ../src/System/Controller/SystemController.php:228
 msgid "邮件提醒设置保存成功！"
 msgstr ""
 
 #: ../src/System/FormValidate/FormSystemValidate.php:59
-#: ../view/system/system/index.phtml:367
+#: ../view/system/system/index.phtml:409
 msgid "网站名称不能为空"
 msgstr ""
 
 #: ../src/System/FormValidate/FormSystemValidate.php:65
-#: ../view/system/system/index.phtml:370
+#: ../view/system/system/index.phtml:412
 msgid "系统时区不能为空"
 msgstr ""
 
 #: ../src/System/FormValidate/FormSystemValidate.php:71
 #: ../src/System/FormValidate/FormSystemValidate.php:78
-#: ../view/system/system/index.phtml:373
+#: ../view/system/system/index.phtml:415
 msgid "发信人邮件地址不能为空"
 msgstr ""
 
 #: ../src/System/FormValidate/FormSystemValidate.php:72
 #: ../src/System/FormValidate/FormSystemValidate.php:79
-#: ../view/system/system/index.phtml:374
+#: ../view/system/system/index.phtml:416
 msgid "请正确填写邮件地址"
 msgstr ""
 
 #: ../src/System/FormValidate/FormSystemValidate.php:91
-#: ../view/system/system/userset.phtml:234
+#: ../view/system/system/userset.phtml:304
 msgid "请选择客户默认组！"
 msgstr ""
 
@@ -168,8 +168,10 @@ msgstr ""
 
 #: ../view/system/online/add.phtml:4 ../view/system/online/add.phtml:22
 #: ../view/system/online/groupadd.phtml:4
-#: ../view/system/online/groupadd.phtml:22 ../view/system/system/index.phtml:4
-#: ../view/system/system/index.phtml:25
+#: ../view/system/online/groupadd.phtml:22
+#: ../view/system/online/online-style.phtml:4
+#: ../view/system/online/online-style.phtml:17
+#: ../view/system/system/index.phtml:4 ../view/system/system/index.phtml:25
 #: ../view/system/system/phone-message-set.phtml:4
 #: ../view/system/system/send-message-set.phtml:4
 #: ../view/system/system/send-message-set.phtml:24
@@ -191,11 +193,12 @@ msgid "返回在线客服列表"
 msgstr ""
 
 #: ../view/system/online/add.phtml:13 ../view/system/online/groupadd.phtml:13
+#: ../view/system/online/online-style.phtml:11
 #: ../view/system/optimization/index.phtml:13
 #: ../view/system/system/index.phtml:19
 #: ../view/system/system/phone-message-set.phtml:11
 #: ../view/system/system/send-message-set.phtml:18
-#: ../view/system/system/userset.phtml:12
+#: ../view/system/system/userset.phtml:13
 msgid "刷新"
 msgstr ""
 
@@ -209,11 +212,12 @@ msgstr ""
 
 #: ../view/system/online/add.phtml:18 ../view/system/online/group.phtml:5
 #: ../view/system/online/groupadd.phtml:18 ../view/system/online/index.phtml:5
+#: ../view/system/online/online-style.phtml:13
 #: ../view/system/optimization/index.phtml:15
 #: ../view/system/system/index.phtml:21
 #: ../view/system/system/phone-message-set.phtml:13
 #: ../view/system/system/send-message-set.phtml:20
-#: ../view/system/system/userset.phtml:14
+#: ../view/system/system/userset.phtml:15
 msgid "查看帮助说明"
 msgstr ""
 
@@ -239,82 +243,87 @@ msgstr ""
 msgid "选择通讯工具"
 msgstr ""
 
-#: ../view/system/online/add.phtml:50
+#: ../view/system/online/add.phtml:52
 msgid ""
 "如果您设置的是QQ 需要到这里开通下 <a href='http://shang.qq.com/widget/set."
 "php' target='_blank'>http://shang.qq.com/widget/set.php</a>"
 msgstr ""
 
-#: ../view/system/online/add.phtml:54
+#: ../view/system/online/add.phtml:56
 msgid "通讯帐号"
 msgstr ""
 
-#: ../view/system/online/add.phtml:60
+#: ../view/system/online/add.phtml:62
 msgid "客服排序"
 msgstr ""
 
-#: ../view/system/online/add.phtml:66
+#: ../view/system/online/add.phtml:68
 msgid "客服状态"
 msgstr ""
 
-#: ../view/system/online/add.phtml:68 ../view/system/online/group.phtml:24
+#: ../view/system/online/add.phtml:70 ../view/system/online/group.phtml:24
 #: ../view/system/online/groupadd.phtml:47
 #: ../view/system/online/index.phtml:27 ../view/system/system/index.phtml:89
-#: ../view/system/system/index.phtml:257
+#: ../view/system/system/index.phtml:195 ../view/system/system/index.phtml:204
+#: ../view/system/system/index.phtml:213 ../view/system/system/index.phtml:229
+#: ../view/system/system/index.phtml:299
+#: ../view/system/system/userset.phtml:232
+#: ../view/system/system/userset.phtml:240
+#: ../view/system/system/userset.phtml:278
 msgid "启用"
 msgstr ""
 
-#: ../view/system/online/add.phtml:69 ../view/system/online/group.phtml:24
+#: ../view/system/online/add.phtml:71 ../view/system/online/group.phtml:24
 #: ../view/system/online/groupadd.phtml:48
 #: ../view/system/online/index.phtml:27
 msgid "禁用"
 msgstr ""
 
-#: ../view/system/online/add.phtml:106
+#: ../view/system/online/add.phtml:108
 msgid "在线客服名称不能为空！"
 msgstr ""
 
-#: ../view/system/online/add.phtml:107
+#: ../view/system/online/add.phtml:109
 msgid "在线客服名称最多输入30个汉字！"
 msgstr ""
 
-#: ../view/system/online/add.phtml:110
+#: ../view/system/online/add.phtml:112
 msgid "请选择客户组！"
 msgstr ""
 
-#: ../view/system/online/add.phtml:113
+#: ../view/system/online/add.phtml:115
 msgid "请选择通讯工具！"
 msgstr ""
 
-#: ../view/system/online/add.phtml:116
+#: ../view/system/online/add.phtml:118
 msgid "在线客服帐号不能为空！"
 msgstr ""
 
-#: ../view/system/online/add.phtml:117
+#: ../view/system/online/add.phtml:119
 msgid "在线客服帐号最多输入100个字符！"
 msgstr ""
 
-#: ../view/system/online/add.phtml:120
+#: ../view/system/online/add.phtml:122
 msgid "在线客服排序不能为空！"
 msgstr ""
 
-#: ../view/system/online/add.phtml:121
+#: ../view/system/online/add.phtml:123
 msgid "在线客服排序必须为数字！"
 msgstr ""
 
-#: ../view/system/online/add.phtml:122
+#: ../view/system/online/add.phtml:124
 msgid "在线客服排序最小为1！"
 msgstr ""
 
-#: ../view/system/online/add.phtml:123
+#: ../view/system/online/add.phtml:125
 msgid "在线客服排序最大为255！"
 msgstr ""
 
-#: ../view/system/online/add.phtml:131 ../view/system/online/index.phtml:38
+#: ../view/system/online/add.phtml:133 ../view/system/online/index.phtml:38
 msgid "您确实要删除该在线客服吗？"
 msgstr ""
 
-#: ../view/system/online/add.phtml:138 ../view/system/online/index.phtml:45
+#: ../view/system/online/add.phtml:140 ../view/system/online/index.phtml:45
 msgid "在线客服删除失败！"
 msgstr ""
 
@@ -453,6 +462,38 @@ msgstr ""
 msgid "状态"
 msgstr ""
 
+#: ../view/system/online/online-style.phtml:3
+msgid "在线客服样式"
+msgstr ""
+
+#: ../view/system/online/online-style.phtml:9
+msgid "在线客服样式设置"
+msgstr ""
+
+#: ../view/system/online/online-style.phtml:12
+msgid "保存设置信息"
+msgstr ""
+
+#: ../view/system/online/online-style.phtml:20
+msgid "客服样式选择"
+msgstr ""
+
+#: ../view/system/online/online-style.phtml:23
+msgid "默认样式"
+msgstr ""
+
+#: ../view/system/online/online-style.phtml:24
+msgid "个性样式-1"
+msgstr ""
+
+#: ../view/system/online/online-style.phtml:25
+msgid "个性样式-2"
+msgstr ""
+
+#: ../view/system/online/online-style.phtml:27
+msgid "点击链接查看客服的不同样式"
+msgstr ""
+
 #: ../view/system/optimization/index.phtml:4
 #: ../view/system/optimization/index.phtml:19
 msgid "基本优化"
@@ -497,29 +538,29 @@ msgid "前台缓存状态"
 msgstr ""
 
 #: ../view/system/optimization/index.phtml:59
-#: ../view/system/system/userset.phtml:49
+#: ../view/system/system/userset.phtml:50
 msgid "请选择"
 msgstr ""
 
 #: ../view/system/optimization/index.phtml:60
 #: ../view/system/optimization/index.phtml:92
-#: ../view/system/system/index.phtml:266
-#: ../view/system/system/userset.phtml:25
-#: ../view/system/system/userset.phtml:119
-#: ../view/system/system/userset.phtml:145
-#: ../view/system/system/userset.phtml:171
-#: ../view/system/system/userset.phtml:197
-msgid "开启"
-msgstr ""
-
-#: ../view/system/optimization/index.phtml:61
-#: ../view/system/optimization/index.phtml:93
-#: ../view/system/system/index.phtml:265
+#: ../view/system/system/index.phtml:308
 #: ../view/system/system/userset.phtml:26
 #: ../view/system/system/userset.phtml:120
 #: ../view/system/system/userset.phtml:146
 #: ../view/system/system/userset.phtml:172
 #: ../view/system/system/userset.phtml:198
+msgid "开启"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:61
+#: ../view/system/optimization/index.phtml:93
+#: ../view/system/system/index.phtml:307
+#: ../view/system/system/userset.phtml:27
+#: ../view/system/system/userset.phtml:121
+#: ../view/system/system/userset.phtml:147
+#: ../view/system/system/userset.phtml:173
+#: ../view/system/system/userset.phtml:199
 msgid "关闭"
 msgstr ""
 
@@ -581,20 +622,20 @@ msgstr ""
 msgid "邮件服务器"
 msgstr ""
 
-#: ../view/system/system/index.phtml:9 ../view/system/system/index.phtml:209
+#: ../view/system/system/index.phtml:9 ../view/system/system/index.phtml:251
 msgid "商品设置"
 msgstr ""
 
-#: ../view/system/system/index.phtml:10 ../view/system/system/index.phtml:239
+#: ../view/system/system/index.phtml:10 ../view/system/system/index.phtml:281
 #: ../view/system/system/phone-message-set.phtml:17
 msgid "手机短信"
 msgstr ""
 
-#: ../view/system/system/index.phtml:11 ../view/system/system/index.phtml:250
+#: ../view/system/system/index.phtml:11 ../view/system/system/index.phtml:292
 msgid "二维码设置"
 msgstr ""
 
-#: ../view/system/system/index.phtml:12 ../view/system/system/index.phtml:275
+#: ../view/system/system/index.phtml:12 ../view/system/system/index.phtml:317
 msgid "统计设置"
 msgstr ""
 
@@ -689,127 +730,159 @@ msgstr ""
 msgid "商品如何购买"
 msgstr ""
 
-#: ../view/system/system/index.phtml:185
+#: ../view/system/system/index.phtml:185 ../view/system/system/index.phtml:219
+msgid "类型说明"
+msgstr ""
+
+#: ../view/system/system/index.phtml:187
+msgid "系统内置验证码"
+msgstr ""
+
+#: ../view/system/system/index.phtml:191 ../view/system/system/index.phtml:225
 msgid "注册需验证码"
 msgstr ""
 
-#: ../view/system/system/index.phtml:191
+#: ../view/system/system/index.phtml:200
 msgid "登录需验证码"
 msgstr ""
 
-#: ../view/system/system/index.phtml:197
+#: ../view/system/system/index.phtml:209
 msgid "商品咨询需验证码"
 msgstr ""
 
-#: ../view/system/system/index.phtml:214
-msgid "商品分享"
+#: ../view/system/system/index.phtml:221
+msgid "手机短信验证码"
 msgstr ""
 
-#: ../view/system/system/index.phtml:217
-msgid "不启用分享"
-msgstr ""
-
-#: ../view/system/system/index.phtml:218 ../view/system/system/index.phtml:221
-msgid "百度分享(图标式)"
-msgstr ""
-
-#: ../view/system/system/index.phtml:219 ../view/system/system/index.phtml:222
-msgid "百度分享(文字式)"
-msgstr ""
-
-#: ../view/system/system/index.phtml:220 ../view/system/system/index.phtml:223
-msgid "百度分享(浮窗式)"
-msgstr ""
-
-#: ../view/system/system/index.phtml:225
-msgid "显示在前台商品详细页面，用于分享商品到其他系统功能。"
+#: ../view/system/system/index.phtml:221
+msgid ""
+"启用前，请确保您已经开通并启用手机短信功能，启用方式 系统管理-》消息提醒设"
+"置-》手机短信提醒设置"
 msgstr ""
 
 #: ../view/system/system/index.phtml:229
+msgid ""
+"启用手机验证码，需要同时启用手机注册项 设置地址 系统设置 -》客户设置-》注册与"
+"登录"
+msgstr ""
+
+#: ../view/system/system/index.phtml:234
+msgid "验证码间隔时间"
+msgstr ""
+
+#: ../view/system/system/index.phtml:241
+msgid "秒"
+msgstr ""
+
+#: ../view/system/system/index.phtml:256
+msgid "商品分享"
+msgstr ""
+
+#: ../view/system/system/index.phtml:259
+msgid "不启用分享"
+msgstr ""
+
+#: ../view/system/system/index.phtml:260 ../view/system/system/index.phtml:263
+msgid "百度分享(图标式)"
+msgstr ""
+
+#: ../view/system/system/index.phtml:261 ../view/system/system/index.phtml:264
+msgid "百度分享(文字式)"
+msgstr ""
+
+#: ../view/system/system/index.phtml:262 ../view/system/system/index.phtml:265
+msgid "百度分享(浮窗式)"
+msgstr ""
+
+#: ../view/system/system/index.phtml:267
+msgid "显示在前台商品详细页面，用于分享商品到其他系统功能。"
+msgstr ""
+
+#: ../view/system/system/index.phtml:271
 msgid "商品货号前缀"
 msgstr ""
 
-#: ../view/system/system/index.phtml:232
+#: ../view/system/system/index.phtml:274
 msgid "当添加商品时，没有添加商品货号，商品货号会自动生成，货号前缀+数字字符串"
 msgstr ""
 
-#: ../view/system/system/index.phtml:244
+#: ../view/system/system/index.phtml:286
 msgid "该功能已经迁移至 系统管理->消息提醒设置->手机短信设置"
 msgstr ""
 
-#: ../view/system/system/index.phtml:255
+#: ../view/system/system/index.phtml:297
 msgid "站点二维码"
 msgstr ""
 
-#: ../view/system/system/index.phtml:258
+#: ../view/system/system/index.phtml:300
 msgid "开启后，前台顶部出现二维码，用户可以通过手机扫描，进行手机访问"
 msgstr ""
 
-#: ../view/system/system/index.phtml:262
+#: ../view/system/system/index.phtml:304
 msgid "前台商品二维码"
 msgstr ""
 
-#: ../view/system/system/index.phtml:268
+#: ../view/system/system/index.phtml:310
 msgid ""
 "启用前台商品二维码后，用户通过手机扫描前台商品内容页面里的二维码，可以进行手"
 "机访问。"
 msgstr ""
 
-#: ../view/system/system/index.phtml:280
+#: ../view/system/system/index.phtml:322
 msgid "整合站内统计"
 msgstr ""
 
-#: ../view/system/system/index.phtml:283
+#: ../view/system/system/index.phtml:325
 msgid "百度统计"
 msgstr ""
 
-#: ../view/system/system/index.phtml:288
+#: ../view/system/system/index.phtml:330
 msgid "百度统计账户"
 msgstr ""
 
-#: ../view/system/system/index.phtml:294
+#: ../view/system/system/index.phtml:336
 msgid "百度统计密码"
 msgstr ""
 
-#: ../view/system/system/index.phtml:300
+#: ../view/system/system/index.phtml:342
 msgid "百度统计Token"
 msgstr ""
 
-#: ../view/system/system/index.phtml:306
+#: ../view/system/system/index.phtml:348
 msgid "百度统计站点"
 msgstr ""
 
-#: ../view/system/system/index.phtml:317
+#: ../view/system/system/index.phtml:359
 msgid "点击获取(更新)统计站点"
 msgstr ""
 
-#: ../view/system/system/index.phtml:322
+#: ../view/system/system/index.phtml:364
 msgid "统计代码"
 msgstr ""
 
-#: ../view/system/system/index.phtml:328
+#: ../view/system/system/index.phtml:370
 msgid "统计说明"
 msgstr ""
 
-#: ../view/system/system/index.phtml:331
+#: ../view/system/system/index.phtml:373
 msgid ""
 "当使用整合站点统计功能时，统计代码必须填写百度统计代码。如果不使用整合站内统"
 "计功能，可以填写任何统计系统的代码。"
 msgstr ""
 
-#: ../view/system/system/index.phtml:377
+#: ../view/system/system/index.phtml:419
 msgid "发送人名称不能为空"
 msgstr ""
 
-#: ../view/system/system/index.phtml:388
+#: ../view/system/system/index.phtml:430
 msgid "百度统计账户不能为空！"
 msgstr ""
 
-#: ../view/system/system/index.phtml:390
+#: ../view/system/system/index.phtml:432
 msgid "百度统计密码不能为空！"
 msgstr ""
 
-#: ../view/system/system/index.phtml:392
+#: ../view/system/system/index.phtml:434
 msgid "百度统计Token不能为空！"
 msgstr ""
 
@@ -902,6 +975,15 @@ msgstr ""
 
 #: ../view/system/system/phone-message-set.phtml:98
 msgid "订单取消模板ID"
+msgstr ""
+
+#: ../view/system/system/phone-message-set.phtml:105
+msgid "手机验证码模板ID"
+msgstr ""
+
+#: ../view/system/system/phone-message-set.phtml:108
+msgid ""
+"使用手机验证码，要在 系统管理-》系统设置-》验证码设置 里开启手机短信验证码。"
 msgstr ""
 
 #: ../view/system/system/send-message-set.phtml:3
@@ -1076,136 +1158,182 @@ msgid "回复时间"
 msgstr ""
 
 #: ../view/system/system/userset.phtml:4
-#: ../view/system/system/userset.phtml:18
+#: ../view/system/system/userset.phtml:19
 msgid "基本设置"
 msgstr ""
 
 #: ../view/system/system/userset.phtml:5
-#: ../view/system/system/userset.phtml:106
+#: ../view/system/system/userset.phtml:218
+msgid "注册与登录"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:6
+#: ../view/system/system/userset.phtml:107
 msgid "第三方登录"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:13
+#: ../view/system/system/userset.phtml:14
 msgid "保存客户设置"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:23
+#: ../view/system/system/userset.phtml:24
 msgid "客户注册状态"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:30
+#: ../view/system/system/userset.phtml:31
 msgid "注册关闭显示信息"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:36
+#: ../view/system/system/userset.phtml:37
 msgid "默认头像"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:46
+#: ../view/system/system/userset.phtml:47
 msgid "客户注册默认组"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:61
+#: ../view/system/system/userset.phtml:62
 msgid "新客户注册验证"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:64
+#: ../view/system/system/userset.phtml:65
 msgid "无需验证"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:65
+#: ../view/system/system/userset.phtml:66
 msgid "注册邮箱验证"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:66
+#: ../view/system/system/userset.phtml:67
 msgid "人工审核验证"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:71
+#: ../view/system/system/userset.phtml:72
 msgid "客户注册保留关键字"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:74
+#: ../view/system/system/userset.phtml:75
 msgid "输入注册客户名限制内容并用 | 分割，如 管理员|超级管理员|店主"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:78
+#: ../view/system/system/userset.phtml:79
 msgid "发送欢迎Email"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:84
+#: ../view/system/system/userset.phtml:85
 msgid "欢迎Email标题"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:87
-#: ../view/system/system/userset.phtml:94
+#: ../view/system/system/userset.phtml:88
+#: ../view/system/system/userset.phtml:95
 msgid ""
 "{username} 表示注册的会员名称<br>{shopname} 表示网店名称<br>{shopnameurl} 表"
 "示带url地址的店铺名称<br>{adminemail} 管理员邮箱<br>{time} 注册时间，精确到分"
 "钟"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:91
+#: ../view/system/system/userset.phtml:92
 msgid "欢迎Email内容"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:98
+#: ../view/system/system/userset.phtml:99
 msgid "客户注册协议"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:110
+#: ../view/system/system/userset.phtml:111
 msgid "前台顶部"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:112
+#: ../view/system/system/userset.phtml:113
 msgid "显示"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:117
+#: ../view/system/system/userset.phtml:118
 msgid "QQ互联登录"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:124
+#: ../view/system/system/userset.phtml:125
 msgid "回调地址"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:132
+#: ../view/system/system/userset.phtml:133
 msgid "点击查看如何获取QQ互联的APP ID 和 APP KEY"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:143
+#: ../view/system/system/userset.phtml:144
 msgid "微信登录(微信内)"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:150
-#: ../view/system/system/userset.phtml:176
+#: ../view/system/system/userset.phtml:151
+#: ../view/system/system/userset.phtml:177
 msgid "授权回调域"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:158
+#: ../view/system/system/userset.phtml:159
 msgid "点击去获取微信内登录的AppID 和 AppSecret"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:169
+#: ../view/system/system/userset.phtml:170
 msgid "微信登录(网站)"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:184
+#: ../view/system/system/userset.phtml:185
 msgid "点击去获取微信网站登录的AppID 和 AppSecret"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:195
+#: ../view/system/system/userset.phtml:196
 msgid "支付宝登录"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:202
+#: ../view/system/system/userset.phtml:203
 msgid "合作者身份 Pid"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:204
+#: ../view/system/system/userset.phtml:205
 msgid "点击去获取支付宝登录的Pid 和 Key"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:208
+#: ../view/system/system/userset.phtml:209
 msgid "安全校验码 Key"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:224
+msgid "系统注册项设置"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:229
+#: ../view/system/system/userset.phtml:275
+msgid "电子邮箱"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:237
+msgid "电话号码"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:248
+msgid "系统登录项设置"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:253
+msgid "可用登录名"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:256
+msgid "客户名称"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:259
+msgid "电子邮件"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:262
+msgid "手机号码"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:270
+msgid "第三方登录设置项（前提 您已经开启了第三方登录）"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:279
+msgid "这里的启用是指 第三方登录时，是否需要填写电子邮箱"
 msgstr ""

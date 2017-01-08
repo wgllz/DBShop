@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop V1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-23 00:08+0800\n"
-"PO-Revision-Date: 2016-09-23 00:08+0800\n"
+"POT-Creation-Date: 2016-12-07 21:40+0800\n"
+"PO-Revision-Date: 2016-12-07 21:40+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_TW\n"
@@ -16,39 +16,39 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../src/Template/Controller/PhonetemplateController.php:113
+#: ../src/Template/Controller/PhonetemplateController.php:117
 msgid "手机模板设置操作"
 msgstr "手機模板設置操作"
 
-#: ../src/Template/Controller/PhonetemplateController.php:113
-#: ../src/Template/Controller/TemplateController.php:117
+#: ../src/Template/Controller/PhonetemplateController.php:117
+#: ../src/Template/Controller/TemplateController.php:122
 msgid "启用模板"
 msgstr "啟用模板"
 
-#: ../src/Template/Controller/PhonetemplateController.php:157
-#: ../src/Template/Controller/PhonetemplateController.php:160
-#: ../src/Template/Controller/TemplateController.php:161
-#: ../src/Template/Controller/TemplateController.php:164
+#: ../src/Template/Controller/PhonetemplateController.php:161
+#: ../src/Template/Controller/PhonetemplateController.php:164
+#: ../src/Template/Controller/TemplateController.php:166
+#: ../src/Template/Controller/TemplateController.php:169
 msgid "该模板不存在！"
 msgstr "該模板不存在！"
 
-#: ../src/Template/Controller/PhonetemplateController.php:161
-#: ../src/Template/Controller/TemplateController.php:165
+#: ../src/Template/Controller/PhonetemplateController.php:165
+#: ../src/Template/Controller/TemplateController.php:170
 msgid "系统版本低，无法支持该模板，请您将系统版本升级到"
 msgstr "系統版本低，無法支持該模板，請您將系統版本升級到"
 
-#: ../src/Template/Controller/PhonetemplateController.php:178
-#: ../src/Template/Controller/TemplateController.php:192
+#: ../src/Template/Controller/PhonetemplateController.php:182
+#: ../src/Template/Controller/TemplateController.php:197
 msgid "下载的模板包与原始模板包不匹配，无法更新"
 msgstr "下載的模板包與原始模板包不匹配，無法更新"
 
-#: ../src/Template/Controller/PhonetemplateController.php:202
-#: ../src/Template/Controller/TemplateController.php:215
+#: ../src/Template/Controller/PhonetemplateController.php:206
+#: ../src/Template/Controller/TemplateController.php:220
 #, php-format
 msgid "无法正常更新文件，请检查%s对应的目录是否有相关权限"
 msgstr "無法正常更新文件，請檢查%s對應的目錄是否有相關權限"
 
-#: ../src/Template/Controller/TemplateController.php:117
+#: ../src/Template/Controller/TemplateController.php:122
 msgid "模板设置操作"
 msgstr "模板設置操作"
 
@@ -74,62 +74,69 @@ msgstr "在綫安裝新模板"
 msgid "查看帮助说明"
 msgstr "查看幫助說明"
 
-#: ../view/template/phonetemplate/index.phtml:17
-#: ../view/template/phonetemplate/index.phtml:50
-#: ../view/template/template/index.phtml:17
-#: ../view/template/template/index.phtml:50
+#: ../view/template/phonetemplate/index.phtml:26
+#: ../view/template/phonetemplate/index.phtml:68
+#: ../view/template/template/index.phtml:26
+#: ../view/template/template/index.phtml:68
 msgid "模板有更新"
 msgstr "模板有更新"
 
-#: ../view/template/phonetemplate/index.phtml:18
-#: ../view/template/phonetemplate/index.phtml:51
-#: ../view/template/template/index.phtml:18
-#: ../view/template/template/index.phtml:51
+#: ../view/template/phonetemplate/index.phtml:27
+#: ../view/template/phonetemplate/index.phtml:69
+#: ../view/template/template/index.phtml:27
+#: ../view/template/template/index.phtml:69
 msgid "点击更新"
 msgstr "點擊更新"
 
-#: ../view/template/phonetemplate/index.phtml:19
-#: ../view/template/phonetemplate/index.phtml:52
-#: ../view/template/phonetemplate/index.phtml:86
-#: ../view/template/template/index.phtml:19
-#: ../view/template/template/index.phtml:52
-#: ../view/template/template/index.phtml:86
-msgid "更新内容"
-msgstr "更新内容"
+#: ../view/template/phonetemplate/index.phtml:28
+#: ../view/template/phonetemplate/index.phtml:70
+#: ../view/template/template/index.phtml:28
+#: ../view/template/template/index.phtml:70
+msgid "查看更新内容"
+msgstr "查看更新内容"
 
-#: ../view/template/phonetemplate/index.phtml:30
-#: ../view/template/phonetemplate/index.phtml:63
-#: ../view/template/template/index.phtml:30
-#: ../view/template/template/index.phtml:63
+#: ../view/template/phonetemplate/index.phtml:39
+#: ../view/template/phonetemplate/index.phtml:81
+#: ../view/template/template/index.phtml:39
+#: ../view/template/template/index.phtml:81
 msgid "教程"
 msgstr "教程"
 
-#: ../view/template/phonetemplate/index.phtml:32
-#: ../view/template/template/index.phtml:32
+#: ../view/template/phonetemplate/index.phtml:43
+#: ../view/template/phonetemplate/index.phtml:85
+#: ../view/template/template/index.phtml:43
+#: ../view/template/template/index.phtml:85
 msgid "已启用"
 msgstr "已啟用"
 
-#: ../view/template/phonetemplate/index.phtml:34
-#: ../view/template/phonetemplate/index.phtml:67
-#: ../view/template/template/index.phtml:34
-#: ../view/template/template/index.phtml:67
-msgid "重装"
-msgstr "重裝"
-
-#: ../view/template/phonetemplate/index.phtml:65
-#: ../view/template/template/index.phtml:65
+#: ../view/template/phonetemplate/index.phtml:45
+#: ../view/template/phonetemplate/index.phtml:87
+#: ../view/template/template/index.phtml:45
+#: ../view/template/template/index.phtml:87
 msgid "启用"
 msgstr "啟用"
 
-#: ../view/template/phonetemplate/index.phtml:93
+#: ../view/template/phonetemplate/index.phtml:49
+#: ../view/template/phonetemplate/index.phtml:91
+#: ../view/template/template/index.phtml:49
+#: ../view/template/template/index.phtml:91
+msgid "重装"
+msgstr "重裝"
+
+#: ../view/template/phonetemplate/index.phtml:111
+#: ../view/template/template/index.phtml:111
+msgid "更新内容"
+msgstr "更新内容"
+
+#: ../view/template/phonetemplate/index.phtml:118
 #: ../view/template/phonetemplate/template-phone-info.phtml:14
-#: ../view/template/template/index.phtml:93
+#: ../view/template/template/index.phtml:118
 #: ../view/template/template/template-info.phtml:14
 msgid "关闭"
 msgstr "關閉"
 
-#: ../view/template/phonetemplate/index.phtml:103
-#: ../view/template/template/index.phtml:103
+#: ../view/template/phonetemplate/index.phtml:128
+#: ../view/template/template/index.phtml:128
 msgid ""
 "更新模板，将对现有模板文件进行覆盖，如果您对模板文件代码有所改动，请提前备"
 "份。您确定要更新这套模板吗？"
@@ -137,18 +144,18 @@ msgstr ""
 "更新模板，將對現有模板文件進行覆蓋，如果您對模板文件代碼有所改動，請提前備"
 "份。您確定要更新這套模板嗎？"
 
-#: ../view/template/phonetemplate/index.phtml:104
-#: ../view/template/template/index.phtml:104
+#: ../view/template/phonetemplate/index.phtml:129
+#: ../view/template/template/index.phtml:129
 msgid "更新中……"
 msgstr "更新中……"
 
-#: ../view/template/phonetemplate/index.phtml:110
-#: ../view/template/template/index.phtml:110
+#: ../view/template/phonetemplate/index.phtml:135
+#: ../view/template/template/index.phtml:135
 msgid "模板更新成功！"
 msgstr "模板更新成功！"
 
-#: ../view/template/phonetemplate/index.phtml:119
-#: ../view/template/template/index.phtml:119
+#: ../view/template/phonetemplate/index.phtml:144
+#: ../view/template/template/index.phtml:144
 msgid ""
 "重装模板，将对现有模板文件进行覆盖，如果您对模板文件代码有所改动，请提前备"
 "份。您确定要重新安装这套模板吗？"
@@ -156,8 +163,8 @@ msgstr ""
 "重裝模板，將對現有模板文件進行覆蓋，如果您對模板文件代碼有所改動，請提前備"
 "份。您確定要重新安裝這套模板嗎？"
 
-#: ../view/template/phonetemplate/index.phtml:126
-#: ../view/template/template/index.phtml:126
+#: ../view/template/phonetemplate/index.phtml:151
+#: ../view/template/template/index.phtml:151
 msgid "模板重装成功！"
 msgstr "模板重裝成功！"
 
@@ -170,45 +177,55 @@ msgstr "在綫手機模板安裝"
 msgid "返回模板管理"
 msgstr "返回模板管理"
 
-#: ../view/template/phonetemplate/install-phone-template.phtml:27
+#: ../view/template/phonetemplate/install-phone-template.phtml:32
+#: ../view/template/phonetemplate/install-phone-template.phtml:62
 #: ../view/template/phonetemplate/template-phone-info.phtml:7
-#: ../view/template/template/install-template.phtml:27
+#: ../view/template/template/install-template.phtml:32
+#: ../view/template/template/install-template.phtml:62
 #: ../view/template/template/template-info.phtml:7
 msgid "简介"
 msgstr "簡介"
 
-#: ../view/template/phonetemplate/install-phone-template.phtml:29
-#: ../view/template/template/install-template.phtml:29
+#: ../view/template/phonetemplate/install-phone-template.phtml:34
+#: ../view/template/phonetemplate/install-phone-template.phtml:64
+#: ../view/template/template/install-template.phtml:34
+#: ../view/template/template/install-template.phtml:64
 msgid "已安装"
 msgstr "已安裝"
 
-#: ../view/template/phonetemplate/install-phone-template.phtml:29
-#: ../view/template/template/install-template.phtml:29
+#: ../view/template/phonetemplate/install-phone-template.phtml:34
+#: ../view/template/phonetemplate/install-phone-template.phtml:64
+#: ../view/template/template/install-template.phtml:34
+#: ../view/template/template/install-template.phtml:64
 msgid "安装"
 msgstr "安裝"
 
-#: ../view/template/phonetemplate/install-phone-template.phtml:40
-#: ../view/template/template/install-template.phtml:40
+#: ../view/template/phonetemplate/install-phone-template.phtml:76
+#: ../view/template/template/install-template.phtml:76
 msgid "您的环境没有开启soap，不能使用该功能！"
 msgstr "您的環境沒有開啓soap，不能使用該功能！"
 
-#: ../view/template/phonetemplate/install-phone-template.phtml:42
-#: ../view/template/template/install-template.phtml:42
+#: ../view/template/phonetemplate/install-phone-template.phtml:78
+#: ../view/template/template/install-template.phtml:78
 msgid "无法连接更新服务器，不能使用该功能！"
 msgstr "無法連接更新服務器，不能使用該功能！"
 
-#: ../view/template/phonetemplate/install-phone-template.phtml:60
-#: ../view/template/template/install-template.phtml:60
+#: ../view/template/phonetemplate/install-phone-template.phtml:81
+msgid "暂时没有新模板！"
+msgstr "暫時沒有新模板！"
+
+#: ../view/template/phonetemplate/install-phone-template.phtml:99
+#: ../view/template/template/install-template.phtml:97
 msgid "没有介绍信息！"
 msgstr "沒有介紹信息！"
 
-#: ../view/template/phonetemplate/install-phone-template.phtml:66
-#: ../view/template/template/install-template.phtml:66
+#: ../view/template/phonetemplate/install-phone-template.phtml:105
+#: ../view/template/template/install-template.phtml:103
 msgid "安装中……"
 msgstr "安裝中……"
 
-#: ../view/template/phonetemplate/install-phone-template.phtml:72
-#: ../view/template/template/install-template.phtml:72
+#: ../view/template/phonetemplate/install-phone-template.phtml:111
+#: ../view/template/template/install-template.phtml:109
 msgid "模板安装成功！"
 msgstr "模板安裝成功！"
 

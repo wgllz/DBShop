@@ -1,7 +1,12 @@
 <?php
 //header('Access-Control-Allow-Origin: http://www.baidu.com'); //设置http://www.baidu.com允许跨域访问
 //header('Access-Control-Allow-Headers: X-Requested-With,X_Requested_With'); //设置允许的跨域header
-date_default_timezone_set("Asia/Shanghai");
+//时区设定
+if(function_exists('date_default_timezone_set')){
+    if(defined('DBSHOP_TIMEZONE')) date_default_timezone_set(DBSHOP_TIMEZONE);
+    else date_default_timezone_set("Asia/Shanghai");
+}
+
 error_reporting(E_ERROR);
 header("Content-Type: text/html; charset=utf-8");
 
@@ -11,7 +16,7 @@ $CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents("
 $action = $_GET['action'];
 
 $dbshop_php_self = $_SERVER['PHP_SELF'] ? dirname($_SERVER['PHP_SELF']) : dirname($_SERVER['SCRIPT_NAME']);
-$substr_dbshop_str = eregi("WIN",PHP_OS) ? str_replace('/', '\\', $dbshop_php_self) : $dbshop_php_self;
+$substr_dbshop_str = strpos(PHP_OS, "WIN") !== false ? str_replace('/', '\\', $dbshop_php_self) : $dbshop_php_self;
 
 switch ($action) {
     case 'config':

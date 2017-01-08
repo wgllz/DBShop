@@ -60,6 +60,7 @@
                         </ul>
                     </li>
                     <li><a href="<?php echo $this->url('promotions/default'); ?>"><?php echo $this->translate('优惠促销规则'); ?></a></li>
+                    <li><a href="<?php echo $this->url('goods/default', array('action'=>'goodsIndex')); ?>"><?php echo $this->translate('商品索引'); ?></a></li>
                 </ul>
             </li>
             <li class="dropdown <?php if($this->myviewalias()->returnNamespace() == 'User\Controller') echo 'active'; ?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><?php echo $this->translate('客户管理'); ?> <b class="caret"></b></a>
@@ -149,8 +150,9 @@
                 	<li class="dropdown-submenu">
                 	<a href="#"><?php echo $this->translate('在线客服设置'); ?></a>
                 	   <ul class="dropdown-menu">
-                	       <li><a href="<?php echo $this->url('online/default'); ?>"><?php echo $this->translate('在线客服成员'); ?></a></li>
-                	       <li><a href="<?php echo $this->url('online/default', array('action'=>'group')); ?>"><?php echo $this->translate('在线客服分组'); ?></a></li>
+                           <li><a href="<?php echo $this->url('online/default', array('action'=>'onlineStyle')); ?>"><?php echo $this->translate('客服样式设置'); ?></a></li>
+                           <li><a href="<?php echo $this->url('online/default', array('action'=>'group')); ?>"><?php echo $this->translate('在线客服分组'); ?></a></li>
+                           <li><a href="<?php echo $this->url('online/default'); ?>"><?php echo $this->translate('在线客服成员'); ?></a></li>
                 	   </ul>
                 	</li>
                 	<li><a href="<?php echo $this->url('template/default'); ?>"><?php echo $this->translate('模板管理'); ?></a></li>

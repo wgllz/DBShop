@@ -19,6 +19,10 @@ error_reporting(E_ERROR | E_PARSE);
 @set_time_limit(0);
 @ini_set('memory_limit','128M');
 
+//检测php版本，如果版本过低提示
+if (version_compare(phpversion(), '5.3.23', '<') === true) {
+    die('ERROR: Your PHP version is ' . phpversion() . '. DBShop requires PHP 5.3.23 or newer.<br><br>错误：您的 PHP 版本是 ' . phpversion() . '。DBShop系统支持 PHP5.3.23或者更高版本。');
+}
 
 $loader = include 'vendor/autoload.php';
 

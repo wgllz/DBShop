@@ -89,9 +89,6 @@ class ArticleController extends AbstractActionController
         $array['article_class_info'] = $this->getDbshopTable('ArticleClassTable')->infoArticleClass(array('dbshop_article_class.article_class_id'=>$array['article_body']->article_class_id, 'e.language'=>$this->getDbshopLang()->getLocale()));
         $array['class_menu'] = $this->getDbshopTable('ArticleClassTable')->selectArticleClass('dbshop_article_class.article_class_id IN ('.$array['article_class_info']->article_class_path.')', array('dbshop_article_class.article_class_path ASC'));
 
-        //分享代码
-        $array['share_code'] = @file_get_contents(DBSHOP_PATH . '/data/moduledata/System/goods/share/baidu/text.php');
-
         //上一篇
         $array['pre_article'] = $this->getDbshopTable('ArticleTable')->infoArticle(array('dbshop_article.article_class_id='.$array['article_body']->article_class_id, 'dbshop_article.article_id < '.$article_id, 'e.language="'.$this->getDbshopLang()->getLocale().'"'), 1);
         //下一篇
@@ -109,8 +106,6 @@ class ArticleController extends AbstractActionController
         $singleArticleId = (int) $this->params('cms_id', 0);
         $array['single_article_info'] = $this->getDbshopTable('SingleArticleTable')->infoSingleArticle(array('dbshop_single_article.single_article_id'=>$singleArticleId, 'e.language'=>$this->getDbshopLang()->getLocale()));
 
-        //分享代码
-        $array['share_code'] = @file_get_contents(DBSHOP_PATH . '/data/moduledata/System/goods/share/baidu/text.php');
 
         //单页文章信息输出到layout
         $this->layout()->title_name         = $array['single_article_info']->single_article_title;

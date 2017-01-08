@@ -34,7 +34,14 @@
 	
     echo $this->headMeta();
 ?>
-
+    <!--[if lte IE 6]>
+    <script>
+        window.location = "<?php echo $this->basePath('public/support-browser.html'); ?>";
+    </script>
+    <![endif]-->
+    <!--[if lte IE 8]>
+    <script src="<?php echo $this->basePath('public/js/html5.js'); ?>"></script>
+    <![endif]-->
 <link href="<?php echo ($this->frontwebsite()->websiteInfo('shop_ico') != '' ? $this->basePath($this->frontwebsite()->websiteInfo('shop_ico')) : ''); ?>" rel="shortcut icon">
 <link href="<?php
 $dbshop_front_template_dir = 'default';
@@ -45,14 +52,6 @@ if((defined('DBSHOP_TEMPLATE') and DBSHOP_TEMPLATE != '' and DBSHOP_TEMPLATE != 
 }
 echo $this->basePath('public/css/'.$dbshop_front_template_dir.'/css/'.$dbshop_front_template_css.'.css'); 
 ?>" rel="stylesheet">
-<script type="text/javascript">
-if (/MSIE 6/.test(navigator.userAgent)) {
-	window.location = '<?php echo $this->basePath('public/support-browser.html'); ?>';
-}
-</script>
-<!--[if lte IE 8]>
-<script src="<?php echo $this->basePath('public/js/html5.js'); ?>"></script>
-<![endif]-->
 <?php 
 $dbshopApplication = 'Product';
 if($dbshopApplication != 'Product') {
@@ -68,7 +67,7 @@ if($dbshopApplication != 'Product') {
 <script src="<?php echo $this->basePath('public/css/'.$dbshop_front_template_dir.'/js/frontJs.js'); ?>"></script>
 <?php }?>
 </head>
-<body>
+<body id="dbshop-body">
 <?php echo $this->partial('site/header'); ?>
 <?php echo $this->content; ?>
 <?php echo $this->partial('site/footer'); ?>
@@ -86,7 +85,7 @@ echo '<p class="shop_footer" align="center" style="padding-top:8px;margin:0;">';
 echo '</p>';
 } ?>
 <p align="center" style="padding-bottom:8px;padding-top:<?php echo $footer_px_num; ?>px;">Copyright &copy;<?php echo DBSHOP_YEAR_COPYRIGHT; ?> <a href="<?php echo DBSHOP_FRONT_COPYRIGHT_URL; ?>" target="_blank" style="color:#FFF"><?php echo DBSHOP_FRONT_COPYRIGHT; ?></a> <?php echo $this->translate('版权所有');
-if ($this->frontwebsite()->websiteInfo('shop_icp')) echo '<br />'.$this->frontwebsite()->websiteInfo('shop_icp');
+if ($this->frontwebsite()->websiteInfo('shop_icp')) echo '<br /><a href="http://www.miitbeian.gov.cn/" target="_blank" style="color: #fff;">'.$this->frontwebsite()->websiteInfo('shop_icp').'</a>';
 echo '<br />'.$this->frontwebsite()->getSystemContent('statistics');
 ?></p>
 </div>
@@ -104,89 +103,28 @@ echo '<br />'.$this->frontwebsite()->getSystemContent('statistics');
     /*悬浮停留提示封装*/
     $('.shop_admin_help_note').popover({trigger:'hover',html:true});
 </script>
-<script src="<?php echo $this->basePath('public/js/go-top.js'); ?>"></script>
-<?php 
-/**
- * 设置统计功能，此统计有别于浏览统计，包括订单及销售统计功能，目前使用第三方统计
- */
-$dbTongji     = $this->frontwebsite()->getAnalyticsIni('db_Tongji');
-$dbTongJiId   = $this->frontwebsite()->getAnalyticsIni('db_TongJi_Id');
-$dbTongJiType = $this->frontwebsite()->getAnalyticsIni('db_TongJi_Type');
-
-if($dbTongji == 'TRUE') {
-    echo '<script type="text/javascript">';
-    if($dbTongJiType == 'fenxi.com') {//http://mba.fenxi.com聚合数据平台
-        echo 'var _mvq=_mvq||[];_mvq.push(["$setAccount","'.$dbTongJiId.'"]);';
-        $dbTongJiUserOrId   = '"'.$this->frontwebsite()->getUserSession('user_name').'","'.$this->frontwebsite()->getUserSession('user_id').'"';
-        //网站首页
-        if($this->dbTongJiPage == 'index') {
-            echo '_mvq.push(["$setGeneral","index","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);';
-        }
-        //品牌列表
-        if($this->dbTongJiPage == 'brandlist') {
-            echo '_mvq.push(["$setGeneral","brandlist","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);';
-        }
-        //品牌详情
-        if($this->dbTongJiPage == 'brandinfo') {
-            echo '_mvq.push(["$setGeneral","branddetail","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);_mvq.push(["$addBrand","'.$this->escapeHtml($this->tj_brand_name).'","'.$this->tj_brand_id.'"]);_mvq.push(["$logData"]);';
-        }
-        //商品分类
-        if($this->dbTongJiPage == 'goods_class') {
-            echo '_mvq.push(["$setGeneral","category","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);_mvq.push(["$addCategory","'.$this->escapeHtml($this->tj_class_name).'","'.$this->tj_class_id.'"]);_mvq.push(["$logData"]);';
-        }
-        //商品详情
-        if($this->dbTongJiPage == 'goods_body') {
-            echo '_mvq.push(["$setGeneral","goodsdetail","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);_mvq.push(["$addGoods","'.$this->tongji_goods_class_id.'","'.$this->tongji_goods_brand_id.'","'.$this->escapeHtml($this->tongji_goods_name).'","'.$this->tongji_goods_id.'","'.$this->tongji_goods_shop_price.'","'.$this->tongji_goods_image.'","'.$this->escapeHtml($this->tongji_goods_class_name).'","'.$this->escapeHtml($this->tongji_goods_brand_name).'","'.($this->tongji_goods_stock_state > 0 ? 1 : 0).'","'.$this->tongji_goods_price.'","",""]);_mvq.push(["$logData"]);';
-        }
-        //商品搜索
-        if($this->dbTongJiPage == 'goods_search') {
-            echo '_mvq.push(["$setGeneral","searchresult","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);_mvq.push(["$addSearchResult","'.$this->escapeHtml($this->tj_search_keywords).'","'.$this->tj_search_count.'"]);_mvq.push(["$logData"]);';
-        }
-        //会员注册页面
-        if($this->dbTongJiPage == 'user_register') {
-            echo '_mvq.push(["$setGeneral","register","","",""]);_mvq.push(["$logConversion"]);';
-        }
-        //会员登录页面
-        if($this->dbTongJiPage == 'user_login') {
-            echo '_mvq.push(["$setGeneral","login","","",""]);_mvq.push(["$logConversion"]);';
-        }
-        //会员中心首页
-        if($this->dbTongJiPage == 'user_home') {
-            echo '_mvq.push(["$setGeneral", "memberindex", "",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);';
-        }
-        //购物车页面
-        if($this->dbTongJiPage == 'cart') {
-            echo '_mvq.push(["$setGeneral","cartview","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);';
-            foreach ($this->tongji_cart_goods_array as $tj_cart_goods) {
-                echo '_mvq.push(["$addItem","","'.$tj_cart_goods['goods_id'].'","",""]);_mvq.push(["$logData"]);';
-            }
-        }
-        //购物车第三步核对信息
-        if($this->dbTongJiPage == 'cart_step_3') {
-            echo '_mvq.push(["$setGeneral","checkout","",'.$dbTongJiUserOrId.']);';
-            foreach ($this->tongji_cart_goods_array as $tj_cart_goods) {
-                echo '_mvq.push(["$logConversion"]);_mvq.push(["$addCartGoods","'.$tj_cart_goods['goods_id'].'","'.$this->escapeHtml($tj_cart_goods['goods_name']).'","'.$tj_cart_goods['goods_shop_price'].'","'.$tj_cart_goods['buy_num'].'"]);_mvq.push(["$logData"]);';
-            }
-        }
-        //提交订单成功
-        if($this->dbTongJiPage == 'submit_order') {
-            echo '_mvq.push(["$setGeneral","ordercreate","",'.$dbTongJiUserOrId.']);_mvq.push(["$logConversion"]);_mvq.push(["$addOrder","'.$this->tongji_order_sn.'","'.$this->tongji_order_price.'"]);';
-            foreach ($this->tongji_order_goods_array as $tj_goods) {
-                $imageP = $this->frontwebsite()->shopGoodsImage($tj_goods['goods_image']);
-                if(strpos($imageP, 'http://') === false && strpos($imageP, 'https://') === false) {
-                    $imageP = $this->serverUrl().$this->basePath('/').$this->basePath($imageP);
-                }
-                echo '_mvq.push(["$addItem","'.$this->tongji_order_sn.'","'.$tj_goods['goods_id'].'","'.$this->escapeHtml($tj_goods['goods_name']).'","'.$tj_goods['goods_shop_price'].'","'.$tj_goods['buy_num'].'","'.$this->serverUrl().$this->url('frontgoods/default', array('goods_id'=>$tj_goods['goods_id'], 'class_id'=>$tj_goods['class_id'])).'","'.$imageP.'"]);_mvq.push(["$logData"]);';
-            }
-        }
-        
-        //总的浏览统计代码
-        echo '_mvq.push(["$logConversion"]);(function(){var b=document.createElement("script");b.type="text/javascript";b.async=true;b.src=("https:"==document.location.protocol?"https://static-ssl.mediav.com/mvl.js":"http://static.mediav.com/mvl.js");var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})();';
-    }
-    echo '</script>';
-}
-?>
 
 <?php if(isset($this->kefu_html) and $this->kefu_html != '') echo $this->partial('site/kefu', array('kefuHtml'=>$this->kefu_html)); ?>
+
+<style type="text/css">
+    .go-top{position:fixed;width:40px;bottom:15%;right:0;z-index:890;}
+    .go-top .go-top-box{width:100%;margin-bottom:3px;background:#d9d9d9;text-align:center;}
+    .go-top .go-top-box a{display:block;height:35px;padding-top:5px;}
+    .go-top .go-top-box a:hover{background:#777777;text-decoration:none;}
+    .go-top .go-top-box a:hover .asid_title,.go-top .go-top-box .asid_title{color:#fff;font-size:12px;display:block;padding-left:6px;line-height:18px;width:30px;margin-top:-2px;}
+</style>
+<div class="go-top" id="go-top">
+    <div class="go-top-box relative" style="display:none;">
+        <a href="#"><img alt="<?php echo $this->translate('返回顶部'); ?>" title="<?php echo $this->translate('返回顶部'); ?>" class="adid_icon" src="<?php echo $this->basePath('public/img/icon_back.png'); ?>"></a>
+    </div>
+</div>
+<script>
+    (function(e){e.fn.hhShare=function(t){var n={cenBox:"go-top-box",icon:"adid_icon",addClass:"red_bag",titleClass:"asid_title",triangle:"asid_share_triangle",showBox:"asid_sha_layer"},r=e.extend(n,t);this.each(function(){var t=e(this),n=e("."+r.cenBox).last();n.hide(),e("."+r.triangle+","+"."+r.showBox).hide(),e("."+r.cenBox).live({mouseenter:function(){var t=e(this).find("."+r.icon),n=e(this).find("."+r.icon).attr("alt");t.hide(),e(this).addClass(r.addClass),e(this).children("a").append('<b class="'+r.titleClass+'">'+n+"</b>"),e(this).find("."+r.triangle+","+"."+r.showBox).show()},mouseleave:function(){var t=e(this).find("."+r.icon),n=e(this).find("."+r.icon).attr("alt");t.show(),e(this).removeClass(r.addClass),e(this).find("."+r.titleClass).remove(),e(this).find("."+r.triangle+","+"."+r.showBox).hide()}}),e(window).scroll(function(){e(window).scrollTop()>100?n.fadeIn():n.fadeOut()}),n.click(function(){return e("body,html").animate({scrollTop:0},500),!1})})}})(jQuery);
+    $(function(){
+        $('#go-top').hhShare({
+            icon       : 'adid_icon'
+        });
+    });
+</script>
 </body>
 </html>

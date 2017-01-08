@@ -1,22 +1,72 @@
 <?php
 if($this->kefuHtml) {
+  $onlineStyle = $this->frontwebsite()->getOnlinestyle();
 ?>
-<LINK rel=stylesheet type=text/css href="<?php echo $this->basePath('public/js/kefu/css/kefu.css'); ?>">
-<DIV id=floatTools class=float0831>
-  <DIV class=floatL><A style="DISPLAY: none" id=aFloatTools_Show class=btnOpen 
-title=<?php echo $this->translate('查看在线客服'); ?> 
-onclick="javascript:$('#divFloatToolsView').animate({width: 'show', opacity: 'show'}, 'normal',function(){ $('#divFloatToolsView').show(); });$('#aFloatTools_Show').attr('style','display:none');$('#aFloatTools_Hide').attr('style','display:block');" 
-href="javascript:void(0);"><?php echo $this->translate('展开'); ?></A> <A id=aFloatTools_Hide class=btnCtn 
-title=<?php echo $this->translate('关闭在线客服'); ?> 
-onclick="javascript:$('#divFloatToolsView').animate({width: 'hide', opacity: 'hide'}, 'normal',function(){ $('#divFloatToolsView').hide(); });$('#aFloatTools_Show').attr('style','display:block');$('#aFloatTools_Hide').attr('style','display:none');" 
-href="javascript:void(0);"><?php echo $this->translate('收缩'); ?></A> </DIV>
-  <DIV id=divFloatToolsView class=floatR>
-    <DIV class=tp></DIV>
-    <DIV class=cn>
-      <UL>
-        <?php echo $this->kefuHtml; ?>
-      </UL>
+    <?php if ($onlineStyle == 'default') {//默认样式 ?>
+    <LINK rel=stylesheet type=text/css href="<?php echo $this->basePath('public/js/kefu/css/kefu.css'); ?>">
+    <DIV id=floatTools class=float0831>
+      <DIV class=floatL><A style="DISPLAY: none" id=aFloatTools_Show class=btnOpen
+                           title=<?php echo $this->translate('查看在线客服'); ?>
+                           onclick="javascript:$('#divFloatToolsView').animate({width: 'show', opacity: 'show'}, 'normal',function(){ $('#divFloatToolsView').show(); });$('#aFloatTools_Show').attr('style','display:none');$('#aFloatTools_Hide').attr('style','display:block');"
+        href="javascript:void(0);"><?php echo $this->translate('展开'); ?></A> <A id=aFloatTools_Hide class=btnCtn
+                                                                                title=<?php echo $this->translate('关闭在线客服'); ?>
+                                                                                onclick="javascript:$('#divFloatToolsView').animate({width: 'hide', opacity: 'hide'}, 'normal',function(){ $('#divFloatToolsView').hide(); });$('#aFloatTools_Show').attr('style','display:block');$('#aFloatTools_Hide').attr('style','display:none');"
+        href="javascript:void(0);"><?php echo $this->translate('收缩'); ?></A> </DIV>
+      <DIV id=divFloatToolsView class=floatR>
+        <DIV class=tp></DIV>
+        <DIV class=cn>
+          <UL>
+            <?php echo $this->kefuHtml; ?>
+          </UL>
+        </DIV>
+      </DIV>
     </DIV>
-  </DIV>
-</DIV>
+    <?php } ?>
+
+    <?php if ($onlineStyle == 'default_1') {//个性样式1 ?>
+    <style>
+      ul,ol{list-style:none;}
+      img{border:none;outline:none;}
+      a{color:#666;text-decoration:none;outline:none;}
+      a:hover{color:#e8431f;text-decoration:none;}
+      #floatDivBoxs{width:170px;position:fixed;top:180px;right:0;z-index:999;}
+      #floatDivBoxs .floatDtt{width:100%;height:45px;line-height:45px; background:#f08326;color:#fff;font-size:18px;text-indent:22px;position:relative;}
+      #floatDivBoxs .floatDqq{padding:0;margin-left: 15px;}
+      #floatDivBoxs .floatDqq li{height:45px;line-height:45px;font-size:15px;border-bottom:1px solid #e3e3e3; padding:0 0 0 0px;}
+      #floatDivBoxs .floatDtel img{display:block;}
+      .floatShadow{ background:#fff;box-shadow:-2px 0 3px rgba(0,0,0,0.25);}
+      #rightArrow{width:50px;height:45px;background:url(<?php echo $this->basePath('public/js/kefu/images/online_arrow.jpg'); ?>) no-repeat;position:fixed;top:180px;right:170px;z-index:999;}
+      #rightArrow a{display:block;height:45px;}
+    </style>
+    <div id="rightArrow"><a href="javascript:;" title="<?php echo $this->translate('在线客服'); ?>"></a></div>
+    <div id="floatDivBoxs">
+      <div class="floatDtt"><?php echo $this->translate('在线客服'); ?></div>
+      <div class="floatShadow">
+        <ul class="floatDqq">
+          <?php echo $this->kefuHtml; ?>
+        </ul>
+      </div>
+    </div>
+    <script>
+      var flag=1;
+      $('#rightArrow').click(function(){
+        if(flag==1){
+          $("#floatDivBoxs").animate({right: '-175px'},300);
+          $(this).animate({right: '-5px'},300);
+          $(this).css('background-position','-50px 0');
+          flag=0;
+        }else{
+          $("#floatDivBoxs").animate({right: '0'},300);
+          $(this).animate({right: '170px'},300);
+          $(this).css('background-position','0px 0');
+          flag=1;
+        }
+      });
+    </script>
+    <?php } ?>
+
+    <?php if ($onlineStyle == 'default_2') {//个性样式2 ?>
+
+    <?php } ?>
+
 <?php } ?>

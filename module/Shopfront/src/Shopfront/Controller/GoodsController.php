@@ -217,7 +217,7 @@ class GoodsController extends AbstractActionController
             if($postArray['goods_id'] == 0 or empty($postArray['goods_ask_content'])) exit($this->getDbshopLang()->translate('不是有效的商品信息，无法提交商品咨询'));
 
             //判断是否开启验证码功能
-            if($this->getServiceLocator()->get('frontHelper')->websiteInfo('goods_ask_captcha') == 'true') {
+            if($this->getServiceLocator()->get('frontHelper')->websiteCaptchaState('goods_ask_captcha') == 'true') {
                 $captchaSession = new Container('captcha');
                 if(strtolower($postArray['captcha_code']) != strtolower($captchaSession->word)) exit($this->getDbshopLang()->translate('验证码错误，请重新提交！'));
             }
