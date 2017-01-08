@@ -538,6 +538,9 @@ class Helper extends AbstractHelper
             if(stripos($image, 'http') === false) {
                 $dbshopPath = $_SERVER['PHP_SELF'] ? dirname($_SERVER['PHP_SELF']) : dirname($_SERVER['SCRIPT_NAME']);
                 $dbshopPath = ($dbshopPath == '/' ? '' : $dbshopPath);
+
+                if($image == '' or !file_exists(DBSHOP_PATH . $image)) $image = $this->getGoodsUploadIni('goods', 'goods_image_default');
+
                 return FRONT_CDN_HTTP_TYPE . FRONT_CDN_DOMAIN . $dbshopPath . $image;
             }
         }

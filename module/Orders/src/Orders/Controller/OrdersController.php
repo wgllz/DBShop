@@ -581,6 +581,9 @@ class OrdersController extends BaseController
 
                 }
                 if($updateArray['refund_state'] == 1) {//如果是同意退货，则对订单进行设置
+                    //对会员表中的余额总值进行更新
+                    $this->getDbshopTable('UserTable')->updateUser(array('user_money'=>$moneyLogArray['money_changed_amount']), array('user_id'=>$userInfo->user_id));
+
                     $this->getDbshopTable('OrderTable')->updateOrder(array('refund_state'=>1), array('order_sn'=>$array['refund_info']->order_sn));
                 }
                 //操作日志记录

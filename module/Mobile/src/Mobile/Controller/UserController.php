@@ -162,6 +162,7 @@ class UserController  extends AbstractActionController
             $userArray['group_id']      = $this->getServiceLocator()->get('frontHelper')->getUserIni('default_group_id');
             $userArray['user_state']    = (($audit == 'email' or $audit == 'audit') ? 3 : 1);//默认状态
             $userArray['user_password'] = $this->getServiceLocator()->get('frontHelper')->getPasswordStr($userArray['user_password']);
+            if(isset($userArray['user_money'])) $userArray['user_money'] = 0;
 
             $addState = $this->getDbshopTable('UserTable')->addUser($userArray);
             if($addState) {
@@ -252,7 +253,7 @@ class UserController  extends AbstractActionController
                     array(
                         'user_name' =>$userArray['user_name'],
                         'user_id'   =>$addState,
-                        'user_email'=>$userArray['user_email'],
+                        'user_email'=>isset($userArray['user_email']) ? $userArray['user_email'] : '',
                         'group_id'  =>$userArray['group_id'],
                         'user_group_name'=>$userGroup->group_name,
                         'user_avatar'=>$this->getServiceLocator()->get('frontHelper')->getUserIni('default_avatar')
@@ -457,6 +458,8 @@ class UserController  extends AbstractActionController
                     $userArray['group_id']      = $this->getServiceLocator()->get('frontHelper')->getUserIni('default_group_id');
                     $userArray['user_state']    = (($audit == 'email' or $audit == 'audit') ? 3 : 1);//默认状态
                     $userArray['user_password'] = $this->getServiceLocator()->get('frontHelper')->getPasswordStr($openId);
+                    if(isset($userArray['user_money'])) $userArray['user_money'] = 0;
+
                     $addState = $this->getDbshopTable('UserTable')->addUser($userArray);
 
                     //初始积分处理

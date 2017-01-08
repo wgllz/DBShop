@@ -123,7 +123,7 @@ class HomerefundController extends FronthomeController
     public function delRefundAction()
     {
         if($this->request->isPost()) {
-            $refundId   = $this->request->getPost('refund_id');
+            $refundId   = (int) $this->request->getPost('refund_id');
             $refundInfo = $this->getDbshopTable('OrderRefundTable')->infoOrderRefund(array('refund_id'=>$refundId, 'user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));
             if(!empty($refundInfo) and $refundInfo->refund_state == 0) {
                 $state = $this->getDbshopTable('OrderRefundTable')->delOrderRefund(array('refund_id'=>$refundId));

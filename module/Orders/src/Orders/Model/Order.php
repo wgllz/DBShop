@@ -81,8 +81,12 @@ class Order
     public static function whereOrderData (array $data)
     {
         $searchArray = array();
-        
-        $searchArray[] = (isset($data['order_state'])        and $data['order_state'] != '')            ? 'dbshop_order.order_state = ' . intval($data['order_state'])          : '';
+
+        if(isset($data['order_state']) and $data['order_state'] == 30) {
+            $searchArray[] = 'dbshop_order.order_state >=20 and  dbshop_order.order_state < 40';
+        } else {
+            $searchArray[] = (isset($data['order_state'])        and $data['order_state'] != '')            ? 'dbshop_order.order_state = ' . intval($data['order_state'])          : '';
+        }
         $searchArray[] = (isset($data['order_sn'])           and $data['order_sn'] != '')               ? 'dbshop_order.order_sn like \'%' . trim($data['order_sn']) . '%\''    : '';
         $searchArray[] = (isset($data['buyer_name'])         and $data['buyer_name'] != '')             ? 'dbshop_order.buyer_name like \'%' . trim($data['buyer_name']) .'%\'' : '';
         $searchArray[] = (isset($data['delivery_name'])      and $data['delivery_name'] != '')          ? 'a.delivery_name like \'%' . trim($data['delivery_name']) . '%\''     : '';

@@ -41,8 +41,8 @@ class BrandController extends AbstractActionController
     {
         $array = array();
         
-        $brandId = $this->params('brand_id', 0);
-        if($brandId == 0) return $this->redirect()->toRoute('shopfront/default');
+        $brandId = (int) $this->params('brand_id', 0);
+        if($brandId <= 0) return $this->redirect()->toRoute('shopfront/default');
         
         $array['brand_info'] = $this->getDbshopTable('GoodsBrandTable')->infoBrand(array('e.brand_id'=>$brandId));
         //统计使用
@@ -57,6 +57,7 @@ class BrandController extends AbstractActionController
         $this->layout()->extend_description = $array['brand_info']->brand_description;
         
         $searchArray = array();
+        $searchWhere = array();
         $sortArray   = array();
         $sortStr     = '';
         $getArray    = $this->request->getQuery()->toArray();
@@ -66,22 +67,25 @@ class BrandController extends AbstractActionController
         if(isset($getArray['price_sort']) and !empty($getArray['price_sort'])) $sortArray['goods_shop_price+1']= $getArray['price_sort'];
         $sortArray       = (is_array($sortArray) and !empty($sortArray)) ? $sortArray : ((isset($getArray['sort_c']) and !empty($getArray['sort_c'])) ? unserialize(base64_decode($getArray['sort_c'])) : array());
         if(!empty($sortArray)) {
-            $array['sort_c'] = base64_encode(serialize($sortArray));
-            $searchArray     = array_merge($searchArray, $sortArray);
             $sortKey         = key($sortArray);
             $sortValue       = current($sortArray);
-            $sortStr         = 'dbshop_goods.' . $sortKey . ' ' . $sortValue;
-            
-            //这里之所以这样处理，是因为商品价格处使用char类型，需要+1排序才正常，下面的？语句，是为了对应模板中的排序选中状态
-            $array['sort_selected'] = ($sortKey=='goods_shop_price+1' ? 'goods_shop_price' : $sortKey).$sortValue;
+            if(in_array($sortKey, array('goods_add_time', 'goods_click', 'goods_shop_price+1')) and in_array($sortValue, array('ASC', 'DESC'))) {
+                $array['sort_c'] = base64_encode(serialize($sortArray));
+                $searchWhere     = array_merge($searchWhere, $sortArray);
+                $sortStr         = 'dbshop_goods.' . $sortKey . ' ' . $sortValue;
+
+                //这里之所以这样处理，是因为商品价格处使用char类型，需要+1排序才正常，下面的？语句，是为了对应模板中的排序选中状态
+                $array['sort_selected'] = ($sortKey=='goods_shop_price+1' ? 'goods_shop_price' : $sortKey).$sortValue;
+            }
+
         }
         /*===========================排序检索=================================*/
         
         //获取搜索商品列表 商品分页
-        $searchArray['goods_state']  = 1;
-        $searchArray['brand_id']     = $brandId;
+        $searchWhere['goods_state']  = 1;
+        $searchWhere['brand_id']     = $brandId;
         $page = $this->params('page',1);
-        $array['goods_list'] = $this->getDbshopTable('GoodsTable')->searchGoods(array('page'=>$page, 'page_num'=>16), $searchArray, $sortStr);
+        $array['goods_list'] = $this->getDbshopTable('GoodsTable')->searchGoods(array('page'=>$page, 'page_num'=>16), $searchWhere, $sortStr);
         
         return $array;
     }

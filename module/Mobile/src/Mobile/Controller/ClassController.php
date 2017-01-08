@@ -73,14 +73,18 @@ class ClassController extends AbstractActionController
         $array['sort_c'] = '';
         $sortStr         = 'goods_in.class_goods_sort ASC';
         if(!empty($sortArray)) {
-            $array['sort_c'] = str_replace('=', '', base64_encode(serialize($sortArray)));
-            //$searchArray     = array_merge($searchArray, $sortArray);
             $sortKey         = key($sortArray);
             $sortValue       = current($sortArray);
-            $sortStr         = 'dbshop_goods.' . $sortKey . ' ' . $sortValue;
+            if(in_array($sortKey, array('goods_add_time', 'goods_click', 'goods_shop_price+1')) and in_array($sortValue, array('ASC', 'DESC'))) {
+                $array['sort_c'] = str_replace('=', '', base64_encode(serialize($sortArray)));
+                //$searchArray     = array_merge($searchArray, $sortArray);
+                $sortKey         = key($sortArray);
+                $sortValue       = current($sortArray);
+                $sortStr         = 'dbshop_goods.' . $sortKey . ' ' . $sortValue;
 
-            //这里之所以这样处理，是因为商品价格处使用char类型，需要+1排序才正常，下面的？语句，是为了对应模板中的排序选中状态
-            $array['sort_selected'] = ($sortKey=='goods_shop_price+1' ? 'goods_shop_price' : $sortKey).$sortValue;
+                //这里之所以这样处理，是因为商品价格处使用char类型，需要+1排序才正常，下面的？语句，是为了对应模板中的排序选中状态
+                $array['sort_selected'] = ($sortKey=='goods_shop_price+1' ? 'goods_shop_price' : $sortKey).$sortValue;
+            }
         }
         /*===========================排序检索=================================*/
         //获取商品列表 商品分页
@@ -112,12 +116,13 @@ class ClassController extends AbstractActionController
         $this->layout()->title_name = $this->getDbshopLang()->translate('商品搜索');
 
         $searchArray = array();
+        $searchWhere = array();
         $sortArray   = array();
         $sortStr     = '';
         if($this->request->isGet()) {
             $searchArray               = $this->request->getQuery()->toArray();
             $array['keywords']         = isset($searchArray['keywords']) ? htmlentities($searchArray['keywords'], ENT_QUOTES, "UTF-8") : '';
-            $searchArray['goods_name'] = $array['keywords'];
+            $searchWhere['goods_name'] = $array['keywords'];
 
             /*===========================排序检索=================================*/
             if(isset($searchArray['time_sort'])  and !empty($searchArray['time_sort']))  $sortArray['goods_add_time']  = $searchArray['time_sort'];
@@ -126,14 +131,18 @@ class ClassController extends AbstractActionController
             $sortArray       = (is_array($sortArray) and !empty($sortArray)) ? $sortArray : ((isset($getArray['sort_c']) and !empty($searchArray['sort_c'])) ? unserialize(base64_decode($searchArray['sort_c'])) : array());
             $array['sort_c'] = '';
             if(!empty($sortArray)) {
-                $array['sort_c'] = base64_encode(serialize($sortArray));
-                $searchArray     = array_merge($searchArray, $sortArray);
                 $sortKey         = key($sortArray);
                 $sortValue       = current($sortArray);
-                $sortStr         = 'dbshop_goods.' . $sortKey . ' ' . $sortValue;
+                if(in_array($sortKey, array('goods_add_time', 'goods_click', 'goods_shop_price+1')) and in_array($sortValue, array('ASC', 'DESC'))) {
+                    $array['sort_c'] = str_replace('=', '', base64_encode(serialize($sortArray)));
+                    $searchWhere     = array_merge($searchWhere, $sortArray);
+                    $sortKey         = key($sortArray);
+                    $sortValue       = current($sortArray);
+                    $sortStr         = 'dbshop_goods.' . $sortKey . ' ' . $sortValue;
 
-                //这里之所以这样处理，是因为商品价格处使用char类型，需要+1排序才正常，下面的？语句，是为了对应模板中的排序选中状态
-                $array['sort_selected'] = ($sortKey=='goods_shop_price+1' ? 'goods_shop_price' : $sortKey).$sortValue;
+                    //这里之所以这样处理，是因为商品价格处使用char类型，需要+1排序才正常，下面的？语句，是为了对应模板中的排序选中状态
+                    $array['sort_selected'] = ($sortKey=='goods_shop_price+1' ? 'goods_shop_price' : $sortKey).$sortValue;
+                }
             }
             /*===========================排序检索=================================*/
         }
@@ -141,12 +150,12 @@ class ClassController extends AbstractActionController
         $goodsIndexState = $this->getServiceLocator()->get('frontHelper')->getDbshopGoodsIni('goods_index', '');
         $array['goods_index_state'] = $goodsIndexState;
         //获取搜索商品列表 商品分页
-        $searchArray['goods_state']  = 1;
+        $searchWhere['goods_state']  = 1;
         $page = $this->params('page',1);
         if($goodsIndexState == 'true' and trim($array['keywords']) !='')
-            $array['goods_list'] = $this->getDbshopTable('GoodsIndexTable')->searchGoods(array('page'=>$page, 'page_num'=>16), $searchArray, $sortStr);
+            $array['goods_list'] = $this->getDbshopTable('GoodsIndexTable')->searchGoods(array('page'=>$page, 'page_num'=>16), $searchWhere, $sortStr);
         else
-            $array['goods_list'] = $this->getDbshopTable('GoodsTable')->searchGoods(array('page'=>$page, 'page_num'=>16), $searchArray, $sortStr);
+            $array['goods_list'] = $this->getDbshopTable('GoodsTable')->searchGoods(array('page'=>$page, 'page_num'=>16), $searchWhere, $sortStr);
 
 
         //统计使用

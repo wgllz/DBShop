@@ -78,8 +78,15 @@ class HomeController extends FronthomeController
             if($userArray['user_avatar'] != '' and $userArray['user_avatar'] != $this->getServiceLocator()->get('frontHelper')->getUserSession('user_avatar')) {
                 $this->getServiceLocator()->get('frontHelper')->setUserSession(array('user_avatar'=>$userArray['user_avatar']));
             }
-            
-            $this->getDbshopTable('UserTable')->updateUser($userArray,array('user_id'=>$userId));
+
+            $userEditArray = array();
+            $userEditArray['user_avatar']   = $userArray['user_avatar'];
+            $userEditArray['user_sex']      = $userArray['user_sex'];
+            if(isset($userArray['user_email'])      and !empty($userArray['user_email'])) $userEditArray['user_email'] = $userArray['user_email'];
+            if(isset($userArray['user_phone'])      and !empty($userArray['user_phone'])) $userEditArray['user_phone'] = $userArray['user_phone'];
+            if(isset($userArray['user_birthday'])   and !empty($userArray['user_birthday'])) $userEditArray['user_birthday'] = $userArray['user_birthday'];
+
+            $this->getDbshopTable('UserTable')->updateUser($userEditArray, array('user_id'=>$userId));
             $this->getServiceLocator()->get('frontHelper')->setUserSession(array('user_email'=>$userArray['user_email']));//修改session的user_email
             $this->getServiceLocator()->get('frontHelper')->setUserSession(array('user_phone'=>$userArray['user_phone']));//修改session的user_phone
             $array['success_msg'] = $this->getDbshopLang()->translate('会员基本信息修改成功！');
@@ -121,7 +128,7 @@ class HomeController extends FronthomeController
             //判断原始密码是否正确
             if($userInfo->user_password == $this->getServiceLocator()->get('frontHelper')->getPasswordStr($passwdArray['old_user_password'])) {
                 $passwdArray['user_password'] = $this->getServiceLocator()->get('frontHelper')->getPasswordStr($passwdArray['user_password']);
-                $this->getDbshopTable('UserTable')->updateUser($passwdArray,array('user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));
+                $this->getDbshopTable('UserTable')->updateUser(array('user_password'=>$passwdArray['user_password']), array('user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));
                 $array['success_msg'] = $this->getDbshopLang()->translate('会员密码修改成功！');
             } else {
                 $array['false_msg'] = $this->getDbshopLang()->translate('会员密码修改失败,原始密码错误！');

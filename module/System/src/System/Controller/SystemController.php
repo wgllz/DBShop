@@ -482,7 +482,7 @@ class SystemController extends BaseController
         $userIni['welcome_email_title']     = trim($usersetArray['welcome_email_title']);
         $userIni['welcome_email_body']      = trim(str_replace('"', "'", $usersetArray['welcome_email_body']));
         $userIni['user_register_body']      = trim(str_replace('"', "'", $usersetArray['user_register_body']));
-        $userIni['front_other_login_show']  = $usersetArray['front_other_login_show'];
+        $userIni['front_other_login_show']  = isset($usersetArray['front_other_login_show']) ? $usersetArray['front_other_login_show'] : '';
         $userIni['qq_login_state']          = $usersetArray['qq_login_state'];
         $userIni['weixin_login_state']      = $usersetArray['weixin_login_state'];
         $userIni['alipay_login_state']      = $usersetArray['alipay_login_state'];
@@ -516,13 +516,13 @@ class SystemController extends BaseController
 
         //注册与登录
         $registerOrLoginIni = array();
-        $registerOrLoginIni['register_email_state']     = $usersetArray['register_email_state'];
-        $registerOrLoginIni['register_phone_state']     = $usersetArray['register_phone_state'];
+        $registerOrLoginIni['register_email_state']     = isset($usersetArray['register_email_state']) ? $usersetArray['register_email_state'] : '';
+        $registerOrLoginIni['register_phone_state']     = isset($usersetArray['register_phone_state']) ? $usersetArray['register_phone_state'] : '';
 
-        $registerOrLoginIni['login_email_state']        = $usersetArray['login_email_state'];
-        $registerOrLoginIni['login_phone_state']        = $usersetArray['login_phone_state'];
+        $registerOrLoginIni['login_email_state']        = isset($usersetArray['login_email_state']) ? $usersetArray['login_email_state'] : '';
+        $registerOrLoginIni['login_phone_state']        = isset($usersetArray['login_phone_state']) ? $usersetArray['login_phone_state'] : '';
 
-        $registerOrLoginIni['other_login_email_state']  = $usersetArray['other_login_email_state'];
+        $registerOrLoginIni['other_login_email_state']  = isset($usersetArray['other_login_email_state']) ? $usersetArray['other_login_email_state'] : '';
 
         $e->toFile(DBSHOP_PATH . '/data/moduledata/User/RegOrLogin.ini', $registerOrLoginIni);
     }

@@ -203,6 +203,9 @@ class HomemoneyController extends FronthomeController
             $checkState = $this->checkWithdraw($withdrawArray['user_id']);
             if($checkState != 'true') exit($checkState);
 
+            $withdrawArray['money_change_num'] = (float) $withdrawArray['money_change_num'];
+            if($withdrawArray['money_change_num'] <= 0) exit($this->getDbshopLang()->translate('提现金额必须大于0！'));
+
             //最后进行校验，提现金额是否大于账户余额
             $userInfo = $this->getDbshopTable('UserTable')->infoUser(array('user_id'=>$withdrawArray['user_id']));
             if($userInfo->user_money < $withdrawArray['money_change_num']) exit($this->getDbshopLang()->translate('您的账户余额小于提现额，无法申请提现！'));

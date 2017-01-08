@@ -33,7 +33,7 @@ class GoodslistController extends AbstractActionController
         
         //获取商品分类信息
         $classId = (int) $this->params('class_id');
-        if($classId == 0) return $this->redirect()->toRoute('shopfront/default');
+        if($classId <= 0) return $this->redirect()->toRoute('shopfront/default');
         $array['class_info'] = $this->getDbshopTable('GoodsClassTable')->infoGoodsClass(array('class_id'=>$classId, 'class_state'=>1));
         if($array['class_info'] == null) return $this->redirect()->toRoute('shopfront/default');
 
@@ -66,6 +66,10 @@ class GoodslistController extends AbstractActionController
         //这里是对打散的tag内容进行get获取并组合
         $tagCArray      = ((isset($getArray['tag_c']) and !empty($getArray['tag_c'])) ? unserialize(base64_decode($getArray['tag_c'])) : array());
         if(!empty($sTagArray[0])) {
+            //对tag_id进行整型处理，防止出现其他操作
+            $sTagArray[1]   = (int) $sTagArray[1];
+            $sTagArray[0]   = (int) $sTagArray[0];
+
             $tagCArray[$sTagArray[1]] = $sTagArray[0];
         } elseif (empty($sTagArray[0]) and !empty($sTagArray[1])) {
             unset($tagCArray[$sTagArray[1]]);
@@ -78,6 +82,7 @@ class GoodslistController extends AbstractActionController
         $sTagStr = '';
         if(!empty($array['s_tag'])){
             foreach ($array['s_tag'] as $st_val) {
+                $st_val = (int) $st_val;//对组合后的tag_id进行重新整型处理，防止出现其他操作
                 $sTagStr .= 'dbshop_goods.goods_tag_str like \'%,' . $st_val .',%\' and '; 
             }
             $sTagStr  = substr($sTagStr, 0, -5);
@@ -96,14 +101,16 @@ class GoodslistController extends AbstractActionController
         $array['sort_c'] = '';
         $sortStr         = 'goods_in.class_goods_sort ASC';
         if(!empty($sortArray)) {
-            $array['sort_c'] = str_replace('=', '', base64_encode(serialize($sortArray)));
-            $searchArray     = array_merge($searchArray, $sortArray);
             $sortKey         = key($sortArray);
             $sortValue       = current($sortArray);
-            $sortStr         = 'dbshop_goods.' . $sortKey . ' ' . $sortValue;
-            
-            //这里之所以这样处理，是因为商品价格处使用char类型，需要+1排序才正常，下面的？语句，是为了对应模板中的排序选中状态
-            $array['sort_selected'] = ($sortKey=='goods_shop_price+1' ? 'goods_shop_price' : $sortKey).$sortValue;
+            if(in_array($sortKey, array('goods_add_time', 'goods_click', 'goods_shop_price+1')) and in_array($sortValue, array('ASC', 'DESC'))) {
+                $array['sort_c'] = base64_encode(serialize($sortArray));
+                $searchArray     = array_merge($searchArray, $sortArray);
+                $sortStr         = 'dbshop_goods.' . $sortKey . ' ' . $sortValue;
+
+                //这里之所以这样处理，是因为商品价格处使用char类型，需要+1排序才正常，下面的？语句，是为了对应模板中的排序选中状态
+                $array['sort_selected'] = ($sortKey=='goods_shop_price+1' ? 'goods_shop_price' : $sortKey).$sortValue;
+            }
         }
         /*===========================排序检索=================================*/
         
@@ -149,11 +156,12 @@ class GoodslistController extends AbstractActionController
 
         $searchArray = array();
         $sortArray   = array();
+        $searchWhere = array();
         $sortStr     = '';
         if($this->request->isGet()) {
             $searchArray               = $this->request->getQuery()->toArray();
             $array['keywords']         = isset($searchArray['keywords']) ? htmlentities($searchArray['keywords'], ENT_QUOTES, "UTF-8") : '';
-            $searchArray['goods_name'] = $array['keywords'];
+            $searchWhere['goods_name'] = $array['keywords'];
             
             /*===========================排序检索=================================*/
             if(isset($searchArray['time_sort'])  and !empty($searchArray['time_sort']))  $sortArray['goods_add_time']  = $searchArray['time_sort'];
@@ -162,26 +170,29 @@ class GoodslistController extends AbstractActionController
             $sortArray       = (is_array($sortArray) and !empty($sortArray)) ? $sortArray : ((isset($getArray['sort_c']) and !empty($searchArray['sort_c'])) ? unserialize(base64_decode($searchArray['sort_c'])) : array());
             $array['sort_c'] = '';
             if(!empty($sortArray)) {
-                $array['sort_c'] = base64_encode(serialize($sortArray));
-                $searchArray     = array_merge($searchArray, $sortArray);
                 $sortKey         = key($sortArray);
                 $sortValue       = current($sortArray);
-                $sortStr         = 'dbshop_goods.' . $sortKey . ' ' . $sortValue;
-            
-            //这里之所以这样处理，是因为商品价格处使用char类型，需要+1排序才正常，下面的？语句，是为了对应模板中的排序选中状态
-            $array['sort_selected'] = ($sortKey=='goods_shop_price+1' ? 'goods_shop_price' : $sortKey).$sortValue;
+                if(in_array($sortKey, array('goods_add_time', 'goods_click', 'goods_shop_price+1')) and in_array($sortValue, array('ASC', 'DESC'))) {
+                    $array['sort_c'] = base64_encode(serialize($sortArray));
+                    $searchWhere     = array_merge($searchWhere, $sortArray);
+                    $sortStr         = 'dbshop_goods.' . $sortKey . ' ' . $sortValue;
+
+                    //这里之所以这样处理，是因为商品价格处使用char类型，需要+1排序才正常，下面的？语句，是为了对应模板中的排序选中状态
+                    $array['sort_selected'] = ($sortKey=='goods_shop_price+1' ? 'goods_shop_price' : $sortKey).$sortValue;
+                }
             }
             /*===========================排序检索=================================*/
         }
         //获取商品索引的状态，是否开启
         $goodsIndexState = $this->getServiceLocator()->get('frontHelper')->getDbshopGoodsIni('goods_index', '');
         //获取搜索商品列表 商品分页
-        $searchArray['goods_state']  = 1;
+        $searchWhere['goods_state']  = 1;
         $page = $this->params('page',1);
-        if($goodsIndexState == 'true' and trim($array['keywords']) !='')
-            $array['goods_list'] = $this->getDbshopTable('GoodsIndexTable')->searchGoods(array('page'=>$page, 'page_num'=>16), $searchArray, $sortStr);
-        else
-            $array['goods_list'] = $this->getDbshopTable('GoodsTable')->searchGoods(array('page'=>$page, 'page_num'=>16), $searchArray, $sortStr);
+        if($goodsIndexState == 'true' and trim($array['keywords']) !='') {
+            $array['goods_list'] = $this->getDbshopTable('GoodsIndexTable')->searchGoods(array('page'=>$page, 'page_num'=>16), $searchWhere, $sortStr);
+        } else {
+            $array['goods_list'] = $this->getDbshopTable('GoodsTable')->searchGoods(array('page'=>$page, 'page_num'=>16), $searchWhere, $sortStr);
+        }
 
         //统计使用
         $this->layout()->dbTongJiPage      = 'goods_search';

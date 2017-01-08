@@ -72,7 +72,7 @@ class HomeController extends MobileHomeController
     {
         $askId = (int) $this->params('ask_id');
         $type        = $this->request->getQuery('type');
-        if($askId != 0) $this->getDbshopTable('GoodsAskTable')->delGoodsAsk(array('ask_id'=>$askId, 'ask_writer'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_name')));
+        if($askId > 0) $this->getDbshopTable('GoodsAskTable')->delGoodsAsk(array('ask_id'=>$askId, 'ask_writer'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_name')));
 
         if(isset($type) and $type == 'home') {
             return $this->redirect()->toRoute('m_home/default');
@@ -103,7 +103,12 @@ class HomeController extends MobileHomeController
                 $message = $this->getDbshopLang()->translate('您修改的邮箱已经存在，请重新修改！');
                 $locationUrl = '';
             } else {
-                $this->getDbshopTable('UserTable')->updateUser($userArray,array('user_id'=>$userId));
+                //对修改信息进行重新赋值
+                $userEditArray = array();
+                if(isset($userArray['user_email'])      and !empty($userArray['user_email'])) $userEditArray['user_email'] = $userArray['user_email'];
+                if(isset($userArray['user_phone'])      and !empty($userArray['user_phone'])) $userEditArray['user_phone'] = $userArray['user_phone'];
+
+                $this->getDbshopTable('UserTable')->updateUser($userEditArray, array('user_id'=>$userId));
                 $this->getServiceLocator()->get('frontHelper')->setUserSession(array('user_email'=>$userArray['user_email']));//修改session的user_email
                 $this->getServiceLocator()->get('frontHelper')->setUserSession(array('user_phone'=>$userArray['user_phone']));//修改session的user_phone
                 $message = $this->getDbshopLang()->translate('会员信息修改成功！');
@@ -148,7 +153,7 @@ class HomeController extends MobileHomeController
             //判断原始密码是否正确
             if($userInfo->user_password == $this->getServiceLocator()->get('frontHelper')->getPasswordStr($passwdArray['old_user_password'])) {
                 $passwdArray['user_password'] = $this->getServiceLocator()->get('frontHelper')->getPasswordStr($passwdArray['user_password']);
-                $this->getDbshopTable('UserTable')->updateUser($passwdArray,array('user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));
+                $this->getDbshopTable('UserTable')->updateUser(array('user_password'=>$passwdArray['user_password']), array('user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));
 
                 $message = $this->getDbshopLang()->translate('会员密码修改成功！');
                 $locationUrl = 'window.location.href="'.$this->url()->fromRoute('m_home/default').'";';

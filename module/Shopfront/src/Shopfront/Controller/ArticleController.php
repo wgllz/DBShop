@@ -26,8 +26,8 @@ class ArticleController extends AbstractActionController
      */
     public function indexAction ()
     {
-        $article_class_id = $this->params('cms_class_id', 0);
-        if($article_class_id == 0) return $this->redirect()->toRoute('shopfront/default');
+        $article_class_id = (int) $this->params('cms_class_id', 0);
+        if($article_class_id <= 0) return $this->redirect()->toRoute('shopfront/default');
         
         $array = array();
         $array['article_class_info'] = $this->getDbshopTable('ArticleClassTable')->infoArticleClass(array('dbshop_article_class.article_class_id'=>$article_class_id, 'e.language'=>$this->getDbshopLang()->getLocale()));
@@ -63,7 +63,9 @@ class ArticleController extends AbstractActionController
     public function contentAction ()
     {
         $array = array();
-        $article_id = $this->params('cms_id', 0);
+        $article_id = (int) $this->params('cms_id', 0);
+        if($article_id <= 0) return $this->redirect()->toRoute('shopfront/default');
+
         $array['article_body'] = $this->getDbshopTable('ArticleTable')->infoArticle(array('dbshop_article.article_id'=>$article_id, 'e.language'=>$this->getDbshopLang()->getLocale()));
         if(!$array['article_body']) return $this->redirect()->toRoute('shopfront/default');
         
@@ -107,7 +109,7 @@ class ArticleController extends AbstractActionController
     {
         $array = array();
         $singleArticleId = (int) $this->params('cms_id', 0);
-
+        if($singleArticleId <= 0) return $this->redirect()->toRoute('shopfront/default');
         //判断是否为手机端访问
         if($this->getServiceLocator()->get('frontHelper')->isMobile()) return $this->redirect()->toRoute('m_article/default/cms_id', array('action'=>'single', 'cms_id'=>$singleArticleId));
 

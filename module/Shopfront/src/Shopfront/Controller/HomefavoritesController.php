@@ -49,8 +49,8 @@ class HomefavoritesController extends FronthomeController
      */
     public function delAction ()
     {
-        $favoritesId = $this->params('favorites_id', 0);
-        if($favoritesId != 0) {
+        $favoritesId = (int) $this->params('favorites_id', 0);
+        if($favoritesId > 0) {
             $this->getDbshopTable('UserFavoritesTable')->delFavorites(array('favorites_id'=>$favoritesId, 'user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));
         }
         return $this->redirect()->toRoute('frontfavorites/default');

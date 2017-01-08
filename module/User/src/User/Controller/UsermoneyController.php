@@ -185,7 +185,7 @@ class UsermoneyController extends BaseController
             }
             if($withdrawArray['withdraw_state'] == 1) {//下面为同意提现处理
                 $userInfo     = $this->getDbshopTable('UserTable')->infoUser(array('user_id'=>$withdrawInfo[0]['user_id']));
-                if($userInfo->user_money < $withdrawArray[0]['money_change_num']) exit($this->getDbshopLang()->translate('提现额度超出账户余额，无法提现！'));
+                if($userInfo->user_money < $withdrawInfo[0]['money_change_num']) exit($this->getDbshopLang()->translate('提现额度超出账户余额，无法提现！'));
 
                 $state = $this->getDbshopTable('WithdrawLogTable')->updateWithdrawLog($withdrawArray, array('withdraw_id'=>$withdrawId));
                 if($state) {

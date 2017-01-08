@@ -70,6 +70,7 @@ class User
     {
         unset($data['user_id']);
         unset($data['user_time']);
+        unset($data['user_name']);
 
         $data = self::checkData($data);
 

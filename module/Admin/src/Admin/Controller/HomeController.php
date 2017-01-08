@@ -25,7 +25,7 @@ class HomeController extends BaseController
         //订单信息
         $array['order_no_payment'] = $this->getDbshopTable('OrderTable')->stateCountOrder(array('order_state >= 10 and order_state <= 15'));//待付款
         $array['order_yes_payment']= $this->getDbshopTable('OrderTable')->stateCountOrder(array('order_state'=>20));//已付款
-        $array['order_no_send']    = $this->getDbshopTable('OrderTable')->stateCountOrder(array('order_state'=>30));//待发货
+        $array['order_no_send']    = $this->getDbshopTable('OrderTable')->stateCountOrder(array('order_state>=20 and order_state<40'));//待发货
         $array['order_no_finish']  = $this->getDbshopTable('OrderTable')->stateCountOrder(array('order_state'=>40));//已发货
         $array['order_finish']     = $this->getDbshopTable('OrderTable')->stateCountOrder(array('order_state'=>60));//已完成
         $array['order_cancel']     = $this->getDbshopTable('OrderTable')->stateCountOrder(array('order_state'=>0));//已取消

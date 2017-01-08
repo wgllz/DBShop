@@ -225,7 +225,7 @@ class CartController extends AbstractActionController
     {
         $goodsId   = (int)$this->request->getPost('goods_id');
         $classId   = (int)$this->request->getPost('class_id');
-        if($goodsId != 0) {
+        if($goodsId > 0) {
             $postArray = array();
     
             if($classId == 0) {

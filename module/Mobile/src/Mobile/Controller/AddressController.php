@@ -65,7 +65,7 @@ class AddressController extends MobileHomeController
 
         $addressId = (int) $this->params('address_id', 0);
 
-        if($addressId != 0) {//编辑收货地址
+        if($addressId > 0) {//编辑收货地址
             $title_name = $this->getDbshopLang()->translate('编辑收货地址');
             $array['addressInfo'] = $this->getDbshopTable('UserAddressTable')->infoAddress(array('address_id'=>$addressId, 'user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));
         } else {
@@ -86,7 +86,7 @@ class AddressController extends MobileHomeController
     public function deladdressAction()
     {
         $addressId = (int) $this->params('address_id', 0);
-        if($addressId != 0) {
+        if($addressId > 0) {
             $this->getDbshopTable('UserAddressTable')->delAddress(array('address_id'=>$addressId , 'user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));
         }
          return $this->redirect()->toRoute('m_address/default');

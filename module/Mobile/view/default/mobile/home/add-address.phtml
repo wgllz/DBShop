@@ -107,7 +107,7 @@
 <?php if(isset($this->addressInfo['region_value'])) { ?>
     $('#show_address_area').hide();
     $('#show_region_value').show();
-    $('#show_region_value').html('<?php echo $this->addressInfo['region_value']; ?><input type="button" value="<?php echo $this->translate('编辑'); ?>" class="edit_region" onclick="regionEdit();" />');
+    $('#show_region_value').html('<?php echo $this->escapeHtml($this->addressInfo['region_value']); ?><input type="button" value="<?php echo $this->translate('编辑'); ?>" class="edit_region" onclick="regionEdit();" />');
 <?php } else { ?>
     $('#show_address_area').show();
     $('#show_region_value').hide();

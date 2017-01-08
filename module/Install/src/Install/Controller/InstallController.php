@@ -236,6 +236,8 @@ class InstallController extends AbstractActionController
      */
     public function checkMysqlConnectAction()
     {
+        $this->checkInstallStep('step_2', true);
+
         $ConnectState = 'flase';
         if($this->request->isPost()) {
             try {
@@ -265,6 +267,8 @@ class InstallController extends AbstractActionController
      */
     public function checkMysqlInnoDBAction()
     {
+        $this->checkInstallStep('step_2', true);
+
         if($this->request->isPost()) {
             $state = 'connectflase';
             try {
@@ -359,7 +363,13 @@ class InstallController extends AbstractActionController
      * @param unknown $step
      * @return Ambigous <\Zend\Http\Response, \Zend\Stdlib\ResponseInterface>
      */
-    private function checkInstallStep($step)
+    /**
+     * 检查正确的安装顺序或者检查是否为正常的安装处理
+     * @param $step
+     * @param bool|false $checkEmpty
+     * @return \Zend\Http\Response
+     */
+    private function checkInstallStep($step, $checkEmpty=false)
     {
         //检查程序是否安装
         if(file_exists(DBSHOP_PATH . '/data/install.lock')) {
@@ -368,6 +378,10 @@ class InstallController extends AbstractActionController
         
         if(empty($this->installStepArray)) {
             $this->installStepArray = new Container('install_step');
+        }
+        if($checkEmpty) {//这里主要对检查数据库连接和检查数据库类型，做本地化判断
+            if(!isset($this->installStepArray[$step]) or (isset($this->installStepArray[$step]) and $this->installStepArray[$step] != $step)) return $this->redirect()->toRoute('install/default');
+            else return ;
         }
         if(!isset($this->installStepArray['step_1']) and $step == 'step_1') {
             return $this->redirect()->toRoute('install/default');

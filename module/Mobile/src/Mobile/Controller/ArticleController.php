@@ -29,7 +29,7 @@ class ArticleController extends AbstractActionController
     public function contentAction ()
     {
         $array = array();
-        $article_id = $this->params('cms_id', 0);
+        $article_id = (int) $this->params('cms_id', 0);
 
         $array['article_body'] = $this->getDbshopTable('ArticleTable')->infoArticle(array('dbshop_article.article_id'=>$article_id, 'e.language'=>$this->getDbshopLang()->getLocale()));
         if(!$array['article_body']) return $this->redirect()->toRoute('mobile/default');

@@ -29,7 +29,7 @@ class GoodsController extends AbstractActionController
         $goodsId = (int) $this->params('goods_id');
         $classId = (int) $this->params('class_id');
 
-        if($goodsId == 0 or $classId == 0) return $this->redirect()->toRoute('mobile/default');
+        if($goodsId <= 0 or $classId <= 0) return $this->redirect()->toRoute('mobile/default');
 
         //判断是否为手机端访问
         if(!$this->getServiceLocator()->get('frontHelper')->isMobile()) return $this->redirect()->toRoute('frontgoods/default', array('goods_id'=>$goodsId, 'class_id'=>$classId));

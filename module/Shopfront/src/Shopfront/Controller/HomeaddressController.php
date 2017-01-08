@@ -14,6 +14,7 @@
 
 namespace Shopfront\Controller;
 
+use Zend\Filter\HtmlEntities;
 use Zend\View\Model\ViewModel;
 
 class HomeaddressController extends FronthomeController
@@ -48,6 +49,9 @@ class HomeaddressController extends FronthomeController
         $addressId = intval($this->request->getPost('address_id'));
         $addressInfo = $this->getDbshopTable('UserAddressTable')->infoAddress(array('address_id'=>$addressId, 'user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));
         if(!empty($addressInfo)) {
+            $filter = new HtmlEntities();
+            $addressInfo['region_value']    = $filter->filter($addressInfo['region_value']);//对输出的省份名称进行转义处理
+
             $addressInfo['default_value'] = $addressInfo['addr_default'];//从新赋值，html页面js对default在低版本浏览器会报js错误
             echo json_encode($addressInfo);
         }

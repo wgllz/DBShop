@@ -45,6 +45,8 @@ class MobileHomeController  extends AbstractActionController
                     'user_id'        => '',
                     'user_email'     => '',
                     'user_group_name'=> '',
+                    'user_phone'     => '',
+                    'group_id'       => '',
                     'user_avatar'    => ''
                 );
                 $this->getServiceLocator()->get('frontHelper')->setUserSession($array);

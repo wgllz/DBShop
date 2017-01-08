@@ -48,7 +48,7 @@ class FavoritesController  extends MobileHomeController
     {
         $favoritesId = $this->params('favorites_id', 0);
         $type        = $this->request->getQuery('type');
-        if($favoritesId != 0) {
+        if($favoritesId > 0) {
             $this->getDbshopTable('UserFavoritesTable')->delFavorites(array('favorites_id'=>$favoritesId, 'user_id'=>$this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')));
         }
         if(isset($type) and $type == 'home') {

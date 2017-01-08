@@ -14,6 +14,7 @@
 
 namespace User\Controller;
 
+use Zend\Filter\HtmlEntities;
 use Zend\View\Model\ViewModel;
 use Admin\Controller\BaseController;
 
@@ -284,7 +285,10 @@ class UserController extends BaseController
         $addressId   = (int) $this->request->getPost('address_id');
         $addressInfo = $this->getDbshopTable('UserAddressTable')->infoAddress(array('address_id'=>$addressId));
         if(!empty($addressInfo)) {
-            $addressInfo['default_value'] = $addressInfo['addr_default'];//从新赋值，html页面js对default在低版本浏览器会报js错误
+            $filter = new HtmlEntities();
+            $addressInfo['region_value']    = $filter->filter($addressInfo['region_value']);//对输出的省份名称进行转义处理
+
+            $addressInfo['default_value']   = $addressInfo['addr_default'];//从新赋值，html页面js对default在低版本浏览器会报js错误
             echo json_encode($addressInfo);
         }
         exit();

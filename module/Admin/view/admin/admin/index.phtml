@@ -271,11 +271,11 @@
                         <form role="form" action="<?php echo $this->url('admin/default'); ?>" method="post" class="admin_login_form" id="admin_login_form">
                             <div class="form-group">
                                 <label class="sr-only" for="form-username"><?php echo $this->translate('管理员账户'); ?></label>
-                                <input type="text" name="user_name" id="user_name" placeholder="<?php echo $this->translate('请输入管理员账户…'); ?>" class="form-username form-control" id="form-username">
+                                <input type="text" name="user_name" id="user_name" placeholder="<?php echo $this->translate('请输入管理员账户…'); ?>" class="form-username form-control">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password"><?php echo $this->translate('管理员密码'); ?></label>
-                                <input type="password" name="user_passwd" id="user_passwd" placeholder="<?php echo $this->translate('请输入管理员密码…'); ?>" class="form-password form-control" id="form-password">
+                                <input type="password" name="user_passwd" id="user_passwd" placeholder="<?php echo $this->translate('请输入管理员密码…'); ?>" class="form-password form-control">
                                 <input type="hidden" name="<?php echo $this->admin_login_csrf['name']; ?>" value="<?php echo $this->admin_login_csrf['value']; ?>" />
                             </div>
                             <button type="submit" class="btn"><?php echo $this->translate('后台登录'); ?></button>
