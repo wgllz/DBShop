@@ -32,6 +32,10 @@ class OptimizationController extends BaseController
         $array['front_cache_time']      = (defined('FRONT_CACHE_TIME')      ? FRONT_CACHE_TIME      : '');
         $array['front_cache_time_type'] = (defined('FRONT_CACHE_TIME_TYPE') ? FRONT_CACHE_TIME_TYPE : '');
 
+        $array['front_cdn_state']       = (defined('FRONT_CDN_STATE')       ? FRONT_CDN_STATE       : 'false');
+        $array['front_cdn_http_type']   = (defined('FRONT_CDN_HTTP_TYPE')   ? FRONT_CDN_HTTP_TYPE   : 'http://');
+        $array['front_cdn_domain']      = (defined('FRONT_CDN_DOMAIN')      ? FRONT_CDN_DOMAIN      : '');
+
         if($this->request->isPost()) {
             $optimizationArray = $this->request->getPost()->toArray();
             $setArray = array();
@@ -43,6 +47,10 @@ class OptimizationController extends BaseController
             $setArray['FRONT_CACHE_TIME']      = (isset($optimizationArray['front_cache_time'])      ? $optimizationArray['front_cache_time']      : 0);
             $setArray['FRONT_CACHE_TIME_TYPE'] = (isset($optimizationArray['front_cache_time_type']) ? $optimizationArray['front_cache_time_type'] : 0);
             $setArray['FRONT_CACHE_EXPIRE_TIME'] = $setArray['FRONT_CACHE_TIME'] * $setArray['FRONT_CACHE_TIME_TYPE'];
+            //cdn图片加速（加速本地商品图片）
+            $setArray['FRONT_CDN_STATE']       = (isset($optimizationArray['front_cdn_state'])     ? $optimizationArray['front_cdn_state']     : 'false');
+            $setArray['FRONT_CDN_HTTP_TYPE']   = (isset($optimizationArray['front_cdn_http_type']) ? $optimizationArray['front_cdn_http_type'] : 'http://');
+            $setArray['FRONT_CDN_DOMAIN']      = (isset($optimizationArray['front_cdn_domain'])    ? $optimizationArray['front_cdn_domain']    : '');
 
             $this->getServiceLocator()->get('adminHelper')->setDbshopSetshopFile($setArray);
             //清空ZF2缓存设置
@@ -56,6 +64,10 @@ class OptimizationController extends BaseController
             $array['front_cache_state']     = $setArray['FRONT_CACHE_STATE'];
             $array['front_cache_time']      = $setArray['FRONT_CACHE_TIME'];
             $array['front_cache_time_type'] = $setArray['FRONT_CACHE_TIME_TYPE'];
+
+            $array['front_cdn_state']       = $setArray['FRONT_CDN_STATE'];
+            $array['front_cdn_http_type']   = $setArray['FRONT_CDN_HTTP_TYPE'];
+            $array['front_cdn_domain']      = $setArray['FRONT_CDN_DOMAIN'];
 
             $array['success_msg'] = $this->getDbshopLang()->translate('性能优化设置保存成功！');
 

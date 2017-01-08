@@ -19,7 +19,14 @@
     </tr>
     <tr>
       <td width="15%" style="background-color:#999;color:#FFF;"><strong><?php echo $this->translate('更新描述'); ?></strong></td>
-      <td><?php echo (isset($this->packageInfo->update_info) and $this->packageInfo->update_info != '') ? $this->packageInfo->update_info : '&nbsp;'; ?></td>
+      <td>
+          <div style="height: 500px;overflow: auto;">
+              <style>
+                  p {margin-bottom: 3px;font-size: 15px;}
+              </style>
+              <?php echo (isset($this->packageInfo->update_info) and $this->packageInfo->update_info != '') ? $this->packageInfo->update_info : '&nbsp;'; ?>
+          </div>
+      </td>
     </tr>
   </table>
 </div>

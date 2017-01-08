@@ -141,9 +141,8 @@ class OrderController extends FronthomeController
             if(file_exists($expressPath . $array['order_info']['express_id'] . '.ini')) {
                 $expressIni = $iniReader->fromFile($expressPath . $array['order_info']['express_id'] . '.ini');
                 $array['express_url'] = $expressIni['express_url'];
-                if(is_array($expressIni) and $expressIni['express_name_code'] != '' and file_exists($expressPath . 'express.xml')) {
-                    $xmlReader    = new \Zend\Config\Reader\Xml();
-                    $expressArray = $xmlReader->fromFile($expressPath . 'express.xml');
+                if(is_array($expressIni) and $expressIni['express_name_code'] != '' and file_exists($expressPath . 'express.php')) {
+                    $expressArray = include($expressPath . 'express.php');
                     if(!empty($expressArray)) {
                         $array['express_state_array'] = $this->getServiceLocator()->get('shop_express_state')->getExpressStateContent($expressArray, $expressIni['express_name_code'], $array['delivery_address']['express_number']);
                     }
@@ -278,9 +277,8 @@ class OrderController extends FronthomeController
             if(file_exists($expressPath . $array['order_info']['express_id'] . '.ini')) {
                 $expressIni = $iniReader->fromFile($expressPath . $array['order_info']['express_id'] . '.ini');
                 $array['express_url'] = $expressIni['express_url'];
-                if(is_array($expressIni) and $expressIni['express_name_code'] != '' and file_exists($expressPath . 'express.xml')) {
-                    $xmlReader    = new \Zend\Config\Reader\Xml();
-                    $expressArray = $xmlReader->fromFile($expressPath . 'express.xml');
+                if(is_array($expressIni) and $expressIni['express_name_code'] != '' and file_exists($expressPath . 'express.php')) {
+                    $expressArray = include($expressPath . 'express.php');
                     if(!empty($expressArray)) {
                         $array['express_state_array'] = $this->getServiceLocator()->get('shop_express_state')->getExpressStateContent($expressArray, $expressIni['express_name_code'], $array['delivery_address']['express_number']);
                     }
@@ -465,7 +463,7 @@ class OrderController extends FronthomeController
         $orderId    = (int) $this->params('order_id');
         //订单基本信息
         $orderInfo  = $this->getDbshopTable('OrderTable')->infoOrder(array('order_id'=>$orderId));
-        if($orderInfo->pay_code == '') { @header("Location: " . $this->getRequest()->getServer('HTTP_REFERER')); exit(); }
+        if($orderInfo->pay_code == '' or $orderInfo->buyer_id != $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')) { @header("Location: " . $this->getRequest()->getServer('HTTP_REFERER')); exit(); }
 
         //订单配送信息
         $deliveryAddress = $this->getDbshopTable('OrderDeliveryAddressTable')->infoDeliveryAddress(array('order_id'=>$orderId));
@@ -509,7 +507,7 @@ class OrderController extends FronthomeController
         //订单基本信息
         $orderInfo  = $this->getDbshopTable('OrderTable')->infoOrder(array('order_id'=>$orderId));
         //判断支付方式是否非空，或者是否与购买者相对应
-        if($orderInfo->pay_code == '' or $orderInfo->buyer_id != $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')) return $this->redirect()->toRoute('frontorder/default');
+        if($orderInfo->pay_code == '' or $orderInfo->order_state >= 20 or $orderInfo->buyer_id != $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')) return $this->redirect()->toRoute('frontorder/default');
         //当是线下付款时，如果不进行下面的判断处理，会出现问题
         if($orderInfo->pay_code == 'xxzf' and $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id') == '') return $this->redirect()->toRoute('frontuser/default',array('action'=>'login'));
         //当时支付方式为余额付款时，进行单独处理，支付状态，抛给orderInfo

@@ -1,4 +1,6 @@
-<?php if($this->ad_slide) { ?>
+<?php
+$ad_index_slide = $this->frontwebsite()->getShopAd('index', 'phone_slide', 'phone');
+if($ad_index_slide) { ?>
 <div id="focus" class="focus ect-margin-tb">
     <div class="hd">
         <ul>
@@ -6,7 +8,6 @@
     </div>
     <div class="bd">
         <?php
-        $ad_index_slide = $this->frontwebsite()->getShopAd('index', 'phone_slide', 'phone');
         if($ad_index_slide != '') {
             echo $ad_index_slide;
         }

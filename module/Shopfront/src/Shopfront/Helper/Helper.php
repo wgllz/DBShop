@@ -147,6 +147,12 @@ class Helper extends AbstractHelper
         if(file_exists(DBSHOP_PATH . '/data/moduledata/User/OtherLogin.ini')) {
             $array = $this->iniReader->fromFile(DBSHOP_PATH . '/data/moduledata/User/OtherLogin.ini');
         }
+        //如果是在电脑端则去除微信内登录
+        if(strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') === false) {
+            unset($array['Weixinphone']);
+        } else {
+            unset($array['Weixin']);
+        }
         return $array;
     }
     /**
@@ -472,7 +478,7 @@ class Helper extends AbstractHelper
     }
     /*-----------------------------------商品价格转换----------------------------------------*/
     /**
-     * 商品图片处理，当为空时显示默认图片
+     * 商品图片处理，当为空时显示默认图片(前台商品图片显示)，前台有cdn处理，所以后台单独拿出来
      * @param $goodsImage
      * @return mixed
      */
@@ -484,9 +490,64 @@ class Helper extends AbstractHelper
 
         if(stripos($image, '{qiniu}') !== false) return str_replace('{qiniu}', $qiniuHttp.$this->storageConfig['qiniu_domain'], $image);
         if(stripos($image, '{aliyun}') !== false) return str_replace('{aliyun}', $aliyunHttp.$this->storageConfig['aliyun_domain'], $image);
+        if(defined('FRONT_CDN_STATE') and FRONT_CDN_STATE == 'true') {//开启cdn图片加速
+            //if(stripos($image, 'http') === false) return FRONT_CDN_HTTP_TYPE . FRONT_CDN_DOMAIN . '/goods/' . basename($image);
+            if(stripos($image, 'http') === false) return FRONT_CDN_HTTP_TYPE . FRONT_CDN_DOMAIN . $image;
+        }
 
         if($image == '' or !file_exists(DBSHOP_PATH . $image)) $image = $this->getGoodsUploadIni('goods', 'goods_image_default');
         return $image;
+    }
+    /**
+     * 商品图片处理，当为空时显示默认图片(后台商品图片显示)
+     * @param $goodsImage
+     * @return mixed
+     */
+    public function shopadminGoodsImage($goodsImage) {
+        $image = $goodsImage;
+        $qiniuHttp  = (isset($this->storageConfig['qiniu_http_type']) ? $this->storageConfig['qiniu_http_type'] : 'http://');
+        $aliyunHttp = (isset($this->storageConfig['aliyun_http_type']) ? $this->storageConfig['aliyun_http_type'] : 'http://');
+
+        if(stripos($image, '{qiniu}') !== false) return str_replace('{qiniu}', $qiniuHttp.$this->storageConfig['qiniu_domain'], $image);
+        if(stripos($image, '{aliyun}') !== false) return str_replace('{aliyun}', $aliyunHttp.$this->storageConfig['aliyun_domain'], $image);
+
+        if($image == '' or !file_exists(DBSHOP_PATH . $image)) $image = $this->getGoodsUploadIni('goods', 'goods_image_default');
+        return $image;
+    }
+    /**
+     * 对商品详情进行处理
+     * @param $goodsBody
+     */
+    /**
+     * 对商品详情进行处理
+     * @param $goodsBody
+     * @return mixed
+     */
+    public function shopGoogsBody($goodsBody)
+    {
+        if(defined('FRONT_CDN_STATE') and FRONT_CDN_STATE == 'true') {//开启cdn图片加速
+            $imageBaseUrl = FRONT_CDN_HTTP_TYPE . FRONT_CDN_DOMAIN;
+
+            preg_match_all('/<img(.*)src="([^"]+)"[^>]+>/isU', $goodsBody, $matches);
+            if(isset($matches[2]) and !empty($matches[2])) {
+                $images         = $matches[2];
+                $patterns       = array();
+                $replacements   = array();
+                foreach($images as $imageitem) {
+                    if(stripos($imageitem, 'http') === false) {
+                        //$replacements[] = $imageBaseUrl . '/goods/'. basename($imageitem);
+                        $replacements[] = $imageBaseUrl . $imageitem;
+                        $patterns[]     = "/".preg_replace("/\//i","\/",$imageitem)."/";
+                    }
+                }
+                if(!empty($replacements)) {
+                    ksort($patterns);
+                    ksort($replacements);
+                    $goodsBody = preg_replace($patterns, $replacements, $goodsBody);
+                }
+            }
+        }
+        return $goodsBody;
     }
     /**
      * 获取广告信息

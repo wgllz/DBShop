@@ -471,6 +471,7 @@ class SystemController extends BaseController
         $userIni['qq_login_state']          = $usersetArray['qq_login_state'];
         $userIni['weixin_login_state']      = $usersetArray['weixin_login_state'];
         $userIni['alipay_login_state']      = $usersetArray['alipay_login_state'];
+        $userIni['weixin_phone_login_state']= $usersetArray['weixin_phone_login_state'];
 
         $userDefaultAvatar = $this->getServiceLocator()->get('shop_other_upload')->userDefaultAvatar('default_avatar', (isset($usersetArray['old_default_avatar']) ? $usersetArray['old_default_avatar'] : ''), $this->getServiceLocator()->get('adminHelper')->defaultShopSet('shop_user_avatar_width'), $this->getServiceLocator()->get('adminHelper')->defaultShopSet('shop_user_avatar_height'));
         $userIni['default_avatar'] = $userDefaultAvatar['image'];
@@ -483,10 +484,14 @@ class SystemController extends BaseController
         $otherLoginIni['QQ']['login_state']  = $usersetArray['qq_login_state'];
         $otherLoginIni['QQ']['app_id']       = $usersetArray['qq_app_id'];
         $otherLoginIni['QQ']['app_key']      = $usersetArray['qq_app_key'];
-        //微信
+        //微信网站
         $otherLoginIni['Weixin']['login_state']     = $usersetArray['weixin_login_state'];
         $otherLoginIni['Weixin']['app_id']          = $usersetArray['weixin_app_id'];
         $otherLoginIni['Weixin']['app_secret']      = $usersetArray['weixin_app_secret'];
+        //微信内登录
+        $otherLoginIni['Weixinphone']['login_state']     = $usersetArray['weixin_phone_login_state'];
+        $otherLoginIni['Weixinphone']['app_id']          = $usersetArray['weixin_phone_app_id'];
+        $otherLoginIni['Weixinphone']['app_secret']      = $usersetArray['weixin_phone_app_secret'];
         //支付宝
         $otherLoginIni['Alipay']['login_state']     = $usersetArray['alipay_login_state'];
         $otherLoginIni['Alipay']['alipay_pid']      = $usersetArray['alipay_pid'];

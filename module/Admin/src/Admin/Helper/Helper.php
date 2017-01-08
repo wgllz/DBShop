@@ -96,6 +96,9 @@ class Helper extends AbstractHelper
             'DBSHOP_TEMPLATE'       => (defined('DBSHOP_TEMPLATE') ? DBSHOP_TEMPLATE : 'default'),
             'DBSHOP_TEMPLATE_CSS'   => (defined('DBSHOP_TEMPLATE_CSS') ? DBSHOP_TEMPLATE_CSS : 'default'),
 
+            'DBSHOP_PHONE_TEMPLATE' => (defined('DBSHOP_PHONE_TEMPLATE') ? DBSHOP_PHONE_TEMPLATE : 'default'),
+            'DBSHOP_PHONE_TEMPLATE_CSS' => (defined('DBSHOP_PHONE_TEMPLATE_CSS') ? DBSHOP_PHONE_TEMPLATE_CSS : 'default'),
+
             'DBSHOP_ADMIN_COMPRESS' => (defined('DBSHOP_ADMIN_COMPRESS') ? DBSHOP_ADMIN_COMPRESS : ''),
             'DBSHOP_FRONT_COMPRESS' => (defined('DBSHOP_FRONT_COMPRESS') ? DBSHOP_FRONT_COMPRESS : ''),
 
@@ -104,8 +107,9 @@ class Helper extends AbstractHelper
             'FRONT_CACHE_TIME_TYPE'   => (defined('FRONT_CACHE_TIME_TYPE') ? FRONT_CACHE_TIME_TYPE : '0'),
             'FRONT_CACHE_EXPIRE_TIME' => (defined('FRONT_CACHE_EXPIRE_TIME') ? FRONT_CACHE_EXPIRE_TIME : '0'),
 
-            'DBSHOP_PHONE_TEMPLATE' => (defined('DBSHOP_PHONE_TEMPLATE') ? DBSHOP_PHONE_TEMPLATE : 'default'),
-            'DBSHOP_PHONE_TEMPLATE_CSS' => (defined('DBSHOP_PHONE_TEMPLATE_CSS') ? DBSHOP_PHONE_TEMPLATE_CSS : 'default'),
+            'FRONT_CDN_STATE'         => (defined('FRONT_CDN_STATE') ? FRONT_CDN_STATE : 'false'),
+            'FRONT_CDN_HTTP_TYPE'     => (defined('FRONT_CDN_HTTP_TYPE') ? FRONT_CDN_HTTP_TYPE : 'http://'),
+            'FRONT_CDN_DOMAIN'        => (defined('FRONT_CDN_DOMAIN') ? FRONT_CDN_DOMAIN : ''),
         );
         
         if(is_array($array) and !empty($array)) {

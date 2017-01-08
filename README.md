@@ -51,8 +51,17 @@ DBShop系统并不推崇手动更新，程序的事情就让程序去做好了�
    2）在原始网站后台通过数据库备份功能备份完毕，然后将/data/moduledata/Dbsql 、/data/moduledata/moduledataback、/public 三个目录，覆盖到要迁移网站，然后登入新后台的数据库备份功能，点击导入即可。
 
 2、整站迁移：相对简单，系统后台数据库备份下，然后将整个网站迁移，迁移完毕后，重新安装，安装完毕，直接进入系统后台的数据库备份页面，将其导入即可。
-如果在迁移过程中数据库密码又修改的话，可参考下面 数据库密码修改 的方式进行处理。
+如果在迁移过程中数据库密码有修改的话，可参考下面 数据库密码修改 的方式进行处理。
 
+最后 也是最重要的一步了，删除 /data/cache/modulecache/ 目录下面的所有文件，然后通过浏览器浏览站点即可
+
+如果是从一个域名换到另一个域名，上面的处理就可以了。假如是从一个根目录迁移到一个二级目录下面，那么广告需要去后台编辑保存一下，商品详情中的商品图片路径修改下。
+商品详情中的商品图片路径修改 有一个简单修改方法，使用sql语句，要修改的数据表是 dbshop_goods_extend 修改前建议备份该表，防止修改失败给您造成不必要的损失，sql语句如下
+UPDATE `dbshop_goods_extend` SET `goods_body`=REPLACE(`goods_body`, '原路径', '将要替换的路径');
+下面举一个例子，我们将 /public/upload/ 路径替换为 /shop/public/update/ 语句如下
+UPDATE `dbshop_goods_extend` SET `goods_body`=REPLACE(`goods_body`, '/public/upload/', '/shop/public/upload/');
+如果想更精确些，可以把/public前面的部分也加上，如 src="/public/upload/ （当然您也可以加入更多匹配条件）那么替换语句是
+UPDATE `dbshop_goods_extend` SET `goods_body`=REPLACE(`goods_body`, 'src="/public/upload/', 'src="/shop/public/upload/');
 
 +-----------------------------------------------+
  **DBShop 电子商务网店系统数据库密码修改**
@@ -60,7 +69,7 @@ DBShop系统并不推崇手动更新，程序的事情就让程序去做好了�
 有一种情况，当运行了一段时间后，觉得自己的数据库连接密码设置的过于简单，担心安全问题。这时想把简单的密码修改为复杂一点的，方法如下：
 首先 在数据库管理工具中将简单密码修改为复杂密码，这里无需多说，您使用的什么管理工具就用什么管理工具修改
 然后 修改DBShop下面 /data/Database.ini.php 这个文件内容，里面的 password 对应的就是密码设置，设置好后保存
-最后 也是最重要的一步了，删除 /data/cache/modulecache/ 目录下面的所有文件，就两个文件而已
+最后 也是最重要的一步了，删除 /data/cache/modulecache/ 目录下面的所有文件，然后通过浏览器浏览站点即可
 
 
 +-----------------------------------------------+

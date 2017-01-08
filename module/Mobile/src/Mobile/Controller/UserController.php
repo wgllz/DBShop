@@ -311,8 +311,7 @@ class UserController  extends AbstractActionController
         $loginType = $this->request->getQuery('login_type');
 
         $loginService     = $this->checkOtherLoginConfig($loginType);
-        if($loginType == 'weixin') $loginService->mobileToLogin();
-        else $loginService->toLogin();
+        $loginService->toLogin();
     }
     /**
      * 第三方注册操作
@@ -525,7 +524,7 @@ class UserController  extends AbstractActionController
      * @param string $loginType
      * @return array|object
      */
-    private function checkOtherLoginConfig($loginType='QQ')
+    private function checkOtherLoginConfig($loginType='qq')
     {
         $getClass = ucfirst($loginType).'Login';
         $loginService     = $this->getServiceLocator()->get($getClass);

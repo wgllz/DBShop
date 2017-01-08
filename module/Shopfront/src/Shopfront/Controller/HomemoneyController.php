@@ -386,14 +386,13 @@ class HomemoneyController extends FronthomeController
      */
     private function listPayment()
     {
-        $xmlReader    = new \Zend\Config\Reader\Xml();
         $paymentArray = array();
-        $xmlPath      = DBSHOP_PATH . '/data/moduledata/Payment/';
-        if(is_dir($xmlPath)) {
-            $dh = opendir($xmlPath);
+        $filePath      = DBSHOP_PATH . '/data/moduledata/Payment/';
+        if(is_dir($filePath)) {
+            $dh = opendir($filePath);
             while (false !== ($fileName = readdir($dh))) {
-                if($fileName != '.' and $fileName != '..' and $fileName != '.DS_Store') {
-                    $paymentInfo = $xmlReader->fromFile($xmlPath . $fileName);
+                if($fileName != '.' and $fileName != '..' and stripos($fileName, '.php') !== false and $fileName != '.DS_Store') {
+                    $paymentInfo = include($filePath . $fileName);
 
                     if(!in_array($paymentInfo['editaction'], array('xxzf', 'hdfk', 'yezf', 'malipay'))) {
 

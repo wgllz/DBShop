@@ -29,7 +29,7 @@
                     	<div class="control-group">
                   			<label for="input01" class="control-label"><?php echo $this->translate('链接地址'); ?>：</label>
            					<div class="controls">
-              					<input type="text" id="navigation_url"  name="navigation_url" class="span8" value="<?php echo ($this->navigation_info ? $this->navigation_info->navigation_url : ''); ?>">
+              					<input type="text" id="navigation_url"  name="navigation_url" placeholder="<?php echo $this->translate('外网地址请自行加入 http:// 或 https://  [ 如: http://www.baidu.com ]'); ?>" class="span8" value="<?php echo ($this->navigation_info ? $this->navigation_info->navigation_url : ''); ?>">
                                 <button class="btn btn-small btn-primary" type="button" onclick="add_brand_url_js();"><?php echo $this->translate('获取商品品牌地址'); ?></button>
             				</div>                        
                         </div>

@@ -32,6 +32,9 @@ class TemplateController extends BaseController
     public function indexAction()
     {
         $array = array();
+        //系统信息
+        include DBSHOP_PATH . '/data/Version.php';
+
         $templateIniReader = new \Zend\Config\Reader\Ini();
         $dbshopTemplate    = DBSHOP_TEMPLATE;
         
@@ -76,7 +79,7 @@ class TemplateController extends BaseController
         if(class_exists('SoapClient') and !empty($where)) {
             $where = substr($where, 0, -4);
             try {
-                $onlineTemplate = $this->dbshopSoapClient('dbshopTemplateList', array($where));
+                $onlineTemplate = $this->dbshopSoapClient('dbshopTemplateList', array($where, 'v.support_version<='.DBSHOP_VERSION_NUMBER));
             } catch (\Exception $e) {
 
             }

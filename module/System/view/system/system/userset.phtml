@@ -140,6 +140,32 @@
                         </div>
 						<hr>
 						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('微信登录(微信内)'); ?>：</label>
+							<div class="controls">
+								<label class="radio inline"><input type="radio" name="weixin_phone_login_state" value="true" <?php if(isset($this->user_config['weixin_phone_login_state']) and $this->user_config['weixin_phone_login_state'] == 'true') echo 'checked="checked"'; ?>><?php echo $this->translate('开启'); ?></label>
+								<label class="radio inline"><input type="radio" name="weixin_phone_login_state" value="false" <?php if((isset($this->user_config['weixin_phone_login_state']) and $this->user_config['weixin_phone_login_state'] == 'false') or !isset($this->user_config['weixin_phone_login_state'])) echo 'checked="checked"'; ?>><?php echo $this->translate('关闭'); ?></label>
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="input01" class="control-label"><?php echo $this->translate('授权回调域'); ?>：</label>
+							<div class="controls">
+								<label style="line-height: 30px;"><?php echo str_replace(array('http://', 'https://'), '', $this->serverUrl()); ?></label>
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="input01" class="control-label">AppID：</label>
+							<div class="controls">
+								<input type="text" name="weixin_phone_app_id" id="weixin_phone_app_id" value="<?php if(isset($this->login_config['Weixinphone']['app_id'])) echo $this->escapeHtml($this->login_config['Weixinphone']['app_id']); ?>" class="span6"> <a href="https://mp.weixin.qq.com/" class="btn btn-small btn-info" target="_blank"><?php echo $this->translate('点击去获取微信内登录的AppID 和 AppSecret'); ?></a>
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="input01" class="control-label">AppSecret：</label>
+							<div class="controls">
+								<input type="text" name="weixin_phone_app_secret" id="weixin_phone_app_secret" value="<?php if(isset($this->login_config['Weixinphone']['app_secret'])) echo $this->escapeHtml($this->login_config['Weixinphone']['app_secret']); ?>" class="span6">
+							</div>
+						</div>
+						<hr>
+						<div class="control-group">
 							<label for="input01" class="control-label"><?php echo $this->translate('微信登录(网站)'); ?>：</label>
 							<div class="controls">
 								<label class="radio inline"><input type="radio" name="weixin_login_state" value="true" <?php if(isset($this->user_config['weixin_login_state']) and $this->user_config['weixin_login_state'] == 'true') echo 'checked="checked"'; ?>><?php echo $this->translate('开启'); ?></label>
@@ -155,7 +181,7 @@
 						<div class="control-group">
 							<label for="input01" class="control-label">AppID：</label>
 							<div class="controls">
-								<input type="text" name="weixin_app_id" id="weixin_app_id" value="<?php if(isset($this->login_config['Weixin']['app_id'])) echo $this->escapeHtml($this->login_config['Weixin']['app_id']); ?>" class="span6"> <a href="https://open.weixin.qq.com/" class="btn btn-small btn-info" target="_blank"><?php echo $this->translate('点击去获取微信登录的AppID 和 AppSecret'); ?></a>
+								<input type="text" name="weixin_app_id" id="weixin_app_id" value="<?php if(isset($this->login_config['Weixin']['app_id'])) echo $this->escapeHtml($this->login_config['Weixin']['app_id']); ?>" class="span6"> <a href="https://open.weixin.qq.com/" class="btn btn-small btn-info" target="_blank"><?php echo $this->translate('点击去获取微信网站登录的AppID 和 AppSecret'); ?></a>
 							</div>
 						</div>
 						<div class="control-group">

@@ -1,97 +1,322 @@
-<div class="row-fluid admin_login" style="margin-top:120px;">
-	<div class="span6 offset3">
-		<div class="span12">
-        	<h5><?php echo $this->translate('管理员登录'); ?></h5>
-        </div>
-        <div class="well" style="margin-bottom:-8px;">
-        	<form class="form-horizontal" id="admin_login_form" name="admin_login_form" method="POST" action="<?php echo $this->url('admin/default'); ?>">
-                <div class="control-group">
-                	<div class="message_one">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?php echo $this->translate('系统管理员后台登录'); ?></title>
+    <script type="text/javascript">
+        if (/MSIE 6/.test(navigator.userAgent)) {
+            window.location = '<?php echo $this->basePath('public/support-browser.html'); ?>';
+        }
+    </script>
+    <link href="<?php echo $this->basePath('public/admin/img/favicon.ico'); ?>" rel="shortcut icon">
+    <link href="<?php echo $this->basePath('public/admin/css/bootstrap.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo $this->basePath('public/admin/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet">
+    <style>
+        input[type="text"],
+        input[type="password"],
+        textarea,
+        textarea.form-control {
+            height: 50px;
+            margin: 0;
+            padding: 0 20px;
+            vertical-align: middle;
+            background: #f8f8f8;
+            border: 3px solid #ddd;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 50px;
+            color: #888;
+            -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
+            -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;
+            -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
+        }
+
+        textarea,
+        textarea.form-control {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            line-height: 30px;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        textarea:focus,
+        textarea.form-control:focus {
+            outline: 0;
+            background: #fff;
+            border: 3px solid #ccc;
+            -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;
+        }
+
+        input[type="text"]:-moz-placeholder, input[type="password"]:-moz-placeholder,
+        textarea:-moz-placeholder, textarea.form-control:-moz-placeholder { color: #888; }
+
+        input[type="text"]:-ms-input-placeholder, input[type="password"]:-ms-input-placeholder,
+        textarea:-ms-input-placeholder, textarea.form-control:-ms-input-placeholder { color: #888; }
+
+        input[type="text"]::-webkit-input-placeholder, input[type="password"]::-webkit-input-placeholder,
+        textarea::-webkit-input-placeholder, textarea.form-control::-webkit-input-placeholder { color: #888; }
+
+        button.btn {
+            height: 50px;
+            margin: 0;
+            padding: 0 20px;
+            vertical-align: middle;
+            background: #4aaf51;
+            border: 0;
+            font-family: Microsoft YaHei,SimSun,Arial;
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 50px;
+            color: #fff;
+            -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
+            text-shadow: none;
+            -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;
+            -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
+        }
+
+        button.btn:hover { opacity: 0.6; color: #fff; }
+        button.btn:active { outline: 0; opacity: 0.6; color: #fff; -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none; }
+        button.btn:focus { outline: 0; opacity: 0.6; background: #4aaf51; color: #fff; }
+        button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; background: #4aaf51; color: #fff; }
+        body {
+            font-family: Microsoft YaHei,SimSun,Arial;
+            font-size: 16px;
+            font-weight: 300;
+            color: #888;
+            line-height: 30px;
+            text-align: center;
+        }
+        strong { font-weight: 500; }
+        a, a:hover, a:focus {
+            color: #4aaf51;
+            text-decoration: none;
+            -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
+        }
+        h1, h2 {
+            margin-top: 10px;
+            font-size: 38px;
+            font-weight: 100;
+            color: #555;
+            line-height: 50px;
+        }
+        h3 {
+            font-size: 22px;
+            font-weight: 300;
+            color: #555;
+            line-height: 30px;
+        }
+        img { max-width: 100%; }
+
+        ::-moz-selection { background: #4aaf51; color: #fff; text-shadow: none; }
+        ::selection { background: #4aaf51; color: #fff; text-shadow: none; }
+        .btn-link-1 {
+            display: inline-block;
+            height: 50px;
+            margin: 5px;
+            padding: 16px 20px 0 20px;
+            background: #4aaf51;
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 16px;
+            color: #fff;
+            -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
+        }
+        .btn-link-1:hover, .btn-link-1:focus, .btn-link-1:active { outline: 0; opacity: 0.6; color: #fff; }
+        .btn-link-1.btn-link-1-facebook { background: #4862a3; }
+        .btn-link-1.btn-link-1-twitter { background: #55acee; }
+        .btn-link-1.btn-link-1-google-plus { background: #dd4b39; }
+        .btn-link-1 i {
+            padding-right: 5px;
+            vertical-align: middle;
+            font-size: 20px;
+            line-height: 20px;
+        }
+        .btn-link-2 {
+            display: inline-block;
+            height: 50px;
+            margin: 5px;
+            padding: 15px 20px 0 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #fff;
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 16px;
+            color: #fff;
+            -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
+        }
+        .btn-link-2:hover, .btn-link-2:focus,
+        .btn-link-2:active, .btn-link-2:active:focus { outline: 0; opacity: 0.6; background: rgba(0, 0, 0, 0.3); color: #fff; }
+
+        /***** Top content *****/
+        .inner-bg {
+            padding: 100px 0 170px 0;
+        }
+        .top-content .text {
+            color: #fff;
+        }
+        .top-content .text h1 { color: #fff; }
+        .top-content .description {
+            margin: 20px 0 10px 0;
+        }
+        .top-content .description p { opacity: 0.8; }
+
+        .top-content .description a {
+            color: #fff;
+        }
+        .top-content .description a:hover,
+        .top-content .description a:focus { border-bottom: 1px dotted #fff; }
+        .form-box {
+            margin-top: 35px;
+        }
+        .form-top {
+            overflow: hidden;
+            padding: 0 25px 15px 25px;
+            background: #fff;
+            -moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;
+            text-align: left;
+        }
+        .form-top-left {
+            float: left;
+            width: 75%;
+            padding-top: 25px;
+        }
+        .form-top-left h3 { margin-top: 0; }
+        .form-top-right {
+            float: left;
+            width: 25%;
+            padding-top: 5px;
+            font-size: 66px;
+            color: #ddd;
+            line-height: 100px;
+            text-align: right;
+        }
+        .form-bottom {
+            padding: 25px 25px 30px 25px;
+            background: #eee;
+            -moz-border-radius: 0 0 4px 4px; -webkit-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px;
+            text-align: left;
+        }
+        .form-bottom form textarea {
+            height: 100px;
+        }
+        .form-bottom form button.btn {
+            width: 100%;
+        }
+        .form-bottom form .input-error {
+            border-color:#ed6343;
+        }
+        .social-login {
+            margin-top: 18px;
+        }
+        .social-login h3 {
+            font-size: 15px;
+            color: #fff;
+        }
+        .social-login-buttons {
+            margin-top: 25px;
+        }
+        /***** Media queries *****/
+        @media (min-width: 992px) and (max-width: 1199px) {}
+        @media (min-width: 768px) and (max-width: 991px) {}
+        @media (max-width: 767px) {
+            .inner-bg { padding: 60px 0 110px 0; }
+        }
+
+        @media (max-width: 415px) {
+
+            h1, h2 { font-size: 32px; }
+        }
+
+    </style>
+
+</head>
+
+<body>
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>DBShop</strong> <?php echo $this->translate('电子商务系统'); ?></h1>
+                    <div class="description">
+                        <p>
+                            <?php echo $this->translate('期待与您一起，共同打造一款简单、易用、功能强大的在线购物系统！'); ?>
+                        </p>
                     </div>
-                </div>	
-            	<div class="control-group">
-            	<label for="input01" class="control-label" style="width:180px;"><strong><?php echo $this->translate('管理员'); ?>：</strong></label>
-            		<div class="controls">
-              		<input type="text" id="user_name" name="user_name" placeholder="<?php echo $this->translate('管理员帐户'); ?>" value="<?php echo (isset($this->admin_user) ? $this->escapeHtml($this->admin_user) : ''); ?>" class="span6">
-            		</div>
-          		</div>
-            	<div class="control-group">
-            	<label for="input01" class="control-label"  style="width:180px;"><strong><?php echo $this->translate('密码'); ?>：</strong></label>
-            		<div class="controls">
-              		<input type="password" id="user_passwd" name="user_passwd" placeholder="<?php echo $this->translate('管理员密码'); ?>" class="span6">
-            		</div>
-          		</div>
-            	<div class="control-group">
-            	<label for="input01" class="control-label"  style="width:180px;"><strong><?php echo $this->translate('验证码'); ?>：</strong></label>
-            		<div class="controls">
-              		<input type="text" id="captcha_code" name="captcha_code" placeholder="<?php echo $this->translate('验证码'); ?>" class="span3">&nbsp;<span id="captcha_id"></span>
-            		</div>
-          		</div>
-                <div class="offset3">
-                <input type="hidden" name="<?php echo $this->admin_login_csrf['name']; ?>" value="<?php echo $this->admin_login_csrf['value']; ?>" />
-            	<button class="btn btn-small btn-primary" type="submit" style="margin-left:15px;"><i class="icon-user icon-white"></i> <?php echo $this->translate('管理员登录'); ?></button>&nbsp;&nbsp;
-                <a href="<?php echo $this->url('shopfront/default'); ?>" class="btn btn-small btn-primary" style="margin-left:15px;"><i class="icon-share-alt icon-white"></i> <?php echo $this->translate('返回前台'); ?></a>
                 </div>
-            </form>
-        </div>
-		<div class="span12" style="margin-left:0px; line-height:30px;">
-        <font class="pull-right" color="#FFFFFF" style="margin-right:10px;">Copyright © <?php echo '2012-'.date("Y") . ' <a href="http://www.dbshop.net/" target="_blank" style="color:#FFF">DBShop.net</a>'; ?> <?php echo $this->translate('版权所有'); ?></font>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3><?php echo $this->translate('管理员登录'); ?></h3>
+                            <p><?php echo $this->translate('在下面输入框中输入管理员账户和密码:'); ?></p>
+                        </div>
+                        <div class="form-top-right">
+                            <i class="fa fa-key"></i>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <?php if(isset($this->admin_login_state) and $this->admin_login_state == 'false') { ?>
+                        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <p><?php echo $this->translate('账户名或者密码错误！'); ?></p>
+                        </div>
+                        <?php } ?>
+                        <form role="form" action="<?php echo $this->url('admin/default'); ?>" method="post" class="admin_login_form" id="admin_login_form">
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username"><?php echo $this->translate('管理员账户'); ?></label>
+                                <input type="text" name="user_name" id="user_name" placeholder="<?php echo $this->translate('请输入管理员账户…'); ?>" class="form-username form-control" id="form-username">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-password"><?php echo $this->translate('管理员密码'); ?></label>
+                                <input type="password" name="user_passwd" id="user_passwd" placeholder="<?php echo $this->translate('请输入管理员密码…'); ?>" class="form-password form-control" id="form-password">
+                                <input type="hidden" name="<?php echo $this->admin_login_csrf['name']; ?>" value="<?php echo $this->admin_login_csrf['value']; ?>" />
+                            </div>
+                            <button type="submit" class="btn"><?php echo $this->translate('后台登录'); ?></button>
+                            <a href="<?php echo $this->url('shopfront/default'); ?>" target="_blank" class="btn"><?php echo $this->translate('返回前台'); ?></a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 social-login">
+                    <h3>Copyright © <?php echo '2012-'.date("Y") . ' <a href="http://www.dbshop.net/" target="_blank" style="color:#FFF">DBShop.net</a>'; ?> <?php echo $this->translate('版权所有'); ?></h3>
+                </div>
+            </div>
         </div>
     </div>
+    <script src="<?php echo $this->basePath('public/admin/js/jquery-1.11.1.min.js'); ?>"></script>
+    <script src="<?php echo $this->basePath('public/admin/js/bootstrap.min.js'); ?>"></script>
+    <script src="<?php echo $this->basePath('public/admin/js/jquery.backstretch.min.js'); ?>"></script>
+    <script>
+        jQuery(document).ready(function() {
+            $.backstretch("<?php echo $this->basePath('public/admin/img/adminbackgrounds.jpg'); ?>");
+            $('.admin_login_form input[type="text"], .admin_login_form input[type="password"], .admin_login_form textarea').on('focus', function() {
+                $(this).removeClass('input-error');
+            });
+
+            $('.admin_login_form').on('submit', function(e) {
+
+                $(this).find('input[type="text"], input[type="password"], textarea').each(function(){
+                    if( $(this).val() == "" ) {
+                        e.preventDefault();
+                        $(this).addClass('input-error');
+                    }
+                    else {
+                        $(this).removeClass('input-error');
+                    }
+                });
+
+            });
+        });
+    </script>
 </div>
-<script>
-//管理员登录
-$(document).ready(function() {
-	$("#admin_login_form").validate({
-		success : function(label){
-			label.addClass('validate_right').text('OK!');
-		},
-		rules: {
-			user_name: {
-				required: true
-			},
-			user_passwd: {
-				required: true
-			},
-			captcha_code: {
-				required:true,
-				remote :{
-					url : '<?php echo $this->url('shopfront/default/captcha-check',array('action'=>'captcha','captcha_check'=>1)); ?>',
-					type : 'post',
-					date : {
-						captcha_code :function(){
-							return $("#captcha_code").val();
-						}
-					}
-				}
-			}
-		},
-		messages: {
-			user_name: {
-				required: "<?php echo $this->translate('请输入用户名！'); ?>"
-			},
-			user_passwd: {
-				required: "<?php echo $this->translate('请输入用户密码！'); ?>"
-			},
-			captcha_code: {
-				required:"<?php echo $this->translate('验证码不能为空！'); ?>",
-				remote : "<?php echo $this->translate('验证码错误！'); ?>"
-			}
-		}
-	});
-});
+</body>
 
-<?php if(isset($this->admin_login_state) and $this->admin_login_state == 'false') { ?>
-//管理员登录错误提示
-show_message('.message_one','<?php echo date("Y-m-d H:i:s",time()); ?>','<?php echo $this->translate('登录失败，用户名或密码错误，请重新登录！'); ?>','alert-error');
-<?php } ?>
-
-//验证码添加
-function captchaAdd() {
-	$.get("<?php echo $this->url('shopfront/default',array('action'=>'captcha')); ?>",{},
-	function(data){
-		$("#captcha_id").html('<img src="<?php echo $this->basePath('/'); ?>'+data.captcha_file+'" border="0" >&nbsp;&nbsp;<a href="javascript:;" onclick="captchaAdd()"><?php echo $this->translate('更换验证码'); ?></a>');
-},'json');
-}
-captchaAdd();
-</script> 
+</html>

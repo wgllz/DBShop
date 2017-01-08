@@ -427,7 +427,7 @@
                			foreach ($this->goods_images as $image) {
                		?>
                		<tr id="image_<?php echo $image->goods_image_id; ?>">
-               		<td><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($image->goods_thumbnail_image)); ?>" style="width: 100px;" border="0"></td>
+               		<td><img src="<?php echo $this->basePath($this->frontwebsite()->shopadminGoodsImage($image->goods_thumbnail_image)); ?>" style="width: 100px;" border="0"></td>
                		<td style="vertical-align:middle"><?php  $image_array = array();$image_array = pathinfo($image->goods_title_image); echo $image_array['basename']; ?><input type="hidden" name="image_more[]" value="<?php echo $image->goods_image_id; ?>"></td>
                		<td style="vertical-align:middle"><input type="radio" name="default_image" <?php if ($this->goods_info and $this->goods_info['goods_image_id']==$image->goods_image_id) { ?>checked="checked"<?php } ?> value="<?php echo $image->goods_image_id; ?>"></td>
                     <td style="vertical-align:middle"><label class="checkbox"><input type="checkbox" <?php if (isset($image->image_slide) and $image->image_slide==1) { ?>checked="checked"<?php } ?> name="image_slide_<?php echo $image->goods_image_id; ?>" id="image_slide_<?php echo $image->goods_image_id; ?>" onclick="edit_image_slide_state(<?php echo $image->goods_image_id; ?>, 'image_slide_<?php echo $image->goods_image_id; ?>');" value="1"></label></td>

@@ -85,7 +85,7 @@
                 </thead>
                 <?php foreach ($this->order_goods as $goods_value) { ?>
                 <tr>
-                	<td><a target="_blank" href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$goods_value['class_id'])); ?>"><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($goods_value['goods_image'])); ?>"  style=" height:55px;width:55px;border:1px solid #D7D7D7"> <?php echo $this->escapeHtml($goods_value['goods_name']); ?></a></td>
+                	<td><a target="_blank" href="<?php echo $this->url('frontgoods/default', array('goods_id'=>$goods_value['goods_id'], 'class_id'=>$goods_value['class_id'])); ?>"><img src="<?php echo $this->basePath($this->frontwebsite()->shopadminGoodsImage($goods_value['goods_image'])); ?>"  style=" height:55px;width:55px;border:1px solid #D7D7D7"> <?php echo $this->escapeHtml($goods_value['goods_name']); ?></a></td>
                     <td><?php echo $goods_value['goods_item']; ?></td>
                     <td>
 				<?php 

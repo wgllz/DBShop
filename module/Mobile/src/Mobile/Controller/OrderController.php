@@ -82,9 +82,8 @@ class OrderController  extends MobileHomeController
             if(file_exists($expressPath . $array['order_info']['express_id'] . '.ini')) {
                 $expressIni = $iniReader->fromFile($expressPath . $array['order_info']['express_id'] . '.ini');
                 $array['express_url'] = $expressIni['express_url'];
-                if(is_array($expressIni) and $expressIni['express_name_code'] != '' and file_exists($expressPath . 'express.xml')) {
-                    $xmlReader    = new \Zend\Config\Reader\Xml();
-                    $expressArray = $xmlReader->fromFile($expressPath . 'express.xml');
+                if(is_array($expressIni) and $expressIni['express_name_code'] != '' and file_exists($expressPath . 'express.php')) {
+                    $expressArray = include($expressPath . 'express.php');
                     if(!empty($expressArray)) {
                         $array['express_state_array'] = $this->getServiceLocator()->get('shop_express_state')->getExpressStateContent($expressArray, $expressIni['express_name_code'], $array['delivery_address']['express_number']);
                     }
@@ -151,17 +150,23 @@ class OrderController  extends MobileHomeController
      */
     public function orderpayAction ()
     {
-        $orderId    = (int) $this->params('order_id');
+        $orderId = (int) $this->params('order_id');
+
         //订单基本信息
         $orderInfo  = $this->getDbshopTable('OrderTable')->infoOrder(array('order_id'=>$orderId));
-        if($orderInfo->pay_code == '') { @header("Location: " . $this->getRequest()->getServer('HTTP_REFERER')); exit(); }
+        if($orderInfo->pay_code == '' or $orderInfo->buyer_id != $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')) { @header("Location: " . $this->getRequest()->getServer('HTTP_REFERER')); exit(); }
+
+        //如果是微信支付（微信内支付），进行单独跳转处理
+        if($orderInfo->pay_code == 'wxmpay') {//微信支付页面(手机端)
+            return $this->redirect()->toRoute('m_wx/default/wx_order_id', array('action'=>'index', 'order_id'=>$orderId));
+        }
 
         //订单配送信息
         $deliveryAddress = $this->getDbshopTable('OrderDeliveryAddressTable')->infoDeliveryAddress(array('order_id'=>$orderId));
         //订单商品
         $orderGoods = $this->getDbshopTable('OrderGoodsTable')->listOrderGoods(array('order_id'=>$orderId));
         //打包数据，传给下面的支付输出
-		$httpHost = $this->getRequest()->getServer('SERVER_NAME');
+		$httpHost = $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost();
 		$httpType = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps();
         $paymentData = array(
             'shop_name' => $this->getServiceLocator()->get('frontHelper')->websiteInfo('shop_name'),
@@ -172,7 +177,10 @@ class OrderController  extends MobileHomeController
             'notify_url'=> $httpType . $httpHost . $this->url()->fromRoute('m_order/default/order_id', array('action'=>'orderNotifyPay', 'order_id'=>$orderId)),
             'cancel_url'=> $httpType . $httpHost . $this->url()->fromRoute('m_order/default'),
             'order_url' => $httpType . $httpHost . $this->url()->fromRoute('m_order/default/order_id', array('action'=>'showorder', 'order_id'=>$orderId)),
-        );
+
+            //微信支付获取openid 返回时需要的，不是支付返回
+            'wxreturn_url'=> $httpType . $httpHost . $this->url()->fromRoute('m_order/default/order_id', array('action'=>'orderpay', 'order_id'=>$orderId))
+            );
         $result = $this->getServiceLocator()->get($orderInfo->pay_code)->paymentTo($paymentData);
 
         if($orderInfo->pay_code == 'wxmpay') {//微信支付页面(手机端)
@@ -303,9 +311,8 @@ class OrderController  extends MobileHomeController
             if(file_exists($expressPath . $array['order_info']['express_id'] . '.ini')) {
                 $expressIni = $iniReader->fromFile($expressPath . $array['order_info']['express_id'] . '.ini');
                 $array['express_url'] = $expressIni['express_url'];
-                if(is_array($expressIni) and $expressIni['express_name_code'] != '' and file_exists($expressPath . 'express.xml')) {
-                    $xmlReader    = new \Zend\Config\Reader\Xml();
-                    $expressArray = $xmlReader->fromFile($expressPath . 'express.xml');
+                if(is_array($expressIni) and $expressIni['express_name_code'] != '' and file_exists($expressPath . 'express.php')) {
+                    $expressArray = include($expressPath . 'express.php');
                     if(!empty($expressArray)) {
                         $array['express_state_array'] = $this->getServiceLocator()->get('shop_express_state')->getExpressStateContent($expressArray, $expressIni['express_name_code'], $array['delivery_address']['express_number']);
                     }
@@ -328,7 +335,7 @@ class OrderController  extends MobileHomeController
         //订单基本信息
         $orderInfo  = $this->getDbshopTable('OrderTable')->infoOrder(array('order_id'=>$orderId));
         //判断支付方式是否非空，或者是否与购买者相对应
-        if($orderInfo->pay_code == '' or $orderInfo->buyer_id != $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')) return $this->redirect()->toRoute('m_order/default');
+        if($orderInfo->pay_code == '' or $orderInfo->order_state >= 20 or $orderInfo->buyer_id != $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id')) return $this->redirect()->toRoute('m_order/default');
         //当是线下付款时，如果不进行下面的判断处理，会出现问题
         if($orderInfo->pay_code == 'xxzf' and $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id') == '') return $this->redirect()->toRoute('m_user/default',array('action'=>'login'));
         //当时支付方式为余额付款时，进行单独处理，支付状态，抛给orderInfo

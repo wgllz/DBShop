@@ -14,18 +14,16 @@
 
 namespace User\Service;
 
+use Zend\Config\Writer\PhpArray;
+
 class UcenterService
 {
-    private $xmlReader;
     private $integrationConfig;
     private $integrationForm;
     public function __construct()
     {
-        if(!$this->xmlReader) {
-            $this->xmlReader = new \Zend\Config\Reader\Xml();
-        }
         if(!$this->integrationConfig) {
-            $this->integrationConfig = $this->xmlReader->fromFile(DBSHOP_PATH . '/data/moduledata/User/Integration/ucenter.xml');
+            $this->integrationConfig = include(DBSHOP_PATH . '/data/moduledata/User/Integration/ucenter.php');
         }
         if(!$this->integrationForm) {
             $this->integrationForm = new \User\Form\IntegrationForm();
@@ -38,9 +36,9 @@ class UcenterService
      */
     public function saveIntegrationConfig(array $data)
     {
-        $xmlWriter   = new \Zend\Config\Writer\Xml();
+        $fileWriter = new PhpArray();
         $configArray = $this->integrationForm->setFormValue($this->integrationConfig, $data);
-        $xmlWriter->toFile(DBSHOP_PATH . '/data/moduledata/User/Integration/ucenter.xml', $configArray);
+        $fileWriter->toFile(DBSHOP_PATH . '/data/moduledata/User/Integration/ucenter.php', $configArray);
         return $configArray;
     }
     /**

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop V1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-06 18:45+0800\n"
-"PO-Revision-Date: 2016-11-06 18:45+0800\n"
+"POT-Creation-Date: 2016-11-26 18:01+0800\n"
+"PO-Revision-Date: 2016-11-26 18:01+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_CN\n"
@@ -18,7 +18,6 @@ msgstr ""
 "X-Poedit-SearchPath-1: ../../view/default\n"
 
 #: ../../src/Mobile/Controller/AddressController.php:32
-#: ../../view/default/mobile/home/index.phtml:29
 msgid "收货地址"
 msgstr ""
 
@@ -45,43 +44,43 @@ msgid "选择收货地址"
 msgstr ""
 
 #: ../../src/Mobile/Controller/CartController.php:89
-#: ../../src/Mobile/Controller/CartController.php:213
+#: ../../src/Mobile/Controller/CartController.php:219
 msgid "订单确认"
 msgstr ""
 
-#: ../../src/Mobile/Controller/CartController.php:286
-#: ../../src/Mobile/Controller/CartController.php:457
+#: ../../src/Mobile/Controller/CartController.php:298
+#: ../../src/Mobile/Controller/CartController.php:489
 msgid "订单完成"
 msgstr ""
 
-#: ../../src/Mobile/Controller/CartController.php:361
-#: ../../src/Mobile/Controller/CartController.php:559
-#: ../../src/Mobile/Controller/OrderController.php:211
+#: ../../src/Mobile/Controller/CartController.php:373
+#: ../../src/Mobile/Controller/CartController.php:591
+#: ../../src/Mobile/Controller/OrderController.php:231
 msgid "商品购物，订单号为："
 msgstr ""
 
-#: ../../src/Mobile/Controller/CartController.php:394
-#: ../../src/Mobile/Controller/CartController.php:595
+#: ../../src/Mobile/Controller/CartController.php:406
+#: ../../src/Mobile/Controller/CartController.php:627
 msgid "商品库存不足"
 msgstr ""
 
-#: ../../src/Mobile/Controller/CartController.php:394
-#: ../../src/Mobile/Controller/CartController.php:595
+#: ../../src/Mobile/Controller/CartController.php:406
+#: ../../src/Mobile/Controller/CartController.php:627
 msgid "去购物车中删除库存不足的商品"
 msgstr ""
 
-#: ../../src/Mobile/Controller/CartController.php:420
-#: ../../src/Mobile/Controller/CartController.php:621
+#: ../../src/Mobile/Controller/CartController.php:433
+#: ../../src/Mobile/Controller/CartController.php:654
 msgid "提交订单提醒"
 msgstr ""
 
-#: ../../src/Mobile/Controller/CartController.php:788
+#: ../../src/Mobile/Controller/CartController.php:840
 #: ../../view/default/mobile/cart/step.phtml:87
 #: ../../view/default/mobile/cart/stepvirtual.phtml:53
 msgid "发票抬头"
 msgstr ""
 
-#: ../../src/Mobile/Controller/CartController.php:789
+#: ../../src/Mobile/Controller/CartController.php:841
 #: ../../view/default/mobile/cart/step.phtml:90
 #: ../../view/default/mobile/cart/stepvirtual.phtml:56
 msgid "发票内容"
@@ -97,7 +96,6 @@ msgid "商品搜索"
 msgstr ""
 
 #: ../../src/Mobile/Controller/FavoritesController.php:31
-#: ../../view/default/mobile/home/index.phtml:49
 msgid "我的收藏"
 msgstr ""
 
@@ -110,7 +108,6 @@ msgid "个人中心"
 msgstr ""
 
 #: ../../src/Mobile/Controller/HomeController.php:59
-#: ../../view/default/mobile/home/index.phtml:50
 msgid "我的咨询"
 msgstr ""
 
@@ -151,137 +148,147 @@ msgstr ""
 msgid "订单详情"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:104
-#: ../../view/default/mobile/home/index.phtml:51
+#: ../../src/Mobile/Controller/OrderController.php:107
 msgid "虚拟商品"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:126
+#: ../../src/Mobile/Controller/OrderController.php:129
 msgid "虚拟商品详情"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:205
-#: ../../src/Mobile/Controller/OrderController.php:538
+#: ../../src/Mobile/Controller/OrderController.php:225
+#: ../../src/Mobile/Controller/OrderController.php:574
 #: ../../view/default/mobile/home/showorder.phtml:36
 #: ../../view/default/mobile/home/showorder.phtml:40
 msgid "确认收货"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:248
-#: ../../src/Mobile/Controller/OrderController.php:546
+#: ../../src/Mobile/Controller/OrderController.php:274
+#: ../../src/Mobile/Controller/OrderController.php:588
 msgid "确认收货交易完成"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:317
+#: ../../src/Mobile/Controller/OrderController.php:346
 msgid "支付凭证"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:336
+#: ../../src/Mobile/Controller/OrderController.php:365
 msgid "付款进行中"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:336
-#: ../../src/Mobile/Controller/OrderController.php:440
-#: ../../src/Mobile/Controller/OrderController.php:716
+#: ../../src/Mobile/Controller/OrderController.php:365
+#: ../../src/Mobile/Controller/OrderController.php:474
+#: ../../src/Mobile/Controller/OrderController.php:781
+#: ../../src/Mobile/Controller/WxController.php:89
 msgid "支付完成"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:385
-#: ../../src/Mobile/Controller/OrderController.php:487
+#: ../../src/Mobile/Controller/OrderController.php:418
+#: ../../src/Mobile/Controller/OrderController.php:522
+#: ../../src/Mobile/Controller/WxController.php:137
 msgid "订单付款完成"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:534
+#: ../../src/Mobile/Controller/OrderController.php:570
 msgid "发货完成"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:535
+#: ../../src/Mobile/Controller/OrderController.php:571
 msgid "管理员"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:597
+#: ../../src/Mobile/Controller/OrderController.php:636
+msgid "买家自行取消"
+msgstr ""
+
+#: ../../src/Mobile/Controller/OrderController.php:642
+msgid "取消订单，订单号为："
+msgstr ""
+
+#: ../../src/Mobile/Controller/OrderController.php:658
 msgid "订单取消"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:706
-#: ../../view/default/mobile/home/index.phtml:90
+#: ../../src/Mobile/Controller/OrderController.php:771
+#: ../../src/Mobile/Controller/WxController.php:238
 #: ../../view/default/mobile/home/orderlist.phtml:14
 #: ../../view/default/mobile/home/showorder.phtml:7
 msgid "订单总金额"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:707
+#: ../../src/Mobile/Controller/OrderController.php:772
 msgid "商品编号"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:708
-#: ../../view/default/mobile/home/index.phtml:129
+#: ../../src/Mobile/Controller/OrderController.php:773
 #: ../../view/default/mobile/home/list-virtual-goods.phtml:7
 msgid "商品名称"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:709
+#: ../../src/Mobile/Controller/OrderController.php:774
 #: ../../view/default/mobile/goods/index.phtml:98
 msgid "购买数量"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:710
+#: ../../src/Mobile/Controller/OrderController.php:775
 msgid "商品单价"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:711
+#: ../../src/Mobile/Controller/OrderController.php:776
 msgid "商品规格"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:712
+#: ../../src/Mobile/Controller/OrderController.php:777
 #: ../../view/default/mobile/cart/step.phtml:149
 msgid "配送费用"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:713
+#: ../../src/Mobile/Controller/OrderController.php:778
 msgid "确认付款"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:714
+#: ../../src/Mobile/Controller/OrderController.php:779
 msgid "提交支付凭证"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:715
+#: ../../src/Mobile/Controller/OrderController.php:780
 msgid "支付凭证提交完成，等待管理员审核！"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:715
-#: ../../src/Mobile/Controller/OrderController.php:716
-#: ../../src/Mobile/Controller/OrderController.php:717
-#: ../../src/Mobile/Controller/OrderController.php:718
+#: ../../src/Mobile/Controller/OrderController.php:780
+#: ../../src/Mobile/Controller/OrderController.php:781
+#: ../../src/Mobile/Controller/OrderController.php:782
+#: ../../src/Mobile/Controller/OrderController.php:783
 msgid "返回订单"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:717
+#: ../../src/Mobile/Controller/OrderController.php:782
 msgid "余额支付失败，您的账户余额不足，请您充值后再次进行支付。"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:718
+#: ../../src/Mobile/Controller/OrderController.php:783
 msgid "您订单中的付款货币，与系统当前默认货币不匹配，无法进行支付。"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:720
+#: ../../src/Mobile/Controller/OrderController.php:785
 msgid "线下支付说明"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:721
+#: ../../src/Mobile/Controller/OrderController.php:786
 msgid "支付凭证信息"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:722
+#: ../../src/Mobile/Controller/OrderController.php:787
 msgid "请输入支付凭证信息证明您已经完成付款！"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:723
+#: ../../src/Mobile/Controller/OrderController.php:788
+#: ../../view/default/mobile/home/index.phtml:11
+#: ../../view/default/mobile/home/wx_pay_finish.phtml:11
 msgid "返回订单列表"
 msgstr ""
 
-#: ../../src/Mobile/Controller/OrderController.php:758
+#: ../../src/Mobile/Controller/OrderController.php:823
 msgid "商品购买，订单编号为："
 msgstr ""
 
@@ -297,8 +304,8 @@ msgstr ""
 #: ../../src/Mobile/Controller/UserController.php:60
 #: ../../src/Mobile/Controller/UserController.php:216
 #: ../../src/Mobile/Controller/UserController.php:221
-#: ../../src/Mobile/Controller/UserController.php:442
-#: ../../src/Mobile/Controller/UserController.php:447
+#: ../../src/Mobile/Controller/UserController.php:450
+#: ../../src/Mobile/Controller/UserController.php:455
 #: ../../view/default/mobile/cart/submit.phtml:8
 msgid "返回首页"
 msgstr ""
@@ -316,48 +323,48 @@ msgid "会员注册"
 msgstr ""
 
 #: ../../src/Mobile/Controller/UserController.php:150
-#: ../../src/Mobile/Controller/UserController.php:361
+#: ../../src/Mobile/Controller/UserController.php:369
 msgid "会员注册默认起始积分数："
 msgstr ""
 
 #: ../../src/Mobile/Controller/UserController.php:210
-#: ../../src/Mobile/Controller/UserController.php:436
+#: ../../src/Mobile/Controller/UserController.php:444
 msgid "会员注册审核邮件"
 msgstr ""
 
 #: ../../src/Mobile/Controller/UserController.php:211
 #: ../../src/Mobile/Controller/UserController.php:287
-#: ../../src/Mobile/Controller/UserController.php:437
+#: ../../src/Mobile/Controller/UserController.php:445
 msgid "亲爱的"
 msgstr ""
 
 #: ../../src/Mobile/Controller/UserController.php:211
-#: ../../src/Mobile/Controller/UserController.php:437
+#: ../../src/Mobile/Controller/UserController.php:445
 msgid "您好，感谢您注册我们的会员，请点击会员审核链接进行认证审核 "
 msgstr ""
 
 #: ../../src/Mobile/Controller/UserController.php:212
-#: ../../src/Mobile/Controller/UserController.php:438
+#: ../../src/Mobile/Controller/UserController.php:446
 msgid "点击审核会员 "
 msgstr ""
 
 #: ../../src/Mobile/Controller/UserController.php:212
-#: ../../src/Mobile/Controller/UserController.php:438
+#: ../../src/Mobile/Controller/UserController.php:446
 msgid "如果您无法点击审核链接，请复制下面的链接地址在浏览器中打开，完成审核 "
 msgstr ""
 
 #: ../../src/Mobile/Controller/UserController.php:216
-#: ../../src/Mobile/Controller/UserController.php:442
+#: ../../src/Mobile/Controller/UserController.php:450
 msgid "您的帐户注册成功，需要验证邮件后方可使用，请登录您的邮箱进行验证！"
 msgstr ""
 
 #: ../../src/Mobile/Controller/UserController.php:218
-#: ../../src/Mobile/Controller/UserController.php:444
+#: ../../src/Mobile/Controller/UserController.php:452
 msgid "发送验证邮件失败，请联系网站管理员进行处理"
 msgstr ""
 
 #: ../../src/Mobile/Controller/UserController.php:221
-#: ../../src/Mobile/Controller/UserController.php:447
+#: ../../src/Mobile/Controller/UserController.php:455
 msgid "您的帐户注册成功，需要人工审核后才可使用！"
 msgstr ""
 
@@ -400,25 +407,25 @@ msgstr ""
 msgid "请重新输入"
 msgstr ""
 
-#: ../../src/Mobile/Controller/UserController.php:319
+#: ../../src/Mobile/Controller/UserController.php:321
 msgid "会员信息补充"
 msgstr ""
 
-#: ../../src/Mobile/Controller/UserController.php:506
+#: ../../src/Mobile/Controller/UserController.php:514
 msgid "该用户名已经存在！"
 msgstr ""
 
-#: ../../src/Mobile/Controller/UserController.php:510
+#: ../../src/Mobile/Controller/UserController.php:518
 msgid "该电子邮箱已经存在！"
 msgstr ""
 
-#: ../../src/Mobile/Controller/UserController.php:522
+#: ../../src/Mobile/Controller/UserController.php:533
 msgid "该登录方式的配置信息错误，必须在公网上进行测试！"
 msgstr ""
 
 #: ../../view/default/mobile/cart/add-address.phtml:6
 #: ../../view/default/mobile/home/add-address.phtml:9
-#: ../../view/default/mobile/home/showorder.phtml:147
+#: ../../view/default/mobile/home/showorder.phtml:154
 msgid "收货人姓名"
 msgstr ""
 
@@ -518,8 +525,7 @@ msgstr ""
 #: ../../view/default/mobile/cart/step.phtml:183
 #: ../../view/default/mobile/cart/step.phtml:184
 #: ../../view/default/mobile/cart/stepvirtual.phtml:102
-#: ../../view/default/mobile/home/index.phtml:12
-#: ../../view/default/mobile/home/showorder.phtml:100
+#: ../../view/default/mobile/home/showorder.phtml:107
 msgid "消费积分"
 msgstr ""
 
@@ -529,16 +535,15 @@ msgstr ""
 #: ../../view/default/mobile/cart/step.phtml:142
 #: ../../view/default/mobile/cart/stepvirtual.phtml:102
 #: ../../view/default/mobile/cart/stepvirtual.phtml:107
-#: ../../view/default/mobile/home/showorder.phtml:100
-#: ../../view/default/mobile/home/showorder.phtml:105
+#: ../../view/default/mobile/home/showorder.phtml:107
+#: ../../view/default/mobile/home/showorder.phtml:112
 msgid "积分"
 msgstr ""
 
 #: ../../view/default/mobile/cart/index.phtml:11
 #: ../../view/default/mobile/cart/step.phtml:142
 #: ../../view/default/mobile/cart/stepvirtual.phtml:107
-#: ../../view/default/mobile/home/index.phtml:15
-#: ../../view/default/mobile/home/showorder.phtml:105
+#: ../../view/default/mobile/home/showorder.phtml:112
 msgid "等级积分"
 msgstr ""
 
@@ -574,13 +579,13 @@ msgstr ""
 
 #: ../../view/default/mobile/cart/setaddress.phtml:17
 #: ../../view/default/mobile/cart/step.phtml:15
-#: ../../view/default/mobile/home/showorder.phtml:156
+#: ../../view/default/mobile/home/showorder.phtml:163
 msgid "手机"
 msgstr ""
 
 #: ../../view/default/mobile/cart/setaddress.phtml:17
 #: ../../view/default/mobile/cart/step.phtml:17
-#: ../../view/default/mobile/home/showorder.phtml:156
+#: ../../view/default/mobile/home/showorder.phtml:163
 msgid "固定电话"
 msgstr ""
 
@@ -614,7 +619,7 @@ msgstr ""
 
 #: ../../view/default/mobile/cart/step.phtml:39
 #: ../../view/default/mobile/cart/stepvirtual.phtml:6
-#: ../../view/default/mobile/home/showorder.phtml:125
+#: ../../view/default/mobile/home/showorder.phtml:132
 msgid "支付方式"
 msgstr ""
 
@@ -704,13 +709,13 @@ msgstr ""
 
 #: ../../view/default/mobile/cart/step.phtml:162
 #: ../../view/default/mobile/cart/stepvirtual.phtml:124
-#: ../../view/default/mobile/home/showorder.phtml:94
+#: ../../view/default/mobile/home/showorder.phtml:101
 msgid "积分购买"
 msgstr ""
 
 #: ../../view/default/mobile/cart/step.phtml:166
 #: ../../view/default/mobile/cart/stepvirtual.phtml:128
-#: ../../view/default/mobile/home/showorder.phtml:96
+#: ../../view/default/mobile/home/showorder.phtml:103
 msgid "应付款金额"
 msgstr ""
 
@@ -789,7 +794,7 @@ msgstr ""
 #: ../../view/default/mobile/class/list.phtml:69
 #: ../../view/default/mobile/class/moregoodslist.phtml:9
 #: ../../view/default/mobile/class/moregoodssearch.phtml:9
-#: ../../view/default/mobile/index/index.phtml:58
+#: ../../view/default/mobile/index/index.phtml:66
 msgid "价格"
 msgstr ""
 
@@ -807,7 +812,7 @@ msgstr ""
 #: ../../view/default/mobile/class/list.phtml:73
 #: ../../view/default/mobile/class/moregoodslist.phtml:13
 #: ../../view/default/mobile/class/moregoodssearch.phtml:13
-#: ../../view/default/mobile/index/index.phtml:65
+#: ../../view/default/mobile/index/index.phtml:73
 msgid "人喜欢"
 msgstr ""
 
@@ -816,7 +821,7 @@ msgstr ""
 #: ../../view/default/mobile/class/moregoodslist.phtml:13
 #: ../../view/default/mobile/class/moregoodssearch.phtml:13
 #: ../../view/default/mobile/goods/index.phtml:41
-#: ../../view/default/mobile/index/index.phtml:65
+#: ../../view/default/mobile/index/index.phtml:73
 msgid "销量"
 msgstr ""
 
@@ -825,7 +830,7 @@ msgstr ""
 #: ../../view/default/mobile/class/moregoodslist.phtml:13
 #: ../../view/default/mobile/class/moregoodssearch.phtml:13
 #: ../../view/default/mobile/goods/index.phtml:41
-#: ../../view/default/mobile/index/index.phtml:65
+#: ../../view/default/mobile/index/index.phtml:73
 msgid "件"
 msgstr ""
 
@@ -933,7 +938,6 @@ msgstr ""
 
 #: ../../view/default/mobile/goods/goods-ask.phtml:5
 #: ../../view/default/mobile/home/goodsask.phtml:7
-#: ../../view/default/mobile/home/index.phtml:108
 #: ../../view/default/mobile/user/login.phtml:6
 #: ../../view/default/mobile/user/otherregister.phtml:6
 #: ../../view/default/mobile/user/register.phtml:6
@@ -942,7 +946,6 @@ msgstr ""
 
 #: ../../view/default/mobile/goods/goods-ask.phtml:8
 #: ../../view/default/mobile/home/goodsask.phtml:10
-#: ../../view/default/mobile/home/index.phtml:112
 msgid "回答者"
 msgstr ""
 
@@ -991,76 +994,80 @@ msgstr ""
 msgid "消费积分进行购买"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:110
+#: ../../view/default/mobile/goods/index.phtml:111
 msgid "立即购买"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:119
+#: ../../view/default/mobile/goods/index.phtml:113
+msgid "该商品已经下架！"
+msgstr ""
+
+#: ../../view/default/mobile/goods/index.phtml:124
 msgid "商品描述"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:120
+#: ../../view/default/mobile/goods/index.phtml:125
 msgid "商品评价"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:121
+#: ../../view/default/mobile/goods/index.phtml:126
 msgid "商品咨询"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:146
+#: ../../view/default/mobile/goods/index.phtml:151
 msgid "您有任何问题，可以通过这里向卖家咨询"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:151
+#: ../../view/default/mobile/goods/index.phtml:156
 #: ../../view/default/mobile/user/login.phtml:15
 msgid "输入验证码"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:157
+#: ../../view/default/mobile/goods/index.phtml:162
 msgid "提交咨询"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:196
+#: ../../view/default/mobile/goods/index.phtml:201
 msgid "请输入商品咨询内容！"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:201
+#: ../../view/default/mobile/goods/index.phtml:206
 msgid "验证码不能为空！"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:202
+#: ../../view/default/mobile/goods/index.phtml:207
 msgid "验证码错误！"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:221
+#: ../../view/default/mobile/goods/index.phtml:226
 msgid "您的咨询信息已经成功提交，卖家审核回复后，将正常显示！"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:232
+#: ../../view/default/mobile/goods/index.phtml:237
 msgid "添加购物车成功，是否去购物车结算"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:248
+#: ../../view/default/mobile/goods/index.phtml:253
 msgid "该商品成功加入收藏！"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:252
+#: ../../view/default/mobile/goods/index.phtml:257
 msgid "您还没有登录，无法收藏商品！"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:254
+#: ../../view/default/mobile/goods/index.phtml:259
 msgid "您已经收藏过该商品！"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:256
+#: ../../view/default/mobile/goods/index.phtml:261
 msgid "商品收藏不成功！"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:266
+#: ../../view/default/mobile/goods/index.phtml:271
 msgid "您已经到了购买上限！"
 msgstr ""
 
-#: ../../view/default/mobile/goods/index.phtml:275
+#: ../../view/default/mobile/goods/index.phtml:280
 msgid "您已经到了购买下限！"
 msgstr ""
 
@@ -1085,12 +1092,10 @@ msgid "新增收货地址"
 msgstr ""
 
 #: ../../view/default/mobile/home/goodsask.phtml:7
-#: ../../view/default/mobile/home/index.phtml:108
 msgid "您确实要删除该咨询信息吗？"
 msgstr ""
 
 #: ../../view/default/mobile/home/goodsfavorites.phtml:12
-#: ../../view/default/mobile/home/index.phtml:66
 msgid "您确实要删除该收藏商品吗？"
 msgstr ""
 
@@ -1098,54 +1103,21 @@ msgstr ""
 msgid "暂无商品收藏信息"
 msgstr ""
 
-#: ../../view/default/mobile/home/index.phtml:5
-msgid "退出"
+#: ../../view/default/mobile/home/index.phtml:6
+#: ../../view/default/mobile/home/wx_pay_finish.phtml:6
+msgid "订单支付成功！"
 msgstr ""
 
 #: ../../view/default/mobile/home/index.phtml:7
-msgid "您的等级"
+#: ../../view/default/mobile/home/wx_pay_finish.phtml:7
+msgid "支付中断，您取消了支付！"
 msgstr ""
 
-#: ../../view/default/mobile/home/index.phtml:9
-msgid "账户余额"
+#: ../../view/default/mobile/home/index.phtml:8
+#: ../../view/default/mobile/home/wx_pay_finish.phtml:8
+msgid "订单支付失败！"
 msgstr ""
 
-#: ../../view/default/mobile/home/index.phtml:24
-msgid "全部订单"
-msgstr ""
-
-#: ../../view/default/mobile/home/index.phtml:34
-msgid "修改密码"
-msgstr ""
-
-#: ../../view/default/mobile/home/index.phtml:39
-msgid "资料修改"
-msgstr ""
-
-#: ../../view/default/mobile/home/index.phtml:48
-msgid "最新订单"
-msgstr ""
-
-#: ../../view/default/mobile/home/index.phtml:69
-#: ../../view/default/mobile/home/index.phtml:96
-#: ../../view/default/mobile/home/index.phtml:116
-#: ../../view/default/mobile/home/index.phtml:136
-#: ../../view/default/mobile/index/index.phtml:69
-msgid "查看更多"
-msgstr ""
-
-#: ../../view/default/mobile/home/index.phtml:71
-msgid "暂无收藏信息！"
-msgstr ""
-
-#: ../../view/default/mobile/home/index.phtml:87
-#: ../../view/default/mobile/home/orderlist.phtml:11
-#: ../../view/default/mobile/home/showorder.phtml:6
-msgid "订单号"
-msgstr ""
-
-#: ../../view/default/mobile/home/index.phtml:89
-#: ../../view/default/mobile/home/index.phtml:130
 #: ../../view/default/mobile/home/list-virtual-goods.phtml:8
 #: ../../view/default/mobile/home/orderlist.phtml:13
 #: ../../view/default/mobile/home/showorder.phtml:5
@@ -1153,42 +1125,36 @@ msgstr ""
 msgid "订单状态"
 msgstr ""
 
-#: ../../view/default/mobile/home/index.phtml:91
-#: ../../view/default/mobile/home/orderlist.phtml:15
-#: ../../view/default/mobile/home/showorder.phtml:8
-msgid "下单时间"
-msgstr ""
-
-#: ../../view/default/mobile/home/index.phtml:98
-msgid "暂无订单信息！"
-msgstr ""
-
-#: ../../view/default/mobile/home/index.phtml:118
-msgid "暂无咨询信息！"
-msgstr ""
-
-#: ../../view/default/mobile/home/index.phtml:131
 #: ../../view/default/mobile/home/list-virtual-goods.phtml:9
 #: ../../view/default/mobile/home/showorder.phtml:80
 msgid "数量"
 msgstr ""
 
-#: ../../view/default/mobile/home/index.phtml:132
 #: ../../view/default/mobile/home/list-virtual-goods.phtml:10
 #: ../../view/default/mobile/home/showvirtualgoods.phtml:5
 msgid "订单编号"
-msgstr ""
-
-#: ../../view/default/mobile/home/index.phtml:138
-msgid "暂无虚拟商品！"
 msgstr ""
 
 #: ../../view/default/mobile/home/list-virtual-goods.phtml:18
 msgid "暂时无虚拟商品！"
 msgstr ""
 
+#: ../../view/default/mobile/home/orderlist.phtml:11
+#: ../../view/default/mobile/home/showorder.phtml:6
+msgid "订单号"
+msgstr ""
+
+#: ../../view/default/mobile/home/orderlist.phtml:15
+#: ../../view/default/mobile/home/showorder.phtml:8
+msgid "下单时间"
+msgstr ""
+
 #: ../../view/default/mobile/home/orderlist.phtml:24
 msgid "暂时无订单！"
+msgstr ""
+
+#: ../../view/default/mobile/home/order_pay.phtml:5
+msgid "微信支付"
 msgstr ""
 
 #: ../../view/default/mobile/home/showorder.phtml:8
@@ -1273,48 +1239,48 @@ msgstr ""
 msgid "支付手续"
 msgstr ""
 
-#: ../../view/default/mobile/home/showorder.phtml:100
-#: ../../view/default/mobile/home/showorder.phtml:105
+#: ../../view/default/mobile/home/showorder.phtml:107
+#: ../../view/default/mobile/home/showorder.phtml:112
 msgid "交易完成确认收货后才得到"
 msgstr ""
 
-#: ../../view/default/mobile/home/showorder.phtml:114
+#: ../../view/default/mobile/home/showorder.phtml:121
 msgid "您确认要取消该订单吗？取消后此订单将视为无效订单"
 msgstr ""
 
-#: ../../view/default/mobile/home/showorder.phtml:114
+#: ../../view/default/mobile/home/showorder.phtml:121
 msgid "取消订单"
 msgstr ""
 
-#: ../../view/default/mobile/home/showorder.phtml:119
+#: ../../view/default/mobile/home/showorder.phtml:126
 msgid "您确认要删除该订单吗？"
 msgstr ""
 
-#: ../../view/default/mobile/home/showorder.phtml:119
+#: ../../view/default/mobile/home/showorder.phtml:126
 msgid "删除订单"
 msgstr ""
 
-#: ../../view/default/mobile/home/showorder.phtml:127
+#: ../../view/default/mobile/home/showorder.phtml:134
 msgid "支付证明"
 msgstr ""
 
-#: ../../view/default/mobile/home/showorder.phtml:143
+#: ../../view/default/mobile/home/showorder.phtml:150
 msgid "快递信息"
 msgstr ""
 
-#: ../../view/default/mobile/home/showorder.phtml:145
+#: ../../view/default/mobile/home/showorder.phtml:152
 msgid "快递单号"
 msgstr ""
 
-#: ../../view/default/mobile/home/showorder.phtml:148
+#: ../../view/default/mobile/home/showorder.phtml:155
 msgid "详细地址"
 msgstr ""
 
-#: ../../view/default/mobile/home/showorder.phtml:157
+#: ../../view/default/mobile/home/showorder.phtml:164
 msgid "最佳送货时间"
 msgstr ""
 
-#: ../../view/default/mobile/home/showorder.phtml:161
+#: ../../view/default/mobile/home/showorder.phtml:168
 msgid "订单留言"
 msgstr ""
 
@@ -1396,6 +1362,10 @@ msgstr ""
 
 #: ../../view/default/mobile/index/index.phtml:32
 msgid "会员中心"
+msgstr ""
+
+#: ../../view/default/mobile/index/index.phtml:77
+msgid "查看更多"
 msgstr ""
 
 #: ../../view/default/mobile/user/forgotpasswd.phtml:1

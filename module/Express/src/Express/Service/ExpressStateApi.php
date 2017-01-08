@@ -14,15 +14,13 @@
 
 namespace Express\Common\Service;
 
+
 class ExpressStateApi
 {
-    private $xmlReader;
     
     public function __construct()
     {
-        if(!$this->xmlReader) {
-            $this->xmlReader = new \Zend\Config\Reader\Xml();
-        }
+
     }
     /** 
      * 快递状态公共输出端口

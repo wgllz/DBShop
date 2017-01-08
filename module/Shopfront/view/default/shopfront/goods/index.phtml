@@ -395,7 +395,7 @@
           <?php } ?>
           <h4><?php echo $this->translate('商品详情'); ?> <small>DETAILS</small></h4>
           <hr>
-          <div id="goods_info_body" class="edit_table_css"> <?php echo $this->goods_info->goods_body; ?> </div>
+          <div id="goods_info_body" class="edit_table_css"> <?php echo $this->frontwebsite()->shopGoogsBody($this->goods_info->goods_body); ?> </div>
         </div>
         <div class="tab-pane" id="comment">
           <h4><?php echo $this->translate('商品评价'); ?> <small>REVIEWS</small></h4>

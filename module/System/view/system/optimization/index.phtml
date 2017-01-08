@@ -3,6 +3,7 @@
               	<li><h5><?php echo $this->translate('性能优化'); ?></h5></li>
                 <li class="active"><a data-toggle="tab" href="#optimization_a"><?php echo $this->translate('基本优化'); ?></a></li>
                 <li><a data-toggle="tab" href="#optimization_b"><?php echo $this->translate('前台缓存'); ?></a></li>
+                <li><a data-toggle="tab" href="#optimization_c"><?php echo $this->translate('cdn图片加速'); ?></a></li>
               </ul>
               <form class="form-horizontal" enctype="multipart/form-data" name="optimization_form" id="optimization_form" method="post">
               <div class="tab-content">
@@ -76,6 +77,37 @@
 
                       </div>
                   </div>
+
+                  <div id="optimization_c" class="tab-pane">
+                      <div class="well admin_add_header_well"><?php echo $this->translate('cdn图片加速'); ?></div>
+                      <div class="well admin_add_well">
+                          <div class="message_one">
+                          </div>
+                          <div class="control-group">
+                              <label for="input01"><strong style="color: red;"><?php echo $this->translate('cdn图片加速，只会对本地商品图片进行加速处理。如果您已经在cdn服务商处开启了服务，可以在此进行设置。'); ?></strong></label>
+                          </div>
+                          <div class="control-group">
+                              <label for="input01" class="control-label"><?php echo $this->translate('cdn加速状态'); ?>：</label>
+                              <div class="controls">
+                                  <label class="radio inline"><input type="radio" name="front_cdn_state" value="true" <?php if(isset($this->front_cdn_state) and $this->front_cdn_state == 'true') echo 'checked="checked"'; ?>><?php echo $this->translate('开启'); ?></label>
+                                  <label class="radio inline"><input type="radio" name="front_cdn_state" value="false" <?php if((isset($this->front_cdn_state) and $this->front_cdn_state == 'false') or !isset($this->front_cdn_state)) echo 'checked="checked"'; ?>><?php echo $this->translate('关闭'); ?></label>
+                              </div>
+                          </div>
+                          <div class="control-group">
+                              <label for="input01" class="control-label"><?php echo $this->translate('加速域名'); ?>：</label>
+                              <div class="controls">
+                                  <select name="front_cdn_http_type" class="span1">
+                                      <option value="http://" <?php if(isset($this->front_cdn_http_type) and $this->front_cdn_http_type=='http://') echo 'selected'; ?>>http://</option>
+                                      <option value="https://" <?php if(isset($this->front_cdn_http_type) and $this->front_cdn_http_type=='https://') echo 'selected'; ?>>https://</option>
+                                  </select>
+                                  <input type="text" class="span3" name="front_cdn_domain" id="front_cdn_domain" value="<?php if(isset($this->front_cdn_domain)) echo $this->front_cdn_domain; ?>">
+                                  <font color="red"><?php echo $this->translate('域名结尾无需添加 / '); ?></font>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+
              </div>
               </form>
 </div>

@@ -23,16 +23,14 @@ class CurrencyController extends BaseController
         $array = array();
         //存入库的货币列表
         $array['currency_list'] = $this->getDbshopTable()->listCurrency();
-        //xml中的货币信息
-        $array['currency_xml'] = array();
-        $xmlReader      = new \Zend\Config\Reader\Xml();
-        $currencyArray  = $xmlReader->fromFile(__DIR__ . '/../../../data/' . $this->getDbshopLang()->getLocale() . '.xml');
+        //数组中的货币信息
+        $array['currency_php'] = array();
+        $currencyArray         = include __DIR__ . '/../../../data/' . $this->getDbshopLang()->getLocale() . '.php';
         if(is_array($currencyArray['currency']) and !empty($currencyArray['currency'])) {
             foreach ($currencyArray['currency'] as $value) {
-                $array['currency_xml'][$value['type']] = (is_array($value['displayName']) ? $value['displayName'][0] : $value['displayName']);
+                $array['currency_php'][$value['type']] = (is_array($value['displayName']) ? $value['displayName'][0] : $value['displayName']);
             }
         }
-
         
         return $array;
     }
@@ -42,8 +40,7 @@ class CurrencyController extends BaseController
     public function addAction ()
     {
         $array = array();
-        $xmlReader      = new \Zend\Config\Reader\Xml();
-        $array['currency_array']  = $xmlReader->fromFile(__DIR__ . '/../../../data/' . $this->getDbshopLang()->getLocale() . '.xml');
+        $array['currency_array']  = include __DIR__ . '/../../../data/' . $this->getDbshopLang()->getLocale() . '.php';
         
         if($this->request->isPost()) {
             $currencyArray = $this->request->getPost()->toArray();
@@ -79,9 +76,7 @@ class CurrencyController extends BaseController
             return $this->redirect()->toRoute('currency/default',array('controller'=>'currency'));
         }
         $array = array();
-        //xml货币信息
-        $xmlReader = new \Zend\Config\Reader\Xml();
-        $array['currency_array'] = $xmlReader->fromFile(__DIR__ . '/../../../data/' . $this->getDbshopLang()->getLocale() . '.xml');
+        $array['currency_array']  = include __DIR__ . '/../../../data/' . $this->getDbshopLang()->getLocale() . '.php';
         
         //货币更新操作
         if($this->request->isPost()) {
@@ -125,8 +120,7 @@ class CurrencyController extends BaseController
         if($this->getDbshopTable()->delCurrency(array('currency_id'=>$currencyId))) {
             $this->setCurrencyIni();
             //记录操作日志
-            $xmlReader      = new \Zend\Config\Reader\Xml();
-            $currencyArray  = $xmlReader->fromFile(__DIR__ . '/../../../data/' . $this->getDbshopLang()->getLocale() . '.xml');
+            $currencyArray  = include __DIR__ . '/../../../data/' . $this->getDbshopLang()->getLocale() . '.php';
             $currencyName = '';
             foreach ($currencyArray['currency'] as $currencyValue) {
                 if($currencyValue['type'] == $currencyInfo->currency_name) {

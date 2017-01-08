@@ -1,0 +1,14 @@
+<div>
+    <div class="row-fluid">
+        <div>
+            <h2 style="text-align: center;font-weight: bold;margin: 20px;">
+                <?php
+                if($this->state == 'ok') echo '<font color="green">'.$this->translate('订单支付成功！').'</font>';
+                elseif($this->state == 'cancel') echo $this->translate('支付中断，您取消了支付！');
+                else echo $this->translate('订单支付失败！');
+                ?>
+            </h2>
+            <input type="button" value="<?php echo $this->translate('返回订单列表'); ?>" onclick="window.location.href='<?php echo $this->url('m_order/default'); ?>'" class="btn btn-info ect-btn-info ect-colorf ect-bg">
+        </div>
+    </div>
+</div>

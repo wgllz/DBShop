@@ -18,7 +18,7 @@
             <tr  id="image_<?php echo $image_value['goods_image_id']; ?>">
             	<td style="vertical-align:middle"><?php echo $image_value['goods_image_id']; ?></td>
             	<td style="vertical-align:middle"><?php echo basename($image_value['goods_title_image']); ?></td>
-                <td><img src="<?php echo $this->basePath($this->frontwebsite()->shopGoodsImage($image_value['goods_thumbnail_image'])); ?>" style="width: 100px;" border="0"></td>
+                <td><img src="<?php echo $this->basePath($this->frontwebsite()->shopadminGoodsImage($image_value['goods_thumbnail_image'])); ?>" style="width: 100px;" border="0"></td>
             	<td style="vertical-align:middle">
                     <a href="javascript:;" onclick="return del_image(<?php echo $image_value['goods_image_id']; ?>, '<?php echo basename($image_value['goods_title_image']); ?>');" class="btn btn-small btn-danger"><i class="icon-trash icon-white"></i> <?php echo $this->translate('删除'); ?></a>
             	</td>

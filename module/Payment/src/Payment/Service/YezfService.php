@@ -13,22 +13,19 @@
  */
 
 namespace Payment\Service;
+use Zend\Config\Writer\PhpArray;
 
 /**
  * 余额付款
  */
 class YezfService
 {
-    private $xmlReader;
     private $paymentConfig;
     private $paymentForm;
     public function __construct()
     {
-        if(!$this->xmlReader) {
-            $this->xmlReader = new \Zend\Config\Reader\Xml();
-        }
         if(!$this->paymentConfig) {
-            $this->paymentConfig = $this->xmlReader->fromFile(DBSHOP_PATH . '/data/moduledata/Payment/yezf.xml');
+            $this->paymentConfig = include(DBSHOP_PATH . '/data/moduledata/Payment/yezf.php');
         }
         if(!$this->paymentForm) {
             $this->paymentForm = new \Payment\Form\PaymentForm();
@@ -36,9 +33,9 @@ class YezfService
     }
     public function savePaymentConfig(array $data)
     {
-        $xmlWriter   = new \Zend\Config\Writer\Xml();
+        $fileWriter = new PhpArray();
         $configArray = $this->paymentForm->setFormValue($this->paymentConfig, $data);
-        $xmlWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/yezf.xml', $configArray);
+        $fileWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/yezf.php', $configArray);
         return $configArray;
     }
     /**

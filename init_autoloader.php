@@ -15,6 +15,10 @@
 //在发布时是开启状态，在开发环境中注释掉
 error_reporting(E_ERROR | E_PARSE);
 
+//初始化设置
+@set_time_limit(0);
+@ini_set('memory_limit','128M');
+
 
 $loader = include 'vendor/autoload.php';
 

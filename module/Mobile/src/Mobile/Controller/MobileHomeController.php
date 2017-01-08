@@ -30,7 +30,7 @@ class MobileHomeController  extends AbstractActionController
     {
         $userId = $this->getServiceLocator()->get('frontHelper')->getUserSession('user_id');
         $action = $this->params('action');
-        if($userId == '' and $action != 'orderReturnPay' and $action != 'orderNotifyPay') {
+        if($userId == '' and $action != 'orderReturnPay' and $action != 'orderNotifyPay' and $action != 'notify') {
             return $this->redirect()->toRoute('m_user/default', array('action'=>'login'));
         }
         //判断该用户是否在登录后，后台被管理员删除

@@ -28,49 +28,48 @@ class AdminController extends BaseController
      * @see \Zend\Mvc\Controller\AbstractActionController::indexAction()
      */
     public function indexAction ()
-    {   
+    {
+        $view = new ViewModel();
+        $view->setTerminal(true);
+
         $array = array();
-        
+
         $auth = new AuthenticationService();
         if ($this->request->isPost()) {
             //获取登录信息
             $userName    = $this->request->getPost('user_name');
             $userPasswd  = $this->request->getPost('user_passwd');
-            $captchaCode = $this->request->getPost('captcha_code');
             
             //服务器端数据校验
             $adminValidate = new FormAdminValidate($this->getDbshopLang());
             $adminValidate->checkAdminForm($this->request->getPost(), 'login');
             
-            $captchaSession = new Container('captcha');
-            if (strtolower($captchaCode) == strtolower($captchaSession->word)) {
-                //登录验证
-                $db = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-                $authAdapter = new AuthAdapter($db);
-                $authAdapter->setTableName('dbshop_admin')->setIdentityColumn('admin_name')->setCredentialColumn('admin_passwd');
-                $authAdapter->setIdentity($userName);
-                $authAdapter->setCredential($this->getServiceLocator()->get('frontHelper')->getPasswordStr($userPasswd));
-                $result = $authAdapter->authenticate();
-                //信息验证通过，讲需要记录的信息进行记录
-                if ($result->isValid()) {
-                    //管理员组信息
-                    $groupInfo = $this->getDbshopTable('AdminGroupTable')->infoAdminGroup(array('dbshop_admin_group.admin_group_id'=>$authAdapter->getResultRowObject()->admin_group_id, 'e.language'=>$this->getDbshopLang()->getLocale()));
-                    //管理员信息session保存
-                    $auth->getStorage()->write(
-                        array(
-                            'admin_id'           => $authAdapter->getResultRowObject()->admin_id,  
-                            'admin_name'         => $authAdapter->getResultRowObject()->admin_name,  
-                            'admin_group_name'   => $groupInfo->admin_group_name,
-                            'admin_group_purview'=> unserialize($groupInfo->admin_group_purview)
+            //登录验证
+            $db = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+            $authAdapter = new AuthAdapter($db);
+            $authAdapter->setTableName('dbshop_admin')->setIdentityColumn('admin_name')->setCredentialColumn('admin_passwd');
+            $authAdapter->setIdentity($userName);
+            $authAdapter->setCredential($this->getServiceLocator()->get('frontHelper')->getPasswordStr($userPasswd));
+            $result = $authAdapter->authenticate();
+            //信息验证通过，讲需要记录的信息进行记录
+            if ($result->isValid()) {
+                //管理员组信息
+                $groupInfo = $this->getDbshopTable('AdminGroupTable')->infoAdminGroup(array('dbshop_admin_group.admin_group_id'=>$authAdapter->getResultRowObject()->admin_group_id, 'e.language'=>$this->getDbshopLang()->getLocale()));
+                //管理员信息session保存
+                $auth->getStorage()->write(
+                    array(
+                        'admin_id'           => $authAdapter->getResultRowObject()->admin_id,
+                        'admin_name'         => $authAdapter->getResultRowObject()->admin_name,
+                        'admin_group_name'   => $groupInfo->admin_group_name,
+                        'admin_group_purview'=> unserialize($groupInfo->admin_group_purview)
                     ));
-                    //记录操作日志
-                    $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('管理员登录'), 'operlog_info'=>$this->getDbshopLang()->translate('管理员登录成功')));
-                    
-                    $this->redirect()->toRoute('adminHome');
-                } else {
-                	$array['admin_user']        = $userName;
-                	$array['admin_login_state'] = 'false';
-                }
+                //记录操作日志
+                $this->insertOperlog(array('operlog_name'=>$this->getDbshopLang()->translate('管理员登录'), 'operlog_info'=>$this->getDbshopLang()->translate('管理员登录成功')));
+
+                $this->redirect()->toRoute('adminHome');
+            } else {
+                $array['admin_user']        = $userName;
+                $array['admin_login_state'] = 'false';
             }
         } else {
             if($auth->getIdentity()) {
@@ -82,8 +81,8 @@ class AdminController extends BaseController
         $csrf = new Csrf('admin_login_security');
         $csrf->setCsrfValidatorOptions(array('timeout'=>120, 'salt'=>'a3107e4d4ae0ea783cd1177c52f1e630'));
         $array['admin_login_csrf'] = $csrf->getAttributes();
-        
-        return $array;
+
+        return $view->setVariables($array);
     }
     /**
      * 管理员退出

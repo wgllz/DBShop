@@ -24,4 +24,5 @@ return array(
     'Mobile\Controller\OrderController'  => __DIR__ . '/src/Mobile/Controller/OrderController.php',
     'Mobile\Controller\FavoritesController'  => __DIR__ . '/src/Mobile/Controller/FavoritesController.php',
     'Mobile\Controller\AddressController'=> __DIR__ . '/src/Mobile/Controller/AddressController.php',
+    'Mobile\Controller\WxController'=> __DIR__ . '/src/Mobile/Controller/WxController.php',
 );

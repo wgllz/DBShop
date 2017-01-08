@@ -15,6 +15,8 @@
 namespace Express\Controller;
 
 use Admin\Controller\BaseController;
+use Zend\Config\Writer\Ini;
+use Zend\Config\Writer\PhpArray;
 
 class ExpressController extends BaseController
 {
@@ -219,13 +221,12 @@ class ExpressController extends BaseController
         $array = array();
         
         $expressArray = array();
-        $xmlReader    = new \Zend\Config\Reader\Xml();
-        $xmlPath      = DBSHOP_PATH . '/data/moduledata/Express/api/';
-        if(is_dir($xmlPath)) {
-            $dh = opendir($xmlPath);
+        $filePath      = DBSHOP_PATH . '/data/moduledata/Express/api/';
+        if(is_dir($filePath)) {
+            $dh = opendir($filePath);
             while (false !== ($fileDir = readdir($dh))) {
                 if($fileDir != '.' and $fileDir != '..' and $fileDir != '.DS_Store') {
-                    $expressArray[] = $xmlReader->fromFile($xmlPath . '/' . $fileDir . '/express.xml');
+                    $expressArray[] = include ($filePath . '/' . $fileDir . '/express.php');
                 }
             }
         }
@@ -233,8 +234,8 @@ class ExpressController extends BaseController
         
         //获取开启的api信息
         $apiOpenContent = array();
-        if(file_exists($xmlPath . '../express.xml')) {
-            $apiOpenContent = $xmlReader->fromFile($xmlPath . '../express.xml');
+        if(file_exists($filePath . '../express.php')) {
+            $apiOpenContent = include ($filePath . '../express.php');
         }
         $array['open_api'] = $apiOpenContent;
         
@@ -247,34 +248,33 @@ class ExpressController extends BaseController
     public function apieditAction()
     {
         $array = array();
-        
-        $xmlReader    = new \Zend\Config\Reader\Xml();
+
         $expressApiName = $this->params('express_code');
-        $xmlPath        = DBSHOP_PATH . '/data/moduledata/Express/api/';
+        $filePath        = DBSHOP_PATH . '/data/moduledata/Express/api/';
         //读取指定物流动态api信息
-        if(!file_exists($xmlPath . $expressApiName . '/express.xml')) {
+        if(!file_exists($filePath . $expressApiName . '/express.php')) {
             return $this->redirect()->toRoute('express/default', array('action'=>'expressapi'));
         }
-        $array['api_info'] = $xmlReader->fromFile($xmlPath . $expressApiName . '/express.xml');
+        $array['api_info'] = include($filePath . $expressApiName . '/express.php');
 
         //获取开启的api信息
         $apiOpenContent = array();
-        if(file_exists($xmlPath . '../express.xml')) {
-            $apiOpenContent = $xmlReader->fromFile($xmlPath . '../express.xml');
+        if(file_exists($filePath . '../express.php')) {
+            $apiOpenContent = include($filePath . '../express.php');
         }
         $array['open_api'] = $apiOpenContent;
         
         if ($this->request->isPost()) {
-            $xmlWriter = new \Zend\Config\Writer\Xml();
+            $fileWrite = new PhpArray();
             $apiArray  = $this->request->getPost()->toArray();
             $array['api_info']['api_code'] = $apiArray['api_key'];
-            $xmlWriter->toFile($xmlPath . $expressApiName . '/express.xml', $array['api_info']);
+            $fileWrite->toFile($filePath . $expressApiName . '/express.php', $array['api_info']);
             //如果是开启状态
             if($apiArray['api_state'] == 1) {
-                $xmlWriter->toFile($xmlPath . '../express.xml', $array['api_info']);
+                $fileWrite->toFile($filePath . '../express.php', $array['api_info']);
             } else {
                 if(isset($apiOpenContent['name_code']) and $expressApiName == $apiOpenContent['name_code']) {
-                    $xmlWriter->toFile($xmlPath . '../express.xml', array());
+                    $fileWrite->toFile($filePath . '../express.php', array());
                 }
             }
             //记录操作日志
@@ -285,9 +285,11 @@ class ExpressController extends BaseController
 
         return $array;
     }
-    /** 
+    /**
      * 对配送费用进行文本化设置
      * @param array $data
+     * @param $expressId
+     * @throws \Exception
      */
     private function createExpressIni (array $data, $expressId)
     {
@@ -307,8 +309,7 @@ class ExpressController extends BaseController
         } else {
             $array['express_price'] = $data['express_price'];
         }
-        
-        $configWriter = new \Zend\Config\Writer\Ini();
+        $configWriter = new Ini();
         $configWriter->toFile($iniFile, $array);
     }
     /** 
@@ -318,11 +319,10 @@ class ExpressController extends BaseController
     private function getExpressNameData()
     {
         $arrayContent = array();
-        $xmlReader    = new \Zend\Config\Reader\Xml();
-        if(file_exists(DBSHOP_PATH . '/data/moduledata/Express/express.xml')) {
-            $apiInfo = $xmlReader->fromFile(DBSHOP_PATH . '/data/moduledata/Express/express.xml');
-            if(!empty($apiInfo) and file_exists(DBSHOP_PATH . '/data/moduledata/Express/api/'.$apiInfo['name_code'].'/data.xml')) {
-                $arrayContent = $xmlReader->fromFile(DBSHOP_PATH . '/data/moduledata/Express/api/'.$apiInfo['name_code'].'/data.xml');
+        if(file_exists(DBSHOP_PATH . '/data/moduledata/Express/express.php')) {
+            $apiInfo = include(DBSHOP_PATH . '/data/moduledata/Express/express.php');
+            if(!empty($apiInfo) and file_exists(DBSHOP_PATH . '/data/moduledata/Express/api/'.$apiInfo['name_code'].'/data.php')) {
+                $arrayContent = include(DBSHOP_PATH . '/data/moduledata/Express/api/'.$apiInfo['name_code'].'/data.php');
             }
         }
   

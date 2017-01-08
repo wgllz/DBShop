@@ -28,6 +28,9 @@ class PhonetemplateController extends BaseController
     public function indexAction()
     {
         $array = array();
+        //系统信息
+        include DBSHOP_PATH . '/data/Version.php';
+
         $templateIniReader = new \Zend\Config\Reader\Ini();
         $dbshopTemplate    = (defined('DBSHOP_PHONE_TEMPLATE') ? DBSHOP_PHONE_TEMPLATE : 'default');
 
@@ -72,7 +75,7 @@ class PhonetemplateController extends BaseController
         if(class_exists('SoapClient') and !empty($where)) {
             $where = substr($where, 0, -4);
             try {
-                $onlineTemplate = $this->dbshopSoapClient('dbshopPhoneTemplateList', array($where));
+                $onlineTemplate = $this->dbshopSoapClient('dbshopPhoneTemplateList', array($where, 'v.support_version<='.DBSHOP_VERSION_NUMBER));
             } catch (\Exception $e) {
 
             }

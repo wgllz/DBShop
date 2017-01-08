@@ -19,11 +19,18 @@
     </tr>
     <tr>
       <td width="15%" style="background-color:#999;color:#FFF;"><strong><?php echo $this->translate('更新描述'); ?></strong></td>
-      <td><?php echo (isset($this->packageInfo->update_info) and $this->packageInfo->update_info != '') ? $this->packageInfo->update_info : '&nbsp;'; ?></td>
+      <td>
+          <div style="height: 500px;overflow: auto;">
+              <style>
+                  p {margin-bottom: 3px;font-size: 15px;}
+              </style>
+          <?php echo (isset($this->packageInfo->update_info) and $this->packageInfo->update_info != '') ? $this->packageInfo->update_info : '&nbsp;'; ?>
+        </div>
+      </td>
     </tr>
     <tr>
       <td width="15%" style="background-color:#999;color:#FFF;"><strong><?php echo $this->translate('特别提醒'); ?></strong></td>
-      <td><strong style="font-size:14px; color:#F00;"><?php echo $this->translate('当下载的更新包中有sql文件时，请先将sql目录中的内容更新到数据库中，然后再把除sql目录外的其他目录覆盖到程序目录即可。如果更新包中无sql目录，无需更新数据库。'); ?></strong></td>
+      <td><strong style="font-size:14px; color:#F00;"><?php echo $this->translate('当下载的更新包中有sql文件时，请先将sql目录中的内容更新到数据库中（如更新包中无sql目录，无需更新数据库），然后再把除sql目录外的其他目录覆盖到程序目录,覆盖完成后，把/data/cache/modulecache/目录中的所有文件删除，更新至此完成。'); ?></strong></td>
     </tr>
   </table>
 </div>

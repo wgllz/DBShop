@@ -13,22 +13,19 @@
  */
 
 namespace Payment\Service;
+use Zend\Config\Writer\PhpArray;
 
 /**
  * 线下支付
  */
 class XxzfService
 {
-    private $xmlReader;
     private $paymentConfig;
     private $paymentForm;
     public function __construct()
     {
-        if(!$this->xmlReader) {
-            $this->xmlReader = new \Zend\Config\Reader\Xml();
-        }
         if(!$this->paymentConfig) {
-            $this->paymentConfig = $this->xmlReader->fromFile(DBSHOP_PATH . '/data/moduledata/Payment/xxzf.xml');
+            $this->paymentConfig = include(DBSHOP_PATH . '/data/moduledata/Payment/xxzf.php');
         }
         if(!$this->paymentForm) {
             $this->paymentForm = new \Payment\Form\PaymentForm();
@@ -36,9 +33,9 @@ class XxzfService
     }
     public function savePaymentConfig(array $data)
     {
-        $xmlWriter   = new \Zend\Config\Writer\Xml();
+        $fileWriter = new PhpArray();
         $configArray = $this->paymentForm->setFormValue($this->paymentConfig, $data);
-        $xmlWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/xxzf.xml', $configArray);
+        $fileWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/xxzf.php', $configArray);
         return $configArray;
     }
     /**

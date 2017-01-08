@@ -13,13 +13,13 @@
  */
 
 namespace Payment\Service;
+use Zend\Config\Writer\PhpArray;
 
 /** 
  * 支付宝
  */
 class AlipayService
 {
-    private $xmlReader;
     private $paymentConfig;
     private $paymentForm;
     
@@ -41,11 +41,8 @@ class AlipayService
     
     public function __construct()
     {
-        if(!$this->xmlReader) {
-            $this->xmlReader = new \Zend\Config\Reader\Xml();
-        }
         if(!$this->paymentConfig) {
-            $this->paymentConfig = $this->xmlReader->fromFile(DBSHOP_PATH . '/data/moduledata/Payment/alipay.xml');
+            $this->paymentConfig = include(DBSHOP_PATH . '/data/moduledata/Payment/alipay.php');
         }
         if(!$this->paymentForm) {
             $this->paymentForm = new \Payment\Form\PaymentForm();
@@ -69,9 +66,9 @@ class AlipayService
      */
     public function savePaymentConfig(array $data)
     {
-        $xmlWriter   = new \Zend\Config\Writer\Xml();
+        $phpWriter   = new PhpArray();
         $configArray = $this->paymentForm->setFormValue($this->paymentConfig, $data);
-        $xmlWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/alipay.xml', $configArray);
+        $phpWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/alipay.php', $configArray);
         return $configArray;
     }
     /**
@@ -97,7 +94,7 @@ class AlipayService
         $return_url = $data['return_url'];
 
         $seller_email       = $this->alipay_account;        //卖家支付宝帐户
-        $out_trade_no       = md5('dbshop'.$data['paycheck']->paycheck_id);//商户订单号,商户网站订单系统中唯一订单号，必填
+        $out_trade_no       = $this->getNonceStr();//商户订单号,商户网站订单系统中唯一订单号，必填
         $subject            = $data['shop_name'].' '.$data['order_name'];          //订单名称,必填
         $price              = $data['paycheck']->money_change_num; //付款金额，必填
         $quantity           = "1";                          //商品数量,必填，建议默认为1，不改变值，把一次交易看成是一次下订单而非购买一件商品
@@ -241,12 +238,12 @@ class AlipayService
         //信息整理
         $goods_name_str = '';
         if(count($data['goods']) == 1) {
-            $order_name = $data['goods'][0]['goods_name'];
+            $order_name = $data['goods'][0]['goods_name'].(!empty($data['goods'][0]['goods_extend_info']) ? '('.strip_tags($data['goods'][0]['goods_extend_info']).')' : '');
         } else {
             $order_name = '多商品合并购买';
 
             foreach($data['goods'] as $goods_value) {
-                $array[] = $goods_value['goods_name'];
+                $array[] = $goods_value['goods_name'].(!empty($goods_value['goods_extend_info']) ? '('.strip_tags($goods_value['goods_extend_info']).')' : '');
             }
             $goods_name_str = implode('+', $array);
         }
@@ -930,6 +927,21 @@ class AlipayService
         else {
             return false;
         }
+    }
+    /**
+     *
+     * 产生随机字符串，不长于32位
+     * @param int $length
+     * @return 产生的随机字符串
+     */
+    public static function getNonceStr($length = 32)
+    {
+        $chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+        $str ="";
+        for ( $i = 0; $i < $length; $i++ )  {
+            $str .= substr($chars, mt_rand(0, strlen($chars)-1), 1);
+        }
+        return $str;
     }
 }
 

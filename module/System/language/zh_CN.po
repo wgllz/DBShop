@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DBShop\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-20 16:50+0800\n"
-"PO-Revision-Date: 2016-11-20 16:50+0800\n"
+"POT-Creation-Date: 2016-11-24 17:35+0800\n"
+"PO-Revision-Date: 2016-11-24 17:35+0800\n"
 "Last-Translator: DBShop <team@dbshop.net>\n"
 "Language-Team: DBShop <team@dbshop.net>\n"
 "Language: zh_CN\n"
@@ -52,17 +52,17 @@ msgstr ""
 msgid "删除客服组"
 msgstr ""
 
-#: ../src/System/Controller/OptimizationController.php:51
+#: ../src/System/Controller/OptimizationController.php:59
 #: ../view/system/optimization/index.phtml:3
-#: ../view/system/optimization/index.phtml:10
+#: ../view/system/optimization/index.phtml:11
 msgid "性能优化"
 msgstr ""
 
-#: ../src/System/Controller/OptimizationController.php:51
+#: ../src/System/Controller/OptimizationController.php:59
 msgid "性能优化设置"
 msgstr ""
 
-#: ../src/System/Controller/OptimizationController.php:60
+#: ../src/System/Controller/OptimizationController.php:72
 msgid "性能优化设置保存成功！"
 msgstr ""
 
@@ -122,29 +122,29 @@ msgid "邮件提醒设置保存成功！"
 msgstr ""
 
 #: ../src/System/FormValidate/FormSystemValidate.php:59
-#: ../view/system/system/index.phtml:364
+#: ../view/system/system/index.phtml:367
 msgid "网站名称不能为空"
 msgstr ""
 
 #: ../src/System/FormValidate/FormSystemValidate.php:65
-#: ../view/system/system/index.phtml:367
+#: ../view/system/system/index.phtml:370
 msgid "系统时区不能为空"
 msgstr ""
 
 #: ../src/System/FormValidate/FormSystemValidate.php:71
 #: ../src/System/FormValidate/FormSystemValidate.php:78
-#: ../view/system/system/index.phtml:370
+#: ../view/system/system/index.phtml:373
 msgid "发信人邮件地址不能为空"
 msgstr ""
 
 #: ../src/System/FormValidate/FormSystemValidate.php:72
 #: ../src/System/FormValidate/FormSystemValidate.php:79
-#: ../view/system/system/index.phtml:371
+#: ../view/system/system/index.phtml:374
 msgid "请正确填写邮件地址"
 msgstr ""
 
 #: ../src/System/FormValidate/FormSystemValidate.php:91
-#: ../view/system/system/userset.phtml:208
+#: ../view/system/system/userset.phtml:234
 msgid "请选择客户默认组！"
 msgstr ""
 
@@ -191,7 +191,7 @@ msgid "返回在线客服列表"
 msgstr ""
 
 #: ../view/system/online/add.phtml:13 ../view/system/online/groupadd.phtml:13
-#: ../view/system/optimization/index.phtml:12
+#: ../view/system/optimization/index.phtml:13
 #: ../view/system/system/index.phtml:19
 #: ../view/system/system/phone-message-set.phtml:11
 #: ../view/system/system/send-message-set.phtml:18
@@ -209,7 +209,7 @@ msgstr ""
 
 #: ../view/system/online/add.phtml:18 ../view/system/online/group.phtml:5
 #: ../view/system/online/groupadd.phtml:18 ../view/system/online/index.phtml:5
-#: ../view/system/optimization/index.phtml:14
+#: ../view/system/optimization/index.phtml:15
 #: ../view/system/system/index.phtml:21
 #: ../view/system/system/phone-message-set.phtml:13
 #: ../view/system/system/send-message-set.phtml:20
@@ -260,7 +260,7 @@ msgstr ""
 #: ../view/system/online/add.phtml:68 ../view/system/online/group.phtml:24
 #: ../view/system/online/groupadd.phtml:47
 #: ../view/system/online/index.phtml:27 ../view/system/system/index.phtml:89
-#: ../view/system/system/index.phtml:254
+#: ../view/system/system/index.phtml:257
 msgid "启用"
 msgstr ""
 
@@ -454,87 +454,114 @@ msgid "状态"
 msgstr ""
 
 #: ../view/system/optimization/index.phtml:4
-#: ../view/system/optimization/index.phtml:18
+#: ../view/system/optimization/index.phtml:19
 msgid "基本优化"
 msgstr ""
 
 #: ../view/system/optimization/index.phtml:5
-#: ../view/system/optimization/index.phtml:47
+#: ../view/system/optimization/index.phtml:48
 msgid "前台缓存"
 msgstr ""
 
-#: ../view/system/optimization/index.phtml:13
+#: ../view/system/optimization/index.phtml:6
+#: ../view/system/optimization/index.phtml:82
+msgid "cdn图片加速"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:14
 msgid "保存性能优化设置"
 msgstr ""
 
-#: ../view/system/optimization/index.phtml:23
+#: ../view/system/optimization/index.phtml:24
 msgid "后台Gzip压缩"
 msgstr ""
 
-#: ../view/system/optimization/index.phtml:28
-#: ../view/system/optimization/index.phtml:38
+#: ../view/system/optimization/index.phtml:29
+#: ../view/system/optimization/index.phtml:39
 msgid "php中的gzencode函数不可用"
 msgstr ""
 
-#: ../view/system/optimization/index.phtml:33
+#: ../view/system/optimization/index.phtml:34
 msgid "前台Gzip压缩"
 msgstr ""
 
-#: ../view/system/optimization/index.phtml:52
+#: ../view/system/optimization/index.phtml:53
 msgid ""
 "如果您现在正在添加商品或者对系统进行设置，建议不要开启前台缓存，商品添加完毕"
 "后，可以根据情况开启前台缓存。开启后，后台新添加的商品，可能不会在前台即时显"
 "示，需要清理缓存后才可显示。"
 msgstr ""
 
-#: ../view/system/optimization/index.phtml:55
+#: ../view/system/optimization/index.phtml:56
 msgid "前台缓存状态"
 msgstr ""
 
-#: ../view/system/optimization/index.phtml:58
+#: ../view/system/optimization/index.phtml:59
 #: ../view/system/system/userset.phtml:49
 msgid "请选择"
 msgstr ""
 
-#: ../view/system/optimization/index.phtml:59
-#: ../view/system/system/index.phtml:263
+#: ../view/system/optimization/index.phtml:60
+#: ../view/system/optimization/index.phtml:92
+#: ../view/system/system/index.phtml:266
 #: ../view/system/system/userset.phtml:25
 #: ../view/system/system/userset.phtml:119
 #: ../view/system/system/userset.phtml:145
 #: ../view/system/system/userset.phtml:171
+#: ../view/system/system/userset.phtml:197
 msgid "开启"
 msgstr ""
 
-#: ../view/system/optimization/index.phtml:60
-#: ../view/system/system/index.phtml:262
+#: ../view/system/optimization/index.phtml:61
+#: ../view/system/optimization/index.phtml:93
+#: ../view/system/system/index.phtml:265
 #: ../view/system/system/userset.phtml:26
 #: ../view/system/system/userset.phtml:120
 #: ../view/system/system/userset.phtml:146
 #: ../view/system/system/userset.phtml:172
+#: ../view/system/system/userset.phtml:198
 msgid "关闭"
 msgstr ""
 
-#: ../view/system/optimization/index.phtml:65
+#: ../view/system/optimization/index.phtml:66
 msgid "前台缓存时间"
 msgstr ""
 
-#: ../view/system/optimization/index.phtml:70
+#: ../view/system/optimization/index.phtml:71
 msgid "分钟"
 msgstr ""
 
-#: ../view/system/optimization/index.phtml:71
+#: ../view/system/optimization/index.phtml:72
 msgid "小时"
 msgstr ""
 
-#: ../view/system/optimization/index.phtml:72
+#: ../view/system/optimization/index.phtml:73
 msgid "天"
 msgstr ""
 
+#: ../view/system/optimization/index.phtml:87
+msgid ""
+"cdn图片加速，只会对本地商品图片进行加速处理。如果您已经在cdn服务商处开启了服"
+"务，可以在此进行设置。"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:90
+msgid "cdn加速状态"
+msgstr ""
+
 #: ../view/system/optimization/index.phtml:97
+msgid "加速域名"
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:104
+msgid "域名结尾无需添加 / "
+msgstr ""
+
+#: ../view/system/optimization/index.phtml:129
 msgid "前台缓存时间必须为数字！"
 msgstr ""
 
-#: ../view/system/optimization/index.phtml:98
+#: ../view/system/optimization/index.phtml:130
 msgid "前台缓存时间不能小于1！"
 msgstr ""
 
@@ -558,16 +585,16 @@ msgstr ""
 msgid "商品设置"
 msgstr ""
 
-#: ../view/system/system/index.phtml:10 ../view/system/system/index.phtml:236
+#: ../view/system/system/index.phtml:10 ../view/system/system/index.phtml:239
 #: ../view/system/system/phone-message-set.phtml:17
 msgid "手机短信"
 msgstr ""
 
-#: ../view/system/system/index.phtml:11 ../view/system/system/index.phtml:247
+#: ../view/system/system/index.phtml:11 ../view/system/system/index.phtml:250
 msgid "二维码设置"
 msgstr ""
 
-#: ../view/system/system/index.phtml:12 ../view/system/system/index.phtml:272
+#: ../view/system/system/index.phtml:12 ../view/system/system/index.phtml:275
 msgid "统计设置"
 msgstr ""
 
@@ -682,107 +709,107 @@ msgstr ""
 msgid "不启用分享"
 msgstr ""
 
-#: ../view/system/system/index.phtml:218
+#: ../view/system/system/index.phtml:218 ../view/system/system/index.phtml:221
 msgid "百度分享(图标式)"
 msgstr ""
 
-#: ../view/system/system/index.phtml:219
+#: ../view/system/system/index.phtml:219 ../view/system/system/index.phtml:222
 msgid "百度分享(文字式)"
 msgstr ""
 
-#: ../view/system/system/index.phtml:220
+#: ../view/system/system/index.phtml:220 ../view/system/system/index.phtml:223
 msgid "百度分享(浮窗式)"
 msgstr ""
 
-#: ../view/system/system/index.phtml:222
+#: ../view/system/system/index.phtml:225
 msgid "显示在前台商品详细页面，用于分享商品到其他系统功能。"
 msgstr ""
 
-#: ../view/system/system/index.phtml:226
+#: ../view/system/system/index.phtml:229
 msgid "商品货号前缀"
 msgstr ""
 
-#: ../view/system/system/index.phtml:229
+#: ../view/system/system/index.phtml:232
 msgid "当添加商品时，没有添加商品货号，商品货号会自动生成，货号前缀+数字字符串"
 msgstr ""
 
-#: ../view/system/system/index.phtml:241
+#: ../view/system/system/index.phtml:244
 msgid "该功能已经迁移至 系统管理->消息提醒设置->手机短信设置"
 msgstr ""
 
-#: ../view/system/system/index.phtml:252
+#: ../view/system/system/index.phtml:255
 msgid "站点二维码"
 msgstr ""
 
-#: ../view/system/system/index.phtml:255
+#: ../view/system/system/index.phtml:258
 msgid "开启后，前台顶部出现二维码，用户可以通过手机扫描，进行手机访问"
 msgstr ""
 
-#: ../view/system/system/index.phtml:259
+#: ../view/system/system/index.phtml:262
 msgid "前台商品二维码"
 msgstr ""
 
-#: ../view/system/system/index.phtml:265
+#: ../view/system/system/index.phtml:268
 msgid ""
 "启用前台商品二维码后，用户通过手机扫描前台商品内容页面里的二维码，可以进行手"
 "机访问。"
 msgstr ""
 
-#: ../view/system/system/index.phtml:277
+#: ../view/system/system/index.phtml:280
 msgid "整合站内统计"
 msgstr ""
 
-#: ../view/system/system/index.phtml:280
+#: ../view/system/system/index.phtml:283
 msgid "百度统计"
 msgstr ""
 
-#: ../view/system/system/index.phtml:285
+#: ../view/system/system/index.phtml:288
 msgid "百度统计账户"
 msgstr ""
 
-#: ../view/system/system/index.phtml:291
+#: ../view/system/system/index.phtml:294
 msgid "百度统计密码"
 msgstr ""
 
-#: ../view/system/system/index.phtml:297
+#: ../view/system/system/index.phtml:300
 msgid "百度统计Token"
 msgstr ""
 
-#: ../view/system/system/index.phtml:303
+#: ../view/system/system/index.phtml:306
 msgid "百度统计站点"
 msgstr ""
 
-#: ../view/system/system/index.phtml:314
+#: ../view/system/system/index.phtml:317
 msgid "点击获取(更新)统计站点"
 msgstr ""
 
-#: ../view/system/system/index.phtml:319
+#: ../view/system/system/index.phtml:322
 msgid "统计代码"
 msgstr ""
 
-#: ../view/system/system/index.phtml:325
+#: ../view/system/system/index.phtml:328
 msgid "统计说明"
 msgstr ""
 
-#: ../view/system/system/index.phtml:328
+#: ../view/system/system/index.phtml:331
 msgid ""
 "当使用整合站点统计功能时，统计代码必须填写百度统计代码。如果不使用整合站内统"
 "计功能，可以填写任何统计系统的代码。"
 msgstr ""
 
-#: ../view/system/system/index.phtml:374
+#: ../view/system/system/index.phtml:377
 msgid "发送人名称不能为空"
 msgstr ""
 
-#: ../view/system/system/index.phtml:385
+#: ../view/system/system/index.phtml:388
 msgid "百度统计账户不能为空！"
 msgstr ""
 
-#: ../view/system/system/index.phtml:387
+#: ../view/system/system/index.phtml:390
 msgid "百度统计密码不能为空！"
 msgstr ""
 
-#: ../view/system/system/index.phtml:389
+#: ../view/system/system/index.phtml:392
 msgid "百度统计Token不能为空！"
 msgstr ""
 
@@ -1147,29 +1174,38 @@ msgid "点击查看如何获取QQ互联的APP ID 和 APP KEY"
 msgstr ""
 
 #: ../view/system/system/userset.phtml:143
-msgid "微信登录(网站)"
+msgid "微信登录(微信内)"
 msgstr ""
 
 #: ../view/system/system/userset.phtml:150
+#: ../view/system/system/userset.phtml:176
 msgid "授权回调域"
 msgstr ""
 
 #: ../view/system/system/userset.phtml:158
-msgid "点击去获取微信登录的AppID 和 AppSecret"
+msgid "点击去获取微信内登录的AppID 和 AppSecret"
 msgstr ""
 
 #: ../view/system/system/userset.phtml:169
+msgid "微信登录(网站)"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:184
+msgid "点击去获取微信网站登录的AppID 和 AppSecret"
+msgstr ""
+
+#: ../view/system/system/userset.phtml:195
 msgid "支付宝登录"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:176
+#: ../view/system/system/userset.phtml:202
 msgid "合作者身份 Pid"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:178
+#: ../view/system/system/userset.phtml:204
 msgid "点击去获取支付宝登录的Pid 和 Key"
 msgstr ""
 
-#: ../view/system/system/userset.phtml:182
+#: ../view/system/system/userset.phtml:208
 msgid "安全校验码 Key"
 msgstr ""

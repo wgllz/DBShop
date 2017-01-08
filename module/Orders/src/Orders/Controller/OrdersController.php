@@ -71,9 +71,8 @@ class OrdersController extends BaseController
             if(file_exists($expressPath . $array['order_info']['express_id'] . '.ini')) {
                 $expressIni = $iniReader->fromFile($expressPath . $array['order_info']['express_id'] . '.ini');
                 $array['express_url'] = $expressIni['express_url'];
-                if(is_array($expressIni) and $expressIni['express_name_code'] != '' and file_exists($expressPath . 'express.xml')) {
-                    $xmlReader    = new \Zend\Config\Reader\Xml();
-                    $expressArray = $xmlReader->fromFile($expressPath . 'express.xml');
+                if(is_array($expressIni) and $expressIni['express_name_code'] != '' and file_exists($expressPath . 'express.php')) {
+                    $expressArray = include($expressPath . 'express.php');
                     if(!empty($expressArray)) {
                         $array['express_state_array'] = $this->getServiceLocator()->get('shop_express_state')->getExpressStateContent($expressArray, $expressIni['express_name_code'], $array['delivery_address']['express_number']);
                     }
@@ -862,9 +861,8 @@ class OrdersController extends BaseController
             if(file_exists($expressPath . $array['order_info']['express_id'] . '.ini')) {
                 $expressIni = $iniReader->fromFile($expressPath . $array['order_info']['express_id'] . '.ini');
                 $array['express_url'] = $expressIni['express_url'];
-                if(is_array($expressIni) and $expressIni['express_name_code'] != '' and file_exists($expressPath . 'express.xml')) {
-                    $xmlReader    = new \Zend\Config\Reader\Xml();
-                    $expressArray = $xmlReader->fromFile($expressPath . 'express.xml');
+                if(is_array($expressIni) and $expressIni['express_name_code'] != '' and file_exists($expressPath . 'express.php')) {
+                    $expressArray = include($expressPath . 'express.php');
                     if(!empty($expressArray)) {
                         $array['express_state_array'] = $this->getServiceLocator()->get('shop_express_state')->getExpressStateContent($expressArray, $expressIni['express_name_code'], $array['delivery_address']['express_number']);
                     }

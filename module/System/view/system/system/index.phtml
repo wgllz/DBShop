@@ -218,7 +218,10 @@
               					     <option value="/baidu/ico.php" <?php if(isset($this->goods_config['shop_goods']['dbshop_goods_share']) and $this->goods_config['shop_goods']['dbshop_goods_share'] == '/baidu/ico.php') echo 'selected="selected"'; ?>><?php echo $this->translate('百度分享(图标式)'); ?></option>
               					     <option value="/baidu/text.php" <?php if(isset($this->goods_config['shop_goods']['dbshop_goods_share']) and $this->goods_config['shop_goods']['dbshop_goods_share'] == '/baidu/text.php') echo 'selected="selected"'; ?>><?php echo $this->translate('百度分享(文字式)'); ?></option>
               					     <option value="/baidu/window.php" <?php if(isset($this->goods_config['shop_goods']['dbshop_goods_share']) and $this->goods_config['shop_goods']['dbshop_goods_share'] == '/baidu/window.php') echo 'selected="selected"'; ?>><?php echo $this->translate('百度分享(浮窗式)'); ?></option>
-              					</select>
+									<option value="/baidu/httpsico.php" <?php if(isset($this->goods_config['shop_goods']['dbshop_goods_share']) and $this->goods_config['shop_goods']['dbshop_goods_share'] == '/baidu/httpsico.php') echo 'selected="selected"'; ?>><?php echo $this->translate('百度分享(图标式)').' - https'; ?></option>
+									<option value="/baidu/httpstext.php" <?php if(isset($this->goods_config['shop_goods']['dbshop_goods_share']) and $this->goods_config['shop_goods']['dbshop_goods_share'] == '/baidu/httpstext.php') echo 'selected="selected"'; ?>><?php echo $this->translate('百度分享(文字式)').' - https'; ?></option>
+									<option value="/baidu/httpswindow.php" <?php if(isset($this->goods_config['shop_goods']['dbshop_goods_share']) and $this->goods_config['shop_goods']['dbshop_goods_share'] == '/baidu/httpswindow.php') echo 'selected="selected"'; ?>><?php echo $this->translate('百度分享(浮窗式)').' - https'; ?></option>
+								</select>
               					<i class="cus-help shop_admin_help_note" data-content="<?php echo $this->translate('显示在前台商品详细页面，用于分享商品到其他系统功能。'); ?>"></i>
             				</div>                        
                         </div>

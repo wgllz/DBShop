@@ -14,8 +14,6 @@
 
 namespace Install\Controller;
 
-@set_time_limit(0);
-
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container;
 use Zend\Db\ResultSet\ResultSet;
@@ -103,12 +101,18 @@ class InstallController extends AbstractActionController
         $array['file_put_contents_open'] = function_exists('file_put_contents') ? $yesIco : $noIco;
         if($array['file_put_contents_open'] == '<i class="cus-exclamation"></i>') $this->checkState = 'false';
         //PDO判断是否开启
-        $array['pdo_open'] = class_exists('PDO') ? $yesIco : $noIco.'&nbsp;<a href="http://help.dbshop.net/index.php/%E7%B3%BB%E7%BB%9F%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB#PDO.E5.BC.80.E5.90.AF" target="_blank">'.$this->getDbshopLang()->translate('点击查看开启方法').'</a>';
-        if($array['pdo_open'] == '<i class="cus-exclamation"></i>') $this->checkState = 'false';
+        $array['pdo_open'] = class_exists('PDO') ? $yesIco : $noIco;
+        if($array['pdo_open'] == '<i class="cus-exclamation"></i>') {
+            $this->checkState = 'false';
+            $array['pdo_open'] = $array['pdo_open'] . '&nbsp;<a href="http://help.dbshop.net/index.php/%E7%B3%BB%E7%BB%9F%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB#PDO.E5.BC.80.E5.90.AF" target="_blank">'.$this->getDbshopLang()->translate('点击查看开启方法').'</a>';
+        }
 
         //soap判断
-        $array['php_soap'] = class_exists('SoapClient') ? $yesIco : $noIco.'&nbsp;<a href="http://help.dbshop.net/index.php/%E7%B3%BB%E7%BB%9F%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB#SOAP.E5.BC.80.E5.90.AF" target="_blank">'.$this->getDbshopLang()->translate('点击查看开启方法').'</a>';
-        if($array['php_soap'] == '<i class="cus-exclamation"></i>') $this->checkState = 'false';
+        $array['php_soap'] = class_exists('SoapClient') ? $yesIco : $noIco;
+        if($array['php_soap'] == '<i class="cus-exclamation"></i>') {
+            $this->checkState = 'false';
+            $array['php_soap'] = $array['php_soap'] . '&nbsp;<a href="http://help.dbshop.net/index.php/%E7%B3%BB%E7%BB%9F%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB#SOAP.E5.BC.80.E5.90.AF" target="_blank">'.$this->getDbshopLang()->translate('点击查看开启方法').'</a>';
+        }
         //rewrite判断
         if($array['curl_open'] == '<i class="cus-tick"></i>') {
             $array['curl_open_state'] = 1;//curl状态，用于在rewrite得判断上
@@ -213,11 +217,10 @@ class InstallController extends AbstractActionController
         $array['webname_admin_url'] = $this->getServiceLocator()->get('frontHelper')->dbshopHttpOrHttps() . $this->getServiceLocator()->get('frontHelper')->dbshopHttpHost() . $this->url()->fromRoute('admin/default');
         $array['admin_name']        = $installArray['adminuser'];
         $array['admin_passwd']      = $installArray['adminpasswd'];
-        
-        //远程记录安装系统地址
-        @file_get_contents('http://update.dbshop.net/index/installhostname?webShopUrl=' . urlencode($array['webname_front_url']));
+
         @unlink(DBSHOP_PATH . '/data/DatabaseCache.ini.php');
-        
+        @file_get_contents('http://update.dbshop.net/index/installhostname?webShopUrl=' . urlencode($array['webname_front_url']));
+
         //清空ZF2缓存设置
         $this->getServiceLocator()->get('adminHelper')->clearZfConfigCache();
         

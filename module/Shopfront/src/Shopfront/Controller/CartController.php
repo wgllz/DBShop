@@ -358,14 +358,13 @@ class CartController extends AbstractActionController
         $array['cash_on_delivery_str'] = (!empty($cashOnDelivery) ? substr($cashOnDelivery, 0, -1) : '');
         /*----------------------配送方式与收货地址----------------------*/
         /*----------------------支付方式----------------------*/
-        $xmlReader    = new \Zend\Config\Reader\Xml();
         $paymentArray = array();
-        $xmlPath      = DBSHOP_PATH . '/data/moduledata/Payment/';
-        if(is_dir($xmlPath)) {
-            $dh = opendir($xmlPath);
+        $filePath      = DBSHOP_PATH . '/data/moduledata/Payment/';
+        if(is_dir($filePath)) {
+            $dh = opendir($filePath);
             while (false !== ($fileName = readdir($dh))) {
-                if($fileName != '.' and $fileName != '..' and $fileName != '.DS_Store') {
-                    $paymentInfo = $xmlReader->fromFile($xmlPath . $fileName);
+                if($fileName != '.' and $fileName != '..' and stripos($fileName, '.php') !== false and $fileName != '.DS_Store') {
+                    $paymentInfo = include($filePath . $fileName);
 
                     //判断是否显示在当前平台
                     if(isset($paymentInfo['payment_show']['checked']) and !empty($paymentInfo['payment_show']['checked'])) {
@@ -437,14 +436,13 @@ class CartController extends AbstractActionController
         $cartTotalPrice = $this->getServiceLocator()->get('frontHelper')->getCartTotal();
 
         /*----------------------支付方式----------------------*/
-        $xmlReader    = new \Zend\Config\Reader\Xml();
         $paymentArray = array();
-        $xmlPath      = DBSHOP_PATH . '/data/moduledata/Payment/';
-        if(is_dir($xmlPath)) {
-            $dh = opendir($xmlPath);
+        $filePath      = DBSHOP_PATH . '/data/moduledata/Payment/';
+        if(is_dir($filePath)) {
+            $dh = opendir($filePath);
             while (false !== ($fileName = readdir($dh))) {
-                if($fileName != '.' and $fileName != '..' and $fileName != '.DS_Store' and $fileName != 'hdfk.xml') {
-                    $paymentInfo = $xmlReader->fromFile($xmlPath . $fileName);
+                if($fileName != '.' and $fileName != '..' and stripos($fileName, '.php') !== false and $fileName != '.DS_Store' and $fileName != 'hdfk.php') {
+                    $paymentInfo = include($filePath . $fileName);
 
                     //判断是否显示在当前平台
                     if(isset($paymentInfo['payment_show']['checked']) and !empty($paymentInfo['payment_show']['checked'])) {
@@ -522,9 +520,8 @@ class CartController extends AbstractActionController
 
         $paymentArray = array();
         //获取支付方式信息
-        if(file_exists(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['pyament_code'] . '.xml')) {
-            $xmlReader = new \Zend\Config\Reader\Xml();
-            $paymentArray = $xmlReader->fromFile(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['pyament_code'] . '.xml');
+        if(file_exists(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['pyament_code'] . '.php')) {
+            $paymentArray = include(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['pyament_code'] . '.php');
             $postArray['pay_name'] = $paymentArray['payment_name']['content'];
             $postArray['order_state'] = $paymentArray['orders_state'];
 
@@ -719,9 +716,8 @@ class CartController extends AbstractActionController
         
         $paymentArray = array();
         //获取支付方式信息
-        if(file_exists(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['pyament_code'] . '.xml')) {
-            $xmlReader    = new \Zend\Config\Reader\Xml();
-            $paymentArray = $xmlReader->fromFile(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['pyament_code'] . '.xml');
+        if(file_exists(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['pyament_code'] . '.php')) {
+            $paymentArray = include(DBSHOP_PATH . '/data/moduledata/Payment/' . $postArray['pyament_code'] . '.php');
             $postArray['pay_name']    = $paymentArray['payment_name']['content'];
             $postArray['order_state'] = $paymentArray['orders_state'];
             

@@ -34,4 +34,5 @@ return array(
 'QqLogin'              => function () { return new \User\Service\OtherLogin\QqLogin(); },
 'WeixinLogin'          => function () { return new \User\Service\OtherLogin\WeixinLogin(); },
 'AlipayLogin'          => function () { return new \User\Service\OtherLogin\AlipayLogin(); },
+'WeixinphoneLogin'     => function () { return new \User\Service\OtherLogin\WeixinphoneLogin(); },
 );

@@ -97,11 +97,13 @@
                     	<div class="control-group ad_type_class ad_slide" style="display:none">
                   			<label for="input01" class="control-label"><?php echo $this->translate('幻灯片图片1'); ?>：</label>
            					<div class="controls">
-                                <?php $slide_content_0 = false; if($this->slide_array and !empty($this->slide_array[0])) { $slide_content_0 = true; ?>
-									<img class="<?php echo md5($this->slide_array[0]['ad_slide_image']); ?>" src="<?php echo $this->basePath($this->slide_array[0]['ad_slide_image']); ?>" border="0" style="max-width:500px;" />
-									<a href="javascript:;" class="badge badge-important <?php echo md5($this->slide_array[0]['ad_slide_image']); ?>" onclick="del_slide_image(<?php echo $this->ad_info->ad_id; ?>, '<?php echo $this->slide_array[0]['ad_slide_image']; ?>');" title="<?php echo $this->translate('删除图片'); ?>">X</a>
-									<input type="hidden" name="old_ad_slide_image_1" value="<?php echo $this->slide_array[0]['ad_slide_image']; ?>" />
-									<br class="<?php echo md5($this->slide_array[0]['ad_slide_image']); ?>" />
+                                <?php $slide_content_0 = false; if($this->slide_array and !empty($this->slide_array[0])) { $slide_content_0 = true;
+									$file1_md5_str = md5($this->slide_array[0]['ad_slide_image']);
+									?>
+									<img class="<?php echo $file1_md5_str; ?>" src="<?php echo $this->basePath($this->slide_array[0]['ad_slide_image']); ?>" border="0" style="max-width:500px;" />
+									<a href="javascript:;" class="badge badge-important <?php echo $file1_md5_str; ?>" onclick="del_slide_image(<?php echo $this->ad_info->ad_id; ?>, '<?php echo $this->slide_array[0]['ad_slide_image']; ?>');" title="<?php echo $this->translate('删除图片'); ?>">X</a>
+									<input class="<?php echo $file1_md5_str; ?>" type="hidden" name="old_ad_slide_image_1" value="<?php echo $this->slide_array[0]['ad_slide_image']; ?>" />
+									<br class="<?php echo $file1_md5_str; ?>" />
                                 <?php } ?>
                             	<input type="file" name="ad_slide_image_1" />
             				</div>
@@ -127,11 +129,13 @@
                     	<div class="control-group ad_type_class ad_slide" style="display:none">
                   			<label for="input01" class="control-label"><?php echo $this->translate('幻灯片图片2'); ?>：</label>
            					<div class="controls">
-                                <?php $slide_content_1 = false; if($this->slide_array and !empty($this->slide_array[1])) { $slide_content_1 = true; ?>
-									<img class="<?php echo md5($this->slide_array[1]['ad_slide_image']); ?>" src="<?php echo $this->basePath($this->slide_array[1]['ad_slide_image']); ?>" border="0" style="max-width:500px;" />
-									<a href="javascript:;" class="badge badge-important <?php echo md5($this->slide_array[1]['ad_slide_image']); ?>" onclick="del_slide_image(<?php echo $this->ad_info->ad_id; ?>, '<?php echo $this->slide_array[1]['ad_slide_image']; ?>');" title="<?php echo $this->translate('删除图片'); ?>">X</a>
-									<input type="hidden" name="old_ad_slide_image_2" value="<?php echo $this->slide_array[1]['ad_slide_image']; ?>" />
-									<br class="<?php echo md5($this->slide_array[1]['ad_slide_image']); ?>" />
+                                <?php $slide_content_1 = false; if($this->slide_array and !empty($this->slide_array[1])) { $slide_content_1 = true;
+									$file2_md5_str = md5($this->slide_array[1]['ad_slide_image']);
+									?>
+									<img class="<?php echo $file2_md5_str; ?>" src="<?php echo $this->basePath($this->slide_array[1]['ad_slide_image']); ?>" border="0" style="max-width:500px;" />
+									<a href="javascript:;" class="badge badge-important <?php echo $file2_md5_str; ?>" onclick="del_slide_image(<?php echo $this->ad_info->ad_id; ?>, '<?php echo $this->slide_array[1]['ad_slide_image']; ?>');" title="<?php echo $this->translate('删除图片'); ?>">X</a>
+									<input class="<?php echo $file2_md5_str; ?>" type="hidden" name="old_ad_slide_image_2" value="<?php echo $this->slide_array[1]['ad_slide_image']; ?>" />
+									<br class="<?php echo $file2_md5_str; ?>" />
                                 <?php } ?>
                             	<input type="file" name="ad_slide_image_2" />
             				</div>
@@ -157,11 +161,13 @@
                     	<div class="control-group ad_type_class ad_slide" style="display:none">
                   			<label for="input01" class="control-label"><?php echo $this->translate('幻灯片图片3'); ?>：</label>
            					<div class="controls">
-                                <?php $slide_content_2 = false; if($this->slide_array and !empty($this->slide_array[2])) { $slide_content_2 = true; ?>
-									<img class="<?php echo md5($this->slide_array[2]['ad_slide_image']); ?>" src="<?php echo $this->basePath($this->slide_array[2]['ad_slide_image']); ?>" border="0" style="max-width:500px;" />
-									<a href="javascript:;" class="badge badge-important <?php echo md5($this->slide_array[2]['ad_slide_image']); ?>" onclick="del_slide_image(<?php echo $this->ad_info->ad_id; ?>, '<?php echo $this->slide_array[2]['ad_slide_image']; ?>');" title="<?php echo $this->translate('删除图片'); ?>">X</a>
-									<input type="hidden" name="old_ad_slide_image_3" value="<?php echo $this->slide_array[2]['ad_slide_image']; ?>" />
-									<br class="<?php echo md5($this->slide_array[2]['ad_slide_image']); ?>" />
+                                <?php $slide_content_2 = false; if($this->slide_array and !empty($this->slide_array[2])) { $slide_content_2 = true;
+									$file3_md5_str = md5($this->slide_array[2]['ad_slide_image']);
+									?>
+									<img class="<?php echo $file3_md5_str; ?>" src="<?php echo $this->basePath($this->slide_array[2]['ad_slide_image']); ?>" border="0" style="max-width:500px;" />
+									<a href="javascript:;" class="badge badge-important <?php echo $file3_md5_str; ?>" onclick="del_slide_image(<?php echo $this->ad_info->ad_id; ?>, '<?php echo $this->slide_array[2]['ad_slide_image']; ?>');" title="<?php echo $this->translate('删除图片'); ?>">X</a>
+									<input class="<?php echo $file3_md5_str; ?>" type="hidden" name="old_ad_slide_image_3" value="<?php echo $this->slide_array[2]['ad_slide_image']; ?>" />
+									<br class="<?php echo $file3_md5_str; ?>" />
                                 <?php } ?>
                             	<input type="file" name="ad_slide_image_3" />
             				</div>
@@ -187,11 +193,13 @@
                     	<div class="control-group ad_type_class ad_slide" style="display:none">
                   			<label for="input01" class="control-label"><?php echo $this->translate('幻灯片图片4'); ?>：</label>
            					<div class="controls">
-                                <?php $slide_content_3 = false; if($this->slide_array and !empty($this->slide_array[3])) { $slide_content_3 = true; ?>
-									<img class="<?php echo md5($this->slide_array[3]['ad_slide_image']); ?>" src="<?php echo $this->basePath($this->slide_array[3]['ad_slide_image']); ?>" border="0" style="max-width:500px;" />
-									<a href="javascript:;" class="badge badge-important <?php echo md5($this->slide_array[3]['ad_slide_image']); ?>" onclick="del_slide_image(<?php echo $this->ad_info->ad_id; ?>, '<?php echo $this->slide_array[3]['ad_slide_image']; ?>');" title="<?php echo $this->translate('删除图片'); ?>">X</a>
-									<input type="hidden" name="old_ad_slide_image_4" value="<?php echo $this->slide_array[3]['ad_slide_image']; ?>" />
-									<br class="<?php echo md5($this->slide_array[3]['ad_slide_image']); ?>" />
+                                <?php $slide_content_3 = false; if($this->slide_array and !empty($this->slide_array[3])) { $slide_content_3 = true;
+									$file4_md5_str = md5($this->slide_array[3]['ad_slide_image']);
+									?>
+									<img class="<?php echo $file4_md5_str; ?>" src="<?php echo $this->basePath($this->slide_array[3]['ad_slide_image']); ?>" border="0" style="max-width:500px;" />
+									<a href="javascript:;" class="badge badge-important <?php echo $file4_md5_str; ?>" onclick="del_slide_image(<?php echo $this->ad_info->ad_id; ?>, '<?php echo $this->slide_array[3]['ad_slide_image']; ?>');" title="<?php echo $this->translate('删除图片'); ?>">X</a>
+									<input class="<?php echo $file4_md5_str; ?>" type="hidden" name="old_ad_slide_image_4" value="<?php echo $this->slide_array[3]['ad_slide_image']; ?>" />
+									<br class="<?php echo $file4_md5_str; ?>" />
                                 <?php } ?>
                             	<input type="file" name="ad_slide_image_4" />
             				</div>
@@ -217,11 +225,13 @@
                     	<div class="control-group ad_type_class ad_slide" style="display:none">
                   			<label for="input01" class="control-label"><?php echo $this->translate('幻灯片图片5'); ?>：</label>
            					<div class="controls">
-                                <?php $slide_content_4 = false; if($this->slide_array and !empty($this->slide_array[4])) { $slide_content_4 = true; ?>
-									<img class="<?php echo md5($this->slide_array[4]['ad_slide_image']); ?>" src="<?php echo $this->basePath($this->slide_array[4]['ad_slide_image']); ?>" border="0" style="max-width:500px;" />
-									<a href="javascript:;" class="badge badge-important <?php echo md5($this->slide_array[4]['ad_slide_image']); ?>" onclick="del_slide_image(<?php echo $this->ad_info->ad_id; ?>, '<?php echo $this->slide_array[4]['ad_slide_image']; ?>');" title="<?php echo $this->translate('删除图片'); ?>">X</a>
-									<input type="hidden" name="old_ad_slide_image_5" value="<?php echo $this->slide_array[4]['ad_slide_image']; ?>" />
-									<br class="<?php echo md5($this->slide_array[4]['ad_slide_image']); ?>" />
+                                <?php $slide_content_4 = false; if($this->slide_array and !empty($this->slide_array[4])) { $slide_content_4 = true;
+									$file5_md5_str = md5($this->slide_array[4]['ad_slide_image']);
+									?>
+									<img class="<?php echo $file5_md5_str; ?>" src="<?php echo $this->basePath($this->slide_array[4]['ad_slide_image']); ?>" border="0" style="max-width:500px;" />
+									<a href="javascript:;" class="badge badge-important <?php echo $file5_md5_str; ?>" onclick="del_slide_image(<?php echo $this->ad_info->ad_id; ?>, '<?php echo $this->slide_array[4]['ad_slide_image']; ?>');" title="<?php echo $this->translate('删除图片'); ?>">X</a>
+									<input class="<?php echo $file5_md5_str; ?>" type="hidden" name="old_ad_slide_image_5" value="<?php echo $this->slide_array[4]['ad_slide_image']; ?>" />
+									<br class="<?php echo $file5_md5_str; ?>" />
                                 <?php } ?>
                             	<input type="file" name="ad_slide_image_5" />
             				</div>
@@ -350,7 +360,7 @@ function del_slide_image(ad_id, image_path) {
 		$.post("<?php echo $this->url('ad/default',array('action'=>'delSlideImage')); ?>",{ad_id:ad_id,image_path:image_path},
 				function(data){
 					if(data != 'false') {
-						$('.'+data).css('display', 'none');
+						$('.'+data).remove();
 						return true;
 					} else {
 						alert('<?php echo $this->translate('图片删除失败！'); ?>');

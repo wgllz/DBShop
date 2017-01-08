@@ -61,7 +61,7 @@ class OtherUploadService
         $thumbArray = array(
                 'width'  => $imageWidth,
                 'height' => $imageHeight,
-                'crop'   => 'false',
+                'crop'   => 'true',
         );
         $imageInfo = $this->upload->uploadImage($imageArray, $thumbArray);
         $imageInfo['image'] = $this->delOldUpload($imageInfo['image'], $oldImage);

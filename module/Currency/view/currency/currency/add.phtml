@@ -11,7 +11,7 @@
         			<div class="pull-right">
                 	<a href="<?php echo $this->url('currency/default',array('action'=>'index')); ?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo $this->translate('返回货币列表'); ?></a>&nbsp;
                 	<a href="<?php echo $this->serverUrl(true); ?>" class="btn btn-small btn-warning"><i class="icon-repeat icon-white"></i> <?php echo $this->translate('刷新'); ?></a>&nbsp;
-                    <?php if($this->currency_info) { ?>
+                    <?php if($this->currency_info and $this->currency_info->currency_id != 1) { ?>
                     <a href="javascript:;" onclick="return currency_del_js(<?php echo $this->currency_info->currency_id ?>);" class="btn btn-small btn-danger"><i class="icon-remove icon-white"></i> <?php echo $this->translate('删除货币'); ?></a>&nbsp;
                     <?php } ?>
                 	<button type="submit" class="btn btn-small btn-primary"><i class="icon-ok icon-white"></i> <?php echo $this->translate('保存货币信息'); ?></button>&nbsp;

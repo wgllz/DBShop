@@ -1,156 +1,67 @@
-<?php $this->layout()->setTemplate('error/404'); ?> 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title><?php echo $this->translate('没有找到该页面'); ?> :(</title>
-        <style>
-            ::-moz-selection {
-                background: #b3d4fc;
-                text-shadow: none;
-            }
+<?php $this->layout()->setTemplate('error/404'); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><?php echo $this->translate('哎呀…您访问的页面不存在'); ?></title>
+    <link rel="stylesheet" type="text/css" />
 
-            ::selection {
-                background: #b3d4fc;
-                text-shadow: none;
-            }
+    <style>
+        *{margin:0;padding:0}
+        body{font-family:"微软雅黑";background:#DAD9D7}
+        img{border:none}
+        a *{cursor:pointer}
+        ul,li{list-style:none}
+        table{table-layout:fixed;}
+        table tr td{word-break:break-all; word-wrap:break-word;}
 
-            html {
-                padding: 30px 10px;
-                font-size: 20px;
-                line-height: 1.4;
-                color: #737373;
-                background: #f0f0f0;
-                -webkit-text-size-adjust: 100%;
-                -ms-text-size-adjust: 100%;
-            }
+        a{text-decoration:none;outline:none}
+        a:hover{text-decoration:underline}
+        .cf:after{content: ".";display: block;height: 0;font-size: 0;clear:both;visibility: hidden;}
+        .cf{zoom: 1;clear:both}
 
-            html,
-            input {
-                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            }
+        .bg{width:100%;background:url("<?php echo $this->basePath('public/img/404/01.jpg'); ?>") no-repeat center top #DAD9D7;position:absolute;top:0;left:0;height:600px;overflow:hidden}
+        .cont{margin:0 auto;width:500px;line-height:20px;}
+        .c1{height:360px;text-align:center}
+        .c1 .img1{margin-top:180px}
+        .c1 .img2{margin-top:165px}
+        .cont h2{text-align:center;color:#555;font-size:18px;font-weight:normal;height:35px}
+        .c2{height:35px;text-align:center}
+        .c2 a{display:inline-block;margin:0 4px;font-size:14px;height:23px;color:#626262;padding-top:1px;text-decoration:none;text-align:left}
+        .c2 a:hover{color:#626262;text-decoration:none;}
+        .c2 a.home{width:66px;background:url("<?php echo $this->basePath('public/img/404/02.png'); ?>");padding-left:30px}
+        .c2 a.home:hover{background:url("<?php echo $this->basePath('public/img/404/02.png'); ?>") 0 -24px}
+        .c2 a.home:active{background:url("<?php echo $this->basePath('public/img/404/02.png'); ?>") 0 -48px}
+        .c2 a.re{width:66px;background:url("<?php echo $this->basePath('public/img/404/03.png'); ?>");padding-left:30px}
+        .c2 a.re:hover{background:url("<?php echo $this->basePath('public/img/404/03.png'); ?>") 0 -24px}
+        .c2 a.re:active{background:url("<?php echo $this->basePath('public/img/404/03.png'); ?>") 0 -48px}
+        .c2 a.sr{width:153px;background:url("<?php echo $this->basePath('public/img/404/04.png'); ?>");padding-left:28px}
+        .c2 a.sr:hover{background:url("<?php echo $this->basePath('public/img/404/04.png'); ?>") 0 -24px}
+        .c2 a.sr:active{background:url("<?php echo $this->basePath('public/img/404/04.png'); ?>") 0 -48px}
+        .c3{height:180px;text-align:center;color:#999;font-size:12px}
+        #bf{position:absolute;top:269px;left:0;width:100%}
+        .bf1{margin:0 auto;width:99px;padding-left:32px}
+        .bd{height:600px;overflow:hidden}
+        #box{position:absolute;top:165px;left:0;width:100%;text-align:center}
+        .bf1{margin:0 auto;width:99px;padding-left:32px}
+    </style>
 
-            body {
-                max-width: 500px;
-                _width: 500px;
-                padding: 30px 20px 50px;
-                border: 1px solid #b3b3b3;
-                border-radius: 4px;
-                margin: 0 auto;
-                box-shadow: 0 1px 10px #a7a7a7, inset 0 1px 0 #fff;
-                background: #fcfcfc;
-            }
-
-            h1 {
-                margin: 0 10px;
-                font-size: 50px;
-                text-align: center;
-            }
-
-            h1 span {
-                color: #bbb;
-            }
-
-            h3 {
-                margin: 1.5em 0 0.5em;
-            }
-
-            p {
-                margin: 1em 0;
-            }
-
-            ul {
-                padding: 0 0 0 40px;
-                margin: 1em 0;
-            }
-
-            .container {
-                max-width: 380px;
-                _width: 380px;
-                margin: 0 auto;
-            }
-
-            /* google search */
-
-            #goog-fixurl ul {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-            }
-
-            #goog-fixurl form {
-                margin: 0;
-            }
-
-            #goog-wm-qt,
-            #goog-wm-sb {
-                border: 1px solid #bbb;
-                font-size: 16px;
-                line-height: normal;
-                vertical-align: top;
-                color: #444;
-                border-radius: 2px;
-            }
-
-            #goog-wm-qt {
-                width: 220px;
-                height: 20px;
-                padding: 5px;
-                margin: 5px 10px 0 0;
-                box-shadow: inset 0 1px 1px #ccc;
-            }
-
-            #goog-wm-sb {
-                display: inline-block;
-                height: 32px;
-                padding: 0 10px;
-                margin: 5px 0 0;
-                white-space: nowrap;
-                cursor: pointer;
-                background-color: #f5f5f5;
-                background-image: -webkit-linear-gradient(rgba(255,255,255,0), #f1f1f1);
-                background-image: -moz-linear-gradient(rgba(255,255,255,0), #f1f1f1);
-                background-image: -ms-linear-gradient(rgba(255,255,255,0), #f1f1f1);
-                background-image: -o-linear-gradient(rgba(255,255,255,0), #f1f1f1);
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                appearance: none;
-                *overflow: visible;
-                *display: inline;
-                *zoom: 1;
-            }
-
-            #goog-wm-sb:hover,
-            #goog-wm-sb:focus {
-                border-color: #aaa;
-                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-                background-color: #f8f8f8;
-            }
-
-            #goog-wm-qt:hover,
-            #goog-wm-qt:focus {
-                border-color: #105cb6;
-                outline: 0;
-                color: #222;
-            }
-
-            input::-moz-focus-inner {
-                padding: 0;
-                border: 0;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h2><?php echo $this->translate('没有找到该页面'); ?> <span>:(</span></h2>
-            <p><?php echo $this->translate('抱歉, 您正在打开的页面不存在.'); ?></p>
-            <p><?php echo $this->translate('点击下面的链接回到首页'); ?>:</p>
-            <ul>
-                <?php if ($this->myviewalias()->returnAuth('admin_name')) { ?>
-                <li><a href="<?php echo $this->url('adminHome/default',array('action'=>'index','controller'=>'home')); ?>"><?php echo $this->translate('返回后台首页'); ?></a></li>
-                <?php } ?>
-                <li><a href="<?php echo $this->url('shopfront/default'); ?>"><?php echo $this->translate('返回前台首页'); ?></a></li>
-            </ul>
+</head>
+<body>
+<div class="bg">
+    <div class="cont">
+        <div class="c1"><img src="<?php echo $this->basePath('public/img/404/01.png'); ?>" class="img1" /></div>
+        <h2><?php echo $this->translate('哎呀…您访问的页面不存在'); ?></h2>
+        <div class="c2">
+            <?php if ($this->myviewalias()->returnAuth('admin_name')) { ?>
+            <a href="<?php echo $this->url('adminHome/default',array('action'=>'index','controller'=>'home')); ?>" class="re"><?php echo $this->translate('返回后台'); ?></a>
+            <?php } ?>
+            <a href="<?php echo $this->url('shopfront/default'); ?>" class="home"><?php echo $this->translate('返回前台'); ?></a>
+            <a href="http://bbs.dbshop.net" target="_blank" class="sr"><?php echo $this->translate('去官方论坛反馈一下'); ?></a>
         </div>
-    </body>
+        <div class="c3"><a href="<?php echo DBSHOP_FRONT_COPYRIGHT_URL; ?>" class="c3"><?php echo DBSHOP_FRONT_COPYRIGHT; ?></a></div>
+    </div>
+</div>
+</body>
 </html>

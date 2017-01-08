@@ -158,18 +158,22 @@ class PackageController extends BaseController
                     foreach ($allUpdateFile as $updateFile) {
                         $coverFile = str_replace('/data/moduledata/Package/updatepack/'.$packageDirname, '', $updateFile);
                         //备份原始文件到back目录
-                        if(file_exists($coverFile)) {
+                        /*if(file_exists($coverFile)) {
                             $backFile  = $backPath.str_replace(DBSHOP_PATH, '', $coverFile);
                             $backDir   = dirname($backFile);
                             if(!is_dir($backDir)) mkdir($backDir, 0777, true);
                             copy($coverFile, $backFile);
-                        }
+                        }*/
                         //更新将新文件覆盖
                         $coverPath = dirname($coverFile);
                         if(!is_dir($coverPath)) mkdir($coverPath, 0777, true); 
                         if(!copy($updateFile, $coverFile)) exit(sprintf($this->getDbshopLang()->translate('无法正常更新文件，请检查%s对应的目录是否有相关权限'), $coverFile));
                         @chmod($coverFile, 0755);
+
+                        //删除更新文件
+                        @unlink($updateFile);
                     }
+                    $this->delUpdateDir($packagePath.'/'.$packageDirname);
                     @unlink($packagePath."/".$array['packageInfo']->update_package);
                     //更新版本信息
                     $updateVersionFile = $backPath . '/data/Version.php';
@@ -352,5 +356,29 @@ class PackageController extends BaseController
             }
         }
         return $writeable;
+    }
+    /**
+     * 删除目录
+     * @param $dir
+     * @return bool
+     */
+    private function delUpdateDir($dir) {
+        $dh=opendir($dir);
+        while ($file=readdir($dh)) {
+            if($file!="." && $file!=".." && $file != '.DS_Store') {
+                $fullpath=$dir."/".$file;
+                if(!is_dir($fullpath)) {
+                    @unlink($fullpath);
+                } else {
+                    $this->delUpdateDir($fullpath);
+                }
+            }
+        }
+        closedir($dh);
+        if(@rmdir($dir)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

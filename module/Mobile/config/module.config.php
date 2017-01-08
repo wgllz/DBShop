@@ -24,6 +24,7 @@ return array(
             'Mobile\Controller\Order' => 'Mobile\Controller\OrderController',
             'Mobile\Controller\Address' => 'Mobile\Controller\AddressController',
             'Mobile\Controller\Favorites' => 'Mobile\Controller\FavoritesController',
+            'Mobile\Controller\Wx' => 'Mobile\Controller\WxController',
         ),
     ),
     'router' => array(
@@ -37,6 +38,7 @@ return array(
             'm_order' => include __DIR__ . '/router/order.router.php',
             'm_address' => include __DIR__ . '/router/address.router.php',
             'm_favorites' => include __DIR__ . '/router/favorites.router.php',
+            'm_wx' => include __DIR__ . '/router/wx.router.php',
         ),
     ),
     'translator' => array(

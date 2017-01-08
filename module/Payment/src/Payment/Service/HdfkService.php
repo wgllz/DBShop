@@ -13,22 +13,19 @@
  */
 
 namespace Payment\Service;
+use Zend\Config\Writer\PhpArray;
 
 /**
  * 货到付款
  */
 class HdfkService
 {
-    private $xmlReader;
     private $paymentConfig;
     private $paymentForm;
     public function __construct()
     {
-        if(!$this->xmlReader) {
-            $this->xmlReader = new \Zend\Config\Reader\Xml();
-        }
         if(!$this->paymentConfig) {
-            $this->paymentConfig = $this->xmlReader->fromFile(DBSHOP_PATH . '/data/moduledata/Payment/hdfk.xml');
+            $this->paymentConfig = include(DBSHOP_PATH . '/data/moduledata/Payment/hdfk.php');
         }
         if(!$this->paymentForm) {
             $this->paymentForm = new \Payment\Form\PaymentForm();
@@ -36,9 +33,9 @@ class HdfkService
     }
     public function savePaymentConfig(array $data)
     {
-        $xmlWriter   = new \Zend\Config\Writer\Xml();
+        $phpWriter  = new PhpArray();
         $configArray = $this->paymentForm->setFormValue($this->paymentConfig, $data);
-        $xmlWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/hdfk.xml', $configArray);
+        $phpWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/hdfk.php', $configArray);
         return $configArray;
     }
     /**

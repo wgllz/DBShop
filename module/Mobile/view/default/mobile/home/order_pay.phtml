@@ -12,11 +12,11 @@
                 <?php echo $this->jsApiParameters;?>,
                 function(res){
                     if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-                        alert("<?php echo $this->translate('支付成功!'); ?>");
+                        window.location.href="<?php echo $this->url('m_wx/default/wx_order_id', array('action'=>'wxpayfinish', 'order_id'=>$this->order_id), array('query'=>array('state'=>'ok'))); ?>";
                     }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
-                        alert("<?php echo $this->translate('支付过程中，您取消了支付!'); ?>");
+                        window.location.href="<?php echo $this->url('m_wx/default/wx_order_id', array('action'=>'wxpayfinish', 'order_id'=>$this->order_id), array('query'=>array('state'=>'cancel'))); ?>";
                     }else{
-                        alert("<?php echo $this->translate('支付失败！'); ?>");
+                        window.location.href="<?php echo $this->url('m_wx/default/wx_order_id', array('action'=>'wxpayfinish', 'order_id'=>$this->order_id), array('query'=>array('state'=>'false'))); ?>";
                     }
                 }
             );

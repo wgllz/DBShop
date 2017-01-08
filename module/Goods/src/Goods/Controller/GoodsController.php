@@ -212,7 +212,7 @@ class GoodsController extends BaseController
         //商品分类
         $array['goods_class']  = $this->getDbshopTable('GoodsClassTable')->classOptions(0,$this->getDbshopTable('GoodsClassTable')->listGoodsClass());
         //商品标签
-        $tagArray   = $this->getDbshopTable('GoodsTagTable')->listGoodsTag(array('dbshop_goods_tag.template_tag=\'' . DBSHOP_TEMPLATE . '\' or (dbshop_goods_tag.template_tag="" and dbshop_goods_tag.tag_type is NULL)', 'e.language'=>$this->getDbshopLang()->getLocale()), array('dbshop_goods_tag.tag_sort ASC', 'dbshop_goods_tag.tag_id ASC'));
+        $tagArray   = $this->getDbshopTable('GoodsTagTable')->listGoodsTag(array("(dbshop_goods_tag.template_tag='" . DBSHOP_TEMPLATE . "' and dbshop_goods_tag.show_type='pc') or (dbshop_goods_tag.template_tag='" . DBSHOP_PHONE_TEMPLATE . "' and dbshop_goods_tag.show_type='phone')".' or (dbshop_goods_tag.template_tag="" and dbshop_goods_tag.tag_type is NULL)', 'e.language'=>$this->getDbshopLang()->getLocale()), array('dbshop_goods_tag.tag_sort ASC', 'dbshop_goods_tag.tag_id ASC'));
         $array['goods_tag'] = array();
         $array['goods_tag_group'] = array();
         if(is_array($tagArray) and !empty($tagArray)) {
@@ -452,7 +452,7 @@ class GoodsController extends BaseController
         //商品品牌
         $array['goods_brand'] = $this->getDbshopTable('GoodsBrandTable')->listGoodsBrand();
         //商品标签
-        $tagArray   = $this->getDbshopTable('GoodsTagTable')->listGoodsTag(array('dbshop_goods_tag.template_tag=\'' . DBSHOP_TEMPLATE . '\' or (dbshop_goods_tag.template_tag="" and dbshop_goods_tag.tag_type is NULL)', 'e.language'=>$this->getDbshopLang()->getLocale()) , array('dbshop_goods_tag.tag_sort ASC', 'dbshop_goods_tag.tag_id ASC'));
+        $tagArray   = $this->getDbshopTable('GoodsTagTable')->listGoodsTag(array("(dbshop_goods_tag.template_tag='" . DBSHOP_TEMPLATE . "' and dbshop_goods_tag.show_type='pc') or (dbshop_goods_tag.template_tag='" . DBSHOP_PHONE_TEMPLATE . "' and dbshop_goods_tag.show_type='phone')".' or (dbshop_goods_tag.template_tag="" and dbshop_goods_tag.tag_type is NULL)', 'e.language'=>$this->getDbshopLang()->getLocale()) , array('dbshop_goods_tag.tag_sort ASC', 'dbshop_goods_tag.tag_id ASC'));
         $array['goods_tag'] = array();
         $array['goods_tag_group'] = array();
         if(is_array($tagArray) and !empty($tagArray)) {
@@ -611,7 +611,7 @@ class GoodsController extends BaseController
             
             $imageId = $this->getDbshopTable('GoodsImageTable')->addImage($imageArray);
             $YunType= (stripos($imageArray['goods_thumbnail_image'],'}/')!==false ? 'yun' : 'local');
-            echo json_encode(array('image_id'=>$imageId,'yun_type'=>$YunType, 'image'=>basename($imageInfo['image']), 'image_name'=>$this->getServiceLocator()->get('frontHelper')->shopGoodsImage($imageInfo['thumb_image'])));
+            echo json_encode(array('image_id'=>$imageId,'yun_type'=>$YunType, 'image'=>basename($imageInfo['image']), 'image_name'=>$this->getServiceLocator()->get('frontHelper')->shopadminGoodsImage($imageInfo['thumb_image'])));
             // $this->request->getBasePath().$filePath;
         }
         exit();
@@ -647,7 +647,7 @@ class GoodsController extends BaseController
                         $value['image_name'] = basename($value['goods_source_image']);
                         $value['checked']    = ($value['image_slide']==1 ? 'checked' : '');
                         $value['yun_type']   = (stripos($value['goods_thumbnail_image'],'}/')!==false ? 'yun' : 'local');
-                        $value['goods_thumbnail_image'] = $this->getServiceLocator()->get('frontHelper')->shopGoodsImage($value['goods_thumbnail_image']);
+                        $value['goods_thumbnail_image'] = $this->getServiceLocator()->get('frontHelper')->shopadminGoodsImage($value['goods_thumbnail_image']);
                         $imageArray[$key] = $value;
                     }
                     echo json_encode($imageArray);

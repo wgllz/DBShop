@@ -24,14 +24,13 @@ class UserintegrationController extends BaseController
      */
     public function indexAction()
     {
-        $xmlReader        = new \Zend\Config\Reader\Xml();
         $integrationArray = array();
-        $xmlPath          = DBSHOP_PATH . '/data/moduledata/User/Integration';
-        if(is_dir($xmlPath)) {
-            $dh = opendir($xmlPath);
+        $filePath          = DBSHOP_PATH . '/data/moduledata/User/Integration';
+        if(is_dir($filePath)) {
+            $dh = opendir($filePath);
             while (false !== ($fileName = readdir($dh))) {
                 if($fileName != '.' and $fileName != '..' and $fileName != '.DS_Store') {
-                    $integrationArray[] = $xmlReader->fromFile($xmlPath . '/' . $fileName);
+                    $integrationArray[] = include($filePath . '/' . $fileName);
                 }
             }
         }

@@ -130,7 +130,8 @@ class WeixinLogin
             exit('error:' . $response->errcode . 'error:' . $response->errmsg);
         }
     }
-    public function mobileToLogin()
+
+    /*public function mobileToLogin()
     {
         $loginKey = array(
             'response_type' => 'code',
@@ -146,7 +147,8 @@ class WeixinLogin
 
         header("Location: {$loginUrl}");
         exit;
-    }
+    }*/
+
     /**
      * 清除session
      */

@@ -13,13 +13,13 @@
  */
 
 namespace Payment\Service;
+use Zend\Config\Writer\PhpArray;
 
 /** 
  * 支付宝
  */
 class MalipayService
 {
-    private $xmlReader;
     private $paymentConfig;
     private $paymentForm;
     
@@ -41,11 +41,8 @@ class MalipayService
     
     public function __construct()
     {
-        if(!$this->xmlReader) {
-            $this->xmlReader = new \Zend\Config\Reader\Xml();
-        }
         if(!$this->paymentConfig) {
-            $this->paymentConfig = $this->xmlReader->fromFile(DBSHOP_PATH . '/data/moduledata/Payment/malipay.xml');
+            $this->paymentConfig = include(DBSHOP_PATH . '/data/moduledata/Payment/malipay.php');
         }
         if(!$this->paymentForm) {
             $this->paymentForm = new \Payment\Form\PaymentForm();
@@ -75,9 +72,9 @@ class MalipayService
      */
     public function savePaymentConfig(array $data)
     {
-        $xmlWriter   = new \Zend\Config\Writer\Xml();
+        $phpWriter  = new PhpArray();
         $configArray = $this->paymentForm->setFormValue($this->paymentConfig, $data);
-        $xmlWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/malipay.xml', $configArray);
+        $phpWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/malipay.php', $configArray);
         return $configArray;
     }
     /**
@@ -99,12 +96,12 @@ class MalipayService
         //信息整理
         $goods_name_str = '';
         if(count($data['goods']) == 1) {
-            $order_name = $data['goods'][0]['goods_name'];
+            $order_name = $data['goods'][0]['goods_name'].(!empty($data['goods'][0]['goods_extend_info']) ? '('.strip_tags($data['goods'][0]['goods_extend_info']).')' : '');
         } else {
             $order_name = '多商品合并购买';
 
             foreach($data['goods'] as $goods_value) {
-                $array[] = $goods_value['goods_name'];
+                $array[] = $goods_value['goods_name'].(!empty($goods_value['goods_extend_info']) ? '('.strip_tags($goods_value['goods_extend_info']).')' : '');
             }
             $goods_name_str = implode('+', $array);
         }

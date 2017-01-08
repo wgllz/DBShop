@@ -14,9 +14,10 @@
 
 namespace Payment\Service;
 
+use Zend\Config\Writer\PhpArray;
+
 class WxpayService {
 
-    private $xmlReader;
     private $paymentConfig;
     private $paymentForm;
     private $values = array();
@@ -26,11 +27,8 @@ class WxpayService {
 
     public function __construct()
     {
-        if(!$this->xmlReader) {
-            $this->xmlReader = new \Zend\Config\Reader\Xml();
-        }
         if(!$this->paymentConfig) {
-            $this->paymentConfig = $this->xmlReader->fromFile(DBSHOP_PATH . '/data/moduledata/Payment/wxpay.xml');
+            $this->paymentConfig = include(DBSHOP_PATH . '/data/moduledata/Payment/wxpay.php');
         }
         if(!$this->paymentForm) {
             $this->paymentForm = new \Payment\Form\PaymentForm();
@@ -80,9 +78,9 @@ class WxpayService {
     }
     public function savePaymentConfig(array $data)
     {
-        $xmlWriter   = new \Zend\Config\Writer\Xml();
+        $fileWriter = new PhpArray();
         $configArray = $this->paymentForm->setFormValue($this->paymentConfig, $data);
-        $xmlWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/wxpay.xml', $configArray);
+        $fileWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/wxpay.php', $configArray);
         return $configArray;
     }
     /**
@@ -107,14 +105,14 @@ class WxpayService {
 
         $this->SetBody($data['shop_name'].' '.$data['order_name']);
         $this->SetAttach($data['goods_name']);
-        $this->SetOut_trade_no(md5('dbshop'.$data['paycheck']->paycheck_id));
+        $this->SetOut_trade_no($this->getNonceStr());
         $this->SetTotal_fee($data['paycheck']->money_change_num * 100); //微信支付接口金额单位是 分
         $this->SetTime_start(date("YmdHis"));
         $this->SetTime_expire(date("YmdHis", time() + 600));
         //$this->SetGoods_tag();
         $this->SetNotify_url($data['notify_url']);
         $this->SetTrade_type($this->wxpay_config['type']);
-        $this->SetProduct_id(md5('dbshop'.$data['paycheck']->paycheck_id));
+        $this->SetProduct_id($this->getNonceStr());
         $result = $this->GetPayUrl();
 
         if($result['result_code'] == 'FAIL') exit($result['err_code_des']);
@@ -148,12 +146,12 @@ class WxpayService {
         $goods_name_str = '';
         $order_name     = '';
         if(count($data['goods']) == 1) {
-            $order_name = $data['goods'][0]['goods_name'];
+            $order_name = $data['goods'][0]['goods_name'].(!empty($data['goods'][0]['goods_extend_info']) ? '('.strip_tags($data['goods'][0]['goods_extend_info']).')' : '');
             $goods_name_str = $order_name;
         } else {
             $order_name = '多商品合并购买';
             foreach($data['goods'] as $goods_value) {
-                $array[] = $goods_value['goods_name'];
+                $array[] = $goods_value['goods_name'].(!empty($goods_value['goods_extend_info']) ? '('.strip_tags($goods_value['goods_extend_info']).')' : '');
             }
             $goods_name_str = implode('+', $array);
         }

@@ -13,13 +13,13 @@
  */
 
 namespace Payment\Service;
+use Zend\Config\Writer\PhpArray;
 
 /**
  * PayPal
  */
 class PaypalService
 {
-    private $xmlReader;
     private $paymentConfig;
     private $paymentForm;
 /*=============================上面为后台支付设置，下面为前台支付需要属性=================================*/
@@ -54,11 +54,8 @@ class PaypalService
 
     public function __construct ()
     {
-        if (!$this->xmlReader) {
-            $this->xmlReader = new \Zend\Config\Reader\Xml();
-        }
         if (!$this->paymentConfig) {
-            $this->paymentConfig = $this->xmlReader->fromFile(DBSHOP_PATH . '/data/moduledata/Payment/paypal.xml');
+            $this->paymentConfig = include(DBSHOP_PATH . '/data/moduledata/Payment/paypal.php');
         }
         if (!$this->paymentForm) {
             $this->paymentForm = new \Payment\Form\PaymentForm();
@@ -81,9 +78,9 @@ class PaypalService
      */
     public function savePaymentConfig (array $data)
     {
-        $xmlWriter = new \Zend\Config\Writer\Xml();
+        $phpWriter = new PhpArray();
         $configArray = $this->paymentForm->setFormValue($this->paymentConfig, $data);
-        $xmlWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/paypal.xml', $configArray);
+        $phpWriter->toFile(DBSHOP_PATH . '/data/moduledata/Payment/paypal.php', $configArray);
         return $configArray;
     }
     /**
